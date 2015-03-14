@@ -13,8 +13,11 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var serviceManager: ServiceManager!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        serviceManager = ServiceManager()
+        
         initializeWindow()
         
         return true
@@ -23,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func initializeWindow() {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        let viewController: ViewController = ViewController(nibName: "ViewController", bundle: nil)
+        let viewController: ViewController = ViewController()
         window!.rootViewController = viewController
         window!.makeKeyAndVisible()
     }
