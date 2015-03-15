@@ -20,6 +20,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         serviceManager = appDelegate.serviceManager
         serviceManager.sabNZBdService.addListener(self)
+        
+        tableView.registerClass(SABQueueItemCell, forCellReuseIdentifier: "SABQueueItemCell")
     }
     
     convenience required init(coder: NSCoder) {
@@ -66,10 +68,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var cell: UITableViewCell;
         if (indexPath.section == 0) {
             let CellIdentifier: String = "SABQueueItemCell"
-            var queueCell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as UITableViewCell?
-            if queueCell == nil {
-                queueCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: CellIdentifier)
-            }
+            var queueCell: SABQueueItemCell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as SABQueueItemCell
             
             let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
             
