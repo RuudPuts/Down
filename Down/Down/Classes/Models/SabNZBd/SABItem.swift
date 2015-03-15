@@ -15,10 +15,10 @@ class SABItem: NSObject {
     var name: String?
     let category: String!
     
-    init(identifier: String, filename: String) {
+    init(identifier: String, filename: String, category: String) {
         self.identifier = identifier
         self.filename = filename
-        self.category = ""
+        self.category = category
     }
    
 }

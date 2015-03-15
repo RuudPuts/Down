@@ -53,7 +53,7 @@ class SabNZBdService: Service {
     // MARK: - Queue
     
     func refreshQueue() {
-        Alamofire.request(.GET, baseUrl, parameters: ["mode": "qstatus", "output": "json", "apikey": apiKey])
+        Alamofire.request(.GET, baseUrl, parameters: ["mode": "queue", "output": "json", "apikey": apiKey])
             .responseJSON { (request, response, jsonString, error) in
                 if jsonString != nil {
                     var json = JSON(jsonString!)
@@ -66,13 +66,17 @@ class SabNZBdService: Service {
     private func parseQueueJson(json: JSON!) {
         var queue: Array<SABQueueItem> = Array<SABQueueItem>()
         
-        for (index: String, jsonJob: JSON) in json["jobs"] {
-            let identifier = jsonJob["id"].string!
+        for (index: String, jsonJob: JSON) in json["queue"]["slots"] {
+            let identifier = jsonJob["nzo_id"].string!
             let filename = jsonJob["filename"].string!
-            let totalMb = jsonJob["mb"].float!
-            let remainingMb = jsonJob["mbleft"].float!
+            let category = jsonJob["cat"].string!
+            let totalMb = jsonJob["mb"].string!.floatValue
+            let remainingMb = jsonJob["mbleft"].string!.floatValue
+            let totalSize = jsonJob["size"].string!
+            let sizeLeft = jsonJob["sizeleft"].string!
             let timeRemaining = jsonJob["timeleft"].string!
-            queue.append(SABQueueItem(identifier: identifier, filename: filename, totalMb: totalMb, remainingMb: remainingMb, timeRemaining: timeRemaining))
+            let progress = jsonJob["percentage"].string!.floatValue
+            queue.append(SABQueueItem(identifier: identifier, filename: filename, category: category, totalMb: totalMb, remainingMb: remainingMb, totalSize: totalSize, sizeLeft: sizeLeft, progress: progress, timeRemaining: timeRemaining))
         }
         
         self.queue = queue
@@ -95,7 +99,7 @@ class SabNZBdService: Service {
         for (index: String, jsonJob: JSON) in json["history"]["slots"] {
             let identifier = jsonJob["nzo_id"].string!
             let filename = jsonJob["nzb_name"].string!
-            history.append(SABHistoryItem(identifier: identifier, filename: filename))
+            history.append(SABHistoryItem(identifier: identifier, filename: filename, category: ""))
         }
         
         self.history = history

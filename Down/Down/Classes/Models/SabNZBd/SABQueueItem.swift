@@ -10,45 +10,51 @@ import UIKit
 
 class SABQueueItem: SABItem {
     
-    let timeRemaining: String!
     let totalMb: Float!
     let remainingMb: Float!
+    let sizeLeft: String!
+    let totalSize: String!
+    let timeRemaining: String!
+    let progress: Float!
+    let status: SABQueueItemStatus!
     
-    init(identifier: String, filename: String, totalMb: Float, remainingMb: Float, timeRemaining: String) {
+    enum SABQueueItemStatus {
+        case Queued
+        case Downloading
+        case Downloaded
+    }
+    
+    init(identifier: String, filename: String, category: String, totalMb: Float, remainingMb: Float, totalSize: String, sizeLeft: String, progress: Float, timeRemaining: String) {
         self.timeRemaining = timeRemaining
         self.totalMb = totalMb
         self.remainingMb = remainingMb
+        self.sizeLeft = sizeLeft
+        self.totalSize = totalSize
+        self.progress = progress
         
-        super.init(identifier: identifier, filename: filename)
-    }
-    
-    func progress() -> Float {
-        return (totalMb - remainingMb) / totalMb
+        if (totalMb == remainingMb) {
+            self.status = SABQueueItemStatus.Queued
+        } else if (remainingMb == 0) {
+            self.status = SABQueueItemStatus.Downloaded
+        }
+        else {
+            self.status = SABQueueItemStatus.Downloading
+        }
+        
+        super.init(identifier: identifier, filename: filename, category: category)
     }
     
     func progressString() -> String {
-        var totalSize: Float = totalMb
-        var remainingSize: Float = remainingMb
-        var progressString: String
+        var progressString: String!
         
-        var totalSizeIdentifier: String = "MB"
-        if (totalSize > 1000) {
-            totalSizeIdentifier = "GB"
-            totalSize /= 1000
+        switch self.status as SABQueueItemStatus {
+        case .Downloaded:
+            progressString = "Finished"
+        case .Queued:
+            progressString = self.totalSize
+        case .Downloading:
+            progressString = String(format: "%@ / %@", self.sizeLeft, self.totalSize);
         }
-        
-        progressString = String(format: "%.1f %@", totalSize, totalSizeIdentifier)
-        
-        if remainingMb != totalMb {
-            var remainingSizeIdentifier: String = "MB"
-            if (remainingSize > 1000) {
-                remainingSizeIdentifier = "GB"
-                remainingSize /= 1000
-            }
-            
-            progressString = String(format: "%.1f %@ / %.1f %@", remainingSize, remainingSizeIdentifier, totalSize, totalSizeIdentifier)
-        }
-        
         return progressString
     }
    

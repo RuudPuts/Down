@@ -17,10 +17,8 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let queueCellNib = UINib(nibName: "SABQueueItemCell", bundle:nil)
-        tableView.registerNib(queueCellNib, forCellReuseIdentifier: "SABQueueItemCell")
-        
-        tableView.rowHeight = 70
+        let queueCellNib = UINib(nibName: "SABItemCell", bundle:nil)
+        tableView.registerNib(queueCellNib, forCellReuseIdentifier: "SABItemCell")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -55,6 +53,21 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         return numberOfRows
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        var rowHeight: CGFloat!
+        if indexPath.section == 0 { // TODO: Change to item state check
+            let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
+            if (queueItem.status == SABQueueItem.SABQueueItemStatus.Downloading) {
+                rowHeight = 66
+            }
+        }
+        else {
+            rowHeight = 56
+        }
+        
+        return rowHeight
+    }
+    
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var sectionTitle : String!
         
@@ -69,28 +82,18 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell;
+        let CellIdentifier: String = "SABItemCell"
+        var cell: SABItemCell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as SABItemCell
+        
         if (indexPath.section == 0) {
-            let CellIdentifier: String = "SABQueueItemCell"
-            var queueCell: SABQueueItemCell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as SABQueueItemCell
-            
             let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
-            queueCell.setQueueItem(queueItem)
-            cell = queueCell
+            cell.setQueueItem(queueItem)
         }
         else {
-            let CellIdentifier: String = "SABHistoryItemCell"
-            var queueCell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as UITableViewCell?
-            if queueCell == nil {
-                queueCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: CellIdentifier)
-            }
-            
-            let queueItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
-            
-            queueCell!.textLabel!.text = queueItem.filename
-            
-            cell = queueCell!
+            let historyItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
+            cell.setHistoryItem(historyItem);
         }
+        
         return cell;
     }
     
