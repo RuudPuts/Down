@@ -27,14 +27,14 @@ class SabNZBdService: Service {
     }
    
     init(queueRefreshRate: NSTimeInterval, historyRefreshRate: NSTimeInterval) {
-        self.apiKey = ""
+        self.apiKey = "49b77b422da54f699a58562f3a1debaa"
         self.queueRefreshRate = queueRefreshRate
         self.historyRefreshRate = historyRefreshRate
         
         self.queue = Array<SABQueueItem>()
         self.history = Array<SABHistoryItem>()
         
-        super.init(baseUrl: "")
+        super.init(baseUrl: "http://192.168.178.10:8080/api")
         
         startTimers()
     }
@@ -55,9 +55,11 @@ class SabNZBdService: Service {
     func refreshQueue() {
         Alamofire.request(.GET, baseUrl, parameters: ["mode": "qstatus", "output": "json", "apikey": apiKey])
             .responseJSON { (request, response, jsonString, error) in
-                var json = JSON(jsonString!)
-                self.parseQueueJson(json)
-                self.notifyListeners(SabNZBDNotifyType.QueueUpdated)
+                if jsonString != nil {
+                    var json = JSON(jsonString!)
+                    self.parseQueueJson(json)
+                    self.notifyListeners(SabNZBDNotifyType.QueueUpdated)
+                }
         }
     }
     
@@ -65,7 +67,12 @@ class SabNZBdService: Service {
         var queue: Array<SABQueueItem> = Array<SABQueueItem>()
         
         for (index: String, jsonJob: JSON) in json["jobs"] {
-            queue.append(SABQueueItem(identifier: jsonJob["id"].string!, filename: jsonJob["filename"].string!))
+            let identifier = jsonJob["id"].string!
+            let filename = jsonJob["filename"].string!
+            let totalMb = jsonJob["mb"].float!
+            let remainingMb = jsonJob["mbleft"].float!
+            let timeRemaining = jsonJob["timeleft"].string!
+            queue.append(SABQueueItem(identifier: identifier, filename: filename, totalMb: totalMb, remainingMb: remainingMb, timeRemaining: timeRemaining))
         }
         
         self.queue = queue
@@ -86,7 +93,9 @@ class SabNZBdService: Service {
         var history: Array<SABHistoryItem> = Array<SABHistoryItem>()
         
         for (index: String, jsonJob: JSON) in json["history"]["slots"] {
-            history.append(SABHistoryItem(identifier: jsonJob["nzo_id"].string!, filename: jsonJob["nzb_name"].string!))
+            let identifier = jsonJob["nzo_id"].string!
+            let filename = jsonJob["nzb_name"].string!
+            history.append(SABHistoryItem(identifier: identifier, filename: filename))
         }
         
         self.history = history

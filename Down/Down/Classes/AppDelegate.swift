@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func initializeWindow() {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        let viewController: ViewController = ViewController()
+        let viewController = SabNZBdViewController()
         window!.rootViewController = viewController
         window!.makeKeyAndVisible()
     }

@@ -9,16 +9,23 @@
 import UIKit
 
 class SABQueueItemCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var timeRemainingLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
+    
+    var queueItem: SABQueueItem?
+    
+    internal func setQueueItem(queueItem: SABQueueItem) {
+        self.queueItem = queueItem
+        
+        titleLabel!.text = queueItem.filename
+        progressBar!.progress = queueItem.progress()
+        progressLabel!.text = queueItem.progressString()
+        timeRemainingLabel!.text = queueItem.timeRemaining
+        categoryLabel!.text = queueItem.category
     }
     
 }

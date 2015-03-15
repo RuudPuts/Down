@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController" customModule="Down" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SabNZBdViewController" customModule="Down" customModuleProvider="target">
             <connections>
                 <outlet property="tableView" destination="AtO-pD-nWL" id="IPs-cp-1Q8"/>
                 <outlet property="view" destination="iN0-l3-epB" id="dvq-wg-VUw"/>
@@ -40,15 +40,15 @@
                         <constraint firstAttribute="height" constant="200" id="v2o-yh-7ab"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="AtO-pD-nWL">
+                <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="AtO-pD-nWL">
                     <rect key="frame" x="0.0" y="220" width="414" height="516"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="d5W-jW-edT"/>
                     </connections>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="SJj-86-jT0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1cu-bB-eUe"/>
                 <constraint firstItem="SJj-86-jT0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="57B-h5-7lJ"/>

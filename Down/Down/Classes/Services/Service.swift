@@ -12,16 +12,37 @@ class Service: NSObject {
     
     let baseUrl: String
     
-    var listeners: Array<Listener>
+    var listeners: [Listener]
     
     init(baseUrl: String) {
         self.baseUrl = baseUrl
-        self.listeners = Array<Listener>()
+        self.listeners = [Listener]()
     }
     
-    internal func addListener(listener : Listener) {
+    internal func addListener(listener: Listener) {
         // TODO: Verify listener type
         self.listeners.append(listener)
     }
+    
+    internal func removeListener(listener: Listener) {
+        // TODO: Implement
+    }
    
+}
+
+extension Array {
+    mutating func removeObject<T: Equatable>(object: T) {
+//        var index: Int?
+//        for (idx, objectToCompare) in enumerate(self) {
+//            if let to = objectToCompare as? U {
+//                if object == to {
+//                    index = idx
+//                }
+//            }
+//        }
+//        
+//        if(index) {
+//            self.removeAtIndex(index!)
+//        }
+    }
 }

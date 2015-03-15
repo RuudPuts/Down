@@ -13,11 +13,12 @@ class SABItem: NSObject {
     let identifier: String!
     let filename: String!
     var name: String?
-    let category: String?
+    let category: String!
     
     init(identifier: String, filename: String) {
         self.identifier = identifier
         self.filename = filename
+        self.category = ""
     }
    
 }
