@@ -13,7 +13,7 @@ class SABItemCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var progressLabel: UILabel!
-    @IBOutlet weak var timeRemainingLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     
     var queueItem: SABQueueItem?
@@ -29,7 +29,7 @@ class SABItemCell: UITableViewCell {
         let hideProgressBar = queueItem.status == SABQueueItem.SABQueueItemStatus.Downloading
         progressBar!.hidden = hideProgressBar
         progressLabel!.text = queueItem.progressString()
-        timeRemainingLabel!.text = queueItem.timeRemaining
+        statusLabel!.text = queueItem.timeRemaining
         categoryLabel!.text = queueItem.category
     }
     
@@ -40,12 +40,11 @@ class SABItemCell: UITableViewCell {
         titleLabel!.text = historyItem.filename
 //        progressBar!.progress = historyItem.progress
 //        progressLabel!.text = historyItem.progressString()
-//        timeRemainingLabel!.text = historyItem.timeRemaining
+        statusLabel!.text = historyItem.size
         progressBar!.progress = 0
         progressBar!.hidden = true
         
         progressLabel!.text = ""
-        timeRemainingLabel!.text = ""
         categoryLabel!.text = historyItem.category
     }
     

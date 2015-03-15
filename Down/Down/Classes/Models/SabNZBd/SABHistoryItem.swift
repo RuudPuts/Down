@@ -10,4 +10,18 @@ import UIKit
 
 class SABHistoryItem: SABItem {
    
+    let size: String!
+    
+    enum SABHistoryItemStatus {
+        case Queued
+        case Downloading
+        case Downloaded
+    }
+    
+    init(identifier: String, filename: String, category: String, size: String) {
+        self.size = size
+        
+        super.init(identifier: identifier, filename: filename, category: category)
+    }
+    
 }

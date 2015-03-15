@@ -99,7 +99,9 @@ class SabNZBdService: Service {
         for (index: String, jsonJob: JSON) in json["history"]["slots"] {
             let identifier = jsonJob["nzo_id"].string!
             let filename = jsonJob["nzb_name"].string!
-            history.append(SABHistoryItem(identifier: identifier, filename: filename, category: ""))
+            let category = jsonJob["category"].string!
+            let size = jsonJob["size"].string!
+            history.append(SABHistoryItem(identifier: identifier, filename: filename, category: category, size: size))
         }
         
         self.history = history

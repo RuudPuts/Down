@@ -27,7 +27,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="63.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUb-5h-8oA" userLabel="TitleLabel">
-                                <rect key="frame" x="8" y="8" width="304" height="19.5"/>
+                                <rect key="frame" x="8" y="6" width="304" height="19.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ICV-YI-B09"/>
                                 </constraints>
@@ -46,7 +46,7 @@
                                 <color key="trackTintColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-sn-PzX" userLabel="ProgressLabel">
-                                <rect key="frame" x="8" y="36" width="34" height="19.5"/>
+                                <rect key="frame" x="8" y="38" width="34" height="19.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Syw-CG-Aul"/>
                                 </constraints>
@@ -59,8 +59,8 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3X-de-Km9" userLabel="TimeRemainingLabel">
-                                <rect key="frame" x="143" y="36" width="34" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3X-de-Km9" userLabel="StatusLabel">
+                                <rect key="frame" x="143" y="38" width="34" height="19.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="krp-Q9-Sj6"/>
                                 </constraints>
@@ -74,7 +74,7 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86J-aW-Iyh" userLabel="CategoryLabel">
-                                <rect key="frame" x="278" y="36" width="34" height="19.5"/>
+                                <rect key="frame" x="278" y="38" width="34" height="19.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="AHz-pr-YFT"/>
                                 </constraints>
@@ -91,18 +91,24 @@
                         <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="LUb-5h-8oA" firstAttribute="leading" secondItem="fch-q5-NHF" secondAttribute="leading" constant="8" id="CI2-jo-ovZ"/>
-                            <constraint firstAttribute="bottom" secondItem="j3X-de-Km9" secondAttribute="bottom" constant="8" id="ERx-Ze-jx2"/>
                             <constraint firstAttribute="centerX" secondItem="j3X-de-Km9" secondAttribute="centerX" id="EZJ-E8-iyO"/>
+                            <constraint firstItem="JJQ-sn-PzX" firstAttribute="bottom" secondItem="j3X-de-Km9" secondAttribute="bottom" id="KgW-z7-oVY"/>
                             <constraint firstAttribute="bottom" secondItem="86J-aW-Iyh" secondAttribute="bottom" constant="8" id="Lkk-YE-Pjo"/>
                             <constraint firstAttribute="trailing" secondItem="86J-aW-Iyh" secondAttribute="trailing" constant="8" id="OoW-Al-Xr8"/>
                             <constraint firstAttribute="trailing" secondItem="hn2-ru-iWk" secondAttribute="trailing" constant="8" id="TEH-LO-ooy"/>
-                            <constraint firstItem="LUb-5h-8oA" firstAttribute="top" secondItem="fch-q5-NHF" secondAttribute="top" constant="8" id="Veb-eh-74p"/>
+                            <constraint firstItem="LUb-5h-8oA" firstAttribute="top" secondItem="fch-q5-NHF" secondAttribute="top" constant="6" id="Veb-eh-74p"/>
                             <constraint firstAttribute="centerY" secondItem="hn2-ru-iWk" secondAttribute="centerY" id="ZpZ-F8-8Sq"/>
                             <constraint firstItem="JJQ-sn-PzX" firstAttribute="leading" secondItem="fch-q5-NHF" secondAttribute="leading" constant="8" id="glH-Lf-WzS"/>
-                            <constraint firstAttribute="bottom" secondItem="JJQ-sn-PzX" secondAttribute="bottom" constant="8" id="jPk-if-Yy2"/>
+                            <constraint firstItem="JJQ-sn-PzX" firstAttribute="bottom" secondItem="86J-aW-Iyh" secondAttribute="bottom" id="jOe-ro-7i1"/>
+                            <constraint firstAttribute="bottom" secondItem="JJQ-sn-PzX" secondAttribute="bottom" constant="6" id="jPk-if-Yy2"/>
                             <constraint firstItem="hn2-ru-iWk" firstAttribute="leading" secondItem="fch-q5-NHF" secondAttribute="leading" constant="8" id="wWR-uN-2re"/>
                             <constraint firstAttribute="trailing" secondItem="LUb-5h-8oA" secondAttribute="trailing" constant="8" id="z7M-gP-Lcm"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Lkk-YE-Pjo"/>
+                            </mask>
+                        </variation>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -118,7 +124,7 @@
                 <outlet property="categoryLabel" destination="86J-aW-Iyh" id="idB-rL-oS8"/>
                 <outlet property="progressBar" destination="hn2-ru-iWk" id="Ltu-jX-XhS"/>
                 <outlet property="progressLabel" destination="JJQ-sn-PzX" id="jlf-S0-lfS"/>
-                <outlet property="timeRemainingLabel" destination="j3X-de-Km9" id="fDJ-Ff-VLf"/>
+                <outlet property="statusLabel" destination="j3X-de-Km9" id="I48-vp-3nn"/>
                 <outlet property="titleLabel" destination="LUb-5h-8oA" id="eD9-h0-eUG"/>
             </connections>
             <point key="canvasLocation" x="372" y="243"/>

@@ -68,6 +68,24 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         return rowHeight
     }
     
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var headerView: SABHeaderView! = (NSBundle.mainBundle().loadNibNamed("SABHeaderView", owner: self, options: nil) as Array).first
+
+        if section == 0 {
+            headerView.imageView.image = UIImage(named: "queue-icon")
+        }
+        else {
+            headerView.imageView.image = UIImage(named: "history-icon")
+        }
+        headerView.textLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+        
+        return headerView
+    }
+    
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var sectionTitle : String!
         
@@ -100,12 +118,10 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     // MARK: - SabNZBdListener
     
     func sabNZBdQueueUpdated() {
-        println("QueueUpdated: \(serviceManager.sabNZBdService.queue.count)")
         self.tableView.reloadData()
     }
     
     func sabNZBdHistoryUpdated() {
-        println("HistoryUpdated: \(serviceManager.sabNZBdService.history.count)")
         self.tableView.reloadData()
     }
 

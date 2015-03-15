@@ -16,6 +16,8 @@
 		4253E8261AB4B91F00EF1254 /* SabNZBdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4253E8251AB4B91F00EF1254 /* SabNZBdViewController.xib */; };
 		4253E8371AB4BC3E00EF1254 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4253E8301AB4BC2200EF1254 /* Alamofire.framework */; };
 		4253E84C1AB4BF2800EF1254 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E84B1AB4BF2800EF1254 /* SwiftyJSON.swift */; };
+		427EAB511AB61EE00035FF97 /* SABHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427EAB501AB61EE00035FF97 /* SABHeaderView.swift */; };
+		427EAB531AB61F100035FF97 /* SABHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 427EAB521AB61F100035FF97 /* SABHeaderView.xib */; };
 		42CD253D1AB5BD06008E9717 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */; };
 		42CD253E1AB5BD06008E9717 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25231AB5BD05008E9717 /* OpenSans-BoldItalic.ttf */; };
 		42CD253F1AB5BD06008E9717 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25241AB5BD05008E9717 /* OpenSans-ExtraBold.ttf */; };
@@ -110,6 +112,8 @@
 		4253E8251AB4B91F00EF1254 /* SabNZBdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SabNZBdViewController.xib; sourceTree = "<group>"; };
 		4253E8281AB4BC2100EF1254 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = ../../../Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		4253E84B1AB4BF2800EF1254 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../../../SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
+		427EAB501AB61EE00035FF97 /* SABHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABHeaderView.swift; sourceTree = "<group>"; };
+		427EAB521AB61F100035FF97 /* SABHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABHeaderView.xib; sourceTree = "<group>"; };
 		42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		42CD25231AB5BD05008E9717 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		42CD25241AB5BD05008E9717 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -310,6 +314,7 @@
 			children = (
 				4253E8241AB4B8FB00EF1254 /* ViewControllers */,
 				42CD25611AB5C0F7008E9717 /* Views */,
+				427EAB521AB61F100035FF97 /* SABHeaderView.xib */,
 				4253E8201AB4B8E300EF1254 /* LaunchScreen.xib */,
 			);
 			path = Layout;
@@ -396,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				42CD255C1AB5BF93008E9717 /* TableViewCells */,
+				427EAB501AB61EE00035FF97 /* SABHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -601,6 +607,7 @@
 				42CD254F1AB5BD06008E9717 /* Roboto-Italic.ttf in Resources */,
 				42CD25481AB5BD06008E9717 /* Roboto-BlackItalic.ttf in Resources */,
 				42CD25431AB5BD06008E9717 /* OpenSans-LightItalic.ttf in Resources */,
+				427EAB531AB61F100035FF97 /* SABHeaderView.xib in Resources */,
 				42CD253D1AB5BD06008E9717 /* OpenSans-Bold.ttf in Resources */,
 				42CD254C1AB5BD06008E9717 /* Roboto-BoldItalic.ttf in Resources */,
 				42CD25641AB5C0F7008E9717 /* SABItemCell.xib in Resources */,
@@ -629,6 +636,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				427EAB511AB61EE00035FF97 /* SABHeaderView.swift in Sources */,
 				4253E80F1AB4B84C00EF1254 /* ViewController.swift in Sources */,
 				4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */,
 				42D198BA1AB4DFC900A19FD2 /* Listener.swift in Sources */,
