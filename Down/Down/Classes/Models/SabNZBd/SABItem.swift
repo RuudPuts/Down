@@ -28,10 +28,10 @@ class SABItem: NSObject {
         var imdbIdentifier:String? = nil
         
         // Detect IMDB id
-        let regex: String = "tt[0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
-        let regularExpression: NSRegularExpression = NSRegularExpression(pattern: regex, options: nil, error: nil)!
+        let regex = "tt[0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+        let regularExpression = NSRegularExpression(pattern: regex, options: nil, error: nil)!
         
-        let range: NSRange! = regularExpression.rangeOfFirstMatchInString(self.filename, options: nil, range: self.filename.fullRange)
+        let range = regularExpression.rangeOfFirstMatchInString(self.filename, options: nil, range: self.filename.fullRange) as NSRange!
         if (range.location != NSNotFound) {
             imdbIdentifier = (self.filename as NSString).substringWithRange(range!)
         }
@@ -40,7 +40,7 @@ class SABItem: NSObject {
     }
     
     var displayName: String! {
-        var displayName: String = self.filename
+        var displayName = self.filename as String
         if (self.imdbTitle != nil) {
             displayName = self.imdbTitle!
         }

@@ -21,8 +21,8 @@ class SabNZBdService: Service {
     var queue: Array<SABQueueItem>!
     var history: Array<SABHistoryItem>!
     
-    var imdbApiUrl: String = "http://www.myapifilms.com/imdb"
-    var imdbTitleCache: [String: String] = [String: String]()
+    var imdbApiUrl = "http://www.myapifilms.com/imdb"
+    var imdbTitleCache = [String: String]()
     
     enum SabNZBDNotifyType {
         case QueueUpdated
@@ -124,7 +124,7 @@ class SabNZBdService: Service {
     // MARK - IMDB
     
     func fetchTitleFromIMDB(imdbIdentifier: String, completionClosure: (title: String) ->()) {
-        var title: String? = self.imdbTitleCache[imdbIdentifier]
+        var title = self.imdbTitleCache[imdbIdentifier] as String?
         if (title != nil) {
             completionClosure(title: title!)
         }
