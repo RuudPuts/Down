@@ -21,6 +21,9 @@ class SabNZBdService: Service {
     var queue: Array<SABQueueItem>!
     var history: Array<SABHistoryItem>!
     
+    var imdbApiUrl: String = "http://www.myapifilms.com/imdb"
+    var imdbTitleCache: [String: String] = [String: String]()
+    
     enum SabNZBDNotifyType {
         case QueueUpdated
         case HistoryUpdated
@@ -55,7 +58,7 @@ class SabNZBdService: Service {
     func refreshQueue() {
         Alamofire.request(.GET, baseUrl, parameters: ["mode": "queue", "output": "json", "apikey": apiKey])
             .responseJSON { (request, response, jsonString, error) in
-                if jsonString != nil {
+                if (jsonString != nil) {
                     var json = JSON(jsonString!)
                     self.parseQueueJson(json)
                     self.notifyListeners(SabNZBDNotifyType.QueueUpdated)
@@ -87,9 +90,11 @@ class SabNZBdService: Service {
     func refreshHistory() {
         Alamofire.request(.GET, baseUrl, parameters: ["mode": "history", "output": "json", "apikey": apiKey])
             .responseJSON { (request, response, jsonString, error) in
-                var json = JSON(jsonString!)
-                self.parseHistoryJson(json)
-                self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
+                if (jsonString != nil) {
+                    var json = JSON(jsonString!)
+                    self.parseHistoryJson(json)
+                    self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
+                }
         }
     }
     
@@ -101,10 +106,40 @@ class SabNZBdService: Service {
             let filename = jsonJob["nzb_name"].string!
             let category = jsonJob["category"].string!
             let size = jsonJob["size"].string!
-            history.append(SABHistoryItem(identifier: identifier, filename: filename, category: category, size: size))
+            
+            let historyItem: SABHistoryItem = SABHistoryItem(identifier: identifier, filename: filename, category: category, size: size)
+            history.append(historyItem)
+            
+            let imdbIdentifier: String? = historyItem.imdbIdentifier()
+            if (imdbIdentifier != nil) {
+                fetchTitleFromIMDB(imdbIdentifier!, completionClosure: { (title) -> () in
+                    historyItem.imdbTitle = title
+                })
+            }
         }
         
         self.history = history
+    }
+    
+    // MARK - IMDB
+    
+    func fetchTitleFromIMDB(imdbIdentifier: String, completionClosure: (title: String) ->()) {
+        var title: String? = self.imdbTitleCache[imdbIdentifier]
+        if (title != nil) {
+            completionClosure(title: title!)
+        }
+        else {
+            Alamofire.request(.GET, imdbApiUrl, parameters: ["idIMDB": imdbIdentifier, "format": "JSON", "data": "S"])
+                .responseJSON { (request, response, jsonString, error) in
+                    if (jsonString != nil) {
+                        var json = JSON(jsonString!)
+                        
+                        title = json["title"].string!
+                        self.imdbTitleCache[imdbIdentifier] = title
+                        completionClosure(title: title!)
+                    }
+            }
+        }
     }
     
     // MARK - Listeners

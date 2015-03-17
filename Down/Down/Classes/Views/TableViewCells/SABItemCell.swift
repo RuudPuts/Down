@@ -37,7 +37,7 @@ class SABItemCell: UITableViewCell {
         self.queueItem = nil
         self.historyItem = historyItem
         
-        titleLabel!.text = historyItem.filename
+        titleLabel!.text = historyItem.displayName()
 //        progressBar!.progress = historyItem.progress
 //        progressLabel!.text = historyItem.progressString()
         statusLabel!.text = historyItem.size
