@@ -88,7 +88,7 @@ class SabNZBdService: Service {
     // MARK - History
     
     func refreshHistory() {
-        Alamofire.request(.GET, baseUrl, parameters: ["mode": "history", "output": "json", "apikey": apiKey])
+        Alamofire.request(.GET, baseUrl, parameters: ["mode": "history", "output": "json", "limit": 20, "apikey": apiKey])
             .responseJSON { (request, response, jsonString, error) in
                 if (jsonString != nil) {
                     var json = JSON(jsonString!)
