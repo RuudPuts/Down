@@ -110,7 +110,7 @@ class SabNZBdService: Service {
             let historyItem: SABHistoryItem = SABHistoryItem(identifier: identifier, filename: filename, category: category, size: size)
             history.append(historyItem)
             
-            let imdbIdentifier: String? = historyItem.imdbIdentifier()
+            let imdbIdentifier: String? = historyItem.imdbIdentifier
             if (imdbIdentifier != nil) {
                 fetchTitleFromIMDB(imdbIdentifier!, completionClosure: { (title) -> () in
                     historyItem.imdbTitle = title

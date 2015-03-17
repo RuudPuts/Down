@@ -44,7 +44,7 @@ class SABQueueItem: SABItem {
         super.init(identifier: identifier, filename: filename, category: category)
     }
     
-    func progressString() -> String {
+    var progressString: String! {
         var progressString: String!
         
         switch self.status as SABQueueItemStatus {
@@ -55,6 +55,7 @@ class SABQueueItem: SABItem {
         case .Downloading:
             progressString = String(format: "%@ / %@", self.sizeLeft, self.totalSize);
         }
+        
         return progressString
     }
    

@@ -14,6 +14,7 @@ class SABItem: NSObject {
     let filename: String!
     var name: String?
     let category: String!
+    var progressDescription: String?
     
     var imdbTitle: String?
     
@@ -23,7 +24,7 @@ class SABItem: NSObject {
         self.category = category
     }    
     
-    func imdbIdentifier() -> String? {
+    var imdbIdentifier: String? {
         var imdbIdentifier:String? = nil
         
         // Detect IMDB id
@@ -38,7 +39,7 @@ class SABItem: NSObject {
         return imdbIdentifier
     }
     
-    func displayName() -> String! {
+    var displayName: String! {
         var displayName: String = self.filename
         if (self.imdbTitle != nil) {
             displayName = self.imdbTitle!
