@@ -91,7 +91,12 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        var headerHeight: CGFloat! = 30.0
+        if (self.tableView(tableView, numberOfRowsInSection: section) == 0) {
+            headerHeight = 0.0
+        }
+        
+        return headerHeight
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
