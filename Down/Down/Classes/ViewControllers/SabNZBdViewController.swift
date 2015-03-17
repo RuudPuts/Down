@@ -10,6 +10,11 @@ import UIKit
 
 class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
+    @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var speedDescriptionLabel: UILabel!
+    @IBOutlet weak var timeleftLabel: UILabel!
+    @IBOutlet weak var mbRemainingLabel: UILabel!
+    
     convenience init() {
         self.init(nibName: "SabNZBdViewController", bundle: nil)
     }
@@ -34,6 +39,26 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         serviceManager.sabNZBdService.removeListener(self)
     }
     
+    func updateHeaderWidgets() {
+        var displaySpeed = serviceManager.sabNZBdService.currentSpeed as Float!
+        var displayString = "KB/s"
+        if (displaySpeed > 1024) {
+            displaySpeed = displaySpeed / 1024
+            displayString = "MB/s"
+            
+            if (displaySpeed > 1024) {
+                displaySpeed = displaySpeed / 1024
+                displayString = "GB/s"
+            }
+        }
+        self.speedLabel!.text = String(format: "%.1f", displaySpeed)
+        self.speedDescriptionLabel!.text = displayString
+        
+        self.timeleftLabel!.text = serviceManager.sabNZBdService.timeRemaining
+        
+        self.mbRemainingLabel!.text = "\(serviceManager.sabNZBdService.mbLeft!)MB"
+    }
+    
     // MARK: - TableView datasource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -54,15 +79,12 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var rowHeight: CGFloat!
+        var rowHeight: CGFloat! = 56.0
         if indexPath.section == 0 { // TODO: Change to item state check
             let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
             if (queueItem.status == SABQueueItem.SABQueueItemStatus.Downloading) {
-                rowHeight = 66
+                rowHeight = 66.0
             }
-        }
-        else {
-            rowHeight = 56
         }
         
         return rowHeight
@@ -119,6 +141,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     
     func sabNZBdQueueUpdated() {
         self.tableView.reloadData()
+        updateHeaderWidgets()
     }
     
     func sabNZBdHistoryUpdated() {

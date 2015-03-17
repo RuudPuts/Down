@@ -21,6 +21,10 @@ class SabNZBdService: Service {
     var queue: Array<SABQueueItem>!
     var history: Array<SABHistoryItem>!
     
+    var currentSpeed: Float?
+    var timeRemaining: String?
+    var mbLeft: Float?
+    
     var imdbApiUrl = "http://www.myapifilms.com/imdb"
     var imdbTitleCache = [String: String]()
     
@@ -67,6 +71,7 @@ class SabNZBdService: Service {
     }
     
     private func parseQueueJson(json: JSON!) {
+        // Parse queue
         var queue: Array<SABQueueItem> = Array<SABQueueItem>()
         
         for (index: String, jsonJob: JSON) in json["queue"]["slots"] {
@@ -83,6 +88,11 @@ class SabNZBdService: Service {
         }
         
         self.queue = queue
+        
+        // Parse speed, timeleft and mbleft
+        self.currentSpeed = json["queue"]["kbpersec"].string!.floatValue
+        self.timeRemaining = json["queue"]["timeleft"].string!
+        self.mbLeft = json["queue"]["mbleft"].string!.floatValue
     }
     
     // MARK - History
@@ -117,7 +127,6 @@ class SabNZBdService: Service {
                 })
             }
         }
-        
         self.history = history
     }
     

@@ -23,7 +23,7 @@ class SABItemCell: UITableViewCell {
         self.historyItem = nil
         self.queueItem = queueItem
         
-        titleLabel!.text = queueItem.filename
+        titleLabel!.text = queueItem.displayName
         
         progressBar!.progress = queueItem.progress
         let hideProgressBar = queueItem.status == SABQueueItem.SABQueueItemStatus.Downloading
