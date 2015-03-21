@@ -43,17 +43,16 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         // Current speed
         var displaySpeed = serviceManager.sabNZBdService.currentSpeed as Float!
         var displayString = "KB/s"
-        if (displaySpeed > 1024) {
-            displaySpeed = displaySpeed / 1024
-            displayString = "MB/s"
-            
+        if (displaySpeed > 0) {
             if (displaySpeed > 1024) {
                 displaySpeed = displaySpeed / 1024
-                displayString = "GB/s"
+                displayString = "MB/s"
+                
+                if (displaySpeed > 1024) {
+                    displaySpeed = displaySpeed / 1024
+                    displayString = "GB/s"
+                }
             }
-        }
-        
-        if (displaySpeed > 0) {
             self.speedLabel!.text = String(format: "%.1f", displaySpeed)
         }
         else {
@@ -65,7 +64,22 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         self.timeleftLabel!.text = serviceManager.sabNZBdService.timeRemaining
         
         // MB remaining
-        self.mbRemainingLabel!.text = "\(serviceManager.sabNZBdService.mbLeft!)MB"
+        var remainingSize = serviceManager.sabNZBdService.mbLeft as Float!
+        if (remainingSize > 0) {
+            var remainingSizeDisplay = "MB"
+            if (remainingSize < 0) {
+                remainingSize = remainingSize * 1024
+                remainingSizeDisplay = "KB"
+            }
+            else if (remainingSize > 1024) {
+                remainingSize = remainingSize / 1024
+                remainingSizeDisplay = "GB"
+            }
+            self.mbRemainingLabel!.text = String(format: "%.1f%@", remainingSize, remainingSizeDisplay)
+        }
+        else {
+            self.mbRemainingLabel!.text = "0MB"
+        }
     }
     
     // MARK: - TableView datasource
