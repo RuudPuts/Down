@@ -40,6 +40,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func updateHeaderWidgets() {
+        // Current speed
         var displaySpeed = serviceManager.sabNZBdService.currentSpeed as Float!
         var displayString = "KB/s"
         if (displaySpeed > 1024) {
@@ -51,11 +52,19 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
                 displayString = "GB/s"
             }
         }
-        self.speedLabel!.text = String(format: "%.1f", displaySpeed)
+        
+        if (displaySpeed > 0) {
+            self.speedLabel!.text = String(format: "%.1f", displaySpeed)
+        }
+        else {
+            self.speedLabel!.text = "0"
+        }
         self.speedDescriptionLabel!.text = displayString
         
+        // Time remaining
         self.timeleftLabel!.text = serviceManager.sabNZBdService.timeRemaining
         
+        // MB remaining
         self.mbRemainingLabel!.text = "\(serviceManager.sabNZBdService.mbLeft!)MB"
     }
     
