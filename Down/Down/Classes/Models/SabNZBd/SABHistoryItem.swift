@@ -11,17 +11,42 @@ import UIKit
 class SABHistoryItem: SABItem {
    
     let size: String!
+    let statusString: String!
+    let status: SABHistoryItemStatus?
     
-    enum SABHistoryItemStatus {
+    internal enum SABHistoryItemStatus {
         case Queued
-        case Downloading
-        case Downloaded
+        case Verifying
+        case Repairing
+        case Unpacking
+        case RunningScript
+        case Failed
+        case Finished
     }
     
-    init(identifier: String, filename: String, category: String, size: String) {
+    init(identifier: String, filename: String, category: String, size: String, status: String) {
         self.size = size
         
         super.init(identifier: identifier, filename: filename, category: category)
+        
+        self.statusString = status
+        self.status = stringToStatus(status)
+    }
+    
+    private func stringToStatus(string: String) -> SABHistoryItemStatus! {
+        var status = SABHistoryItemStatus.Queued
+        
+        switch (string) {
+        case "Failed":
+            status = SABHistoryItemStatus.Failed
+        case "Completed":
+            status = SABHistoryItemStatus.Finished
+            
+        default:
+            status = SABHistoryItemStatus.Queued
+        }
+        
+        return status
     }
     
 }

@@ -116,8 +116,9 @@ class SabNZBdService: Service {
             let filename = jsonJob["nzb_name"].string!
             let category = jsonJob["category"].string!
             let size = jsonJob["size"].string!
+            let status = jsonJob["status"].string!
             
-            let historyItem: SABHistoryItem = SABHistoryItem(identifier: identifier, filename: filename, category: category, size: size)
+            let historyItem: SABHistoryItem = SABHistoryItem(identifier: identifier, filename: filename, category: category, size: size, status: status)
             history.append(historyItem)
             
             let imdbIdentifier: String? = historyItem.imdbIdentifier

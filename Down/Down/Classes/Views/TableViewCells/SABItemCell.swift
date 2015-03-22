@@ -39,12 +39,20 @@ class SABItemCell: UITableViewCell {
         
         titleLabel!.text = historyItem.displayName
 //        progressBar!.progress = historyItem.progress
-//        progressLabel!.text = historyItem.progressString()
+        progressLabel!.text = historyItem.statusString
+        switch (historyItem.status! as SABHistoryItem.SABHistoryItemStatus) {
+        case .Finished:
+            progressLabel.textColor = UIColor.downGreenColor()
+        case .Failed:
+            progressLabel.textColor = UIColor.downRedColor()
+        default:
+            progressLabel.textColor = UIColor.whiteColor()
+        }
+        
         statusLabel!.text = historyItem.size
         progressBar!.progress = 0
         progressBar!.hidden = true
         
-        progressLabel!.text = ""
         categoryLabel!.text = historyItem.category
     }
     

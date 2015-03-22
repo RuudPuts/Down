@@ -41,7 +41,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     
     func updateHeaderWidgets() {
         // Current speed
-        var displaySpeed = 12.3//serviceManager.sabNZBdService.currentSpeed as Float!
+        var displaySpeed = serviceManager.sabNZBdService.currentSpeed as Float!
         var displayString = "KB/s"
         if (displaySpeed > 0) {
             if (displaySpeed > 1024) {
