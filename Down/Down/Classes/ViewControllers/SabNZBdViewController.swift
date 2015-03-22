@@ -41,7 +41,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     
     func updateHeaderWidgets() {
         // Current speed
-        var displaySpeed = serviceManager.sabNZBdService.currentSpeed as Float!
+        var displaySpeed = 12.3//serviceManager.sabNZBdService.currentSpeed as Float!
         var displayString = "KB/s"
         if (displaySpeed > 0) {
             if (displaySpeed > 1024) {
@@ -53,7 +53,18 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
                     displayString = "GB/s"
                 }
             }
-            self.speedLabel!.text = String(format: "%.1f", displaySpeed)
+            
+            let speedString = String(format: "%.1f", displaySpeed)
+            let dotIndex = (speedString as NSString).rangeOfString(".").location
+            
+            let fontName = "Roboto-Light"
+            let largeFont = UIFont(name: fontName, size: 50)!
+            let smallFont = UIFont(name: fontName, size: 100 / 3)!
+            let attributedSpeedString = NSMutableAttributedString(string: speedString)
+            attributedSpeedString.addAttribute(NSFontAttributeName, value: largeFont, range: NSMakeRange(0, dotIndex - 1))
+            attributedSpeedString.addAttribute(NSFontAttributeName, value: smallFont, range: NSMakeRange(dotIndex, speedString.length - dotIndex))
+            
+            self.speedLabel!.attributedText = attributedSpeedString
         }
         else {
             self.speedLabel!.text = "0"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -40,7 +40,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjk-YU-8EI" userLabel="Header">
-                    <rect key="frame" x="0.0" y="20" width="414" height="200"/>
+                    <rect key="frame" x="0.0" y="20" width="414" height="170"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sabnzbd-icon" translatesAutoresizingMaskIntoConstraints="NO" id="rG8-7k-qAj">
                             <rect key="frame" x="123" y="14" width="168" height="45"/>
@@ -50,20 +50,20 @@
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7X-QW-LMN" userLabel="Widgets">
-                            <rect key="frame" x="0.0" y="80" width="414" height="120"/>
+                            <rect key="frame" x="0.0" y="70" width="414" height="100"/>
                             <subviews>
                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="he1-UV-6Sj" userLabel="Speed">
-                                    <rect key="frame" x="0.0" y="0.0" width="138" height="120"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="138" height="100"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cj2-MQ-wti">
-                                            <rect key="frame" x="58" y="17" width="20.5" height="53"/>
-                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="45"/>
+                                            <rect key="frame" x="58" y="4" width="21" height="59"/>
+                                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="50"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MB/s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3s7-Ud-EgW">
-                                            <rect key="frame" x="45" y="66" width="48" height="23.5"/>
-                                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="20"/>
+                                            <rect key="frame" x="52" y="59" width="34.5" height="16.5"/>
+                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -77,17 +77,17 @@
                                     </constraints>
                                 </view>
                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pWR-Q9-7zE" userLabel="TimeRemaining">
-                                    <rect key="frame" x="138" y="0.0" width="138" height="120"/>
+                                    <rect key="frame" x="138" y="0.0" width="138" height="100"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0C-9J-gU5">
-                                            <rect key="frame" x="11" y="30" width="116.5" height="35.5"/>
-                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="30"/>
+                                            <rect key="frame" x="17" y="21" width="105" height="33"/>
+                                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="28"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="left" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="83H-m2-82R">
-                                            <rect key="frame" x="55" y="66" width="28" height="23.5"/>
-                                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="20"/>
+                                            <rect key="frame" x="59" y="59" width="20.5" height="16.5"/>
+                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -101,17 +101,17 @@
                                     </constraints>
                                 </view>
                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="enG-7r-S6X" userLabel="mbLeft">
-                                    <rect key="frame" x="276" y="0.0" width="138" height="120"/>
+                                    <rect key="frame" x="276" y="0.0" width="138" height="100"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0MB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSj-sB-tlD">
-                                            <rect key="frame" x="38" y="30" width="62.5" height="35.5"/>
-                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="30"/>
+                                            <rect key="frame" x="41" y="21" width="57" height="33"/>
+                                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="28"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remaining" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nOP-m7-AhW">
-                                            <rect key="frame" x="22.5" y="66.5" width="94.5" height="23.5"/>
-                                            <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="20"/>
+                                            <rect key="frame" x="35" y="59" width="67.5" height="16.5"/>
+                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -137,7 +137,7 @@
                                 <constraint firstAttribute="width" secondItem="he1-UV-6Sj" secondAttribute="width" multiplier="3/1" id="dxI-La-w4I"/>
                                 <constraint firstItem="enG-7r-S6X" firstAttribute="leading" secondItem="pWR-Q9-7zE" secondAttribute="trailing" id="gec-vb-hxO"/>
                                 <constraint firstAttribute="bottom" secondItem="he1-UV-6Sj" secondAttribute="bottom" id="qL4-Z6-32b"/>
-                                <constraint firstAttribute="height" constant="120" id="uDt-cI-xWa"/>
+                                <constraint firstAttribute="height" constant="100" id="uDt-cI-xWa"/>
                                 <constraint firstItem="he1-UV-6Sj" firstAttribute="top" secondItem="L7X-QW-LMN" secondAttribute="top" id="v0H-ML-HfY"/>
                                 <constraint firstItem="enG-7r-S6X" firstAttribute="top" secondItem="L7X-QW-LMN" secondAttribute="top" id="vEX-A0-hDh"/>
                             </constraints>
@@ -150,11 +150,11 @@
                         <constraint firstItem="L7X-QW-LMN" firstAttribute="leading" secondItem="sjk-YU-8EI" secondAttribute="leading" id="Ej6-n0-76l"/>
                         <constraint firstAttribute="bottom" secondItem="L7X-QW-LMN" secondAttribute="bottom" id="RPz-pm-75t"/>
                         <constraint firstItem="rG8-7k-qAj" firstAttribute="top" secondItem="sjk-YU-8EI" secondAttribute="top" constant="14" id="XGz-59-e6l"/>
-                        <constraint firstAttribute="height" constant="200" id="v2o-yh-7ab"/>
+                        <constraint firstAttribute="height" constant="170" id="v2o-yh-7ab"/>
                     </constraints>
                 </view>
                 <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="AtO-pD-nWL">
-                    <rect key="frame" x="0.0" y="220" width="414" height="516"/>
+                    <rect key="frame" x="0.0" y="190" width="414" height="546"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="d5W-jW-edT"/>
