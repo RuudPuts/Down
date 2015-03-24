@@ -18,7 +18,7 @@ class SABHistoryItem: SABItem {
         case Queued
         case Verifying
         case Repairing
-        case Unpacking
+        case Extracting
         case RunningScript
         case Failed
         case Finished
@@ -37,6 +37,14 @@ class SABHistoryItem: SABItem {
         var status = SABHistoryItemStatus.Queued
         
         switch (string) {
+        case "Verifying":
+            status = SABHistoryItemStatus.Verifying
+        case "Repairing":
+            status = SABHistoryItemStatus.Repairing
+        case "Extracting":
+            status = SABHistoryItemStatus.Extracting
+        case "Running":
+            status = SABHistoryItemStatus.RunningScript
         case "Failed":
             status = SABHistoryItemStatus.Failed
         case "Completed":
