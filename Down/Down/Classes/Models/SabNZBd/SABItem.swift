@@ -12,7 +12,6 @@ class SABItem: NSObject {
     
     let identifier: String!
     let filename: String!
-    var name: String?
     let category: String!
     var progressDescription: String?
     let statusString: String!

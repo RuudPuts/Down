@@ -120,9 +120,9 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         var rowHeight: CGFloat! = 56.0
-        if indexPath.section == 0 { // TODO: Change to item state check
+        if indexPath.section == 0 {
             let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
-            if (queueItem.status == SABQueueItem.SABQueueItemStatus.Downloading) {
+            if (queueItem.hasProgress!) {
                 rowHeight = 66.0
             }
         }
