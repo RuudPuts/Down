@@ -32,7 +32,7 @@ class SABItem: NSObject {
         let regex = "tt[0-9]{7}"
         let regularExpression = NSRegularExpression(pattern: regex, options: nil, error: nil)!
         
-        let range = regularExpression.rangeOfFirstMatchInString(self.filename, options: nil, range: self.filename.fullRange) as NSRange!
+        let range = regularExpression.rangeOfFirstMatchInString(self.filename, options: nil, range: self.filename.fullNSRange) as NSRange!
         if (range.location != NSNotFound) {
             imdbIdentifier = (self.filename as NSString).substringWithRange(range!)
         }

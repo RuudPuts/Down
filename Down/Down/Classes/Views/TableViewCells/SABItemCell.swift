@@ -19,6 +19,13 @@ class SABItemCell: UITableViewCell {
     var queueItem: SABQueueItem?
     var historyItem: SABHistoryItem?
     
+    var sabNZBdService: SabNZBdService!
+    
+    override func awakeFromNib() {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        self.sabNZBdService = appDelegate.serviceManager.sabNZBdService;
+    }
+    
     internal func setQueueItem(queueItem: SABQueueItem) {
         self.historyItem = nil
         self.queueItem = queueItem
@@ -28,7 +35,12 @@ class SABItemCell: UITableViewCell {
         progressBar!.progress = queueItem.progress / 100
         progressBar!.hidden = !queueItem.hasProgress
         progressLabel!.text = queueItem.progressDescription
-        statusLabel!.text = queueItem.timeRemaining
+        if (self.sabNZBdService.paused!) {
+            statusLabel!.text = "-"
+        }
+        else {
+            statusLabel!.text = queueItem.timeRemaining
+        }
         categoryLabel!.text = queueItem.category
     }
     

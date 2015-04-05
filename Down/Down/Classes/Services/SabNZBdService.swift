@@ -24,6 +24,7 @@ class SabNZBdService: Service {
     var currentSpeed: Float?
     var timeRemaining: String?
     var mbLeft: Float?
+    var paused: Bool?
     
     var imdbApiUrl = "http://www.myapifilms.com/imdb"
     var imdbTitleCache = [String: String]()
@@ -94,6 +95,7 @@ class SabNZBdService: Service {
         self.currentSpeed = json["queue"]["kbpersec"].string!.floatValue
         self.timeRemaining = json["queue"]["timeleft"].string!
         self.mbLeft = json["queue"]["mbleft"].string!.floatValue
+        self.paused = json["queue"]["paused"].bool!
     }
     
     // MARK - History

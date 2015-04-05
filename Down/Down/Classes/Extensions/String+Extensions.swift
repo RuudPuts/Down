@@ -17,7 +17,11 @@ extension String {
         return self.utf16Count
     }
     
-    var fullRange: NSRange {
+    var fullNSRange: NSRange {
         return NSRange(location: 0, length: self.length)
+    }
+    
+    var fullRange: Range<String.Index> {
+        return self.startIndex..<self.endIndex
     }
 }
