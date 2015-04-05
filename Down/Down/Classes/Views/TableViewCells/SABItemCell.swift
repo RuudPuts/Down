@@ -25,7 +25,7 @@ class SABItemCell: UITableViewCell {
         
         titleLabel!.text = queueItem.displayName
         
-        progressBar!.progress = queueItem.progress
+        progressBar!.progress = queueItem.progress / 100
         let hideProgressBar = queueItem.status == SABQueueItem.SABQueueItemStatus.Downloading
         progressBar!.hidden = hideProgressBar
         progressLabel!.text = queueItem.progressDescription
