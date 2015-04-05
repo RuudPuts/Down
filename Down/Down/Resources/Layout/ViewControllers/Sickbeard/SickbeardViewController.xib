@@ -153,7 +153,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="gbq-Gl-h3C" firstAttribute="top" secondItem="j4k-eA-6uX" secondAttribute="bottom" id="2yU-Du-IhE"/>
                 <constraint firstItem="j4k-eA-6uX" firstAttribute="top" secondItem="yDP-cb-moc" secondAttribute="bottom" id="36L-2I-HLI"/>
