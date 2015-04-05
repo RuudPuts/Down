@@ -15,13 +15,15 @@ class SABItem: NSObject {
     var name: String?
     let category: String!
     var progressDescription: String?
+    let statusString: String!
     
     var imdbTitle: String?
     
-    init(identifier: String, filename: String, category: String) {
+    init(identifier: String, filename: String, category: String, status: String) {
         self.identifier = identifier
         self.filename = filename
         self.category = category
+        self.statusString = status;
     }    
     
     var imdbIdentifier: String? {

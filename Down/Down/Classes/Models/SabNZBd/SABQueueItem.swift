@@ -19,12 +19,13 @@ class SABQueueItem: SABItem {
     let status: SABQueueItemStatus!
     
     enum SABQueueItemStatus {
+        case Grabbing
         case Queued
         case Downloading
         case Downloaded
     }
     
-    init(identifier: String, filename: String, category: String, totalMb: Float, remainingMb: Float, totalSize: String, sizeLeft: String, progress: Float, timeRemaining: String) {
+    init(identifier: String, filename: String, category: String, status: String, totalMb: Float, remainingMb: Float, totalSize: String, sizeLeft: String, progress: Float, timeRemaining: String) {
         self.timeRemaining = timeRemaining
         self.totalMb = totalMb
         self.remainingMb = remainingMb
@@ -32,16 +33,9 @@ class SABQueueItem: SABItem {
         self.totalSize = totalSize
         self.progress = progress
         
-        if (totalMb == remainingMb) {
-            self.status = SABQueueItemStatus.Queued
-        } else if (remainingMb == 0) {
-            self.status = SABQueueItemStatus.Downloaded
-        }
-        else {
-            self.status = SABQueueItemStatus.Downloading
-        }
+        super.init(identifier: identifier, filename: filename, category: category, status: status)
         
-        super.init(identifier: identifier, filename: filename, category: category)
+        self.status = stringToStatus(status)
     }
     
     var progressString: String! {
@@ -54,9 +48,29 @@ class SABQueueItem: SABItem {
             progressString = self.totalSize
         case .Downloading:
             progressString = String(format: "%@ / %@", self.sizeLeft, self.totalSize);
+        default:
+            progressString = ""
         }
         
         return progressString
+    }
+    
+    private func stringToStatus(string: String) -> SABQueueItemStatus! {
+        var status = SABQueueItemStatus.Downloaded
+        
+        switch (string) {
+        case "Grabbing":
+            status = SABQueueItemStatus.Grabbing
+        case "Queued":
+            status = SABQueueItemStatus.Queued
+        case "Downloading":
+            status = SABQueueItemStatus.Downloading
+            
+        default:
+            status = SABQueueItemStatus.Downloaded
+        }
+        
+        return status
     }
    
 }

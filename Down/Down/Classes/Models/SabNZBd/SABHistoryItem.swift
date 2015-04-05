@@ -11,7 +11,6 @@ import UIKit
 class SABHistoryItem: SABItem {
    
     let size: String!
-    let statusString: String!
     let status: SABHistoryItemStatus?
     
     internal enum SABHistoryItemStatus {
@@ -27,9 +26,8 @@ class SABHistoryItem: SABItem {
     init(identifier: String, filename: String, category: String, size: String, status: String) {
         self.size = size
         
-        super.init(identifier: identifier, filename: filename, category: category)
+        super.init(identifier: identifier, filename: filename, category: category, status: status)
         
-        self.statusString = status
         self.status = stringToStatus(status)
     }
     

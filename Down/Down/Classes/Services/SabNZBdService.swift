@@ -78,13 +78,14 @@ class SabNZBdService: Service {
             let identifier = jsonJob["nzo_id"].string!
             let filename = jsonJob["filename"].string!
             let category = jsonJob["cat"].string!
+            let status = jsonJob["status"].string!
             let totalMb = jsonJob["mb"].string!.floatValue
             let remainingMb = jsonJob["mbleft"].string!.floatValue
             let totalSize = jsonJob["size"].string!
             let sizeLeft = jsonJob["sizeleft"].string!
             let timeRemaining = jsonJob["timeleft"].string!
             let progress = jsonJob["percentage"].string!.floatValue
-            queue.append(SABQueueItem(identifier: identifier, filename: filename, category: category, totalMb: totalMb, remainingMb: remainingMb, totalSize: totalSize, sizeLeft: sizeLeft, progress: progress, timeRemaining: timeRemaining))
+            queue.append(SABQueueItem(identifier: identifier, filename: filename, category: category, status:status, totalMb: totalMb, remainingMb: remainingMb, totalSize: totalSize, sizeLeft: sizeLeft, progress: progress, timeRemaining: timeRemaining))
         }
         
         self.queue = queue
