@@ -35,12 +35,16 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         
-        
         serviceManager.sabNZBdService.removeListener(self)
     }
     
-    func updateHeaderWidgets() {
-        // Current speed
+    private func updateHeaderWidgets() {
+        updateCurrentSpeedWidget()
+        updateTimeRemainingWidget()
+        updateMbRemainingWidget()
+    }
+    
+    private func updateCurrentSpeedWidget() {
         var displaySpeed = serviceManager.sabNZBdService.currentSpeed as Float!
         var displayString = "KB/s"
         if (displaySpeed > 0) {
@@ -70,11 +74,13 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
             self.speedLabel!.text = "0"
         }
         self.speedDescriptionLabel!.text = displayString
-        
-        // Time remaining
+    }
+    
+    private func updateTimeRemainingWidget() {
         self.timeleftLabel!.text = serviceManager.sabNZBdService.timeRemaining
-        
-        // MB remaining
+    }
+    
+    private func updateMbRemainingWidget() {
         var remainingSize = serviceManager.sabNZBdService.mbLeft as Float!
         if (remainingSize > 0) {
             var remainingSizeDisplay = "MB"
