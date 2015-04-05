@@ -25,9 +25,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func initializeWindow() {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
+
+        let sabNZBdViewController = SabNZBdViewController()
+        sabNZBdViewController.tabBarItem = UITabBarItem(title: "SabNZBd", image: UIImage(named: "sabnzbd-tabbar"), tag: 0)
+
+        let sickbeardViewController = SickbeardViewController()
+        sickbeardViewController.tabBarItem = UITabBarItem(title: "Sickbeard", image: UIImage(named: "sickbeard-tabbar"), tag: 0)
         
-        let viewController = SabNZBdViewController()
-        window!.rootViewController = viewController
+        let couchPotatoViewController = CouchPotatoViewController()
+        couchPotatoViewController.tabBarItem = UITabBarItem(title: "CouchPotato", image: UIImage(named: "couchpotato-tabbar"), tag: 0)
+
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [sabNZBdViewController, sickbeardViewController, couchPotatoViewController]
+        
+        window!.rootViewController = tabBarController
         window!.makeKeyAndVisible()
     }
     

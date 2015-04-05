@@ -19,6 +19,8 @@ class ViewController: UIViewController {
         
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         serviceManager = appDelegate.serviceManager
+        
+        self.edgesForExtendedLayout = .None
     }
     
     convenience required init(coder: NSCoder) {
