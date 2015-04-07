@@ -11,7 +11,6 @@ import Alamofire
 
 class SabNZBdService: Service {
     
-    let apiKey: String!
     let queueRefreshRate: NSTimeInterval!
     let historyRefreshRate: NSTimeInterval!
     
@@ -35,14 +34,13 @@ class SabNZBdService: Service {
     }
    
     init(queueRefreshRate: NSTimeInterval, historyRefreshRate: NSTimeInterval) {
-        self.apiKey = "49b77b422da54f699a58562f3a1debaa"
         self.queueRefreshRate = queueRefreshRate
         self.historyRefreshRate = historyRefreshRate
         
         self.queue = Array<SABQueueItem>()
         self.history = Array<SABHistoryItem>()
         
-        super.init(baseUrl: "http://192.168.178.10:8080/api")
+        super.init(baseUrl: "http://192.168.178.10:8080/api", apiKey: "49b77b422da54f699a58562f3a1debaa")
         
         startTimers()
     }

@@ -11,11 +11,13 @@ import UIKit
 class Service: NSObject {
     
     let baseUrl: String
+    let apiKey: String!
     
     var listeners: [Listener]
     
-    init(baseUrl: String) {
+    init(baseUrl: String!, apiKey: String!) {
         self.baseUrl = baseUrl
+        self.apiKey = apiKey
         self.listeners = [Listener]()
     }
     
