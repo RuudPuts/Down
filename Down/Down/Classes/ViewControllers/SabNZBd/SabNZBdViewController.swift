@@ -29,8 +29,6 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tabBarController!.tabBar.barTintColor = UIColor.downSabNZBdDarkColor()
-        
         serviceManager.sabNZBdService.addListener(self)
     }
     

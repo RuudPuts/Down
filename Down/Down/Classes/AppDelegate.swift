@@ -27,15 +27,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
         let sabNZBdViewController = SabNZBdViewController()
-        sabNZBdViewController.tabBarItem = UITabBarItem(title: "SabNZBd", image: UIImage(named: "sabnzbd-tabbar"), tag: 0)
+        sabNZBdViewController.tabBarItem = DownTabBarItem(title: "SabNZBd", image: UIImage(named: "sabnzbd-tabbar"), tintColor: UIColor.downSabNZBdColor())
 
         let sickbeardViewController = SickbeardViewController()
-        sickbeardViewController.tabBarItem = UITabBarItem(title: "Sickbeard", image: UIImage(named: "sickbeard-tabbar"), tag: 0)
+        sickbeardViewController.tabBarItem = DownTabBarItem(title: "Sickbeard", image: UIImage(named: "sickbeard-tabbar"), tintColor: UIColor.downSickbeardDarkColor())
         
         let couchPotatoViewController = CouchPotatoViewController()
-        couchPotatoViewController.tabBarItem = UITabBarItem(title: "CouchPotato", image: UIImage(named: "couchpotato-tabbar"), tag: 0)
+        couchPotatoViewController.tabBarItem = DownTabBarItem(title: "CouchPotato", image: UIImage(named: "couchpotato-tabbar"), tintColor: UIColor.downCouchPotatoColor())
 
-        let tabBarController = UITabBarController()
+        let tabBarController = DownTabBarController()
         tabBarController.viewControllers = [sabNZBdViewController, sickbeardViewController, couchPotatoViewController]
         
         window!.rootViewController = tabBarController

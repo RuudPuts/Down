@@ -14,15 +14,4 @@ class CouchPotatoViewController: ViewController {
         self.init(nibName: "CouchPotatoViewController", bundle: nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController!.tabBar.barTintColor = UIColor.downCouchPotatoColor()
-    }
-    
 }

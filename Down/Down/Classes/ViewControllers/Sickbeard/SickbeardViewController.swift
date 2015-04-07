@@ -14,15 +14,4 @@ class SickbeardViewController: ViewController {
         self.init(nibName: "SickbeardViewController", bundle: nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController!.tabBar.barTintColor = UIColor.downSickbeardColor()
-    }
-
 }
