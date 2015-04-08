@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Ruud Puts. All rights reserved.
 //
 
-import UIKit
 import Alamofire
 
 class SabNZBdService: Service {
