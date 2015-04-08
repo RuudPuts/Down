@@ -30,7 +30,12 @@ class SABItemCell: UITableViewCell {
         self.historyItem = nil
         self.queueItem = queueItem
         
-        titleLabel!.text = queueItem.displayName
+        if queueItem.sickbeardEntry != nil {
+            titleLabel.text = queueItem.sickbeardEntry!.displayName
+        }
+        else {
+            titleLabel!.text = queueItem.displayName
+        }
         
         progressBar!.progress = queueItem.progress / 100
         progressBar!.hidden = !queueItem.hasProgress
@@ -48,7 +53,12 @@ class SABItemCell: UITableViewCell {
         self.queueItem = nil
         self.historyItem = historyItem
         
-        titleLabel!.text = historyItem.displayName
+        if historyItem.sickbeardEntry != nil {
+            titleLabel.text = historyItem.sickbeardEntry!.displayName
+        }
+        else {
+            titleLabel!.text = historyItem.displayName
+        }
 //        progressBar!.progress = historyItem.progress
         progressLabel!.text = historyItem.statusString
         switch (historyItem.status! as SABHistoryItem.SABHistoryItemStatus) {

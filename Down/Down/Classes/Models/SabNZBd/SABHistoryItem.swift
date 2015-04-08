@@ -23,10 +23,10 @@ class SABHistoryItem: SABItem {
         case Finished
     }
     
-    init(identifier: String, filename: String, category: String, size: String, status: String) {
+    init(identifier: String, title: String, filename: String, category: String, size: String, status: String) {
         self.size = size
         
-        super.init(identifier: identifier, filename: filename, category: category, status: status)
+        super.init(identifier: identifier, title: title, filename: filename, category: category, status: status)
         
         self.status = stringToStatus(status)
     }

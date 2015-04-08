@@ -22,6 +22,7 @@
 		4253E8181AB4B85800EF1254 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8151AB4B85800EF1254 /* DownTests.swift */; };
 		4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4253E81B1AB4B8E300EF1254 /* Down.xcdatamodeld */; };
 		4253E8221AB4B8E300EF1254 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4253E81E1AB4B8E300EF1254 /* Images.xcassets */; };
+		425854231AD5B27F00D8C106 /* SickbeardHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425854221AD5B27F00D8C106 /* SickbeardHistoryItem.swift */; };
 		42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */; };
 		42CD253D1AB5BD06008E9717 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */; };
 		42CD253E1AB5BD06008E9717 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25231AB5BD05008E9717 /* OpenSans-BoldItalic.ttf */; };
@@ -115,6 +116,7 @@
 		4253E8171AB4B85800EF1254 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4253E81C1AB4B8E300EF1254 /* Down.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Down.xcdatamodel; sourceTree = "<group>"; };
 		4253E81E1AB4B8E300EF1254 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		425854221AD5B27F00D8C106 /* SickbeardHistoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardHistoryItem.swift; sourceTree = "<group>"; };
 		42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		42CD25231AB5BD05008E9717 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 		42D198AD1AB4D55F00A19FD2 /* Sickbeard */ = {
 			isa = PBXGroup;
 			children = (
+				425854221AD5B27F00D8C106 /* SickbeardHistoryItem.swift */,
 			);
 			path = Sickbeard;
 			sourceTree = "<group>";
@@ -723,6 +726,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */,
+				425854231AD5B27F00D8C106 /* SickbeardHistoryItem.swift in Sources */,
 				4253E80F1AB4B84C00EF1254 /* ViewController.swift in Sources */,
 				42D154F81AD4506000778713 /* DownTabBarItem.swift in Sources */,
 				42D154F11AD4495B00778713 /* SwiftyJSON.swift in Sources */,

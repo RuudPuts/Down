@@ -8,16 +8,30 @@
 
 import UIKit
 
-class ServiceManager: NSObject {
+class ServiceManager: NSObject, SabNZBdListener {
     
     let sabNZBdService: SabNZBdService
-    let sickbeardServcie: SickbeardService
+    let sickbeardService: SickbeardService
     let couchPotatoService: CouchPotatoService
     
     override init() {
         sabNZBdService = SabNZBdService(queueRefreshRate: 2, historyRefreshRate: 4)
-        sickbeardServcie = SickbeardService()
+        sickbeardService = SickbeardService()
         couchPotatoService = CouchPotatoService()
+    }
+    
+    func sabNZBdQueueUpdated() {
+        matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: sabNZBdService.queue)
+    }
+    
+    func sabNZBdHistoryUpdated() {
+        matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: sabNZBdService.history)
+    }
+    
+    private func matchSabNZBdItemsWithSickbeardHistory(#sabNZBdItems: [SABItem]) {
+        for sabNZBdItem: SABItem in sabNZBdItems {
+            sabNZBdItem.sickbeardEntry = sickbeardService.historyItemWithResource(sabNZBdItem.title)
+        }
     }
    
 }

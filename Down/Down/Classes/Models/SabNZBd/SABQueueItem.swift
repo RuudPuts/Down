@@ -25,7 +25,7 @@ class SABQueueItem: SABItem {
         case Downloaded
     }
     
-    init(identifier: String, filename: String, category: String, status: String, totalMb: Float, remainingMb: Float, totalSize: String, sizeLeft: String, progress: Float, timeRemaining: String) {
+    init(identifier: String, title: String, filename: String, category: String, status: String, totalMb: Float, remainingMb: Float, totalSize: String, sizeLeft: String, progress: Float, timeRemaining: String) {
         self.timeRemaining = timeRemaining
         self.totalMb = totalMb
         self.remainingMb = remainingMb
@@ -33,7 +33,7 @@ class SABQueueItem: SABItem {
         self.totalSize = totalSize
         self.progress = progress
         
-        super.init(identifier: identifier, filename: filename, category: category, status: status)
+        super.init(identifier: identifier, title: title, filename: filename, category: category, status: status)
         
         self.status = stringToStatus(status)
     }

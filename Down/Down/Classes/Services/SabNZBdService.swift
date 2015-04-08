@@ -74,6 +74,7 @@ class SabNZBdService: Service {
         
         for (index: String, jsonJob: JSON) in json["queue"]["slots"] {
             let identifier = jsonJob["nzo_id"].string!
+            let title = jsonJob["name"].string!
             let filename = jsonJob["filename"].string!
             let category = jsonJob["cat"].string!
             let status = jsonJob["status"].string!
@@ -83,7 +84,7 @@ class SabNZBdService: Service {
             let sizeLeft = jsonJob["sizeleft"].string!
             let timeRemaining = jsonJob["timeleft"].string!
             let progress = jsonJob["percentage"].string!.floatValue
-            queue.append(SABQueueItem(identifier: identifier, filename: filename, category: category, status:status, totalMb: totalMb, remainingMb: remainingMb, totalSize: totalSize, sizeLeft: sizeLeft, progress: progress, timeRemaining: timeRemaining))
+            queue.append(SABQueueItem(identifier: identifier, title: title, filename: filename, category: category, status:status, totalMb: totalMb, remainingMb: remainingMb, totalSize: totalSize, sizeLeft: sizeLeft, progress: progress, timeRemaining: timeRemaining))
         }
         
         self.queue = queue
@@ -113,12 +114,13 @@ class SabNZBdService: Service {
         
         for (index: String, jsonJob: JSON) in json["history"]["slots"] {
             let identifier = jsonJob["nzo_id"].string!
+            let title = jsonJob["name"].string!
             let filename = jsonJob["nzb_name"].string!
             let category = jsonJob["category"].string!
             let size = jsonJob["size"].string!
             let status = jsonJob["status"].string!
             
-            let historyItem: SABHistoryItem = SABHistoryItem(identifier: identifier, filename: filename, category: category, size: size, status: status)
+            let historyItem: SABHistoryItem = SABHistoryItem(identifier: identifier, title: title, filename: filename, category: category, size: size, status: status)
             history.append(historyItem)
             
             let imdbIdentifier: String? = historyItem.imdbIdentifier
