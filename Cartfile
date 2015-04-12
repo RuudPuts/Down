@@ -1,2 +1,2 @@
 github "Alamofire/Alamofire"
-github "SwiftyJSON/SwiftyJSON"
+github "SwiftyJSON/SwiftyJSON" "xcode6.3"
