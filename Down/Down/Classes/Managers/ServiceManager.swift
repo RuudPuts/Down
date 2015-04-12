@@ -35,7 +35,7 @@ class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     
     private func matchSabNZBdItemsWithSickbeardHistory(#sabNZBdItems: [SABItem]) {
         for sabNZBdItem: SABItem in sabNZBdItems {
-            sabNZBdItem.sickbeardEntry = sickbeardService.historyItemWithResource(sabNZBdItem.title)
+            sabNZBdItem.sickbeardEntry = sickbeardService.historyItemWithResource(sabNZBdItem.filename)
         }
     }
    

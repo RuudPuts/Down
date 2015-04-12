@@ -28,26 +28,26 @@ class SABItemCell: UITableViewCell {
     
     var queueItem: SABQueueItem? {
         set {
+            _queueItem = newValue
             _historyItem = nil
-            self.queueItem = newValue
 
-            if newValue?.sickbeardEntry != nil {
-                titleLabel.text = newValue?.sickbeardEntry!.displayName
+            if _queueItem?.sickbeardEntry != nil {
+                titleLabel.text = _queueItem?.sickbeardEntry!.displayName
             }
             else {
-                titleLabel!.text = newValue?.displayName
+                titleLabel!.text = _queueItem?.displayName
             }
 
-            progressBar!.progress = newValue?.progress ?? 0 / 100
-            progressBar!.hidden = newValue?.hasProgress ?? true
-            progressLabel!.text = newValue?.progressDescription
+            progressBar!.progress = _queueItem?.progress ?? 0 / 100
+            progressBar!.hidden = _queueItem?.hasProgress ?? true
+            progressLabel!.text = _queueItem?.progressDescription
             if (self.sabNZBdService.paused!) {
                 statusLabel!.text = "-"
             }
             else {
-                statusLabel!.text = newValue?.timeRemaining
+                statusLabel!.text = _queueItem?.timeRemaining
             }
-            categoryLabel!.text = newValue?.category
+            categoryLabel!.text = _queueItem?.category
         }
         get {
             return _queueItem
@@ -57,17 +57,18 @@ class SABItemCell: UITableViewCell {
     var historyItem: SABHistoryItem? {
         set {
             _queueItem = nil
+            _historyItem = newValue
 
-            if newValue?.sickbeardEntry != nil {
-                titleLabel.text = newValue?.sickbeardEntry!.displayName
+            if _historyItem?.sickbeardEntry != nil {
+                titleLabel.text = _historyItem?.sickbeardEntry!.displayName
             }
             else {
-                titleLabel!.text = newValue?.displayName
+                titleLabel!.text = _historyItem?.displayName
             }
     //        progressBar!.progress = historyItem.progress
-            progressLabel!.text = newValue?.statusDescription
-            if (newValue != nil) {
-                switch (newValue!.status!) {
+            progressLabel!.text = _historyItem?.statusDescription
+            if (_historyItem != nil) {
+                switch (_historyItem!.status!) {
                 case .Finished:
                     progressLabel.textColor = UIColor.downGreenColor()
                 case .Failed:
@@ -77,11 +78,11 @@ class SABItemCell: UITableViewCell {
                 }
             }
             
-            statusLabel!.text = newValue?.size
+            statusLabel!.text = _historyItem?.size
             progressBar!.progress = 0
             progressBar!.hidden = true
             
-            categoryLabel!.text = newValue?.category
+            categoryLabel!.text = _historyItem?.category
         }
         get {
             return _historyItem

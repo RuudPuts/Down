@@ -11,7 +11,6 @@ import UIKit
 class SABItem: NSObject {
     
     let identifier: String!
-    let title: String!
     let filename: String!
     let category: String!
     var progressDescription: String?
@@ -20,9 +19,8 @@ class SABItem: NSObject {
     
     var imdbTitle: String?
     
-    init(identifier: String, title: String, filename: String, category: String, statusDescription: String) {
+    init(identifier: String, filename: String, category: String, statusDescription: String) {
         self.identifier = identifier
-        self.title = title
         self.filename = filename
         self.category = category
         self.statusDescription = statusDescription;

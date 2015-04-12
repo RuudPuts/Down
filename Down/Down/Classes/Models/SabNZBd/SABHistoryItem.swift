@@ -9,7 +9,8 @@
 import UIKit
 
 class SABHistoryItem: SABItem {
-   
+    
+    let title: String!
     let size: String!
     var status: SABHistoryItemStatus?
     
@@ -25,8 +26,9 @@ class SABHistoryItem: SABItem {
     
     init(identifier: String, title: String, filename: String, category: String, size: String, statusDescription: String) {
         self.size = size
+        self.title = title
         
-        super.init(identifier: identifier, title: title, filename: filename, category: category, statusDescription: statusDescription)
+        super.init(identifier: identifier, filename: filename, category: category, statusDescription: statusDescription)
         
         self.status = stringToStatus(statusDescription)
     }
