@@ -29,7 +29,7 @@ class SickbeardService: Service {
     internal func historyItemWithResource(resource: String!) -> SickbeardHistoryItem? {
         var historyItem: SickbeardHistoryItem?
         for item: SickbeardHistoryItem in self.history {
-            if item.resource == resource {
+            if resource.rangeOfString(item.resource) != nil {
                 historyItem = item
                 break
             }
