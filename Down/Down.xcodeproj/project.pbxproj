@@ -17,6 +17,7 @@
 		42078E411AD1C702009845CC /* CouchPotatoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */; };
 		42078E461AD1C71A009845CC /* SickbeardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E431AD1C71A009845CC /* SickbeardViewController.xib */; };
 		42078E471AD1C71A009845CC /* CouchPotatoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */; };
+		424C9CAA1ADAD9BA00CB7B54 /* SickbeardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C9CA91ADAD9BA00CB7B54 /* SickbeardListener.swift */; };
 		4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E7FE1AB4B84C00EF1254 /* AppDelegate.swift */; };
 		4253E80F1AB4B84C00EF1254 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8031AB4B84C00EF1254 /* ViewController.swift */; };
 		4253E8181AB4B85800EF1254 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8151AB4B85800EF1254 /* DownTests.swift */; };
@@ -107,6 +108,7 @@
 		42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoViewController.swift; sourceTree = "<group>"; };
 		42078E431AD1C71A009845CC /* SickbeardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardViewController.xib; sourceTree = "<group>"; };
 		42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouchPotatoViewController.xib; sourceTree = "<group>"; };
+		424C9CA91ADAD9BA00CB7B54 /* SickbeardListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardListener.swift; sourceTree = "<group>"; };
 		4253E7D51AB4B7B900EF1254 /* Down.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Down.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4253E7ED1AB4B7B900EF1254 /* DownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4253E7FE1AB4B84C00EF1254 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 			children = (
 				42D198B91AB4DFC900A19FD2 /* Listener.swift */,
 				42D198BB1AB4DFF200A19FD2 /* SabNZBdListener.swift */,
+				424C9CA91ADAD9BA00CB7B54 /* SickbeardListener.swift */,
 			);
 			path = Listeners;
 			sourceTree = "<group>";
@@ -725,6 +728,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				424C9CAA1ADAD9BA00CB7B54 /* SickbeardListener.swift in Sources */,
 				42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */,
 				425854231AD5B27F00D8C106 /* SickbeardHistoryItem.swift in Sources */,
 				4253E80F1AB4B84C00EF1254 /* ViewController.swift in Sources */,

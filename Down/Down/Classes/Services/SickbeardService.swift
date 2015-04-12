@@ -11,6 +11,10 @@ import Alamofire
 class SickbeardService: Service {
     
     var history: Array<SickbeardHistoryItem>!
+    
+    enum SickbeardNotifyType {
+        case HistoryUpdated
+    }
    
     init() {
         self.history = Array<SickbeardHistoryItem>()
@@ -42,6 +46,7 @@ class SickbeardService: Service {
                 if (jsonString != nil) {
                     var json = JSON(jsonString!)
                     self.parseHistoryJson(json)
+                    self.notifyListeners(SickbeardNotifyType.HistoryUpdated)
                 }
         }
     }
@@ -62,6 +67,19 @@ class SickbeardService: Service {
         }
         
         self.history = history
+    }
+    
+    // MARK - Listeners
+    
+    private func notifyListeners(notifyType: SickbeardNotifyType) {
+        for listener: Listener in self.listeners {
+            let sickbeardListener = listener as! SickbeardListener
+            
+            switch notifyType {
+            case .HistoryUpdated:
+                sickbeardListener.sickbeardHistoryUpdated()
+            }
+        }
     }
     
 }

@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         serviceManager = ServiceManager()
         // WARNING: Move to service manager directly
         serviceManager.sabNZBdService.addListener(serviceManager)
+        serviceManager.sickbeardService.addListener(serviceManager)
         
         initializeWindow()
         

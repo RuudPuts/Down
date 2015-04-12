@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ServiceManager: NSObject, SabNZBdListener {
+class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     
     let sabNZBdService: SabNZBdService
     let sickbeardService: SickbeardService
@@ -25,6 +25,11 @@ class ServiceManager: NSObject, SabNZBdListener {
     }
     
     func sabNZBdHistoryUpdated() {
+        matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: sabNZBdService.history)
+    }
+    
+    func sickbeardHistoryUpdated() {
+        matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: sabNZBdService.queue)
         matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: sabNZBdService.history)
     }
     

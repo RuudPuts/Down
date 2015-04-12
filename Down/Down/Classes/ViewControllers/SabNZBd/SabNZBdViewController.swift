@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
+class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener, SickbeardListener {
     
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var speedDescriptionLabel: UILabel!
@@ -30,6 +30,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         super.viewWillAppear(animated)
         
         serviceManager.sabNZBdService.addListener(self)
+        serviceManager.sickbeardService.addListener(self)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -190,6 +191,12 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func sabNZBdHistoryUpdated() {
+        self.tableView.reloadData()
+    }
+    
+    // MARK: - SickbeardListener
+    
+    func sickbeardHistoryUpdated() {
         self.tableView.reloadData()
     }
 
