@@ -140,7 +140,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var headerView = (NSBundle.mainBundle().loadNibNamed("SABHeaderView", owner: self, options: nil) as Array).first as SABHeaderView!
+        var headerView = (NSBundle.mainBundle().loadNibNamed("SABHeaderView", owner: self, options: nil) as! Array).first as SABHeaderView!
 
         if section == 0 {
             headerView.imageView.image = UIImage(named: "queue-icon")
@@ -168,15 +168,15 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let CellIdentifier: String = "SABItemCell"
-        var cell: SABItemCell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as SABItemCell
+        var cell: SABItemCell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! SABItemCell
         
         if (indexPath.section == 0) {
             let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
-            cell.setQueueItem(queueItem)
+            cell.queueItem = queueItem
         }
         else {
             let historyItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
-            cell.setHistoryItem(historyItem);
+            cell.historyItem = historyItem
         }
         
         return cell;

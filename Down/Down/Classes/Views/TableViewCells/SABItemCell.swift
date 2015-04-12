@@ -16,65 +16,76 @@ class SABItemCell: UITableViewCell {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     
-    var queueItem: SABQueueItem?
-    var historyItem: SABHistoryItem?
-    
+    private var _historyItem: SABHistoryItem?
+    private var _queueItem: SABQueueItem?
     var sabNZBdService: SabNZBdService!
     
     override func awakeFromNib() {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         self.sabNZBdService = appDelegate.serviceManager.sabNZBdService;
     }
     
-    internal func setQueueItem(queueItem: SABQueueItem) {
-        self.historyItem = nil
-        self.queueItem = queueItem
-        
-        if queueItem.sickbeardEntry != nil {
-            titleLabel.text = queueItem.sickbeardEntry!.displayName
+    
+    var queueItem: SABQueueItem? {
+        set {
+            _historyItem = nil
+            self.queueItem = newValue
+
+            if newValue?.sickbeardEntry != nil {
+                titleLabel.text = newValue?.sickbeardEntry!.displayName
+            }
+            else {
+                titleLabel!.text = newValue?.displayName
+            }
+
+            progressBar!.progress = newValue?.progress ?? 0 / 100
+            progressBar!.hidden = newValue?.hasProgress ?? true
+            progressLabel!.text = newValue?.progressDescription
+            if (self.sabNZBdService.paused!) {
+                statusLabel!.text = "-"
+            }
+            else {
+                statusLabel!.text = newValue?.timeRemaining
+            }
+            categoryLabel!.text = newValue?.category
         }
-        else {
-            titleLabel!.text = queueItem.displayName
+        get {
+            return _queueItem
         }
-        
-        progressBar!.progress = queueItem.progress / 100
-        progressBar!.hidden = !queueItem.hasProgress
-        progressLabel!.text = queueItem.progressDescription
-        if (self.sabNZBdService.paused!) {
-            statusLabel!.text = "-"
-        }
-        else {
-            statusLabel!.text = queueItem.timeRemaining
-        }
-        categoryLabel!.text = queueItem.category
     }
     
-    func setHistoryItem(historyItem: SABHistoryItem) {
-        self.queueItem = nil
-        self.historyItem = historyItem
-        
-        if historyItem.sickbeardEntry != nil {
-            titleLabel.text = historyItem.sickbeardEntry!.displayName
+    var historyItem: SABHistoryItem? {
+        set {
+            _queueItem = nil
+
+            if newValue?.sickbeardEntry != nil {
+                titleLabel.text = newValue?.sickbeardEntry!.displayName
+            }
+            else {
+                titleLabel!.text = newValue?.displayName
+            }
+    //        progressBar!.progress = historyItem.progress
+            progressLabel!.text = newValue?.statusDescription
+            if (newValue != nil) {
+                switch (newValue!.status!) {
+                case .Finished:
+                    progressLabel.textColor = UIColor.downGreenColor()
+                case .Failed:
+                    progressLabel.textColor = UIColor.downRedColor()
+                default:
+                    progressLabel.textColor = UIColor.whiteColor()
+                }
+            }
+            
+            statusLabel!.text = newValue?.size
+            progressBar!.progress = 0
+            progressBar!.hidden = true
+            
+            categoryLabel!.text = newValue?.category
         }
-        else {
-            titleLabel!.text = historyItem.displayName
+        get {
+            return _historyItem
         }
-//        progressBar!.progress = historyItem.progress
-        progressLabel!.text = historyItem.statusString
-        switch (historyItem.status! as SABHistoryItem.SABHistoryItemStatus) {
-        case .Finished:
-            progressLabel.textColor = UIColor.downGreenColor()
-        case .Failed:
-            progressLabel.textColor = UIColor.downRedColor()
-        default:
-            progressLabel.textColor = UIColor.whiteColor()
-        }
-        
-        statusLabel!.text = historyItem.size
-        progressBar!.progress = 0
-        progressBar!.hidden = true
-        
-        categoryLabel!.text = historyItem.category
     }
-    
+
 }

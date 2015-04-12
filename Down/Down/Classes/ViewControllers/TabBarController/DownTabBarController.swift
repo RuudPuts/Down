@@ -41,7 +41,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        for subview: UIView in self.contentView.subviews as [UIView] {
+        for subview: UIView in self.contentView.subviews as! [UIView] {
             subview.frame = self.contentView.bounds
         }
     }
@@ -84,10 +84,10 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCell(cellIdentifier: cellIdentifier, indexPath: indexPath) as DownTabBarItemCell
+        var cell = collectionView.dequeueReusableCell(cellIdentifier: cellIdentifier, indexPath: indexPath) as! DownTabBarItemCell
         
         let viewController: UIViewController = _viewControllers![indexPath.row]
-        cell.tabBarItem = viewController.tabBarItem as DownTabBarItem!
+        cell.tabBarItem = viewController.tabBarItem as! DownTabBarItem!
         
         return cell
     }
@@ -111,7 +111,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
         self.contentView.removeAllSubViews()
         if (viewController != nil) {
             self.selectedViewController = viewController!
-            let tabBarItem = viewController!.tabBarItem as DownTabBarItem!
+            let tabBarItem = viewController!.tabBarItem as! DownTabBarItem!
             self.collectionView!.backgroundColor = tabBarItem.tintColor
             
             viewController!.view.frame = self.view.bounds

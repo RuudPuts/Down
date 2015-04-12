@@ -16,7 +16,7 @@ class SABQueueItem: SABItem {
     let totalSize: String!
     let timeRemaining: String!
     let progress: Float!
-    let status: SABQueueItemStatus!
+    var status: SABQueueItemStatus!
     
     enum SABQueueItemStatus {
         case Grabbing
@@ -25,7 +25,7 @@ class SABQueueItem: SABItem {
         case Downloaded
     }
     
-    init(identifier: String, title: String, filename: String, category: String, status: String, totalMb: Float, remainingMb: Float, totalSize: String, sizeLeft: String, progress: Float, timeRemaining: String) {
+    init(identifier: String, title: String, filename: String, category: String, statusDescription: String, totalMb: Float, remainingMb: Float, totalSize: String, sizeLeft: String, progress: Float, timeRemaining: String) {
         self.timeRemaining = timeRemaining
         self.totalMb = totalMb
         self.remainingMb = remainingMb
@@ -33,9 +33,9 @@ class SABQueueItem: SABItem {
         self.totalSize = totalSize
         self.progress = progress
         
-        super.init(identifier: identifier, title: title, filename: filename, category: category, status: status)
+        super.init(identifier: identifier, title: title, filename: filename, category: category, statusDescription: statusDescription)
         
-        self.status = stringToStatus(status)
+        self.status = stringToStatus(statusDescription)
     }
     
     var hasProgress: Bool! {

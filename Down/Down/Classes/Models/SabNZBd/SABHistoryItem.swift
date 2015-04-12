@@ -11,7 +11,7 @@ import UIKit
 class SABHistoryItem: SABItem {
    
     let size: String!
-    let status: SABHistoryItemStatus?
+    var status: SABHistoryItemStatus?
     
     internal enum SABHistoryItemStatus {
         case Queued
@@ -23,12 +23,12 @@ class SABHistoryItem: SABItem {
         case Finished
     }
     
-    init(identifier: String, title: String, filename: String, category: String, size: String, status: String) {
+    init(identifier: String, title: String, filename: String, category: String, size: String, statusDescription: String) {
         self.size = size
         
-        super.init(identifier: identifier, title: title, filename: filename, category: category, status: status)
+        super.init(identifier: identifier, title: title, filename: filename, category: category, statusDescription: statusDescription)
         
-        self.status = stringToStatus(status)
+        self.status = stringToStatus(statusDescription)
     }
     
     private func stringToStatus(string: String) -> SABHistoryItemStatus! {
