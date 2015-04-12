@@ -38,9 +38,15 @@ class SABItemCell: UITableViewCell {
                 titleLabel!.text = _queueItem?.displayName
             }
 
-            progressBar!.progress = _queueItem?.progress ?? 0 / 100
-            progressBar!.hidden = _queueItem?.hasProgress ?? true
-            progressLabel!.text = _queueItem?.progressDescription
+            var hideProgressBar = true
+            var progress = 0 as Float
+            if (_queueItem != nil && _queueItem!.hasProgress!) {
+                progress = _queueItem!.progress / 100
+                hideProgressBar = false
+            }
+            progressBar!.hidden = hideProgressBar
+            progressBar!.progress = progress
+            progressLabel!.text = _queueItem?.progressString
             if (self.sabNZBdService.paused!) {
                 statusLabel!.text = "-"
             }
