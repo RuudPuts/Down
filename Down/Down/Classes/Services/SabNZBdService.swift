@@ -120,8 +120,9 @@ class SabNZBdService: Service {
             let category = jsonJob["category"].string!
             let size = jsonJob["size"].string!
             let statusDescription = jsonJob["status"].string!
+            let actionLine = jsonJob["action_line"].string!
             
-            let historyItem: SABHistoryItem = SABHistoryItem(identifier: identifier, title: title, filename: filename, category: category, size: size, statusDescription: statusDescription)
+            let historyItem: SABHistoryItem = SABHistoryItem(identifier: identifier, title: title, filename: filename, category: category, size: size, statusDescription: statusDescription, actionLine: actionLine)
             history.append(historyItem)
             
             let imdbIdentifier: String? = historyItem.imdbIdentifier
@@ -131,6 +132,7 @@ class SabNZBdService: Service {
                 })
             }
         }
+        
         self.history = history
     }
     

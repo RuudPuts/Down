@@ -24,4 +24,8 @@ extension String {
     var fullRange: Range<String.Index> {
         return self.startIndex..<self.endIndex
     }
+    
+    func toFloat() -> Float? {
+        return floatValue
+    }
 }

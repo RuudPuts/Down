@@ -14,7 +14,7 @@ class SABItem: NSObject {
     let filename: String!
     let category: String!
     var progressDescription: String?
-    let statusDescription: String!
+    var statusDescription: String!
     var sickbeardEntry: SickbeardHistoryItem?
     
     var imdbTitle: String?

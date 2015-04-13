@@ -152,6 +152,12 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
                     rowHeight = 66.0
                 }
             }
+            else {
+                let historyItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
+                if (historyItem.hasProgress!) {
+                    rowHeight = 66.0
+                }
+            }
         }
         
         return rowHeight

@@ -71,7 +71,16 @@ class SABItemCell: UITableViewCell {
             else {
                 titleLabel!.text = _historyItem?.displayName
             }
-    //        progressBar!.progress = historyItem.progress
+            
+            var hideProgressBar = true
+            var progress = 0 as Float
+            if (_historyItem != nil && _historyItem!.hasProgress!) {
+                progress = _historyItem!.progress / 100
+                hideProgressBar = false
+            }
+            progressBar!.hidden = hideProgressBar
+            progressBar!.progress = progress
+            
             progressLabel!.text = _historyItem?.statusDescription
             if (_historyItem != nil) {
                 switch (_historyItem!.status!) {
@@ -85,9 +94,6 @@ class SABItemCell: UITableViewCell {
             }
             
             statusLabel!.text = _historyItem?.size
-            progressBar!.progress = 0
-            progressBar!.hidden = true
-            
             categoryLabel!.text = _historyItem?.category
         }
         get {

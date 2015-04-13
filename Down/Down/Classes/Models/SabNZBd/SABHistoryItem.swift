@@ -12,6 +12,7 @@ class SABHistoryItem: SABItem {
     
     let title: String!
     let size: String!
+    let actionLine: String?
     var status: SABHistoryItemStatus?
     
     internal enum SABHistoryItemStatus {
@@ -24,13 +25,40 @@ class SABHistoryItem: SABItem {
         case Finished
     }
     
-    init(identifier: String, title: String, filename: String, category: String, size: String, statusDescription: String) {
+    init(identifier: String, title: String, filename: String, category: String, size: String, statusDescription: String, actionLine: String) {
         self.size = size
         self.title = title
+        self.actionLine = actionLine
         
         super.init(identifier: identifier, filename: filename, category: category, statusDescription: statusDescription)
         
         self.status = stringToStatus(statusDescription)
+    }
+    
+    var hasProgress: Bool! {
+        var hasProgress = false
+        if ((self.status == .Verifying || self.status == .Repairing || self.status == .Extracting) && self.progress > 0) {
+            hasProgress = true
+        }
+        
+        
+        return hasProgress
+    }
+    
+    var progress: Float! {
+        var progress: Float = 0
+        
+        if (self.status == .Verifying || self.status == .Extracting) {
+            var progressString = self.actionLine!.componentsSeparatedByString(" ").last as String!
+            var progressComponents = progressString.componentsSeparatedByString("/")
+            
+            var part = progressComponents.first!.toFloat() ?? 0
+            var total = progressComponents.last!.toFloat() ?? 0
+            
+            progress = part / total * 100
+        }
+        
+        return progress
     }
     
     private func stringToStatus(string: String) -> SABHistoryItemStatus! {
@@ -39,19 +67,29 @@ class SABHistoryItem: SABItem {
         switch (string) {
         case "Verifying":
             status = SABHistoryItemStatus.Verifying
+            self.statusDescription = self.actionLine
+            break;
         case "Repairing":
             status = SABHistoryItemStatus.Repairing
+            break;
         case "Extracting":
             status = SABHistoryItemStatus.Extracting
+            self.statusDescription = self.actionLine
+            break;
         case "Running":
             status = SABHistoryItemStatus.RunningScript
+            self.statusDescription = "Running script"
+            break;
         case "Failed":
             status = SABHistoryItemStatus.Failed
+            break;
         case "Completed":
             status = SABHistoryItemStatus.Finished
+            break;
             
         default:
             status = SABHistoryItemStatus.Queued
+            break;
         }
         
         return status

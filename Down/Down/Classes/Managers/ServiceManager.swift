@@ -15,7 +15,7 @@ class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     let couchPotatoService: CouchPotatoService
     
     override init() {
-        sabNZBdService = SabNZBdService(queueRefreshRate: 2, historyRefreshRate: 4)
+        sabNZBdService = SabNZBdService(queueRefreshRate: 1, historyRefreshRate: 2)
         sickbeardService = SickbeardService()
         couchPotatoService = CouchPotatoService()
     }
