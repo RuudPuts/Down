@@ -47,6 +47,7 @@ class SABItemCell: UITableViewCell {
             progressBar!.hidden = hideProgressBar
             progressBar!.progress = progress
             progressLabel!.text = _queueItem?.progressString
+            progressLabel!.textColor = UIColor.whiteColor()
             if (self.sabNZBdService.paused!) {
                 statusLabel!.text = "-"
             }
