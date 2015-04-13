@@ -17,6 +17,10 @@
 		42078E411AD1C702009845CC /* CouchPotatoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */; };
 		42078E461AD1C71A009845CC /* SickbeardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E431AD1C71A009845CC /* SickbeardViewController.xib */; };
 		42078E471AD1C71A009845CC /* CouchPotatoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */; };
+		420F496D1ADC42DB006CFA11 /* SABLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420F496C1ADC42DB006CFA11 /* SABLoadingCell.swift */; };
+		420F496F1ADC431E006CFA11 /* SABLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F496E1ADC431E006CFA11 /* SABLoadingCell.xib */; };
+		420F49711ADC4B03006CFA11 /* SABEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420F49701ADC4B03006CFA11 /* SABEmptyCell.swift */; };
+		420F49731ADC4B50006CFA11 /* SABEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F49721ADC4B50006CFA11 /* SABEmptyCell.xib */; };
 		424C9CAA1ADAD9BA00CB7B54 /* SickbeardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C9CA91ADAD9BA00CB7B54 /* SickbeardListener.swift */; };
 		4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E7FE1AB4B84C00EF1254 /* AppDelegate.swift */; };
 		4253E80F1AB4B84C00EF1254 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8031AB4B84C00EF1254 /* ViewController.swift */; };
@@ -108,6 +112,10 @@
 		42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoViewController.swift; sourceTree = "<group>"; };
 		42078E431AD1C71A009845CC /* SickbeardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardViewController.xib; sourceTree = "<group>"; };
 		42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouchPotatoViewController.xib; sourceTree = "<group>"; };
+		420F496C1ADC42DB006CFA11 /* SABLoadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABLoadingCell.swift; sourceTree = "<group>"; };
+		420F496E1ADC431E006CFA11 /* SABLoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABLoadingCell.xib; sourceTree = "<group>"; };
+		420F49701ADC4B03006CFA11 /* SABEmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABEmptyCell.swift; sourceTree = "<group>"; };
+		420F49721ADC4B50006CFA11 /* SABEmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABEmptyCell.xib; sourceTree = "<group>"; };
 		424C9CA91ADAD9BA00CB7B54 /* SickbeardListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardListener.swift; sourceTree = "<group>"; };
 		4253E7D51AB4B7B900EF1254 /* Down.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Down.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4253E7ED1AB4B7B900EF1254 /* DownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,6 +258,8 @@
 		42078E2C1AD172CD009845CC /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				420F496E1ADC431E006CFA11 /* SABLoadingCell.xib */,
+				420F49721ADC4B50006CFA11 /* SABEmptyCell.xib */,
 				42078E2D1AD172CD009845CC /* SABItemCell.xib */,
 			);
 			path = TableViewCells;
@@ -496,6 +506,8 @@
 		42CD255C1AB5BF93008E9717 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				420F496C1ADC42DB006CFA11 /* SABLoadingCell.swift */,
+				420F49701ADC4B03006CFA11 /* SABEmptyCell.swift */,
 				42CD255D1AB5C06D008E9717 /* SABItemCell.swift */,
 			);
 			path = TableViewCells;
@@ -678,8 +690,10 @@
 				42CD254B1AB5BD06008E9717 /* Roboto-BoldCondensedItalic.ttf in Resources */,
 				42CD254F1AB5BD06008E9717 /* Roboto-Italic.ttf in Resources */,
 				42D155011AD4579500778713 /* DownTabBarItemCell.xib in Resources */,
+				420F496F1ADC431E006CFA11 /* SABLoadingCell.xib in Resources */,
 				42078E471AD1C71A009845CC /* CouchPotatoViewController.xib in Resources */,
 				42CD25481AB5BD06008E9717 /* Roboto-BlackItalic.ttf in Resources */,
+				420F49731ADC4B50006CFA11 /* SABEmptyCell.xib in Resources */,
 				42CD25431AB5BD06008E9717 /* OpenSans-LightItalic.ttf in Resources */,
 				42078E461AD1C71A009845CC /* SickbeardViewController.xib in Resources */,
 				42CD253D1AB5BD06008E9717 /* OpenSans-Bold.ttf in Resources */,
@@ -740,6 +754,7 @@
 				42D198B71AB4D59E00A19FD2 /* SABHistoryItem.swift in Sources */,
 				42CD255F1AB5C06D008E9717 /* SABItemCell.swift in Sources */,
 				42D198BC1AB4DFF200A19FD2 /* SabNZBdListener.swift in Sources */,
+				420F49711ADC4B03006CFA11 /* SABEmptyCell.swift in Sources */,
 				42D198B51AB4D59400A19FD2 /* SABQueueItem.swift in Sources */,
 				42D198A71AB4D13D00A19FD2 /* SickbeardService.swift in Sources */,
 				42D198B31AB4D57300A19FD2 /* SABItem.swift in Sources */,
@@ -749,6 +764,7 @@
 				42E19C251AB6154C00883359 /* String+Extensions.swift in Sources */,
 				4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */,
 				42F035361AD45BC2001AE5B3 /* UIView+Extensions.swift in Sources */,
+				420F496D1ADC42DB006CFA11 /* SABLoadingCell.swift in Sources */,
 				42078E401AD1C702009845CC /* SickbeardViewController.swift in Sources */,
 				42078E1F1AD1721F009845CC /* SABHeaderView.swift in Sources */,
 				42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */,

@@ -47,6 +47,7 @@ class SickbeardService: Service {
                     var json = JSON(jsonString!)
                     self.parseHistoryJson(json)
                     self.notifyListeners(SickbeardNotifyType.HistoryUpdated)
+                    self.refreshCompleted()
                 }
         }
     }

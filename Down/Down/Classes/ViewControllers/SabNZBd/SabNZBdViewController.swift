@@ -22,8 +22,14 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let queueCellNib = UINib(nibName: "SABItemCell", bundle:nil)
-        tableView.registerNib(queueCellNib, forCellReuseIdentifier: "SABItemCell")
+        let loadingCellNib = UINib(nibName: "SABLoadingCell", bundle:nil)
+        tableView.registerNib(loadingCellNib, forCellReuseIdentifier: "SABLoadingCell")
+        
+        let emtpyCellNib = UINib(nibName: "SABEmptyCell", bundle:nil)
+        tableView.registerNib(emtpyCellNib, forCellReuseIdentifier: "SABEmptyCell")
+        
+        let itemCellNib = UINib(nibName: "SABItemCell", bundle:nil)
+        tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SABItemCell")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -116,15 +122,35 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
             numberOfRows = serviceManager.sabNZBdService.history.count
         }
         
-        return numberOfRows
+        return max(numberOfRows, 1)
+    }
+    
+    func tableView(tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
+        let isEmpty: Bool!
+        
+        switch section {
+        case 0:
+            isEmpty = serviceManager.sabNZBdService.queue.count == 0
+            break;
+        case 1:
+            isEmpty = serviceManager.sabNZBdService.history.count == 0
+            break;
+            
+        default:
+            isEmpty = true
+        }
+        
+        return isEmpty
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var rowHeight: CGFloat! = 56.0
-        if indexPath.section == 0 {
-            let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
-            if (queueItem.hasProgress!) {
-                rowHeight = 66.0
+        var rowHeight: CGFloat! = 60.0
+        if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
+            if indexPath.section == 0 {
+                let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
+                if (queueItem.hasProgress!) {
+                    rowHeight = 66.0
+                }
             }
         }
         
@@ -132,12 +158,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        var headerHeight: CGFloat! = 30.0
-        if (self.tableView(tableView, numberOfRowsInSection: section) == 0) {
-            headerHeight = 0.0
-        }
-        
-        return headerHeight
+        return 30.0
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -168,16 +189,35 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let CellIdentifier: String = "SABItemCell"
-        var cell: SABItemCell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! SABItemCell
+        let cell: UITableViewCell
         
-        if (indexPath.section == 0) {
-            let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
-            cell.queueItem = queueItem
+        if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
+            if self.serviceManager.sabNZBdService.lastRefresh != nil {
+                var emptyCell = tableView.dequeueReusableCellWithIdentifier("SABEmptyCell") as! SABEmptyCell
+                
+                var sectionTitle = self.tableView(tableView, titleForHeaderInSection: indexPath.section)!.lowercaseString
+                emptyCell.label.text = "Your \(sectionTitle) is empty."
+                
+                cell = emptyCell
+            }
+            else {
+                var loadingCell = tableView.dequeueReusableCellWithIdentifier("SABLoadingCell") as! SABLoadingCell
+                // For some reason this has to be called all the time
+                loadingCell.activityIndicator.startAnimating()
+                cell = loadingCell
+            }
         }
         else {
-            let historyItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
-            cell.historyItem = historyItem
+            var itemCell = tableView.dequeueReusableCellWithIdentifier("SABItemCell") as! SABItemCell
+            if (indexPath.section == 0) {
+                let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
+                itemCell.queueItem = queueItem
+            }
+            else {
+                let historyItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
+                itemCell.historyItem = historyItem
+            }
+            cell = itemCell
         }
         
         return cell;

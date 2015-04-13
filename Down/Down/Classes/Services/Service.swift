@@ -12,6 +12,7 @@ class Service: NSObject {
     
     let baseUrl: String
     let apiKey: String!
+    var lastRefresh: NSDate?
     
     var listeners: [Listener]
     
@@ -28,6 +29,10 @@ class Service: NSObject {
     
     internal func removeListener(listener: Listener) {
         // TODO: Implement
+    }
+    
+    func refreshCompleted() {
+        self.lastRefresh = NSDate()
     }
    
 }

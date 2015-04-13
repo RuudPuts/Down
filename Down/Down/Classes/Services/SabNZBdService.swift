@@ -64,6 +64,7 @@ class SabNZBdService: Service {
                     var json = JSON(jsonString!)
                     self.parseQueueJson(json)
                     self.notifyListeners(SabNZBDNotifyType.QueueUpdated)
+                    self.refreshCompleted()
                 }
         }
     }
@@ -104,6 +105,7 @@ class SabNZBdService: Service {
                     var json = JSON(jsonString!)
                     self.parseHistoryJson(json)
                     self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
+                    self.refreshCompleted()
                 }
         }
     }
