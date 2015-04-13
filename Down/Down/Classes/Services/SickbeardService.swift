@@ -9,7 +9,7 @@
 import Alamofire
 
 class SickbeardService: Service {
-    
+
     var history: Array<SickbeardHistoryItem>!
     
     enum SickbeardNotifyType {

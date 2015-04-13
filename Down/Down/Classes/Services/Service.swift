@@ -19,6 +19,7 @@ class Service: NSObject {
     init(baseUrl: String!, apiKey: String!) {
         self.baseUrl = baseUrl
         self.apiKey = apiKey
+
         self.listeners = [Listener]()
     }
     

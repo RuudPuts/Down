@@ -33,6 +33,8 @@
 		42670EF71ADDAB44006341EA /* SABMoreHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42670EF61ADDAB44006341EA /* SABMoreHistoryCell.swift */; };
 		42670EF91ADDAB5E006341EA /* SABMoreHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* SABMoreHistoryCell.xib */; };
 		42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */; };
+		42C091041AC1E0CF00E6DDC4 /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C091031AC1E0CF00E6DDC4 /* PreferenceManager.swift */; };
+		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
 		42CD253D1AB5BD06008E9717 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */; };
 		42CD253E1AB5BD06008E9717 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25231AB5BD05008E9717 /* OpenSans-BoldItalic.ttf */; };
 		42CD253F1AB5BD06008E9717 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25241AB5BD05008E9717 /* OpenSans-ExtraBold.ttf */; };
@@ -134,6 +136,8 @@
 		42670EF61ADDAB44006341EA /* SABMoreHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABMoreHistoryCell.swift; sourceTree = "<group>"; };
 		42670EF81ADDAB5E006341EA /* SABMoreHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABMoreHistoryCell.xib; sourceTree = "<group>"; };
 		42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		42C091031AC1E0CF00E6DDC4 /* PreferenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
+		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		42CD25231AB5BD05008E9717 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		42CD25241AB5BD05008E9717 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -361,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				42D198A01AB4D11200A19FD2 /* ServiceManager.swift */,
+				42C091031AC1E0CF00E6DDC4 /* PreferenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -405,6 +410,7 @@
 				4253E81F1AB4B8E300EF1254 /* Layout */,
 				4253E81D1AB4B8E300EF1254 /* Images */,
 				4253E81A1AB4B8E300EF1254 /* CoreData */,
+				42C091081AC1E68300E6DDC4 /* Settings.bundle */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -686,6 +692,7 @@
 				42CD25511AB5BD06008E9717 /* Roboto-LightItalic.ttf in Resources */,
 				42CD25561AB5BD06008E9717 /* Roboto-ThinItalic.ttf in Resources */,
 				42CD25501AB5BD06008E9717 /* Roboto-Light.ttf in Resources */,
+				42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */,
 				42CD25541AB5BD06008E9717 /* Roboto-Regular.ttf in Resources */,
 				42CD25521AB5BD06008E9717 /* Roboto-Medium.ttf in Resources */,
 				42CD25441AB5BD06008E9717 /* OpenSans-Regular.ttf in Resources */,
@@ -750,6 +757,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				424C9CAA1ADAD9BA00CB7B54 /* SickbeardListener.swift in Sources */,
+				42C091041AC1E0CF00E6DDC4 /* PreferenceManager.swift in Sources */,
 				42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */,
 				425854231AD5B27F00D8C106 /* SickbeardHistoryItem.swift in Sources */,
 				4253E80F1AB4B84C00EF1254 /* ViewController.swift in Sources */,
