@@ -41,7 +41,7 @@ class SickbeardService: Service {
     
     func refreshHistory() {
         let url = baseUrl + "/" + apiKey
-        Alamofire.request(.GET, url, parameters: ["cmd": "history", "limit": "20"])
+        Alamofire.request(.GET, url, parameters: ["cmd": "history", "limit": "40"])
             .responseJSON { (request, response, jsonString, error) in
                 if (jsonString != nil) {
                     var json = JSON(jsonString!)
