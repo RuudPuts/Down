@@ -28,6 +28,8 @@
 		4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4253E81B1AB4B8E300EF1254 /* Down.xcdatamodeld */; };
 		4253E8221AB4B8E300EF1254 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4253E81E1AB4B8E300EF1254 /* Images.xcassets */; };
 		425854231AD5B27F00D8C106 /* SickbeardHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425854221AD5B27F00D8C106 /* SickbeardHistoryItem.swift */; };
+		42670EF71ADDAB44006341EA /* SABMoreHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42670EF61ADDAB44006341EA /* SABMoreHistoryCell.swift */; };
+		42670EF91ADDAB5E006341EA /* SABMoreHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* SABMoreHistoryCell.xib */; };
 		42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */; };
 		42CD253D1AB5BD06008E9717 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */; };
 		42CD253E1AB5BD06008E9717 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25231AB5BD05008E9717 /* OpenSans-BoldItalic.ttf */; };
@@ -127,6 +129,8 @@
 		4253E81C1AB4B8E300EF1254 /* Down.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Down.xcdatamodel; sourceTree = "<group>"; };
 		4253E81E1AB4B8E300EF1254 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		425854221AD5B27F00D8C106 /* SickbeardHistoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardHistoryItem.swift; sourceTree = "<group>"; };
+		42670EF61ADDAB44006341EA /* SABMoreHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABMoreHistoryCell.swift; sourceTree = "<group>"; };
+		42670EF81ADDAB5E006341EA /* SABMoreHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABMoreHistoryCell.xib; sourceTree = "<group>"; };
 		42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		42CD25231AB5BD05008E9717 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -261,6 +265,7 @@
 				420F496E1ADC431E006CFA11 /* SABLoadingCell.xib */,
 				420F49721ADC4B50006CFA11 /* SABEmptyCell.xib */,
 				42078E2D1AD172CD009845CC /* SABItemCell.xib */,
+				42670EF81ADDAB5E006341EA /* SABMoreHistoryCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -509,6 +514,7 @@
 				420F496C1ADC42DB006CFA11 /* SABLoadingCell.swift */,
 				420F49701ADC4B03006CFA11 /* SABEmptyCell.swift */,
 				42CD255D1AB5C06D008E9717 /* SABItemCell.swift */,
+				42670EF61ADDAB44006341EA /* SABMoreHistoryCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -683,6 +689,7 @@
 				42CD25541AB5BD06008E9717 /* Roboto-Regular.ttf in Resources */,
 				42CD25521AB5BD06008E9717 /* Roboto-Medium.ttf in Resources */,
 				42CD25441AB5BD06008E9717 /* OpenSans-Regular.ttf in Resources */,
+				42670EF91ADDAB5E006341EA /* SABMoreHistoryCell.xib in Resources */,
 				42CD25411AB5BD06008E9717 /* OpenSans-Italic.ttf in Resources */,
 				42CD254A1AB5BD06008E9717 /* Roboto-BoldCondensed.ttf in Resources */,
 				42CD25401AB5BD06008E9717 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
@@ -750,6 +757,7 @@
 				42D154F11AD4495B00778713 /* SwiftyJSON.swift in Sources */,
 				4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */,
 				42D154F61AD4505400778713 /* DownTabBarController.swift in Sources */,
+				42670EF71ADDAB44006341EA /* SABMoreHistoryCell.swift in Sources */,
 				42D198BA1AB4DFC900A19FD2 /* Listener.swift in Sources */,
 				42D198B71AB4D59E00A19FD2 /* SABHistoryItem.swift in Sources */,
 				42CD255F1AB5C06D008E9717 /* SABItemCell.swift in Sources */,

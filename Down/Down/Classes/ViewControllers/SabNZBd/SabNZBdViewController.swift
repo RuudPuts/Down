@@ -30,6 +30,9 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         
         let itemCellNib = UINib(nibName: "SABItemCell", bundle:nil)
         tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SABItemCell")
+        
+        let moreHistoryCellNib = UINib(nibName: "SABMoreHistoryCell", bundle: nil)
+        tableView.registerNib(moreHistoryCellNib, forCellReuseIdentifier: "SABMoreHistoryCell")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -113,13 +116,17 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numberOfRows : Int!
+        var numberOfRows : Int
         
+        let sabNZBdService = self.serviceManager.sabNZBdService
         if section == 0 {
-            numberOfRows = serviceManager.sabNZBdService.queue.count
+            numberOfRows = sabNZBdService.queue.count
         }
         else {
-            numberOfRows = serviceManager.sabNZBdService.history.count
+            numberOfRows = sabNZBdService.history.count
+            if (!sabNZBdService.history.isEmpty) {
+                numberOfRows += 1
+            }
         }
         
         return max(numberOfRows, 1)
@@ -152,7 +159,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
                     rowHeight = 66.0
                 }
             }
-            else {
+            else if indexPath.row < serviceManager.sabNZBdService.history.count - 1 {
                 let historyItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
                 if (historyItem.hasProgress!) {
                     rowHeight = 66.0
@@ -197,8 +204,9 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         
+        let sabNZBdService = self.serviceManager.sabNZBdService
         if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
-            if self.serviceManager.sabNZBdService.lastRefresh != nil {
+            if sabNZBdService.lastRefresh != nil {
                 var emptyCell = tableView.dequeueReusableCellWithIdentifier("SABEmptyCell") as! SABEmptyCell
                 
                 var sectionTitle = self.tableView(tableView, titleForHeaderInSection: indexPath.section)!.lowercaseString
@@ -213,14 +221,19 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
                 cell = loadingCell
             }
         }
+        else if (indexPath.section == 1 && indexPath.row == serviceManager.sabNZBdService.history.count) {
+            
+            var historyCell = tableView.dequeueReusableCellWithIdentifier("SABMoreHistoryCell") as! SABMoreHistoryCell
+            cell = historyCell
+        }
         else {
             var itemCell = tableView.dequeueReusableCellWithIdentifier("SABItemCell") as! SABItemCell
             if (indexPath.section == 0) {
-                let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
+                let queueItem: SABQueueItem = sabNZBdService.queue[indexPath.row];
                 itemCell.queueItem = queueItem
             }
             else {
-                let historyItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
+                let historyItem: SABHistoryItem = sabNZBdService.history[indexPath.row];
                 itemCell.historyItem = historyItem
             }
             cell = itemCell
