@@ -42,4 +42,12 @@ extension UIColor {
         return UIColor(red:0.18, green:0.5, blue:0.71, alpha:1)
     }
     
+    class func downLightGreyColor() -> UIColor {
+        return UIColor(red:0.12, green:0.12, blue:0.12, alpha:1)
+    }
+    
+    class func downDarkGreyColor() -> UIColor {
+        return UIColor(red:0.1, green:0.1, blue:0.1, alpha:1)
+    }
+    
 }
