@@ -31,24 +31,24 @@ class SABItemCell: UITableViewCell {
             _queueItem = newValue
             _historyItem = nil
 
-            if _queueItem?.sickbeardEntry != nil {
-                titleLabel.text = _queueItem?.sickbeardEntry!.displayName
+            if let sickbeardEntry = _queueItem?.sickbeardEntry {
+                titleLabel.text = sickbeardEntry.displayName
             }
             else {
-                titleLabel!.text = _queueItem?.displayName
+                titleLabel.text = _queueItem?.displayName
             }
 
             var hideProgressBar = true
             var progress = 0 as Float
-            if (_queueItem != nil && _queueItem!.hasProgress!) {
+            if _queueItem != nil && _queueItem!.hasProgress! {
                 progress = _queueItem!.progress / 100
                 hideProgressBar = false
             }
-            progressBar!.hidden = hideProgressBar
-            progressBar!.progress = progress
-            progressLabel!.text = _queueItem?.progressString
-            progressLabel!.textColor = UIColor.whiteColor()
-            if (self.sabNZBdService.paused!) {
+            progressBar.hidden = hideProgressBar
+            progressBar.progress = progress
+            progressLabel.text = _queueItem?.progressString
+            progressLabel.textColor = UIColor.whiteColor()
+            if self.sabNZBdService.paused {
                 statusLabel!.text = "-"
             }
             else {
@@ -66,11 +66,11 @@ class SABItemCell: UITableViewCell {
             _queueItem = nil
             _historyItem = newValue
 
-            if _historyItem?.sickbeardEntry != nil {
-                titleLabel.text = _historyItem?.sickbeardEntry!.displayName
+            if let sickbeardEntry = _queueItem?.sickbeardEntry {
+                titleLabel.text = sickbeardEntry.displayName
             }
             else {
-                titleLabel!.text = _historyItem?.displayName
+                titleLabel.text = _historyItem?.displayName
             }
             
             var hideProgressBar = true
@@ -79,12 +79,12 @@ class SABItemCell: UITableViewCell {
                 progress = _historyItem!.progress / 100
                 hideProgressBar = false
             }
-            progressBar!.hidden = hideProgressBar
-            progressBar!.progress = progress
+            progressBar.hidden = hideProgressBar
+            progressBar.progress = progress
             
-            progressLabel!.text = _historyItem?.statusDescription
-            if (_historyItem != nil) {
-                switch (_historyItem!.status!) {
+            progressLabel.text = _historyItem?.statusDescription
+            if let historyItem = _historyItem {
+                switch (historyItem.status!) {
                 case .Finished:
                     progressLabel.textColor = UIColor.downGreenColor()
                 case .Failed:
@@ -94,8 +94,8 @@ class SABItemCell: UITableViewCell {
                 }
             }
             
-            statusLabel!.text = _historyItem?.size
-            categoryLabel!.text = _historyItem?.category
+            statusLabel.text = _historyItem?.size
+            categoryLabel.text = _historyItem?.category
         }
         get {
             return _historyItem

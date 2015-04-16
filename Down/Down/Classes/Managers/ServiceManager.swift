@@ -18,23 +18,28 @@ class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
         sabNZBdService = SabNZBdService(queueRefreshRate: 1, historyRefreshRate: 2)
         sickbeardService = SickbeardService()
         couchPotatoService = CouchPotatoService()
+        
+        super.init()
+        
+        sabNZBdService.addListener(self)
+        sickbeardService.addListener(self)
     }
     
     func sabNZBdQueueUpdated() {
-        matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: sabNZBdService.queue)
+        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.queue)
     }
     
     func sabNZBdHistoryUpdated() {
-        matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: sabNZBdService.history)
+        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.history)
     }
     
     func sickbeardHistoryUpdated() {
-        matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: sabNZBdService.queue)
-        matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: sabNZBdService.history)
+        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.queue)
+        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.history)
     }
     
-    private func matchSabNZBdItemsWithSickbeardHistory(#sabNZBdItems: [SABItem]) {
-        for sabNZBdItem: SABItem in sabNZBdItems {
+    private func matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: [SABItem]) {
+        for sabNZBdItem in sabNZBdItems {
             sabNZBdItem.sickbeardEntry = sickbeardService.historyItemWithResource(sabNZBdItem.filename)
         }
     }

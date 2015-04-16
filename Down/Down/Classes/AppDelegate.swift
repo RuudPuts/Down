@@ -16,11 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var serviceManager: ServiceManager!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        serviceManager = ServiceManager()
-        // WARNING: Move to service manager directly
-        serviceManager.sabNZBdService.addListener(serviceManager)
-        serviceManager.sickbeardService.addListener(serviceManager)
-        
+        serviceManager = ServiceManager()        
         initializeWindow()
         
         return true

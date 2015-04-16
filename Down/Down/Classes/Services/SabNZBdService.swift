@@ -16,13 +16,13 @@ class SabNZBdService: Service {
     var queueRefreshTimer: NSTimer?
     var historyRefreshTimer: NSTimer?
     
-    var queue: Array<SABQueueItem>!
-    var history: Array<SABHistoryItem>!
+    var queue = Array<SABQueueItem>()
+    var history = Array<SABHistoryItem>()
     
     var currentSpeed: Float?
     var timeRemaining: String?
     var mbLeft: Float?
-    var paused: Bool?
+    var paused: Bool = true
     
     var imdbApiUrl = "http://www.myapifilms.com/imdb"
     var imdbTitleCache = [String: String]()
@@ -35,9 +35,6 @@ class SabNZBdService: Service {
     init(queueRefreshRate: NSTimeInterval, historyRefreshRate: NSTimeInterval) {
         self.queueRefreshRate = queueRefreshRate
         self.historyRefreshRate = historyRefreshRate
-        
-        self.queue = Array<SABQueueItem>()
-        self.history = Array<SABHistoryItem>()
         
         super.init(baseUrl: "http://192.168.178.10:8080/api", apiKey: "49b77b422da54f699a58562f3a1debaa")
         
@@ -57,12 +54,11 @@ class SabNZBdService: Service {
     
     // MARK: - Queue
     
-    func refreshQueue() {
+    private func refreshQueue() {
         Alamofire.request(.GET, baseUrl, parameters: ["mode": "queue", "output": "json", "apikey": apiKey])
-            .responseJSON { (request, response, jsonString, error) in
-                if (jsonString != nil) {
-                    var json = JSON(jsonString!)
-                    self.parseQueueJson(json)
+            .responseJSON { (_, _, jsonString, error) in
+                if let json = jsonString as? String {
+                    self.parseQueueJson(JSON(json))
                     self.notifyListeners(SabNZBDNotifyType.QueueUpdated)
                     self.refreshCompleted()
                 }
@@ -84,7 +80,7 @@ class SabNZBdService: Service {
             let sizeLeft = jsonJob["sizeleft"].string!
             let timeRemaining = jsonJob["timeleft"].string!
             let progress = jsonJob["percentage"].string!.floatValue
-            queue.append(SABQueueItem(identifier: identifier, filename: filename, category: category, statusDescription: statusDescription, totalMb: totalMb, remainingMb: remainingMb, totalSize: totalSize, sizeLeft: sizeLeft, progress: progress, timeRemaining: timeRemaining))
+            queue.append(SABQueueItem(identifier, filename, category, statusDescription, totalMb, remainingMb, totalSize, sizeLeft, progress, timeRemaining))
         }
         
         self.queue = queue
@@ -98,12 +94,11 @@ class SabNZBdService: Service {
     
     // MARK - History
     
-    func refreshHistory() {
+    private func refreshHistory() {
         Alamofire.request(.GET, baseUrl, parameters: ["mode": "history", "output": "json", "limit": 20, "apikey": apiKey])
-            .responseJSON { (request, response, jsonString, error) in
-                if (jsonString != nil) {
-                    var json = JSON(jsonString!)
-                    self.parseHistoryJson(json)
+            .responseJSON { (_, _, jsonString, error) in
+                if let json = jsonString as? String {
+                    self.parseHistoryJson(JSON(json))
                     self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
                     self.refreshCompleted()
                 }
@@ -122,12 +117,11 @@ class SabNZBdService: Service {
             let statusDescription = jsonJob["status"].string!
             let actionLine = jsonJob["action_line"].string!
             
-            let historyItem: SABHistoryItem = SABHistoryItem(identifier: identifier, title: title, filename: filename, category: category, size: size, statusDescription: statusDescription, actionLine: actionLine)
+            let historyItem: SABHistoryItem = SABHistoryItem(identifier, title, filename, category, size, statusDescription, actionLine)
             history.append(historyItem)
             
-            let imdbIdentifier: String? = historyItem.imdbIdentifier
-            if (imdbIdentifier != nil) {
-                fetchTitleFromIMDB(imdbIdentifier!, completionClosure: { (title) -> () in
+            if let imdbIdentifier = historyItem.imdbIdentifier as String! {
+                fetchTitleFromIMDB(imdbIdentifier, completionClosure: { (title) -> () in
                     historyItem.imdbTitle = title
                 })
             }
@@ -138,20 +132,17 @@ class SabNZBdService: Service {
     
     // MARK - IMDB
     
-    func fetchTitleFromIMDB(imdbIdentifier: String, completionClosure: (title: String) ->()) {
-        var title = self.imdbTitleCache[imdbIdentifier] as String?
-        if (title != nil) {
-            completionClosure(title: title!)
+    private func fetchTitleFromIMDB(imdbIdentifier: String, completionClosure: (title: String) ->()) {
+        if let title = self.imdbTitleCache[imdbIdentifier] as String! {
+            completionClosure(title: title)
         }
         else {
             Alamofire.request(.GET, imdbApiUrl, parameters: ["idIMDB": imdbIdentifier, "format": "JSON", "data": "S"])
-                .responseJSON { (request, response, jsonString, error) in
-                    if (jsonString != nil) {
-                        var json = JSON(jsonString!)
-                        
-                        title = json["title"].string!
+                .responseJSON { (_, _, jsonString, error) in
+                    if let json = jsonString as? String {
+                        let title = JSON(json)["title"].string!
                         self.imdbTitleCache[imdbIdentifier] = title
-                        completionClosure(title: title!)
+                        completionClosure(title: title)
                     }
             }
         }
@@ -160,14 +151,13 @@ class SabNZBdService: Service {
     // MARK - Listeners
     
     private func notifyListeners(notifyType: SabNZBDNotifyType) {
-        for listener: Listener in self.listeners {
-            let sabNZBdListener = listener as! SabNZBdListener
+        for listener in self.listeners as! [SabNZBdListener] {
             
             switch notifyType {
             case .QueueUpdated:
-                sabNZBdListener.sabNZBdQueueUpdated()
+                listener.sabNZBdQueueUpdated()
             case .HistoryUpdated:
-                sabNZBdListener.sabNZBdHistoryUpdated()
+                listener.sabNZBdHistoryUpdated()
             }
         }
     }

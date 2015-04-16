@@ -19,7 +19,7 @@ class SABItem: NSObject {
     
     var imdbTitle: String?
     
-    init(identifier: String, filename: String, category: String, statusDescription: String) {
+    init(_ identifier: String, _ filename: String, _ category: String, _ statusDescription: String) {
         self.identifier = identifier
         self.filename = filename
         self.category = category

@@ -20,7 +20,7 @@ class DownTabBarItemCell: UICollectionViewCell {
         set {
             _tabBarItem = newValue
             
-            self.tintColor = _tabBarItem?.tintColor
+            self.tintColor = _tabBarItem?.tintColor ?? UIColor.clearColor()
             self.imageView.image = _tabBarItem?.image
         }
     }

@@ -33,7 +33,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if (self.selectedViewController == nil) {
+        if self.selectedViewController != nil {
             selectViewController(self.viewControllers?.first)
         }
     }
@@ -41,7 +41,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        for subview: UIView in self.contentView.subviews as! [UIView] {
+        for subview in self.contentView.subviews as! [UIView] {
             subview.frame = self.contentView.bounds
         }
     }
@@ -55,15 +55,11 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
         set {
             _viewControllers = newValue
             
-            if (_viewControllers != nil) {
-                for viewController: UIViewController in _viewControllers! {
-                    self.addChildViewController(viewController)
-                }
+            for viewController: UIViewController in _viewControllers! {
+                self.addChildViewController(viewController)
             }
             
-            if (self.collectionView != nil) {
-                self.collectionView.reloadData()
-            }
+            self.collectionView?.reloadData()
         }
     }
     
@@ -74,17 +70,11 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var numberOfRows = 0
-        
-        if (_viewControllers != nil) {
-            numberOfRows = _viewControllers!.count
-        }
-        
-        return numberOfRows
+        return _viewControllers?.count ?? 0
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCell(cellIdentifier: cellIdentifier, indexPath: indexPath) as! DownTabBarItemCell
+        var cell = collectionView.dequeueReusableCell(cellIdentifier, indexPath: indexPath) as! DownTabBarItemCell
         
         let viewController: UIViewController = _viewControllers![indexPath.row]
         cell.tabBarItem = viewController.tabBarItem as! DownTabBarItem!
@@ -109,13 +99,13 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     
     private func selectViewController(viewController: UIViewController?) {
         self.contentView.removeAllSubViews()
-        if (viewController != nil) {
-            self.selectedViewController = viewController!
-            let tabBarItem = viewController!.tabBarItem as! DownTabBarItem!
+        if let selectedViewController = viewController {
+            self.selectedViewController = selectedViewController
+            let tabBarItem = selectedViewController.tabBarItem as! DownTabBarItem!
             self.collectionView!.backgroundColor = tabBarItem.tintColor
             
-            viewController!.view.frame = self.view.bounds
-            self.contentView!.addSubview(viewController!.view)
+            selectedViewController.view.frame = self.view.bounds
+            self.contentView!.addSubview(selectedViewController.view)
         }
         else {
             self.collectionView.backgroundColor = UIColor.whiteColor()

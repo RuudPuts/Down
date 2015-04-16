@@ -15,8 +15,14 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var timeleftLabel: UILabel!
     @IBOutlet weak var mbRemainingLabel: UILabel!
     
+    weak var sabNZBdService: SabNZBdService!
+    weak var sickbeardService: SickbeardService!
+    
     convenience init() {
         self.init(nibName: "SabNZBdViewController", bundle: nil)
+        
+        self.sabNZBdService = serviceManager.sabNZBdService
+        self.sickbeardService = serviceManager.sickbeardService
     }
 
     override func viewDidLoad() {
@@ -38,14 +44,14 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        serviceManager.sabNZBdService.addListener(self)
-        serviceManager.sickbeardService.addListener(self)
+        self.sabNZBdService.addListener(self)
+        self.sabNZBdService.addListener(self)
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         
-        serviceManager.sabNZBdService.removeListener(self)
+        self.sabNZBdService.removeListener(self)
     }
     
     private func updateHeaderWidgets() {
@@ -55,19 +61,20 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     private func updateCurrentSpeedWidget() {
-        var displaySpeed = serviceManager.sabNZBdService.currentSpeed as Float!
+        var displaySpeed = self.sabNZBdService.currentSpeed as Float!
         var displayString = "KB/s"
-        if (displaySpeed > 0) {
+        
+        if displaySpeed > 1024 {
+            displaySpeed = displaySpeed / 1024
+            displayString = "MB/s"
+            
             if (displaySpeed > 1024) {
                 displaySpeed = displaySpeed / 1024
-                displayString = "MB/s"
-                
-                if (displaySpeed > 1024) {
-                    displaySpeed = displaySpeed / 1024
-                    displayString = "GB/s"
-                }
+                displayString = "GB/s"
             }
-            
+        }
+        
+        if displaySpeed > 0 {
             let speedString = String(format: "%.1f", displaySpeed)
             let dotIndex = (speedString as NSString).rangeOfString(".").location
             
@@ -87,12 +94,11 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     private func updateTimeRemainingWidget() {
-        self.timeleftLabel!.text = serviceManager.sabNZBdService.timeRemaining
+        self.timeleftLabel!.text = self.sabNZBdService.timeRemaining
     }
     
     private func updateMbRemainingWidget() {
-        var remainingSize = serviceManager.sabNZBdService.mbLeft as Float!
-        if (remainingSize > 0) {
+        var remainingSize = self.sabNZBdService.mbLeft as Float!
             var remainingSizeDisplay = "MB"
             if (remainingSize < 0) {
                 remainingSize = remainingSize * 1024
@@ -102,23 +108,24 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
                 remainingSize = remainingSize / 1024
                 remainingSizeDisplay = "GB"
             }
+        
+        if (remainingSize > 0) {
             self.mbRemainingLabel!.text = String(format: "%.1f%@", remainingSize, remainingSizeDisplay)
         }
         else {
-            self.mbRemainingLabel!.text = "0MB"
+            self.mbRemainingLabel!.text = String(format: "%.0f%@", remainingSize, remainingSizeDisplay)
         }
     }
     
     // MARK: - TableView datasource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2;
+        return 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numberOfRows : Int
+        var numberOfRows = 1
         
-        let sabNZBdService = self.serviceManager.sabNZBdService
         if section == 0 {
             numberOfRows = sabNZBdService.queue.count
         }
@@ -133,25 +140,20 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
-        let isEmpty: Bool!
+        var isEmpty = true
         
-        switch section {
-        case 0:
+        if section == 0 {
             isEmpty = serviceManager.sabNZBdService.queue.count == 0
-            break;
-        case 1:
+        }
+        else {
             isEmpty = serviceManager.sabNZBdService.history.count == 0
-            break;
-            
-        default:
-            isEmpty = true
         }
         
         return isEmpty
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var rowHeight: CGFloat! = 60.0
+        var rowHeight: Float = 60
         if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if indexPath.section == 0 {
                 let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
@@ -167,7 +169,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
             }
         }
         
-        return rowHeight
+        return CGFloat(rowHeight)
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -175,7 +177,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var headerView = (NSBundle.mainBundle().loadNibNamed("SABHeaderView", owner: self, options: nil) as! Array).first as SABHeaderView!
+        var headerView = (NSBundle.mainBundle().loadNibNamed("SABHeaderView", owner: self, options: nil) as Array).first as! SABHeaderView
 
         if section == 0 {
             headerView.imageView.image = UIImage(named: "queue-icon")
@@ -189,7 +191,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        var sectionTitle : String!
+        var sectionTitle: String?
         
         if section == 0 {
             sectionTitle = "Queue"
@@ -207,7 +209,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         let sabNZBdService = self.serviceManager.sabNZBdService
         if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if sabNZBdService.lastRefresh != nil {
-                var emptyCell = tableView.dequeueReusableCellWithIdentifier("SABEmptyCell") as! SABEmptyCell
+                var emptyCell = tableView.dequeueReusableCellWithIdentifier("SABEmptyCell", forIndexPath: indexPath) as! SABEmptyCell
                 
                 var sectionTitle = self.tableView(tableView, titleForHeaderInSection: indexPath.section)!.lowercaseString
                 emptyCell.label.text = "Your \(sectionTitle) is empty."
@@ -215,20 +217,19 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
                 cell = emptyCell
             }
             else {
-                var loadingCell = tableView.dequeueReusableCellWithIdentifier("SABLoadingCell") as! SABLoadingCell
+                var loadingCell = tableView.dequeueReusableCellWithIdentifier("SABLoadingCell", forIndexPath: indexPath) as! SABLoadingCell
                 // For some reason this has to be called all the time
                 loadingCell.activityIndicator.startAnimating()
                 cell = loadingCell
             }
         }
-        else if (indexPath.section == 1 && indexPath.row == serviceManager.sabNZBdService.history.count) {
-            
-            var historyCell = tableView.dequeueReusableCellWithIdentifier("SABMoreHistoryCell") as! SABMoreHistoryCell
+        else if indexPath.section == 1 && indexPath.row == serviceManager.sabNZBdService.history.count {
+            var historyCell = tableView.dequeueReusableCellWithIdentifier("SABMoreHistoryCell", forIndexPath: indexPath) as! SABMoreHistoryCell
             cell = historyCell
         }
         else {
-            var itemCell = tableView.dequeueReusableCellWithIdentifier("SABItemCell") as! SABItemCell
-            if (indexPath.section == 0) {
+            var itemCell = tableView.dequeueReusableCellWithIdentifier("SABItemCell", forIndexPath: indexPath) as! SABItemCell
+            if indexPath.section == 0 {
                 let queueItem: SABQueueItem = sabNZBdService.queue[indexPath.row];
                 itemCell.queueItem = queueItem
             }

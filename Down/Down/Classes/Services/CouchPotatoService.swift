@@ -18,13 +18,12 @@ class CouchPotatoService: Service {
     
     // MARK: - Snatched & Available
     
-    func refreshSnatchedAndAvailable() {
+    private func refreshSnatchedAndAvailable() {
         let url = baseUrl + "/" + apiKey + "/media.list"
         Alamofire.request(.GET, url, parameters: ["release_status": "snatched,available", "limit_offset": "20"])
-            .responseJSON { (request, response, jsonString, error) in
-                if (jsonString != nil) {
-                    var json = JSON(jsonString!)
-                    self.parseSnatchedAndAvailable(json)
+            .responseJSON { (_, _, jsonString, error) in
+                if let json = jsonString as? String {
+                    self.parseSnatchedAndAvailable(JSON(json))
                 }
         }
     }

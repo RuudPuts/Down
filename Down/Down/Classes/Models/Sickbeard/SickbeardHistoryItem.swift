@@ -23,7 +23,7 @@ class SickbeardHistoryItem {
         case Failed
     }
     
-    init(tvdbId: Int, showName: String, status: String, season: Int, episode: Int, resource: String) {
+    init(_ tvdbId: Int, _ showName: String, _ status: String, _ season: Int, _ episode: Int, _ resource: String) {
         self.tvdbId = tvdbId
         self.showName = showName
         self.status = stringToStatus(status)

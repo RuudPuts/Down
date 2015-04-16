@@ -39,13 +39,12 @@ class SickbeardService: Service {
     
     // MARK: - History
     
-    func refreshHistory() {
+    private func refreshHistory() {
         let url = baseUrl + "/" + apiKey
         Alamofire.request(.GET, url, parameters: ["cmd": "history", "limit": "40"])
-            .responseJSON { (request, response, jsonString, error) in
-                if (jsonString != nil) {
-                    var json = JSON(jsonString!)
-                    self.parseHistoryJson(json)
+            .responseJSON { (_, _, jsonString, error) in
+                if let json = jsonString as? String {
+                    self.parseHistoryJson(JSON(json))
                     self.notifyListeners(SickbeardNotifyType.HistoryUpdated)
                     self.refreshCompleted()
                 }
@@ -55,7 +54,7 @@ class SickbeardService: Service {
     private func parseHistoryJson(json: JSON!) {
         var history: Array<SickbeardHistoryItem> = Array<SickbeardHistoryItem>()
         
-        for (index: String, jsonItem: JSON) in json["data"] {            
+        for (index: String, jsonItem: JSON) in json["data"] {
             let tvdbId = jsonItem["tvdbid"].int!
             let showName = jsonItem["show_name"].string!
             let status = jsonItem["status"].string!
@@ -63,7 +62,7 @@ class SickbeardService: Service {
             let episode = jsonItem["episode"].int!
             let resource = jsonItem["resource"].string!
             
-            let historyItem = SickbeardHistoryItem(tvdbId: tvdbId, showName: showName, status: status, season: season, episode: episode, resource: resource)
+            let historyItem = SickbeardHistoryItem(tvdbId, showName, status, season, episode, resource)
             history.append(historyItem)
         }
         
@@ -73,12 +72,10 @@ class SickbeardService: Service {
     // MARK - Listeners
     
     private func notifyListeners(notifyType: SickbeardNotifyType) {
-        for listener: Listener in self.listeners {
-            let sickbeardListener = listener as! SickbeardListener
-            
+        for listener in self.listeners as! [SickbeardListener] {
             switch notifyType {
             case .HistoryUpdated:
-                sickbeardListener.sickbeardHistoryUpdated()
+                listener.sickbeardHistoryUpdated()
             }
         }
     }
