@@ -33,7 +33,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.selectedViewController != nil {
+        if self.selectedViewController == nil {
             selectViewController(self.viewControllers?.first)
         }
     }
