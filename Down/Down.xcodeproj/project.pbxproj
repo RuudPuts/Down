@@ -918,7 +918,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "adeacf0d-cd57-4bac-89e1-03c13cb1438d";
+				PROVISIONING_PROFILE = "00cb72b6-3f9c-4d08-aa52-2994a5a799cd";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
