@@ -36,7 +36,7 @@ class SabNZBdService: Service {
         self.queueRefreshRate = queueRefreshRate
         self.historyRefreshRate = historyRefreshRate
         
-        super.init(baseUrl: "http://192.168.178.10:8080/api", apiKey: "49b77b422da54f699a58562f3a1debaa")
+        super.init()
         
         startTimers()
     }
@@ -55,12 +55,18 @@ class SabNZBdService: Service {
     // MARK: - Queue
     
     internal func refreshQueue() {
-        Alamofire.request(.GET, baseUrl, parameters: ["mode": "queue", "output": "json", "apikey": apiKey])
+        let parameters = ["mode": "queue", "output": "json", "apikey": PreferenceManager.sabNZBdApiKey] as [String: String]
+        Alamofire.request(.GET, PreferenceManager.sabNZBdHost, parameters: parameters)
             .responseJSON { (_, _, jsonString, error) in
-                if let json = jsonString as? String {
-                    self.parseQueueJson(JSON(json))
-                    self.notifyListeners(SabNZBDNotifyType.QueueUpdated)
-                    self.refreshCompleted()
+                if error == nil {
+                    if let json = jsonString as? String {
+                        self.parseQueueJson(JSON(json))
+                        self.notifyListeners(SabNZBDNotifyType.QueueUpdated)
+                        self.refreshCompleted()
+                    }
+                }
+                else {
+                    println("Error while fetching SabNZBd queue\n: \(error!)")
                 }
         }
     }
@@ -95,12 +101,18 @@ class SabNZBdService: Service {
     // MARK - History
     
     internal func refreshHistory() {
-        Alamofire.request(.GET, baseUrl, parameters: ["mode": "history", "output": "json", "limit": 20, "apikey": apiKey])
+        let parameters = ["mode": "history", "output": "json", "limit": 20, "apikey": PreferenceManager.sabNZBdApiKey] as [String: AnyObject]
+        Alamofire.request(.GET, PreferenceManager.sabNZBdHost, parameters: parameters)
             .responseJSON { (_, _, jsonString, error) in
-                if let json: AnyObject = jsonString {
-                    self.parseHistoryJson(JSON(json))
-                    self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
-                    self.refreshCompleted()
+                if (error == nil) {
+                    if let json: AnyObject = jsonString {
+                        self.parseHistoryJson(JSON(json))
+                        self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
+                        self.refreshCompleted()
+                    }
+                }
+                else {
+                    println("Error while fetching SabNZBd history: \(error!.description)")
                 }
         }
     }

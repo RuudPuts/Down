@@ -16,10 +16,10 @@ class SickbeardService: Service {
         case HistoryUpdated
     }
    
-    init() {
+    override init() {
         self.history = Array<SickbeardHistoryItem>()
         
-        super.init(baseUrl: "http://192.168.178.10:8081/api", apiKey: "e9c3be0f3315f09d7ceae37f1d3836cd")
+        super.init()
         
         refreshHistory()
     }
@@ -40,7 +40,7 @@ class SickbeardService: Service {
     // MARK: - History
     
     private func refreshHistory() {
-        let url = baseUrl + "/" + apiKey
+        let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey
         Alamofire.request(.GET, url, parameters: ["cmd": "history", "limit": "40"])
             .responseJSON { (_, _, jsonString, error) in
                 if let json: AnyObject = jsonString {

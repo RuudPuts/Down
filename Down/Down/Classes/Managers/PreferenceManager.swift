@@ -11,16 +11,22 @@ import Foundation
 class PreferenceManager {
     
     struct PreferenceKeys {
-        static let sabNZBdBaseUrl = "SabNZBdBaseUrl"
-        static let sabNZBdApiKey = "SabNZBdBaseApiKey"
+        static let sabNZBdHost = "SabNZBdHost"
+        static let sabNZBdApiKey = "SabNZBdApiKey"
+        
+        static let sickbeardHost = "SickbeardHost"
+        static let sickbeardApiKey = "SickbeardApiKey"
+        
+        static let couchPotatoHost = "CouchPotatoHost"
+        static let couchPotatoApiKey = "CouchPotatoApiKey"
     }
     
-    class var sabNZBdBaseUrl: String {
+    class var sabNZBdHost: String {
         get {
-            return getPreference(PreferenceKeys.sabNZBdBaseUrl) as! String!
+            return cleanupHost(getPreference(PreferenceKeys.sabNZBdHost) as! String!) + "/api"
         }
         set {
-            setPreference(object:newValue, forKey:PreferenceKeys.sabNZBdBaseUrl)
+            setPreference(object:newValue, forKey:PreferenceKeys.sabNZBdHost)
         }
     }
     
@@ -29,17 +35,61 @@ class PreferenceManager {
             return getPreference(PreferenceKeys.sabNZBdApiKey) as! String!
         }
         set {
-            setPreference(object:newValue, forKey:PreferenceKeys.sabNZBdBaseUrl)
+            setPreference(object:newValue, forKey:PreferenceKeys.sabNZBdApiKey)
+        }
+    }
+    
+    class var sickbeardHost: String {
+        get {
+            return cleanupHost(getPreference(PreferenceKeys.sickbeardHost) as! String!) + "/api"
+        }
+        set {
+            setPreference(object:newValue, forKey:PreferenceKeys.sickbeardHost)
+        }
+    }
+    
+    class var sickbeardApiKey: String {
+        get {
+            return getPreference(PreferenceKeys.sickbeardApiKey) as! String!
+        }
+        set {
+            setPreference(object:newValue, forKey:PreferenceKeys.sickbeardApiKey)
+        }
+    }
+    
+    class var couchPotatoHost: String {
+        get {
+            return cleanupHost(getPreference(PreferenceKeys.couchPotatoHost) as! String!)
+        }
+        set {
+            setPreference(object:newValue, forKey:PreferenceKeys.couchPotatoHost)
+        }
+    }
+    
+    class var couchPotatoApiKey: String {
+        get {
+            return getPreference(PreferenceKeys.couchPotatoApiKey) as! String!
+        }
+        set {
+            setPreference(object:newValue, forKey:PreferenceKeys.couchPotatoApiKey)
         }
     }
     
     //MARK: - Private functions
     
-    private class func getPreference(preferenceKey: String) -> AnyObject? {
+    internal class func getPreference(preferenceKey: String) -> AnyObject? {
         return NSUserDefaults.standardUserDefaults().objectForKey(preferenceKey)
     }
     
-    private class func setPreference(#object: String, forKey key:String) {
+    internal class func setPreference(#object: String, forKey key:String) {
         NSUserDefaults.standardUserDefaults().setObject(object, forKey: key)
+    }
+    
+    private class func cleanupHost(host: String) -> String {
+        var cleanedHost = host
+        if host.rangeOfString("http://") == nil {
+            cleanedHost = "http://" + host
+        }
+        return cleanedHost
     }
 }

@@ -10,16 +10,11 @@ import UIKit
 
 class Service: NSObject {
     
-    let baseUrl: String
-    let apiKey: String!
     var lastRefresh: NSDate?
     
     var listeners: [Listener]
     
-    init(baseUrl: String!, apiKey: String!) {
-        self.baseUrl = baseUrl
-        self.apiKey = apiKey
-
+    override init() {
         self.listeners = [Listener]()
     }
     
