@@ -22,7 +22,7 @@ class CouchPotatoService: Service {
         let url = baseUrl + "/" + apiKey + "/media.list"
         Alamofire.request(.GET, url, parameters: ["release_status": "snatched,available", "limit_offset": "20"])
             .responseJSON { (_, _, jsonString, error) in
-                if let json = jsonString as? String {
+                if let json: AnyObject = jsonString {
                     self.parseSnatchedAndAvailable(JSON(json))
                 }
         }

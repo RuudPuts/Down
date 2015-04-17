@@ -54,7 +54,7 @@ class SabNZBdService: Service {
     
     // MARK: - Queue
     
-    private func refreshQueue() {
+    internal func refreshQueue() {
         Alamofire.request(.GET, baseUrl, parameters: ["mode": "queue", "output": "json", "apikey": apiKey])
             .responseJSON { (_, _, jsonString, error) in
                 if let json = jsonString as? String {
@@ -94,10 +94,10 @@ class SabNZBdService: Service {
     
     // MARK - History
     
-    private func refreshHistory() {
+    internal func refreshHistory() {
         Alamofire.request(.GET, baseUrl, parameters: ["mode": "history", "output": "json", "limit": 20, "apikey": apiKey])
             .responseJSON { (_, _, jsonString, error) in
-                if let json = jsonString as? String {
+                if let json: AnyObject = jsonString {
                     self.parseHistoryJson(JSON(json))
                     self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
                     self.refreshCompleted()
@@ -139,7 +139,7 @@ class SabNZBdService: Service {
         else {
             Alamofire.request(.GET, imdbApiUrl, parameters: ["idIMDB": imdbIdentifier, "format": "JSON", "data": "S"])
                 .responseJSON { (_, _, jsonString, error) in
-                    if let json = jsonString as? String {
+                    if let json: AnyObject = jsonString {
                         let title = JSON(json)["title"].string!
                         self.imdbTitleCache[imdbIdentifier] = title
                         completionClosure(title: title)

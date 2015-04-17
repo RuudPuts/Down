@@ -43,7 +43,7 @@ class SickbeardService: Service {
         let url = baseUrl + "/" + apiKey
         Alamofire.request(.GET, url, parameters: ["cmd": "history", "limit": "40"])
             .responseJSON { (_, _, jsonString, error) in
-                if let json = jsonString as? String {
+                if let json: AnyObject = jsonString {
                     self.parseHistoryJson(JSON(json))
                     self.notifyListeners(SickbeardNotifyType.HistoryUpdated)
                     self.refreshCompleted()
