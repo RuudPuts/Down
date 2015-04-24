@@ -45,7 +45,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         super.viewWillAppear(animated)
         
         self.sabNZBdService.addListener(self)
-        self.sabNZBdService.addListener(self)
+        self.sickbeardService.addListener(self)
     }
     
     override func viewDidDisappear(animated: Bool) {

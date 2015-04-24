@@ -59,14 +59,14 @@ class SabNZBdService: Service {
         Alamofire.request(.GET, PreferenceManager.sabNZBdHost, parameters: parameters)
             .responseJSON { (_, _, jsonString, error) in
                 if error == nil {
-                    if let json = jsonString as? String {
+                    if let json: AnyObject = jsonString {
                         self.parseQueueJson(JSON(json))
                         self.notifyListeners(SabNZBDNotifyType.QueueUpdated)
                         self.refreshCompleted()
                     }
                 }
                 else {
-                    println("Error while fetching SabNZBd queue\n: \(error!)")
+                    println("Error while fetching SabNZBd queue: \(error!)")
                 }
         }
     }
