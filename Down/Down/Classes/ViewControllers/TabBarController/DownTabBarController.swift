@@ -98,16 +98,25 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     // MARK: Private methods
     
     private func selectViewController(viewController: UIViewController?) {
-        self.contentView.removeAllSubViews()
         if let selectedViewController = viewController {
-            self.selectedViewController = selectedViewController
-            let tabBarItem = selectedViewController.tabBarItem as! DownTabBarItem!
-            self.collectionView!.backgroundColor = tabBarItem.tintColor
-            
-            selectedViewController.view.frame = self.view.bounds
-            self.contentView!.addSubview(selectedViewController.view)
+            if self.selectedViewController == selectedViewController {
+                if self.selectedViewController is UINavigationController {
+                    let navigationController = self.selectedViewController as! UINavigationController
+                    navigationController.popToRootViewControllerAnimated(true)
+                }
+            }
+            else {
+                self.contentView.removeAllSubViews()
+                self.selectedViewController = selectedViewController
+                let tabBarItem = selectedViewController.tabBarItem as! DownTabBarItem!
+                self.collectionView!.backgroundColor = tabBarItem.tintColor
+                
+                selectedViewController.view.frame = self.view.bounds
+                self.contentView!.addSubview(selectedViewController.view)
+            }
         }
         else {
+            self.contentView.removeAllSubViews()
             self.collectionView.backgroundColor = UIColor.whiteColor()
         }
     }

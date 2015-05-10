@@ -118,8 +118,6 @@ class SabNZBdService: Service {
     }
     
     private func parseHistoryJson(json: JSON!) {
-        var history: Array<SABHistoryItem> = Array<SABHistoryItem>()
-        
         for (index: String, jsonJob: JSON) in json["history"]["slots"] {
             let identifier = jsonJob["nzo_id"].string!
             let title = jsonJob["name"].string!
@@ -129,17 +127,31 @@ class SabNZBdService: Service {
             let statusDescription = jsonJob["status"].string!
             let actionLine = jsonJob["action_line"].string!
             
-            let historyItem: SABHistoryItem = SABHistoryItem(identifier, title, filename, category, size, statusDescription, actionLine)
-            history.append(historyItem)
-            
-            if let imdbIdentifier = historyItem.imdbIdentifier as String! {
-                fetchTitleFromIMDB(imdbIdentifier, completionClosure: { (title) -> () in
-                    historyItem.imdbTitle = title
-                })
+            var item = findHistoryItem(identifier)
+            if item == nil {
+                let historyItem: SABHistoryItem = SABHistoryItem(identifier, title, filename, category, size, statusDescription, actionLine)
+                self.history.append(historyItem)
+                
+                if let imdbIdentifier = historyItem.imdbIdentifier as String! {
+                    fetchTitleFromIMDB(imdbIdentifier, completionClosure: { (title) -> () in
+                        historyItem.imdbTitle = title
+                    })
+                }
+            }
+        }
+    }
+    
+    private func findHistoryItem(imdbIdentifier: String) -> SABHistoryItem? {
+        var historyItem: SABHistoryItem?
+        
+        for item in history {
+            if equal(item.identifier, imdbIdentifier) {
+                historyItem = item
+                break
             }
         }
         
-        self.history = history
+        return historyItem
     }
     
     // MARK - IMDB

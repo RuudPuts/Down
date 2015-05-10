@@ -45,7 +45,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         super.viewWillAppear(animated)
         
         self.sabNZBdService.addListener(self)
-        self.sabNZBdService.addListener(self)
+        self.sickbeardService.addListener(self)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -130,7 +130,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
             numberOfRows = sabNZBdService.queue.count
         }
         else {
-            numberOfRows = sabNZBdService.history.count
+            numberOfRows = min(sabNZBdService.history.count, 20)
             if (!sabNZBdService.history.isEmpty) {
                 numberOfRows += 1
             }
@@ -241,6 +241,15 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         }
         
         return cell;
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 1 && indexPath.row == serviceManager.sabNZBdService.history.count {
+            var historyViewController = SabNZBdHistoryViewController()
+            self.navigationController!.pushViewController(historyViewController, animated: true)
+        }
+        
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     // MARK: - SabNZBdListener
