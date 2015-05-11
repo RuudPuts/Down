@@ -18,6 +18,7 @@ class SabNZBdService: Service {
     
     var queue = Array<SABQueueItem>()
     var history = Array<SABHistoryItem>()
+    var historySize: Int?
     
     var currentSpeed: Float?
     var timeRemaining: String?
@@ -30,6 +31,7 @@ class SabNZBdService: Service {
     enum SabNZBDNotifyType {
         case QueueUpdated
         case HistoryUpdated
+        case FullHistoryFetched
     }
    
     init(queueRefreshRate: NSTimeInterval, historyRefreshRate: NSTimeInterval) {
@@ -117,6 +119,46 @@ class SabNZBdService: Service {
         }
     }
     
+    private var isFetchingHistory = false
+    var fullHistoryFetched: Bool {
+        get {
+            return self.historySize == self.history.count
+        }
+    }
+    internal func fetchHistory() {
+        // Don't fetch if already fetching
+        if isFetchingHistory || fullHistoryFetched {
+            if fullHistoryFetched {
+                println("Full history fetched")
+            }
+            else {
+                println("Already busy, skipping history fetch")
+            }
+            return
+        }
+        
+        let parameters = ["mode": "history", "output": "json", "start": self.history.count, "limit": 20, "apikey": PreferenceManager.sabNZBdApiKey] as [String: AnyObject]
+        Alamofire.request(.GET, PreferenceManager.sabNZBdHost, parameters: parameters)
+            .responseJSON { (_, _, jsonString, error) in
+                if (error == nil) {
+                    if let json: AnyObject = jsonString {
+                        self.parseHistoryJson(JSON(json))
+                        self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
+                        self.refreshCompleted()
+                        
+                        if self.fullHistoryFetched {
+                            self.notifyListeners(SabNZBDNotifyType.FullHistoryFetched)
+                        }
+                    }
+                }
+                else {
+                    println("Error while fetching SabNZBd history: \(error!.description)")
+                }
+                self.isFetchingHistory = false
+        }
+        isFetchingHistory = true
+    }
+    
     private func parseHistoryJson(json: JSON!) {
         for (index: String, jsonJob: JSON) in json["history"]["slots"] {
             let identifier = jsonJob["nzo_id"].string!
@@ -139,6 +181,9 @@ class SabNZBdService: Service {
                 }
             }
         }
+        
+        // Parse history size
+        self.historySize = json["history"]["noofslots"].int!
     }
     
     private func findHistoryItem(imdbIdentifier: String) -> SABHistoryItem? {
@@ -179,9 +224,11 @@ class SabNZBdService: Service {
             
             switch notifyType {
             case .QueueUpdated:
-                listener.sabNZBdQueueUpdated()
+                listener.sabNZBdQueueUpdated?()
             case .HistoryUpdated:
-                listener.sabNZBdHistoryUpdated()
+                listener.sabNZBdHistoryUpdated?()
+            case .FullHistoryFetched:
+                listener.sabNZBDFullHistoryFetched?()
             }
         }
     }
