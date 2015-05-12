@@ -123,4 +123,11 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
         self.tableView.reloadData()
     }
     
+    // MARK: - Button handlers
+    
+    
+    @IBAction func backButtonPressed(sender: UIButton) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
 }

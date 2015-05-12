@@ -7,9 +7,6 @@
         <mutableArray key="OpenSans-Bold.ttf">
             <string>OpenSans-Bold</string>
         </mutableArray>
-        <mutableArray key="OpenSans-Regular.ttf">
-            <string>OpenSans</string>
-        </mutableArray>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SabNZBdHistoryViewController" customModule="Down" customModuleProvider="target">
@@ -43,21 +40,10 @@
                             <state key="normal" image="back-icon">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="backButtonPressed:" destination="-1" eventType="touchUpInside" id="9BU-SB-z7x"/>
+                            </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SabNZBd" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pbz-RA-73K" userLabel="TitleLabel">
-                            <rect key="frame" x="34" y="14" width="69" height="22"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="21" id="jXA-T7-ZAm"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="jXA-T7-ZAm"/>
-                                </mask>
-                            </variation>
-                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWR-1g-c7B" userLabel="TitleLabel">
                             <rect key="frame" x="167" y="10" width="81" height="30"/>
                             <constraints>
@@ -72,16 +58,29 @@
                                 </mask>
                             </variation>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkq-K0-mz7">
+                            <rect key="frame" x="-266" y="17" width="75" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="SbW-RG-7CF"/>
+                                <constraint firstAttribute="width" constant="75" id="zP4-8F-ioX"/>
+                            </constraints>
+                            <state key="normal" image="sabnzbd-icon">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="backButtonPressed:" destination="-1" eventType="touchUpInside" id="kT5-4a-Ucx"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.76078431369999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="gkq-K0-mz7" firstAttribute="leading" secondItem="Lma-Id-gjg" secondAttribute="trailing" constant="-300" id="96E-hl-SLY"/>
+                        <constraint firstAttribute="centerY" secondItem="gkq-K0-mz7" secondAttribute="centerY" constant="-2" id="GFt-Ma-J5q"/>
                         <constraint firstAttribute="centerY" secondItem="AWR-1g-c7B" secondAttribute="centerY" id="Ixl-zt-l4Z"/>
-                        <constraint firstItem="Pbz-RA-73K" firstAttribute="leading" secondItem="Lma-Id-gjg" secondAttribute="trailing" id="Lhf-tM-ikF"/>
                         <constraint firstAttribute="centerX" secondItem="AWR-1g-c7B" secondAttribute="centerX" id="LuJ-C5-pvb"/>
                         <constraint firstAttribute="centerY" secondItem="Lma-Id-gjg" secondAttribute="centerY" id="fiy-SR-5VD"/>
                         <constraint firstAttribute="height" constant="50" id="iB4-zH-k4o"/>
                         <constraint firstItem="Lma-Id-gjg" firstAttribute="leading" secondItem="LgV-ZU-hfc" secondAttribute="leading" constant="4" id="j74-gj-D8i"/>
-                        <constraint firstAttribute="centerY" secondItem="Pbz-RA-73K" secondAttribute="centerY" id="qRo-Pv-xzQ"/>
                     </constraints>
                 </view>
                 <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5OB-SV-Y9M">
@@ -112,5 +111,6 @@
     </objects>
     <resources>
         <image name="back-icon" width="10" height="18"/>
+        <image name="sabnzbd-icon" width="168" height="45"/>
     </resources>
 </document>
