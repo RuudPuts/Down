@@ -19,6 +19,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SabNZBdViewController" customModule="Down" customModuleProvider="target">
             <connections>
+                <outlet property="headerIcon" destination="rG8-7k-qAj" id="Vsp-1a-UGz"/>
+                <outlet property="headerView" destination="sjk-YU-8EI" id="2jO-Ao-zU2"/>
                 <outlet property="mbRemainingLabel" destination="bSj-sB-tlD" id="VMc-yU-YLw"/>
                 <outlet property="speedDescriptionLabel" destination="3s7-Ud-EgW" id="X4V-my-NUR"/>
                 <outlet property="speedLabel" destination="Cj2-MQ-wti" id="Xjs-TH-KhO"/>

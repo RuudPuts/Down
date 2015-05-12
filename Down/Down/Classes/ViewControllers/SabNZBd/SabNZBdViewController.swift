@@ -10,6 +10,9 @@ import UIKit
 
 class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener, SickbeardListener {
     
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerIcon: UIImageView!
+    
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var speedDescriptionLabel: UILabel!
     @IBOutlet weak var timeleftLabel: UILabel!
@@ -44,15 +47,37 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        if animated {
+            animateIcon(true)
+        }
+        
         self.sabNZBdService.addListener(self)
         self.sickbeardService.addListener(self)
     }
+    
+//    override func viewDidAppear(animated: Bool) {
+//        dispatch_after(1, dispatch_get_main_queue()) { () -> Void in
+//            self.animateIcon(false)
+//        }
+//    }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         
         self.sabNZBdService.removeListener(self)
     }
+    
+    private func animateIcon(animateOut: Bool) {
+        self.headerIcon.horizontalCenterConstraint?.constant = UIScreen.mainScreen().bounds.size.width / 2 - 75 / 2 - 32
+        self.headerIcon.widthConstraint?.constant = 75;
+        self.headerIcon.heightConstraint?.constant = 20;
+        
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.headerView.layoutIfNeeded()
+        })
+    }
+    
+    // MARK: - Header widgets
     
     private func updateHeaderWidgets() {
         updateCurrentSpeedWidget()
@@ -246,6 +271,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1 && indexPath.row == serviceManager.sabNZBdService.history.count {
             var historyViewController = SabNZBdHistoryViewController()
+            animateIcon(true)
             self.navigationController!.pushViewController(historyViewController, animated: true)
         }
         

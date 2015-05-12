@@ -59,7 +59,7 @@
                             </variation>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkq-K0-mz7">
-                            <rect key="frame" x="-266" y="17" width="75" height="20"/>
+                            <rect key="frame" x="32" y="17" width="75" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="SbW-RG-7CF"/>
                                 <constraint firstAttribute="width" constant="75" id="zP4-8F-ioX"/>
@@ -74,7 +74,7 @@
                     </subviews>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.76078431369999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="gkq-K0-mz7" firstAttribute="leading" secondItem="Lma-Id-gjg" secondAttribute="trailing" constant="-300" id="96E-hl-SLY"/>
+                        <constraint firstItem="gkq-K0-mz7" firstAttribute="leading" secondItem="Lma-Id-gjg" secondAttribute="trailing" constant="-2" id="96E-hl-SLY"/>
                         <constraint firstAttribute="centerY" secondItem="gkq-K0-mz7" secondAttribute="centerY" constant="-2" id="GFt-Ma-J5q"/>
                         <constraint firstAttribute="centerY" secondItem="AWR-1g-c7B" secondAttribute="centerY" id="Ixl-zt-l4Z"/>
                         <constraint firstAttribute="centerX" secondItem="AWR-1g-c7B" secondAttribute="centerX" id="LuJ-C5-pvb"/>
