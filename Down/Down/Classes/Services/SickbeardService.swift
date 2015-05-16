@@ -10,6 +10,8 @@ import Alamofire
 
 class SickbeardService: Service {
 
+    var refreshTimer: NSTimer?
+    
     var history: Array<SickbeardHistoryItem>!
     
     enum SickbeardNotifyType {
@@ -20,6 +22,13 @@ class SickbeardService: Service {
         self.history = Array<SickbeardHistoryItem>()
         
         super.init()
+        
+        startTimers()
+    }
+    
+    private func startTimers() {
+        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self,
+            selector: Selector("refreshHistory"), userInfo: nil, repeats: true)
         
         refreshHistory()
     }
@@ -39,7 +48,7 @@ class SickbeardService: Service {
     
     // MARK: - History
     
-    private func refreshHistory() {
+    internal func refreshHistory() {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey
         Alamofire.request(.GET, url, parameters: ["cmd": "history", "limit": "40"])
             .responseJSON { (_, _, jsonString, error) in
