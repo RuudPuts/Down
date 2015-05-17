@@ -10,6 +10,8 @@ import Foundation
 
 class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
+    @IBOutlet weak var backButton: UIButton!
+    
     weak var sabNZBdService: SabNZBdService!
     
     convenience init() {
@@ -29,6 +31,10 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
         
         let itemCellNib = UINib(nibName: "SABItemCell", bundle:nil)
         tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SABItemCell")
+        
+        var sabIconView = UIImageView(frame: CGRectMake(22, 6, 75, 20))
+        sabIconView.image = UIImage(named: "sabnzbd-icon")
+        backButton.addSubview(sabIconView)
     }
     
     override func viewWillAppear(animated: Bool) {
