@@ -42,6 +42,7 @@ class SABHistoryItem: SABItem {
         self.statusDescription = statusDescription
         self.actionLine = actionLine
         self.completionDate = completionDate
+        self.status = stringToStatus(statusDescription)
     }
     
     var hasProgress: Bool! {

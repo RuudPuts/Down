@@ -202,6 +202,11 @@ class SabNZBdService: Service {
         
         // Parse history size
         self.historySize = json["history"]["noofslots"].int!
+        
+        // Sort history by date
+        self.history = sorted(self.history, {
+            return $0.completionDate!.compare($1.completionDate!) == .OrderedDescending
+        })
     }
     
     private func findHistoryItem(imdbIdentifier: String) -> SABHistoryItem? {
