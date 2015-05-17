@@ -82,7 +82,9 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
             else {
                 var loadingCell = tableView.dequeueReusableCellWithIdentifier("SABLoadingCell", forIndexPath: indexPath) as! SABLoadingCell
                 // For some reason this has to be called all the time
-                loadingCell.activityIndicator.startAnimating()
+                if !loadingCell.activityIndicator.isAnimating() {
+                    loadingCell.activityIndicator.startAnimating()
+                }
                 cell = loadingCell
             }
         }

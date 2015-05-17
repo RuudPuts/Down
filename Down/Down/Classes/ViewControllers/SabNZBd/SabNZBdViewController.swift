@@ -210,7 +210,9 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
             else {
                 var loadingCell = tableView.dequeueReusableCellWithIdentifier("SABLoadingCell", forIndexPath: indexPath) as! SABLoadingCell
                 // For some reason this has to be called all the time
-                loadingCell.activityIndicator.startAnimating()
+                if !loadingCell.activityIndicator.isAnimating() {
+                    loadingCell.activityIndicator.startAnimating()
+                }
                 cell = loadingCell
             }
         }
@@ -235,7 +237,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 && indexPath.row == serviceManager.sabNZBdService.history.count {
+        if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
             var historyViewController = SabNZBdHistoryViewController()
             self.navigationController!.pushViewController(historyViewController, animated: true)
         }
