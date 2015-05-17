@@ -222,6 +222,18 @@ class SabNZBdService: Service {
         return historyItem
     }
     
+    // MARK - Delete items
+    
+    internal func deleteItem(item: SABItem) {
+        var mode = "queue"
+        if item.isMemberOfClass(SABHistoryItem) {
+            mode = "history"
+        }
+        
+        let parameters = ["mode": mode, "name": "delete", "value": item.identifier, "apikey": PreferenceManager.sabNZBdApiKey] as [String: AnyObject]
+        Alamofire.request(.GET, PreferenceManager.sabNZBdHost, parameters: parameters)
+    }
+    
     // MARK - IMDB
     
     private func fetchTitleFromIMDB(imdbIdentifier: String, completionClosure: (title: String) ->()) {

@@ -117,6 +117,19 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
         }
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .Delete
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        var item: SABHistoryItem = sabNZBdService.history[indexPath.row]
+        sabNZBdService.deleteItem(item)
+    }
+    
     // MARK: - SabNZBdListener
     
     func sabNZBdQueueUpdated() {

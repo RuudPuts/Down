@@ -245,6 +245,25 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .Delete
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        var item: SABItem
+        if indexPath.section == 0 {
+            item = sabNZBdService.queue[indexPath.row]
+        }
+        else {
+            item = sabNZBdService.history[indexPath.row]
+        }
+        sabNZBdService.deleteItem(item)
+    }
+    
     // MARK: - SabNZBdListener
     
     func sabNZBdQueueUpdated() {
