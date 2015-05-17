@@ -53,9 +53,14 @@ class SickbeardService: Service {
         Alamofire.request(.GET, url, parameters: ["cmd": "history", "limit": "40"])
             .responseJSON { (_, _, jsonString, error) in
                 if let json: AnyObject = jsonString {
-                    self.parseHistoryJson(JSON(json))
-                    self.notifyListeners(SickbeardNotifyType.HistoryUpdated)
-                    self.refreshCompleted()
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                        self.parseHistoryJson(JSON(json))
+                        self.refreshCompleted()
+                        
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.notifyListeners(SickbeardNotifyType.HistoryUpdated)
+                        })
+                    })
                 }
         }
     }

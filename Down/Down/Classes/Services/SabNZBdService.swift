@@ -62,9 +62,14 @@ class SabNZBdService: Service {
             .responseJSON { (_, _, jsonString, error) in
                 if error == nil {
                     if let json: AnyObject = jsonString {
-                        self.parseQueueJson(JSON(json))
-                        self.notifyListeners(SabNZBDNotifyType.QueueUpdated)
-                        self.refreshCompleted()
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                            self.parseQueueJson(JSON(json))
+                            self.refreshCompleted()
+                            
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                self.notifyListeners(SabNZBDNotifyType.QueueUpdated)
+                            })
+                        })
                     }
                 }
                 else {
@@ -108,9 +113,14 @@ class SabNZBdService: Service {
             .responseJSON { (_, _, jsonString, error) in
                 if (error == nil) {
                     if let json: AnyObject = jsonString {
-                        self.parseHistoryJson(JSON(json))
-                        self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
-                        self.refreshCompleted()
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                            self.parseHistoryJson(JSON(json))
+                            self.refreshCompleted()
+                            
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
+                            })
+                        })
                     }
                 }
                 else {
@@ -142,13 +152,18 @@ class SabNZBdService: Service {
             .responseJSON { (_, _, jsonString, error) in
                 if (error == nil) {
                     if let json: AnyObject = jsonString {
-                        self.parseHistoryJson(JSON(json))
-                        self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
-                        self.refreshCompleted()
-                        
-                        if self.fullHistoryFetched {
-                            self.notifyListeners(SabNZBDNotifyType.FullHistoryFetched)
-                        }
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                            self.parseHistoryJson(JSON(json))
+                            self.refreshCompleted()
+                            
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                self.notifyListeners(SabNZBDNotifyType.HistoryUpdated)
+                                
+                                if self.fullHistoryFetched {
+                                    self.notifyListeners(SabNZBDNotifyType.FullHistoryFetched)
+                                }
+                            })
+                        })
                     }
                 }
                 else {
