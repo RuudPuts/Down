@@ -75,7 +75,7 @@ class SABItemCell: UITableViewCell {
             
             var hideProgressBar = true
             var progress = 0 as Float
-            if (_historyItem != nil && _historyItem!.hasProgress!) {
+            if _historyItem?.hasProgress ?? false {
                 progress = _historyItem!.progress / 100
                 hideProgressBar = false
             }
@@ -95,10 +95,12 @@ class SABItemCell: UITableViewCell {
             }
             
             var statusText = ""
-            if let completionDate = _historyItem?.completionDate {
-                var dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-                statusText = dateFormatter.stringFromDate(completionDate)
+            if _historyItem != nil && (_historyItem!.status == .Finished || _historyItem!.status == .Failed) {
+                if let completionDate = _historyItem?.completionDate {
+                    var dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+                    statusText = dateFormatter.stringFromDate(completionDate)
+                }
             }
             statusLabel.text = statusText
             categoryLabel.text = _historyItem?.category

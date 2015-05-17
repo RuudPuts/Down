@@ -182,11 +182,7 @@ class SabNZBdService: Service {
             let statusDescription = jsonJob["status"].string!
             let actionLine = jsonJob["action_line"].string!
             let completedTimestamp = jsonJob["completed"].int
-            
-            var completedDate: NSDate? = nil
-            if let interval: Int = completedTimestamp {
-                completedDate = NSDate(timeIntervalSince1970: NSTimeInterval(interval))
-            }
+            var completedDate = NSDate(timeIntervalSince1970: NSTimeInterval(completedTimestamp!))
             
             var item = findHistoryItem(identifier)
             if item == nil {
@@ -200,7 +196,7 @@ class SabNZBdService: Service {
                 }
             }
             else {
-                item!.update(category, statusDescription, actionLine)
+                item!.update(category, statusDescription, actionLine, completedDate)
             }
         }
         
