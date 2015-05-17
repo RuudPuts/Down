@@ -94,7 +94,13 @@ class SABItemCell: UITableViewCell {
                 }
             }
             
-            statusLabel.text = _historyItem?.size
+            var statusText = ""
+            if let completionDate = _historyItem?.completionDate {
+                var dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+                statusText = dateFormatter.stringFromDate(completionDate)
+            }
+            statusLabel.text = statusText
             categoryLabel.text = _historyItem?.category
         }
         get {

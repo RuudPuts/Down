@@ -105,23 +105,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     private func updateMbRemainingWidget() {
-        var remainingSize = self.sabNZBdService.mbLeft as Float!
-            var remainingSizeDisplay = "MB"
-            if (remainingSize < 0) {
-                remainingSize = remainingSize * 1024
-                remainingSizeDisplay = "KB"
-            }
-            else if (remainingSize > 1024) {
-                remainingSize = remainingSize / 1024
-                remainingSizeDisplay = "GB"
-            }
-        
-        if (remainingSize > 0) {
-            self.mbRemainingLabel!.text = String(format: "%.1f%@", remainingSize, remainingSizeDisplay)
-        }
-        else {
-            self.mbRemainingLabel!.text = String(format: "%.0f%@", remainingSize, remainingSizeDisplay)
-        }
+        self.mbRemainingLabel!.text = String(fromMB: self.sabNZBdService.mbLeft!)
     }
     
     // MARK: - TableView datasource

@@ -14,6 +14,7 @@ class SABHistoryItem: SABItem {
     let size: String!
     let actionLine: String?
     var status: SABHistoryItemStatus?
+    let completionDate: NSDate?
     
     internal enum SABHistoryItemStatus {
         case Queued
@@ -25,10 +26,11 @@ class SABHistoryItem: SABItem {
         case Finished
     }
     
-    init(_ identifier: String, _ title: String, _ filename: String, _ category: String, _ size: String, _ statusDescription: String, _ actionLine: String) {
+    init(_ identifier: String, _ title: String, _ filename: String, _ category: String, _ size: String, _ statusDescription: String, _ actionLine: String, _ completionDate: NSDate?) {
         self.size = size
         self.title = title
         self.actionLine = actionLine
+        self.completionDate = completionDate
         
         super.init(identifier, filename, category, statusDescription)
         

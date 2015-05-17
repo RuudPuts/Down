@@ -89,11 +89,9 @@ class SabNZBdService: Service {
             let statusDescription = jsonJob["status"].string!
             let totalMb = jsonJob["mb"].string!.floatValue
             let remainingMb = jsonJob["mbleft"].string!.floatValue
-            let totalSize = jsonJob["size"].string!
-            let sizeLeft = jsonJob["sizeleft"].string!
             let timeRemaining = jsonJob["timeleft"].string!
             let progress = jsonJob["percentage"].string!.floatValue
-            queue.append(SABQueueItem(identifier, filename, category, statusDescription, totalMb, remainingMb, totalSize, sizeLeft, progress, timeRemaining))
+            queue.append(SABQueueItem(identifier, filename, category, statusDescription, totalMb, remainingMb, progress, timeRemaining))
         }
         
         self.queue = queue
@@ -183,10 +181,16 @@ class SabNZBdService: Service {
             let size = jsonJob["size"].string!
             let statusDescription = jsonJob["status"].string!
             let actionLine = jsonJob["action_line"].string!
+            let completedTimestamp = jsonJob["completed"].int
+            
+            var completedDate: NSDate? = nil
+            if let interval: Int = completedTimestamp {
+                completedDate = NSDate(timeIntervalSince1970: NSTimeInterval(interval))
+            }
             
             var item = findHistoryItem(identifier)
             if item == nil {
-                let historyItem: SABHistoryItem = SABHistoryItem(identifier, title, filename, category, size, statusDescription, actionLine)
+                let historyItem: SABHistoryItem = SABHistoryItem(identifier, title, filename, category, size, statusDescription, actionLine, completedDate)
                 self.history.append(historyItem)
                 
                 if let imdbIdentifier = historyItem.imdbIdentifier as String! {

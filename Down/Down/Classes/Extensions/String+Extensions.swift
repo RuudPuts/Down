@@ -28,4 +28,23 @@ extension String {
     func toFloat() -> Float? {
         return floatValue
     }
+    
+    init(var fromMB size: Float) {
+        var sizeDisplay = "MB"
+        if (size < 0) {
+            size = size * 1024
+            sizeDisplay = "KB"
+        }
+        else if (size > 1024) {
+            size = size / 1024
+            sizeDisplay = "GB"
+        }
+        
+        if (size > 0) {
+            self = String(format: "%.1f%@", size, sizeDisplay)
+        }
+        else {
+            self = String(format: "%.0f%@", size, sizeDisplay)
+        }
+    }
 }

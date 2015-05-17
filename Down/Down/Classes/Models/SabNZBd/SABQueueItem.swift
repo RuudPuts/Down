@@ -12,8 +12,6 @@ class SABQueueItem: SABItem {
     
     let totalMb: Float!
     let remainingMb: Float!
-    let sizeLeft: String!
-    let totalSize: String!
     let timeRemaining: String!
     let progress: Float!
     var status: SABQueueItemStatus!
@@ -25,12 +23,10 @@ class SABQueueItem: SABItem {
         case Downloaded
     }
     
-    init(_ identifier: String, _ filename: String, _ category: String, _ statusDescription: String, _ totalMb: Float, _ remainingMb: Float, _ totalSize: String, _ sizeLeft: String, _ progress: Float, _ timeRemaining: String) {
+    init(_ identifier: String, _ filename: String, _ category: String, _ statusDescription: String, _ totalMb: Float, _ remainingMb: Float, _ progress: Float, _ timeRemaining: String) {
         self.timeRemaining = timeRemaining
         self.totalMb = totalMb
         self.remainingMb = remainingMb
-        self.sizeLeft = sizeLeft
-        self.totalSize = totalSize
         self.progress = progress
         
         super.init(identifier, filename, category, statusDescription)
@@ -53,9 +49,9 @@ class SABQueueItem: SABItem {
         case .Downloaded:
             progressString = "Finished"
         case .Queued:
-            progressString = self.totalSize
+            progressString = String(fromMB:self.totalMb)
         case .Downloading:
-            progressString = String(format: "%@ / %@", self.sizeLeft, self.totalSize);
+            progressString = String(format: "%@ / %@", String(fromMB:self.totalMb - self.remainingMb), String(fromMB:self.totalMb));
         default:
             progressString = ""
         }
