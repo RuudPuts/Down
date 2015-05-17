@@ -199,6 +199,9 @@ class SabNZBdService: Service {
                     })
                 }
             }
+            else {
+                item!.update(category, statusDescription, actionLine)
+            }
         }
         
         // Parse history size

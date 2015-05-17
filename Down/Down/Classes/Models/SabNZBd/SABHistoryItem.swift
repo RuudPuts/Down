@@ -12,7 +12,7 @@ class SABHistoryItem: SABItem {
     
     let title: String!
     let size: String!
-    let actionLine: String?
+    var actionLine: String?
     var status: SABHistoryItemStatus?
     let completionDate: NSDate?
     
@@ -35,6 +35,12 @@ class SABHistoryItem: SABItem {
         super.init(identifier, filename, category, statusDescription)
         
         self.status = stringToStatus(statusDescription)
+    }
+    
+    internal func update(category: String, _ statusDescription: String, _ actionLine: String) {
+        self.category = category
+        self.statusDescription = statusDescription
+        self.actionLine = actionLine
     }
     
     var hasProgress: Bool! {
