@@ -4,8 +4,8 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="OpenSans-Bold.ttf">
-            <string>OpenSans-Bold</string>
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -37,7 +37,7 @@
                                 <constraint firstAttribute="width" constant="30" id="84O-Rp-dcb"/>
                                 <constraint firstAttribute="height" constant="30" id="UdL-sO-x7J"/>
                             </constraints>
-                            <state key="normal" image="back-icon">
+                            <state key="normal" image="back">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -45,11 +45,11 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWR-1g-c7B" userLabel="TitleLabel">
-                            <rect key="frame" x="167" y="10" width="81" height="30"/>
+                            <rect key="frame" x="170" y="8" width="74" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="EBS-fp-qqH"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="22"/>
+                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="22"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                             <variation key="default">
@@ -59,7 +59,7 @@
                             </variation>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkq-K0-mz7">
-                            <rect key="frame" x="32" y="17" width="75" height="20"/>
+                            <rect key="frame" x="31" y="17" width="75" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="SbW-RG-7CF"/>
                                 <constraint firstAttribute="width" constant="75" id="zP4-8F-ioX"/>
@@ -74,9 +74,9 @@
                     </subviews>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.76078431369999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="gkq-K0-mz7" firstAttribute="leading" secondItem="Lma-Id-gjg" secondAttribute="trailing" constant="-2" id="96E-hl-SLY"/>
+                        <constraint firstItem="gkq-K0-mz7" firstAttribute="leading" secondItem="Lma-Id-gjg" secondAttribute="trailing" constant="-3" id="96E-hl-SLY"/>
                         <constraint firstAttribute="centerY" secondItem="gkq-K0-mz7" secondAttribute="centerY" constant="-2" id="GFt-Ma-J5q"/>
-                        <constraint firstAttribute="centerY" secondItem="AWR-1g-c7B" secondAttribute="centerY" id="Ixl-zt-l4Z"/>
+                        <constraint firstAttribute="centerY" secondItem="AWR-1g-c7B" secondAttribute="centerY" constant="2" id="Ixl-zt-l4Z"/>
                         <constraint firstAttribute="centerX" secondItem="AWR-1g-c7B" secondAttribute="centerX" id="LuJ-C5-pvb"/>
                         <constraint firstAttribute="centerY" secondItem="Lma-Id-gjg" secondAttribute="centerY" id="fiy-SR-5VD"/>
                         <constraint firstAttribute="height" constant="50" id="iB4-zH-k4o"/>
@@ -110,7 +110,7 @@
         </view>
     </objects>
     <resources>
-        <image name="back-icon" width="10" height="18"/>
+        <image name="back" width="10" height="16"/>
         <image name="sabnzbd-icon" width="168" height="45"/>
     </resources>
 </document>
