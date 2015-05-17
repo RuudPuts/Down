@@ -21,6 +21,8 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     weak var sabNZBdService: SabNZBdService!
     weak var sickbeardService: SickbeardService!
     
+    private let kMaxHistoryDisplayCount = 20
+    
     convenience init() {
         self.init(nibName: "SabNZBdViewController", bundle: nil)
         
@@ -155,7 +157,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
             numberOfRows = sabNZBdService.queue.count
         }
         else {
-            numberOfRows = min(sabNZBdService.history.count, 20)
+            numberOfRows = min(sabNZBdService.history.count, kMaxHistoryDisplayCount)
             if (!sabNZBdService.history.isEmpty) {
                 numberOfRows += 1
             }
@@ -248,7 +250,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
                 cell = loadingCell
             }
         }
-        else if indexPath.section == 1 && indexPath.row == serviceManager.sabNZBdService.history.count {
+        else if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
             var historyCell = tableView.dequeueReusableCellWithIdentifier("SABMoreHistoryCell", forIndexPath: indexPath) as! SABMoreHistoryCell
             cell = historyCell
         }
