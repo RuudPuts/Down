@@ -86,11 +86,11 @@ class SABItemCell: UITableViewCell {
             if let historyItem = _historyItem {
                 switch (historyItem.status!) {
                 case .Finished:
-                    progressLabel.textColor = UIColor.downGreenColor()
+                    progressLabel.textColor = .downGreenColor()
                 case .Failed:
-                    progressLabel.textColor = UIColor.downRedColor()
+                    progressLabel.textColor = .downRedColor()
                 default:
-                    progressLabel.textColor = UIColor.whiteColor()
+                    progressLabel.textColor = .whiteColor()
                 }
             }
             
@@ -117,7 +117,7 @@ class SABItemCell: UITableViewCell {
             self.containerView.backgroundColor = UIColor.downSabNZBdColor().colorWithAlphaComponent(0.15)
         }
         else {
-            self.containerView.backgroundColor = UIColor.downLightGreyColor()
+            self.containerView.backgroundColor = .downLightGreyColor()
         }
     }
 
