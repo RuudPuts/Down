@@ -78,8 +78,6 @@
 		42CD25551AB5BD06008E9717 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD253B1AB5BD06008E9717 /* Roboto-Thin.ttf */; };
 		42CD25561AB5BD06008E9717 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD253C1AB5BD06008E9717 /* Roboto-ThinItalic.ttf */; };
 		42CD255F1AB5C06D008E9717 /* SABItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CD255D1AB5C06D008E9717 /* SABItemCell.swift */; };
-		42D154EC1AD4485F00778713 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D154EA1AD4485F00778713 /* Alamofire.framework */; };
-		42D154F11AD4495B00778713 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D154F01AD4495B00778713 /* SwiftyJSON.swift */; };
 		42D154F61AD4505400778713 /* DownTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D154F51AD4505400778713 /* DownTabBarController.swift */; };
 		42D154FB1AD453D100778713 /* DownTabBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D154FA1AD453D100778713 /* DownTabBarController.xib */; };
 		42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */; };
@@ -198,8 +196,6 @@
 		42CD253B1AB5BD06008E9717 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		42CD253C1AB5BD06008E9717 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
 		42CD255D1AB5C06D008E9717 /* SABItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABItemCell.swift; sourceTree = "<group>"; };
-		42D154EA1AD4485F00778713 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../../../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		42D154F01AD4495B00778713 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../../../Carthage/Checkouts/SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		42D154F51AD4505400778713 /* DownTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarController.swift; sourceTree = "<group>"; };
 		42D154FA1AD453D100778713 /* DownTabBarController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownTabBarController.xib; sourceTree = "<group>"; };
 		42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
@@ -235,7 +231,6 @@
 				428CF7231AE1997A007F3E54 /* CoreGraphics.framework in Frameworks */,
 				428CF7211AE19973007F3E54 /* Foundation.framework in Frameworks */,
 				428CF71F1AE1996B007F3E54 /* libc++.dylib in Frameworks */,
-				42D154EC1AD4485F00778713 /* Alamofire.framework in Frameworks */,
 				428CF7031AE19779007F3E54 /* Instabug.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -510,8 +505,6 @@
 		428CF6FE1AE19779007F3E54 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				42D154EA1AD4485F00778713 /* Alamofire.framework */,
-				42D154F01AD4495B00778713 /* SwiftyJSON.swift */,
 				428CF6FF1AE19779007F3E54 /* Instabug */,
 			);
 			path = Dependencies;
@@ -841,7 +834,6 @@
 				42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */,
 				425854231AD5B27F00D8C106 /* SickbeardHistoryItem.swift in Sources */,
 				4253E80F1AB4B84C00EF1254 /* ViewController.swift in Sources */,
-				42D154F11AD4495B00778713 /* SwiftyJSON.swift in Sources */,
 				4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */,
 				42D154F61AD4505400778713 /* DownTabBarController.swift in Sources */,
 				42670EF71ADDAB44006341EA /* SABMoreHistoryCell.swift in Sources */,
@@ -976,9 +968,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SOURCE_ROOT}/../Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Down/Dependencies/Instabug",
-					/Users/Ruud/Documents/RuudPuts/Down/Carthage/Build/iOS,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -996,9 +986,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SOURCE_ROOT}/../Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Down/Dependencies/Instabug",
-					/Users/Ruud/Documents/RuudPuts/Down/Carthage/Build/iOS,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1086,9 +1074,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SOURCE_ROOT}/../Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Down/Dependencies/Instabug",
-					/Users/Ruud/Documents/RuudPuts/Down/Carthage/Build/iOS,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
