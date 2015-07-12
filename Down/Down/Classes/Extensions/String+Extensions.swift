@@ -14,7 +14,7 @@ extension String {
     }
     
     var length: Int {
-        return count(self.utf16)
+        return self.utf16.count
     }
     
     var fullNSRange: NSRange {

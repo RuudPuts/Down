@@ -168,7 +168,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var headerView = (NSBundle.mainBundle().loadNibNamed("SABHeaderView", owner: self, options: nil) as Array).first as! SABHeaderView
+        let headerView = (NSBundle.mainBundle().loadNibNamed("SABHeaderView", owner: self, options: nil) as Array).first as! SABHeaderView
 
         if section == 0 {
             headerView.imageView.image = UIImage(named: "queue-icon")
@@ -200,15 +200,15 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         let sabNZBdService = self.serviceManager.sabNZBdService
         if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if sabNZBdService.lastRefresh != nil {
-                var emptyCell = tableView.dequeueReusableCellWithIdentifier("SABEmptyCell", forIndexPath: indexPath) as! SABEmptyCell
+                let emptyCell = tableView.dequeueReusableCellWithIdentifier("SABEmptyCell", forIndexPath: indexPath) as! SABEmptyCell
                 
-                var sectionTitle = self.tableView(tableView, titleForHeaderInSection: indexPath.section)!.lowercaseString
+                let sectionTitle = self.tableView(tableView, titleForHeaderInSection: indexPath.section)!.lowercaseString
                 emptyCell.label.text = "Your \(sectionTitle) is empty."
                 
                 cell = emptyCell
             }
             else {
-                var loadingCell = tableView.dequeueReusableCellWithIdentifier("SABLoadingCell", forIndexPath: indexPath) as! SABLoadingCell
+                let loadingCell = tableView.dequeueReusableCellWithIdentifier("SABLoadingCell", forIndexPath: indexPath) as! SABLoadingCell
                 // For some reason this has to be called all the time
                 if !loadingCell.activityIndicator.isAnimating() {
                     loadingCell.activityIndicator.startAnimating()
@@ -217,11 +217,11 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
             }
         }
         else if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
-            var historyCell = tableView.dequeueReusableCellWithIdentifier("SABMoreHistoryCell", forIndexPath: indexPath) as! SABMoreHistoryCell
+            let historyCell = tableView.dequeueReusableCellWithIdentifier("SABMoreHistoryCell", forIndexPath: indexPath) as! SABMoreHistoryCell
             cell = historyCell
         }
         else {
-            var itemCell = tableView.dequeueReusableCellWithIdentifier("SABItemCell", forIndexPath: indexPath) as! SABItemCell
+            let itemCell = tableView.dequeueReusableCellWithIdentifier("SABItemCell", forIndexPath: indexPath) as! SABItemCell
             if indexPath.section == 0 {
                 let queueItem: SABQueueItem = sabNZBdService.queue[indexPath.row];
                 itemCell.queueItem = queueItem
@@ -238,7 +238,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
-            var historyViewController = SabNZBdHistoryViewController()
+            let historyViewController = SabNZBdHistoryViewController()
             self.navigationController!.pushViewController(historyViewController, animated: true)
         }
         

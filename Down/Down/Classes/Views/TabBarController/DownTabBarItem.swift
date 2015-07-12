@@ -11,15 +11,21 @@ import UIKit
 class DownTabBarItem: UITabBarItem {
     
     var tintColor: UIColor?
-
+    
     init(title: String?, image: UIImage?, tintColor: UIColor?) {
-        super.init(title: title, image: image, tag: 0)
+        super.init()
         
+        self.title = title
+        self.image = image
         self.tintColor = tintColor
     }
     
     override init() {
         super.init()
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }

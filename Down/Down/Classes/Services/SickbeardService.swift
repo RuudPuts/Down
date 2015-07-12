@@ -49,26 +49,25 @@ class SickbeardService: Service {
     // MARK: - History
     
     internal func refreshHistory() {
-        let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey
-        Alamofire.request(.GET, url, parameters: ["cmd": "history", "limit": "40"])
-            .responseJSON { (_, _, jsonString, error) in
-                if let json: AnyObject = jsonString {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                        self.parseHistoryJson(JSON(json))
-                        self.refreshCompleted()
-                        
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            self.notifyListeners(SickbeardNotifyType.HistoryUpdated)
-                        })
+        let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
+        Alamofire.request(.GET, URLString: url).responseJSON { (_, _, jsonString, error) in
+            if let json: AnyObject = jsonString {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                    self.parseHistoryJson(JSON(json))
+                    self.refreshCompleted()
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.notifyListeners(SickbeardNotifyType.HistoryUpdated)
                     })
-                }
+                })
+            }
         }
     }
     
     private func parseHistoryJson(json: JSON!) {
         var history: Array<SickbeardHistoryItem> = Array<SickbeardHistoryItem>()
         
-        for (index: String, jsonItem: JSON) in json["data"] {
+        for jsonItem: JSON in json["data"].array! {
             let tvdbId = jsonItem["tvdbid"].int!
             let showName = jsonItem["show_name"].string!
             let status = jsonItem["status"].string!

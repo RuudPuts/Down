@@ -41,7 +41,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        for subview in self.contentView.subviews as! [UIView] {
+        for subview in self.contentView.subviews as [UIView] {
             subview.frame = self.contentView.bounds
         }
     }
@@ -74,7 +74,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCell(cellIdentifier, indexPath: indexPath) as! DownTabBarItemCell
+        let cell = collectionView.dequeueReusableCell(cellIdentifier, indexPath: indexPath) as! DownTabBarItemCell
         
         let viewController: UIViewController = _viewControllers![indexPath.row]
         cell.tabBarItem = viewController.tabBarItem as! DownTabBarItem!
@@ -83,8 +83,8 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        var numberOfCells = Float(self.collectionView(collectionView, numberOfItemsInSection: indexPath.section))
-        var width = Float(CGRectGetWidth(self.view.bounds)) / numberOfCells
+        let numberOfCells = Float(self.collectionView(collectionView, numberOfItemsInSection: indexPath.section))
+        let width = Float(CGRectGetWidth(self.view.bounds)) / numberOfCells
         
         return CGSizeMake(CGFloat(width), CGRectGetHeight(collectionView.bounds))
     }

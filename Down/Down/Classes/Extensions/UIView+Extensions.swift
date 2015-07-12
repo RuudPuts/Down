@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     func removeAllSubViews() {
-        for subview: UIView in self.subviews as! [UIView] {
+        for subview: UIView in self.subviews as [UIView] {
             subview.removeFromSuperview()
         }
     }
@@ -61,7 +61,7 @@ extension UIView {
         var foundConstraint: NSLayoutConstraint?
         
         if attribute == .Width || attribute == .Height {
-            for (index, constraint: NSLayoutConstraint) in enumerate(self.constraints() as! [NSLayoutConstraint]) {
+            for constraint: NSLayoutConstraint in self.constraints {
                 if constraint.isMemberOfClass(NSLayoutConstraint) && constraint.firstAttribute == attribute {
                     foundConstraint = constraint
                 }
@@ -88,7 +88,7 @@ extension UIView {
     private func findParentConstraint(attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
         var foundConstraint: NSLayoutConstraint?
         
-        for (index, constraint: NSLayoutConstraint) in enumerate(self.superview?.constraints() as! [NSLayoutConstraint]) {
+        for constraint: NSLayoutConstraint in self.superview!.constraints {
             if ((constraint.firstItem as! UIView == self && constraint.firstAttribute == attribute) ||
                 (constraint.secondItem as! UIView? == self && constraint.secondAttribute == attribute)) &&
                 constraint.isMemberOfClass(NSLayoutConstraint) {

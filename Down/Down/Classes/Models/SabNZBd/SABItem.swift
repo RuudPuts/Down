@@ -31,11 +31,17 @@ class SABItem: NSObject {
         
         // Detect IMDB id
         let regex = "tt[0-9]{7}"
-        let regularExpression = NSRegularExpression(pattern: regex, options: nil, error: nil)!
-        
-        let range = regularExpression.rangeOfFirstMatchInString(self.filename, options: nil, range: self.filename.fullNSRange) as NSRange!
-        if (range.location != NSNotFound) {
-            imdbIdentifier = (self.filename as NSString).substringWithRange(range!)
+        var regularExpression: NSRegularExpression
+        do {
+            try regularExpression = NSRegularExpression(pattern: regex, options: .CaseInsensitive)
+            
+            let range = regularExpression.rangeOfFirstMatchInString(filename, options: .Anchored, range: filename.fullNSRange) as NSRange!
+            if (range.location != NSNotFound) {
+                imdbIdentifier = (self.filename as NSString).substringWithRange(range!)
+            }
+        }
+        catch _ {
+            
         }
         
         return imdbIdentifier

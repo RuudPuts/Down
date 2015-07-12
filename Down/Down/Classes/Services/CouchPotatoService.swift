@@ -19,17 +19,17 @@ class CouchPotatoService: Service {
     // MARK: - Snatched & Available
     
     private func refreshSnatchedAndAvailable() {
-        let url = PreferenceManager.couchPotatoHost + "/" + PreferenceManager.couchPotatoApiKey + "/media.list"
-        Alamofire.request(.GET, url, parameters: ["release_status": "snatched,available", "limit_offset": "20"])
-            .responseJSON { (_, _, jsonString, error) in
-                if let json: AnyObject = jsonString {
-                    self.parseSnatchedAndAvailable(JSON(json))
-                }
+        let url = PreferenceManager.couchPotatoHost + "/" + PreferenceManager.couchPotatoApiKey + "/media.list?release_status=snatched,available&limit_offset=20"
+        Alamofire.request(.GET, URLString: url).responseJSON { (_, _, jsonString, error) in
+            if let json: AnyObject = jsonString {
+                self.parseSnatchedAndAvailable(JSON(json))
+            }
         }
     }
     
     private func parseSnatchedAndAvailable(json: JSON!) {
-        for (index: String, jsonItem: JSON) in json["movies"] {
+        for _: JSON in json["movies"].array! {
+            
         }
     }
     

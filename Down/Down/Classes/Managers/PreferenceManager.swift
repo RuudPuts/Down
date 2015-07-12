@@ -81,7 +81,7 @@ class PreferenceManager {
         return NSUserDefaults.standardUserDefaults().objectForKey(preferenceKey)
     }
     
-    internal class func setPreference(#object: String, forKey key:String) {
+    internal class func setPreference(object object: String, forKey key:String) {
         NSUserDefaults.standardUserDefaults().setObject(object, forKey: key)
     }
     

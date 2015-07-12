@@ -59,11 +59,11 @@ class SABHistoryItem: SABItem {
         var progress: Float = 0
         
         if (self.status == .Verifying || self.status == .Extracting) {
-            var progressString = self.actionLine!.componentsSeparatedByString(" ").last as String!
-            var progressComponents = progressString.componentsSeparatedByString("/")
+            let progressString = self.actionLine!.componentsSeparatedByString(" ").last as String!
+            let progressComponents = progressString.componentsSeparatedByString("/")
             
-            var part = progressComponents.first!.toFloat() ?? 0
-            var total = progressComponents.last!.toFloat() ?? 0
+            let part = progressComponents.first!.toFloat() ?? 0
+            let total = progressComponents.last!.toFloat() ?? 0
             
             progress = part / total * 100
         }
