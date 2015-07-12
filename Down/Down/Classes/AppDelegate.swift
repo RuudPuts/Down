@@ -42,8 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.viewControllers = [sabNZBdNavigationController, sickbeardViewController, couchPotatoViewController]
         
         downWindow.rootViewController = tabBarController
-        downWindow.makeKeyAndVisible()
         window = downWindow
+        downWindow.makeKeyAndVisible()
     }
     
 }

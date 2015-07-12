@@ -26,10 +26,10 @@ class DownWindow : UIWindow {
     
     dynamic var statusBarBackgroundColor: UIColor! {
         get {
-            return UIColor(CGColor: statusBarBackgroundLayer!.backgroundColor!)
+            return UIColor(CGColor: (statusBarBackgroundLayer?.backgroundColor!)!)
         }
         set {
-            statusBarBackgroundLayer!.backgroundColor = newValue.CGColor
+            statusBarBackgroundLayer?.backgroundColor = newValue.CGColor
         }
     }
     
