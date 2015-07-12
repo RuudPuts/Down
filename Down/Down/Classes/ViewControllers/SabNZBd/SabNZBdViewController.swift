@@ -27,7 +27,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         self.init(nibName: "SabNZBdViewController", bundle: nil)
         title = "SABnzbd"
         
-        self.sabNZBdService = serviceManager.sabNZBdService
+        sabNZBdService = serviceManager.sabNZBdService
         self.sickbeardService = serviceManager.sickbeardService
     }
 
@@ -50,14 +50,14 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.sabNZBdService.addListener(self)
+        sabNZBdService.addListener(self)
         self.sickbeardService.addListener(self)
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         
-        self.sabNZBdService.removeListener(self)
+        sabNZBdService.removeListener(self)
     }
     
     // MARK: - Header widgets
@@ -69,7 +69,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     private func updateCurrentSpeedWidget() {
-        var displaySpeed = self.sabNZBdService.currentSpeed as Float!
+        var displaySpeed = sabNZBdService.currentSpeed as Float!
         var displayString = "KB/s"
         
         if displaySpeed > 1024 {
@@ -102,11 +102,11 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     private func updateTimeRemainingWidget() {
-        self.timeleftLabel!.text = self.sabNZBdService.timeRemaining
+        self.timeleftLabel!.text = sabNZBdService.timeRemaining
     }
     
     private func updateMbRemainingWidget() {
-        self.mbRemainingLabel!.text = String(fromMB: self.sabNZBdService.mbLeft!)
+        self.mbRemainingLabel!.text = String(fromMB: sabNZBdService.mbLeft!)
     }
     
     // MARK: - TableView datasource
@@ -241,6 +241,18 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
             let historyViewController = SabNZBdHistoryViewController()
             self.navigationController!.pushViewController(historyViewController, animated: true)
+        }
+        else if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
+            var item: SABItem
+            if indexPath.section == 0 {
+                item = sabNZBdService.queue[indexPath.row];
+            }
+            else {
+                item = sabNZBdService.history[indexPath.row];
+            }
+            
+            let detailViewController = SabNZBdDetailViewController(sabItem: item)
+            navigationController!.pushViewController(detailViewController, animated: true)
         }
         
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)

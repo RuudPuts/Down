@@ -16,7 +16,7 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
         self.init(nibName: "SabNZBdHistoryViewController", bundle: nil)
         title = "History"
         
-        self.sabNZBdService = serviceManager.sabNZBdService
+        sabNZBdService = serviceManager.sabNZBdService
     }
     
     override func viewDidLoad() {
@@ -36,7 +36,7 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
         super.viewWillAppear(animated)
         
         self.navigationController!.setNavigationBarHidden(false, animated: true)
-        self.sabNZBdService.addListener(self)
+        sabNZBdService.addListener(self)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -52,8 +52,8 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numberOfRows = self.sabNZBdService.history.count
-        if !self.sabNZBdService.fullHistoryFetched {
+        var numberOfRows = sabNZBdService.history.count
+        if !sabNZBdService.fullHistoryFetched {
             numberOfRows++
         }
         return max(numberOfRows, 1)
@@ -66,7 +66,7 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         var rowHeight: Float = 60
         if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
-            if indexPath.row < self.sabNZBdService.history.count {
+            if indexPath.row < sabNZBdService.history.count {
                 let historyItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
                 if (historyItem.hasProgress!) {
                     rowHeight = 66.0
@@ -96,7 +96,7 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
                 cell = loadingCell
             }
         }
-        else if indexPath.row == self.sabNZBdService.history.count && !self.sabNZBdService.fullHistoryFetched {
+        else if indexPath.row == sabNZBdService.history.count && !sabNZBdService.fullHistoryFetched {
             let loadingCell = tableView.dequeueReusableCellWithIdentifier("SABLoadingCell", forIndexPath: indexPath) as! SABLoadingCell
             // For some reason this has to be called all the time
             loadingCell.activityIndicator.startAnimating()
@@ -115,7 +115,7 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if cell is SABLoadingCell && self.tableView.numberOfRowsInSection(indexPath.section) > 0 {
-            self.sabNZBdService.fetchHistory()
+            sabNZBdService.fetchHistory()
         }
     }
     
@@ -130,6 +130,12 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let item: SABHistoryItem = sabNZBdService.history[indexPath.row]
         sabNZBdService.deleteItem(item)
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let item = sabNZBdService.history[indexPath.row];
+        let detailViewController = SabNZBdDetailViewController(sabItem: item)
+        navigationController!.pushViewController(detailViewController, animated: true)
     }
     
     // MARK: - SabNZBdListener
