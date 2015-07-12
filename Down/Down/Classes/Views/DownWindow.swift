@@ -24,7 +24,7 @@ class DownWindow : UIWindow {
         layer.addSublayer(statusBarBackgroundLayer!)
     }
     
-    var statusBarBackgroundColor: UIColor! {
+    dynamic var statusBarBackgroundColor: UIColor! {
         get {
             return UIColor(CGColor: statusBarBackgroundLayer!.backgroundColor!)
         }

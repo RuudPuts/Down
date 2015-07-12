@@ -129,6 +129,9 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     
     private func applyAppearance() {
         UINavigationBar.appearance().barStyle = .Default
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
         
         switch selectedTabIndex {
         case 0:
