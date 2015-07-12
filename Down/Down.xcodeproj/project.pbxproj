@@ -32,6 +32,7 @@
 		425854231AD5B27F00D8C106 /* SickbeardHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425854221AD5B27F00D8C106 /* SickbeardHistoryItem.swift */; };
 		42670EF71ADDAB44006341EA /* SABMoreHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42670EF61ADDAB44006341EA /* SABMoreHistoryCell.swift */; };
 		42670EF91ADDAB5E006341EA /* SABMoreHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* SABMoreHistoryCell.xib */; };
+		426E5D7C1B52EEC000BD7CD0 /* DownWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E5D7B1B52EEC000BD7CD0 /* DownWindow.swift */; };
 		428CF7021AE19779007F3E54 /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 428CF7001AE19779007F3E54 /* Instabug.bundle */; };
 		428CF7031AE19779007F3E54 /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF7011AE19779007F3E54 /* Instabug.framework */; };
 		428CF71F1AE1996B007F3E54 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF71E1AE1996B007F3E54 /* libc++.dylib */; };
@@ -188,6 +189,7 @@
 		425854221AD5B27F00D8C106 /* SickbeardHistoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardHistoryItem.swift; sourceTree = "<group>"; };
 		42670EF61ADDAB44006341EA /* SABMoreHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABMoreHistoryCell.swift; sourceTree = "<group>"; };
 		42670EF81ADDAB5E006341EA /* SABMoreHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABMoreHistoryCell.xib; sourceTree = "<group>"; };
+		426E5D7B1B52EEC000BD7CD0 /* DownWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownWindow.swift; sourceTree = "<group>"; };
 		428CF7001AE19779007F3E54 /* Instabug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Instabug.bundle; sourceTree = "<group>"; };
 		428CF7011AE19779007F3E54 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Instabug.framework; sourceTree = "<group>"; };
 		428CF7041AE197DA007F3E54 /* Down-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Down-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 				42078E1C1AD1721F009845CC /* SabNZBd */,
 				422D548F1AE04AE200200EF0 /* TabBarController */,
 				42CD255C1AB5BF93008E9717 /* TableViewCells */,
+				426E5D7B1B52EEC000BD7CD0 /* DownWindow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -932,6 +935,7 @@
 				420F496D1ADC42DB006CFA11 /* SABLoadingCell.swift in Sources */,
 				42078E401AD1C702009845CC /* SickbeardViewController.swift in Sources */,
 				42078E1F1AD1721F009845CC /* SABHeaderView.swift in Sources */,
+				426E5D7C1B52EEC000BD7CD0 /* DownWindow.swift in Sources */,
 				42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */,
 				422D54931AE04AE200200EF0 /* DownTabBarItemCell.swift in Sources */,
 				422D54921AE04AE200200EF0 /* DownTabBarItem.swift in Sources */,

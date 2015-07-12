@@ -25,6 +25,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     
     convenience init() {
         self.init(nibName: "SabNZBdViewController", bundle: nil)
+        title = "SABnzbd"
         
         self.sabNZBdService = serviceManager.sabNZBdService
         self.sickbeardService = serviceManager.sickbeardService

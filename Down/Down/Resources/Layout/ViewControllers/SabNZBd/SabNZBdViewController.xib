@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8121.20" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -34,25 +35,18 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJj-86-jT0" userLabel="StatusBarBackground">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
-                    <color key="backgroundColor" red="0.93725490196078431" green="0.60392156862745094" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="ZMV-HW-oPI"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjk-YU-8EI" userLabel="Header">
-                    <rect key="frame" x="0.0" y="20" width="414" height="170"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sabnzbd-icon" translatesAutoresizingMaskIntoConstraints="NO" id="rG8-7k-qAj">
-                            <rect key="frame" x="123" y="14" width="168" height="45"/>
+                            <rect key="frame" x="123" y="34" width="168" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="GKM-bI-gkI"/>
                                 <constraint firstAttribute="width" constant="168" id="ob5-Yb-1s9"/>
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7X-QW-LMN" userLabel="Widgets">
-                            <rect key="frame" x="0.0" y="70" width="414" height="100"/>
+                            <rect key="frame" x="0.0" y="90" width="414" height="100"/>
                             <subviews>
                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="he1-UV-6Sj" userLabel="Speed">
                                     <rect key="frame" x="0.0" y="0.0" width="138" height="100"/>
@@ -155,8 +149,8 @@
                         <constraint firstAttribute="trailing" secondItem="L7X-QW-LMN" secondAttribute="trailing" id="9tg-la-5Jv"/>
                         <constraint firstItem="L7X-QW-LMN" firstAttribute="leading" secondItem="sjk-YU-8EI" secondAttribute="leading" id="Ej6-n0-76l"/>
                         <constraint firstAttribute="bottom" secondItem="L7X-QW-LMN" secondAttribute="bottom" id="RPz-pm-75t"/>
-                        <constraint firstItem="rG8-7k-qAj" firstAttribute="top" secondItem="sjk-YU-8EI" secondAttribute="top" constant="14" id="XGz-59-e6l"/>
-                        <constraint firstAttribute="height" constant="170" id="v2o-yh-7ab"/>
+                        <constraint firstItem="rG8-7k-qAj" firstAttribute="top" secondItem="sjk-YU-8EI" secondAttribute="top" constant="34" id="XGz-59-e6l"/>
+                        <constraint firstAttribute="height" constant="190" id="v2o-yh-7ab"/>
                     </constraints>
                 </view>
                 <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="AtO-pD-nWL">
@@ -170,13 +164,10 @@
             </subviews>
             <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="SJj-86-jT0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1cu-bB-eUe"/>
-                <constraint firstItem="SJj-86-jT0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="57B-h5-7lJ"/>
+                <constraint firstItem="sjk-YU-8EI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="HDy-ru-gMH"/>
                 <constraint firstAttribute="trailing" secondItem="sjk-YU-8EI" secondAttribute="trailing" id="OuB-3R-A8o"/>
                 <constraint firstItem="sjk-YU-8EI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VES-vc-6PU"/>
                 <constraint firstAttribute="trailing" secondItem="AtO-pD-nWL" secondAttribute="trailing" id="YaQ-p6-ih9"/>
-                <constraint firstAttribute="trailing" secondItem="SJj-86-jT0" secondAttribute="trailing" id="dku-HW-ZIf"/>
-                <constraint firstItem="sjk-YU-8EI" firstAttribute="top" secondItem="SJj-86-jT0" secondAttribute="bottom" id="eQS-un-HBp"/>
                 <constraint firstItem="AtO-pD-nWL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hGD-kU-pjH"/>
                 <constraint firstItem="AtO-pD-nWL" firstAttribute="top" secondItem="sjk-YU-8EI" secondAttribute="bottom" id="j3Z-9Z-W4d"/>
                 <constraint firstAttribute="bottom" secondItem="AtO-pD-nWL" secondAttribute="bottom" id="ng0-pR-uut"/>

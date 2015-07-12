@@ -14,6 +14,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     @IBOutlet weak var collectionView: UICollectionView!
     
     var selectedViewController: UIViewController?
+    var selectedTabIndex: Int!
     
     private var _viewControllers: [UIViewController]?
     
@@ -21,6 +22,8 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     
     convenience init() {
         self.init(nibName: "DownTabBarController", bundle: nil)
+        
+        selectedTabIndex = 0
     }
     
     override func viewDidLoad() {
@@ -92,7 +95,8 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     // MARK: CollectionView delegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        selectViewController(_viewControllers![indexPath.row])
+        selectedTabIndex = indexPath.item
+        selectViewController(_viewControllers![selectedTabIndex])
     }
 
     // MARK: Private methods
@@ -100,24 +104,47 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     private func selectViewController(viewController: UIViewController?) {
         if let selectedViewController = viewController {
             if self.selectedViewController == selectedViewController {
-                if self.selectedViewController is UINavigationController {
-                    let navigationController = self.selectedViewController as! UINavigationController
+                if selectedViewController is UINavigationController {
+                    let navigationController = selectedViewController as! UINavigationController
                     navigationController.popToRootViewControllerAnimated(true)
                 }
             }
             else {
-                self.contentView.removeAllSubViews()
-                self.selectedViewController = selectedViewController
+                contentView.removeAllSubViews()
+                applyAppearance()
+                
                 let tabBarItem = selectedViewController.tabBarItem as! DownTabBarItem!
-                self.collectionView!.backgroundColor = tabBarItem.tintColor
+                collectionView!.backgroundColor = tabBarItem.tintColor
                 
                 selectedViewController.view.frame = self.view.bounds
-                self.contentView!.addSubview(selectedViewController.view)
+                contentView!.addSubview(selectedViewController.view)
+                self.selectedViewController = selectedViewController
             }
         }
         else {
-            self.contentView.removeAllSubViews()
-            self.collectionView.backgroundColor = UIColor.whiteColor()
+            contentView.removeAllSubViews()
+            collectionView.backgroundColor = UIColor.whiteColor()
+        }
+    }
+    
+    private func applyAppearance() {
+        UINavigationBar.appearance().barStyle = .Default
+        
+        switch selectedTabIndex {
+        case 0:
+            UINavigationBar.appearance().barTintColor = UIColor.downSabNZBdColor()
+            DownWindow.appearance().statusBarBackgroundColor = UIColor.downSabNZBdDarkColor()
+            break
+        case 1:
+            UINavigationBar.appearance().barTintColor = UIColor.downSickbeardColor()
+            DownWindow.appearance().statusBarBackgroundColor = UIColor.downSickbeardDarkColor()
+            break
+        case 2:
+            UINavigationBar.appearance().barTintColor = UIColor.downCouchPotatoColor()
+            DownWindow.appearance().statusBarBackgroundColor = UIColor.downCouchPotatoDarkColor()
+            break
+        default:
+            break
         }
     }
     

@@ -10,12 +10,11 @@ import Foundation
 
 class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
-    @IBOutlet weak var backButton: UIButton!
-    
     weak var sabNZBdService: SabNZBdService!
     
     convenience init() {
         self.init(nibName: "SabNZBdHistoryViewController", bundle: nil)
+        title = "History"
         
         self.sabNZBdService = serviceManager.sabNZBdService
     }
@@ -31,16 +30,19 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
         
         let itemCellNib = UINib(nibName: "SABItemCell", bundle:nil)
         tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SABItemCell")
-        
-        let sabIconView = UIImageView(frame: CGRectMake(22, 6, 75, 20))
-        sabIconView.image = UIImage(named: "sabnzbd-icon")
-        backButton.addSubview(sabIconView)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationController!.setNavigationBarHidden(false, animated: true)
         self.sabNZBdService.addListener(self)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController!.setNavigationBarHidden(true, animated: true)
     }
     
     // MARK: - TableView datasource
@@ -142,13 +144,6 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
     
     func sabNZBDFullHistoryFetched() {
         self.tableView.reloadData()
-    }
-    
-    // MARK: - Button handlers
-    
-    
-    @IBAction func backButtonPressed(sender: UIButton) {
-        self.navigationController?.popViewControllerAnimated(true)
     }
     
 }

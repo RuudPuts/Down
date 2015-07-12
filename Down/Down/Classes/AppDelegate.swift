@@ -15,17 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var serviceManager: ServiceManager!
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [NSObject: AnyObject]?) -> Bool {
         Instabug.startWithToken("dc9091202562420874c069cfc74b57fd", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
         
-        serviceManager = ServiceManager()        
+        serviceManager = ServiceManager()
         initializeWindow()
         
         return true
     }
     
     func initializeWindow() {
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let downWindow = DownWindow(frame: UIScreen.mainScreen().bounds)
 
         let sabNZBdViewController = SabNZBdViewController()
         sabNZBdViewController.tabBarItem = DownTabBarItem(title: "SabNZBd", image: UIImage(named: "sabnzbd-tabbar"), tintColor: UIColor.downSabNZBdColor())
@@ -41,8 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = DownTabBarController()
         tabBarController.viewControllers = [sabNZBdNavigationController, sickbeardViewController, couchPotatoViewController]
         
-        window!.rootViewController = tabBarController
-        window!.makeKeyAndVisible()
+        downWindow.rootViewController = tabBarController
+        downWindow.makeKeyAndVisible()
+        window = downWindow
     }
     
 }
