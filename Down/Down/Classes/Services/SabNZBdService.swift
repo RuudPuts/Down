@@ -51,10 +51,10 @@ class SabNZBdService: Service {
     
     private func startTimers() {
         queueRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(queueRefreshRate, target: self,
-            selector: Selector("refreshQueue"), userInfo: nil, repeats: true)
+            selector: "refreshQueue", userInfo: nil, repeats: true)
         
         historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self,
-            selector: Selector("refreshHistory"), userInfo: nil, repeats: true)
+            selector: "refreshHistory", userInfo: nil, repeats: true)
         
         refreshQueue()
         refreshHistory()
@@ -62,7 +62,7 @@ class SabNZBdService: Service {
     
     // MARK: - Queue
     
-    internal func refreshQueue() {
+    internal dynamic func refreshQueue() {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=queue&output=json&apikey=\(PreferenceManager.sabNZBdApiKey)"
         Alamofire.request(.GET, URLString: url).responseJSON { (_, _, jsonString, error) in
             if error == nil {
@@ -110,7 +110,7 @@ class SabNZBdService: Service {
     
     // MARK - History
     
-    internal func refreshHistory() {        
+    internal dynamic func refreshHistory() {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=history&output=json&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
         Alamofire.request(.GET, URLString: url).responseJSON { (_, _, jsonString, error) in
             if (error == nil) {
@@ -256,15 +256,17 @@ class SabNZBdService: Service {
     // MARK - Listeners
     
     private func notifyListeners(notifyType: SabNZBDNotifyType) {
-        for listener in listeners as! [SabNZBdListener] {
-            
-            switch notifyType {
-            case .QueueUpdated:
-                listener.sabNZBdQueueUpdated()
-            case .HistoryUpdated:
-                listener.sabNZBdHistoryUpdated()
-            case .FullHistoryFetched:
-                listener.sabNZBDFullHistoryFetched()
+        for listener in self.listeners {
+            if listener is SabNZBdListener {
+                let sabNZBdListener = listener as! SabNZBdListener
+                switch notifyType {
+                case .QueueUpdated:
+                    sabNZBdListener.sabNZBdQueueUpdated()
+                case .HistoryUpdated:
+                    sabNZBdListener.sabNZBdHistoryUpdated()
+                case .FullHistoryFetched:
+                    sabNZBdListener.sabNZBDFullHistoryFetched()
+                }
             }
         }
     }

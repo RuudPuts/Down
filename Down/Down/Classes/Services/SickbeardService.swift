@@ -34,7 +34,7 @@ class SickbeardService: Service {
     
     private func startTimers() {
         refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self,
-            selector: Selector("refreshHistory"), userInfo: nil, repeats: true)
+            selector: "refreshHistory", userInfo: nil, repeats: true)
         
         refreshHistory()
     }
@@ -54,7 +54,7 @@ class SickbeardService: Service {
     
     // MARK: - History
     
-    internal func refreshHistory() {
+    internal dynamic func refreshHistory() {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
         Alamofire.request(.GET, URLString: url).responseJSON { (_, _, jsonString, error) in
             if let json: AnyObject = jsonString {
@@ -91,10 +91,13 @@ class SickbeardService: Service {
     // MARK - Listeners
     
     private func notifyListeners(notifyType: SickbeardNotifyType) {
-        for listener in self.listeners as! [SickbeardListener] {
-            switch notifyType {
-            case .HistoryUpdated:
-                listener.sickbeardHistoryUpdated()
+        for listener in self.listeners {
+            if listener is SickbeardListener {
+                let sickbeardListener = listener as! SickbeardListener
+                switch notifyType {
+                case .HistoryUpdated:
+                    sickbeardListener.sickbeardHistoryUpdated()
+                }
             }
         }
     }

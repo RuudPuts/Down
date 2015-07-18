@@ -35,6 +35,7 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
+        sabNZBdService.removeListener(self)
         self.navigationController!.setNavigationBarHidden(true, animated: true)
     }
     
