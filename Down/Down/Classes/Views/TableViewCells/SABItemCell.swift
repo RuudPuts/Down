@@ -31,12 +31,7 @@ class SABItemCell: UITableViewCell {
             _queueItem = newValue
             _historyItem = nil
 
-            if let sickbeardEntry = _queueItem?.sickbeardEntry {
-                titleLabel.text = sickbeardEntry.displayName
-            }
-            else {
-                titleLabel.text = _queueItem?.displayName
-            }
+            titleLabel.text = _queueItem?.displayName
 
             var hideProgressBar = true
             var progress = 0 as Float
@@ -66,12 +61,7 @@ class SABItemCell: UITableViewCell {
             _queueItem = nil
             _historyItem = newValue
 
-            if let sickbeardEntry = _historyItem?.sickbeardEntry {
-                titleLabel.text = sickbeardEntry.displayName
-            }
-            else {
-                titleLabel.text = _historyItem?.displayName
-            }
+            titleLabel.text = _historyItem?.displayName
             
             var hideProgressBar = true
             var progress = 0 as Float

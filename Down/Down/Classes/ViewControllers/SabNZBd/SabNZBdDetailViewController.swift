@@ -10,15 +10,38 @@ import Foundation
 
 class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
+    private enum SabNZBdDetailRow {
+        case Name
+        case Status
+        case NZBName
+        case NZBProvider
+    }
+    
     weak var sabNZBdService: SabNZBdService!
     
     private var item: SABItem!
+    private var cellData = [SabNZBdDetailRow: String]()
     
     convenience init(sabItem: SABItem) {
         self.init(nibName: "SabNZBdDetailViewController", bundle: nil)
         
         item = sabItem
         sabNZBdService = serviceManager.sabNZBdService
+        
+        if item is SABQueueItem {
+            cellData = [.Name: "Name",
+                        .Status: "Status",
+                        .NZBName: "NZB",
+                        .NZBProvider: "NZB Provider"]
+        }
+        else {
+            cellData = [.Name: "Name",
+                        .Status: "Status",
+                        .NZBName: "NZB",
+                        .NZBProvider: "NZB Provider"]
+            
+        }
+        title = item.displayName
     }
     
     override func viewDidLoad() {

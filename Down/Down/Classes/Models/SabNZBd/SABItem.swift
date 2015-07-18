@@ -52,6 +52,9 @@ class SABItem: NSObject {
         if (self.imdbTitle != nil) {
             displayName = self.imdbTitle!
         }
+        else if (self.sickbeardEntry != nil) {
+            displayName = self.sickbeardEntry!.displayName
+        }
         else {
             displayName = displayName.stringByReplacingOccurrencesOfString(".", withString: " ")
         }
