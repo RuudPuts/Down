@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PreferenceManager.sickbeardHost = "http://192.168.178.10:8081"
         PreferenceManager.sickbeardApiKey = "e9c3be0f3315f09d7ceae37f1d3836cd"
 
-        PreferenceManager.couchPotatoHost = "http://192.168.178.10:5050"
+        PreferenceManager.couchPotatoHost = "http://192.168.178.10:8082"
         PreferenceManager.couchPotatoApiKey = "fb3f91e38ba147b29514d56a24d17d9a"
         
         initializeWindow()
