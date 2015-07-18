@@ -83,6 +83,7 @@ class PreferenceManager {
     
     internal class func setPreference(object object: String, forKey key:String) {
         NSUserDefaults.standardUserDefaults().setObject(object, forKey: key)
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
     
     private class func cleanupHost(host: String) -> String {

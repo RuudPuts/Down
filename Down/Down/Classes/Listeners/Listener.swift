@@ -8,6 +8,13 @@
 
 import UIKit
 
-@objc protocol Listener {
-   
+protocol Listener {
+    func isEqualTo(other: Listener) -> Bool
+}
+
+extension Listener where Self : Equatable {
+    func isEqualTo(other: Listener) -> Bool {
+        guard let o = other as? Self else { return false }
+        return self == o
+    }
 }

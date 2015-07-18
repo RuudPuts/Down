@@ -62,4 +62,6 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
         self.tableView.reloadData()
     }
     
+    func sabNZBDFullHistoryFetched() { }
+    
 }

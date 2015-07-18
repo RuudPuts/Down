@@ -288,6 +288,8 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         self.tableView.reloadData()
     }
     
+    func sabNZBDFullHistoryFetched() { }
+    
     // MARK: - SickbeardListener
     
     func sickbeardHistoryUpdated() {

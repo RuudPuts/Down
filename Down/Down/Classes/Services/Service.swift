@@ -8,44 +8,29 @@
 
 import UIKit
 
-class Service: NSObject {
+class Service {
     
     var lastRefresh: NSDate?
+    var listeners = [Listener]()
     
-    var listeners: [Listener]
-    
-    override init() {
-        self.listeners = [Listener]()
+    init() {
     }
     
     internal func addListener(listener: Listener) {
-        // TODO: Verify listener type
-        self.listeners.append(listener)
+        listeners.append(listener)
     }
     
     internal func removeListener(listener: Listener) {
-        // TODO: Implement
+        for i in 0...listeners.count {
+            if (listeners[i].isEqualTo(listener)) {
+                listeners.removeAtIndex(i)
+                break
+            }
+        }
     }
     
     func refreshCompleted() {
-        self.lastRefresh = NSDate()
+        lastRefresh = NSDate()
     }
    
-}
-
-extension Array {
-    mutating func removeObject<T: Equatable>(object: T) {
-//        var index: Int?
-//        for (idx, objectToCompare) in enumerate(self) {
-//            if let to = objectToCompare as? U {
-//                if object == to {
-//                    index = idx
-//                }
-//            }
-//        }
-//        
-//        if(index) {
-//            self.removeAtIndex(index!)
-//        }
-    }
 }

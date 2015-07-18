@@ -26,6 +26,12 @@ class SickbeardService: Service {
         startTimers()
     }
     
+    override func addListener(listener: Listener) {
+        if listener is SickbeardListener {
+            super.addListener(listener)
+        }
+    }
+    
     private func startTimers() {
         refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self,
             selector: Selector("refreshHistory"), userInfo: nil, repeats: true)

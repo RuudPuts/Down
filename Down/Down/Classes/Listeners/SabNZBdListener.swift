@@ -8,10 +8,10 @@
 
 import UIKit
 
-@objc protocol SabNZBdListener: Listener {
+protocol SabNZBdListener: Listener {
    
-    optional func sabNZBdQueueUpdated()
-    optional func sabNZBdHistoryUpdated()
-    optional func sabNZBDFullHistoryFetched()
+    func sabNZBdQueueUpdated()
+    func sabNZBdHistoryUpdated()
+    func sabNZBDFullHistoryFetched()
     
 }

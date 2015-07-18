@@ -16,6 +16,12 @@ class CouchPotatoService: Service {
         refreshSnatchedAndAvailable()
     }
     
+    override func addListener(listener: Listener) {
+        if listener is CouchPotatoListener {
+            super.addListener(listener)
+        }
+    }
+    
     // MARK: - Snatched & Available
     
     private func refreshSnatchedAndAvailable() {

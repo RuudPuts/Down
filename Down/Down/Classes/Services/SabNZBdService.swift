@@ -43,6 +43,12 @@ class SabNZBdService: Service {
         startTimers()
     }
     
+    override func addListener(listener: Listener) {
+        if listener is SabNZBdListener {
+            super.addListener(listener)
+        }
+    }
+    
     private func startTimers() {
         queueRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(queueRefreshRate, target: self,
             selector: Selector("refreshQueue"), userInfo: nil, repeats: true)
@@ -254,11 +260,11 @@ class SabNZBdService: Service {
             
             switch notifyType {
             case .QueueUpdated:
-                listener.sabNZBdQueueUpdated?()
+                listener.sabNZBdQueueUpdated()
             case .HistoryUpdated:
-                listener.sabNZBdHistoryUpdated?()
+                listener.sabNZBdHistoryUpdated()
             case .FullHistoryFetched:
-                listener.sabNZBDFullHistoryFetched?()
+                listener.sabNZBDFullHistoryFetched()
             }
         }
     }
