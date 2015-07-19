@@ -11,6 +11,7 @@ import Foundation
 class DownWindow : UIWindow {
     
     private var statusBarBackgroundLayer: CALayer?
+    private var statusBarColor = UIColor.clearColor()
     
     override func makeKeyAndVisible() {
         super.makeKeyAndVisible()
@@ -20,16 +21,20 @@ class DownWindow : UIWindow {
     private func addStatusBarBackground() {
         statusBarBackgroundLayer = CALayer()
         statusBarBackgroundLayer!.frame = CGRectMake(0, 0, CGRectGetWidth(bounds), 20)
-        statusBarBackgroundLayer!.backgroundColor = UIColor.clearColor().CGColor
+        statusBarBackgroundLayer!.backgroundColor = statusBarColor.CGColor
         layer.addSublayer(statusBarBackgroundLayer!)
     }
     
-    dynamic var statusBarBackgroundColor: UIColor! {
+    var statusBarBackgroundColor: UIColor! {
         get {
-            return UIColor(CGColor: (statusBarBackgroundLayer?.backgroundColor!)!)
+            return statusBarColor
         }
         set {
+            statusBarColor = newValue
+            CATransaction.begin()
+            CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
             statusBarBackgroundLayer?.backgroundColor = newValue.CGColor
+            CATransaction.commit()
         }
     }
     
