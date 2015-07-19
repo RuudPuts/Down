@@ -87,9 +87,7 @@ class SABItemCell: UITableViewCell {
             var statusText = ""
             if _historyItem != nil && (_historyItem!.status == .Finished || _historyItem!.status == .Failed) {
                 if let completionDate = _historyItem?.completionDate {
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-                    statusText = dateFormatter.stringFromDate(completionDate)
+                    statusText = NSDateFormatter.defaultFormatter().stringFromDate(completionDate)
                 }
             }
             statusLabel.text = statusText

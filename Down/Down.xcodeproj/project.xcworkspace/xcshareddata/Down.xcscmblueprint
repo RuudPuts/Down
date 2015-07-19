@@ -5,12 +5,14 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "67620B5EFA902936DF04070AF595B76AB0333747" : 0,
+    "CD1557C3AE966BEDF3490D85F9712687801B146C" : 0,
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : 0,
     "B93B6DF84035FEECFE2CFFD4C82DA3305BD2A4E5" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "041CC942-1BE2-4911-80EA-254B11F98F82",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "67620B5EFA902936DF04070AF595B76AB0333747" : "DownAlamofire",
+    "CD1557C3AE966BEDF3490D85F9712687801B146C" : "Down\/XCGLogger\/",
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : "DownSwiftyJSON",
     "B93B6DF84035FEECFE2CFFD4C82DA3305BD2A4E5" : "Down"
   },
@@ -32,6 +34,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SwiftyJSON\/SwiftyJSON.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/DaveWoodCom\/XCGLogger.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CD1557C3AE966BEDF3490D85F9712687801B146C"
     }
   ]
 }

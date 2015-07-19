@@ -13,16 +13,18 @@ class SABItem: NSObject {
     let identifier: String!
     let filename: String!
     var category: String!
+    let nzbName: String!
     var progressDescription: String?
     var statusDescription: String!
     var sickbeardEntry: SickbeardHistoryItem?
     
     var imdbTitle: String?
     
-    init(_ identifier: String, _ filename: String, _ category: String, _ statusDescription: String) {
+    init(_ identifier: String, _ filename: String, _ category: String, _ nzbName: String, _ statusDescription: String) {
         self.identifier = identifier
         self.filename = filename
         self.category = category
+        self.nzbName = nzbName
         self.statusDescription = statusDescription;
     }    
     

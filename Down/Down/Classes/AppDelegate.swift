@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import XCGLogger
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         PreferenceManager.couchPotatoHost = "http://192.168.178.10:8082"
         PreferenceManager.couchPotatoApiKey = "fb3f91e38ba147b29514d56a24d17d9a"
+        
+        let log = XCGLogger.defaultInstance()
+        log.setup(.Debug, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: false, writeToFile: nil, fileLogLevel: .None)
         
         initializeWindow()
         

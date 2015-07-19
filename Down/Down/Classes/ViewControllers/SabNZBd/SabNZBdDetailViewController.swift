@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import XCGLogger
 
 class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
@@ -15,12 +16,21 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
         case Status
         case NZBName
         case NZBProvider
+        case TotalSize
+        
+        // Queue specifics
+        case Progress
+        case Downloaded
+        
+        // History specifics
+        case FinishedAt
     }
     
     weak var sabNZBdService: SabNZBdService!
     
     private var item: SABItem!
-    private var cellData = [SabNZBdDetailRow: String]()
+    private var cellKeys: [[SabNZBdDetailRow]]!
+    private var cellTitles: [[String]]!
     
     convenience init(sabItem: SABItem) {
         self.init(nibName: "SabNZBdDetailViewController", bundle: nil)
@@ -29,23 +39,15 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
         sabNZBdService = serviceManager.sabNZBdService
         
         if item is SABQueueItem {
-            cellData = [.Name: "Name",
-                        .Status: "Status",
-                        .NZBName: "NZB",
-                        .NZBProvider: "NZB Provider"]
+            cellKeys = [[.Name, .Status, .Progress], [.NZBName, .NZBProvider]]
+            cellTitles = [["Name", "Status", "Progress"], ["NZB", "NZB Provider"]]
         }
         else {
-            cellData = [.Name: "Name",
-                        .Status: "Status",
-                        .NZBName: "NZB",
-                        .NZBProvider: "NZB Provider"]
+            cellKeys = [[.Name, .TotalSize, .Status, .FinishedAt], [.NZBName, .NZBProvider]]
+            cellTitles = [["Name", "Total size", "Status", "Finished at"], ["NZB", "NZB Provider"]]
             
         }
-        title = item.displayName
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        title = "Details"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -65,25 +67,99 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     // MARK: - TableView datasource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 0
+        return cellKeys.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return cellKeys[section].count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        if item is SABQueueItem {
+            return self.tableView(tableView, queueCellForRowAtIndexPath: indexPath);
+        }
+        else {
+            return self.tableView(tableView, historyCellForRowAtIndexPath: indexPath);
+        }
+    }
+    
+    private func tableView(tableView: UITableView, queueCellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let reuseIdentifier = "queueCell"
+        let cell = SABDetailCell(style: .Value2, reuseIdentifier: reuseIdentifier)
+        let queueItem = item as! SABQueueItem
+        
+        cell.textLabel?.text = cellTitles[indexPath.section][indexPath.row]
+        var detailText: String?
+        
+        switch cellKeys[indexPath.section][indexPath.row] {
+        case .Name:
+            detailText = queueItem.displayName
+            break
+        case .Status:
+            detailText = queueItem.statusDescription
+            cell.detailTextLabel?.textColor = .whiteColor()
+            break
+        case .Progress:
+            detailText = queueItem.progressString
+            break
+        case .NZBName:
+            detailText = queueItem.nzbName
+            break
+        default:
+            break
+        }
+        cell.detailTextLabel?.text = detailText
+        return cell
+    }
+    
+    private func tableView(tableView: UITableView, historyCellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let reuseIdentifier = "historyCell"
+        let cell = SABDetailCell(style: .Value2, reuseIdentifier: reuseIdentifier)
+        let historyItem = item as! SABHistoryItem
+        
+        cell.textLabel?.text = cellTitles[indexPath.section][indexPath.row]
+        var detailText: String?
+        
+        switch cellKeys[indexPath.section][indexPath.row] {
+        case .Name:
+            detailText = historyItem.displayName
+            break
+        case .Status:
+            detailText = historyItem.statusDescription
+            switch (historyItem.status!) {
+            case .Finished:
+                cell.detailTextLabel?.textColor = .downGreenColor()
+            case .Failed:
+                cell.detailTextLabel?.textColor = .downRedColor()
+            default:
+                cell.detailTextLabel?.textColor = .whiteColor()
+            }
+            break
+        case .TotalSize:
+            detailText = historyItem.size
+            break
+        case .FinishedAt:
+            detailText = NSDateFormatter.defaultFormatter().stringFromDate(historyItem.completionDate!)
+            break
+        case .NZBName:
+            detailText = historyItem.nzbName
+            break
+        default:
+            break
+        }
+        cell.detailTextLabel?.text = detailText
+        
+        return cell
     }
     
     // MARK: - SabNZBdListener
     
     func sabNZBdQueueUpdated() {
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     func sabNZBdHistoryUpdated() {
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     func sabNZBDFullHistoryFetched() { }

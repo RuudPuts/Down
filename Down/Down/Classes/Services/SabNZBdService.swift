@@ -91,12 +91,13 @@ class SabNZBdService: Service {
             let identifier = jsonJob["nzo_id"].string!
             let filename = jsonJob["filename"].string!
             let category = jsonJob["cat"].string!
+            let nzbName = filename + ".nzb"
             let statusDescription = jsonJob["status"].string!
             let totalMb = jsonJob["mb"].string!.floatValue
             let remainingMb = jsonJob["mbleft"].string!.floatValue
             let timeRemaining = jsonJob["timeleft"].string!
             let progress = jsonJob["percentage"].string!.floatValue
-            queue.append(SABQueueItem(identifier, filename, category, statusDescription, totalMb, remainingMb, progress, timeRemaining))
+            queue.append(SABQueueItem(identifier, filename, category, nzbName, statusDescription, totalMb, remainingMb, progress, timeRemaining))
         }
         
         self.queue = queue
@@ -181,6 +182,7 @@ class SabNZBdService: Service {
             let title = jsonJob["name"].string!
             let filename = jsonJob["nzb_name"].string!
             let category = jsonJob["category"].string!
+            let nzbName = jsonJob["nzb_name"].string!
             let size = jsonJob["size"].string!
             let statusDescription = jsonJob["status"].string!
             let actionLine = jsonJob["action_line"].string!
@@ -189,7 +191,7 @@ class SabNZBdService: Service {
             
             let item = findHistoryItem(identifier)
             if item == nil {
-                let historyItem: SABHistoryItem = SABHistoryItem(identifier, title, filename, category, size, statusDescription, actionLine, completedDate)
+                let historyItem: SABHistoryItem = SABHistoryItem(identifier, title, filename, category, nzbName, size, statusDescription, actionLine, completedDate)
                 history.append(historyItem)
                 
                 if let imdbIdentifier = historyItem.imdbIdentifier as String! {

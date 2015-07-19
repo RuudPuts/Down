@@ -23,13 +23,13 @@ class SABQueueItem: SABItem {
         case Downloaded
     }
     
-    init(_ identifier: String, _ filename: String, _ category: String, _ statusDescription: String, _ totalMb: Float, _ remainingMb: Float, _ progress: Float, _ timeRemaining: String) {
+    init(_ identifier: String, _ filename: String, _ category: String, _ nzbName: String, _ statusDescription: String, _ totalMb: Float, _ remainingMb: Float, _ progress: Float, _ timeRemaining: String) {
         self.timeRemaining = timeRemaining
         self.totalMb = totalMb
         self.remainingMb = remainingMb
         self.progress = progress
         
-        super.init(identifier, filename, category, statusDescription)
+        super.init(identifier, filename, category, nzbName, statusDescription)
         
         self.status = stringToStatus(statusDescription)
     }
@@ -45,7 +45,7 @@ class SABQueueItem: SABItem {
     var progressString: String! {
         var progressString: String!
         
-        switch self.status as SABQueueItemStatus {
+        switch status as SABQueueItemStatus {
         case .Downloaded:
             progressString = "Finished"
         case .Queued:
