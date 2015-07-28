@@ -11,5 +11,6 @@ import Foundation
 protocol SickbeardListener: Listener {
     
     func sickbeardHistoryUpdated()
+    func sickbeardFutureUpdated()
     
 }

@@ -129,9 +129,9 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     
     private func applyAppearance() {
         UINavigationBar.appearance().barStyle = .Default
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.downLightGreyColor()]
+        UINavigationBar.appearance().tintColor = UIColor.downDarkGreyColor()
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGreyColor()], forState: .Normal)
         
         let downWindow = (UIApplication.sharedApplication().delegate as! AppDelegate).window as! DownWindow
         

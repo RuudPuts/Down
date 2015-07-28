@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8121.20" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
+        </mutableArray>
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SickbeardTodayCell" rowHeight="184" id="KGk-i7-Jjw" userLabel="SickbeardTodayCell" customClass="SickbeardTodayCell" customModule="Down" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="153"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="152.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fch-q5-NHF" userLabel="BackgroundView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="150.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUb-5h-8oA" userLabel="EpisodeLabel">
+                                <rect key="frame" x="8" y="97.5" width="304" height="19.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ICV-YI-B09"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="ICV-YI-B09"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-sn-PzX" userLabel="DateLabel">
+                                <rect key="frame" x="8" y="125" width="304" height="19.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Syw-CG-Aul"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Syw-CG-Aul"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SickbeardDefaultBanner" translatesAutoresizingMaskIntoConstraints="NO" id="1QS-B4-MB5">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="niG-03-CYc"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="JJQ-sn-PzX" firstAttribute="top" secondItem="LUb-5h-8oA" secondAttribute="bottom" constant="8" id="3jY-hO-s8c"/>
+                            <constraint firstItem="LUb-5h-8oA" firstAttribute="leading" secondItem="fch-q5-NHF" secondAttribute="leading" constant="8" id="CI2-jo-ovZ"/>
+                            <constraint firstItem="1QS-B4-MB5" firstAttribute="top" secondItem="fch-q5-NHF" secondAttribute="top" id="KzQ-Zz-0g6"/>
+                            <constraint firstAttribute="trailing" secondItem="JJQ-sn-PzX" secondAttribute="trailing" constant="8" id="Lha-7A-qCt"/>
+                            <constraint firstItem="LUb-5h-8oA" firstAttribute="top" secondItem="fch-q5-NHF" secondAttribute="top" constant="6" id="Veb-eh-74p"/>
+                            <constraint firstItem="JJQ-sn-PzX" firstAttribute="leading" secondItem="fch-q5-NHF" secondAttribute="leading" constant="8" id="glH-Lf-WzS"/>
+                            <constraint firstAttribute="bottom" secondItem="JJQ-sn-PzX" secondAttribute="bottom" constant="6" id="jPk-if-Yy2"/>
+                            <constraint firstItem="1QS-B4-MB5" firstAttribute="leading" secondItem="fch-q5-NHF" secondAttribute="leading" id="myv-fT-Ash"/>
+                            <constraint firstAttribute="trailing" secondItem="1QS-B4-MB5" secondAttribute="trailing" id="okv-hB-TuU"/>
+                            <constraint firstAttribute="trailing" secondItem="LUb-5h-8oA" secondAttribute="trailing" constant="8" id="z7M-gP-Lcm"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Veb-eh-74p"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="fch-q5-NHF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="6uK-gh-YOE"/>
+                    <constraint firstAttribute="bottom" secondItem="fch-q5-NHF" secondAttribute="bottom" constant="2" id="FBN-qe-8s8"/>
+                    <constraint firstItem="fch-q5-NHF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="SWH-fA-dPM"/>
+                    <constraint firstAttribute="trailing" secondItem="fch-q5-NHF" secondAttribute="trailing" id="cWy-Nl-XCH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="dateLabel" destination="JJQ-sn-PzX" id="aiM-ux-eVU"/>
+                <outlet property="episodeLabel" destination="LUb-5h-8oA" id="ncB-NK-9qr"/>
+            </connections>
+            <point key="canvasLocation" x="199" y="138.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="SickbeardDefaultBanner" width="758" height="140"/>
+    </resources>
+</document>

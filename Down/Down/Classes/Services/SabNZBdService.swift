@@ -264,10 +264,13 @@ class SabNZBdService: Service {
                 switch notifyType {
                 case .QueueUpdated:
                     sabNZBdListener.sabNZBdQueueUpdated()
+                    break
                 case .HistoryUpdated:
                     sabNZBdListener.sabNZBdHistoryUpdated()
+                    break
                 case .FullHistoryFetched:
                     sabNZBdListener.sabNZBDFullHistoryFetched()
+                    break
                 }
             }
         }

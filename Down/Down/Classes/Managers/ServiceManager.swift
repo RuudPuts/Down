@@ -44,6 +44,11 @@ class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
         matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.history)
     }
     
+    func sickbeardFutureUpdated() {
+        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.queue)
+        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.history)
+    }
+    
     // MARK: Private methods
     
     private func matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: [SABItem]) {

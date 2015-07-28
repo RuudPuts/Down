@@ -8,47 +8,12 @@
 
 import Foundation
 
-class SickbeardHistoryItem {    
-    var tvdbId: Int!
-    var showName: String!
-    var status: SickbeardHistoryItemStatus!
-    var season: Int!
-    var episode: Int!
+class SickbeardHistoryItem: SickbeardItem {
     var resource: String!
     
-    enum SickbeardHistoryItemStatus {
-        case Snatched
-        case Downloading
-        case Finished
-        case Failed
-    }
-    
-    init(_ tvdbId: Int, _ showName: String, _ status: String, _ season: Int, _ episode: Int, _ resource: String) {
-        self.tvdbId = tvdbId
-        self.showName = showName
-        self.status = stringToStatus(status)
-        self.season = season
-        self.episode = episode
+    init(_ tvdbId: Int, _ showName: String, _ season: Int, _ episode: Int, _ status: String, _ resource: String) {
+        super.init(tvdbId, showName, season, episode: episode, status)
+        
         self.resource = resource
-    }
-    
-    private func stringToStatus(string: String) -> SickbeardHistoryItemStatus! {
-        var status = SickbeardHistoryItemStatus.Snatched
-        
-        switch (string) {
-        case "Downloaded":
-            status = SickbeardHistoryItemStatus.Finished
-        case "Snatched":
-            status = SickbeardHistoryItemStatus.Snatched
-            
-        default:
-            status = SickbeardHistoryItemStatus.Snatched
-        }
-        
-        return status
-    }
-    
-    var displayName: String! {
-        return String(format: "%@ - S%02dE%02d", self.showName, self.season, self.episode)
     }
 }

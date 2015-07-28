@@ -28,7 +28,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         title = "SABnzbd"
         
         sabNZBdService = serviceManager.sabNZBdService
-        self.sickbeardService = serviceManager.sickbeardService
+        sickbeardService = serviceManager.sickbeardService
     }
 
     override func viewDidLoad() {
@@ -43,8 +43,8 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         let itemCellNib = UINib(nibName: "SABItemCell", bundle:nil)
         tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SABItemCell")
         
-        let moreHistoryCellNib = UINib(nibName: "SABMoreHistoryCell", bundle: nil)
-        tableView.registerNib(moreHistoryCellNib, forCellReuseIdentifier: "SABMoreHistoryCell")
+        let moreHistoryCellNib = UINib(nibName: "DownMoreCell", bundle: nil)
+        tableView.registerNib(moreHistoryCellNib, forCellReuseIdentifier: "DownMoreCell")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -219,7 +219,8 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
             }
         }
         else if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
-            let historyCell = tableView.dequeueReusableCellWithIdentifier("SABMoreHistoryCell", forIndexPath: indexPath) as! SABMoreHistoryCell
+            let historyCell = tableView.dequeueReusableCellWithIdentifier("DownMoreCell", forIndexPath: indexPath) as! DownMoreCell
+            historyCell.label?.text = "Full history"
             cell = historyCell
         }
         else {
@@ -294,6 +295,10 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     // MARK: - SickbeardListener
     
     func sickbeardHistoryUpdated() {
+        self.tableView.reloadData()
+    }
+    
+    func sickbeardFutureUpdated() {
         self.tableView.reloadData()
     }
 

@@ -1,5 +1,5 @@
 //
-//  SABMoreHistoryCell.swift
+//  DownMoreCell.swift
 //  Down
 //
 //  Created by Ruud Puts on 13/04/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SABMoreHistoryCell: UITableViewCell {
+class DownMoreCell: UITableViewCell {
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var label: UILabel!
