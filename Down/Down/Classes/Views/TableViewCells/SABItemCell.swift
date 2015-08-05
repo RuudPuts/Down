@@ -16,14 +16,14 @@ class SABItemCell: UITableViewCell {
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
-    
+
     private var _historyItem: SABHistoryItem?
     private var _queueItem: SABQueueItem?
     var sabNZBdService: SabNZBdService!
     
     override func awakeFromNib() {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        self.sabNZBdService = appDelegate.serviceManager.sabNZBdService;
+//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        self.sabNZBdService = ServiceManager().sabNZBdService//appDelegate.serviceManager.sabNZBdService;
     }
     
     var queueItem: SABQueueItem? {
@@ -35,7 +35,7 @@ class SABItemCell: UITableViewCell {
 
             var hideProgressBar = true
             var progress = 0 as Float
-            if _queueItem != nil && _queueItem!.hasProgress! {
+            if _queueItem != nil && _queueItem!.hasProgress {
                 progress = _queueItem!.progress / 100
                 hideProgressBar = false
             }

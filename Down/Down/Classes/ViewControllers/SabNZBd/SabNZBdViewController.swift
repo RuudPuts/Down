@@ -150,13 +150,13 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if indexPath.section == 0 {
                 let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
-                if (queueItem.hasProgress!) {
+                if (queueItem.hasProgress) {
                     rowHeight = 66.0
                 }
             }
             else if indexPath.row < serviceManager.sabNZBdService.history.count - 1 {
                 let historyItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
-                if (historyItem.hasProgress!) {
+                if (historyItem.hasProgress) {
                     rowHeight = 66.0
                 }
             }

@@ -23,7 +23,7 @@ class PreferenceManager {
     
     class var sabNZBdHost: String {
         get {
-            return cleanupHost(getPreference(PreferenceKeys.sabNZBdHost) as! String!) + "/api"
+            return "http://192.168.178.10:8080/api"
         }
         set {
             setPreference(object:newValue, forKey:PreferenceKeys.sabNZBdHost)
@@ -32,7 +32,7 @@ class PreferenceManager {
     
     class var sabNZBdApiKey: String {
         get {
-            return getPreference(PreferenceKeys.sabNZBdApiKey) as! String!
+            return "49b77b422da54f699a58562f3a1debaa"
         }
         set {
             setPreference(object:newValue, forKey:PreferenceKeys.sabNZBdApiKey)
@@ -41,7 +41,7 @@ class PreferenceManager {
     
     class var sickbeardHost: String {
         get {
-            return cleanupHost(getPreference(PreferenceKeys.sickbeardHost) as! String!) + "/api"
+            return "http://192.168.178.10:8081/api"
         }
         set {
             setPreference(object:newValue, forKey:PreferenceKeys.sickbeardHost)
@@ -50,7 +50,7 @@ class PreferenceManager {
     
     class var sickbeardApiKey: String {
         get {
-            return getPreference(PreferenceKeys.sickbeardApiKey) as! String!
+            return "e9c3be0f3315f09d7ceae37f1d3836cd"
         }
         set {
             setPreference(object:newValue, forKey:PreferenceKeys.sickbeardApiKey)
@@ -59,7 +59,7 @@ class PreferenceManager {
     
     class var couchPotatoHost: String {
         get {
-            return cleanupHost(getPreference(PreferenceKeys.couchPotatoHost) as! String!)
+            return "http://192.168.178.10:8082"
         }
         set {
             setPreference(object:newValue, forKey:PreferenceKeys.couchPotatoHost)
@@ -68,7 +68,7 @@ class PreferenceManager {
     
     class var couchPotatoApiKey: String {
         get {
-            return getPreference(PreferenceKeys.couchPotatoApiKey) as! String!
+            return "fb3f91e38ba147b29514d56a24d17d9a"
         }
         set {
             setPreference(object:newValue, forKey:PreferenceKeys.couchPotatoApiKey)

@@ -45,7 +45,7 @@ class SABHistoryItem: SABItem {
         self.status = stringToStatus(statusDescription)
     }
     
-    var hasProgress: Bool! {
+    var hasProgress: Bool {
         var hasProgress = false
         if ((self.status == .Verifying || self.status == .Repairing || self.status == .Extracting) && self.progress > 0) {
             hasProgress = true
@@ -55,7 +55,7 @@ class SABHistoryItem: SABItem {
         return hasProgress
     }
     
-    var progress: Float! {
+    var progress: Float {
         var progress: Float = 0
         
         if (self.status == .Verifying || self.status == .Extracting) {
@@ -71,7 +71,7 @@ class SABHistoryItem: SABItem {
         return progress
     }
     
-    private func stringToStatus(string: String) -> SABHistoryItemStatus! {
+    private func stringToStatus(string: String) -> SABHistoryItemStatus {
         var status = SABHistoryItemStatus.Queued
         
         switch (string) {

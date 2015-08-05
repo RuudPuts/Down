@@ -30,6 +30,39 @@
 		42391AA81B5C0ECC00E4E0B4 /* NSDateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42391AA71B5C0ECC00E4E0B4 /* NSDateFormatter+Extensions.swift */; };
 		42391AAA1B5C211300E4E0B4 /* SickbeardFutureItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42391AA91B5C211300E4E0B4 /* SickbeardFutureItem.swift */; };
 		42391AAC1B5C21A400E4E0B4 /* SickbeardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42391AAB1B5C21A400E4E0B4 /* SickbeardItem.swift */; };
+		423D87951B700B3D00AFB7FF /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 423D87941B700B3D00AFB7FF /* NotificationCenter.framework */; };
+		423D87981B700B3D00AFB7FF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423D87971B700B3D00AFB7FF /* TodayViewController.swift */; };
+		423D879B1B700B3D00AFB7FF /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 423D87991B700B3D00AFB7FF /* MainInterface.storyboard */; };
+		423D879F1B700B3D00AFB7FF /* SabQueueWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 423D87921B700B3D00AFB7FF /* SabQueueWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		423D87AA1B700C6500AFB7FF /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D198A21AB4D12400A19FD2 /* Service.swift */; };
+		423D87AB1B700C6500AFB7FF /* SabNZBdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D198A41AB4D13000A19FD2 /* SabNZBdService.swift */; };
+		423D87AC1B700C6500AFB7FF /* SickbeardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D198A61AB4D13D00A19FD2 /* SickbeardService.swift */; };
+		423D87AD1B700C6500AFB7FF /* CouchPotatoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D198A81AB4D14900A19FD2 /* CouchPotatoService.swift */; };
+		423D87AE1B700C9200AFB7FF /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D198A01AB4D11200A19FD2 /* ServiceManager.swift */; };
+		423D87AF1B700C9200AFB7FF /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C091031AC1E0CF00E6DDC4 /* PreferenceManager.swift */; };
+		423D87B01B700C9200AFB7FF /* SABItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D198B21AB4D57300A19FD2 /* SABItem.swift */; };
+		423D87B11B700C9200AFB7FF /* SABQueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D198B41AB4D59400A19FD2 /* SABQueueItem.swift */; };
+		423D87B21B700C9200AFB7FF /* SABHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D198B61AB4D59E00A19FD2 /* SABHistoryItem.swift */; };
+		423D87B31B700C9200AFB7FF /* SickbeardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42391AAB1B5C21A400E4E0B4 /* SickbeardItem.swift */; };
+		423D87B41B700C9200AFB7FF /* SickbeardHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425854221AD5B27F00D8C106 /* SickbeardHistoryItem.swift */; };
+		423D87B51B700C9200AFB7FF /* SickbeardFutureItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42391AA91B5C211300E4E0B4 /* SickbeardFutureItem.swift */; };
+		423D87B61B700C9200AFB7FF /* Listener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D198B91AB4DFC900A19FD2 /* Listener.swift */; };
+		423D87B71B700C9200AFB7FF /* SabNZBdListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D198BB1AB4DFF200A19FD2 /* SabNZBdListener.swift */; };
+		423D87B81B700C9200AFB7FF /* SickbeardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C9CA91ADAD9BA00CB7B54 /* SickbeardListener.swift */; };
+		423D87B91B700C9200AFB7FF /* CouchPotatoListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42391A8A1B5B06D900E4E0B4 /* CouchPotatoListener.swift */; };
+		423D87BA1B700CB700AFB7FF /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DC208E1B529F210060DA10 /* SwiftyJSON.swift */; };
+		423D87BB1B700CD300AFB7FF /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E19C241AB6154C00883359 /* String+Extensions.swift */; };
+		423D87BD1B700E4400AFB7FF /* SABLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420F496C1ADC42DB006CFA11 /* SABLoadingCell.swift */; };
+		423D87BE1B700E4400AFB7FF /* SABEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420F49701ADC4B03006CFA11 /* SABEmptyCell.swift */; };
+		423D87BF1B700E4400AFB7FF /* SABItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CD255D1AB5C06D008E9717 /* SABItemCell.swift */; };
+		423D87C01B700E6000AFB7FF /* SABLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F496E1ADC431E006CFA11 /* SABLoadingCell.xib */; };
+		423D87C11B700E6000AFB7FF /* SABEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F49721ADC4B50006CFA11 /* SABEmptyCell.xib */; };
+		423D87C21B700E6000AFB7FF /* SABItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E2D1AD172CD009845CC /* SABItemCell.xib */; };
+		423D87C31B700EC200AFB7FF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */; };
+		423D87C41B700EC200AFB7FF /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */; };
+		423D87C51B700EC200AFB7FF /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F035351AD45BC2001AE5B3 /* UIView+Extensions.swift */; };
+		423D87C61B700EC200AFB7FF /* NSDateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42391AA71B5C0ECC00E4E0B4 /* NSDateFormatter+Extensions.swift */; };
+		423D87C71B700F1700AFB7FF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DC20831B529E9D0060DA10 /* Alamofire.framework */; };
 		424C9CAA1ADAD9BA00CB7B54 /* SickbeardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C9CA91ADAD9BA00CB7B54 /* SickbeardListener.swift */; };
 		4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E7FE1AB4B84C00EF1254 /* AppDelegate.swift */; };
 		4253E80F1AB4B84C00EF1254 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8031AB4B84C00EF1254 /* ViewController.swift */; };
@@ -59,6 +92,32 @@
 		428F7E541AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F7E531AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift */; };
 		428F7E561AFFC59B001B49D0 /* SabNZBdHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428F7E551AFFC59B001B49D0 /* SabNZBdHistoryViewController.xib */; };
 		42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */; };
+		4299A3551B70133A0001C6C4 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */; };
+		4299A3561B70133A0001C6C4 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25231AB5BD05008E9717 /* OpenSans-BoldItalic.ttf */; };
+		4299A3571B70133A0001C6C4 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25241AB5BD05008E9717 /* OpenSans-ExtraBold.ttf */; };
+		4299A3581B70133A0001C6C4 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25251AB5BD05008E9717 /* OpenSans-ExtraBoldItalic.ttf */; };
+		4299A3591B70133A0001C6C4 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25261AB5BD05008E9717 /* OpenSans-Italic.ttf */; };
+		4299A35A1B70133A0001C6C4 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25271AB5BD05008E9717 /* OpenSans-Light.ttf */; };
+		4299A35B1B70133A0001C6C4 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25281AB5BD05008E9717 /* OpenSans-LightItalic.ttf */; };
+		4299A35C1B70133A0001C6C4 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25291AB5BD05008E9717 /* OpenSans-Regular.ttf */; };
+		4299A35D1B70133A0001C6C4 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD252A1AB5BD05008E9717 /* OpenSans-Semibold.ttf */; };
+		4299A35E1B70133A0001C6C4 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD252B1AB5BD05008E9717 /* OpenSans-SemiboldItalic.ttf */; };
+		4299A35F1B70133E0001C6C4 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD252D1AB5BD06008E9717 /* Roboto-Black.ttf */; };
+		4299A3601B70133E0001C6C4 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD252E1AB5BD06008E9717 /* Roboto-BlackItalic.ttf */; };
+		4299A3611B70133E0001C6C4 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD252F1AB5BD06008E9717 /* Roboto-Bold.ttf */; };
+		4299A3621B70133E0001C6C4 /* Roboto-BoldCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25301AB5BD06008E9717 /* Roboto-BoldCondensed.ttf */; };
+		4299A3631B70133E0001C6C4 /* Roboto-BoldCondensedItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25311AB5BD06008E9717 /* Roboto-BoldCondensedItalic.ttf */; };
+		4299A3641B70133E0001C6C4 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25321AB5BD06008E9717 /* Roboto-BoldItalic.ttf */; };
+		4299A3651B70133E0001C6C4 /* Roboto-Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25331AB5BD06008E9717 /* Roboto-Condensed.ttf */; };
+		4299A3661B70133E0001C6C4 /* Roboto-CondensedItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25341AB5BD06008E9717 /* Roboto-CondensedItalic.ttf */; };
+		4299A3671B70133E0001C6C4 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25351AB5BD06008E9717 /* Roboto-Italic.ttf */; };
+		4299A3681B70133E0001C6C4 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25361AB5BD06008E9717 /* Roboto-Light.ttf */; };
+		4299A3691B70133E0001C6C4 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25371AB5BD06008E9717 /* Roboto-LightItalic.ttf */; };
+		4299A36A1B70133E0001C6C4 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25381AB5BD06008E9717 /* Roboto-Medium.ttf */; };
+		4299A36B1B70133E0001C6C4 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25391AB5BD06008E9717 /* Roboto-MediumItalic.ttf */; };
+		4299A36C1B70133E0001C6C4 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD253A1AB5BD06008E9717 /* Roboto-Regular.ttf */; };
+		4299A36D1B70133E0001C6C4 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD253B1AB5BD06008E9717 /* Roboto-Thin.ttf */; };
+		4299A36E1B70133E0001C6C4 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD253C1AB5BD06008E9717 /* Roboto-ThinItalic.ttf */; };
 		42A000D51B68093C0021208A /* SickbeardTodayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42A000D41B68093C0021208A /* SickbeardTodayCell.xib */; };
 		42A000D71B680B530021208A /* SickbeardTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A000D61B680B530021208A /* SickbeardTodayCell.swift */; };
 		42C091041AC1E0CF00E6DDC4 /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C091031AC1E0CF00E6DDC4 /* PreferenceManager.swift */; };
@@ -140,6 +199,13 @@
 			remoteGlobalIDString = 55E3EE4419D76F280068C3A7;
 			remoteInfo = "XCGLogger (iOS)";
 		};
+		423D879D1B700B3D00AFB7FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4253E7CD1AB4B7B900EF1254 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 423D87911B700B3D00AFB7FF;
+			remoteInfo = SabQueueWidget;
+		};
 		4253E7EE1AB4B7B900EF1254 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4253E7CD1AB4B7B900EF1254 /* Project object */;
@@ -185,6 +251,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		423D87A91B700B3D00AFB7FF /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				423D879F1B700B3D00AFB7FF /* SabQueueWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		42DC20941B529F950060DA10 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -222,6 +299,11 @@
 		42391AA71B5C0ECC00E4E0B4 /* NSDateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		42391AA91B5C211300E4E0B4 /* SickbeardFutureItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardFutureItem.swift; sourceTree = "<group>"; };
 		42391AAB1B5C21A400E4E0B4 /* SickbeardItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardItem.swift; sourceTree = "<group>"; };
+		423D87921B700B3D00AFB7FF /* SabQueueWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SabQueueWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		423D87941B700B3D00AFB7FF /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		423D87971B700B3D00AFB7FF /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		423D879A1B700B3D00AFB7FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		423D879C1B700B3D00AFB7FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		424C9CA91ADAD9BA00CB7B54 /* SickbeardListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardListener.swift; sourceTree = "<group>"; };
 		4253E7D51AB4B7B900EF1254 /* Down.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Down.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4253E7ED1AB4B7B900EF1254 /* DownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -308,6 +390,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		423D878F1B700B3D00AFB7FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				423D87C71B700F1700AFB7FF /* Alamofire.framework in Frameworks */,
+				423D87951B700B3D00AFB7FF /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4253E7D21AB4B7B900EF1254 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -459,11 +550,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		423D87931B700B3D00AFB7FF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				423D87941B700B3D00AFB7FF /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		423D87961B700B3D00AFB7FF /* SabQueueWidget */ = {
+			isa = PBXGroup;
+			children = (
+				423D87971B700B3D00AFB7FF /* TodayViewController.swift */,
+				423D87991B700B3D00AFB7FF /* MainInterface.storyboard */,
+				423D879C1B700B3D00AFB7FF /* Info.plist */,
+			);
+			path = SabQueueWidget;
+			sourceTree = "<group>";
+		};
 		4253E7CC1AB4B7B900EF1254 = {
 			isa = PBXGroup;
 			children = (
 				4253E7D71AB4B7B900EF1254 /* Down */,
 				4253E7F01AB4B7B900EF1254 /* DownTests */,
+				423D87961B700B3D00AFB7FF /* SabQueueWidget */,
+				423D87931B700B3D00AFB7FF /* Frameworks */,
 				4253E7D61AB4B7B900EF1254 /* Products */,
 				42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */,
 				42DC207B1B529E9D0060DA10 /* Alamofire.xcodeproj */,
@@ -475,6 +586,7 @@
 			children = (
 				4253E7D51AB4B7B900EF1254 /* Down.app */,
 				4253E7ED1AB4B7B900EF1254 /* DownTests.xctest */,
+				423D87921B700B3D00AFB7FF /* SabQueueWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -803,6 +915,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		423D87911B700B3D00AFB7FF /* SabQueueWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 423D87A81B700B3D00AFB7FF /* Build configuration list for PBXNativeTarget "SabQueueWidget" */;
+			buildPhases = (
+				423D878E1B700B3D00AFB7FF /* Sources */,
+				423D878F1B700B3D00AFB7FF /* Frameworks */,
+				423D87901B700B3D00AFB7FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SabQueueWidget;
+			productName = SabQueueWidget;
+			productReference = 423D87921B700B3D00AFB7FF /* SabQueueWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		4253E7D41AB4B7B900EF1254 /* Down */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4253E7F71AB4B7B900EF1254 /* Build configuration list for PBXNativeTarget "Down" */;
@@ -811,12 +940,14 @@
 				4253E7D21AB4B7B900EF1254 /* Frameworks */,
 				4253E7D31AB4B7B900EF1254 /* Resources */,
 				42DC20941B529F950060DA10 /* Embed Frameworks */,
+				423D87A91B700B3D00AFB7FF /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				42DC20931B529F950060DA10 /* PBXTargetDependency */,
 				42391AA21B5BF07700E4E0B4 /* PBXTargetDependency */,
+				423D879E1B700B3D00AFB7FF /* PBXTargetDependency */,
 			);
 			name = Down;
 			productName = Down;
@@ -851,6 +982,10 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Ruud Puts";
 				TargetAttributes = {
+					423D87911B700B3D00AFB7FF = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 3GH9A2WM8V;
+					};
 					4253E7D41AB4B7B900EF1254 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 3GH9A2WM8V;
@@ -886,6 +1021,7 @@
 			targets = (
 				4253E7D41AB4B7B900EF1254 /* Down */,
 				4253E7EC1AB4B7B900EF1254 /* DownTests */,
+				423D87911B700B3D00AFB7FF /* SabQueueWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -943,6 +1079,43 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		423D87901B700B3D00AFB7FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4299A36E1B70133E0001C6C4 /* Roboto-ThinItalic.ttf in Resources */,
+				4299A36A1B70133E0001C6C4 /* Roboto-Medium.ttf in Resources */,
+				4299A3591B70133A0001C6C4 /* OpenSans-Italic.ttf in Resources */,
+				4299A3561B70133A0001C6C4 /* OpenSans-BoldItalic.ttf in Resources */,
+				4299A35F1B70133E0001C6C4 /* Roboto-Black.ttf in Resources */,
+				423D879B1B700B3D00AFB7FF /* MainInterface.storyboard in Resources */,
+				4299A35D1B70133A0001C6C4 /* OpenSans-Semibold.ttf in Resources */,
+				4299A3571B70133A0001C6C4 /* OpenSans-ExtraBold.ttf in Resources */,
+				4299A36B1B70133E0001C6C4 /* Roboto-MediumItalic.ttf in Resources */,
+				4299A3611B70133E0001C6C4 /* Roboto-Bold.ttf in Resources */,
+				423D87C21B700E6000AFB7FF /* SABItemCell.xib in Resources */,
+				4299A3601B70133E0001C6C4 /* Roboto-BlackItalic.ttf in Resources */,
+				4299A3671B70133E0001C6C4 /* Roboto-Italic.ttf in Resources */,
+				4299A35B1B70133A0001C6C4 /* OpenSans-LightItalic.ttf in Resources */,
+				423D87C01B700E6000AFB7FF /* SABLoadingCell.xib in Resources */,
+				4299A3661B70133E0001C6C4 /* Roboto-CondensedItalic.ttf in Resources */,
+				4299A3551B70133A0001C6C4 /* OpenSans-Bold.ttf in Resources */,
+				4299A3681B70133E0001C6C4 /* Roboto-Light.ttf in Resources */,
+				423D87C11B700E6000AFB7FF /* SABEmptyCell.xib in Resources */,
+				4299A35E1B70133A0001C6C4 /* OpenSans-SemiboldItalic.ttf in Resources */,
+				4299A3691B70133E0001C6C4 /* Roboto-LightItalic.ttf in Resources */,
+				4299A35A1B70133A0001C6C4 /* OpenSans-Light.ttf in Resources */,
+				4299A36D1B70133E0001C6C4 /* Roboto-Thin.ttf in Resources */,
+				4299A35C1B70133A0001C6C4 /* OpenSans-Regular.ttf in Resources */,
+				4299A36C1B70133E0001C6C4 /* Roboto-Regular.ttf in Resources */,
+				4299A3621B70133E0001C6C4 /* Roboto-BoldCondensed.ttf in Resources */,
+				4299A3581B70133A0001C6C4 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				4299A3641B70133E0001C6C4 /* Roboto-BoldItalic.ttf in Resources */,
+				4299A3631B70133E0001C6C4 /* Roboto-BoldCondensedItalic.ttf in Resources */,
+				4299A3651B70133E0001C6C4 /* Roboto-Condensed.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4253E7D31AB4B7B900EF1254 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1003,6 +1176,39 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		423D878E1B700B3D00AFB7FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				423D87B81B700C9200AFB7FF /* SickbeardListener.swift in Sources */,
+				423D87B51B700C9200AFB7FF /* SickbeardFutureItem.swift in Sources */,
+				423D87B91B700C9200AFB7FF /* CouchPotatoListener.swift in Sources */,
+				423D87B21B700C9200AFB7FF /* SABHistoryItem.swift in Sources */,
+				423D87981B700B3D00AFB7FF /* TodayViewController.swift in Sources */,
+				423D87B11B700C9200AFB7FF /* SABQueueItem.swift in Sources */,
+				423D87AF1B700C9200AFB7FF /* PreferenceManager.swift in Sources */,
+				423D87BF1B700E4400AFB7FF /* SABItemCell.swift in Sources */,
+				423D87B31B700C9200AFB7FF /* SickbeardItem.swift in Sources */,
+				423D87AA1B700C6500AFB7FF /* Service.swift in Sources */,
+				423D87AD1B700C6500AFB7FF /* CouchPotatoService.swift in Sources */,
+				423D87C41B700EC200AFB7FF /* UICollectionView+Extensions.swift in Sources */,
+				423D87BD1B700E4400AFB7FF /* SABLoadingCell.swift in Sources */,
+				423D87BE1B700E4400AFB7FF /* SABEmptyCell.swift in Sources */,
+				423D87AC1B700C6500AFB7FF /* SickbeardService.swift in Sources */,
+				423D87C61B700EC200AFB7FF /* NSDateFormatter+Extensions.swift in Sources */,
+				423D87B71B700C9200AFB7FF /* SabNZBdListener.swift in Sources */,
+				423D87B01B700C9200AFB7FF /* SABItem.swift in Sources */,
+				423D87C51B700EC200AFB7FF /* UIView+Extensions.swift in Sources */,
+				423D87BB1B700CD300AFB7FF /* String+Extensions.swift in Sources */,
+				423D87AB1B700C6500AFB7FF /* SabNZBdService.swift in Sources */,
+				423D87C31B700EC200AFB7FF /* UIColor+Extensions.swift in Sources */,
+				423D87B61B700C9200AFB7FF /* Listener.swift in Sources */,
+				423D87BA1B700CB700AFB7FF /* SwiftyJSON.swift in Sources */,
+				423D87B41B700C9200AFB7FF /* SickbeardHistoryItem.swift in Sources */,
+				423D87AE1B700C9200AFB7FF /* ServiceManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4253E7D11AB4B7B900EF1254 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1067,6 +1273,11 @@
 			name = "XCGLogger (iOS)";
 			targetProxy = 42391AA11B5BF07700E4E0B4 /* PBXContainerItemProxy */;
 		};
+		423D879E1B700B3D00AFB7FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 423D87911B700B3D00AFB7FF /* SabQueueWidget */;
+			targetProxy = 423D879D1B700B3D00AFB7FF /* PBXContainerItemProxy */;
+		};
 		4253E7EF1AB4B7B900EF1254 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4253E7D41AB4B7B900EF1254 /* Down */;
@@ -1079,7 +1290,67 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		423D87991B700B3D00AFB7FF /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				423D879A1B700B3D00AFB7FF /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		423D87A01B700B3D00AFB7FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = SabQueueWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.ruudputs.Down.SabQueueWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		423D87A11B700B3D00AFB7FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = SabQueueWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.ruudputs.Down.SabQueueWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		423D87A21B700B3D00AFB7FF /* Store */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = SabQueueWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.ruudputs.Down.SabQueueWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Store;
+		};
 		4253E7F51AB4B7B900EF1254 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1309,6 +1580,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		423D87A81B700B3D00AFB7FF /* Build configuration list for PBXNativeTarget "SabQueueWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				423D87A01B700B3D00AFB7FF /* Debug */,
+				423D87A11B700B3D00AFB7FF /* Release */,
+				423D87A21B700B3D00AFB7FF /* Store */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4253E7D01AB4B7B900EF1254 /* Build configuration list for PBXProject "Down" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

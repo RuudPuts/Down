@@ -69,7 +69,7 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
         if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if indexPath.row < sabNZBdService.history.count {
                 let historyItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
-                if (historyItem.hasProgress!) {
+                if (historyItem.hasProgress) {
                     rowHeight = 66.0
                 }
             }
