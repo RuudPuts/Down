@@ -59,16 +59,19 @@ class SickbeardService: Service {
     
     internal dynamic func refreshHistory() {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
-        Alamofire.request(.GET, URLString: url).responseJSON { (_, _, jsonString, error) in
-            if let json: AnyObject = jsonString {
+        Alamofire.request(.GET, url).responseJSON { _, _, result in
+            if result.isSuccess {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                    self.parseHistoryJson(JSON(json))
+                    self.parseHistoryJson(JSON(result.value!))
                     self.refreshCompleted()
-                    
+
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.notifyListeners(SickbeardNotifyType.HistoryUpdated)
+                        self.notifyListeners(.HistoryUpdated)
                     })
                 })
+            }
+            else {
+                print("Error while fetching Sickbard history: \(result.error!)")
             }
         }
     }
@@ -94,15 +97,19 @@ class SickbeardService: Service {
     // MARK: - Future
     internal func refreshFuture() {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=future"
-        Alamofire.request(.GET, URLString: url).responseJSON { (_, _, jsonString, error) in
-            if let json: AnyObject = jsonString {
+        Alamofire.request(.GET, url).responseJSON { _, _, result in
+            if result.isSuccess {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                    self.parseFuture(JSON(json))
+                    self.parseFuture(JSON(result.value!))
+                    self.refreshCompleted()
                     
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.notifyListeners(SickbeardNotifyType.FutureUpdated)
+                        self.notifyListeners(.FutureUpdated)
                     })
                 })
+            }
+            else {
+                print("Error while fetching Sickbeard future: \(result.error!)")
             }
         }
     }
