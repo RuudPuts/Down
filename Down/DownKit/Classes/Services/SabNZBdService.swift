@@ -62,7 +62,7 @@ public class SabNZBdService: Service {
     
     // MARK: - Queue
     
-    private func refreshQueue() {
+    @objc private func refreshQueue() {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=queue&output=json&apikey=\(PreferenceManager.sabNZBdApiKey)"
         
         Alamofire.request(.GET, url).responseJSON { _, _, result in
@@ -110,7 +110,7 @@ public class SabNZBdService: Service {
     
     // MARK - History
     
-    private dynamic func refreshHistory() {
+    @objc private func refreshHistory() {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=history&output=json&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
         Alamofire.request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {

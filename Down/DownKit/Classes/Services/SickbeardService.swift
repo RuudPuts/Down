@@ -57,7 +57,7 @@ public class SickbeardService: Service {
     
     // MARK: - History
     
-    private func refreshHistory() {
+    @objc private func refreshHistory() {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
         Alamofire.request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
