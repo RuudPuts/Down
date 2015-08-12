@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SickbeardHistoryItem: SickbeardItem {
+public class SickbeardHistoryItem: SickbeardItem {
     var resource: String!
     
     init(_ tvdbId: Int, _ showName: String, _ season: Int, _ episode: Int, _ status: String, _ resource: String) {

@@ -8,12 +8,12 @@
 
 import UIKit
 
-class SABQueueItem: SABItem {
+public class SABQueueItem: SABItem {
     
     let totalMb: Float!
     let remainingMb: Float!
-    let timeRemaining: String!
-    let progress: Float!
+    public let timeRemaining: String!
+    public let progress: Float!
     var status: SABQueueItemStatus!
     
     enum SABQueueItemStatus {
@@ -34,7 +34,7 @@ class SABQueueItem: SABItem {
         self.status = stringToStatus(statusDescription)
     }
     
-    var hasProgress: Bool {
+    public var hasProgress: Bool {
         var hasProgress = false
         if (self.status == SABQueueItemStatus.Downloading || (self.status == SABQueueItemStatus.Queued && self.progress > 0)) {
             hasProgress = true
@@ -42,7 +42,7 @@ class SABQueueItem: SABItem {
         return hasProgress
     }
     
-    var progressString: String! {
+    public var progressString: String! {
         var progressString: String!
         
         switch status as SABQueueItemStatus {

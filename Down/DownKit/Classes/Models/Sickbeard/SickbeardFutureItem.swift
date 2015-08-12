@@ -8,12 +8,12 @@
 
 import Foundation
 
-class SickbeardFutureItem: SickbeardItem {
-    var episodeName: String!
-    var airDate: String!
-    var category: Category!
+public class SickbeardFutureItem: SickbeardItem {
+    public var episodeName: String!
+    public var airDate: String!
+    public var category: Category!
     
-    enum Category : String {
+    public enum Category : String {
         case Today = "today", Soon = "soon", Later = "later", Missed = "missed"
         
         static let values = [Today, Soon, Later, Missed]
@@ -27,7 +27,7 @@ class SickbeardFutureItem: SickbeardItem {
         self.category = category
     }
     
-    override var displayName: String! {
+    override public var displayName: String! {
         return super.displayName + " - \(episodeName)"
     }
 }

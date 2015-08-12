@@ -8,25 +8,10 @@
 
 import Foundation
 
-extension String {
-    var floatValue: Float {
-        return (self as NSString).floatValue
-    }
+public extension String {
     
     var length: Int {
         return self.utf16.count
-    }
-    
-    var fullNSRange: NSRange {
-        return NSRange(location: 0, length: self.length)
-    }
-    
-    var fullRange: Range<String.Index> {
-        return self.startIndex..<self.endIndex
-    }
-    
-    func toFloat() -> Float? {
-        return floatValue
     }
     
     init(var fromMB size: Float) {
@@ -46,5 +31,23 @@ extension String {
         else {
             self = String(format: "%.0f%@", size, sizeDisplay)
         }
+    }
+}
+
+extension String {
+    var floatValue: Float {
+        return (self as NSString).floatValue
+    }
+    
+    var fullNSRange: NSRange {
+        return NSRange(location: 0, length: self.length)
+    }
+    
+    var fullRange: Range<String.Index> {
+        return self.startIndex..<self.endIndex
+    }
+    
+    func toFloat() -> Float? {
+        return floatValue
     }
 }

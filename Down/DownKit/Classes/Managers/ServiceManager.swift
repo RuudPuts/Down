@@ -8,43 +8,43 @@
 
 import UIKit
 
-class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
+public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     
-    let sabNZBdService: SabNZBdService
-    let sickbeardService: SickbeardService
-    let couchPotatoService: CouchPotatoService
+    public let sabNZBdService: SabNZBdService
+    public let sickbeardService: SickbeardService
+    public let couchPotatoService: CouchPotatoService
     
-    override init() {
+    public override init() {
         sabNZBdService = SabNZBdService(queueRefreshRate: 1, historyRefreshRate: 1)
         sickbeardService = SickbeardService()
         couchPotatoService = CouchPotatoService()
         
         super.init()
         
-        sabNZBdService.addListener(self)
-        sickbeardService.addListener(self)
+//fix        sabNZBdService.addListener(self)
+//fix        sickbeardService.addListener(self)
     }
     
     // MARK: SabNZBdListener
     
-    func sabNZBdQueueUpdated() {
+    public func sabNZBdQueueUpdated() {
         matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.queue)
     }
     
-    func sabNZBdHistoryUpdated() {
+    public func sabNZBdHistoryUpdated() {
         matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.history)
     }
     
-    func sabNZBDFullHistoryFetched() { }
+    public func sabNZBDFullHistoryFetched() { }
 
     // MARK: SickbearListener
     
-    func sickbeardHistoryUpdated() {
+    public func sickbeardHistoryUpdated() {
         matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.queue)
         matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.history)
     }
     
-    func sickbeardFutureUpdated() {
+    public func sickbeardFutureUpdated() {
         matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.queue)
         matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.history)
     }

@@ -8,14 +8,14 @@
 
 import UIKit
 
-class SABItem: NSObject {
+public class SABItem: NSObject {
     
     let identifier: String!
     let filename: String!
-    var category: String!
-    let nzbName: String!
+    public var category: String!
+    public let nzbName: String!
     var progressDescription: String?
-    var statusDescription: String!
+    public var statusDescription: String!
     var sickbeardEntry: SickbeardHistoryItem?
     
     var imdbTitle: String?
@@ -28,7 +28,7 @@ class SABItem: NSObject {
         self.statusDescription = statusDescription;
     }    
     
-    var imdbIdentifier: String? {
+    public var imdbIdentifier: String? {
         var imdbIdentifier:String? = nil
         
         // Detect IMDB id
@@ -49,7 +49,7 @@ class SABItem: NSObject {
         return imdbIdentifier
     }
     
-    var displayName: String! {
+    public var displayName: String! {
         var displayName = self.filename as String
         if (self.imdbTitle != nil) {
             displayName = self.imdbTitle!

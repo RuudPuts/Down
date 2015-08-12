@@ -8,15 +8,15 @@
 
 import UIKit
 
-class SABHistoryItem: SABItem {
+public class SABHistoryItem: SABItem {
     
     let title: String!
-    let size: String!
+    public let size: String!
     var actionLine: String?
-    var status: SABHistoryItemStatus?
-    var completionDate: NSDate?
+    public var status: SABHistoryItemStatus?
+    public var completionDate: NSDate?
     
-    internal enum SABHistoryItemStatus {
+    public enum SABHistoryItemStatus {
         case Queued
         case Verifying
         case Repairing
@@ -45,7 +45,7 @@ class SABHistoryItem: SABItem {
         self.status = stringToStatus(statusDescription)
     }
     
-    var hasProgress: Bool {
+    public var hasProgress: Bool {
         var hasProgress = false
         if ((self.status == .Verifying || self.status == .Repairing || self.status == .Extracting) && self.progress > 0) {
             hasProgress = true
@@ -55,7 +55,7 @@ class SABHistoryItem: SABItem {
         return hasProgress
     }
     
-    var progress: Float {
+    public var progress: Float {
         var progress: Float = 0
         
         if (self.status == .Verifying || self.status == .Extracting) {

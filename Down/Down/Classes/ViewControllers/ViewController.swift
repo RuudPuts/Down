@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DownKit
 
 class ViewController: UIViewController {
     

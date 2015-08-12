@@ -8,7 +8,7 @@
 
 import Alamofire
 
-class CouchPotatoService: Service {
+public class CouchPotatoService: Service {
    
     override init() {
         super.init()
@@ -16,7 +16,7 @@ class CouchPotatoService: Service {
         refreshSnatchedAndAvailable()
     }
     
-    override func addListener(listener: Listener) {
+    override public func addListener(listener: ServiceListener) {
         if listener is CouchPotatoListener {
             super.addListener(listener)
         }

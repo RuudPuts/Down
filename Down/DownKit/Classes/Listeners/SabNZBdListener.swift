@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SabNZBdListener: Listener {
+public protocol SabNZBdListener: ServiceListener {
    
     func sabNZBdQueueUpdated()
     func sabNZBdHistoryUpdated()

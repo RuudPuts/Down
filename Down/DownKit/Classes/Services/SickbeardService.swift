@@ -8,14 +8,14 @@
 
 import Alamofire
 
-class SickbeardService: Service {
+public class SickbeardService: Service {
 
     var refreshTimer: NSTimer?
     
-    var history: Array<SickbeardHistoryItem>!
-    var future: [String: [SickbeardFutureItem]]!
+    public var history: Array<SickbeardHistoryItem>!
+    public var future: [String: [SickbeardFutureItem]]!
     
-    enum SickbeardNotifyType {
+    private enum SickbeardNotifyType {
         case HistoryUpdated
         case FutureUpdated
     }
@@ -29,7 +29,7 @@ class SickbeardService: Service {
         refreshFuture()
     }
     
-    override func addListener(listener: Listener) {
+    override public func addListener(listener: ServiceListener) {
         if listener is SickbeardListener {
             super.addListener(listener)
         }
@@ -57,7 +57,7 @@ class SickbeardService: Service {
     
     // MARK: - History
     
-    internal dynamic func refreshHistory() {
+    private func refreshHistory() {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
         Alamofire.request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
@@ -95,7 +95,7 @@ class SickbeardService: Service {
     }
     
     // MARK: - Future
-    internal func refreshFuture() {
+    private func refreshFuture() {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=future"
         Alamofire.request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {

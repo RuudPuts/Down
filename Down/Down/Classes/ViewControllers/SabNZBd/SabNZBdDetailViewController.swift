@@ -8,6 +8,7 @@
 
 import Foundation
 import XCGLogger
+import DownKit
 
 class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
@@ -54,13 +55,13 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
         super.viewWillAppear(animated)
         
         self.navigationController!.setNavigationBarHidden(false, animated: true)
-        sabNZBdService.addListener(self)
+//fix        sabNZBdService.addListener(self)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        sabNZBdService.removeListener(self)
+//fix        sabNZBdService.removeListener(self)
         self.navigationController!.setNavigationBarHidden(true, animated: true)
     }
     

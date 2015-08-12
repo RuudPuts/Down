@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PreferenceManager {
+public class PreferenceManager {
     
     struct PreferenceKeys {
         static let sabNZBdHost = "SabNZBdHost"
@@ -21,7 +21,7 @@ class PreferenceManager {
         static let couchPotatoApiKey = "CouchPotatoApiKey"
     }
     
-    class var sabNZBdHost: String {
+    public class var sabNZBdHost: String {
         get {
             return "http://192.168.178.10:8080/api"
         }
@@ -30,7 +30,7 @@ class PreferenceManager {
         }
     }
     
-    class var sabNZBdApiKey: String {
+    public class var sabNZBdApiKey: String {
         get {
             return "49b77b422da54f699a58562f3a1debaa"
         }
@@ -39,7 +39,7 @@ class PreferenceManager {
         }
     }
     
-    class var sickbeardHost: String {
+    public class var sickbeardHost: String {
         get {
             return "http://192.168.178.10:8081/api"
         }
@@ -48,7 +48,7 @@ class PreferenceManager {
         }
     }
     
-    class var sickbeardApiKey: String {
+    public class var sickbeardApiKey: String {
         get {
             return "e9c3be0f3315f09d7ceae37f1d3836cd"
         }
@@ -57,7 +57,7 @@ class PreferenceManager {
         }
     }
     
-    class var couchPotatoHost: String {
+    public class var couchPotatoHost: String {
         get {
             return "http://192.168.178.10:8082"
         }
@@ -66,7 +66,7 @@ class PreferenceManager {
         }
     }
     
-    class var couchPotatoApiKey: String {
+    public class var couchPotatoApiKey: String {
         get {
             return "fb3f91e38ba147b29514d56a24d17d9a"
         }
@@ -77,11 +77,11 @@ class PreferenceManager {
     
     //MARK: - Private functions
     
-    internal class func getPreference(preferenceKey: String) -> AnyObject? {
+    private class func getPreference(preferenceKey: String) -> AnyObject? {
         return NSUserDefaults.standardUserDefaults().objectForKey(preferenceKey)
     }
     
-    internal class func setPreference(object object: String, forKey key:String) {
+    private class func setPreference(object object: String, forKey key:String) {
         NSUserDefaults.standardUserDefaults().setObject(object, forKey: key)
         NSUserDefaults.standardUserDefaults().synchronize()
     }

@@ -8,19 +8,19 @@
 
 import UIKit
 
-class Service {
+public class Service {
     
-    var lastRefresh: NSDate?
-    var listeners = [Listener]()
+    public var lastRefresh: NSDate?
+    var listeners = [ServiceListener]()
     
     init() {
     }
     
-    internal func addListener(listener: Listener) {
+    public func addListener(listener: ServiceListener) {
         listeners.append(listener)
     }
     
-    internal func removeListener(listener: Listener) {
+    public func removeListener(listener: ServiceListener) {
         for i in 0...listeners.count {
             if (listeners[i].isEqualTo(listener)) {
                 listeners.removeAtIndex(i)
@@ -29,7 +29,7 @@ class Service {
         }
     }
     
-    func refreshCompleted() {
+    internal func refreshCompleted() {
         lastRefresh = NSDate()
     }
    

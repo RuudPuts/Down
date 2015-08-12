@@ -8,14 +8,14 @@
 
 import Foundation
 
-class SickbeardItem {
+public class SickbeardItem {
     var tvdbId: Int!
-    var showName: String!
-    var season: Int!
-    var episode: Int!
+    public var showName: String!
+    public var season: Int!
+    public var episode: Int!
     var status: SickbeardItemStatus!
     
-    enum SickbeardItemStatus {
+    public enum SickbeardItemStatus {
         case Snatched
         case Downloading
         case Finished
@@ -50,7 +50,7 @@ class SickbeardItem {
         return status
     }
     
-    var displayName: String! {
+    public var displayName: String! {
         return String(format: "%@ - S%02dE%02d", self.showName, self.season, self.episode)
     }
     

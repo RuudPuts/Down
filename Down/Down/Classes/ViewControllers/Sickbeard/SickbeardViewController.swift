@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DownKit
 
 class SickbeardViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
@@ -37,13 +38,13 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        sickbeardService.addListener(self)
+//fix        sickbeardService.addListener(self)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        sickbeardService.removeListener(self)
+//fix        sickbeardService.removeListener(self)
     }
     
     // MARK: - TableView DataSource

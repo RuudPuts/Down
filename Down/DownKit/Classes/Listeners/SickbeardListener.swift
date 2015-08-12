@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol SickbeardListener: Listener {
+public protocol SickbeardListener: ServiceListener {
     
     func sickbeardHistoryUpdated()
     func sickbeardFutureUpdated()

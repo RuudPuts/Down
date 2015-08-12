@@ -8,7 +8,7 @@
 
 import Alamofire
 
-class SabNZBdService: Service {
+public class SabNZBdService: Service {
     
     let queueRefreshRate: NSTimeInterval!
     let historyRefreshRate: NSTimeInterval!
@@ -16,19 +16,19 @@ class SabNZBdService: Service {
     var queueRefreshTimer: NSTimer?
     var historyRefreshTimer: NSTimer?
     
-    var queue = Array<SABQueueItem>()
-    var history = Array<SABHistoryItem>()
-    var historySize: Int?
+    public var queue = Array<SABQueueItem>()
+    public var history = Array<SABHistoryItem>()
+    public var historySize: Int?
     
-    var currentSpeed: Float?
-    var timeRemaining: String?
-    var mbLeft: Float?
-    var paused: Bool = true
+    public var currentSpeed: Float?
+    public var timeRemaining: String?
+    public var mbLeft: Float?
+    public var paused: Bool = true
     
     var imdbApiUrl = "http://www.myapifilms.com/imdb"
     var imdbTitleCache = [String: String]()
     
-    enum SabNZBDNotifyType {
+    private enum SabNZBDNotifyType {
         case QueueUpdated
         case HistoryUpdated
         case FullHistoryFetched
@@ -43,7 +43,7 @@ class SabNZBdService: Service {
         startTimers()
     }
     
-    override func addListener(listener: Listener) {
+    override public func addListener(listener: ServiceListener) {
         if listener is SabNZBdListener {
             super.addListener(listener)
         }
@@ -62,7 +62,7 @@ class SabNZBdService: Service {
     
     // MARK: - Queue
     
-    internal dynamic func refreshQueue() {
+    private func refreshQueue() {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=queue&output=json&apikey=\(PreferenceManager.sabNZBdApiKey)"
         
         Alamofire.request(.GET, url).responseJSON { _, _, result in
@@ -110,7 +110,7 @@ class SabNZBdService: Service {
     
     // MARK - History
     
-    internal dynamic func refreshHistory() {
+    private dynamic func refreshHistory() {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=history&output=json&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
         Alamofire.request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
@@ -130,12 +130,13 @@ class SabNZBdService: Service {
     }
     
     private var isFetchingHistory = false
-    var fullHistoryFetched: Bool {
+    public var fullHistoryFetched: Bool {
         get {
             return self.historySize == self.history.count
         }
     }
-    internal func fetchHistory() {
+    
+    public func fetchHistory() {
         // Don't fetch if already fetching
         if isFetchingHistory || fullHistoryFetched {
             if fullHistoryFetched {
@@ -222,7 +223,7 @@ class SabNZBdService: Service {
     
     // MARK - Delete items
     
-    internal func deleteItem(item: SABItem) {
+    public func deleteItem(item: SABItem) {
         var mode = "queue"
         if item.isMemberOfClass(SABHistoryItem) {
             mode = "history"
