@@ -117,6 +117,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4221AD781B7BB8A20027C3A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42DC207B1B529E9D0060DA10 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E4202FE01B667AA100C997FB;
+			remoteInfo = "Alamofire watchOS";
+		};
 		42391A991B5BF01100E4E0B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
@@ -527,16 +534,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		423D87961B700B3D00AFB7FF /* SabQueueWidget */ = {
-			isa = PBXGroup;
-			children = (
-				423D87971B700B3D00AFB7FF /* TodayViewController.swift */,
-				423D87991B700B3D00AFB7FF /* MainInterface.storyboard */,
-				423D879C1B700B3D00AFB7FF /* Info.plist */,
-			);
-			path = SabQueueWidget;
-			sourceTree = "<group>";
-		};
 		424595141B7933EB009DA699 /* DownKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -560,7 +557,6 @@
 			children = (
 				4253E7D71AB4B7B900EF1254 /* Down */,
 				4253E7F01AB4B7B900EF1254 /* DownTests */,
-				423D87961B700B3D00AFB7FF /* SabQueueWidget */,
 				424595141B7933EB009DA699 /* DownKit */,
 				424595221B7933EB009DA699 /* DownKitTests */,
 				423D87931B700B3D00AFB7FF /* Frameworks */,
@@ -575,7 +571,6 @@
 			children = (
 				4253E7D51AB4B7B900EF1254 /* Down.app */,
 				4253E7ED1AB4B7B900EF1254 /* DownTests.xctest */,
-				423D87921B700B3D00AFB7FF /* SabQueueWidget.appex */,
 				424595131B7933EA009DA699 /* DownKit.framework */,
 				4245951C1B7933EB009DA699 /* DownKitTests.xctest */,
 			);
@@ -885,6 +880,7 @@
 			children = (
 				42DC20831B529E9D0060DA10 /* Alamofire.framework */,
 				42DC20851B529E9D0060DA10 /* Alamofire.framework */,
+				4221AD791B7BB8A20027C3A0 /* Alamofire.framework */,
 				42DC20871B529E9D0060DA10 /* Alamofire iOS Tests.xctest */,
 				42DC20891B529E9D0060DA10 /* Alamofire OSX Tests.xctest */,
 			);
@@ -1054,6 +1050,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		4221AD791B7BB8A20027C3A0 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 4221AD781B7BB8A20027C3A0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		42391A9A1B5BF01100E4E0B4 /* XCGLogger.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
