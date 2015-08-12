@@ -21,8 +21,8 @@ public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
         
         super.init()
         
-//fix        sabNZBdService.addListener(self)
-//fix        sickbeardService.addListener(self)
+        sabNZBdService.addListener(self)
+        sickbeardService.addListener(self)
     }
     
     // MARK: SabNZBdListener

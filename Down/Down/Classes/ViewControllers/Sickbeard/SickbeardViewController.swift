@@ -38,13 +38,13 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-//fix        sickbeardService.addListener(self)
+        sickbeardService.addListener(self)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-//fix        sickbeardService.removeListener(self)
+        sickbeardService.removeListener(self)
     }
     
     // MARK: - TableView DataSource

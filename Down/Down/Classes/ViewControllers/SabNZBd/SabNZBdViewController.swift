@@ -51,15 +51,15 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-//fix        sabNZBdService.addListener(self)
-//fix        sickbeardService.addListener(self)
+        sabNZBdService.addListener(self)
+        sickbeardService.addListener(self)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-//fix        sabNZBdService.removeListener(self)
-//fix        sickbeardService.removeListener(self)
+        sabNZBdService.removeListener(self)
+        sickbeardService.removeListener(self)
     }
     
     // MARK: - Header widgets
