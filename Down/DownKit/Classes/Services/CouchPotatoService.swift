@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Ruud Puts. All rights reserved.
 //
 
-import Alamofire
-
 public class CouchPotatoService: Service {
    
 //    override init() {
@@ -26,7 +24,7 @@ public class CouchPotatoService: Service {
     
     private func refreshSnatchedAndAvailable() {
         let url = PreferenceManager.couchPotatoHost + "/" + PreferenceManager.couchPotatoApiKey + "/media.list?release_status=snatched,available&limit_offset=20"        
-        Alamofire.request(.GET, url).responseJSON { _, _, result in
+        request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                     self.refreshCompleted()

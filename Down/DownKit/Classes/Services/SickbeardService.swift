@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Ruud Puts. All rights reserved.
 //
 
-import Alamofire
-
 public class SickbeardService: Service {
 
     var refreshTimer: NSTimer?
@@ -59,7 +57,7 @@ public class SickbeardService: Service {
     
     @objc private func refreshHistory() {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
-        Alamofire.request(.GET, url).responseJSON { _, _, result in
+        request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                     self.parseHistoryJson(JSON(result.value!))
@@ -88,6 +86,7 @@ public class SickbeardService: Service {
             let resource = jsonItem["resource"].string!
             
             let historyItem = SickbeardHistoryItem(tvdbId, showName, season, episode, status, resource)
+            downloadBanner(historyItem)
             history.append(historyItem)
         }
         
@@ -97,7 +96,7 @@ public class SickbeardService: Service {
     // MARK: - Future
     private func refreshFuture() {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=future"
-        Alamofire.request(.GET, url).responseJSON { _, _, result in
+        request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                     self.parseFuture(JSON(result.value!))
@@ -131,6 +130,7 @@ public class SickbeardService: Service {
                 let airDate = jsonItem["airs"].string!
 
                 let futureItem = SickbeardFutureItem(tvdbId, showName, season, episode, "", episodeName, airDate, category)
+                downloadBanner(futureItem)
                 items.append(futureItem)
             }
             future[categoryName] = items
@@ -154,6 +154,16 @@ public class SickbeardService: Service {
                 }
             }
         }
+    }
+    
+    // MARK: - Banners
+    
+    private func downloadBanner(item: SickbeardItem) {
+        if item.hasBanner {
+            return
+        }
+        
+        
     }
     
 }
