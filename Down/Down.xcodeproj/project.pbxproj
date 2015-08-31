@@ -1082,7 +1082,7 @@
 		42391A9E1B5BF01100E4E0B4 /* XCGLoggerTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = XCGLoggerTests.xctest;
+			path = "XCGLoggerTests (iOS).xctest";
 			remoteRef = 42391A9D1B5BF01100E4E0B4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
