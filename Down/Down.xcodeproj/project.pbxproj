@@ -605,7 +605,7 @@
 			children = (
 				42391A9A1B5BF01100E4E0B4 /* XCGLogger.framework */,
 				42391A9C1B5BF01100E4E0B4 /* XCGLogger.framework */,
-				42391A9E1B5BF01100E4E0B4 /* XCGLoggerTests.xctest */,
+				42391A9E1B5BF01100E4E0B4 /* XCGLoggerTests (iOS).xctest */,
 				4269A91D1B850049005A06E3 /* XCGLoggerTests (OS X).xctest */,
 			);
 			name = Products;
@@ -1092,7 +1092,7 @@
 			remoteRef = 42391A9B1B5BF01100E4E0B4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		42391A9E1B5BF01100E4E0B4 /* XCGLoggerTests.xctest */ = {
+		42391A9E1B5BF01100E4E0B4 /* XCGLoggerTests (iOS).xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "XCGLoggerTests (iOS).xctest";

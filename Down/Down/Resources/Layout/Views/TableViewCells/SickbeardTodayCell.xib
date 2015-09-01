@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Light.ttf">
@@ -15,18 +16,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SickbeardTodayCell" rowHeight="200" id="KGk-i7-Jjw" userLabel="SickbeardTodayCell" customClass="SickbeardTodayCell" customModule="Down" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="170"/>
+        <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SickbeardTodayCell" rowHeight="152" id="KGk-i7-Jjw" userLabel="SickbeardTodayCell" customClass="SickbeardTodayCell" customModule="Down" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="122"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="169.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="121.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fch-q5-NHF" userLabel="BackgroundView">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="167.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUb-5h-8oA" userLabel="EpisodeLabel">
-                                <rect key="frame" x="8" y="114.5" width="304" height="19.5"/>
+                                <rect key="frame" x="8" y="66.5" width="304" height="19.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ICV-YI-B09"/>
                                 </constraints>
@@ -40,7 +41,7 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-sn-PzX" userLabel="DateLabel">
-                                <rect key="frame" x="8" y="142" width="304" height="19.5"/>
+                                <rect key="frame" x="8" y="94" width="304" height="19.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Syw-CG-Aul"/>
@@ -54,14 +55,20 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1QS-B4-MB5" customClass="DownImageView" customModule="Down" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="105"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SickbeardDefaultBanner" translatesAutoresizingMaskIntoConstraints="NO" id="1QS-B4-MB5" customClass="DownImageView" customModule="Down" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" secondItem="1QS-B4-MB5" secondAttribute="height" multiplier="758:140" id="MoW-ze-q9E"/>
                                     <constraint firstAttribute="height" constant="105" id="niG-03-CYc"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="placeholderImage" value="SickbeardDefaultBanner"/>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="niG-03-CYc"/>
+                                    </mask>
+                                </variation>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
@@ -100,7 +107,7 @@
                 <outlet property="dateLabel" destination="JJQ-sn-PzX" id="aiM-ux-eVU"/>
                 <outlet property="episodeLabel" destination="LUb-5h-8oA" id="ncB-NK-9qr"/>
             </connections>
-            <point key="canvasLocation" x="117" y="226"/>
+            <point key="canvasLocation" x="117" y="202"/>
         </tableViewCell>
     </objects>
     <resources>

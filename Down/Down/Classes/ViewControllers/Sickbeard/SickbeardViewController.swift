@@ -81,8 +81,8 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
         var height = tableView.rowHeight
         
         if indexPath.section == 1 {
-            // Width of screen, in 758x140 ratio. 50 extra for labels
-            height = (CGRectGetWidth(view.bounds) / 758 * 140) + 50
+            // Width of screen, in 758x140 ratio. 60 extra for labels
+            height = (CGRectGetWidth(view.bounds) / 758 * 140) + 60
         }
         
         return height
