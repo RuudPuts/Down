@@ -37,7 +37,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
         super.viewWillAppear(animated)
         
         if self.selectedViewController == nil {
-            selectViewController(self.viewControllers?.first)
+            selectViewController(viewControllers?.first)
         }
     }
     
@@ -45,7 +45,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
         super.viewDidLayoutSubviews()
         
         for subview in self.contentView.subviews as [UIView] {
-            subview.frame = self.contentView.bounds
+            subview.frame = contentView.bounds
         }
     }
     
@@ -59,10 +59,10 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
             _viewControllers = newValue
             
             for viewController: UIViewController in _viewControllers! {
-                self.addChildViewController(viewController)
+                addChildViewController(viewController)
             }
             
-            self.collectionView?.reloadData()
+            collectionView?.reloadData()
         }
     }
     
@@ -125,6 +125,10 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
             contentView.removeAllSubViews()
             collectionView.backgroundColor = UIColor.whiteColor()
         }
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView?.reloadData()
     }
     
     private func applyAppearance() {
