@@ -54,6 +54,10 @@ public class SickbeardItem {
         return String(format: "%@ - S%02dE%02d", self.showName, self.season, self.episode)
     }
     
+    public var banner: UIImage? {
+        return ImageProvider.bannerForShow(self.tvdbId)
+    }
+    
     internal var hasBanner: Bool {
         return ImageProvider.hasBannerForShow(self.tvdbId)
     }

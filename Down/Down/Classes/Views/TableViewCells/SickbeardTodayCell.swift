@@ -12,5 +12,6 @@ class SickbeardTodayCell: UITableViewCell {
     
     @IBOutlet weak var episodeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var bannerView: DownImageView!
     
 }

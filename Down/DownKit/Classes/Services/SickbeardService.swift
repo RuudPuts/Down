@@ -13,6 +13,8 @@ public class SickbeardService: Service {
     public var history: Array<SickbeardHistoryItem>!
     public var future: [String: [SickbeardFutureItem]]!
     
+    private let bannerQueue = dispatch_queue_create("com.ruudputs.down.BannerQueue", DISPATCH_QUEUE_SERIAL)
+    
     private enum SickbeardNotifyType {
         case HistoryUpdated
         case FutureUpdated
@@ -159,11 +161,21 @@ public class SickbeardService: Service {
     // MARK: - Banners
     
     private func downloadBanner(item: SickbeardItem) {
-        if item.hasBanner {
-            return
-        }
-        
-        
+        dispatch_async(bannerQueue, {
+            if item.hasBanner {
+                return
+            }
+            
+            let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(item.tvdbId)"
+            request(.GET, url).responseData { _, _, result in
+                if result.isSuccess {
+                    ImageProvider.storeBanner(result.value!, forShow: item.tvdbId)
+                }
+                else {
+                    print("Error while fetching banner: \(result.error!)")
+                }
+            }
+        })
     }
     
 }

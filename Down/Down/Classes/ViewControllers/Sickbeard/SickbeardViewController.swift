@@ -81,7 +81,8 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
         var height = tableView.rowHeight
         
         if indexPath.section == 1 {
-            height = 153
+            // Width of screen, in 758x140 ratio. 50 extra for labels
+            height = (CGRectGetWidth(view.bounds) / 758 * 140) + 50
         }
         
         return height
@@ -112,6 +113,7 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
                 let item = (data as [SickbeardFutureItem]!)[indexPath.row]
                 itemCell.episodeLabel.text = "\(item.showName) - S\(item.season)E\(item.episode) - \(item.episodeName)"
                 itemCell.dateLabel.text = item.airDate
+                itemCell.bannerView?.image = item.banner
                 
                 cell = itemCell
             }

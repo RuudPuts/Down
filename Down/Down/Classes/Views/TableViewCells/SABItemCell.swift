@@ -23,8 +23,8 @@ class SABItemCell: UITableViewCell {
     var sabNZBdService: SabNZBdService!
     
     override func awakeFromNib() {
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        self.sabNZBdService = ServiceManager().sabNZBdService//appDelegate.serviceManager.sabNZBdService;
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        self.sabNZBdService = appDelegate.serviceManager.sabNZBdService;
     }
     
     var queueItem: SABQueueItem? {

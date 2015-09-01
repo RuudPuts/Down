@@ -21,6 +21,7 @@
 		420F496F1ADC431E006CFA11 /* SABLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F496E1ADC431E006CFA11 /* SABLoadingCell.xib */; };
 		420F49711ADC4B03006CFA11 /* SABEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420F49701ADC4B03006CFA11 /* SABEmptyCell.swift */; };
 		420F49731ADC4B50006CFA11 /* SABEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F49721ADC4B50006CFA11 /* SABEmptyCell.xib */; };
+		422063DE1B85126300DAFB46 /* DownImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422063DD1B85126300DAFB46 /* DownImageView.swift */; };
 		4221ADD71B7BC0B20027C3A0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */; };
 		4221ADD81B7BC0B20027C3A0 /* CouchPotatoListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB71B7BC0B20027C3A0 /* CouchPotatoListener.swift */; };
 		4221ADD91B7BC0B20027C3A0 /* SabNZBdListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB81B7BC0B20027C3A0 /* SabNZBdListener.swift */; };
@@ -57,6 +58,7 @@
 		4253E8221AB4B8E300EF1254 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4253E81E1AB4B8E300EF1254 /* Images.xcassets */; };
 		42670EF71ADDAB44006341EA /* DownMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42670EF61ADDAB44006341EA /* DownMoreCell.swift */; };
 		42670EF91ADDAB5E006341EA /* DownMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* DownMoreCell.xib */; };
+		4269A9201B85009E005A06E3 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4269A91F1B85009E005A06E3 /* ImageProvider.swift */; };
 		4269A9481B850501005A06E3 /* Alamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = 4269A9391B850501005A06E3 /* Alamofire.h */; };
 		4269A9491B850501005A06E3 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4269A93A1B850501005A06E3 /* Alamofire.swift */; };
 		4269A94A1B850501005A06E3 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4269A93B1B850501005A06E3 /* Download.swift */; };
@@ -235,6 +237,7 @@
 		420F496E1ADC431E006CFA11 /* SABLoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABLoadingCell.xib; sourceTree = "<group>"; };
 		420F49701ADC4B03006CFA11 /* SABEmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABEmptyCell.swift; sourceTree = "<group>"; };
 		420F49721ADC4B50006CFA11 /* SABEmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABEmptyCell.xib; sourceTree = "<group>"; };
+		422063DD1B85126300DAFB46 /* DownImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownImageView.swift; sourceTree = "<group>"; };
 		4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		4221ADB71B7BC0B20027C3A0 /* CouchPotatoListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoListener.swift; sourceTree = "<group>"; };
 		4221ADB81B7BC0B20027C3A0 /* SabNZBdListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdListener.swift; sourceTree = "<group>"; };
@@ -276,6 +279,7 @@
 		4253E81E1AB4B8E300EF1254 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		42670EF61ADDAB44006341EA /* DownMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownMoreCell.swift; sourceTree = "<group>"; };
 		42670EF81ADDAB5E006341EA /* DownMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownMoreCell.xib; sourceTree = "<group>"; };
+		4269A91F1B85009E005A06E3 /* ImageProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		4269A9391B850501005A06E3 /* Alamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alamofire.h; sourceTree = "<group>"; };
 		4269A93A1B850501005A06E3 /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
 		4269A93B1B850501005A06E3 /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
@@ -758,6 +762,14 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
+		4269A91E1B850090005A06E3 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				4269A91F1B85009E005A06E3 /* ImageProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
 		4269A9381B850501005A06E3 /* Alamofire */ = {
 			isa = PBXGroup;
 			children = (
@@ -873,6 +885,7 @@
 				422D548F1AE04AE200200EF0 /* TabBarController */,
 				42CD255C1AB5BF93008E9717 /* TableViewCells */,
 				426E5D7B1B52EEC000BD7CD0 /* DownWindow.swift */,
+				422063DD1B85126300DAFB46 /* DownImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1205,6 +1218,7 @@
 				4221ADDB1B7BC0B20027C3A0 /* SickbeardListener.swift in Sources */,
 				4221ADD91B7BC0B20027C3A0 /* SabNZBdListener.swift in Sources */,
 				4221ADD81B7BC0B20027C3A0 /* CouchPotatoListener.swift in Sources */,
+				4269A9201B85009E005A06E3 /* ImageProvider.swift in Sources */,
 				4221ADDE1B7BC0B20027C3A0 /* SABHistoryItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1233,6 +1247,7 @@
 				4221ADEB1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift in Sources */,
 				420F49711ADC4B03006CFA11 /* SABEmptyCell.swift in Sources */,
 				42078E1A1AD16E68009845CC /* SabNZBdViewController.swift in Sources */,
+				422063DE1B85126300DAFB46 /* DownImageView.swift in Sources */,
 				42A000D71B680B530021208A /* SickbeardTodayCell.swift in Sources */,
 				4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */,
 				42F035361AD45BC2001AE5B3 /* UIView+Extensions.swift in Sources */,
