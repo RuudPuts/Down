@@ -1,5 +1,5 @@
 //
-//  SABLoadingCell.swift
+//  DownEmptyCell.swift
 //  Down
 //
 //  Created by Ruud Puts on 13/04/15.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class SABLoadingCell: UITableViewCell {
+class DownEmptyCell: UITableViewCell {
     
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var label: UILabel!
     
 }

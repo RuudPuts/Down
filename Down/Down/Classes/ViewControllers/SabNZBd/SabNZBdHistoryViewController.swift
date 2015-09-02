@@ -23,11 +23,11 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let loadingCellNib = UINib(nibName: "SABLoadingCell", bundle:nil)
-        tableView.registerNib(loadingCellNib, forCellReuseIdentifier: "SABLoadingCell")
+        let loadingCellNib = UINib(nibName: "DownLoadingCell", bundle:nil)
+        tableView.registerNib(loadingCellNib, forCellReuseIdentifier: "DownLoadingCell")
         
-        let emtpyCellNib = UINib(nibName: "SABEmptyCell", bundle:nil)
-        tableView.registerNib(emtpyCellNib, forCellReuseIdentifier: "SABEmptyCell")
+        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
+        tableView.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
         
         let itemCellNib = UINib(nibName: "SABItemCell", bundle:nil)
         tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SABItemCell")
@@ -85,12 +85,12 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
         let sabNZBdService = self.serviceManager.sabNZBdService
         if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if sabNZBdService.lastRefresh != nil {
-                let emptyCell = tableView.dequeueReusableCellWithIdentifier("SABEmptyCell", forIndexPath: indexPath) as! SABEmptyCell
+                let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
                 emptyCell.label.text = "Your History is empty."
                 cell = emptyCell
             }
             else {
-                let loadingCell = tableView.dequeueReusableCellWithIdentifier("SABLoadingCell", forIndexPath: indexPath) as! SABLoadingCell
+                let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownLoadingCell
                 // For some reason this has to be called all the time
                 if !loadingCell.activityIndicator.isAnimating() {
                     loadingCell.activityIndicator.startAnimating()
@@ -99,7 +99,7 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
             }
         }
         else if indexPath.row == sabNZBdService.history.count && !sabNZBdService.fullHistoryFetched {
-            let loadingCell = tableView.dequeueReusableCellWithIdentifier("SABLoadingCell", forIndexPath: indexPath) as! SABLoadingCell
+            let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownLoadingCell
             // For some reason this has to be called all the time
             loadingCell.activityIndicator.startAnimating()
             cell = loadingCell
@@ -116,7 +116,7 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if cell is SABLoadingCell && self.tableView.numberOfRowsInSection(indexPath.section) > 0 {
+        if cell is DownLoadingCell && self.tableView.numberOfRowsInSection(indexPath.section) > 0 {
             sabNZBdService.fetchHistory()
         }
     }

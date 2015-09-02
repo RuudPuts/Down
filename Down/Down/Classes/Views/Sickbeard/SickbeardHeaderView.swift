@@ -1,5 +1,5 @@
 //
-//  SABHeaderView.swift
+//  SickbeardHeaderView.swift
 //  Down
 //
 //  Created by Ruud Puts on 15/03/15.
@@ -8,13 +8,14 @@
 
 import UIKit
 
-class SABHeaderView: UIView {
+class SickbeardHeaderView: UIView {
     
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
-
+    
     override func awakeFromNib() {
-        textLabel.textColor = .downSabNZBdColor()
+        textLabel.textColor = .downSickbeardColor()
+        imageView.image = UIImage(named: "sickbeard-airingtoday")
     }
     
 }

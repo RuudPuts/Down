@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DownHeaderView" customModule="Down" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view opaque="NO" contentMode="scaleToFill" id="iN0-l3-epB" userLabel="SAB Header View" customClass="SABHeaderView" customModule="Down" customModuleProvider="target">
+        <view opaque="NO" contentMode="scaleToFill" id="iN0-l3-epB" userLabel="Sickbeard Header View" customClass="SickbeardHeaderView" customModule="Down" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -46,7 +46,7 @@
                 <outlet property="imageView" destination="AoK-KV-OQk" id="qpo-Ou-o3o"/>
                 <outlet property="textLabel" destination="JE5-1Y-4np" id="UQl-oQ-zCc"/>
             </connections>
-            <point key="canvasLocation" x="180" y="267"/>
+            <point key="canvasLocation" x="339" y="243"/>
         </view>
     </objects>
     <resources>

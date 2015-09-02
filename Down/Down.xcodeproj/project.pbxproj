@@ -10,17 +10,14 @@
 		42078E1A1AD16E68009845CC /* SabNZBdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E191AD16E68009845CC /* SabNZBdViewController.swift */; };
 		42078E1F1AD1721F009845CC /* SABHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E1D1AD1721F009845CC /* SABHeaderView.swift */; };
 		42078E2F1AD172CD009845CC /* SabNZBdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E261AD172CD009845CC /* SabNZBdViewController.xib */; };
-		42078E311AD172CD009845CC /* SABHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E2B1AD172CD009845CC /* SABHeaderView.xib */; };
 		42078E321AD172CD009845CC /* SABItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E2D1AD172CD009845CC /* SABItemCell.xib */; };
 		42078E331AD172CD009845CC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E2E1AD172CD009845CC /* LaunchScreen.xib */; };
 		42078E401AD1C702009845CC /* SickbeardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E3D1AD1C702009845CC /* SickbeardViewController.swift */; };
 		42078E411AD1C702009845CC /* CouchPotatoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */; };
 		42078E461AD1C71A009845CC /* SickbeardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E431AD1C71A009845CC /* SickbeardViewController.xib */; };
 		42078E471AD1C71A009845CC /* CouchPotatoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */; };
-		420F496D1ADC42DB006CFA11 /* SABLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420F496C1ADC42DB006CFA11 /* SABLoadingCell.swift */; };
-		420F496F1ADC431E006CFA11 /* SABLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F496E1ADC431E006CFA11 /* SABLoadingCell.xib */; };
-		420F49711ADC4B03006CFA11 /* SABEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420F49701ADC4B03006CFA11 /* SABEmptyCell.swift */; };
-		420F49731ADC4B50006CFA11 /* SABEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F49721ADC4B50006CFA11 /* SABEmptyCell.xib */; };
+		420F496F1ADC431E006CFA11 /* DownLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F496E1ADC431E006CFA11 /* DownLoadingCell.xib */; };
+		420F49731ADC4B50006CFA11 /* DownEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */; };
 		422063DE1B85126300DAFB46 /* DownImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422063DD1B85126300DAFB46 /* DownImageView.swift */; };
 		4221ADD71B7BC0B20027C3A0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */; };
 		4221ADD81B7BC0B20027C3A0 /* CouchPotatoListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB71B7BC0B20027C3A0 /* CouchPotatoListener.swift */; };
@@ -56,8 +53,7 @@
 		4253E8181AB4B85800EF1254 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8151AB4B85800EF1254 /* DownTests.swift */; };
 		4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4253E81B1AB4B8E300EF1254 /* Down.xcdatamodeld */; };
 		4253E8221AB4B8E300EF1254 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4253E81E1AB4B8E300EF1254 /* Images.xcassets */; };
-		42670EF71ADDAB44006341EA /* DownMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42670EF61ADDAB44006341EA /* DownMoreCell.swift */; };
-		42670EF91ADDAB5E006341EA /* DownMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* DownMoreCell.xib */; };
+		42670EF91ADDAB5E006341EA /* DownTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* DownTextCell.xib */; };
 		4269A9201B85009E005A06E3 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4269A91F1B85009E005A06E3 /* ImageProvider.swift */; };
 		4269A9481B850501005A06E3 /* Alamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = 4269A9391B850501005A06E3 /* Alamofire.h */; };
 		4269A9491B850501005A06E3 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4269A93A1B850501005A06E3 /* Alamofire.swift */; };
@@ -94,6 +90,14 @@
 		428F7E541AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F7E531AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift */; };
 		428F7E561AFFC59B001B49D0 /* SabNZBdHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428F7E551AFFC59B001B49D0 /* SabNZBdHistoryViewController.xib */; };
 		42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */; };
+		429E97E91B977CE200C3F58B /* DownEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429E97E61B977CE200C3F58B /* DownEmptyCell.swift */; settings = {ASSET_TAGS = (); }; };
+		429E97EA1B977CE200C3F58B /* DownLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429E97E71B977CE200C3F58B /* DownLoadingCell.swift */; settings = {ASSET_TAGS = (); }; };
+		429E97EB1B977CE200C3F58B /* DownTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429E97E81B977CE200C3F58B /* DownTextCell.swift */; settings = {ASSET_TAGS = (); }; };
+		429E97ED1B977F0B00C3F58B /* DownIconTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429E97EC1B977F0B00C3F58B /* DownIconTextCell.swift */; settings = {ASSET_TAGS = (); }; };
+		429E97EF1B97833800C3F58B /* DownIconTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429E97EE1B97833800C3F58B /* DownIconTextCell.xib */; settings = {ASSET_TAGS = (); }; };
+		429E97F81B97871F00C3F58B /* SickbeardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429E97F71B97871F00C3F58B /* SickbeardHeaderView.swift */; settings = {ASSET_TAGS = (); }; };
+		429E97FD1B97898200C3F58B /* SABHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429E97FA1B97898200C3F58B /* SABHeaderView.xib */; settings = {ASSET_TAGS = (); }; };
+		429E97FE1B97898200C3F58B /* SickbeardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429E97FC1B97898200C3F58B /* SickbeardHeaderView.xib */; settings = {ASSET_TAGS = (); }; };
 		42A000D51B68093C0021208A /* SickbeardTodayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42A000D41B68093C0021208A /* SickbeardTodayCell.xib */; };
 		42A000D71B680B530021208A /* SickbeardTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A000D61B680B530021208A /* SickbeardTodayCell.swift */; };
 		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
@@ -226,17 +230,14 @@
 		42078E191AD16E68009845CC /* SabNZBdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdViewController.swift; sourceTree = "<group>"; };
 		42078E1D1AD1721F009845CC /* SABHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABHeaderView.swift; sourceTree = "<group>"; };
 		42078E261AD172CD009845CC /* SabNZBdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SabNZBdViewController.xib; sourceTree = "<group>"; };
-		42078E2B1AD172CD009845CC /* SABHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABHeaderView.xib; sourceTree = "<group>"; };
 		42078E2D1AD172CD009845CC /* SABItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABItemCell.xib; sourceTree = "<group>"; };
 		42078E2E1AD172CD009845CC /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		42078E3D1AD1C702009845CC /* SickbeardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardViewController.swift; sourceTree = "<group>"; };
 		42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoViewController.swift; sourceTree = "<group>"; };
 		42078E431AD1C71A009845CC /* SickbeardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardViewController.xib; sourceTree = "<group>"; };
 		42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouchPotatoViewController.xib; sourceTree = "<group>"; };
-		420F496C1ADC42DB006CFA11 /* SABLoadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABLoadingCell.swift; sourceTree = "<group>"; };
-		420F496E1ADC431E006CFA11 /* SABLoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABLoadingCell.xib; sourceTree = "<group>"; };
-		420F49701ADC4B03006CFA11 /* SABEmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABEmptyCell.swift; sourceTree = "<group>"; };
-		420F49721ADC4B50006CFA11 /* SABEmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABEmptyCell.xib; sourceTree = "<group>"; };
+		420F496E1ADC431E006CFA11 /* DownLoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownLoadingCell.xib; sourceTree = "<group>"; };
+		420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownEmptyCell.xib; sourceTree = "<group>"; };
 		422063DD1B85126300DAFB46 /* DownImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownImageView.swift; sourceTree = "<group>"; };
 		4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		4221ADB71B7BC0B20027C3A0 /* CouchPotatoListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoListener.swift; sourceTree = "<group>"; };
@@ -277,8 +278,7 @@
 		4253E8171AB4B85800EF1254 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4253E81C1AB4B8E300EF1254 /* Down.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Down.xcdatamodel; sourceTree = "<group>"; };
 		4253E81E1AB4B8E300EF1254 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		42670EF61ADDAB44006341EA /* DownMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownMoreCell.swift; sourceTree = "<group>"; };
-		42670EF81ADDAB5E006341EA /* DownMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownMoreCell.xib; sourceTree = "<group>"; };
+		42670EF81ADDAB5E006341EA /* DownTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownTextCell.xib; sourceTree = "<group>"; };
 		4269A91F1B85009E005A06E3 /* ImageProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		4269A9391B850501005A06E3 /* Alamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alamofire.h; sourceTree = "<group>"; };
 		4269A93A1B850501005A06E3 /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
@@ -316,6 +316,14 @@
 		428F7E531AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdHistoryViewController.swift; sourceTree = "<group>"; };
 		428F7E551AFFC59B001B49D0 /* SabNZBdHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SabNZBdHistoryViewController.xib; sourceTree = "<group>"; };
 		42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		429E97E61B977CE200C3F58B /* DownEmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownEmptyCell.swift; sourceTree = "<group>"; };
+		429E97E71B977CE200C3F58B /* DownLoadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownLoadingCell.swift; sourceTree = "<group>"; };
+		429E97E81B977CE200C3F58B /* DownTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTextCell.swift; sourceTree = "<group>"; };
+		429E97EC1B977F0B00C3F58B /* DownIconTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownIconTextCell.swift; sourceTree = "<group>"; };
+		429E97EE1B97833800C3F58B /* DownIconTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownIconTextCell.xib; sourceTree = "<group>"; };
+		429E97F71B97871F00C3F58B /* SickbeardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardHeaderView.swift; sourceTree = "<group>"; };
+		429E97FA1B97898200C3F58B /* SABHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABHeaderView.xib; sourceTree = "<group>"; };
+		429E97FC1B97898200C3F58B /* SickbeardHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardHeaderView.xib; sourceTree = "<group>"; };
 		42A000D41B68093C0021208A /* SickbeardTodayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardTodayCell.xib; sourceTree = "<group>"; };
 		42A000D61B680B530021208A /* SickbeardTodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardTodayCell.swift; sourceTree = "<group>"; };
 		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -443,26 +451,20 @@
 		42078E291AD172CD009845CC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				42078E2A1AD172CD009845CC /* SabNZBd */,
+				429E97F91B97898200C3F58B /* SabNZBd */,
+				429E97FB1B97898200C3F58B /* Sickbeard */,
 				42078E2C1AD172CD009845CC /* TableViewCells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		42078E2A1AD172CD009845CC /* SabNZBd */ = {
-			isa = PBXGroup;
-			children = (
-				42078E2B1AD172CD009845CC /* SABHeaderView.xib */,
-			);
-			path = SabNZBd;
-			sourceTree = "<group>";
-		};
 		42078E2C1AD172CD009845CC /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				42670EF81ADDAB5E006341EA /* DownMoreCell.xib */,
-				420F496E1ADC431E006CFA11 /* SABLoadingCell.xib */,
-				420F49721ADC4B50006CFA11 /* SABEmptyCell.xib */,
+				42670EF81ADDAB5E006341EA /* DownTextCell.xib */,
+				429E97EE1B97833800C3F58B /* DownIconTextCell.xib */,
+				420F496E1ADC431E006CFA11 /* DownLoadingCell.xib */,
+				420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */,
 				42078E2D1AD172CD009845CC /* SABItemCell.xib */,
 				42A000D41B68093C0021208A /* SickbeardTodayCell.xib */,
 			);
@@ -829,6 +831,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		429E97F61B97871600C3F58B /* Sickbeard */ = {
+			isa = PBXGroup;
+			children = (
+				429E97F71B97871F00C3F58B /* SickbeardHeaderView.swift */,
+			);
+			path = Sickbeard;
+			sourceTree = "<group>";
+		};
+		429E97F91B97898200C3F58B /* SabNZBd */ = {
+			isa = PBXGroup;
+			children = (
+				429E97FA1B97898200C3F58B /* SABHeaderView.xib */,
+			);
+			path = SabNZBd;
+			sourceTree = "<group>";
+		};
+		429E97FB1B97898200C3F58B /* Sickbeard */ = {
+			isa = PBXGroup;
+			children = (
+				429E97FC1B97898200C3F58B /* SickbeardHeaderView.xib */,
+			);
+			path = Sickbeard;
+			sourceTree = "<group>";
+		};
 		42CD25201AB5BD05008E9717 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -882,6 +908,7 @@
 			isa = PBXGroup;
 			children = (
 				42078E1C1AD1721F009845CC /* SabNZBd */,
+				429E97F61B97871600C3F58B /* Sickbeard */,
 				422D548F1AE04AE200200EF0 /* TabBarController */,
 				42CD255C1AB5BF93008E9717 /* TableViewCells */,
 				426E5D7B1B52EEC000BD7CD0 /* DownWindow.swift */,
@@ -893,10 +920,11 @@
 		42CD255C1AB5BF93008E9717 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				42670EF61ADDAB44006341EA /* DownMoreCell.swift */,
+				429E97E61B977CE200C3F58B /* DownEmptyCell.swift */,
+				429E97E71B977CE200C3F58B /* DownLoadingCell.swift */,
+				429E97E81B977CE200C3F58B /* DownTextCell.swift */,
+				429E97EC1B977F0B00C3F58B /* DownIconTextCell.swift */,
 				42391AA51B5C0CA500E4E0B4 /* SABDetailCell.swift */,
-				420F496C1ADC42DB006CFA11 /* SABLoadingCell.swift */,
-				420F49701ADC4B03006CFA11 /* SABEmptyCell.swift */,
 				42CD255D1AB5C06D008E9717 /* SABItemCell.swift */,
 				42A000D61B680B530021208A /* SickbeardTodayCell.swift */,
 			);
@@ -1128,7 +1156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42078E311AD172CD009845CC /* SABHeaderView.xib in Resources */,
+				429E97FD1B97898200C3F58B /* SABHeaderView.xib in Resources */,
 				42CD25551AB5BD06008E9717 /* Roboto-Thin.ttf in Resources */,
 				42078E2F1AD172CD009845CC /* SabNZBdViewController.xib in Resources */,
 				42CD25451AB5BD06008E9717 /* OpenSans-Semibold.ttf in Resources */,
@@ -1141,7 +1169,7 @@
 				42CD25541AB5BD06008E9717 /* Roboto-Regular.ttf in Resources */,
 				42CD25521AB5BD06008E9717 /* Roboto-Medium.ttf in Resources */,
 				42CD25441AB5BD06008E9717 /* OpenSans-Regular.ttf in Resources */,
-				42670EF91ADDAB5E006341EA /* DownMoreCell.xib in Resources */,
+				42670EF91ADDAB5E006341EA /* DownTextCell.xib in Resources */,
 				42CD25411AB5BD06008E9717 /* OpenSans-Italic.ttf in Resources */,
 				42CD254A1AB5BD06008E9717 /* Roboto-BoldCondensed.ttf in Resources */,
 				42CD25401AB5BD06008E9717 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
@@ -1149,19 +1177,21 @@
 				42CD254B1AB5BD06008E9717 /* Roboto-BoldCondensedItalic.ttf in Resources */,
 				42CD254F1AB5BD06008E9717 /* Roboto-Italic.ttf in Resources */,
 				42D155011AD4579500778713 /* DownTabBarItemCell.xib in Resources */,
-				420F496F1ADC431E006CFA11 /* SABLoadingCell.xib in Resources */,
+				420F496F1ADC431E006CFA11 /* DownLoadingCell.xib in Resources */,
 				42078E471AD1C71A009845CC /* CouchPotatoViewController.xib in Resources */,
 				42CD25481AB5BD06008E9717 /* Roboto-BlackItalic.ttf in Resources */,
-				420F49731ADC4B50006CFA11 /* SABEmptyCell.xib in Resources */,
+				420F49731ADC4B50006CFA11 /* DownEmptyCell.xib in Resources */,
 				42CD25431AB5BD06008E9717 /* OpenSans-LightItalic.ttf in Resources */,
 				42A000D51B68093C0021208A /* SickbeardTodayCell.xib in Resources */,
 				42078E461AD1C71A009845CC /* SickbeardViewController.xib in Resources */,
 				42CD253D1AB5BD06008E9717 /* OpenSans-Bold.ttf in Resources */,
+				429E97EF1B97833800C3F58B /* DownIconTextCell.xib in Resources */,
 				428CF7021AE19779007F3E54 /* Instabug.bundle in Resources */,
 				42CD254C1AB5BD06008E9717 /* Roboto-BoldItalic.ttf in Resources */,
 				42CD254D1AB5BD06008E9717 /* Roboto-Condensed.ttf in Resources */,
 				4253E8221AB4B8E300EF1254 /* Images.xcassets in Resources */,
 				42CD25421AB5BD06008E9717 /* OpenSans-Light.ttf in Resources */,
+				429E97FE1B97898200C3F58B /* SickbeardHeaderView.xib in Resources */,
 				428F7E561AFFC59B001B49D0 /* SabNZBdHistoryViewController.xib in Resources */,
 				42CD254E1AB5BD06008E9717 /* Roboto-CondensedItalic.ttf in Resources */,
 				42CD25471AB5BD06008E9717 /* Roboto-Black.ttf in Resources */,
@@ -1236,24 +1266,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */,
+				429E97E91B977CE200C3F58B /* DownEmptyCell.swift in Sources */,
+				429E97F81B97871F00C3F58B /* SickbeardHeaderView.swift in Sources */,
 				42391AA61B5C0CA500E4E0B4 /* SABDetailCell.swift in Sources */,
 				4253E80F1AB4B84C00EF1254 /* ViewController.swift in Sources */,
 				4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */,
+				429E97EA1B977CE200C3F58B /* DownLoadingCell.swift in Sources */,
 				42D154F61AD4505400778713 /* DownTabBarController.swift in Sources */,
 				426E5D7E1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift in Sources */,
-				42670EF71ADDAB44006341EA /* DownMoreCell.swift in Sources */,
 				42CD255F1AB5C06D008E9717 /* SABItemCell.swift in Sources */,
 				428F7E541AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift in Sources */,
 				4221ADEB1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift in Sources */,
-				420F49711ADC4B03006CFA11 /* SABEmptyCell.swift in Sources */,
 				42078E1A1AD16E68009845CC /* SabNZBdViewController.swift in Sources */,
 				422063DE1B85126300DAFB46 /* DownImageView.swift in Sources */,
 				42A000D71B680B530021208A /* SickbeardTodayCell.swift in Sources */,
+				429E97ED1B977F0B00C3F58B /* DownIconTextCell.swift in Sources */,
 				4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */,
 				42F035361AD45BC2001AE5B3 /* UIView+Extensions.swift in Sources */,
-				420F496D1ADC42DB006CFA11 /* SABLoadingCell.swift in Sources */,
 				42078E401AD1C702009845CC /* SickbeardViewController.swift in Sources */,
 				42078E1F1AD1721F009845CC /* SABHeaderView.swift in Sources */,
+				429E97EB1B977CE200C3F58B /* DownTextCell.swift in Sources */,
 				426E5D7C1B52EEC000BD7CD0 /* DownWindow.swift in Sources */,
 				42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */,
 				422D54931AE04AE200200EF0 /* DownTabBarItemCell.swift in Sources */,

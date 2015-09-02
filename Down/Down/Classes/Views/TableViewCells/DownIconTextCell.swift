@@ -1,5 +1,5 @@
 //
-//  SABEmptyCell.swift
+//  DownIconTextCell.swift
 //  Down
 //
 //  Created by Ruud Puts on 13/04/15.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class SABEmptyCell: UITableViewCell {
+class DownIconTextCell: DownTextCell {
     
-    @IBOutlet weak var label: UILabel!
-    
+    @IBOutlet weak var iconView: UIImageView!
+        
 }

@@ -35,17 +35,19 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let loadingCellNib = UINib(nibName: "SABLoadingCell", bundle:nil)
-        tableView.registerNib(loadingCellNib, forCellReuseIdentifier: "SABLoadingCell")
+        let loadingCellNib = UINib(nibName: "DownLoadingCell", bundle:nil)
+        tableView.registerNib(loadingCellNib, forCellReuseIdentifier: "DownLoadingCell")
         
-        let emtpyCellNib = UINib(nibName: "SABEmptyCell", bundle:nil)
-        tableView.registerNib(emtpyCellNib, forCellReuseIdentifier: "SABEmptyCell")
+        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
+        tableView.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
         
         let itemCellNib = UINib(nibName: "SABItemCell", bundle:nil)
         tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SABItemCell")
         
-        let moreHistoryCellNib = UINib(nibName: "DownMoreCell", bundle: nil)
-        tableView.registerNib(moreHistoryCellNib, forCellReuseIdentifier: "DownMoreCell")
+        let moreHistoryCellNib = UINib(nibName: "DownTextCell", bundle: nil)
+        tableView.registerNib(moreHistoryCellNib, forCellReuseIdentifier: "DownTextCell")
+        
+        updateHeaderWidgets()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -71,7 +73,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     private func updateCurrentSpeedWidget() {
-        var displaySpeed = sabNZBdService.currentSpeed as Float!
+        var displaySpeed = sabNZBdService.currentSpeed ?? 0
         var displayString = "KB/s"
         
         if displaySpeed > 1024 {
@@ -108,7 +110,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     private func updateMbRemainingWidget() {
-        self.mbRemainingLabel!.text = String(fromMB: sabNZBdService.mbLeft!)
+        self.mbRemainingLabel!.text = String(fromMB: sabNZBdService.mbLeft ?? 0)
     }
     
     // MARK: - TableView datasource
@@ -203,7 +205,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         let sabNZBdService = self.serviceManager.sabNZBdService
         if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if sabNZBdService.lastRefresh != nil {
-                let emptyCell = tableView.dequeueReusableCellWithIdentifier("SABEmptyCell", forIndexPath: indexPath) as! SABEmptyCell
+                let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
                 
                 let sectionTitle = self.tableView(tableView, titleForHeaderInSection: indexPath.section)!.lowercaseString
                 emptyCell.label.text = "Your \(sectionTitle) is empty."
@@ -211,7 +213,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
                 cell = emptyCell
             }
             else {
-                let loadingCell = tableView.dequeueReusableCellWithIdentifier("SABLoadingCell", forIndexPath: indexPath) as! SABLoadingCell
+                let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownLoadingCell
                 // For some reason this has to be called all the time
                 if !loadingCell.activityIndicator.isAnimating() {
                     loadingCell.activityIndicator.startAnimating()
@@ -220,7 +222,8 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
             }
         }
         else if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
-            let historyCell = tableView.dequeueReusableCellWithIdentifier("DownMoreCell", forIndexPath: indexPath) as! DownMoreCell
+            let historyCell = tableView.dequeueReusableCellWithIdentifier("DownTextCell", forIndexPath: indexPath) as! DownTextCell
+            historyCell.setCheveronType(.SabNZBd)
             historyCell.label?.text = "Full history"
             cell = historyCell
         }
