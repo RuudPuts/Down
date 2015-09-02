@@ -66,6 +66,48 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
         }
     }
     
+    var selectedTabColor: UIColor {
+        let color: UIColor
+        
+        switch selectedTabIndex {
+        case 0:
+            color = .downSabNZBdDarkColor()
+            break
+        case 1:
+            color = .downSickbeardDarkColor()
+            break
+        case 2:
+            color = .downCouchPotatoDarkColor()
+            break
+        default:
+            color = .blackColor()
+            break
+        }
+        
+        return color
+    }
+    
+    var deselectedTabColor: UIColor {
+        let color: UIColor
+        
+        switch selectedTabIndex {
+        case 0:
+            color = .downSabNZBdColor()
+            break
+        case 1:
+            color = .downSickbeardColor()
+            break
+        case 2:
+            color = .downCouchPotatoColor()
+            break
+        default:
+            color = .blackColor()
+            break
+        }
+        
+        return color
+    }
+    
     // MARK: CollectionView datasource
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -82,6 +124,13 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
         let viewController: UIViewController = _viewControllers![indexPath.row]
         cell.tabBarItem = viewController.tabBarItem as! DownTabBarItem!
         
+        if indexPath.item == selectedTabIndex {
+            cell.backgroundColor = selectedTabColor
+        }
+        else {
+            cell.backgroundColor = deselectedTabColor
+        }
+        
         return cell
     }
     
@@ -97,6 +146,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         selectedTabIndex = indexPath.item
         selectViewController(_viewControllers![selectedTabIndex])
+        collectionView.reloadData()
     }
 
     // MARK: Private methods
