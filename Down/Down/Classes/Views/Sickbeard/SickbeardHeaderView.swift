@@ -11,11 +11,13 @@ import UIKit
 class SickbeardHeaderView: UIView {
     
     @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
     override func awakeFromNib() {
         textLabel.textColor = .downSickbeardColor()
         imageView.image = UIImage(named: "sickbeard-airingtoday")
+        detailLabel.text = "\(NSCalendar.currentCalendar().components(.Day, fromDate: NSDate()).day)"
     }
     
 }
