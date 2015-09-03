@@ -19,11 +19,11 @@ extension UIColor {
     }
     
     class func downSabNZBdColor() -> UIColor {
-        return UIColor(red:0.94, green:0.76, blue:0.25, alpha:1)
+        return UIColor(red:0.97, green:0.78, blue:0, alpha:1)
     }
     
     class func downSabNZBdDarkColor() -> UIColor {
-        return UIColor(red:0.94, green:0.6, blue:0.23, alpha:1)
+        return UIColor(red:0.94, green:0.73, blue:0.1, alpha:1)
     }
     
     class func downSickbeardColor() -> UIColor {

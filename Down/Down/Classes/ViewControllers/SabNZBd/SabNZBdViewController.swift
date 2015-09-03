@@ -47,6 +47,8 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         let moreHistoryCellNib = UINib(nibName: "DownTextCell", bundle: nil)
         tableView.registerNib(moreHistoryCellNib, forCellReuseIdentifier: "DownTextCell")
         
+        headerView.backgroundColor = .downSabNZBdColor()
+        
         updateHeaderWidgets()
     }
     
