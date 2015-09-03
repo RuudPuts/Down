@@ -65,11 +65,11 @@ public class SabNZBdService: Service {
         
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     self.parseQueueJson(JSON(result.value!))
                     self.refreshCompleted()
 
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
                         self.notifyListeners(.QueueUpdated)
                     })
                 })
@@ -112,11 +112,11 @@ public class SabNZBdService: Service {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=history&output=json&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     self.parseHistoryJson(JSON(result.value!))
                     self.refreshCompleted()
 
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
                         self.notifyListeners(.HistoryUpdated)
                     })
                 })
@@ -149,11 +149,11 @@ public class SabNZBdService: Service {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=history&output=json&start=\(self.history.count)&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     self.parseHistoryJson(JSON(result.value!))
                     self.refreshCompleted()
                     
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
                         self.notifyListeners(.FullHistoryFetched)
                         
                         if self.fullHistoryFetched {
@@ -241,7 +241,7 @@ public class SabNZBdService: Service {
             let url = "\(imdbApiUrl)?idIMDB=\(imdbIdentifier)&format=JSON&data=S"            
             request(.GET, url).responseJSON { _, _, result in
                 if result.isSuccess {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         let title = JSON(result.value!)["title"].string!
                         self.imdbTitleCache[imdbIdentifier] = title
                         completionClosure(title: title)

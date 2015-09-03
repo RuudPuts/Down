@@ -61,11 +61,11 @@ public class SickbeardService: Service {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     self.parseHistoryJson(JSON(result.value!))
                     self.refreshCompleted()
 
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
                         self.notifyListeners(.HistoryUpdated)
                     })
                 })
@@ -100,11 +100,11 @@ public class SickbeardService: Service {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=future"
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     self.parseFuture(JSON(result.value!))
                     self.refreshCompleted()
                     
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
                         self.notifyListeners(.FutureUpdated)
                     })
                 })
