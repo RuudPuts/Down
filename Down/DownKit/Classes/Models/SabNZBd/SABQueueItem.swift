@@ -11,9 +11,9 @@ import UIKit
 public class SABQueueItem: SABItem {
     
     let totalMb: Float!
-    let remainingMb: Float!
-    public let timeRemaining: String!
-    public let progress: Float!
+    var remainingMb: Float!
+    public var timeRemaining: String!
+    public var progress: Float!
     var status: SABQueueItemStatus!
     
     enum SABQueueItemStatus {
@@ -32,6 +32,14 @@ public class SABQueueItem: SABItem {
         super.init(identifier, filename, category, nzbName, statusDescription)
         
         self.status = stringToStatus(statusDescription)
+    }
+    
+    internal func update(statusDescription: String, _ remainingMb: Float, _ progress: Float, _ timeRemaining: String) {
+        self.remainingMb = remainingMb
+        self.statusDescription = statusDescription
+        self.status = stringToStatus(statusDescription)
+        self.progress = progress
+        self.timeRemaining = timeRemaining
     }
     
     public var hasProgress: Bool {

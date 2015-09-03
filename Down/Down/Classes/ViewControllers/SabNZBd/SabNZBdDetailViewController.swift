@@ -29,17 +29,17 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     
     weak var sabNZBdService: SabNZBdService!
     
-    private var item: SABItem!
+    private weak var sabItem: SABItem!
     private var cellKeys: [[SabNZBdDetailRow]]!
     private var cellTitles: [[String]]!
     
     convenience init(sabItem: SABItem) {
         self.init(nibName: "SabNZBdDetailViewController", bundle: nil)
         
-        item = sabItem
+        self.sabItem = sabItem
         sabNZBdService = serviceManager.sabNZBdService
         
-        if item is SABQueueItem {
+        if sabItem is SABQueueItem {
             cellKeys = [[.Name, .Status, .Progress], [.NZBName, .NZBProvider]]
             cellTitles = [["Name", "Status", "Progress"], ["NZB", "NZB Provider"]]
         }
@@ -68,6 +68,7 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     // MARK: - TableView datasource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        print("Detail: \(ObjectIdentifier(sabItem).uintValue)")
         return cellKeys.count
     }
     
@@ -76,7 +77,7 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if item is SABQueueItem {
+        if sabItem is SABQueueItem {
             return self.tableView(tableView, queueCellForRowAtIndexPath: indexPath);
         }
         else {
@@ -87,7 +88,7 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     private func tableView(tableView: UITableView, queueCellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let reuseIdentifier = "queueCell"
         let cell = SABDetailCell(style: .Value2, reuseIdentifier: reuseIdentifier)
-        let queueItem = item as! SABQueueItem
+        let queueItem = sabItem as! SABQueueItem
         
         cell.textLabel?.text = cellTitles[indexPath.section][indexPath.row]
         var detailText: String?
@@ -116,7 +117,7 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     private func tableView(tableView: UITableView, historyCellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let reuseIdentifier = "historyCell"
         let cell = SABDetailCell(style: .Value2, reuseIdentifier: reuseIdentifier)
-        let historyItem = item as! SABHistoryItem
+        let historyItem = sabItem as! SABHistoryItem
         
         cell.textLabel?.text = cellTitles[indexPath.section][indexPath.row]
         var detailText: String?

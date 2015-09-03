@@ -58,6 +58,11 @@ public class SabNZBdService: Service {
         refreshHistory()
     }
     
+    func difference<S: Equatable>(a: [S], _ b: [S]) -> [S] {
+        return a.filter { !b.contains($0) }
+    }
+
+    
     // MARK: - Queue
     
     @objc private func refreshQueue() {
@@ -81,9 +86,10 @@ public class SabNZBdService: Service {
     }
     
     private func parseQueueJson(json: JSON!) {
-        // Parse queue
-        var queue: Array<SABQueueItem> = Array<SABQueueItem>()
+        let currentQueueIdentifiers = (queue as AnyObject).valueForKey("identifier") as! [String]
+        var newQueueIdentifiers = [String]()
         
+        // Parse queue
         for jsonJob: JSON in json["queue"]["slots"].array! {
             let identifier = jsonJob["nzo_id"].string!
             let filename = jsonJob["filename"].string!
@@ -94,16 +100,52 @@ public class SabNZBdService: Service {
             let remainingMb = jsonJob["mbleft"].string!.floatValue
             let timeRemaining = jsonJob["timeleft"].string!
             let progress = jsonJob["percentage"].string!.floatValue
-            queue.append(SABQueueItem(identifier, filename, category, nzbName, statusDescription, totalMb, remainingMb, progress, timeRemaining))
+            
+            
+            let item = findQueueItem(identifier)
+            if item == nil {
+                queue.append(SABQueueItem(identifier, filename, category, nzbName, statusDescription, totalMb, remainingMb, progress, timeRemaining))
+            }
+            else {
+                item!.update(statusDescription, remainingMb, progress, timeRemaining)
+            }
+            newQueueIdentifiers.append(identifier)
         }
         
-        self.queue = queue
+        // Cleanup items removed from queue
+        let removedQueueIdentifiers = difference(currentQueueIdentifiers, newQueueIdentifiers)
+        removeQueueItems(removedQueueIdentifiers)
         
         // Parse speed, timeleft and mbleft
         currentSpeed = json["queue"]["kbpersec"].string!.floatValue
         timeRemaining = json["queue"]["timeleft"].string!
         mbLeft = json["queue"]["mbleft"].string!.floatValue
         paused = json["queue"]["paused"].bool!
+    }
+    
+    private func findQueueItem(identifier: String) -> SABQueueItem? {
+        var queueItem: SABQueueItem?
+        
+        for item in queue {
+            if item.identifier == identifier {
+                queueItem = item
+                break
+            }
+        }
+        
+        return queueItem
+    }
+    
+    private func removeQueueItem(identifier: String) {
+        if let queueItem = findQueueItem(identifier) {
+            queue.removeAtIndex(queue.indexOf(queueItem)!)
+        }
+    }
+    
+    private func removeQueueItems(identifiers: [String]) {
+        for identifier in identifiers {
+            removeQueueItem(identifier)
+        }
     }
     
     // MARK - History
