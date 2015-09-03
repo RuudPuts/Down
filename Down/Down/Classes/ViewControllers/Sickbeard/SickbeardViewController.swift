@@ -185,11 +185,8 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
             let header = (NSBundle.mainBundle().loadNibNamed("SickbeardHeaderView", owner: self, options: nil) as Array).first as! SickbeardHeaderView
             header.textLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
             header.imageView.image = self.tableView(tableView, iconForHeaderInSection: section)
-            header.detailLabel.text = nil
-            
-            if section == 1 {
-                header.detailLabel.text = "\(NSCalendar.currentCalendar().components(.Day, fromDate: NSDate()).day)"
-            }            
+            let detailText = section == 1 ? "\(NSCalendar.currentCalendar().components(.Day, fromDate: NSDate()).day)" : "?"
+            header.detailLabel.text = detailText
             
             headerView = header
         }
@@ -215,20 +212,7 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, iconForHeaderInSection section: Int) -> UIImage? {
-        var icon: UIImage?
-        
-        switch section {
-        case 1:
-            icon = UIImage(named: "sickbeard-airingtoday")
-            break
-        case 2:
-            icon = UIImage(named: "sickbeard-airingsoon")
-            break
-        default:
-            break
-        }
-        
-        return icon
+        return UIImage(named: "sickbeard-airingtoday")
     }
     
     // MARK: - TableView Delegate
