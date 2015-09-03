@@ -14,6 +14,8 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var airingTodayLabel: UILabel!
     
     weak var sickbeardService: SickbeardService!
+    var todayData: [SickbeardFutureItem]?
+    var soonData: [SickbeardFutureItem]?
 
     convenience init() {
         self.init(nibName: "SickbeardViewController", bundle: nil)
@@ -37,6 +39,7 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
         tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
         
         updateHeaderWidgets()
+        reloadTableView()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -59,19 +62,30 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
     
     // MARK: - TableView DataSource
     
+    private func reloadTableView() {
+        if let future = sickbeardService.future {
+            todayData = future[SickbeardFutureItem.Category.Today.rawValue] as [SickbeardFutureItem]!
+            soonData = future[SickbeardFutureItem.Category.Soon.rawValue] as [SickbeardFutureItem]!
+        }
+        tableView.reloadData()
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        var sections = 2
+        if soonData != nil {
+            sections = 3
+        }
+        return sections
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var rows = 2
         
         if section == 1 {
-            let data = sickbeardService.future[SickbeardFutureItem.Category.Today.rawValue] as [SickbeardFutureItem]?
-            
-            if let futureData = data {
-                rows = max(1, futureData.count)
-            }
+            rows = todayData?.count ?? 1
+        }
+        else if section == 2 {
+            rows = soonData?.count ?? 1
         }
         
         return rows
@@ -81,16 +95,25 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
         var isEmpty = false
         
         if section == 1 {
-            isEmpty = (sickbeardService.future[SickbeardFutureItem.Category.Today.rawValue] as [SickbeardFutureItem]!).count == 0
+            isEmpty = true
+            if let data = todayData {
+                isEmpty = data.count == 0
+            }
         }
-        
+        else if section == 2 {
+            isEmpty = true
+            if let data = soonData {
+                isEmpty = data.count == 0
+            }
+        }
+    
         return isEmpty
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         var height = tableView.rowHeight
         
-        if indexPath.section == 1 && !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
+        if indexPath.section > 0 && !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             // Width of screen, in 758x140 ratio. 60 extra for labels
             height = (CGRectGetWidth(view.bounds) / 758 * 140) + 60
         }
@@ -101,14 +124,19 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         
-        let data = sickbeardService.future[SickbeardFutureItem.Category.Today.rawValue] as [SickbeardFutureItem]?
-        if indexPath.section == 1 {
+        if indexPath.section > 0 {
+            var data = todayData
+            if indexPath.section == 2 {
+                data = soonData
+            }
+            
             if data == nil {
                 let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownLoadingCell
                 // For some reason this has to be called all the time
                 if !loadingCell.activityIndicator.isAnimating() {
                     loadingCell.activityIndicator.startAnimating()
                 }
+                loadingCell.activityIndicator.color = .downSickbeardColor()
                 cell = loadingCell
             }
             else if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
@@ -120,7 +148,7 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
             else {
                 let itemCell = tableView.dequeueReusableCellWithIdentifier("SickbeardTodayCell", forIndexPath: indexPath) as! SickbeardTodayCell
                 
-                let item = (data as [SickbeardFutureItem]!)[indexPath.row]
+                let item = data![indexPath.row]
                 itemCell.episodeLabel.text = "\(item.showName) - S\(item.season)E\(item.episode) - \(item.episodeName)"
                 itemCell.dateLabel.text = item.airDate
                 itemCell.bannerView?.image = item.banner
@@ -153,9 +181,15 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var headerView: UIView? = nil
         
-        if section == 1 {
+        if section > 0 {
             let header = (NSBundle.mainBundle().loadNibNamed("SickbeardHeaderView", owner: self, options: nil) as Array).first as! SickbeardHeaderView
             header.textLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+            header.imageView.image = self.tableView(tableView, iconForHeaderInSection: section)
+            header.detailLabel.text = nil
+            
+            if section == 1 {
+                header.detailLabel.text = "\(NSCalendar.currentCalendar().components(.Day, fromDate: NSDate()).day)"
+            }            
             
             headerView = header
         }
@@ -166,11 +200,35 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var sectionTitle: String?
         
-        if section == 1 {
+        switch section {
+        case 1:
             sectionTitle = "Airing today"
+            break
+        case 2:
+            sectionTitle = "Airing soon"
+            break
+        default:
+            break
         }
         
         return sectionTitle
+    }
+    
+    func tableView(tableView: UITableView, iconForHeaderInSection section: Int) -> UIImage? {
+        var icon: UIImage?
+        
+        switch section {
+        case 1:
+            icon = UIImage(named: "sickbeard-airingtoday")
+            break
+        case 2:
+            icon = UIImage(named: "sickbeard-airingsoon")
+            break
+        default:
+            break
+        }
+        
+        return icon
     }
     
     // MARK: - TableView Delegate
@@ -178,7 +236,6 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
     // MARK: - SickbeardListener
     
     func sickbeardHistoryUpdated() {
-        self.tableView.reloadData()
         updateHeaderWidgets()
     }
     

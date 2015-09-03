@@ -16,8 +16,6 @@ class SickbeardHeaderView: UIView {
     
     override func awakeFromNib() {
         textLabel.textColor = .downSickbeardColor()
-        imageView.image = UIImage(named: "sickbeard-airingtoday")
-        detailLabel.text = "\(NSCalendar.currentCalendar().components(.Day, fromDate: NSDate()).day)"
     }
     
 }

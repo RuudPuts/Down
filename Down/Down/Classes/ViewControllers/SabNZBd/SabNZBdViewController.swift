@@ -108,7 +108,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     private func updateTimeRemainingWidget() {
-        self.timeleftLabel!.text = sabNZBdService.timeRemaining
+        self.timeleftLabel!.text = sabNZBdService.timeRemaining ?? "-"
     }
     
     private func updateMbRemainingWidget() {
