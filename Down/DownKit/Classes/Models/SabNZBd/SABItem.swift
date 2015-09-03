@@ -10,7 +10,7 @@ import UIKit
 
 public class SABItem: NSObject {
     
-    let identifier: String!
+    public let identifier: String!
     let filename: String!
     public var category: String!
     public let nzbName: String!
@@ -64,4 +64,8 @@ public class SABItem: NSObject {
         return displayName
     }
    
+}
+
+func == (lhs: SABItem, rhs: SABItem) -> Bool {
+    return lhs.identifier == rhs.identifier
 }

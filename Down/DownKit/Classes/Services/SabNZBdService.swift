@@ -30,6 +30,7 @@ public class SabNZBdService: Service {
         case QueueUpdated
         case HistoryUpdated
         case FullHistoryFetched
+        case WillRemoveSabItem
     }
    
     init(queueRefreshRate: NSTimeInterval, historyRefreshRate: NSTimeInterval) {
@@ -114,7 +115,7 @@ public class SabNZBdService: Service {
         
         // Cleanup items removed from queue
         let removedQueueIdentifiers = difference(currentQueueIdentifiers, newQueueIdentifiers)
-        removeQueueItems(removedQueueIdentifiers)
+        removeItemsFromQueue(removedQueueIdentifiers)
         
         // Parse speed, timeleft and mbleft
         currentSpeed = json["queue"]["kbpersec"].string!.floatValue
@@ -136,15 +137,16 @@ public class SabNZBdService: Service {
         return queueItem
     }
     
-    private func removeQueueItem(identifier: String) {
+    private func removeItemFromQueue(identifier: String) {
         if let queueItem = findQueueItem(identifier) {
+            notifyListeners(.WillRemoveSabItem, withItem: queueItem)
             queue.removeAtIndex(queue.indexOf(queueItem)!)
         }
     }
     
-    private func removeQueueItems(identifiers: [String]) {
+    private func removeItemsFromQueue(identifiers: [String]) {
         for identifier in identifiers {
-            removeQueueItem(identifier)
+            removeItemFromQueue(identifier)
         }
     }
     
@@ -213,6 +215,9 @@ public class SabNZBdService: Service {
     }
     
     private func parseHistoryJson(json: JSON!) {
+        let currentHistoryIdentifiers = (history as AnyObject).valueForKey("identifier") as! [String]
+        var newHistoryIdentifiers = [String]()
+        
         for jsonJob: JSON in json["history"]["slots"].array! {
             let identifier = jsonJob["nzo_id"].string!
             let title = jsonJob["name"].string!
@@ -239,7 +244,12 @@ public class SabNZBdService: Service {
             else {
                 item!.update(category, statusDescription, actionLine, completedDate)
             }
+            newHistoryIdentifiers.append(identifier)
         }
+        
+        // Cleanup items removed from history
+        let removedHistoryIdentifiers = difference(currentHistoryIdentifiers, newHistoryIdentifiers)
+        removeItemsFromHistory(removedHistoryIdentifiers)
         
         // Parse history size
         historySize = json["history"]["noofslots"].int!
@@ -248,7 +258,7 @@ public class SabNZBdService: Service {
         }
     }
     
-    private func findHistoryItem(imdbIdentifier: String) -> SABHistoryItem? {
+    public func findHistoryItem(imdbIdentifier: String) -> SABHistoryItem? {
         var historyItem: SABHistoryItem?
         
         for item in history {
@@ -259,6 +269,19 @@ public class SabNZBdService: Service {
         }
         
         return historyItem
+    }
+    
+    private func removeItemFromHistory(identifier: String) {
+        if let historyItem = findHistoryItem(identifier) {
+            notifyListeners(.WillRemoveSabItem, withItem: historyItem)
+            history.removeAtIndex(history.indexOf(historyItem)!)
+        }
+    }
+    
+    private func removeItemsFromHistory(identifiers: [String]) {
+        for identifier in identifiers {
+            removeItemFromHistory(identifier)
+        }
     }
     
     // MARK - Delete items
@@ -311,6 +334,23 @@ public class SabNZBdService: Service {
                     break
                 case .FullHistoryFetched:
                     sabNZBdListener.sabNZBDFullHistoryFetched()
+                    break
+                default:
+                    break
+                }
+            }
+        }
+    }
+    
+    private func notifyListeners(notifyType: SabNZBDNotifyType, withItem sabItem: SABItem) {
+        for listener in self.listeners {
+            if listener is SabNZBdListener {
+                let sabNZBdListener = listener as! SabNZBdListener
+                switch notifyType {
+                case .WillRemoveSabItem:
+                    sabNZBdListener.willRemoveSABItem(sabItem)
+                    break
+                default:
                     break
                 }
             }

@@ -48,8 +48,6 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         tableView.registerNib(moreHistoryCellNib, forCellReuseIdentifier: "DownTextCell")
         
         headerView.backgroundColor = .downSabNZBdColor()
-        
-        updateHeaderWidgets()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -57,6 +55,9 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         
         sabNZBdService.addListener(self)
         sickbeardService.addListener(self)
+        
+        tableView.reloadData()
+        updateHeaderWidgets()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -298,6 +299,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     func sabNZBDFullHistoryFetched() { }
+    func willRemoveSABItem(sabItem: SABItem) { }
     
     // MARK: - SickbeardListener
     

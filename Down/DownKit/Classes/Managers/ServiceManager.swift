@@ -36,6 +36,7 @@ public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     }
     
     public func sabNZBDFullHistoryFetched() { }
+    public func willRemoveSABItem(sabItem: SABItem) { }
 
     // MARK: SickbearListener
     

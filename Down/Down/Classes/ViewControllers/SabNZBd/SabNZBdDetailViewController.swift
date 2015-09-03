@@ -33,21 +33,16 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     private var cellKeys: [[SabNZBdDetailRow]]!
     private var cellTitles: [[String]]!
     
+    private var historyItemReplacement: String?
+    private var historySwitchRefreshCount = 0
+    
     convenience init(sabItem: SABItem) {
         self.init(nibName: "SabNZBdDetailViewController", bundle: nil)
         
         self.sabItem = sabItem
         sabNZBdService = serviceManager.sabNZBdService
         
-        if sabItem is SABQueueItem {
-            cellKeys = [[.Name, .Status, .Progress], [.NZBName, .NZBProvider]]
-            cellTitles = [["Name", "Status", "Progress"], ["NZB", "NZB Provider"]]
-        }
-        else {
-            cellKeys = [[.Name, .TotalSize, .Status, .FinishedAt], [.NZBName, .NZBProvider]]
-            cellTitles = [["Name", "Total size", "Status", "Finished at"], ["NZB", "NZB Provider"]]
-            
-        }
+        configureTableView()
         title = "Details"
     }
     
@@ -66,6 +61,18 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     }
     
     // MARK: - TableView datasource
+    
+    func configureTableView() {
+        if sabItem is SABQueueItem {
+            cellKeys = [[.Name, .Status, .Progress], [.NZBName, .NZBProvider]]
+            cellTitles = [["Name", "Status", "Progress"], ["NZB", "NZB Provider"]]
+        }
+        else {
+            cellKeys = [[.Name, .TotalSize, .Status, .FinishedAt], [.NZBName, .NZBProvider]]
+            cellTitles = [["Name", "Total size", "Status", "Finished at"], ["NZB", "NZB Provider"]]
+            
+        }
+    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         print("Detail: \(ObjectIdentifier(sabItem).uintValue)")
@@ -157,13 +164,46 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     // MARK: - SabNZBdListener
     
     func sabNZBdQueueUpdated() {
-        tableView.reloadData()
+        if sabItem is SABQueueItem {
+            tableView.reloadData()
+        }
     }
     
     func sabNZBdHistoryUpdated() {
-        tableView.reloadData()
+        var shouldReloadTable = sabItem is SABHistoryItem
+        if let historyItemIdentifier = historyItemReplacement {
+            sabItem = sabNZBdService.findHistoryItem(historyItemIdentifier)
+            
+            if sabItem != nil {
+                historyItemReplacement = nil
+                shouldReloadTable = true
+                configureTableView()
+                tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 3, inSection: 0)], withRowAnimation: .Automatic)
+            }
+            else {
+                historySwitchRefreshCount++
+                if (historySwitchRefreshCount == 1) {
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+            }
+        }
+        
+        if shouldReloadTable {
+            tableView.reloadData()
+        }
     }
     
     func sabNZBDFullHistoryFetched() { }
+    
+    func willRemoveSABItem(sabItem: SABItem) {
+        if sabItem == self.sabItem {
+            if sabItem is SABQueueItem {
+                historyItemReplacement = sabItem.identifier
+            }
+            else {
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+        }
+    }
     
 }

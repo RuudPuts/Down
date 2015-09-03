@@ -154,4 +154,10 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
         self.tableView.reloadData()
     }
     
+    func willRemoveSABItem(sabItem: SABItem) {
+        if sabItem is SABHistoryItem {
+            self.tableView.reloadData()
+        }
+    }
+    
 }

@@ -14,4 +14,6 @@ public protocol SabNZBdListener: ServiceListener {
     func sabNZBdHistoryUpdated()
     func sabNZBDFullHistoryFetched()
     
+    func willRemoveSABItem(sabItem: SABItem)
+    
 }
