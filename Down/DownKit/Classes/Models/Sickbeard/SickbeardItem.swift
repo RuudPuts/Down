@@ -13,6 +13,7 @@ public class SickbeardItem {
     public var showName: String!
     public var season: Int!
     public var episode: Int!
+    public var episodeName: String?
     var status: SickbeardItemStatus!
     
     public enum SickbeardItemStatus {
@@ -24,11 +25,12 @@ public class SickbeardItem {
         case Comming
     }
     
-    init (_ tvdbId: Int, _ showName: String, _ season: Int, episode: Int, _ status: String) {
+    init (_ tvdbId: Int, _ showName: String, _ season: Int, _ episode: Int, _ episodeName: String?, _ status: String) {
         self.tvdbId = tvdbId
         self.showName = showName
         self.season = season
         self.episode = episode
+        self.episodeName = episodeName
         self.status = stringToStatus(status)
     }
     

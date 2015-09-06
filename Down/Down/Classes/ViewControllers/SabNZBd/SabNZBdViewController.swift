@@ -235,7 +235,6 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
             if indexPath.section == 0 {
                 let queueItem: SABQueueItem = sabNZBdService.queue[indexPath.row];
                 itemCell.queueItem = queueItem
-                print("Cell \(indexPath.row): \(ObjectIdentifier(queueItem).uintValue)")
             }
             else {
                 let historyItem: SABHistoryItem = sabNZBdService.history[indexPath.row];

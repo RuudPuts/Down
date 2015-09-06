@@ -15,8 +15,6 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     private enum SabNZBdDetailRow {
         case Name
         case Status
-        case NZBName
-        case NZBProvider
         case TotalSize
         
         // Queue specifics
@@ -25,6 +23,11 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
         
         // History specifics
         case FinishedAt
+        
+        // Sickbeard Specifics
+        case SickbeardShow
+        case SickbeardEpisode
+        case SickbeardEpisodeName
     }
     
     weak var sabNZBdService: SabNZBdService!
@@ -44,6 +47,16 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
         
         configureTableView()
         title = "Details"
+        
+        if sabItem.sickbeardEntry != nil {
+            let image = sabItem.sickbeardEntry?.banner ?? UIImage(named: "SickbeardDefaultBanner")
+            let headerImageView = UIImageView(image: image)
+            let screenWidth = CGRectGetWidth(view.bounds)
+            let ratiodImageHeight = image!.size.height / image!.size.width * screenWidth
+            headerImageView.frame = CGRectMake(0, 0, screenWidth, ratiodImageHeight)
+            
+            tableView.tableHeaderView = headerImageView
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -64,18 +77,21 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     
     func configureTableView() {
         if sabItem is SABQueueItem {
-            cellKeys = [[.Name, .Status, .Progress], [.NZBName, .NZBProvider]]
-            cellTitles = [["Name", "Status", "Progress"], ["NZB", "NZB Provider"]]
+            cellKeys = [[.Name, .Status, .Progress]]
+            cellTitles = [["Name", "Status", "Progress"]]
         }
         else {
-            cellKeys = [[.Name, .TotalSize, .Status, .FinishedAt], [.NZBName, .NZBProvider]]
-            cellTitles = [["Name", "Total size", "Status", "Finished at"], ["NZB", "NZB Provider"]]
-            
+            cellKeys = [[.Name, .TotalSize, .Status, .FinishedAt]]
+            cellTitles = [["Name", "Total size", "Status", "Finished at"]]
+        }
+        
+        if sabItem.sickbeardEntry != nil {
+            cellKeys.append([.SickbeardShow, .SickbeardEpisode, .SickbeardEpisodeName])
+            cellTitles.append(["Show", "Episode", "Title"])
         }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        print("Detail: \(ObjectIdentifier(sabItem).uintValue)")
         return cellKeys.count
     }
     
@@ -84,15 +100,18 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell: SABDetailCell
         if sabItem is SABQueueItem {
-            return self.tableView(tableView, queueCellForRowAtIndexPath: indexPath);
+            cell = self.tableView(tableView, queueCellForRowAtIndexPath: indexPath);
         }
         else {
-            return self.tableView(tableView, historyCellForRowAtIndexPath: indexPath);
+            cell = self.tableView(tableView, historyCellForRowAtIndexPath: indexPath);
         }
+        
+        return cell
     }
     
-    private func tableView(tableView: UITableView, queueCellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    private func tableView(tableView: UITableView, queueCellForRowAtIndexPath indexPath: NSIndexPath) -> SABDetailCell {
         let reuseIdentifier = "queueCell"
         let cell = SABDetailCell(style: .Value2, reuseIdentifier: reuseIdentifier)
         let queueItem = sabItem as! SABQueueItem
@@ -111,9 +130,16 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
         case .Progress:
             detailText = queueItem.progressString
             break
-        case .NZBName:
-            detailText = queueItem.nzbName
-            break
+            
+        case .SickbeardShow:
+            detailText = queueItem.sickbeardEntry!.showName
+            break;
+        case .SickbeardEpisode:
+            detailText = "S\(queueItem.sickbeardEntry!.season)E\(queueItem.sickbeardEntry!.episode)"
+            break;
+        case .SickbeardEpisodeName:
+            detailText = queueItem.sickbeardEntry!.episodeName
+            break;
         default:
             break
         }
@@ -121,7 +147,7 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
         return cell
     }
     
-    private func tableView(tableView: UITableView, historyCellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    private func tableView(tableView: UITableView, historyCellForRowAtIndexPath indexPath: NSIndexPath) -> SABDetailCell {
         let reuseIdentifier = "historyCell"
         let cell = SABDetailCell(style: .Value2, reuseIdentifier: reuseIdentifier)
         let historyItem = sabItem as! SABHistoryItem
@@ -150,9 +176,16 @@ class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITabl
         case .FinishedAt:
             detailText = NSDateFormatter.defaultFormatter().stringFromDate(historyItem.completionDate!)
             break
-        case .NZBName:
-            detailText = historyItem.nzbName
-            break
+            
+        case .SickbeardShow:
+            detailText = historyItem.sickbeardEntry!.showName
+            break;
+        case .SickbeardEpisode:
+            detailText = "S\(historyItem.sickbeardEntry!.season)E\(historyItem.sickbeardEntry!.episode)"
+            break;
+        case .SickbeardEpisodeName:
+            detailText = historyItem.sickbeardEntry!.episodeName
+            break;
         default:
             break
         }

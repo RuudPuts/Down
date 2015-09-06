@@ -12,7 +12,7 @@ public class SickbeardHistoryItem: SickbeardItem {
     var resource: String!
     
     init(_ tvdbId: Int, _ showName: String, _ season: Int, _ episode: Int, _ status: String, _ resource: String) {
-        super.init(tvdbId, showName, season, episode: episode, status)
+        super.init(tvdbId, showName, season, episode, nil, status)
         
         self.resource = resource
     }

@@ -9,7 +9,6 @@
 import Foundation
 
 public class SickbeardFutureItem: SickbeardItem {
-    public var episodeName: String!
     public var airDate: String!
     public var category: Category!
     
@@ -20,9 +19,8 @@ public class SickbeardFutureItem: SickbeardItem {
     }
     
     init(_ tvdbId: Int, _ showName: String, _ season: Int, _ episode: Int, _ status: String, _ episodeName: String, _ airDate: String, _ category: Category) {
-        super.init(tvdbId, showName, season, episode: episode, status)
+        super.init(tvdbId, showName, season, episode, episodeName, status)
         self.status = .Comming
-        self.episodeName = episodeName
         self.airDate = airDate
         self.category = category
     }
