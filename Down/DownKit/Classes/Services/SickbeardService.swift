@@ -13,6 +13,8 @@ public class SickbeardService: Service {
     public var history: Array<SickbeardHistoryItem>!
     public var future: [String: [SickbeardFutureItem]]!
     
+    public var shows = [SickbeardShow]()
+    
     private let bannerQueue = dispatch_queue_create("com.ruudputs.down.BannerQueue", DISPATCH_QUEUE_SERIAL)
     
     private enum SickbeardNotifyType {
@@ -27,6 +29,7 @@ public class SickbeardService: Service {
         
         startTimers()
         refreshFuture()
+        refreshShowCache()
     }
     
     override public func addListener(listener: ServiceListener) {
@@ -139,6 +142,99 @@ public class SickbeardService: Service {
         }
         
         self.future = future
+    }
+    
+    // MARK: - Show cache
+    
+    private func refreshShowCache() {
+        NSLog("Start cache refresh")
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
+            request(.GET, url).responseJSON { _, _, result in
+                if result.isSuccess {
+                    let showData = (JSON(result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
+                    let tvdbIds = Array(showData.keys)
+                    self.refreshShowData(tvdbIds)
+                }
+                else {
+                    print("Error while fetching Sickbeard shows list: \(result.error!)")
+                }
+            }
+        })
+    }
+    
+    private func refreshShowData(tvdbIds: [String]) {
+        let showDataGroup = dispatch_group_create();
+        
+        for tvdbId in tvdbIds {
+            dispatch_group_enter(showDataGroup)
+            
+            NSLog("Started \(tvdbId)")
+            
+            let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
+            request(.GET, url).responseJSON { _, _, result in
+                if result.isSuccess {
+                    self.parseShowData(JSON(result.value!)["data"], forTvdbId: Int(tvdbId)!)
+                }
+                else {
+                    print("Error while fetching Sickbeard showData: \(result.data!)")
+                }
+                dispatch_group_leave(showDataGroup)
+            }
+        }
+        
+        dispatch_group_notify(showDataGroup, dispatch_get_main_queue()) { () -> Void in
+            
+        }
+    }
+    
+    private func parseShowData(json: JSON, forTvdbId tvdbId: Int) {
+        let name = json["show_name"].string!
+        let paused = json["paused"].int!
+        
+        let show = SickbeardShow(tvdbId, name, paused)
+        self.shows.append(show)
+        refreshShowSeasons(show)
+    }
+    
+    private func refreshShowSeasons(show: SickbeardShow) {
+        let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show.tvdbId)"
+        request(.GET, url).responseJSON { _, _, result in
+            if result.isSuccess {
+                self.parseShowSeasons(JSON(result.value!)["data"], forShow: show)
+                NSLog("Finished \(show.tvdbId) - \(show.name)")
+            }
+            else {
+                print("Error while fetching Sickbeard showData: \(result.data!)")
+            }
+        }
+    }
+    
+    private func parseShowSeasons(json: JSON, forShow show: SickbeardShow) {
+        var seasons = [SickbeardSeason]()
+        
+        let seaonsKeys = Array((json.rawValue as! [String: AnyObject]).keys)
+        for seasonKey in seaonsKeys {
+            let seasonJson = json[seasonKey] as JSON
+            var episodes = [SickbeardEpisode]()
+            
+            let episodeKeys = Array((seasonJson.rawValue as! [String: AnyObject]).keys)
+            for episodeKey in episodeKeys {
+                let episodeJson = seasonJson[episodeKey] as JSON
+                let name = episodeJson["name"].string!
+                let airdate = episodeJson["airdate"].string!
+                let quality = episodeJson["quality"].string!
+                let status = episodeJson["status"].string!
+                
+                let episode = SickbeardEpisode(episodeKey, name, airdate, quality, status)
+                episodes.append(episode)
+            }
+            
+            let season = SickbeardSeason(seasonKey, episodes)
+            seasons.append(season)
+        }
+        
+        show.seasons = seasons
     }
     
     // MARK: - Listeners

@@ -16,6 +16,7 @@
 		42078E411AD1C702009845CC /* CouchPotatoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */; };
 		42078E461AD1C71A009845CC /* SickbeardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E431AD1C71A009845CC /* SickbeardViewController.xib */; };
 		42078E471AD1C71A009845CC /* CouchPotatoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */; };
+		420E7E351B9CC65B00D3DCC4 /* SickbeardShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E7E341B9CC65B00D3DCC4 /* SickbeardShow.swift */; settings = {ASSET_TAGS = (); }; };
 		420F496F1ADC431E006CFA11 /* DownLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F496E1ADC431E006CFA11 /* DownLoadingCell.xib */; };
 		420F49731ADC4B50006CFA11 /* DownEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */; };
 		422063DE1B85126300DAFB46 /* DownImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422063DD1B85126300DAFB46 /* DownImageView.swift */; };
@@ -100,6 +101,8 @@
 		429E97FE1B97898200C3F58B /* SickbeardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429E97FC1B97898200C3F58B /* SickbeardHeaderView.xib */; settings = {ASSET_TAGS = (); }; };
 		42A000D51B68093C0021208A /* SickbeardTodayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42A000D41B68093C0021208A /* SickbeardTodayCell.xib */; };
 		42A000D71B680B530021208A /* SickbeardTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A000D61B680B530021208A /* SickbeardTodayCell.swift */; };
+		42AE88CE1B9F7CF200E4F0CF /* SickbeardEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AE88CD1B9F7CF200E4F0CF /* SickbeardEpisode.swift */; settings = {ASSET_TAGS = (); }; };
+		42AE88D31B9F7D0A00E4F0CF /* SickbeardSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */; settings = {ASSET_TAGS = (); }; };
 		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
 		42CD253D1AB5BD06008E9717 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */; };
 		42CD253E1AB5BD06008E9717 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25231AB5BD05008E9717 /* OpenSans-BoldItalic.ttf */; };
@@ -236,6 +239,7 @@
 		42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoViewController.swift; sourceTree = "<group>"; };
 		42078E431AD1C71A009845CC /* SickbeardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardViewController.xib; sourceTree = "<group>"; };
 		42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouchPotatoViewController.xib; sourceTree = "<group>"; };
+		420E7E341B9CC65B00D3DCC4 /* SickbeardShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShow.swift; sourceTree = "<group>"; };
 		420F496E1ADC431E006CFA11 /* DownLoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownLoadingCell.xib; sourceTree = "<group>"; };
 		420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownEmptyCell.xib; sourceTree = "<group>"; };
 		422063DD1B85126300DAFB46 /* DownImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownImageView.swift; sourceTree = "<group>"; };
@@ -326,6 +330,8 @@
 		429E97FC1B97898200C3F58B /* SickbeardHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardHeaderView.xib; sourceTree = "<group>"; };
 		42A000D41B68093C0021208A /* SickbeardTodayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardTodayCell.xib; sourceTree = "<group>"; };
 		42A000D61B680B530021208A /* SickbeardTodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardTodayCell.swift; sourceTree = "<group>"; };
+		42AE88CD1B9F7CF200E4F0CF /* SickbeardEpisode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardEpisode.swift; sourceTree = "<group>"; };
+		42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardSeason.swift; sourceTree = "<group>"; };
 		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		42CD25231AB5BD05008E9717 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -503,6 +509,16 @@
 			path = CouchPotato;
 			sourceTree = "<group>";
 		};
+		420E7E331B9CC64700D3DCC4 /* Refactor */ = {
+			isa = PBXGroup;
+			children = (
+				420E7E341B9CC65B00D3DCC4 /* SickbeardShow.swift */,
+				42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */,
+				42AE88CD1B9F7CF200E4F0CF /* SickbeardEpisode.swift */,
+			);
+			name = Refactor;
+			sourceTree = "<group>";
+		};
 		4221ADB21B7BC0B20027C3A0 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,6 +582,7 @@
 		4221ADC31B7BC0B20027C3A0 /* Sickbeard */ = {
 			isa = PBXGroup;
 			children = (
+				420E7E331B9CC64700D3DCC4 /* Refactor */,
 				4221ADC41B7BC0B20027C3A0 /* SickbeardFutureItem.swift */,
 				4221ADC51B7BC0B20027C3A0 /* SickbeardHistoryItem.swift */,
 				4221ADC61B7BC0B20027C3A0 /* SickbeardItem.swift */,
@@ -1222,6 +1239,7 @@
 				4269A9501B850501005A06E3 /* Request.swift in Sources */,
 				4221ADD71B7BC0B20027C3A0 /* String+Extensions.swift in Sources */,
 				4221ADDC1B7BC0B20027C3A0 /* PreferenceManager.swift in Sources */,
+				42AE88D31B9F7D0A00E4F0CF /* SickbeardSeason.swift in Sources */,
 				4221ADE01B7BC0B20027C3A0 /* SABQueueItem.swift in Sources */,
 				4221ADE31B7BC0B20027C3A0 /* SickbeardItem.swift in Sources */,
 				4221ADE51B7BC0B20027C3A0 /* SabNZBdService.swift in Sources */,
@@ -1238,9 +1256,11 @@
 				4221ADDD1B7BC0B20027C3A0 /* ServiceManager.swift in Sources */,
 				4269A9531B850501005A06E3 /* ServerTrustPolicy.swift in Sources */,
 				4269A94B1B850501005A06E3 /* Error.swift in Sources */,
+				42AE88CE1B9F7CF200E4F0CF /* SickbeardEpisode.swift in Sources */,
 				4269A9541B850501005A06E3 /* Stream.swift in Sources */,
 				4269A9521B850501005A06E3 /* Result.swift in Sources */,
 				4269A9561B850501005A06E3 /* Validation.swift in Sources */,
+				420E7E351B9CC65B00D3DCC4 /* SickbeardShow.swift in Sources */,
 				4221ADE11B7BC0B20027C3A0 /* SickbeardFutureItem.swift in Sources */,
 				4269A94F1B850501005A06E3 /* ParameterEncoding.swift in Sources */,
 				4221ADE61B7BC0B20027C3A0 /* Service.swift in Sources */,
