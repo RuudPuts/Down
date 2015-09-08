@@ -13,6 +13,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerIcon: UIImageView!
+    @IBOutlet weak var widgetsContainer: UIView!
     
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var speedDescriptionLabel: UILabel!
@@ -57,7 +58,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
         sickbeardService.addListener(self)
         
         tableView.reloadData()
-        updateHeaderWidgets()
+        updateHeader()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -68,6 +69,40 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     }
     
     // MARK: - Header widgets
+    
+    private func updateHeader() {
+        let expandedHeaderHeight: CGFloat = 190
+        let collapsedHeaderHeight: CGFloat = 100
+        
+        let queueEmpty = sabNZBdService.queue.isEmpty
+        let headerExpanded = headerView.heightConstraint?.constant == expandedHeaderHeight
+        
+        var updateHeader = false
+        var expandHeader = false
+        
+        if queueEmpty && headerExpanded {
+            updateHeader = true
+        }
+        else if !queueEmpty && !headerExpanded {
+            updateHeader = true
+            expandHeader = true
+        }
+        
+        if updateHeader {
+            headerView.heightConstraint?.constant = expandHeader ? expandedHeaderHeight : collapsedHeaderHeight
+            
+            UIView.animateWithDuration(0.2, delay: expandHeader ? 0.15 : 0.0, options: .TransitionNone, animations: {
+                self.widgetsContainer.alpha = expandHeader ? 1 : 0
+                }, completion: nil)
+            
+            UIView.animateWithDuration(0.3, animations: {
+                self.view.layoutSubviews()
+                self.headerView.layoutSubviews()
+            })
+        }
+        
+        updateHeaderWidgets()
+    }
     
     private func updateHeaderWidgets() {
         updateCurrentSpeedWidget()
@@ -290,7 +325,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
     
     func sabNZBdQueueUpdated() {
         self.tableView.reloadData()
-        updateHeaderWidgets()
+        updateHeader()
     }
     
     func sabNZBdHistoryUpdated() {

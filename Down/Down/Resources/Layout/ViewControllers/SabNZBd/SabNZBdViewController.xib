@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -28,6 +28,7 @@
                 <outlet property="tableView" destination="AtO-pD-nWL" id="IPs-cp-1Q8"/>
                 <outlet property="timeleftLabel" destination="V0C-9J-gU5" id="FWM-Ft-a4G"/>
                 <outlet property="view" destination="iN0-l3-epB" id="dvq-wg-VUw"/>
+                <outlet property="widgetsContainer" destination="L7X-QW-LMN" id="y1J-Va-0z1"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -36,17 +37,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjk-YU-8EI" userLabel="Header">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sabnzbd-icon" translatesAutoresizingMaskIntoConstraints="NO" id="rG8-7k-qAj">
-                            <rect key="frame" x="123" y="34" width="168" height="45"/>
+                            <rect key="frame" x="123" y="40" width="168" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="GKM-bI-gkI"/>
                                 <constraint firstAttribute="width" constant="168" id="ob5-Yb-1s9"/>
                             </constraints>
                         </imageView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7X-QW-LMN" userLabel="Widgets">
-                            <rect key="frame" x="0.0" y="90" width="414" height="100"/>
+                        <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7X-QW-LMN" userLabel="Widgets">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                             <subviews>
                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="he1-UV-6Sj" userLabel="Speed">
                                     <rect key="frame" x="0.0" y="0.0" width="138" height="100"/>
@@ -149,12 +150,12 @@
                         <constraint firstAttribute="trailing" secondItem="L7X-QW-LMN" secondAttribute="trailing" id="9tg-la-5Jv"/>
                         <constraint firstItem="L7X-QW-LMN" firstAttribute="leading" secondItem="sjk-YU-8EI" secondAttribute="leading" id="Ej6-n0-76l"/>
                         <constraint firstAttribute="bottom" secondItem="L7X-QW-LMN" secondAttribute="bottom" id="RPz-pm-75t"/>
-                        <constraint firstItem="rG8-7k-qAj" firstAttribute="top" secondItem="sjk-YU-8EI" secondAttribute="top" constant="34" id="XGz-59-e6l"/>
-                        <constraint firstAttribute="height" constant="190" id="v2o-yh-7ab"/>
+                        <constraint firstItem="rG8-7k-qAj" firstAttribute="top" secondItem="sjk-YU-8EI" secondAttribute="top" constant="40" id="XGz-59-e6l"/>
+                        <constraint firstAttribute="height" constant="100" id="v2o-yh-7ab"/>
                     </constraints>
                 </view>
                 <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="AtO-pD-nWL">
-                    <rect key="frame" x="0.0" y="190" width="414" height="546"/>
+                    <rect key="frame" x="0.0" y="100" width="414" height="636"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="d5W-jW-edT"/>

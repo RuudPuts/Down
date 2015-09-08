@@ -11,8 +11,6 @@ import DownKit
 
 class SickbeardViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
-    @IBOutlet weak var airingTodayLabel: UILabel!
-    
     weak var sickbeardService: SickbeardService!
     var todayData: [SickbeardFutureItem]?
     var soonData: [SickbeardFutureItem]?
@@ -38,7 +36,6 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
         let itemCellNib = UINib(nibName: "SickbeardTodayCell", bundle:nil)
         tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
         
-        updateHeaderWidgets()
         reloadTableView()
     }
     
@@ -52,12 +49,6 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
         super.viewWillDisappear(animated)
         
         sickbeardService.removeListener(self)
-    }
-    
-    // MARK: - Header widgets
-    
-    private func updateHeaderWidgets() {
-        self.airingTodayLabel.text = "\(self.tableView(tableView, numberOfRowsInSection: 1))"
     }
     
     // MARK: - TableView DataSource
@@ -219,13 +210,10 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
     
     // MARK: - SickbeardListener
     
-    func sickbeardHistoryUpdated() {
-        updateHeaderWidgets()
-    }
+    func sickbeardHistoryUpdated() { }
     
     func sickbeardFutureUpdated() {
         self.tableView.reloadData()
-        updateHeaderWidgets()
     }
     
 }
