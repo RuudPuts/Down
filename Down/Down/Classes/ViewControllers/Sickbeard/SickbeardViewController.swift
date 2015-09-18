@@ -123,10 +123,6 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
             
             if data == nil {
                 let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownLoadingCell
-                // For some reason this has to be called all the time
-                if !loadingCell.activityIndicator.isAnimating() {
-                    loadingCell.activityIndicator.startAnimating()
-                }
                 loadingCell.activityIndicator.color = .downSickbeardColor()
                 cell = loadingCell
             }

@@ -90,19 +90,11 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
                 cell = emptyCell
             }
             else {
-                let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownLoadingCell
-                // For some reason this has to be called all the time
-                if !loadingCell.activityIndicator.isAnimating() {
-                    loadingCell.activityIndicator.startAnimating()
-                }
-                cell = loadingCell
+                cell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath)
             }
         }
         else if indexPath.row == sabNZBdService.history.count && !sabNZBdService.fullHistoryFetched {
-            let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownLoadingCell
-            // For some reason this has to be called all the time
-            loadingCell.activityIndicator.startAnimating()
-            cell = loadingCell
+            cell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath)
         }
         else {
             let itemCell = tableView.dequeueReusableCellWithIdentifier("SABItemCell", forIndexPath: indexPath) as! SABItemCell

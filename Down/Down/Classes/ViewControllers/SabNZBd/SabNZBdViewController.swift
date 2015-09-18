@@ -251,12 +251,7 @@ class SabNZBdViewController: ViewController, UITableViewDataSource, UITableViewD
                 cell = emptyCell
             }
             else {
-                let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownLoadingCell
-                // For some reason this has to be called all the time
-                if !loadingCell.activityIndicator.isAnimating() {
-                    loadingCell.activityIndicator.startAnimating()
-                }
-                cell = loadingCell
+                cell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath)
             }
         }
         else if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
