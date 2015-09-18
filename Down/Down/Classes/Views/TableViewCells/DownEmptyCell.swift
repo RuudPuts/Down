@@ -8,6 +8,8 @@
 
 import UIKit
 
-class DownEmptyCell: DownCell {
+class DownEmptyCell: UITableViewCell {
+    
+    @IBOutlet weak var label: UILabel!
     
 }
