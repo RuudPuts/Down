@@ -49,12 +49,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let sickbeardViewController = SickbeardViewController()
         sickbeardViewController.tabBarItem = DownTabBarItem(title: "Sickbeard", image: UIImage(named: "sickbeard-tabbar"), tintColor: UIColor.downSickbeardDarkColor())
+        let sickbeardNavigationController = UINavigationController(rootViewController: sickbeardViewController)
+        sickbeardNavigationController.navigationBarHidden = true
         
         let couchPotatoViewController = CouchPotatoViewController()
         couchPotatoViewController.tabBarItem = DownTabBarItem(title: "CouchPotato", image: UIImage(named: "couchpotato-tabbar"), tintColor: UIColor.downCouchPotatoColor())
+        let couchPotatoNavigationController = UINavigationController(rootViewController: couchPotatoViewController)
+        couchPotatoNavigationController.navigationBarHidden = true
 
-        let tabBarController = DownTabBarController()
-        tabBarController.viewControllers = [sabNZBdNavigationController, sickbeardViewController, couchPotatoViewController]
+        let tabBarController = DownTabBarViewController()
+        tabBarController.viewControllers = [sabNZBdNavigationController, sickbeardNavigationController, couchPotatoNavigationController]
         
         downWindow.rootViewController = tabBarController
         window = downWindow

@@ -5,34 +5,35 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SabNZBdHistoryViewController" customModule="Down" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SickbeardShowsViewController" customModule="Down" customModuleProvider="target">
             <connections>
-                <outlet property="tableView" destination="5OB-SV-Y9M" id="Meg-RS-afv"/>
-                <outlet property="view" destination="iN0-l3-epB" id="aNF-Gk-Z5K"/>
+                <outlet property="tableView" destination="gbq-Gl-h3C" id="eNC-g5-ly6"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5OB-SV-Y9M">
+                <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gbq-Gl-h3C">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="0Pb-c3-l1H"/>
-                        <outlet property="delegate" destination="-1" id="rUS-L0-AUb"/>
+                        <outlet property="dataSource" destination="-1" id="fpo-Js-Pj7"/>
+                        <outlet property="delegate" destination="-1" id="qxt-HS-Ya8"/>
                     </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="5OB-SV-Y9M" secondAttribute="bottom" id="0b3-iH-oUU"/>
-                <constraint firstItem="5OB-SV-Y9M" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="GkX-Vk-tZO"/>
-                <constraint firstItem="5OB-SV-Y9M" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="t1c-aj-q4X"/>
-                <constraint firstAttribute="trailing" secondItem="5OB-SV-Y9M" secondAttribute="trailing" id="x9a-Uj-FpM"/>
+                <constraint firstAttribute="bottom" secondItem="gbq-Gl-h3C" secondAttribute="bottom" id="A5P-mC-bJg"/>
+                <constraint firstItem="gbq-Gl-h3C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hOf-wF-pLA"/>
+                <constraint firstItem="gbq-Gl-h3C" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ktJ-F9-LUH"/>
+                <constraint firstAttribute="trailing" secondItem="gbq-Gl-h3C" secondAttribute="trailing" id="nUs-pe-klB"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+            <point key="canvasLocation" x="325.5" y="393"/>
         </view>
     </objects>
 </document>

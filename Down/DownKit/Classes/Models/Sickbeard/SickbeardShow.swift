@@ -33,4 +33,12 @@ public class SickbeardShow {
         return ImageProvider.hasBannerForShow(self.tvdbId)
     }
     
+    public var poster: UIImage? {
+        return ImageProvider.posterForShow(self.tvdbId)
+    }
+    
+    internal var hasPoster: Bool {
+        return ImageProvider.hasPosterForShow(self.tvdbId)
+    }
+    
 }

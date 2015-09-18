@@ -12,8 +12,6 @@ public class ImageProvider {
     
     private static let diskQueue: dispatch_queue_t = dispatch_queue_create("com.ruudputs.down.ImageQueue", DISPATCH_QUEUE_SERIAL)
     
-    // MARK: Generic stuff
-    
     private class var cacheDirectory: String {
         return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
     }
@@ -29,7 +27,7 @@ public class ImageProvider {
         var isDirectory: ObjCBool = false
         if !NSFileManager.defaultManager().fileExistsAtPath(fileDirectory, isDirectory: &isDirectory) {
             do {
-                try NSFileManager.defaultManager().createDirectoryAtPath(fileDirectory, withIntermediateDirectories: false, attributes: nil)
+                try NSFileManager.defaultManager().createDirectoryAtPath(fileDirectory, withIntermediateDirectories: true, attributes: nil)
                 print("Created directory: \(fileDirectory)")
             }
             catch let error as NSError {
@@ -53,8 +51,10 @@ public class ImageProvider {
         return image
     }
     
-    // MARK: Sickbeard banners
-    
+}
+
+// MARK: Sickbeard extension
+extension ImageProvider {
     internal class func hasBannerForShow(tvdbid: Int) -> Bool {
         let bannerPath = bannerPathForShow(tvdbid)
         return fileExists(bannerPath)
@@ -71,7 +71,25 @@ public class ImageProvider {
     }
     
     private class func bannerPathForShow(tvdbid: Int) -> String {
-        return cacheDirectory + "/banners/\(tvdbid).png"
+        return cacheDirectory + "/sickbeard/banners/\(tvdbid).png"
     }
     
+    internal class func hasPosterForShow(tvdbid: Int) -> Bool {
+        let posterPath = posterPathForShow(tvdbid)
+        return fileExists(posterPath)
+    }
+    
+    internal class func storePoster(poster: NSData, forShow tvdbid: Int) {
+        let posterPath = posterPathForShow(tvdbid)
+        storeImage(poster, atPath:posterPath)
+    }
+    
+    internal class func posterForShow(tvdbid: Int) -> UIImage? {
+        let posterPath = posterPathForShow(tvdbid)
+        return loadImage(posterPath)
+    }
+    
+    private class func posterPathForShow(tvdbid: Int) -> String {
+        return cacheDirectory + "/sickbeard/posters/\(tvdbid).png"
+    }
 }

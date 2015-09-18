@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CouchPotatoViewController: ViewController {
+class CouchPotatoViewController: DownViewController {
 
     convenience init() {
         self.init(nibName: "CouchPotatoViewController", bundle: nil)

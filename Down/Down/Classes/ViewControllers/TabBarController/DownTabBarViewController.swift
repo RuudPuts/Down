@@ -1,5 +1,5 @@
 //
-//  TabBarController.swift
+//  DownTabBarViewController.swift
 //  Down
 //
 //  Created by Ruud Puts on 07/04/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DownTabBarController: ViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class DownTabBarViewController: DownViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -21,7 +21,7 @@ class DownTabBarController: ViewController, UICollectionViewDataSource, UICollec
     private var cellIdentifier = "DownTabBarItemCell"
     
     convenience init() {
-        self.init(nibName: "DownTabBarController", bundle: nil)
+        self.init(nibName: "DownTabBarViewController", bundle: nil)
         
         selectedTabIndex = 0
     }

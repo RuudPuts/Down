@@ -9,7 +9,7 @@
 import Foundation
 import DownKit
 
-class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
+class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
     weak var sabNZBdService: SabNZBdService!
     
@@ -36,7 +36,6 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController!.setNavigationBarHidden(false, animated: true)
         sabNZBdService.addListener(self)
     }
     
@@ -44,7 +43,6 @@ class SabNZBdHistoryViewController: ViewController, UITableViewDataSource, UITab
         super.viewWillDisappear(animated)
         
         sabNZBdService.removeListener(self)
-        self.navigationController!.setNavigationBarHidden(true, animated: true)
     }
     
     // MARK: - TableView datasource

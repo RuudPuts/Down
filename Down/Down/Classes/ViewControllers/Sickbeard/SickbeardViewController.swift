@@ -9,7 +9,7 @@
 import UIKit
 import DownKit
 
-class SickbeardViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
+class SickbeardViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
     weak var sickbeardService: SickbeardService!
     var todayData: [SickbeardFutureItem]?
@@ -203,6 +203,13 @@ class SickbeardViewController: ViewController, UITableViewDataSource, UITableVie
     }
     
     // MARK: - TableView Delegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.isEqual(NSIndexPath(forRow: 0, inSection: 0)) {
+            let showsViewController = SickbeardShowsViewController()
+            navigationController?.pushViewController(showsViewController, animated: true)
+        }
+    }
     
     // MARK: - SickbeardListener
     

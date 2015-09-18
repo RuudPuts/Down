@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DownViewController.swift
 //  Down
 //
 //  Created by Ruud Puts on 14/03/15.
@@ -9,7 +9,7 @@
 import UIKit
 import DownKit
 
-class ViewController: UIViewController {
+class DownViewController: UIViewController {
     
     let serviceManager: ServiceManager!
 

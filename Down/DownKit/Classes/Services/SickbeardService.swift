@@ -15,7 +15,8 @@ public class SickbeardService: Service {
     
     public var shows = [SickbeardShow]()
     
-    private let bannerQueue = dispatch_queue_create("com.ruudputs.down.BannerQueue", DISPATCH_QUEUE_SERIAL)
+    private let bannerDownloadQueue = dispatch_queue_create("com.ruudputs.down.BannerDownloadQueue", DISPATCH_QUEUE_SERIAL)
+    private let posterDownloadQueue = dispatch_queue_create("com.ruudputs.down.PosterDownloadQueue", DISPATCH_QUEUE_SERIAL)
     
     private enum SickbeardNotifyType {
         case HistoryUpdated
@@ -91,7 +92,6 @@ public class SickbeardService: Service {
             let resource = jsonItem["resource"].string!
             
             let historyItem = SickbeardHistoryItem(tvdbId, showName, season, episode, status, resource)
-            downloadBanner(historyItem)
             history.append(historyItem)
         }
         
@@ -99,7 +99,7 @@ public class SickbeardService: Service {
     }
     
     // MARK: - Future
-    private func refreshFuture() {
+    public func refreshFuture() {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=future"
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
@@ -135,7 +135,6 @@ public class SickbeardService: Service {
                 let airDate = jsonItem["airs"].string!
 
                 let futureItem = SickbeardFutureItem(tvdbId, showName, season, episode, "", episodeName, airDate, category)
-                downloadBanner(futureItem)
                 items.append(futureItem)
             }
             future[categoryName] = items
@@ -147,7 +146,6 @@ public class SickbeardService: Service {
     // MARK: - Show cache
     
     private func refreshShowCache() {
-        NSLog("Start cache refresh")
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
             request(.GET, url).responseJSON { _, _, result in
@@ -169,8 +167,6 @@ public class SickbeardService: Service {
         for tvdbId in tvdbIds {
             dispatch_group_enter(showDataGroup)
             
-            NSLog("Started \(tvdbId)")
-            
             let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
             request(.GET, url).responseJSON { _, _, result in
                 if result.isSuccess {
@@ -184,7 +180,11 @@ public class SickbeardService: Service {
         }
         
         dispatch_group_notify(showDataGroup, dispatch_get_main_queue()) { () -> Void in
-            
+            for show in self.shows {
+                self.downloadBanner(show)
+                self.downloadPoster(show)
+                self.refreshShowSeasons(show)
+            }
         }
     }
     
@@ -194,7 +194,6 @@ public class SickbeardService: Service {
         
         let show = SickbeardShow(tvdbId, name, paused)
         self.shows.append(show)
-        refreshShowSeasons(show)
     }
     
     private func refreshShowSeasons(show: SickbeardShow) {
@@ -202,7 +201,6 @@ public class SickbeardService: Service {
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
                 self.parseShowSeasons(JSON(result.value!)["data"], forShow: show)
-                NSLog("Finished \(show.tvdbId) - \(show.name)")
             }
             else {
                 print("Error while fetching Sickbeard showData: \(result.data!)")
@@ -254,21 +252,39 @@ public class SickbeardService: Service {
         }
     }
     
-    // MARK: - Banners
+    // MARK: - Banners & Posters
     
-    private func downloadBanner(item: SickbeardItem) {
-        dispatch_async(bannerQueue, {
-            if item.hasBanner {
+    private func downloadBanner(show: SickbeardShow) {
+        dispatch_async(bannerDownloadQueue, {
+            if show.hasBanner {
                 return
             }
             
-            let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(item.tvdbId)"
+            let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
             request(.GET, url).responseData { _, _, result in
                 if result.isSuccess {
-                    ImageProvider.storeBanner(result.value!, forShow: item.tvdbId)
+                    ImageProvider.storeBanner(result.value!, forShow: show.tvdbId)
                 }
                 else {
                     print("Error while fetching banner: \(result.error!)")
+                }
+            }
+        })
+    }
+    
+    private func downloadPoster(show: SickbeardShow) {
+        dispatch_async(posterDownloadQueue, {
+            if show.hasPoster {
+                return
+            }
+            
+            let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
+            request(.GET, url).responseData { _, _, result in
+                if result.isSuccess {
+                    ImageProvider.storePoster(result.value!, forShow: show.tvdbId)
+                }
+                else {
+                    print("Error while fetching poster: \(result.error!)")
                 }
             }
         })

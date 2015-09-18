@@ -10,7 +10,7 @@ import Foundation
 import XCGLogger
 import DownKit
 
-class SabNZBdDetailViewController: ViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
+class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
     private enum SabNZBdDetailRow {
         case Name
