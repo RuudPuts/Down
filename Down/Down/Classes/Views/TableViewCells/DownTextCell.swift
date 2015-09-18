@@ -7,31 +7,14 @@
 //
 
 import UIKit
+import DownKit
 
-class DownTextCell: UITableViewCell {
-    
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var label: UILabel!
+class DownTextCell: DownCell {
+
     @IBOutlet weak private var cheveronView: UIImageView!
     
-    enum CheveronType {
-        case SabNZBd
-        case Sickbeard
-        case CouchPotato
-    }
-    
-    override func setHighlighted(highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-        
-        if (highlighted) {
-            containerView.backgroundColor = UIColor.downSabNZBdColor().colorWithAlphaComponent(0.15)
-        }
-        else {
-            containerView.backgroundColor = UIColor.downLightGreyColor()
-        }
-    }
-    
-    func setCheveronType(type: CheveronType) {
+    override func setCellType(type: DownApplication) {
+        super.setCellType(type)
         switch type {
         case .SabNZBd:
             cheveronView.image = UIImage(named: "sabnzbd-cheveron")

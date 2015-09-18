@@ -256,7 +256,7 @@ class SabNZBdViewController: DownViewController, UITableViewDataSource, UITableV
         }
         else if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
             let historyCell = tableView.dequeueReusableCellWithIdentifier("DownTextCell", forIndexPath: indexPath) as! DownTextCell
-            historyCell.setCheveronType(.SabNZBd)
+            historyCell.setCellType(.SabNZBd)
             historyCell.label?.text = "Full history"
             cell = historyCell
         }

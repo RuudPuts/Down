@@ -146,7 +146,7 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
         }
         else {
             let iconTextCell = tableView.dequeueReusableCellWithIdentifier("DownIconTextCell", forIndexPath: indexPath) as! DownIconTextCell
-            iconTextCell.setCheveronType(.Sickbeard)
+            iconTextCell.setCellType(.Sickbeard)
             if indexPath.row == 0 {
                 iconTextCell.label?.text = "All shows"
                 iconTextCell.iconView?.image = UIImage(named: "sickbeard-allshows")

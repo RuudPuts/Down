@@ -45,7 +45,7 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
         let show = sickbeardService.shows[indexPath.row]
         
         let cell = tableView.dequeueReusableCellWithIdentifier("DownIconTextCell", forIndexPath: indexPath) as! DownIconTextCell
-        cell.setCheveronType(.Sickbeard)
+        cell.setCellType(.Sickbeard)
         cell.label?.text = show.name
         cell.iconView?.image = show.poster
         

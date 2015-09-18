@@ -9,9 +9,8 @@
 import UIKit
 import DownKit
 
-class SABItemCell: UITableViewCell {
+class SABItemCell: DownCell {
     
-    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var progressLabel: UILabel!
@@ -98,16 +97,4 @@ class SABItemCell: UITableViewCell {
             return _historyItem
         }
     }
-    
-    override func setHighlighted(highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-        
-        if (highlighted) {
-            self.containerView.backgroundColor = UIColor.downSabNZBdColor().colorWithAlphaComponent(0.15)
-        }
-        else {
-            self.containerView.backgroundColor = .downLightGreyColor()
-        }
-    }
-
 }

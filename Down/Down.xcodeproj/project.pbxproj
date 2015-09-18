@@ -136,6 +136,8 @@
 		42D154FB1AD453D100778713 /* DownTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D154FA1AD453D100778713 /* DownTabBarViewController.xib */; };
 		42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */; };
 		42D155011AD4579500778713 /* DownTabBarItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D155001AD4579500778713 /* DownTabBarItemCell.xib */; };
+		42DEEB461BACCBC50061723F /* DownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEEB451BACCBC50061723F /* DownCell.swift */; settings = {ASSET_TAGS = (); }; };
+		42DEEB4F1BACCC860061723F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEEB4E1BACCC860061723F /* Constants.swift */; settings = {ASSET_TAGS = (); }; };
 		42E1CCC61BA226CE00DFED2E /* SickbeardShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E1CCC51BA226CE00DFED2E /* SickbeardShowsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		42E1CCCB1BA22B6200DFED2E /* SickbeardShowsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42E1CCCA1BA22B6200DFED2E /* SickbeardShowsViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		42E1CCCD1BA22BE600DFED2E /* DownDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E1CCCC1BA22BE600DFED2E /* DownDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -205,6 +207,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 55BB1F011B79DC7500709779;
 			remoteInfo = "XCGLoggerTests (OS X)";
+		};
+		42DEEB4B1BACCBC50061723F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 70CB94201B99E728007802FF;
+			remoteInfo = "XCGLogger (watchOS)";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -369,6 +378,8 @@
 		42D154FA1AD453D100778713 /* DownTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownTabBarViewController.xib; sourceTree = "<group>"; };
 		42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		42D155001AD4579500778713 /* DownTabBarItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownTabBarItemCell.xib; sourceTree = "<group>"; };
+		42DEEB451BACCBC50061723F /* DownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownCell.swift; sourceTree = "<group>"; };
+		42DEEB4E1BACCC860061723F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		42E1CCC51BA226CE00DFED2E /* SickbeardShowsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowsViewController.swift; sourceTree = "<group>"; };
 		42E1CCCA1BA22B6200DFED2E /* SickbeardShowsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardShowsViewController.xib; sourceTree = "<group>"; };
 		42E1CCCC1BA22BE600DFED2E /* DownDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownDetailViewController.swift; sourceTree = "<group>"; };
@@ -538,6 +549,7 @@
 				4221ADBE1B7BC0B20027C3A0 /* Models */,
 				4269A91E1B850090005A06E3 /* Providers */,
 				4221ADC71B7BC0B20027C3A0 /* Services */,
+				42DEEB4D1BACCC6A0061723F /* Others */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -634,6 +646,7 @@
 			children = (
 				42391A9A1B5BF01100E4E0B4 /* XCGLogger.framework */,
 				42391A9C1B5BF01100E4E0B4 /* XCGLogger.framework */,
+				42DEEB4C1BACCBC50061723F /* XCGLogger.framework */,
 				42391A9E1B5BF01100E4E0B4 /* XCGLoggerTests (iOS).xctest */,
 				4269A91D1B850049005A06E3 /* XCGLoggerTests (OS X).xctest */,
 			);
@@ -949,6 +962,7 @@
 		42CD255C1AB5BF93008E9717 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				42DEEB451BACCBC50061723F /* DownCell.swift */,
 				429E97E61B977CE200C3F58B /* DownEmptyCell.swift */,
 				429E97E71B977CE200C3F58B /* DownLoadingCell.swift */,
 				429E97E81B977CE200C3F58B /* DownTextCell.swift */,
@@ -976,6 +990,15 @@
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
+		};
+		42DEEB4D1BACCC6A0061723F /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				42DEEB4E1BACCC860061723F /* Constants.swift */,
+			);
+			name = Others;
+			path = DownKit/Classes/Others;
+			sourceTree = SOURCE_ROOT;
 		};
 		42E19C231AB6154100883359 /* Extensions */ = {
 			isa = PBXGroup;
@@ -1163,6 +1186,13 @@
 			remoteRef = 4269A91C1B850049005A06E3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		42DEEB4C1BACCBC50061723F /* XCGLogger.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XCGLogger.framework;
+			remoteRef = 42DEEB4B1BACCBC50061723F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1283,6 +1313,7 @@
 				4221ADD81B7BC0B20027C3A0 /* CouchPotatoListener.swift in Sources */,
 				4269A9201B85009E005A06E3 /* ImageProvider.swift in Sources */,
 				4221ADDE1B7BC0B20027C3A0 /* SABHistoryItem.swift in Sources */,
+				42DEEB4F1BACCC860061723F /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1303,6 +1334,7 @@
 				429E97F81B97871F00C3F58B /* SickbeardHeaderView.swift in Sources */,
 				42391AA61B5C0CA500E4E0B4 /* SABDetailCell.swift in Sources */,
 				4253E80F1AB4B84C00EF1254 /* DownViewController.swift in Sources */,
+				42DEEB461BACCBC50061723F /* DownCell.swift in Sources */,
 				4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */,
 				429E97EA1B977CE200C3F58B /* DownLoadingCell.swift in Sources */,
 				42D154F61AD4505400778713 /* DownTabBarViewController.swift in Sources */,
