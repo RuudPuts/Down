@@ -29,8 +29,6 @@
 		4221ADDE1B7BC0B20027C3A0 /* SABHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC01B7BC0B20027C3A0 /* SABHistoryItem.swift */; };
 		4221ADDF1B7BC0B20027C3A0 /* SABItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC11B7BC0B20027C3A0 /* SABItem.swift */; };
 		4221ADE01B7BC0B20027C3A0 /* SABQueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC21B7BC0B20027C3A0 /* SABQueueItem.swift */; };
-		4221ADE11B7BC0B20027C3A0 /* SickbeardFutureItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC41B7BC0B20027C3A0 /* SickbeardFutureItem.swift */; };
-		4221ADE21B7BC0B20027C3A0 /* SickbeardHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC51B7BC0B20027C3A0 /* SickbeardHistoryItem.swift */; };
 		4221ADE31B7BC0B20027C3A0 /* SickbeardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC61B7BC0B20027C3A0 /* SickbeardItem.swift */; };
 		4221ADE41B7BC0B20027C3A0 /* CouchPotatoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC81B7BC0B20027C3A0 /* CouchPotatoService.swift */; };
 		4221ADE51B7BC0B20027C3A0 /* SabNZBdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC91B7BC0B20027C3A0 /* SabNZBdService.swift */; };
@@ -267,8 +265,6 @@
 		4221ADC01B7BC0B20027C3A0 /* SABHistoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABHistoryItem.swift; sourceTree = "<group>"; };
 		4221ADC11B7BC0B20027C3A0 /* SABItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABItem.swift; sourceTree = "<group>"; };
 		4221ADC21B7BC0B20027C3A0 /* SABQueueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABQueueItem.swift; sourceTree = "<group>"; };
-		4221ADC41B7BC0B20027C3A0 /* SickbeardFutureItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardFutureItem.swift; sourceTree = "<group>"; };
-		4221ADC51B7BC0B20027C3A0 /* SickbeardHistoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardHistoryItem.swift; sourceTree = "<group>"; };
 		4221ADC61B7BC0B20027C3A0 /* SickbeardItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardItem.swift; sourceTree = "<group>"; };
 		4221ADC81B7BC0B20027C3A0 /* CouchPotatoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoService.swift; sourceTree = "<group>"; };
 		4221ADC91B7BC0B20027C3A0 /* SabNZBdService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdService.swift; sourceTree = "<group>"; };
@@ -609,8 +605,6 @@
 			isa = PBXGroup;
 			children = (
 				420E7E331B9CC64700D3DCC4 /* Refactor */,
-				4221ADC41B7BC0B20027C3A0 /* SickbeardFutureItem.swift */,
-				4221ADC51B7BC0B20027C3A0 /* SickbeardHistoryItem.swift */,
 				4221ADC61B7BC0B20027C3A0 /* SickbeardItem.swift */,
 			);
 			path = Sickbeard;
@@ -1325,7 +1319,6 @@
 				4221ADE01B7BC0B20027C3A0 /* SABQueueItem.swift in Sources */,
 				4221ADE31B7BC0B20027C3A0 /* SickbeardItem.swift in Sources */,
 				4221ADE51B7BC0B20027C3A0 /* SabNZBdService.swift in Sources */,
-				4221ADE21B7BC0B20027C3A0 /* SickbeardHistoryItem.swift in Sources */,
 				4269A9491B850501005A06E3 /* Alamofire.swift in Sources */,
 				4221ADE71B7BC0B20027C3A0 /* SickbeardService.swift in Sources */,
 				4221ADE91B7BC0D50027C3A0 /* SwiftyJSON.swift in Sources */,
@@ -1343,7 +1336,6 @@
 				4269A9521B850501005A06E3 /* Result.swift in Sources */,
 				4269A9561B850501005A06E3 /* Validation.swift in Sources */,
 				420E7E351B9CC65B00D3DCC4 /* SickbeardShow.swift in Sources */,
-				4221ADE11B7BC0B20027C3A0 /* SickbeardFutureItem.swift in Sources */,
 				4269A94F1B850501005A06E3 /* ParameterEncoding.swift in Sources */,
 				4221ADE61B7BC0B20027C3A0 /* Service.swift in Sources */,
 				4269A94E1B850501005A06E3 /* MultipartFormData.swift in Sources */,

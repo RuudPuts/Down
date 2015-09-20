@@ -12,6 +12,8 @@ public class SickbeardSeason {
     public var id: String!
     public var episodes: [SickbeardEpisode]!
     
+    weak public var show: SickbeardShow?
+    
     public enum SickbeardShowStatus {
         case Stopped
         case Active

@@ -12,8 +12,8 @@ import DownKit
 class SickbeardViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
     weak var sickbeardService: SickbeardService!
-    var todayData: [SickbeardFutureItem]?
-    var soonData: [SickbeardFutureItem]?
+    var todayData: [SickbeardEpisode]?
+    var soonData: [SickbeardEpisode]?
 
     convenience init() {
         self.init(nibName: "SickbeardViewController", bundle: nil)
@@ -55,8 +55,8 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
     
     private func reloadTableView() {
         if let future = sickbeardService.future {
-            todayData = future[SickbeardFutureItem.Category.Today.rawValue] as [SickbeardFutureItem]!
-            soonData = future[SickbeardFutureItem.Category.Soon.rawValue] as [SickbeardFutureItem]!
+            todayData = future[SickbeardService.SickbeardFutureCategory.Today.rawValue] as [SickbeardEpisode]!
+            soonData = future[SickbeardService.SickbeardFutureCategory.Soon.rawValue] as [SickbeardEpisode]!
         }
         tableView.reloadData()
     }
@@ -135,10 +135,10 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
             else {
                 let itemCell = tableView.dequeueReusableCellWithIdentifier("SickbeardTodayCell", forIndexPath: indexPath) as! SickbeardTodayCell
                 
-                let item = data![indexPath.row]
-                itemCell.episodeLabel.text = "\(item.showName) - S\(item.season)E\(item.episode) - \(item.episodeName)"
-                itemCell.dateLabel.text = item.airDate
-                itemCell.bannerView?.image = item.banner
+                let episode = data![indexPath.row]
+                itemCell.episodeLabel.text = episode.displayName
+                itemCell.dateLabel.text = episode.airDate
+                itemCell.bannerView?.image = episode.show?.banner
                 
                 cell = itemCell
             }

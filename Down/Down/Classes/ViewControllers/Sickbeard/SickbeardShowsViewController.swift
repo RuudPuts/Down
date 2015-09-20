@@ -42,7 +42,7 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let show = sickbeardService.shows[indexPath.row]
+        let show = Array(sickbeardService.shows.values)[indexPath.row]
         
         let cell = tableView.dequeueReusableCellWithIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
         cell.setCellType(.Sickbeard)

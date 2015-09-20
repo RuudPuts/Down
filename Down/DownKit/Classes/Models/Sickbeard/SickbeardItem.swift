@@ -16,6 +16,8 @@ public class SickbeardItem {
     public var episodeName: String?
     var status: SickbeardItemStatus!
     
+    var filename: String?
+    
     public enum SickbeardItemStatus {
         case Snatched
         case Downloading

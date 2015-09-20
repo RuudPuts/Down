@@ -48,8 +48,8 @@ class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UI
         configureTableView()
         title = "Details"
         
-        if sabItem.sickbeardEntry != nil {
-            let image = sabItem.sickbeardEntry?.banner ?? UIImage(named: "SickbeardDefaultBanner")
+        if let sickbeardEpisode = sabItem.sickbeardEpisode {
+            let image = sickbeardEpisode.show?.banner ?? UIImage(named: "SickbeardDefaultBanner")
             let headerImageView = UIImageView(image: image)
             let screenWidth = CGRectGetWidth(view.bounds)
             let ratiodImageHeight = image!.size.height / image!.size.width * screenWidth
@@ -85,7 +85,7 @@ class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UI
             cellTitles = [["Name", "Total size", "Status", "Finished at"]]
         }
         
-        if sabItem.sickbeardEntry != nil {
+        if sabItem.sickbeardEpisode != nil {
             cellKeys.append([.SickbeardShow, .SickbeardEpisode, .SickbeardEpisodeName])
             cellTitles.append(["Show", "Episode", "Title"])
         }
@@ -132,13 +132,13 @@ class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UI
             break
             
         case .SickbeardShow:
-            detailText = queueItem.sickbeardEntry!.showName
+            detailText = queueItem.sickbeardEpisode!.show?.name
             break;
         case .SickbeardEpisode:
-            detailText = "S\(queueItem.sickbeardEntry!.season)E\(queueItem.sickbeardEntry!.episode)"
+            detailText = "S\(queueItem.sickbeardEpisode!.season?.id)E\(queueItem.sickbeardEpisode!.id)"
             break;
         case .SickbeardEpisodeName:
-            detailText = queueItem.sickbeardEntry!.episodeName
+            detailText = queueItem.sickbeardEpisode!.name
             break;
         default:
             break
@@ -178,13 +178,13 @@ class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UI
             break
             
         case .SickbeardShow:
-            detailText = historyItem.sickbeardEntry!.showName
+            detailText = historyItem.sickbeardEpisode!.show?.name
             break;
         case .SickbeardEpisode:
-            detailText = "S\(historyItem.sickbeardEntry!.season)E\(historyItem.sickbeardEntry!.episode)"
+            detailText = "S\(historyItem.sickbeardEpisode!.season)E\(historyItem.sickbeardEpisode!.id)"
             break;
         case .SickbeardEpisodeName:
-            detailText = historyItem.sickbeardEntry!.episodeName
+            detailText = historyItem.sickbeardEpisode!.name
             break;
         default:
             break

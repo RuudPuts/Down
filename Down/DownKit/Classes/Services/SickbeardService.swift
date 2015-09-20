@@ -10,10 +10,10 @@ public class SickbeardService: Service {
 
     var refreshTimer: NSTimer?
     
-    public var history: Array<SickbeardHistoryItem>!
-    public var future: [String: [SickbeardFutureItem]]!
+    public var history = Array<SickbeardEpisode>()
+    public var future: [String: [SickbeardEpisode]]!
     
-    public var shows = [SickbeardShow]()
+    public var shows = [String: SickbeardShow]()
     
     private let bannerDownloadQueue = dispatch_queue_create("com.ruudputs.down.BannerDownloadQueue", DISPATCH_QUEUE_SERIAL)
     private let posterDownloadQueue = dispatch_queue_create("com.ruudputs.down.PosterDownloadQueue", DISPATCH_QUEUE_SERIAL)
@@ -22,10 +22,14 @@ public class SickbeardService: Service {
         case HistoryUpdated
         case FutureUpdated
     }
+    
+    public enum SickbeardFutureCategory : String {
+        case Today = "today", Soon = "soon", Later = "later", Missed = "missed"
+        
+        static let values = [Today, Soon, Later, Missed]
+    }
    
     override init() {
-        self.history = Array<SickbeardHistoryItem>()
-        
         super.init()
         
         startTimers()
@@ -48,15 +52,25 @@ public class SickbeardService: Service {
     
     // MARK: - Public methods
     
-    internal func historyItemWithResource(resource: String!) -> SickbeardHistoryItem? {
-        var historyItem: SickbeardHistoryItem?
-        for item: SickbeardHistoryItem in self.history {
-            if resource.rangeOfString(item.resource) != nil {
-                historyItem = item
-                break
+    internal func episodeWithFilename(filename: String!) -> SickbeardEpisode? {
+        var matchedEpisode: SickbeardEpisode?
+        
+        for (_, show) in shows {
+            if let seasons = show.seasons {
+                for (_, season) in seasons {
+                    for episode in season.episodes {
+                        if let episodeFileName = episode.filename {
+//                            if resource.rangeOfString(item.resource) != nil {
+//                                
+//                            }
+                            
+                        }
+                    }
+                }
             }
         }
-        return historyItem
+        
+        return matchedEpisode
     }
     
     // MARK: - History
@@ -81,18 +95,20 @@ public class SickbeardService: Service {
     }
     
     private func parseHistoryJson(json: JSON!) {
-        var history: Array<SickbeardHistoryItem> = Array<SickbeardHistoryItem>()
+        var history: Array<SickbeardEpisode> = Array<SickbeardEpisode>()
         
         for jsonItem: JSON in json["data"].array! {
             let tvdbId = jsonItem["tvdbid"].int!
-            let showName = jsonItem["show_name"].string!
-            let status = jsonItem["status"].string!
-            let season = jsonItem["season"].int!
-            let episode = jsonItem["episode"].int!
-            let resource = jsonItem["resource"].string!
             
-            let historyItem = SickbeardHistoryItem(tvdbId, showName, season, episode, status, resource)
-            history.append(historyItem)
+            if let show = shows[String(tvdbId)] {
+                let season = String(jsonItem["season"].int!)
+                let episodeId = jsonItem["episode"].int!
+                
+                if let episode = show.getEpisode(season, episodeId) {
+                    episode.filename = jsonItem["resource"].string!
+                    history.append(episode)
+                }
+            }
         }
         
         self.history = history
@@ -119,23 +135,24 @@ public class SickbeardService: Service {
     }
     
     private func parseFuture(json: JSON!) {
-        var future = [String: [SickbeardFutureItem]]()
+        var future = [String: [SickbeardEpisode]]()
         
-        for category in SickbeardFutureItem.Category.values {
+        for category in SickbeardFutureCategory.values {
             let categoryName = category.rawValue as String
-            var items = [SickbeardFutureItem]()
+            var items = [SickbeardEpisode]()
             
             let categoryItems = json["data"][categoryName].array!
             for jsonItem: JSON in categoryItems {
                 let tvdbId = jsonItem["tvdbid"].int!
-                let showName = jsonItem["show_name"].string!
-                let season = jsonItem["season"].int!
-                let episode = jsonItem["episode"].int!
-                let episodeName = jsonItem["ep_name"].string!
-                let airDate = jsonItem["airs"].string!
-
-                let futureItem = SickbeardFutureItem(tvdbId, showName, season, episode, "", episodeName, airDate, category)
-                items.append(futureItem)
+                
+                if let show = shows[String(tvdbId)] {
+                    let season = String(jsonItem["season"].int!)
+                    let episodeId = jsonItem["episode"].int!
+                    
+                    if let episode = show.getEpisode(season, episodeId) {
+                        items.append(episode)
+                    }
+                }
             }
             future[categoryName] = items
         }
@@ -180,7 +197,7 @@ public class SickbeardService: Service {
         }
         
         dispatch_group_notify(showDataGroup, dispatch_get_main_queue()) { () -> Void in
-            for show in self.shows {
+            for (_, show) in self.shows {
                 self.downloadBanner(show)
                 self.downloadPoster(show)
                 self.refreshShowSeasons(show)
@@ -193,7 +210,7 @@ public class SickbeardService: Service {
         let paused = json["paused"].int!
         
         let show = SickbeardShow(tvdbId, name, paused)
-        self.shows.append(show)
+        self.shows[String(tvdbId)] = show
     }
     
     private func refreshShowSeasons(show: SickbeardShow) {

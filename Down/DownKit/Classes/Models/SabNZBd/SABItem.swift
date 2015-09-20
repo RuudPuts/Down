@@ -16,7 +16,7 @@ public class SABItem: NSObject {
     public let nzbName: String!
     var progressDescription: String?
     public var statusDescription: String!
-    public var sickbeardEntry: SickbeardItem?
+    public var sickbeardEpisode: SickbeardEpisode?
     
     var imdbTitle: String?
     
@@ -51,11 +51,11 @@ public class SABItem: NSObject {
     
     public var displayName: String! {
         var displayName = self.filename as String
-        if (self.imdbTitle != nil) {
-            displayName = self.imdbTitle!
+        if let imdbTitle = self.imdbTitle {
+            displayName = imdbTitle
         }
-        else if (self.sickbeardEntry != nil) {
-            displayName = self.sickbeardEntry!.displayName
+        else if let sickbeardEpisode = self.sickbeardEpisode {
+            displayName = sickbeardEpisode.displayName
         }
         else {
             displayName = displayName.stringByReplacingOccurrencesOfString(".", withString: " ")
