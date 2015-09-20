@@ -209,7 +209,7 @@ public class SickbeardService: Service {
     }
     
     private func parseShowSeasons(json: JSON, forShow show: SickbeardShow) {
-        var seasons = [SickbeardSeason]()
+        var seasons = [String: SickbeardSeason]()
         
         let seaonsKeys = Array((json.rawValue as! [String: AnyObject]).keys)
         for seasonKey in seaonsKeys {
@@ -229,7 +229,7 @@ public class SickbeardService: Service {
             }
             
             let season = SickbeardSeason(seasonKey, episodes)
-            seasons.append(season)
+            seasons[season.id] = season
         }
         
         show.seasons = seasons

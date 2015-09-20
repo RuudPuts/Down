@@ -12,7 +12,7 @@ public class SickbeardShow {
     public var tvdbId: Int!
     public var name: String!
     public var status: SickbeardShowStatus!
-    public var seasons: [SickbeardSeason]?
+    public var seasons: [String: SickbeardSeason]?
     
     public enum SickbeardShowStatus {
         case Stopped
@@ -24,6 +24,8 @@ public class SickbeardShow {
         self.name = name
         self.status = paused == 1 ? .Stopped : .Active
     }
+    
+    // Properties
     
     public var banner: UIImage? {
         return ImageProvider.bannerForShow(self.tvdbId)
@@ -39,6 +41,19 @@ public class SickbeardShow {
     
     internal var hasPoster: Bool {
         return ImageProvider.hasPosterForShow(self.tvdbId)
+    }
+    
+    // Methods
+    
+    public func getEpisode(seasonId: String, episodeNr: Int) -> SickbeardEpisode? {
+        var episode: SickbeardEpisode?
+        if let seasons = self.seasons {
+            if let season = seasons[seasonId] {
+                episode = season.episodes[episodeNr]
+            }
+        }
+        
+        return episode
     }
     
 }
