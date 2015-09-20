@@ -23,8 +23,8 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let cellNib = UINib(nibName: "DownIconTextCell", bundle:nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: "DownIconTextCell")
+        let cellNib = UINib(nibName: "SickbeardShowCell", bundle:nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: "SickbeardShowCell")
     }
     
     // MARK: - TableView DataSource
@@ -44,10 +44,10 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let show = sickbeardService.shows[indexPath.row]
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("DownIconTextCell", forIndexPath: indexPath) as! DownIconTextCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
         cell.setCellType(.Sickbeard)
         cell.label?.text = show.name
-        cell.iconView?.image = show.poster
+        cell.posterView?.image = show.poster
         
         return cell
     }
