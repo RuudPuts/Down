@@ -49,7 +49,7 @@ public class SickbeardShow {
         var episode: SickbeardEpisode?
         if let seasons = self.seasons {
             if let season = seasons[seasonId] {
-                episode = season.episodes[episodeNr]
+                episode = season.episodes[episodeNr - 1]
             }
         }
         
