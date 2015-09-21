@@ -207,7 +207,6 @@ public class SickbeardService: Service {
                 self.downloadPoster(show)
                 dispatch_group_enter(showSeasonsGroup)
                 self.refreshShowSeasons(show, completionHandler: {
-                    NSLog("Finished \(show.name)")
                     dispatch_group_leave(showSeasonsGroup)
                 })
             }
