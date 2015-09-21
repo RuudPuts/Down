@@ -32,9 +32,10 @@ public class SickbeardService: Service {
     override init() {
         super.init()
         
-        startTimers()
-        refreshFuture()
-        refreshShowCache()
+        refreshShowCache {
+            self.refreshFuture()
+            self.startTimers()
+        }
     }
     
     override public func addListener(listener: ServiceListener) {
@@ -162,14 +163,16 @@ public class SickbeardService: Service {
     
     // MARK: - Show cache
     
-    private func refreshShowCache() {
+    private func refreshShowCache(completionHandler: () -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
             request(.GET, url).responseJSON { _, _, result in
                 if result.isSuccess {
                     let showData = (JSON(result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
                     let tvdbIds = Array(showData.keys)
-                    self.refreshShowData(tvdbIds)
+                    self.refreshShowData(tvdbIds, completionHandler: {
+                        completionHandler()
+                    })
                 }
                 else {
                     print("Error while fetching Sickbeard shows list: \(result.error!)")
@@ -178,11 +181,11 @@ public class SickbeardService: Service {
         })
     }
     
-    private func refreshShowData(tvdbIds: [String]) {
-        let showDataGroup = dispatch_group_create();
+    private func refreshShowData(tvdbIds: [String], completionHandler: () -> Void) {
+        let showMetaDataGroup = dispatch_group_create();
         
         for tvdbId in tvdbIds {
-            dispatch_group_enter(showDataGroup)
+            dispatch_group_enter(showMetaDataGroup)
             
             let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
             request(.GET, url).responseJSON { _, _, result in
@@ -192,15 +195,25 @@ public class SickbeardService: Service {
                 else {
                     print("Error while fetching Sickbeard showData: \(result.data!)")
                 }
-                dispatch_group_leave(showDataGroup)
+                dispatch_group_leave(showMetaDataGroup)
             }
         }
         
-        dispatch_group_notify(showDataGroup, dispatch_get_main_queue()) { () -> Void in
+        dispatch_group_notify(showMetaDataGroup, dispatch_get_main_queue()) {
+            let showSeasonsGroup = dispatch_group_create();
+            
             for (_, show) in self.shows {
                 self.downloadBanner(show)
                 self.downloadPoster(show)
-                self.refreshShowSeasons(show)
+                dispatch_group_enter(showSeasonsGroup)
+                self.refreshShowSeasons(show, completionHandler: {
+                    NSLog("Finished \(show.name)")
+                    dispatch_group_leave(showSeasonsGroup)
+                })
+            }
+            
+            dispatch_group_notify(showSeasonsGroup, dispatch_get_main_queue()) {
+                completionHandler()
             }
         }
     }
@@ -213,11 +226,12 @@ public class SickbeardService: Service {
         self.shows[String(tvdbId)] = show
     }
     
-    private func refreshShowSeasons(show: SickbeardShow) {
+    private func refreshShowSeasons(show: SickbeardShow, completionHandler: () -> Void) {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show.tvdbId)"
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
                 self.parseShowSeasons(JSON(result.value!)["data"], forShow: show)
+                completionHandler()
             }
             else {
                 print("Error while fetching Sickbeard showData: \(result.data!)")
