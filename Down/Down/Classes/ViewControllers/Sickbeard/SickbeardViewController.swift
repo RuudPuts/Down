@@ -216,7 +216,7 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
     func sickbeardHistoryUpdated() { }
     
     func sickbeardFutureUpdated() {
-        self.tableView.reloadData()
+        reloadTableView()
     }
     
 }

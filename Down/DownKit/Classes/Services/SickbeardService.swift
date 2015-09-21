@@ -276,6 +276,7 @@ public class SickbeardService: Service {
                     sickbeardListener.sickbeardHistoryUpdated()
                     break
                 case .FutureUpdated:
+                    sickbeardListener.sickbeardFutureUpdated()
                     break
                 }
             }
