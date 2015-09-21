@@ -62,8 +62,13 @@ public class SickbeardService: Service {
                     if let episodeFileName = episode.filename {
                         if filename.rangeOfString(episodeFileName) != nil {
                             matchedEpisode = episode
+                            break
                         }
                     }
+                }
+                
+                if matchedEpisode != nil {
+                    break
                 }
             }
         }
