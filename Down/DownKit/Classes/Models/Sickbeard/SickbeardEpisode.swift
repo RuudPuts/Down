@@ -27,8 +27,12 @@ public class SickbeardEpisode {
         self.status = status
     }
     
-    public var displayName: String! {
-        return String(format: "%@ - S%02dE%02d", name, (season?.id)!, id)
+    public var displayName: String {
+        var displayName = name
+        if season != nil && show != nil {
+            displayName = String(format: "%@ - S%02dE%02d - %@", show!.name, season!.id, id, name)
+        }
+        return displayName
     }
     
 }

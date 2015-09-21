@@ -10,7 +10,7 @@ import Foundation
 
 public class SickbeardSeason {
     public var id: String!
-    public var episodes: [SickbeardEpisode]!
+    public var episodes = [SickbeardEpisode]()
     
     weak public var show: SickbeardShow?
     
@@ -19,9 +19,14 @@ public class SickbeardSeason {
         case Active
     }
     
-    init (_ id: String, _ episodes: [SickbeardEpisode]) {
+    init (id: String) {
         self.id = id
-        self.episodes = episodes
+    }
+    
+    internal func addEpisode(episode: SickbeardEpisode) {
+        episodes.append(episode)
+        episode.season = self
+        episode.show = show
     }
     
 }

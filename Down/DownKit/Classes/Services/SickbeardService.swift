@@ -57,14 +57,11 @@ public class SickbeardService: Service {
         var matchedEpisode: SickbeardEpisode?
         
         for (_, show) in shows {
-            if let seasons = show.seasons {
-                for (_, season) in seasons {
-                    for episode in season.episodes {
-                        if let episodeFileName = episode.filename {
-//                            if resource.rangeOfString(item.resource) != nil {
-//                                
-//                            }
-                            
+                for (_, season) in show.seasons {
+                for episode in season.episodes {
+                    if let episodeFileName = episode.filename {
+                        if filename.rangeOfString(episodeFileName) != nil {
+                            matchedEpisode = episode
                         }
                     }
                 }
@@ -239,12 +236,10 @@ public class SickbeardService: Service {
     }
     
     private func parseShowSeasons(json: JSON, forShow show: SickbeardShow) {
-        var seasons = [String: SickbeardSeason]()
-        
         let seaonsKeys = Array((json.rawValue as! [String: AnyObject]).keys)
         for seasonKey in seaonsKeys {
             let seasonJson = json[seasonKey] as JSON
-            var episodes = [SickbeardEpisode]()
+            let season = SickbeardSeason(id: seasonKey)
             
             let episodeKeys = Array((seasonJson.rawValue as! [String: AnyObject]).keys)
             for episodeKey in episodeKeys {
@@ -255,14 +250,11 @@ public class SickbeardService: Service {
                 let status = episodeJson["status"].string!
                 
                 let episode = SickbeardEpisode(episodeKey, name, airdate, quality, status)
-                episodes.append(episode)
+                season.addEpisode(episode)
             }
             
-            let season = SickbeardSeason(seasonKey, episodes)
-            seasons[season.id] = season
+            show.addSeason(season)
         }
-        
-        show.seasons = seasons
     }
     
     // MARK: - Listeners

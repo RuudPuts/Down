@@ -12,7 +12,7 @@ public class SickbeardShow {
     public var tvdbId: Int!
     public var name: String!
     public var status: SickbeardShowStatus!
-    public var seasons: [String: SickbeardSeason]?
+    public var seasons = [String: SickbeardSeason]()
     
     public enum SickbeardShowStatus {
         case Stopped
@@ -45,12 +45,15 @@ public class SickbeardShow {
     
     // Methods
     
+    internal func addSeason(season: SickbeardSeason) {
+        seasons[season.id] = season
+        season.show = self
+    }
+    
     public func getEpisode(seasonId: String, _ episodeNr: Int) -> SickbeardEpisode? {
         var episode: SickbeardEpisode?
-        if let seasons = self.seasons {
-            if let season = seasons[seasonId] {
-                episode = season.episodes[episodeNr - 1]
-            }
+        if let season = seasons[seasonId] {
+            episode = season.episodes[episodeNr - 1]
         }
         
         return episode
