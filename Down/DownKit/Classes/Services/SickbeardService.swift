@@ -57,10 +57,10 @@ public class SickbeardService: Service {
         var matchedEpisode: SickbeardEpisode?
         
         for (_, show) in shows {
-                for (_, season) in show.seasons {
+            for (_, season) in show.seasons {
                 for episode in season.episodes {
-                    if let episodeFileName = episode.filename {
-                        if filename.rangeOfString(episodeFileName) != nil {
+                    if let episodeFilename = episode.filename {
+                        if filename.rangeOfString(episodeFilename) != nil {
                             matchedEpisode = episode
                             break
                         }
@@ -108,7 +108,12 @@ public class SickbeardService: Service {
                 let episodeId = jsonItem["episode"].int!
                 
                 if let episode = show.getEpisode(season, episodeId) {
-                    episode.filename = jsonItem["resource"].string!
+                    // Remove the extension from the resource
+                    let resource = jsonItem["resource"].string!
+                    var components = resource.componentsSeparatedByString(".")
+                    components.removeAtIndex(components.count - 1)
+                    
+                    episode.filename = components.joinWithSeparator(".")
                     history.append(episode)
                 }
             }
@@ -244,7 +249,9 @@ public class SickbeardService: Service {
         let seaonsKeys = Array((json.rawValue as! [String: AnyObject]).keys)
         for seasonKey in seaonsKeys {
             let seasonJson = json[seasonKey] as JSON
+            
             let season = SickbeardSeason(id: seasonKey)
+            show.addSeason(season)
             
             let episodeKeys = Array((seasonJson.rawValue as! [String: AnyObject]).keys)
             for episodeKey in episodeKeys {
@@ -257,8 +264,6 @@ public class SickbeardService: Service {
                 let episode = SickbeardEpisode(episodeKey, name, airdate, quality, status)
                 season.addEpisode(episode)
             }
-            
-            show.addSeason(season)
         }
     }
     

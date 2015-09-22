@@ -52,8 +52,8 @@ public class SabNZBdService: Service {
         queueRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(queueRefreshRate, target: self,
             selector: "refreshQueue", userInfo: nil, repeats: true)
         
-        historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self,
-            selector: "refreshHistory", userInfo: nil, repeats: true)
+//        historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self,
+//            selector: "refreshHistory", userInfo: nil, repeats: true)
         
         refreshQueue()
         refreshHistory()

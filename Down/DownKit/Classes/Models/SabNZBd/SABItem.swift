@@ -16,7 +16,7 @@ public class SABItem: NSObject {
     public let nzbName: String!
     var progressDescription: String?
     public var statusDescription: String!
-    public var sickbeardEpisode: SickbeardEpisode?
+    weak public var sickbeardEpisode: SickbeardEpisode?
     
     var imdbTitle: String?
     

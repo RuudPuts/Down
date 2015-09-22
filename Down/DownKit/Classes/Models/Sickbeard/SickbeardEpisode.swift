@@ -30,7 +30,7 @@ public class SickbeardEpisode {
     public var displayName: String {
         var displayName = name
         if season != nil && show != nil {
-            displayName = String(format: "%@ - S%02dE%02d - %@", show!.name, season!.id, id, name)
+            displayName = "\(show!.name) - S\(season!.id)E\(id) - \(name)"
         }
         return displayName
     }

@@ -46,8 +46,9 @@ public class SickbeardShow {
     // Methods
     
     internal func addSeason(season: SickbeardSeason) {
-        seasons[season.id] = season
         season.show = self
+        
+        seasons[season.id] = season
     }
     
     public func getEpisode(seasonId: String, _ episodeNr: Int) -> SickbeardEpisode? {

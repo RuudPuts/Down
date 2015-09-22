@@ -12,7 +12,7 @@ public class SickbeardSeason {
     public var id: String!
     public var episodes = [SickbeardEpisode]()
     
-    weak public var show: SickbeardShow?
+    weak var show: SickbeardShow?
     
     public enum SickbeardShowStatus {
         case Stopped
@@ -24,9 +24,10 @@ public class SickbeardSeason {
     }
     
     internal func addEpisode(episode: SickbeardEpisode) {
-        episodes.append(episode)
         episode.season = self
         episode.show = show
+        
+        episodes.append(episode)
     }
     
 }
