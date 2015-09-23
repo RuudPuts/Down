@@ -5,6 +5,8 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "67620B5EFA902936DF04070AF595B76AB0333747" : 0,
+    "55011AEBD444630C0E9DF47BD2E18FDBBDCC285D" : 0,
+    "3AE8ED2E684071AF4FB151FA51BF266B82FF45BD" : 0,
     "CD1557C3AE966BEDF3490D85F9712687801B146C" : 0,
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : 0,
     "B93B6DF84035FEECFE2CFFD4C82DA3305BD2A4E5" : 0
@@ -12,14 +14,26 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "041CC942-1BE2-4911-80EA-254B11F98F82",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "67620B5EFA902936DF04070AF595B76AB0333747" : "DownAlamofire",
+    "55011AEBD444630C0E9DF47BD2E18FDBBDCC285D" : "Down\/SQLite\/Vendor\/sqlcipher\/",
+    "3AE8ED2E684071AF4FB151FA51BF266B82FF45BD" : "Down\/SQLite\/",
     "CD1557C3AE966BEDF3490D85F9712687801B146C" : "Down\/XCGLogger\/",
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : "DownSwiftyJSON",
     "B93B6DF84035FEECFE2CFFD4C82DA3305BD2A4E5" : "Down"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Down",
-  "DVTSourceControlWorkspaceBlueprintVersion" : 203,
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Down\/Down.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/stephencelis\/SQLite.swift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3AE8ED2E684071AF4FB151FA51BF266B82FF45BD"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/sqlcipher\/sqlcipher.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "55011AEBD444630C0E9DF47BD2E18FDBBDCC285D"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Alamofire\/Alamofire.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

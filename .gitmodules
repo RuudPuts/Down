@@ -7,3 +7,6 @@
 [submodule "XCGLogger"]
 	path = XCGLogger
 	url = https://github.com/RuudPuts/XCGLogger.git
+[submodule "SQLite"]
+	path = SQLite
+	url = https://github.com/stephencelis/SQLite.swift.git
