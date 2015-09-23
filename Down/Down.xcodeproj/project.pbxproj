@@ -29,7 +29,6 @@
 		4221ADDE1B7BC0B20027C3A0 /* SABHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC01B7BC0B20027C3A0 /* SABHistoryItem.swift */; };
 		4221ADDF1B7BC0B20027C3A0 /* SABItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC11B7BC0B20027C3A0 /* SABItem.swift */; };
 		4221ADE01B7BC0B20027C3A0 /* SABQueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC21B7BC0B20027C3A0 /* SABQueueItem.swift */; };
-		4221ADE31B7BC0B20027C3A0 /* SickbeardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC61B7BC0B20027C3A0 /* SickbeardItem.swift */; };
 		4221ADE41B7BC0B20027C3A0 /* CouchPotatoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC81B7BC0B20027C3A0 /* CouchPotatoService.swift */; };
 		4221ADE51B7BC0B20027C3A0 /* SabNZBdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADC91B7BC0B20027C3A0 /* SabNZBdService.swift */; };
 		4221ADE61B7BC0B20027C3A0 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADCA1B7BC0B20027C3A0 /* Service.swift */; };
@@ -265,7 +264,6 @@
 		4221ADC01B7BC0B20027C3A0 /* SABHistoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABHistoryItem.swift; sourceTree = "<group>"; };
 		4221ADC11B7BC0B20027C3A0 /* SABItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABItem.swift; sourceTree = "<group>"; };
 		4221ADC21B7BC0B20027C3A0 /* SABQueueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABQueueItem.swift; sourceTree = "<group>"; };
-		4221ADC61B7BC0B20027C3A0 /* SickbeardItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardItem.swift; sourceTree = "<group>"; };
 		4221ADC81B7BC0B20027C3A0 /* CouchPotatoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoService.swift; sourceTree = "<group>"; };
 		4221ADC91B7BC0B20027C3A0 /* SabNZBdService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdService.swift; sourceTree = "<group>"; };
 		4221ADCA1B7BC0B20027C3A0 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -530,16 +528,6 @@
 			path = CouchPotato;
 			sourceTree = "<group>";
 		};
-		420E7E331B9CC64700D3DCC4 /* Refactor */ = {
-			isa = PBXGroup;
-			children = (
-				420E7E341B9CC65B00D3DCC4 /* SickbeardShow.swift */,
-				42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */,
-				42AE88CD1B9F7CF200E4F0CF /* SickbeardEpisode.swift */,
-			);
-			name = Refactor;
-			sourceTree = "<group>";
-		};
 		4221ADB21B7BC0B20027C3A0 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,8 +592,9 @@
 		4221ADC31B7BC0B20027C3A0 /* Sickbeard */ = {
 			isa = PBXGroup;
 			children = (
-				420E7E331B9CC64700D3DCC4 /* Refactor */,
-				4221ADC61B7BC0B20027C3A0 /* SickbeardItem.swift */,
+				420E7E341B9CC65B00D3DCC4 /* SickbeardShow.swift */,
+				42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */,
+				42AE88CD1B9F7CF200E4F0CF /* SickbeardEpisode.swift */,
 			);
 			path = Sickbeard;
 			sourceTree = "<group>";
@@ -1317,7 +1306,6 @@
 				4221ADDC1B7BC0B20027C3A0 /* PreferenceManager.swift in Sources */,
 				42AE88D31B9F7D0A00E4F0CF /* SickbeardSeason.swift in Sources */,
 				4221ADE01B7BC0B20027C3A0 /* SABQueueItem.swift in Sources */,
-				4221ADE31B7BC0B20027C3A0 /* SickbeardItem.swift in Sources */,
 				4221ADE51B7BC0B20027C3A0 /* SabNZBdService.swift in Sources */,
 				4269A9491B850501005A06E3 /* Alamofire.swift in Sources */,
 				4221ADE71B7BC0B20027C3A0 /* SickbeardService.swift in Sources */,
