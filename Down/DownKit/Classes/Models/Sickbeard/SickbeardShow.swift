@@ -9,17 +9,17 @@
 import Foundation
 
 public class SickbeardShow {
-    public var tvdbId: Int!
+    public var tvdbId: String!
     public var name: String!
     public var status: SickbeardShowStatus!
     public var seasons = [String: SickbeardSeason]()
     
-    public enum SickbeardShowStatus {
-        case Stopped
-        case Active
+    public enum SickbeardShowStatus: Int {
+        case Stopped = 0
+        case Active = 1
     }
     
-    init (_ tvdbId: Int, _ name: String, _ paused: Int) {
+    init (_ tvdbId: String, _ name: String, _ paused: Int) {
         self.tvdbId = tvdbId
         self.name = name
         self.status = paused == 1 ? .Stopped : .Active

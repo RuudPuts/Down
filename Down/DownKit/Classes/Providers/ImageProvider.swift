@@ -12,10 +12,6 @@ public class ImageProvider {
     
     private static let diskQueue: dispatch_queue_t = dispatch_queue_create("com.ruudputs.down.ImageQueue", DISPATCH_QUEUE_SERIAL)
     
-    private class var cacheDirectory: String {
-        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-    }
-    
     private class func fileExists(filepath: String) -> Bool {
         return NSFileManager.defaultManager().fileExistsAtPath(filepath)
     }
@@ -55,41 +51,41 @@ public class ImageProvider {
 
 // MARK: Sickbeard extension
 extension ImageProvider {
-    internal class func hasBannerForShow(tvdbid: Int) -> Bool {
+    internal class func hasBannerForShow(tvdbid: String) -> Bool {
         let bannerPath = bannerPathForShow(tvdbid)
         return fileExists(bannerPath)
     }
     
-    internal class func storeBanner(banner: NSData, forShow tvdbid: Int) {
+    internal class func storeBanner(banner: NSData, forShow tvdbid: String) {
         let bannerPath = bannerPathForShow(tvdbid)
         storeImage(banner, atPath:bannerPath)
     }
     
-    internal class func bannerForShow(tvdbid: Int) -> UIImage? {
+    internal class func bannerForShow(tvdbid: String) -> UIImage? {
         let bannerPath = bannerPathForShow(tvdbid)
         return loadImage(bannerPath)
     }
     
-    private class func bannerPathForShow(tvdbid: Int) -> String {
-        return cacheDirectory + "/sickbeard/banners/\(tvdbid).png"
+    private class func bannerPathForShow(tvdbid: String) -> String {
+        return UIApplication.documentsDirectory + "/sickbeard/banners/\(tvdbid).png"
     }
     
-    internal class func hasPosterForShow(tvdbid: Int) -> Bool {
+    internal class func hasPosterForShow(tvdbid: String) -> Bool {
         let posterPath = posterPathForShow(tvdbid)
         return fileExists(posterPath)
     }
     
-    internal class func storePoster(poster: NSData, forShow tvdbid: Int) {
+    internal class func storePoster(poster: NSData, forShow tvdbid: String) {
         let posterPath = posterPathForShow(tvdbid)
         storeImage(poster, atPath:posterPath)
     }
     
-    internal class func posterForShow(tvdbid: Int) -> UIImage? {
+    internal class func posterForShow(tvdbid: String) -> UIImage? {
         let posterPath = posterPathForShow(tvdbid)
         return loadImage(posterPath)
     }
     
-    private class func posterPathForShow(tvdbid: Int) -> String {
-        return cacheDirectory + "/sickbeard/posters/\(tvdbid).png"
+    private class func posterPathForShow(tvdbid: String) -> String {
+        return UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbid).png"
     }
 }
