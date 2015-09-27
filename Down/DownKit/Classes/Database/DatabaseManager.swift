@@ -12,8 +12,17 @@ public class DatabaseManager {
     
     let adapter: DatabaseAdapter
     
+    let sickbeardQueue = dispatch_queue_create("Down.DatabaseManager.Sickbeard", DISPATCH_QUEUE_SERIAL)
+    
     class var databasePath: String {
-        return UIApplication.documentsDirectory + "/sickbeard/sickbeard.sqlite"
+        let sickbeardDirectory = "\(UIApplication.documentsDirectory)/sickbeard"
+        do {
+            try NSFileManager.defaultManager().createDirectoryAtPath(sickbeardDirectory, withIntermediateDirectories: true, attributes: nil)
+        }
+        catch let error as NSError {
+            print("Error while creating databasePath: \(error)")
+        }
+        return sickbeardDirectory + "sickbeard.sqlite"
     }
     
     class var databaseExists: Bool {
@@ -27,7 +36,15 @@ public class DatabaseManager {
     // MARK: Sickbeard
     
     public func storeSickbeardShow(show: SickbeardShow) {
-        adapter.storeSickbeardShow(show)
+        dispatch_async(sickbeardQueue) {
+            self.adapter.storeSickbeardShow(show)
+            for (_, season) in show.seasons {
+                self.adapter.storeSickbeardSeason(season)
+                for episode in season.episodes {
+                    self.adapter.storeSickbeardEpisode(episode)
+                }
+            }
+        }
     }
     
 }

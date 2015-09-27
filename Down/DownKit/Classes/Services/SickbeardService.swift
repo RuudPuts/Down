@@ -15,6 +15,8 @@ public class SickbeardService: Service {
     
     public var shows = [String: SickbeardShow]()
     
+    var databaseManager: DatabaseManager!
+    
     private let bannerDownloadQueue = dispatch_queue_create("com.ruudputs.down.BannerDownloadQueue", DISPATCH_QUEUE_SERIAL)
     private let posterDownloadQueue = dispatch_queue_create("com.ruudputs.down.PosterDownloadQueue", DISPATCH_QUEUE_SERIAL)
     
@@ -31,10 +33,11 @@ public class SickbeardService: Service {
    
     override init() {
         super.init()
+        databaseManager = DatabaseManager()
         
         refreshShowCache {
-            self.refreshFuture()
-            self.startTimers()
+//            self.refreshFuture()
+//            self.startTimers()
         }
     }
     
@@ -178,6 +181,7 @@ public class SickbeardService: Service {
                     let showData = (JSON(result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
                     let tvdbIds = Array(showData.keys)
                     self.refreshShowData(tvdbIds, completionHandler: {
+                        print("Show cache refreshed")
                         completionHandler()
                     })
                 }
@@ -197,7 +201,7 @@ public class SickbeardService: Service {
             let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
             request(.GET, url).responseJSON { _, _, result in
                 if result.isSuccess {
-                    self.parseShowData(JSON(result.value!)["data"], forTvdbId: Int(tvdbId)!)
+                    self.parseShowData(JSON(result.value!)["data"], forTvdbId: tvdbId)
                 }
                 else {
                     print("Error while fetching Sickbeard showData: \(result.data!)")
@@ -214,6 +218,7 @@ public class SickbeardService: Service {
                 self.downloadPoster(show)
                 dispatch_group_enter(showSeasonsGroup)
                 self.refreshShowSeasons(show, completionHandler: {
+                    self.databaseManager.storeSickbeardShow(show)
                     dispatch_group_leave(showSeasonsGroup)
                 })
             }
@@ -224,7 +229,7 @@ public class SickbeardService: Service {
         }
     }
     
-    private func parseShowData(json: JSON, forTvdbId tvdbId: Int) {
+    private func parseShowData(json: JSON, forTvdbId tvdbId: String) {
         let name = json["show_name"].string!
         let paused = json["paused"].int!
         

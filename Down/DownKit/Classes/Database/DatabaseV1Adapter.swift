@@ -23,13 +23,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
     
     init() {
         do {
-            try NSFileManager.defaultManager().removeItemAtPath(DatabaseManager.databasePath)
-        }
-        catch {
-            
-        }
-        
-        do {
+            print("DatabasePath: \(DatabaseManager.databasePath)")
             database = try Database(path: DatabaseManager.databasePath)
         }
         catch let error as NSError {
@@ -41,8 +35,12 @@ class DatabaseV1Adapter: DatabaseAdapter {
     
     func createInitialTables() {
         createShowsTable()
+        createSeasonsTable()
+        createEpisodesTable()
 //        database!.updateUserVersionNumber(version)
     }
+    
+    // MARK: Shows
     
     func createShowsTable() {
         do {
@@ -59,7 +57,28 @@ class DatabaseV1Adapter: DatabaseAdapter {
         }
     }
     
+    func hasDataForShow(show: SickbeardShow) -> Bool {
+        var hasData = false
+        
+        do {
+            let shows = try database!.selectFrom("shows", whereExpr:"tvdbid = \(show.tvdbId)") { $0 }
+            hasData = shows.count > 0
+        }
+        catch {}
+        
+        return hasData
+    }
+    
     func storeSickbeardShow(show: SickbeardShow) {
+        if hasDataForShow(show) {
+            updateSickbeardShow(show)
+        }
+        else {
+            insertSickbeardShow(show)
+        }
+    }
+    
+    func insertSickbeardShow(show: SickbeardShow) {
         do {
             try database!.insertInto("shows", values: [
                 "tvdbid": show.tvdbId,
@@ -67,7 +86,88 @@ class DatabaseV1Adapter: DatabaseAdapter {
                 "status": show.status.rawValue])
         }
         catch let error as NSError {
-            print("Error while storing show \(show.name): \(error)")
+            print("Error while inserting show \(show.name): \(error)")
+        }
+    }
+    
+    func updateSickbeardShow(show: SickbeardShow) {
+        do {
+            try database!.update("shows", columns: [
+                    "status"
+                ], values: [
+                    show.status.rawValue
+                ], whereExpr: "tvdbid = ?", parameters: [show.tvdbId])
+        }
+        catch let error as NSError {
+            print("Error while updating show \(show.name): \(error)")
+        }
+    }
+    
+    // MARK: Seasons
+    
+    func createSeasonsTable() {
+        do {
+            try database!.createTable("seasons",
+                definitions:[
+                    "id INTEGER PRIMARY KEY",
+                    "seasonId INTEGER NOT NULL",
+                    "showId TEXT NOT NULL"
+                ],
+                ifNotExists:true)
+        }
+        catch let error as NSError {
+            print("Error while creating seasons table: \(error)")
+        }
+    }
+    
+    func storeSickbeardSeason(season: SickbeardSeason) {
+        do {
+            try database!.insertInto("seasons", values: [
+                "seasonId": season.id,
+                "showId": season.show?.tvdbId])
+        }
+        catch let error as NSError {
+            print("Error while storing season \(season.id) for show \(season.show?.name): \(error)")
+        }
+    }
+    
+    // MARK: Episodes
+    
+    func createEpisodesTable() {
+        do {
+            try database!.createTable("episodes",
+                definitions:[
+                    "id INTEGER PRIMARY KEY",
+                    "episodeId TEXT NOT NULL",
+                    "seasonId TEXT NOT NULL",
+                    "showId TEXT NOT NULL",
+                    "name TEXT NOT NULL",
+                    "airDate TEXT NOT NULL",
+                    "quality TEXT NOT NULL",
+                    "status TEXT NOT NULL",
+                    "filename TEXT"
+                ],
+                ifNotExists:true)
+        }
+        catch let error as NSError {
+            print("Error while creating episodes table: \(error)")
+        }
+    }
+    
+    func storeSickbeardEpisode(episode: SickbeardEpisode) {
+        do {
+            try database!.insertInto("episodes", values: [
+                "episodeId": episode.id,
+                "seasonId": episode.season?.id,
+                "showId": episode.show?.tvdbId,
+                "name": episode.name,
+                "airDate": episode.airDate,
+                "quality": episode.quality,
+                "status": episode.status,
+                "filename": episode.filename])
+        }
+        catch let error as NSError {
+            print("Error while storing episode S\(episode.season?.id)E\(episode.id) for show \(episode.show?.name): \(error)")
         }
     }
     

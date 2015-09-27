@@ -15,4 +15,6 @@ protocol DatabaseAdapter {
     func createInitialTables()
     
     func storeSickbeardShow(show: SickbeardShow)
+    func storeSickbeardSeason(season: SickbeardSeason)
+    func storeSickbeardEpisode(episode: SickbeardEpisode)
 }
