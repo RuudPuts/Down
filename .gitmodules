@@ -7,6 +7,3 @@
 [submodule "XCGLogger"]
 	path = XCGLogger
 url=https://github.com/DaveWoodCom/XCGLogger.git
-[submodule "Squeal"]
-	path = Squeal
-	url = https://github.com/nerdyc/Squeal.git

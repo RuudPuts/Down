@@ -37,13 +37,22 @@ public class DatabaseManager {
     
     public func storeSickbeardShow(show: SickbeardShow) {
         dispatch_async(sickbeardQueue) {
+            NSLog("Storing show \(show.name)")
             self.adapter.storeSickbeardShow(show)
             for (_, season) in show.seasons {
+                NSLog("Storing season \(season.id)")
                 self.adapter.storeSickbeardSeason(season)
                 for episode in season.episodes {
                     self.adapter.storeSickbeardEpisode(episode)
                 }
             }
+            NSLog("Finished show \(show.name)")
+        }
+    }
+    
+    public func storeSickbeardEpisode(episode: SickbeardEpisode) {
+        dispatch_async(sickbeardQueue) {
+            self.adapter.storeSickbeardEpisode(episode)
         }
     }
     

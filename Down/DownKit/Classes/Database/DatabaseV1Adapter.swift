@@ -64,7 +64,9 @@ class DatabaseV1Adapter: DatabaseAdapter {
             let shows = try database!.selectFrom("shows", whereExpr:"tvdbid = \(show.tvdbId)") { $0 }
             hasData = shows.count > 0
         }
-        catch {}
+        catch let error as NSError {
+            print("Error while checking show data: \(error)")
+        }
         
         return hasData
     }
@@ -92,11 +94,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
     
     func updateSickbeardShow(show: SickbeardShow) {
         do {
-            try database!.update("shows", columns: [
-                    "status"
-                ], values: [
-                    show.status.rawValue
-                ], whereExpr: "tvdbid = ?", parameters: [show.tvdbId])
+            try database!.update("shows", columns: ["status"], values: [show.status.rawValue], whereExpr: "tvdbid = ?", parameters: [show.tvdbId])
         }
         catch let error as NSError {
             print("Error while updating show \(show.name): \(error)")
@@ -120,7 +118,29 @@ class DatabaseV1Adapter: DatabaseAdapter {
         }
     }
     
+    func hasDataForSeason(season: SickbeardSeason) -> Bool {
+        var hasData = false
+        
+        if let show = season.show {
+            do {
+                let seasons = try database!.selectFrom("seasons", whereExpr:"showId = \(show.tvdbId) and seasonId = \(season.id)") { $0 }
+                hasData = seasons.count > 0
+            }
+            catch let error as NSError {
+                print("Error while checking season data: \(error)")
+            }
+        }
+        
+        return hasData
+    }
+    
     func storeSickbeardSeason(season: SickbeardSeason) {
+        if !hasDataForSeason(season) {
+            insertSickbeardSeason(season)
+        }
+    }
+    
+    func insertSickbeardSeason(season: SickbeardSeason) {
         do {
             try database!.insertInto("seasons", values: [
                 "seasonId": season.id,
@@ -154,7 +174,35 @@ class DatabaseV1Adapter: DatabaseAdapter {
         }
     }
     
+    func hasDataForEpisode(episode: SickbeardEpisode) -> Bool {
+        var hasData = false
+        
+        if let show = episode.show {
+            if  let season = episode.season {
+                do {
+                    let episodes = try database!.selectFrom("episodes", whereExpr:"showId = \(show.tvdbId)" +
+                        " and seasonId = \(season.id) and episodeId = \(episode.id)") { $0 }
+                    hasData = episodes.count > 0
+                }
+                catch let error as NSError {
+                    print("Error while checking episode data: \(error)")
+                }
+            }
+        }
+        
+        return hasData
+    }
+    
     func storeSickbeardEpisode(episode: SickbeardEpisode) {
+        if hasDataForEpisode(episode) {
+            updateSickbeardEpisode(episode)
+        }
+        else {
+            insertSickbeardEpisode(episode)
+        }
+    }
+    
+    private func insertSickbeardEpisode(episode: SickbeardEpisode) {
         do {
             try database!.insertInto("episodes", values: [
                 "episodeId": episode.id,
@@ -168,6 +216,21 @@ class DatabaseV1Adapter: DatabaseAdapter {
         }
         catch let error as NSError {
             print("Error while storing episode S\(episode.season?.id)E\(episode.id) for show \(episode.show?.name): \(error)")
+        }
+    }
+    
+    private func updateSickbeardEpisode(episode: SickbeardEpisode) {
+        do {
+            if let show = episode.show {
+                if  let season = episode.season {
+                    try database!.update("episodes", columns: ["name", "airDate", "quality", "status", "filename"],
+                        values: [episode.name, episode.airDate, episode.quality, episode.status, episode.filename],
+                        whereExpr: "showId = ? and seasonId = ? and episodeId = ?", parameters: [show.tvdbId, season.id, episode.id])
+                }
+            }
+        }
+        catch let error as NSError {
+            print("Error while updating episode S\(episode.season?.id)E\(episode.id) for show \(episode.show?.name): \(error)")
         }
     }
     

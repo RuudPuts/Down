@@ -36,8 +36,8 @@ public class SickbeardService: Service {
         databaseManager = DatabaseManager()
         
         refreshShowCache {
-//            self.refreshFuture()
-//            self.startTimers()
+            self.refreshFuture()
+            self.startTimers()
         }
     }
     
@@ -48,8 +48,8 @@ public class SickbeardService: Service {
     }
     
     private func startTimers() {
-        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self,
-            selector: "refreshHistory", userInfo: nil, repeats: true)
+//        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self,
+//            selector: "refreshHistory", userInfo: nil, repeats: true)
         
         refreshHistory()
     }
@@ -117,6 +117,7 @@ public class SickbeardService: Service {
                     components.removeAtIndex(components.count - 1)
                     
                     episode.filename = components.joinWithSeparator(".")
+                    databaseManager.storeSickbeardEpisode(episode)
                     history.append(episode)
                 }
             }

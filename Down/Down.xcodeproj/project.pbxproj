@@ -44,12 +44,13 @@
 		424595241B7933EB009DA699 /* DownKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 424595231B7933EB009DA699 /* DownKitTests.m */; };
 		424595281B7933EB009DA699 /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424595131B7933EA009DA699 /* DownKit.framework */; };
 		424595291B7933EB009DA699 /* DownKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 424595131B7933EA009DA699 /* DownKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		424F84E71BB4915600117DA4 /* Squeal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424F84E01BB4913800117DA4 /* Squeal.framework */; };
 		4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E7FE1AB4B84C00EF1254 /* AppDelegate.swift */; };
 		4253E80F1AB4B84C00EF1254 /* DownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8031AB4B84C00EF1254 /* DownViewController.swift */; };
 		4253E8181AB4B85800EF1254 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8151AB4B85800EF1254 /* DownTests.swift */; };
 		4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4253E81B1AB4B8E300EF1254 /* Down.xcdatamodeld */; };
 		4253E8221AB4B8E300EF1254 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4253E81E1AB4B8E300EF1254 /* Images.xcassets */; };
+		4258D17A1BB9EAE2000FE7C7 /* Realm.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4258D16B1BB9EA31000FE7C7 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4258D17B1BB9EAE2000FE7C7 /* RealmSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42670EF91ADDAB5E006341EA /* DownTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* DownTextCell.xib */; };
 		4269A9201B85009E005A06E3 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4269A91F1B85009E005A06E3 /* ImageProvider.swift */; };
 		4269A9481B850501005A06E3 /* Alamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = 4269A9391B850501005A06E3 /* Alamofire.h */; };
@@ -198,48 +199,6 @@
 			remoteGlobalIDString = 424595121B7933EA009DA699;
 			remoteInfo = DownKit;
 		};
-		424F84DB1BB4913800117DA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 424F84D01BB4913800117DA4 /* Squeal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CD7247F71996880300151E1E;
-			remoteInfo = "Squeal-OSX";
-		};
-		424F84DD1BB4913800117DA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 424F84D01BB4913800117DA4 /* Squeal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CD7248021996880300151E1E;
-			remoteInfo = "Squeal-OSXTests";
-		};
-		424F84DF1BB4913800117DA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 424F84D01BB4913800117DA4 /* Squeal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CDCBEB4C19C5F6F500862BFD;
-			remoteInfo = "Squeal-iOS";
-		};
-		424F84E11BB4913800117DA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 424F84D01BB4913800117DA4 /* Squeal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CDCBEB5619C5F6F500862BFD;
-			remoteInfo = "Squeal-iOSTests";
-		};
-		424F84E31BB4913800117DA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 424F84D01BB4913800117DA4 /* Squeal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CD3DE27919BCD44B00DED437;
-			remoteInfo = "SquealSpecHelpers-OSX";
-		};
-		424F84E51BB4913800117DA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 424F84D01BB4913800117DA4 /* Squeal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CDCBEB7019C5F77900862BFD;
-			remoteInfo = "SquealSpecHelpers-iOS";
-		};
 		4253E7EE1AB4B7B900EF1254 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4253E7CD1AB4B7B900EF1254 /* Project object */;
@@ -272,6 +231,17 @@
 			files = (
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4258D1791BB9EACC000FE7C7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4258D17A1BB9EAE2000FE7C7 /* Realm.framework in CopyFiles */,
+				4258D17B1BB9EAE2000FE7C7 /* RealmSwift.framework in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		42DC20941B529F950060DA10 /* Embed Frameworks */ = {
@@ -327,7 +297,6 @@
 		4245951C1B7933EB009DA699 /* DownKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		424595231B7933EB009DA699 /* DownKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownKitTests.m; sourceTree = "<group>"; };
 		424595251B7933EB009DA699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		424F84D01BB4913800117DA4 /* Squeal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Squeal.xcodeproj; path = ../Squeal/Squeal.xcodeproj; sourceTree = "<group>"; };
 		4253E7D51AB4B7B900EF1254 /* Down.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Down.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4253E7ED1AB4B7B900EF1254 /* DownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4253E7FE1AB4B84C00EF1254 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -337,6 +306,8 @@
 		4253E8171AB4B85800EF1254 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4253E81C1AB4B8E300EF1254 /* Down.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Down.xcdatamodel; sourceTree = "<group>"; };
 		4253E81E1AB4B8E300EF1254 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4258D16B1BB9EA31000FE7C7 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		42670EF81ADDAB5E006341EA /* DownTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownTextCell.xib; sourceTree = "<group>"; };
 		4269A91F1B85009E005A06E3 /* ImageProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		4269A9391B850501005A06E3 /* Alamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alamofire.h; sourceTree = "<group>"; };
@@ -456,7 +427,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				424F84E71BB4915600117DA4 /* Squeal.framework in Frameworks */,
 				428CF72D1AE199B5007F3E54 /* AudioToolbox.framework in Frameworks */,
 				428CF72E1AE199B5007F3E54 /* CoreMotion.framework in Frameworks */,
 				428CF72F1AE199B5007F3E54 /* CoreTelephony.framework in Frameworks */,
@@ -668,6 +638,7 @@
 		4221ADD51B7BC0B20027C3A0 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				4258D16A1BB9EA31000FE7C7 /* Realm */,
 				4269A9381B850501005A06E3 /* Alamofire */,
 				4221ADE81B7BC0D50027C3A0 /* SwiftyJSON.swift */,
 			);
@@ -723,19 +694,6 @@
 			path = DownKitTests;
 			sourceTree = "<group>";
 		};
-		424F84D11BB4913800117DA4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				424F84DC1BB4913800117DA4 /* Squeal.framework */,
-				424F84DE1BB4913800117DA4 /* Squeal-OSXTests.xctest */,
-				424F84E01BB4913800117DA4 /* Squeal.framework */,
-				424F84E21BB4913800117DA4 /* Squeal-iOSTests.xctest */,
-				424F84E41BB4913800117DA4 /* SquealSpecHelpers.framework */,
-				424F84E61BB4913800117DA4 /* SquealSpecHelpers.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		4253E7CC1AB4B7B900EF1254 = {
 			isa = PBXGroup;
 			children = (
@@ -745,7 +703,6 @@
 				424595221B7933EB009DA699 /* DownKitTests */,
 				423D87931B700B3D00AFB7FF /* Frameworks */,
 				4253E7D61AB4B7B900EF1254 /* Products */,
-				424F84D01BB4913800117DA4 /* Squeal.xcodeproj */,
 				42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -860,6 +817,15 @@
 				42078E2E1AD172CD009845CC /* LaunchScreen.xib */,
 			);
 			path = Layout;
+			sourceTree = "<group>";
+		};
+		4258D16A1BB9EA31000FE7C7 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				4258D16B1BB9EA31000FE7C7 /* Realm.framework */,
+				4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		4269A91E1B850090005A06E3 /* Providers */ = {
@@ -1134,6 +1100,8 @@
 				4245950F1B7933EA009DA699 /* Frameworks */,
 				424595101B7933EA009DA699 /* Headers */,
 				424595111B7933EA009DA699 /* Resources */,
+				4258D1791BB9EACC000FE7C7 /* CopyFiles */,
+				4258D1781BB9EA95000FE7C7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1243,10 +1211,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 424F84D11BB4913800117DA4 /* Products */;
-					ProjectRef = 424F84D01BB4913800117DA4 /* Squeal.xcodeproj */;
-				},
-				{
 					ProductGroup = 42391A941B5BF01100E4E0B4 /* Products */;
 					ProjectRef = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
 				},
@@ -1281,48 +1245,6 @@
 			fileType = wrapper.cfbundle;
 			path = "XCGLoggerTests (iOS).xctest";
 			remoteRef = 42391A9D1B5BF01100E4E0B4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		424F84DC1BB4913800117DA4 /* Squeal.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Squeal.framework;
-			remoteRef = 424F84DB1BB4913800117DA4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		424F84DE1BB4913800117DA4 /* Squeal-OSXTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Squeal-OSXTests.xctest";
-			remoteRef = 424F84DD1BB4913800117DA4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		424F84E01BB4913800117DA4 /* Squeal.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Squeal.framework;
-			remoteRef = 424F84DF1BB4913800117DA4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		424F84E21BB4913800117DA4 /* Squeal-iOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Squeal-iOSTests.xctest";
-			remoteRef = 424F84E11BB4913800117DA4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		424F84E41BB4913800117DA4 /* SquealSpecHelpers.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SquealSpecHelpers.framework;
-			remoteRef = 424F84E31BB4913800117DA4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		424F84E61BB4913800117DA4 /* SquealSpecHelpers.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SquealSpecHelpers.framework;
-			remoteRef = 424F84E51BB4913800117DA4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		4269A91D1B850049005A06E3 /* XCGLoggerTests (OS X).xctest */ = {
@@ -1419,6 +1341,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4258D1781BB9EA95000FE7C7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4245950E1B7933EA009DA699 /* Sources */ = {
