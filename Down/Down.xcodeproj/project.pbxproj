@@ -49,8 +49,6 @@
 		4253E8181AB4B85800EF1254 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8151AB4B85800EF1254 /* DownTests.swift */; };
 		4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4253E81B1AB4B8E300EF1254 /* Down.xcdatamodeld */; };
 		4253E8221AB4B8E300EF1254 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4253E81E1AB4B8E300EF1254 /* Images.xcassets */; };
-		4258D17A1BB9EAE2000FE7C7 /* Realm.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4258D16B1BB9EA31000FE7C7 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4258D17B1BB9EAE2000FE7C7 /* RealmSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42670EF91ADDAB5E006341EA /* DownTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* DownTextCell.xib */; };
 		4269A9201B85009E005A06E3 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4269A91F1B85009E005A06E3 /* ImageProvider.swift */; };
 		4269A9481B850501005A06E3 /* Alamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = 4269A9391B850501005A06E3 /* Alamofire.h */; };
@@ -146,6 +144,12 @@
 		42E1CCC61BA226CE00DFED2E /* SickbeardShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E1CCC51BA226CE00DFED2E /* SickbeardShowsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		42E1CCCB1BA22B6200DFED2E /* SickbeardShowsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42E1CCCA1BA22B6200DFED2E /* SickbeardShowsViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		42E1CCCD1BA22BE600DFED2E /* DownDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E1CCCC1BA22BE600DFED2E /* DownDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		42E97C291BBD9DB60040A979 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16B1BB9EA31000FE7C7 /* Realm.framework */; };
+		42E97C2A1BBD9DB60040A979 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; };
+		42E97C2B1BBD9E130040A979 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16B1BB9EA31000FE7C7 /* Realm.framework */; };
+		42E97C2C1BBD9E130040A979 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16B1BB9EA31000FE7C7 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42E97C2D1BBD9E130040A979 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; };
+		42E97C2E1BBD9E130040A979 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42F035361AD45BC2001AE5B3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F035351AD45BC2001AE5B3 /* UIView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -233,24 +237,15 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4258D1791BB9EACC000FE7C7 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				4258D17A1BB9EAE2000FE7C7 /* Realm.framework in CopyFiles */,
-				4258D17B1BB9EAE2000FE7C7 /* RealmSwift.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		42DC20941B529F950060DA10 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				42E97C2C1BBD9E130040A979 /* Realm.framework in Embed Frameworks */,
 				424595291B7933EB009DA699 /* DownKit.framework in Embed Frameworks */,
+				42E97C2E1BBD9E130040A979 /* RealmSwift.framework in Embed Frameworks */,
 				42391AA01B5BF07700E4E0B4 /* XCGLogger.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -412,6 +407,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42E97C291BBD9DB60040A979 /* Realm.framework in Frameworks */,
+				42E97C2A1BBD9DB60040A979 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +426,7 @@
 			files = (
 				428CF72D1AE199B5007F3E54 /* AudioToolbox.framework in Frameworks */,
 				428CF72E1AE199B5007F3E54 /* CoreMotion.framework in Frameworks */,
+				42E97C2D1BBD9E130040A979 /* RealmSwift.framework in Frameworks */,
 				428CF72F1AE199B5007F3E54 /* CoreTelephony.framework in Frameworks */,
 				428CF7301AE199B5007F3E54 /* GLKit.framework in Frameworks */,
 				428CF7311AE199B5007F3E54 /* MessageUI.framework in Frameworks */,
@@ -439,6 +437,7 @@
 				428CF7351AE199B5007F3E54 /* UIKit.framework in Frameworks */,
 				428CF7231AE1997A007F3E54 /* CoreGraphics.framework in Frameworks */,
 				428CF7211AE19973007F3E54 /* Foundation.framework in Frameworks */,
+				42E97C2B1BBD9E130040A979 /* Realm.framework in Frameworks */,
 				424595281B7933EB009DA699 /* DownKit.framework in Frameworks */,
 				428CF71F1AE1996B007F3E54 /* libc++.dylib in Frameworks */,
 				428CF7031AE19779007F3E54 /* Instabug.framework in Frameworks */,
@@ -1100,7 +1099,6 @@
 				4245950F1B7933EA009DA699 /* Frameworks */,
 				424595101B7933EA009DA699 /* Headers */,
 				424595111B7933EA009DA699 /* Resources */,
-				4258D1791BB9EACC000FE7C7 /* CopyFiles */,
 				4258D1781BB9EA95000FE7C7 /* ShellScript */,
 			);
 			buildRules = (
@@ -1354,7 +1352,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
+			shellScript = "#bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1499,6 +1497,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DownKit/Dependencies/Realm",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = DownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1527,6 +1529,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DownKit/Dependencies/Realm",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = DownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1554,6 +1560,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DownKit/Dependencies/Realm",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = DownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1700,6 +1710,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Down/Dependencies/Instabug",
+					"$(PROJECT_DIR)/DownKit/Dependencies/Realm",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1722,6 +1733,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Down/Dependencies/Instabug",
+					"$(PROJECT_DIR)/DownKit/Dependencies/Realm",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1816,6 +1828,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Down/Dependencies/Instabug",
+					"$(PROJECT_DIR)/DownKit/Dependencies/Realm",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
