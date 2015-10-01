@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import RealmSwift
 
-public class SickbeardEpisode {
-    public var id: String!
-    public var name: String!
-    public let airDate: String!
-    public var quality: String!
-    public var status: String!
-    public var filename: String?
+public class SickbeardEpisode: Object {
+    public dynamic var id = ""
+    public dynamic var name = ""
+    public dynamic var airDate = ""
+    public dynamic var quality = ""
+    public dynamic var status = ""
+    public dynamic var filename = ""
     
     weak public var season: SickbeardSeason?
     weak public var show: SickbeardShow?
@@ -25,6 +26,12 @@ public class SickbeardEpisode {
         self.airDate = airDate
         self.quality = quality
         self.status = status
+        
+        super.init()
+    }
+    
+    public required init() {
+        super.init()
     }
     
     public var displayName: String {

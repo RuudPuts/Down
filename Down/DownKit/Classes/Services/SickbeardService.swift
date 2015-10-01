@@ -59,22 +59,20 @@ public class SickbeardService: Service {
     internal func episodeWithFilename(filename: String!) -> SickbeardEpisode? {
         var matchedEpisode: SickbeardEpisode?
         
-        for (_, show) in shows {
-            for (_, season) in show.seasons {
-                for episode in season.episodes {
-                    if let episodeFilename = episode.filename {
-                        if filename.rangeOfString(episodeFilename) != nil {
-                            matchedEpisode = episode
-                            break
-                        }
-                    }
-                }
-                
-                if matchedEpisode != nil {
-                    break
-                }
-            }
-        }
+//        for (_, show) in shows {
+//            for season in show.seasons {
+//                for episode in season.episodes {
+//                    if filename.rangeOfString(episode.filename) != nil {
+//                        matchedEpisode = episode
+//                        break
+//                    }
+//                }
+//                
+//                if matchedEpisode != nil {
+//                    break
+//                }
+//            }
+//        }
         
         return matchedEpisode
     }

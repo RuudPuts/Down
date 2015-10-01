@@ -12,8 +12,6 @@ public class DatabaseManager {
     
     let adapter: DatabaseAdapter
     
-    let sickbeardQueue = dispatch_queue_create("Down.DatabaseManager.Sickbeard", DISPATCH_QUEUE_SERIAL)
-    
     class var databasePath: String {
         let sickbeardDirectory = "\(UIApplication.documentsDirectory)/sickbeard"
         do {
@@ -22,7 +20,7 @@ public class DatabaseManager {
         catch let error as NSError {
             print("Error while creating databasePath: \(error)")
         }
-        return sickbeardDirectory + "sickbeard.sqlite"
+        return sickbeardDirectory + "/sickbeard.realm"
     }
     
     class var databaseExists: Bool {
@@ -36,24 +34,20 @@ public class DatabaseManager {
     // MARK: Sickbeard
     
     public func storeSickbeardShow(show: SickbeardShow) {
-        dispatch_async(sickbeardQueue) {
-            NSLog("Storing show \(show.name)")
-            self.adapter.storeSickbeardShow(show)
-            for (_, season) in show.seasons {
-                NSLog("Storing season \(season.id)")
-                self.adapter.storeSickbeardSeason(season)
-                for episode in season.episodes {
-                    self.adapter.storeSickbeardEpisode(episode)
-                }
-            }
-            NSLog("Finished show \(show.name)")
-        }
+        NSLog("Storing show \(show.name)")
+        self.adapter.storeSickbeardShow(show)
+//        for season in show.seasons {
+//            NSLog("Storing season \(season.id)")
+//            self.adapter.storeSickbeardSeason(season)
+//            for episode in season.episodes {
+//                self.adapter.storeSickbeardEpisode(episode)
+//            }
+//        }
+        NSLog("Finished show \(show.name)")
     }
     
     public func storeSickbeardEpisode(episode: SickbeardEpisode) {
-        dispatch_async(sickbeardQueue) {
-            self.adapter.storeSickbeardEpisode(episode)
-        }
+        self.adapter.storeSickbeardEpisode(episode)
     }
     
 }

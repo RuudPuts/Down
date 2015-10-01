@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
-public class SickbeardShow {
-    public var tvdbId: String!
-    public var name: String!
-    public var status: SickbeardShowStatus!
-    public var seasons = [String: SickbeardSeason]()
+public class SickbeardShow: Object {
+    public dynamic var tvdbId = ""
+    public dynamic var name = ""
+    public var status = SickbeardShowStatus.Stopped
+//    public let seasons = List<SickbeardSeason>()
     
     public enum SickbeardShowStatus: Int {
         case Stopped = 0
@@ -23,6 +24,18 @@ public class SickbeardShow {
         self.tvdbId = tvdbId
         self.name = name
         self.status = paused == 1 ? .Stopped : .Active
+        
+        super.init()
+    }
+    
+    public required init() {
+        super.init()
+    }
+    
+    // Realm
+    
+    public override static func primaryKey() -> String? {
+        return "tvdbId"
     }
     
     // Properties
@@ -46,14 +59,24 @@ public class SickbeardShow {
     // Methods
     
     internal func addSeason(season: SickbeardSeason) {
-        season.show = self
+//        seasons.append(season)
+    }
+    
+    public func getSeason(seasonId: String) -> SickbeardSeason? {
+        var foundSeason: SickbeardSeason?
         
-        seasons[season.id] = season
+//        for season in seasons {
+//            if season.id == seasonId {
+//                foundSeason = season
+//            }
+//        }
+        
+        return foundSeason
     }
     
     public func getEpisode(seasonId: String, _ episodeNr: Int) -> SickbeardEpisode? {
         var episode: SickbeardEpisode?
-        if let season = seasons[seasonId] {
+        if let season = getSeason(seasonId) {
             episode = season.episodes[episodeNr - 1]
         }
         
