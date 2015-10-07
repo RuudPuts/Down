@@ -77,7 +77,7 @@ public class SickbeardShow: Object {
     public func getEpisode(seasonId: String, _ episodeNr: Int) -> SickbeardEpisode? {
         var episode: SickbeardEpisode?
         if let season = getSeason(seasonId) {
-            episode = season.episodes[episodeNr - 1]
+//            episode = season.episodes[episodeNr - 1]
         }
         
         return episode

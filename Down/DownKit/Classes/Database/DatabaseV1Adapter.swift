@@ -14,7 +14,10 @@ class DatabaseV1Adapter: DatabaseAdapter {
     var version = 1
     let database: Realm?
     
+    let sickbeardQueue: dispatch_queue_t
+    
     init() {
+        sickbeardQueue = dispatch_queue_create("Down.DatabaseV1Adapter", nil/*DISPATCH_QUEUE_CONCURRENT*/)
         do {
             try database = Realm(path: DatabaseManager.databasePath)
             print("Loaded database at path \(DatabaseManager.databasePath)")
@@ -31,25 +34,31 @@ class DatabaseV1Adapter: DatabaseAdapter {
     // MARK: Shows
     
     func storeSickbeardShow(show: SickbeardShow) {
-        database?.write({
-            database?.add(show, update: true)
-        })
+        dispatch_async(dispatch_get_main_queue()) {
+            database?.write({
+                database?.add(show, update: true)
+            })
+        }
     }
     
     // MARK: Seasons
     
     func storeSickbeardSeason(season: SickbeardSeason) {
-        database?.write({
-            database?.add(season, update: true)
-        })
+        dispatch_async(dispatch_get_main_queue()) {
+            database?.write({
+                database?.add(season, update: true)
+            })
+        }
     }
     
     // MARK: Episodes
     
     func storeSickbeardEpisode(episode: SickbeardEpisode) {
-        database?.write({
-            database?.add(episode, update: true)
-        })
+        dispatch_async(dispatch_get_main_queue()) {
+            database?.write({
+                database?.add(episode, update: true)
+            })
+        }
     }
     
 }

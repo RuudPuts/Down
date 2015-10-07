@@ -256,6 +256,7 @@ public class SickbeardService: Service {
             
             let season = SickbeardSeason(id: seasonKey)
             show.addSeason(season)
+            databaseManager.storeSickbeardSeason(season)
             
             let episodeKeys = Array((seasonJson.rawValue as! [String: AnyObject]).keys)
             for episodeKey in episodeKeys {
@@ -267,6 +268,7 @@ public class SickbeardService: Service {
                 
                 let episode = SickbeardEpisode(episodeKey, name, airdate, quality, status)
                 season.addEpisode(episode)
+                databaseManager.storeSickbeardEpisode(episode)
             }
         }
     }

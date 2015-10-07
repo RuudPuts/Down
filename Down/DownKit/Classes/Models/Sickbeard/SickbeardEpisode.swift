@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 public class SickbeardEpisode: Object {
+    public dynamic var objectHash = ""
     public dynamic var id = ""
     public dynamic var name = ""
     public dynamic var airDate = ""
@@ -26,6 +27,7 @@ public class SickbeardEpisode: Object {
         self.airDate = airDate
         self.quality = quality
         self.status = status
+        objectHash = NSUUID().UUIDString
         
         super.init()
     }
@@ -33,6 +35,14 @@ public class SickbeardEpisode: Object {
     public required init() {
         super.init()
     }
+    
+    // MARK: Realm
+    
+    public override static func primaryKey() -> String {
+        return "objectHash"
+    }
+    
+    // MARK: Public getters
     
     public var displayName: String {
         var displayName = name

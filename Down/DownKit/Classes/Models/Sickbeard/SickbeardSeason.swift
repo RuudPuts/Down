@@ -11,7 +11,7 @@ import RealmSwift
 
 public class SickbeardSeason: Object {
     public dynamic var id = ""
-    public var episodes = List<SickbeardEpisode>()
+//    public var episodes = List<SickbeardEpisode>()
     
     weak var show: SickbeardShow?
     
@@ -51,7 +51,7 @@ public class SickbeardSeason: Object {
         episode.season = self
         episode.show = show
         
-        episodes.append(episode)
+//        episodes.append(episode)
     }
     
 }

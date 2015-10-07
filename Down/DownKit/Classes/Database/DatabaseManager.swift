@@ -10,7 +10,7 @@ import Foundation
 
 public class DatabaseManager {
     
-    let adapter: DatabaseAdapter
+    let _adapter: DatabaseAdapter
     
     class var databasePath: String {
         let sickbeardDirectory = "\(UIApplication.documentsDirectory)/sickbeard"
@@ -28,14 +28,18 @@ public class DatabaseManager {
     }
     
     public init() {
-        adapter = DatabaseV1Adapter()
+        _adapter = DatabaseV1Adapter()
+    }
+    
+    var adapter: DatabaseV1Adapter {
+        return _adapter as! DatabaseV1Adapter
     }
     
     // MARK: Sickbeard
     
     public func storeSickbeardShow(show: SickbeardShow) {
         NSLog("Storing show \(show.name)")
-        self.adapter.storeSickbeardShow(show)
+//        self.adapter.storeSickbeardShow(show)
 //        for season in show.seasons {
 //            NSLog("Storing season \(season.id)")
 //            self.adapter.storeSickbeardSeason(season)
@@ -44,6 +48,10 @@ public class DatabaseManager {
 //            }
 //        }
         NSLog("Finished show \(show.name)")
+    }
+    
+    public func storeSickbeardSeason(season: SickbeardSeason) {
+//        self.adapter.storeSickbeardSeason(season)
     }
     
     public func storeSickbeardEpisode(episode: SickbeardEpisode) {
