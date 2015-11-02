@@ -37,17 +37,8 @@ public class DatabaseManager {
     
     // MARK: Sickbeard
     
-    public func storeSickbeardShow(show: SickbeardShow) {
-        NSLog("Storing show \(show.name)")
-//        self.adapter.storeSickbeardShow(show)
-//        for season in show.seasons {
-//            NSLog("Storing season \(season.id)")
-//            self.adapter.storeSickbeardSeason(season)
-//            for episode in season.episodes {
-//                self.adapter.storeSickbeardEpisode(episode)
-//            }
-//        }
-        NSLog("Finished show \(show.name)")
+    public func storeSickbeardShows(shows: [SickbeardShow]) {
+        self.adapter.storeSickbeardShows(shows)
     }
     
     public func storeSickbeardSeason(season: SickbeardSeason) {
@@ -55,7 +46,7 @@ public class DatabaseManager {
     }
     
     public func storeSickbeardEpisode(episode: SickbeardEpisode) {
-        self.adapter.storeSickbeardEpisode(episode)
+//        self.adapter.storeSickbeardEpisode(episode)
     }
     
 }

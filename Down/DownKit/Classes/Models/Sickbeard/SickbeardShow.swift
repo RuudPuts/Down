@@ -13,7 +13,7 @@ public class SickbeardShow: Object {
     public dynamic var tvdbId = ""
     public dynamic var name = ""
     public var status = SickbeardShowStatus.Stopped
-//    public let seasons = List<SickbeardSeason>()
+    public let seasons = List<SickbeardSeason>()
     
     public enum SickbeardShowStatus: Int {
         case Stopped = 0

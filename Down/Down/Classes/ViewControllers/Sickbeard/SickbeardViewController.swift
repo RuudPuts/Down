@@ -138,7 +138,7 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
                 let episode = data![indexPath.row]
                 itemCell.episodeLabel.text = episode.displayName
                 itemCell.dateLabel.text = episode.airDate
-                itemCell.bannerView?.image = episode.show?.banner
+//                itemCell.bannerView?.image = episode.show?.banner
                 
                 cell = itemCell
             }

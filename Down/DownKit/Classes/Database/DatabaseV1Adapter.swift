@@ -12,53 +12,58 @@ import RealmSwift
 class DatabaseV1Adapter: DatabaseAdapter {
     
     var version = 1
-    let database: Realm?
+    var database: Realm?
     
-    let sickbeardQueue: dispatch_queue_t
+//    let databaseQueue: dispatch_queue_t
     
     init() {
-        sickbeardQueue = dispatch_queue_create("Down.DatabaseV1Adapter", nil/*DISPATCH_QUEUE_CONCURRENT*/)
-        do {
-            try database = Realm(path: DatabaseManager.databasePath)
-            print("Loaded database at path \(DatabaseManager.databasePath)")
-        }
-        catch let error as NSError {
-            print("Failed to initialize Realm: \(error)")
-            database = nil
-        }
     }
     
     func createInitialTables() {
     }
     
+    func storeItems(items: [Object], tag: String) {
+        dispatch_async(dispatch_get_main_queue()) {
+            do {
+                try self.database = Realm(path: DatabaseManager.databasePath)
+                print("Loaded database at path \(DatabaseManager.databasePath)")
+                
+                NSLog("Starting write to store \(items.count) \(tag)s")
+                do {
+                    try self.database?.write({
+                        for item in items {
+                            self.database?.add(item, update: true)
+                        }
+                    })
+                }
+                catch let error as NSError {
+                    print("Failed to add \(tag): \(error)")
+                }
+                NSLog("Finished write")
+            }
+            catch let error as NSError {
+                print("Failed to initialize Realm: \(error)")
+                self.database = nil
+            }
+        }
+    }
+    
     // MARK: Shows
     
-    func storeSickbeardShow(show: SickbeardShow) {
-        dispatch_async(dispatch_get_main_queue()) {
-            database?.write({
-                database?.add(show, update: true)
-            })
-        }
+    func storeSickbeardShows(shows: [SickbeardShow]) {
+        storeItems(shows, tag: "show")
     }
     
     // MARK: Seasons
     
-    func storeSickbeardSeason(season: SickbeardSeason) {
-        dispatch_async(dispatch_get_main_queue()) {
-            database?.write({
-                database?.add(season, update: true)
-            })
-        }
+    func storeSickbeardSeasons(seasons: [SickbeardSeason]) {
+        storeItems(seasons, tag: "season")
     }
     
     // MARK: Episodes
     
-    func storeSickbeardEpisode(episode: SickbeardEpisode) {
-        dispatch_async(dispatch_get_main_queue()) {
-            database?.write({
-                database?.add(episode, update: true)
-            })
-        }
+    func storeSickbeardEpisodes(episodes: [SickbeardEpisode]) {
+        storeItems(episodes, tag: "episode")
     }
     
 }

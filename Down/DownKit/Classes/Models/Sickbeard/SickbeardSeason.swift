@@ -11,9 +11,9 @@ import RealmSwift
 
 public class SickbeardSeason: Object {
     public dynamic var id = ""
-//    public var episodes = List<SickbeardEpisode>()
+    public var episodes = List<SickbeardEpisode>()
     
-    weak var show: SickbeardShow?
+//    weak var show: SickbeardShow?
     
 //    public var shows: [SickbeardShow] {
 //        // Realm doesn't persist this property because it only has a getter defined
@@ -48,8 +48,8 @@ public class SickbeardSeason: Object {
     // Episodes
     
     internal func addEpisode(episode: SickbeardEpisode) {
-        episode.season = self
-        episode.show = show
+//        episode.season = self
+//        episode.show = show
         
 //        episodes.append(episode)
     }

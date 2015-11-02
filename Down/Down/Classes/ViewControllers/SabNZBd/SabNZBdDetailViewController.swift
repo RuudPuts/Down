@@ -49,7 +49,7 @@ class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UI
         title = "Details"
         
         if let sickbeardEpisode = sabItem.sickbeardEpisode {
-            let image = sickbeardEpisode.show?.banner ?? UIImage(named: "SickbeardDefaultBanner")
+            let image = /*sickbeardEpisode.show?.banner ??*/ UIImage(named: "SickbeardDefaultBanner")
             let headerImageView = UIImageView(image: image)
             let screenWidth = CGRectGetWidth(view.bounds)
             let ratiodImageHeight = image!.size.height / image!.size.width * screenWidth
@@ -132,10 +132,10 @@ class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UI
             break
             
         case .SickbeardShow:
-            detailText = queueItem.sickbeardEpisode!.show?.name
+//            detailText = queueItem.sickbeardEpisode!.show?.name
             break;
         case .SickbeardEpisode:
-            detailText = "S\(queueItem.sickbeardEpisode!.season?.id)E\(queueItem.sickbeardEpisode!.id)"
+//            detailText = "S\(queueItem.sickbeardEpisode!.season?.id)E\(queueItem.sickbeardEpisode!.id)"
             break;
         case .SickbeardEpisodeName:
             detailText = queueItem.sickbeardEpisode!.name
@@ -178,10 +178,10 @@ class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UI
             break
             
         case .SickbeardShow:
-            detailText = historyItem.sickbeardEpisode!.show?.name
+//            detailText = historyItem.sickbeardEpisode!.show?.name
             break;
         case .SickbeardEpisode:
-            detailText = "S\(historyItem.sickbeardEpisode!.season)E\(historyItem.sickbeardEpisode!.id)"
+//            detailText = "S\(historyItem.sickbeardEpisode!.season)E\(historyItem.sickbeardEpisode!.id)"
             break;
         case .SickbeardEpisodeName:
             detailText = historyItem.sickbeardEpisode!.name

@@ -211,13 +211,14 @@ public class SickbeardService: Service {
         
         dispatch_group_notify(showMetaDataGroup, dispatch_get_main_queue()) {
             let showSeasonsGroup = dispatch_group_create();
+            self.databaseManager.storeSickbeardShows(Array(self.shows.values))
             
             for (_, show) in self.shows {
                 self.downloadBanner(show)
                 self.downloadPoster(show)
                 dispatch_group_enter(showSeasonsGroup)
                 self.refreshShowSeasons(show, completionHandler: {
-                    self.databaseManager.storeSickbeardShow(show)
+//                    self.databaseManager.storeSickbeardShow(show)
                     dispatch_group_leave(showSeasonsGroup)
                 })
             }
