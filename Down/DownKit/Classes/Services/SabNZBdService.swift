@@ -70,9 +70,10 @@ public class SabNZBdService: Service {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=queue&output=json&apikey=\(PreferenceManager.sabNZBdApiKey)"
         
         request(.GET, url).responseJSON { _, _, result in
-            if result.isSuccess {
+            let responseJson = JSON(result.value!)
+            if responseJson["error"] == nil {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    self.parseQueueJson(JSON(result.value!))
+                    self.parseQueueJson(responseJson)
                     self.refreshCompleted()
 
                     dispatch_async(dispatch_get_main_queue(), {
@@ -81,7 +82,7 @@ public class SabNZBdService: Service {
                 })
             }
             else {
-                print("Error while fetching SabNZBd queue: \(result.error!)")
+                print("Error while fetching SabNZBd queue: \(responseJson["error"].string!)")
             }
         }
     }
@@ -155,9 +156,10 @@ public class SabNZBdService: Service {
     @objc private func refreshHistory() {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=history&output=json&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
         request(.GET, url).responseJSON { _, _, result in
-            if result.isSuccess {
+            let responseJson = JSON(result.value!)
+            if responseJson["error"] == nil {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    self.parseHistoryJson(JSON(result.value!))
+                    self.parseHistoryJson(responseJson)
                     self.refreshCompleted()
 
                     dispatch_async(dispatch_get_main_queue(), {
@@ -166,7 +168,7 @@ public class SabNZBdService: Service {
                 })
             }
             else {
-                print("Error while fetching SabNZBd queue: \(result.error!)")
+                print("Error while fetching SabNZBd history: \(responseJson["error"].string!)")
             }
         }
     }
