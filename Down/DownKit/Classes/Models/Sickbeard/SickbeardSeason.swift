@@ -10,8 +10,9 @@ import Foundation
 import RealmSwift
 
 public class SickbeardSeason: Object {
+    public dynamic var objectHash = ""
     public dynamic var id = ""
-    public var episodes = List<SickbeardEpisode>()
+//    public var episodes = List<SickbeardEpisode>()
     
 //    weak var show: SickbeardShow?
     
@@ -25,20 +26,17 @@ public class SickbeardSeason: Object {
 //        return shows.first
 //    }
     
-    init (id: String) {
-        self.id = id
+    public convenience init (id: String) {
+        self.init()
         
-        super.init()
-    }
-    
-    public required init() {
-        super.init()
+        self.id = id
+        objectHash = NSUUID().UUIDString
     }
     
     // Realm
     
     public override static func primaryKey() -> String {
-        return "id"
+        return "objectHash"
     }
     
 //    public override static func ignoredProperties() -> [String] {
@@ -47,11 +45,11 @@ public class SickbeardSeason: Object {
     
     // Episodes
     
-    internal func addEpisode(episode: SickbeardEpisode) {
-//        episode.season = self
-//        episode.show = show
-        
+//    internal func addEpisode(episode: SickbeardEpisode) {
+////        episode.season = self
+////        episode.show = show
+//
 //        episodes.append(episode)
-    }
+//    }
     
 }

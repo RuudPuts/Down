@@ -108,16 +108,15 @@ public class SickbeardService: Service {
                 let season = String(jsonItem["season"].int!)
                 let episodeId = jsonItem["episode"].int!
                 
-                if let episode = show.getEpisode(season, episodeId) {
-                    // Remove the extension from the resource
-                    let resource = jsonItem["resource"].string!
-                    var components = resource.componentsSeparatedByString(".")
-                    components.removeAtIndex(components.count - 1)
-                    
-                    episode.filename = components.joinWithSeparator(".")
-                    databaseManager.storeSickbeardEpisode(episode)
-                    history.append(episode)
-                }
+//                if let episode = show.getEpisode(season, episodeId) {
+//                    // Remove the extension from the resource
+//                    let resource = jsonItem["resource"].string!
+//                    var components = resource.componentsSeparatedByString(".")
+//                    components.removeAtIndex(components.count - 1)
+//
+//                    episode.filename = components.joinWithSeparator(".")
+//                    history.append(episode)
+//                }
             }
         }
         
@@ -159,9 +158,9 @@ public class SickbeardService: Service {
                     let season = String(jsonItem["season"].int!)
                     let episodeId = jsonItem["episode"].int!
                     
-                    if let episode = show.getEpisode(season, episodeId) {
-                        items.append(episode)
-                    }
+//                    if let episode = show.getEpisode(season, episodeId) {
+//                        items.append(episode)
+//                    }
                 }
             }
             future[categoryName] = items
@@ -213,14 +212,24 @@ public class SickbeardService: Service {
             let showSeasonsGroup = dispatch_group_create();
             self.databaseManager.storeSickbeardShows(Array(self.shows.values))
             
+            var counter = 0
             for (_, show) in self.shows {
+                NSLog("Processing show \(show.name)");
                 self.downloadBanner(show)
                 self.downloadPoster(show)
                 dispatch_group_enter(showSeasonsGroup)
                 self.refreshShowSeasons(show, completionHandler: {
-//                    self.databaseManager.storeSickbeardShow(show)
+                    var allEpisodes = 0
+//                    for s in show.seasons {
+//                        allEpisodes += s.episodes.count
+//                    }
+                    
+                    NSLog("Finished \(show.name) - \(show.seasons.count) seasons - \(allEpisodes) episodes")
                     dispatch_group_leave(showSeasonsGroup)
                 })
+                
+                counter++
+                if counter == 2 { return }
             }
             
             dispatch_group_notify(showSeasonsGroup, dispatch_get_main_queue()) {
@@ -252,26 +261,32 @@ public class SickbeardService: Service {
     
     private func parseShowSeasons(json: JSON, forShow show: SickbeardShow) {
         let seaonsKeys = Array((json.rawValue as! [String: AnyObject]).keys)
+        var seasons = [SickbeardSeason]()
         for seasonKey in seaonsKeys {
             let seasonJson = json[seasonKey] as JSON
             
-            let season = SickbeardSeason(id: seasonKey)
-            show.addSeason(season)
-            databaseManager.storeSickbeardSeason(season)
+            let season = SickbeardSeason()
+            season.id = seasonKey
+//            season.show = show
             
             let episodeKeys = Array((seasonJson.rawValue as! [String: AnyObject]).keys)
             for episodeKey in episodeKeys {
                 let episodeJson = seasonJson[episodeKey] as JSON
-                let name = episodeJson["name"].string!
-                let airdate = episodeJson["airdate"].string!
-                let quality = episodeJson["quality"].string!
-                let status = episodeJson["status"].string!
                 
-                let episode = SickbeardEpisode(episodeKey, name, airdate, quality, status)
-                season.addEpisode(episode)
-                databaseManager.storeSickbeardEpisode(episode)
+                let episode = SickbeardEpisode()
+                episode.name = episodeJson["name"].string!
+                episode.airDate = episodeJson["airdate"].string!
+                episode.quality = episodeJson["quality"].string!
+                episode.status = episodeJson["status"].string!
+                
+//                season.addEpisode(episode)
             }
+//            NSLog("\(show.name) season \(season.id) has \(season.episodes.count) episodes")
+            
+            seasons.append(season)
         }
+        
+        self.databaseManager.storeSickbeardSeasons(seasons, forShow: show)
     }
     
     // MARK: - Listeners
@@ -296,9 +311,9 @@ public class SickbeardService: Service {
     
     private func downloadBanner(show: SickbeardShow) {
         dispatch_async(bannerDownloadQueue, {
-            if show.hasBanner {
-                return
-            }
+//            if show.hasBanner {
+//                return
+//            }
             
             let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
             request(.GET, url).responseData { _, _, result in
@@ -314,10 +329,10 @@ public class SickbeardService: Service {
     
     private func downloadPoster(show: SickbeardShow) {
         dispatch_async(posterDownloadQueue, {
-            if show.hasPoster {
-                return
-            }
-            
+//            if show.hasPoster {
+//                return
+//            }
+
             let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
             request(.GET, url).responseData { _, _, result in
                 if result.isSuccess {

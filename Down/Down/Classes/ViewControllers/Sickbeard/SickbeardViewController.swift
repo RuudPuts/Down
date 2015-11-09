@@ -136,7 +136,7 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
                 let itemCell = tableView.dequeueReusableCellWithIdentifier("SickbeardTodayCell", forIndexPath: indexPath) as! SickbeardTodayCell
                 
                 let episode = data![indexPath.row]
-                itemCell.episodeLabel.text = episode.displayName
+//                itemCell.episodeLabel.text = episode.displayName
                 itemCell.dateLabel.text = episode.airDate
 //                itemCell.bannerView?.image = episode.show?.banner
                 

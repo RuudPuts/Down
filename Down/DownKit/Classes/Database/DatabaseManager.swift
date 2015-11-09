@@ -41,12 +41,12 @@ public class DatabaseManager {
         self.adapter.storeSickbeardShows(shows)
     }
     
-    public func storeSickbeardSeason(season: SickbeardSeason) {
-//        self.adapter.storeSickbeardSeason(season)
+    public func storeSickbeardSeasons(seasons: [SickbeardSeason], forShow show: SickbeardShow) {
+        self.adapter.storeSickbeardSeasons(seasons, forShow:show)
     }
     
-    public func storeSickbeardEpisode(episode: SickbeardEpisode) {
-//        self.adapter.storeSickbeardEpisode(episode)
+    public func storeSickbeardEpisodes(episodes: [SickbeardEpisode]) {
+        self.adapter.storeSickbeardEpisodes(episodes)
     }
     
 }

@@ -21,19 +21,9 @@ public class SickbeardEpisode: Object {
 //    weak public var season: SickbeardSeason?
 //    weak public var show: SickbeardShow?
     
-    init (_ id: String, _ name: String, _ airDate: String, _ quality: String, _ status: String) {
-        self.id = id
-        self.name = name
-        self.airDate = airDate
-        self.quality = quality
-        self.status = status
-        objectHash = NSUUID().UUIDString
-        
-        super.init()
-    }
-    
     public required init() {
         super.init()
+        objectHash = NSUUID().UUIDString
     }
     
     // MARK: Realm
@@ -44,12 +34,12 @@ public class SickbeardEpisode: Object {
     
     // MARK: Public getters
     
-    public var displayName: String {
-        var displayName = name
-//        if season != nil && show != nil {
-//            displayName = "\(show!.name) - S\(season!.id)E\(id) - \(name)"
-//        }
-        return displayName
-    }
+//    public var displayName: String {
+//        var displayName = name
+////        if season != nil && show != nil {
+////            displayName = "\(show!.name) - S\(season!.id)E\(id) - \(name)"
+////        }
+//        return displayName
+//    }
     
 }

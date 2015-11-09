@@ -54,9 +54,9 @@ public class SABItem: NSObject {
         if let imdbTitle = self.imdbTitle {
             displayName = imdbTitle
         }
-        else if let sickbeardEpisode = self.sickbeardEpisode {
-            displayName = sickbeardEpisode.displayName
-        }
+//        else if let sickbeardEpisode = self.sickbeardEpisode {
+//            displayName = sickbeardEpisode.displayName
+//        }
         else {
             displayName = displayName.stringByReplacingOccurrencesOfString(".", withString: " ")
         }
