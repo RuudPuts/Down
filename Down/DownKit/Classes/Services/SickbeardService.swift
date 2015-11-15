@@ -269,23 +269,18 @@ public class SickbeardService: Service {
         for seasonKey in seaonsKeys {
             let seasonJson = json[seasonKey] as JSON
         
-            let season = SickbeardSeason(id: seasonKey)
-            season.show = show
+            let season = SickbeardSeason(id: seasonKey, show: show)
             
             // Parse season episodes
             let episodeKeys = Array((seasonJson.rawValue as! [String: AnyObject]).keys)
             for episodeKey in episodeKeys {
                 let episodeJson = seasonJson[episodeKey] as JSON
                 
-                let episode = SickbeardEpisode()
-                episode.id = episodeKey
+                let episode = SickbeardEpisode(id: episodeKey, season: season, show: show)
                 episode.name = episodeJson["name"].string!
                 episode.airDate = episodeJson["airdate"].string!
                 episode.quality = episodeJson["quality"].string!
                 episode.status = episodeJson["status"].string!
-                
-                episode.show = show
-                episode.season = season
                 
                 episodes.append(episode)
 //                season.addEpisode(episode)

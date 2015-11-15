@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 public class SickbeardSeason: Object {
-    public dynamic var objectHash = ""
+    public dynamic var uniqueId = ""
     public dynamic var id = ""
     public var episodes = List<SickbeardEpisode>()
     
@@ -26,17 +26,18 @@ public class SickbeardSeason: Object {
 //        return shows.first
 //    }
     
-    public convenience init (id: String) {
+    public convenience init (id: String, show: SickbeardShow) {
         self.init()
         
         self.id = id
-        objectHash = NSUUID().UUIDString
+        self.show = show
+        uniqueId = "\(show.tvdbId)-\(id)"
     }
     
     // Realm
     
     public override static func primaryKey() -> String {
-        return "objectHash"
+        return "uniqueId"
     }
     
 //    public override static func ignoredProperties() -> [String] {
