@@ -12,8 +12,6 @@ protocol DatabaseAdapter {
     
     var version: Int { get }
     
-    func createInitialTables()
-    
     func storeSickbeardShows(shows: [SickbeardShow])
     func storeSickbeardSeasons(seasons: [SickbeardSeason], forShow show: SickbeardShow)
     func storeSickbeardEpisodes(episodes: [SickbeardEpisode])
