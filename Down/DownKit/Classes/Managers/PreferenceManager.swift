@@ -23,65 +23,65 @@ public class PreferenceManager {
     
     public class var sabNZBdHost: String {
         get {
-            return "http://192.168.178.10:8080/api"
+            return getPreference(PreferenceKeys.sabNZBdHost)
         }
         set {
-            setPreference(object:newValue, forKey:PreferenceKeys.sabNZBdHost)
+            setPreference(newValue, forKey:PreferenceKeys.sabNZBdHost)
         }
     }
     
     public class var sabNZBdApiKey: String {
         get {
-            return "49b77b422da54f699a58562f3a1debaa"
+            return getPreference(PreferenceKeys.sabNZBdApiKey)
         }
         set {
-            setPreference(object:newValue, forKey:PreferenceKeys.sabNZBdApiKey)
+            setPreference(newValue, forKey:PreferenceKeys.sabNZBdApiKey)
         }
     }
     
     public class var sickbeardHost: String {
         get {
-            return "http://192.168.178.10:8081/api"
+            return getPreference(PreferenceKeys.sickbeardHost)
         }
         set {
-            setPreference(object:newValue, forKey:PreferenceKeys.sickbeardHost)
+            setPreference(newValue, forKey:PreferenceKeys.sickbeardHost)
         }
     }
     
     public class var sickbeardApiKey: String {
         get {
-            return "e9c3be0f3315f09d7ceae37f1d3836cd"
+            return getPreference(PreferenceKeys.sickbeardApiKey)
         }
         set {
-            setPreference(object:newValue, forKey:PreferenceKeys.sickbeardApiKey)
+            setPreference(newValue, forKey:PreferenceKeys.sickbeardApiKey)
         }
     }
     
     public class var couchPotatoHost: String {
         get {
-            return "http://192.168.178.10:8082"
+            return getPreference(PreferenceKeys.couchPotatoHost)
         }
         set {
-            setPreference(object:newValue, forKey:PreferenceKeys.couchPotatoHost)
+            setPreference(newValue, forKey:PreferenceKeys.couchPotatoHost)
         }
     }
     
     public class var couchPotatoApiKey: String {
         get {
-            return "fb3f91e38ba147b29514d56a24d17d9a"
+            return getPreference(PreferenceKeys.couchPotatoApiKey)
         }
         set {
-            setPreference(object:newValue, forKey:PreferenceKeys.couchPotatoApiKey)
+            setPreference(newValue, forKey:PreferenceKeys.couchPotatoApiKey)
         }
     }
     
     //MARK: - Private functions
     
-    private class func getPreference(preferenceKey: String) -> AnyObject? {
-        return NSUserDefaults.standardUserDefaults().objectForKey(preferenceKey)
+    private class func getPreference(preferenceKey: String) -> String {
+        return NSUserDefaults.standardUserDefaults().objectForKey(preferenceKey) as? String ?? ""
     }
     
-    private class func setPreference(object object: String, forKey key:String) {
+    private class func setPreference(object: String, forKey key:String) {
         NSUserDefaults.standardUserDefaults().setObject(object, forKey: key)
         NSUserDefaults.standardUserDefaults().synchronize()
     }

@@ -21,15 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Instabug.startWithToken("dc9091202562420874c069cfc74b57fd", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
         
         serviceManager = ServiceManager()
-
-        PreferenceManager.sabNZBdHost = "http://192.168.178.10:8080"
-        PreferenceManager.sabNZBdApiKey = "49b77b422da54f699a58562f3a1debaa"
-
-        PreferenceManager.sickbeardHost = "http://192.168.178.10:8081"
-        PreferenceManager.sickbeardApiKey = "e9c3be0f3315f09d7ceae37f1d3836cd"
-
-        PreferenceManager.couchPotatoHost = "http://192.168.178.10:8082"
-        PreferenceManager.couchPotatoApiKey = "fb3f91e38ba147b29514d56a24d17d9a"
         
         let log = XCGLogger.defaultInstance()
         log.setup(.Debug, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: false, writeToFile: nil, fileLogLevel: .None)
