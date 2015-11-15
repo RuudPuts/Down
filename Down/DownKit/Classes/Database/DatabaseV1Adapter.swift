@@ -53,6 +53,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
                     try realm.write({
                         for show in shows {
                             realm.add(show, update: true)
+                            NSLog("Added show \(show.name)")
                         }
                     })
                 }
@@ -78,9 +79,8 @@ class DatabaseV1Adapter: DatabaseAdapter {
                 do {
                     try realm.write({
                         for season in seasons {
-//                            show.addSeason(season)
                             realm.add(season, update: true)
-                            
+                            NSLog("Added season \(season.id)")
                         }
                     })
                 }
@@ -98,7 +98,28 @@ class DatabaseV1Adapter: DatabaseAdapter {
     // MARK: Episodes
     
     func storeSickbeardEpisodes(episodes: [SickbeardEpisode]) {
-//        storeItems(episodes, tag: "episode")
+        dispatch_async(dispatch_get_main_queue()) {
+            var realm: Realm
+            do {
+                try realm = Realm(path: DatabaseManager.databasePath)
+                NSLog("Starting write to store \(episodes.count) episodes")// for \(show.name)")
+                do {
+                    try realm.write({
+                        for episode in episodes {
+                            realm.add(episodes, update: true)
+                            NSLog("Added episode \(episode.id) - \(episode.name)")
+                        }
+                    })
+                }
+                catch let error as NSError {
+                    print("Failed to add episodes: \(error)")
+                }
+                NSLog("Finished write to store \(episodes.count) episodes")
+            }
+            catch let error as NSError {
+                print("Failed to initialize Realm: \(error)")
+            }
+        }
     }
     
 }

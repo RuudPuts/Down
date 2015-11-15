@@ -14,7 +14,7 @@ public class SickbeardSeason: Object {
     public dynamic var id = ""
 //    public var episodes = List<SickbeardEpisode>()
     
-//    weak var show: SickbeardShow?
+    weak public dynamic var show: SickbeardShow?
     
 //    public var shows: [SickbeardShow] {
 //        // Realm doesn't persist this property because it only has a getter defined

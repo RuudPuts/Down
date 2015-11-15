@@ -18,8 +18,8 @@ public class SickbeardEpisode: Object {
     public dynamic var status = ""
     public dynamic var filename = ""
     
-//    weak public var season: SickbeardSeason?
-//    weak public var show: SickbeardShow?
+    weak public dynamic var show: SickbeardShow?
+    weak public dynamic var season: SickbeardSeason?
     
     public required init() {
         super.init()

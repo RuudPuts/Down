@@ -19,6 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [NSObject: AnyObject]?) -> Bool {
         Instabug.startWithToken("dc9091202562420874c069cfc74b57fd", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
+
+        PreferenceManager.sabNZBdHost = "http://192.168.178.10:8080/api"
+        PreferenceManager.sabNZBdApiKey = "005a4296d8472a6ac787f09f24f2b70c"
+
+        PreferenceManager.sickbeardHost = "http://192.168.178.10:8081/api"
+        PreferenceManager.sickbeardApiKey = "e9c3be0f3315f09d7ceae37f1d3836cd"
+
+        PreferenceManager.couchPotatoHost = "http://192.168.178.10:8082"
+        PreferenceManager.couchPotatoApiKey = "fb3f91e38ba147b29514d56a24d17d9a"
         
         serviceManager = ServiceManager()
         

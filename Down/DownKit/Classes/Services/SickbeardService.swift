@@ -260,25 +260,31 @@ public class SickbeardService: Service {
     }
     
     private func parseShowSeasons(json: JSON, forShow show: SickbeardShow) {
-        let seaonsKeys = Array((json.rawValue as! [String: AnyObject]).keys)
         var seasons = [SickbeardSeason]()
+        var episodes = [SickbeardEpisode]()
+        
+        let seaonsKeys = Array((json.rawValue as! [String: AnyObject]).keys)
         for seasonKey in seaonsKeys {
             let seasonJson = json[seasonKey] as JSON
             
-            let season = SickbeardSeason()
-            season.id = seasonKey
-//            season.show = show
+            let season = SickbeardSeason(id: seasonKey)
+            season.show = show
             
             let episodeKeys = Array((seasonJson.rawValue as! [String: AnyObject]).keys)
             for episodeKey in episodeKeys {
                 let episodeJson = seasonJson[episodeKey] as JSON
                 
                 let episode = SickbeardEpisode()
+                episode.id = episodeKey
                 episode.name = episodeJson["name"].string!
                 episode.airDate = episodeJson["airdate"].string!
                 episode.quality = episodeJson["quality"].string!
                 episode.status = episodeJson["status"].string!
                 
+                episode.show = show
+                episode.season = season
+                
+                episodes.append(episode)
 //                season.addEpisode(episode)
             }
 //            NSLog("\(show.name) season \(season.id) has \(season.episodes.count) episodes")
@@ -286,7 +292,8 @@ public class SickbeardService: Service {
             seasons.append(season)
         }
         
-        self.databaseManager.storeSickbeardSeasons(seasons, forShow: show)
+        databaseManager.storeSickbeardSeasons(seasons, forShow: show)
+        databaseManager.storeSickbeardEpisodes(episodes);
     }
     
     // MARK: - Listeners
