@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 public class DatabaseManager {
     
@@ -41,7 +42,7 @@ public class DatabaseManager {
         self.adapter.storeSickbeardShows(shows)
     }
     
-    public func storeSickbeardSeasons(seasons: [SickbeardSeason], forShow show: SickbeardShow) {
+    public func storeSickbeardSeasons(seasons: List<SickbeardSeason>, forShow show: SickbeardShow) {
         self.adapter.storeSickbeardSeasons(seasons, forShow:show)
     }
     

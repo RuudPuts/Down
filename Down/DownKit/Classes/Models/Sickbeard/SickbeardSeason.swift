@@ -12,7 +12,7 @@ import RealmSwift
 public class SickbeardSeason: Object {
     public dynamic var objectHash = ""
     public dynamic var id = ""
-//    public var episodes = List<SickbeardEpisode>()
+    public var episodes = List<SickbeardEpisode>()
     
     weak public dynamic var show: SickbeardShow?
     

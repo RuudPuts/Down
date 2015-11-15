@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Ruud Puts. All rights reserved.
 //
 
+import RealmSwift
+
 public class SickbeardService: Service {
 
     var refreshTimer: NSTimer?
@@ -219,12 +221,12 @@ public class SickbeardService: Service {
                 self.downloadPoster(show)
                 dispatch_group_enter(showSeasonsGroup)
                 self.refreshShowSeasons(show, completionHandler: {
-                    var allEpisodes = 0
+//                    var allEpisodes = 0
 //                    for s in show.seasons {
 //                        allEpisodes += s.episodes.count
 //                    }
-                    
-                    NSLog("Finished \(show.name) - \(show.seasons.count) seasons - \(allEpisodes) episodes")
+//                    
+//                    NSLog("Finished \(show.name) - \(show.seasons.count) seasons - \(allEpisodes) episodes")
                     dispatch_group_leave(showSeasonsGroup)
                 })
                 
@@ -260,16 +262,17 @@ public class SickbeardService: Service {
     }
     
     private func parseShowSeasons(json: JSON, forShow show: SickbeardShow) {
-        var seasons = [SickbeardSeason]()
+        let seasons = List<SickbeardSeason>()
         var episodes = [SickbeardEpisode]()
         
         let seaonsKeys = Array((json.rawValue as! [String: AnyObject]).keys)
         for seasonKey in seaonsKeys {
             let seasonJson = json[seasonKey] as JSON
-            
+        
             let season = SickbeardSeason(id: seasonKey)
             season.show = show
             
+            // Parse season episodes
             let episodeKeys = Array((seasonJson.rawValue as! [String: AnyObject]).keys)
             for episodeKey in episodeKeys {
                 let episodeJson = seasonJson[episodeKey] as JSON
@@ -291,6 +294,7 @@ public class SickbeardService: Service {
             
             seasons.append(season)
         }
+        show.seasons = seasons
         
         databaseManager.storeSickbeardSeasons(seasons, forShow: show)
         databaseManager.storeSickbeardEpisodes(episodes);

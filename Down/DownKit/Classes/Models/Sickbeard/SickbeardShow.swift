@@ -13,7 +13,7 @@ public class SickbeardShow: Object {
     public dynamic var tvdbId = ""
     public dynamic var name = ""
     public var status = SickbeardShowStatus.Stopped
-    public let seasons = List<SickbeardSeason>()
+    public var seasons = List<SickbeardSeason>()
     
     public enum SickbeardShowStatus: Int {
         case Stopped = 0
@@ -58,12 +58,6 @@ public class SickbeardShow: Object {
 //
 //    // Methods
 //
-//    internal func addSeason(season: SickbeardSeason) {
-//        seasons.append(season)
-//        season.show = self
-//
-//        NSLog("Added season \(seasons.last?.id) to \(season.show?.name)")
-//    }
 //
 //    public func getSeason(seasonId: String) -> SickbeardSeason? {
 //        var foundSeason: SickbeardSeason?

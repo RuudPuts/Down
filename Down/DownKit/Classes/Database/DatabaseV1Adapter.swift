@@ -70,7 +70,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
     
     // MARK: Seasons
     
-    func storeSickbeardSeasons(seasons: [SickbeardSeason], forShow show: SickbeardShow) {
+    func storeSickbeardSeasons(seasons: List<SickbeardSeason>, forShow show: SickbeardShow) {
         dispatch_async(dispatch_get_main_queue()) {
             var realm: Realm
             do {
