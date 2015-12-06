@@ -12,7 +12,12 @@ import RealmSwift
 class DatabaseV1Adapter: DatabaseAdapter {
     
     var version = 1
+    var realm: Realm
 //    var database: Realm?
+    
+    init() {
+        realm = try! Realm(path: DatabaseManager.databasePath)
+    }
     
 //    let databaseQueue: dispatch_queue_t
     
@@ -44,82 +49,16 @@ class DatabaseV1Adapter: DatabaseAdapter {
     // MARK: Shows
     
     func storeSickbeardShows(shows: [SickbeardShow]) {
-        dispatch_async(dispatch_get_main_queue()) {
-            var realm: Realm
-            do {
-                try realm = Realm(path: DatabaseManager.databasePath)
-                NSLog("Starting write to store \(shows.count) shows")
-                do {
-                    try realm.write({
-                        for show in shows {
-                            realm.add(show, update: true)
-                            NSLog("Added show \(show.name)")
-                        }
-                    })
-                }
-                catch let error as NSError {
-                    print("Failed to add show: \(error)")
-                }
-                NSLog("Finished write to store \(shows.count) shows")
+        try! realm.write({
+            for show in shows {
+                self.realm.add(show, update: true)
+                NSLog("Stored show \(show.name) (\(show.seasons.count) seasons)")
             }
-            catch let error as NSError {
-                print("Failed to initialize Realm: \(error)")
-            }
-        }
+        })
     }
     
-    // MARK: Seasons
-    
-    func storeSickbeardSeasons(seasons: List<SickbeardSeason>, forShow show: SickbeardShow) {
-        dispatch_async(dispatch_get_main_queue()) {
-            var realm: Realm
-            do {
-                try realm = Realm(path: DatabaseManager.databasePath)
-                NSLog("Starting write to store \(seasons.count) seasons for \(show.name)")
-                do {
-                    try realm.write({
-                        for season in seasons {
-                            realm.add(season, update: true)
-                            NSLog("Added season \(season.id)")
-                        }
-                    })
-                }
-                catch let error as NSError {
-                    print("Failed to add season: \(error)")
-                }
-                NSLog("Finished write to store \(seasons.count) seasons")
-            }
-            catch let error as NSError {
-                print("Failed to initialize Realm: \(error)")
-            }
-        }
-    }
-    
-    // MARK: Episodes
-    
-    func storeSickbeardEpisodes(episodes: [SickbeardEpisode]) {
-        dispatch_async(dispatch_get_main_queue()) {
-            var realm: Realm
-            do {
-                try realm = Realm(path: DatabaseManager.databasePath)
-                NSLog("Starting write to store \(episodes.count) episodes")// for \(show.name)")
-                do {
-                    try realm.write({
-                        for episode in episodes {
-                            realm.add(episodes, update: true)
-                            NSLog("Added episode \(episode.id) - \(episode.name)")
-                        }
-                    })
-                }
-                catch let error as NSError {
-                    print("Failed to add episodes: \(error)")
-                }
-                NSLog("Finished write to store \(episodes.count) episodes")
-            }
-            catch let error as NSError {
-                print("Failed to initialize Realm: \(error)")
-            }
-        }
+    func allSickbeardShows() -> Results<SickbeardShow> {
+        return realm.objects(SickbeardShow)
     }
     
 }

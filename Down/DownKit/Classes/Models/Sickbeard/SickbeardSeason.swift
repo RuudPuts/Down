@@ -10,11 +10,13 @@ import Foundation
 import RealmSwift
 
 public class SickbeardSeason: Object {
-    public dynamic var uniqueId = ""
+    public dynamic var uniqueId = NSUUID().UUIDString
     public dynamic var id = ""
     public var episodes = List<SickbeardEpisode>()
     
-    weak public dynamic var show: SickbeardShow?
+    public dynamic weak var show: SickbeardShow?
+    
+    // MARK: Warning: set uniqueId before storing
     
 //    public var shows: [SickbeardShow] {
 //        // Realm doesn't persist this property because it only has a getter defined
@@ -26,13 +28,13 @@ public class SickbeardSeason: Object {
 //        return shows.first
 //    }
     
-    public convenience init (id: String, show: SickbeardShow) {
-        self.init()
-        
-        self.id = id
-        self.show = show
-        uniqueId = "\(show.tvdbId)-\(id)"
-    }
+//    public convenience init (id: String, show: SickbeardShow) {
+//        self.init()
+//        
+//        self.id = id
+//        self.show = show
+//        uniqueId = "\(show.tvdbId)-\(id)"
+//    }
     
     // Realm
     

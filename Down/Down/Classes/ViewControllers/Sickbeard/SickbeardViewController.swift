@@ -54,10 +54,6 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
     // MARK: - TableView DataSource
     
     private func reloadTableView() {
-        if let future = sickbeardService.future {
-            todayData = future[SickbeardService.SickbeardFutureCategory.Today.rawValue] as [SickbeardEpisode]!
-            soonData = future[SickbeardService.SickbeardFutureCategory.Soon.rawValue] as [SickbeardEpisode]!
-        }
         tableView.reloadData()
     }
     

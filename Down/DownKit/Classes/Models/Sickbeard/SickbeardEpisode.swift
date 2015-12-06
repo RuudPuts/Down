@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 public class SickbeardEpisode: Object {
-    public dynamic var uniqueId = ""
+    public dynamic var uniqueId = NSUUID().UUIDString
     public dynamic var id = ""
     public dynamic var name = ""
     public dynamic var airDate = ""
@@ -18,17 +18,19 @@ public class SickbeardEpisode: Object {
     public dynamic var status = ""
     public dynamic var filename = ""
     
-    weak public dynamic var show: SickbeardShow?
-    weak public dynamic var season: SickbeardSeason?
+    public dynamic weak var show: SickbeardShow?
+    public dynamic weak var season: SickbeardSeason?
     
-    public convenience init(id: String, season: SickbeardSeason, show: SickbeardShow) {
-        self.init()
-        
-        self.id = id
-        self.show = show
-        self.season = season
-        uniqueId = "\(show.tvdbId)-\(season.id)-\(id)"//objectHash = NSUUID().UUIDString
-    }
+    // MARK: Warning: set uniqueId before storing
+    
+//    public convenience init(id: String, season: SickbeardSeason, show: SickbeardShow) {
+//        self.init()
+//        
+//        self.id = id
+//        self.show = show
+//        self.season = season
+//        uniqueId = "\(show.tvdbId)-\(season.id)-\(id)"//objectHash = NSUUID().UUIDString
+//    }
     
     // MARK: Realm
     

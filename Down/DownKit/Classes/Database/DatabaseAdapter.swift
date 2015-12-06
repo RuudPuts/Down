@@ -14,6 +14,8 @@ protocol DatabaseAdapter {
     var version: Int { get }
     
     func storeSickbeardShows(shows: [SickbeardShow])
-    func storeSickbeardSeasons(seasons: List<SickbeardSeason>, forShow show: SickbeardShow)
-    func storeSickbeardEpisodes(episodes: [SickbeardEpisode])
+//    func storeSickbeardSeasons(seasons: List<SickbeardSeason>, forShow show: SickbeardShow)
+//    func storeSickbeardEpisodes(episodes: [SickbeardEpisode])
+    
+    func allSickbeardShows() -> Results<SickbeardShow>
 }

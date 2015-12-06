@@ -20,18 +20,6 @@ public class SickbeardShow: Object {
         case Active = 1
     }
     
-    init (_ tvdbId: String, _ name: String, _ paused: Int) {
-        self.tvdbId = tvdbId
-        self.name = name
-        self.status = paused == 1 ? .Stopped : .Active
-        
-        super.init()
-    }
-    
-    public required init() {
-        super.init()
-    }
-    
     // Realm
     
     public override static func primaryKey() -> String? {

@@ -70,19 +70,21 @@ public class SabNZBdService: Service {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=queue&output=json&apikey=\(PreferenceManager.sabNZBdApiKey)"
         
         request(.GET, url).responseJSON { _, _, result in
+            if result.isSuccess {
             let responseJson = JSON(result.value!)
-            if responseJson["error"] == nil {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    self.parseQueueJson(responseJson)
-                    self.refreshCompleted()
+                if responseJson["error"] == nil {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        self.parseQueueJson(responseJson)
+                        self.refreshCompleted()
 
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.notifyListeners(.QueueUpdated)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.notifyListeners(.QueueUpdated)
+                        })
                     })
-                })
-            }
-            else {
-                print("Error while fetching SabNZBd queue: \(responseJson["error"].string!)")
+                }
+                else {
+                    print("Error while fetching SabNZBd queue: \(responseJson["error"].string!)")
+                }
             }
         }
     }

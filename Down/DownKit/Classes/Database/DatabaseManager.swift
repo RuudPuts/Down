@@ -38,16 +38,25 @@ public class DatabaseManager {
     
     // MARK: Sickbeard
     
-    public func storeSickbeardShows(shows: [SickbeardShow]) {
-        self.adapter.storeSickbeardShows(shows)
+    public func storeSickbeardShows(shows: [String: SickbeardShow]) {
+        self.adapter.storeSickbeardShows(Array(shows.values))
     }
     
-    public func storeSickbeardSeasons(seasons: List<SickbeardSeason>, forShow show: SickbeardShow) {
-        self.adapter.storeSickbeardSeasons(seasons, forShow:show)
-    }
+//    public func storeSickbeardSeasons(seasons: List<SickbeardSeason>, forShow show: SickbeardShow) {
+//        self.adapter.storeSickbeardSeasons(seasons, forShow:show)
+//    }
+//    
+//    public func storeSickbeardEpisodes(episodes: [SickbeardEpisode]) {
+//        self.adapter.storeSickbeardEpisodes(episodes)
+//    }
     
-    public func storeSickbeardEpisodes(episodes: [SickbeardEpisode]) {
-        self.adapter.storeSickbeardEpisodes(episodes)
+    public func fetchAllSickbeardShows() -> [String: SickbeardShow] {
+        var shows = [String: SickbeardShow]()
+        for show in self.adapter.allSickbeardShows() {
+            shows[show.tvdbId] = show
+        }
+        
+        return shows
     }
     
 }
