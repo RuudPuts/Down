@@ -28,44 +28,45 @@ public class SickbeardShow: Object {
     
     // Properties
     
-//    public var banner: UIImage? {
-//        return ImageProvider.bannerForShow(self.tvdbId)
-//    }
-//
-//    internal var hasBanner: Bool {
-//        return ImageProvider.hasBannerForShow(self.tvdbId)
-//    }
-//
-//    public var poster: UIImage? {
-//        return ImageProvider.posterForShow(self.tvdbId)
-//    }
-//
-//    internal var hasPoster: Bool {
-//        return ImageProvider.hasPosterForShow(self.tvdbId)
-//    }
-//
-//    // Methods
-//
-//
-//    public func getSeason(seasonId: String) -> SickbeardSeason? {
-//        var foundSeason: SickbeardSeason?
-//
-////        for season in seasons {
-////            if season.id == seasonId {
-////                foundSeason = season
-////            }
-////        }
-//
-//        return foundSeason
-//    }
-//
-//    public func getEpisode(seasonId: String, _ episodeNr: Int) -> SickbeardEpisode? {
-//        var episode: SickbeardEpisode?
-//        if let season = getSeason(seasonId) {
-////            episode = season.episodes[episodeNr - 1]
-//        }
-//
-//        return episode
-//    }
+    public var banner: UIImage? {
+        return ImageProvider.bannerForShow(self.tvdbId)
+    }
+
+    internal var hasBanner: Bool {
+        return ImageProvider.hasBannerForShow(self.tvdbId)
+    }
+
+    public var poster: UIImage? {
+        return ImageProvider.posterForShow(self.tvdbId)
+    }
+
+    internal var hasPoster: Bool {
+        return ImageProvider.hasPosterForShow(self.tvdbId)
+    }
+
+    // Methods
+
+
+    public func getSeason(seasonId: String) -> SickbeardSeason? {
+        var foundSeason: SickbeardSeason?
+
+        for season in seasons {
+            if season.id == seasonId {
+                foundSeason = season
+                break
+            }
+        }
+
+        return foundSeason
+    }
+
+    public func getEpisode(seasonId: String, _ episodeNr: Int) -> SickbeardEpisode? {
+        var episode: SickbeardEpisode?
+        if let season = getSeason(seasonId) {
+            episode = season.episodes[episodeNr - 1]
+        }
+
+        return episode
+    }
     
 }

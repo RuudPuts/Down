@@ -40,12 +40,12 @@ public class SickbeardEpisode: Object {
     
     // MARK: Public getters
     
-//    public var displayName: String {
-//        var displayName = name
-////        if season != nil && show != nil {
-////            displayName = "\(show!.name) - S\(season!.id)E\(id) - \(name)"
-////        }
-//        return displayName
-//    }
+    public var title: String {
+        var title = name
+        if season != nil && show != nil {
+            title = "\(show!.name) - S\(season!.id)E\(id) - \(name)"
+        }
+        return title
+    }
     
 }

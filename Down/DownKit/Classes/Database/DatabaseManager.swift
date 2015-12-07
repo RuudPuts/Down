@@ -42,14 +42,6 @@ public class DatabaseManager {
         self.adapter.storeSickbeardShows(Array(shows.values))
     }
     
-//    public func storeSickbeardSeasons(seasons: List<SickbeardSeason>, forShow show: SickbeardShow) {
-//        self.adapter.storeSickbeardSeasons(seasons, forShow:show)
-//    }
-//    
-//    public func storeSickbeardEpisodes(episodes: [SickbeardEpisode]) {
-//        self.adapter.storeSickbeardEpisodes(episodes)
-//    }
-    
     public func fetchAllSickbeardShows() -> [String: SickbeardShow] {
         var shows = [String: SickbeardShow]()
         for show in self.adapter.allSickbeardShows() {
@@ -57,6 +49,14 @@ public class DatabaseManager {
         }
         
         return shows
+    }
+    
+    public func setFilename(filename: String, forEpisode episode: SickbeardEpisode) {
+        self.adapter.setFilename(filename, forEpisode: episode)
+    }
+    
+    public func episodeWithFilename(filename: String!) -> SickbeardEpisode? {
+        return self.adapter.episodeWithFilename(filename)
     }
     
 }
