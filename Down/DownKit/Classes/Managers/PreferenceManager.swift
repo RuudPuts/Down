@@ -23,7 +23,7 @@ public class PreferenceManager {
     
     public class var sabNZBdHost: String {
         get {
-            return getPreference(PreferenceKeys.sabNZBdHost)
+            return "http://\(getPreference(PreferenceKeys.sabNZBdHost))/api"
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sabNZBdHost)
@@ -41,7 +41,7 @@ public class PreferenceManager {
     
     public class var sickbeardHost: String {
         get {
-            return getPreference(PreferenceKeys.sickbeardHost)
+            return "http://\(getPreference(PreferenceKeys.sickbeardHost))/api"
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sickbeardHost)
@@ -59,7 +59,7 @@ public class PreferenceManager {
     
     public class var couchPotatoHost: String {
         get {
-            return getPreference(PreferenceKeys.couchPotatoHost)
+            return "http://\(getPreference(PreferenceKeys.couchPotatoHost))"
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.couchPotatoHost)
