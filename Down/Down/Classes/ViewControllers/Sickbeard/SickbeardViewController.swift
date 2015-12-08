@@ -19,7 +19,6 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
         self.init(nibName: "SickbeardViewController", bundle: nil)
         
         sickbeardService = serviceManager.sickbeardService
-        todayData = sickbeardService.getEpisodesAiringToday()
     }
     
     override func viewDidLoad() {
@@ -44,6 +43,7 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
         super.viewWillAppear(animated)
         
         sickbeardService.addListener(self)
+        todayData = sickbeardService.getEpisodesAiringToday()
     }
     
     override func viewWillDisappear(animated: Bool) {
