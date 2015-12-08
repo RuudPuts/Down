@@ -65,6 +65,10 @@ public class SickbeardService: Service {
         return episode
     }
     
+    public func getEpisodesAiringToday() -> [SickbeardEpisode] {
+        return databaseManager.episodesAiringOnDate(NSDate());
+    }
+    
     // MARK: - History
     
     @objc private func refreshHistory() {

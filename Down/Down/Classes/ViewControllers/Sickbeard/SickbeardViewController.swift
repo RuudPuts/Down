@@ -12,13 +12,14 @@ import DownKit
 class SickbeardViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
     weak var sickbeardService: SickbeardService!
-    var todayData: [SickbeardEpisode]?
+    var todayData: [SickbeardEpisode]!
     var soonData: [SickbeardEpisode]?
 
     convenience init() {
         self.init(nibName: "SickbeardViewController", bundle: nil)
         
         sickbeardService = serviceManager.sickbeardService
+        todayData = sickbeardService.getEpisodesAiringToday()
     }
     
     override func viewDidLoad() {
@@ -132,9 +133,9 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
                 let itemCell = tableView.dequeueReusableCellWithIdentifier("SickbeardTodayCell", forIndexPath: indexPath) as! SickbeardTodayCell
                 
                 let episode = data![indexPath.row]
-//                itemCell.episodeLabel.text = episode.displayName
+                itemCell.episodeLabel.text = episode.title
                 itemCell.dateLabel.text = episode.airDate
-//                itemCell.bannerView?.image = episode.show?.banner
+                itemCell.bannerView?.image = episode.show?.banner
                 
                 cell = itemCell
             }

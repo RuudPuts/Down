@@ -51,4 +51,15 @@ class DatabaseV1Adapter: DatabaseAdapter {
         return episode
     }
     
+    func episodesAiringOnDate(date: NSDate) -> [SickbeardEpisode] {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        
+        let dateString = dateFormatter.stringFromDate(date)
+        let predicate = NSPredicate(format: "airDate = %@", dateString)
+        let episodes = Array(defaultRealm().objects(SickbeardEpisode).filter(predicate))
+        
+        return episodes
+    }
+    
 }

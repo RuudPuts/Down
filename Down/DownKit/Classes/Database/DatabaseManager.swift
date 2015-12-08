@@ -59,4 +59,8 @@ public class DatabaseManager {
         return self.adapter.episodeWithFilename(filename)
     }
     
+    public func episodesAiringOnDate(date: NSDate) -> [SickbeardEpisode] {
+        return self.adapter.episodesAiringOnDate(date)
+    }
+    
 }

@@ -18,4 +18,6 @@ protocol DatabaseAdapter {
     
     func setFilename(filename: String, forEpisode episode: SickbeardEpisode)
     func episodeWithFilename(filename: String!) -> SickbeardEpisode?
+    
+    func episodesAiringOnDate(date: NSDate) -> [SickbeardEpisode];
 }

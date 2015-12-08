@@ -47,7 +47,7 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
         let cell = tableView.dequeueReusableCellWithIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
         cell.setCellType(.Sickbeard)
         cell.label?.text = show.name
-//        cell.posterView?.image = show.poster
+        cell.posterView?.image = show.poster
         
         return cell
     }
