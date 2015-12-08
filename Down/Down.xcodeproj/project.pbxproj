@@ -1715,7 +1715,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "nl.ruudputs.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INCLUDE_PATHS = "(PROJECT_DIR)/../Squeal/modules";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/Down/Supporting Files/Down-Bridging-Header.h";
@@ -1738,7 +1738,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "nl.ruudputs.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "00cb72b6-3f9c-4d08-aa52-2994a5a799cd";
 				SWIFT_INCLUDE_PATHS = "(PROJECT_DIR)/../Squeal/modules";
@@ -1833,7 +1833,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "nl.ruudputs.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "caecb56a-bf7a-47ae-a533-89306e2179bf";
 				SWIFT_INCLUDE_PATHS = "(PROJECT_DIR)/../Squeal/modules";
