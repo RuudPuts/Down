@@ -57,6 +57,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
         
         let dateString = dateFormatter.stringFromDate(date)
         let predicate = NSPredicate(format: "airDate = %@", dateString)
+        // TODO: Sort the episodes on first airing
         let episodes = Array(defaultRealm().objects(SickbeardEpisode).filter(predicate))
         
         return episodes

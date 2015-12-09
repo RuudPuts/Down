@@ -51,41 +51,41 @@ public class ImageProvider {
 
 // MARK: Sickbeard extension
 extension ImageProvider {
-    internal class func hasBannerForShow(tvdbid: String) -> Bool {
+    internal class func hasBannerForShow(tvdbid: Int) -> Bool {
         let bannerPath = bannerPathForShow(tvdbid)
         return fileExists(bannerPath)
     }
     
-    internal class func storeBanner(banner: NSData, forShow tvdbid: String) {
+    internal class func storeBanner(banner: NSData, forShow tvdbid: Int) {
         let bannerPath = bannerPathForShow(tvdbid)
         storeImage(banner, atPath:bannerPath)
     }
     
-    internal class func bannerForShow(tvdbid: String) -> UIImage? {
+    internal class func bannerForShow(tvdbid: Int) -> UIImage? {
         let bannerPath = bannerPathForShow(tvdbid)
         return loadImage(bannerPath)
     }
     
-    private class func bannerPathForShow(tvdbid: String) -> String {
+    private class func bannerPathForShow(tvdbid: Int) -> String {
         return UIApplication.documentsDirectory + "/sickbeard/banners/\(tvdbid).png"
     }
     
-    internal class func hasPosterForShow(tvdbid: String) -> Bool {
+    internal class func hasPosterForShow(tvdbid: Int) -> Bool {
         let posterPath = posterPathForShow(tvdbid)
         return fileExists(posterPath)
     }
     
-    internal class func storePoster(poster: NSData, forShow tvdbid: String) {
+    internal class func storePoster(poster: NSData, forShow tvdbid: Int) {
         let posterPath = posterPathForShow(tvdbid)
         storeImage(poster, atPath:posterPath)
     }
     
-    internal class func posterForShow(tvdbid: String) -> UIImage? {
+    internal class func posterForShow(tvdbid: Int) -> UIImage? {
         let posterPath = posterPathForShow(tvdbid)
         return loadImage(posterPath)
     }
     
-    private class func posterPathForShow(tvdbid: String) -> String {
+    private class func posterPathForShow(tvdbid: Int) -> String {
         return UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbid).png"
     }
 }

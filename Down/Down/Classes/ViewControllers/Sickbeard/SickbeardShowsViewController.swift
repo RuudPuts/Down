@@ -1,8 +1,8 @@
 //
-//  SickbeardViewController.swift
+//  SickbeardShowsViewController.swift
 //  Down
 //
-//  Created by Ruud Puts on 05/04/15.
+//  Created by Ruud Puts on 19/09/15.
 //  Copyright (c) 2015 Ruud Puts. All rights reserved.
 //
 
@@ -14,7 +14,7 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
     weak var sickbeardService: SickbeardService!
     
     convenience init() {
-        self.init(nibName: "SickbeardShowsViewController", bundle: nil)
+        self.init(nibName: "DownDetailViewController", bundle: nil)
         
         title = "Shows"
         sickbeardService = serviceManager.sickbeardService
@@ -42,7 +42,7 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let show = Array(sickbeardService.shows.values)[indexPath.row]
+        let show = Array(sickbeardService.shows)[indexPath.row]
         
         let cell = tableView.dequeueReusableCellWithIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
         cell.setCellType(.Sickbeard)
@@ -70,5 +70,13 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
     }
     
     // MARK: - TableView Delegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let show = Array(sickbeardService.shows)[indexPath.row]
+        
+        let showViewController = SickbeardShowViewController()
+        showViewController.show = show
+        navigationController?.pushViewController(showViewController, animated: true)
+    }
     
 }

@@ -11,30 +11,10 @@ import RealmSwift
 
 public class SickbeardSeason: Object {
     public dynamic var uniqueId = NSUUID().UUIDString
-    public dynamic var id = ""
+    public dynamic var id = 0
     public var episodes = List<SickbeardEpisode>()
     
     public dynamic weak var show: SickbeardShow?
-    
-    // MARK: Warning: set uniqueId before storing
-    
-//    public var shows: [SickbeardShow] {
-//        // Realm doesn't persist this property because it only has a getter defined
-//        // Define "owners" as the inverse relationship to Person.dogs
-//        return linkingObjects(SickbeardShow.self, forProperty: "seasons")
-//    }
-//    
-//    public var show: SickbeardShow? {
-//        return shows.first
-//    }
-    
-//    public convenience init (id: String, show: SickbeardShow) {
-//        self.init()
-//        
-//        self.id = id
-//        self.show = show
-//        uniqueId = "\(show.tvdbId)-\(id)"
-//    }
     
     // Realm
     
@@ -42,17 +22,9 @@ public class SickbeardSeason: Object {
         return "uniqueId"
     }
     
-//    public override static func ignoredProperties() -> [String] {
-//        return ["show"]
-//    }
+    // Properties
     
-    // Episodes
-    
-//    internal func addEpisode(episode: SickbeardEpisode) {
-////        episode.season = self
-////        episode.show = show
-//
-//        episodes.append(episode)
-//    }
-    
+    public var sortedEpisodes: Results<SickbeardEpisode> {
+        return episodes.sorted("id")
+    }
 }

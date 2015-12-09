@@ -38,17 +38,12 @@ public class DatabaseManager {
     
     // MARK: Sickbeard
     
-    public func storeSickbeardShows(shows: [String: SickbeardShow]) {
-        self.adapter.storeSickbeardShows(Array(shows.values))
+    public func storeSickbeardShows(shows: [SickbeardShow]) {
+        self.adapter.storeSickbeardShows(shows)
     }
     
-    public func fetchAllSickbeardShows() -> [String: SickbeardShow] {
-        var shows = [String: SickbeardShow]()
-        for show in self.adapter.allSickbeardShows() {
-            shows[show.tvdbId] = show
-        }
-        
-        return shows
+    public func fetchAllSickbeardShows() -> [SickbeardShow] {
+        return Array(self.adapter.allSickbeardShows())
     }
     
     public func setFilename(filename: String, forEpisode episode: SickbeardEpisode) {

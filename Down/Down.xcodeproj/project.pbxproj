@@ -18,6 +18,7 @@
 		420E7E351B9CC65B00D3DCC4 /* SickbeardShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E7E341B9CC65B00D3DCC4 /* SickbeardShow.swift */; };
 		420F496F1ADC431E006CFA11 /* DownLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F496E1ADC431E006CFA11 /* DownLoadingCell.xib */; };
 		420F49731ADC4B50006CFA11 /* DownEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */; };
+		421129631C17762300E7B0BB /* SickbeardShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421129621C17762300E7B0BB /* SickbeardShowViewController.swift */; };
 		422063DE1B85126300DAFB46 /* DownImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422063DD1B85126300DAFB46 /* DownImageView.swift */; };
 		4221ADD71B7BC0B20027C3A0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */; };
 		4221ADD81B7BC0B20027C3A0 /* CouchPotatoListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB71B7BC0B20027C3A0 /* CouchPotatoListener.swift */; };
@@ -142,7 +143,7 @@
 		42DEEB461BACCBC50061723F /* DownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEEB451BACCBC50061723F /* DownCell.swift */; };
 		42DEEB4F1BACCC860061723F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEEB4E1BACCC860061723F /* Constants.swift */; };
 		42E1CCC61BA226CE00DFED2E /* SickbeardShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E1CCC51BA226CE00DFED2E /* SickbeardShowsViewController.swift */; };
-		42E1CCCB1BA22B6200DFED2E /* SickbeardShowsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42E1CCCA1BA22B6200DFED2E /* SickbeardShowsViewController.xib */; };
+		42E1CCCB1BA22B6200DFED2E /* DownDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */; };
 		42E1CCCD1BA22BE600DFED2E /* DownDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E1CCCC1BA22BE600DFED2E /* DownDetailViewController.swift */; };
 		42E97C291BBD9DB60040A979 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16B1BB9EA31000FE7C7 /* Realm.framework */; };
 		42E97C2A1BBD9DB60040A979 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; };
@@ -265,6 +266,7 @@
 		420E7E341B9CC65B00D3DCC4 /* SickbeardShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShow.swift; sourceTree = "<group>"; };
 		420F496E1ADC431E006CFA11 /* DownLoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownLoadingCell.xib; sourceTree = "<group>"; };
 		420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownEmptyCell.xib; sourceTree = "<group>"; };
+		421129621C17762300E7B0BB /* SickbeardShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowViewController.swift; sourceTree = "<group>"; };
 		422063DD1B85126300DAFB46 /* DownImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownImageView.swift; sourceTree = "<group>"; };
 		4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		4221ADB71B7BC0B20027C3A0 /* CouchPotatoListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoListener.swift; sourceTree = "<group>"; };
@@ -397,7 +399,7 @@
 		42DEEB451BACCBC50061723F /* DownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownCell.swift; sourceTree = "<group>"; };
 		42DEEB4E1BACCC860061723F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		42E1CCC51BA226CE00DFED2E /* SickbeardShowsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowsViewController.swift; sourceTree = "<group>"; };
-		42E1CCCA1BA22B6200DFED2E /* SickbeardShowsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardShowsViewController.xib; sourceTree = "<group>"; };
+		42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownDetailViewController.xib; sourceTree = "<group>"; };
 		42E1CCCC1BA22BE600DFED2E /* DownDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownDetailViewController.swift; sourceTree = "<group>"; };
 		42F035351AD45BC2001AE5B3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -521,6 +523,7 @@
 			children = (
 				42078E3D1AD1C702009845CC /* SickbeardViewController.swift */,
 				42E1CCC51BA226CE00DFED2E /* SickbeardShowsViewController.swift */,
+				421129621C17762300E7B0BB /* SickbeardShowViewController.swift */,
 			);
 			path = Sickbeard;
 			sourceTree = "<group>";
@@ -537,7 +540,7 @@
 			isa = PBXGroup;
 			children = (
 				42078E431AD1C71A009845CC /* SickbeardViewController.xib */,
-				42E1CCCA1BA22B6200DFED2E /* SickbeardShowsViewController.xib */,
+				42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */,
 			);
 			path = Sickbeard;
 			sourceTree = "<group>";
@@ -1138,6 +1141,7 @@
 				4253E7D31AB4B7B900EF1254 /* Resources */,
 				42DC20941B529F950060DA10 /* Embed Frameworks */,
 				423D87A91B700B3D00AFB7FF /* Embed App Extensions */,
+				42641F281C18D14E00E87D4A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1281,7 +1285,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42E1CCCB1BA22B6200DFED2E /* SickbeardShowsViewController.xib in Resources */,
+				42E1CCCB1BA22B6200DFED2E /* DownDetailViewController.xib in Resources */,
 				429E97FD1B97898200C3F58B /* SABHeaderView.xib in Resources */,
 				42CD25551AB5BD06008E9717 /* Roboto-Thin.ttf in Resources */,
 				42078E2F1AD172CD009845CC /* SabNZBdViewController.xib in Resources */,
@@ -1354,6 +1358,19 @@
 			shellPath = /bin/sh;
 			shellScript = "#bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
 		};
+		42641F281C18D14E00E87D4A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Script to make TODO: and FIXME: comments show up as compiler warnings\n\nTAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1425,6 +1442,7 @@
 				42E1CCC61BA226CE00DFED2E /* SickbeardShowsViewController.swift in Sources */,
 				42A496E51BAF32FA00F5395C /* SABItemCell.swift in Sources */,
 				428F7E541AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift in Sources */,
+				421129631C17762300E7B0BB /* SickbeardShowViewController.swift in Sources */,
 				42A496E41BAF32FA00F5395C /* SABDetailCell.swift in Sources */,
 				4221ADEB1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift in Sources */,
 				42078E1A1AD16E68009845CC /* SabNZBdViewController.swift in Sources */,

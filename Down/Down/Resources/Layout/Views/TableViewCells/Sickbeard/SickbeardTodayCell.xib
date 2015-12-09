@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -28,6 +28,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUb-5h-8oA" userLabel="EpisodeLabel">
                                 <rect key="frame" x="8" y="66.5" width="304" height="19.5"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ICV-YI-B09"/>
                                 </constraints>
@@ -42,6 +43,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJQ-sn-PzX" userLabel="DateLabel">
                                 <rect key="frame" x="8" y="94" width="304" height="19.5"/>
+                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Syw-CG-Aul"/>
@@ -57,6 +59,7 @@
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SickbeardDefaultBanner" translatesAutoresizingMaskIntoConstraints="NO" id="1QS-B4-MB5" customClass="DownImageView" customModule="Down" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="1QS-B4-MB5" secondAttribute="height" multiplier="758:140" id="MoW-ze-q9E"/>
                                     <constraint firstAttribute="height" constant="105" id="niG-03-CYc"/>
@@ -71,6 +74,7 @@
                                 </variation>
                             </imageView>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="JJQ-sn-PzX" firstAttribute="top" secondItem="LUb-5h-8oA" secondAttribute="bottom" constant="8" id="3jY-hO-s8c"/>
@@ -93,6 +97,7 @@
                         </variation>
                     </view>
                 </subviews>
+                <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="fch-q5-NHF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="6uK-gh-YOE"/>
@@ -101,6 +106,7 @@
                     <constraint firstAttribute="trailing" secondItem="fch-q5-NHF" secondAttribute="trailing" id="cWy-Nl-XCH"/>
                 </constraints>
             </tableViewCellContentView>
+            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="bannerView" destination="1QS-B4-MB5" id="hEr-Jz-Eyl"/>

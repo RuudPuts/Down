@@ -11,7 +11,7 @@ import RealmSwift
 
 public class SickbeardEpisode: Object {
     public dynamic var uniqueId = NSUUID().UUIDString
-    public dynamic var id = ""
+    public dynamic var id = 0
     public dynamic var name = ""
     public dynamic var airDate = ""
     public dynamic var quality = ""

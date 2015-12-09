@@ -14,7 +14,7 @@ public class SickbeardService: Service {
     
     public var history = Array<SickbeardEpisode>()
     
-    public var shows = [String: SickbeardShow]()
+    public var shows = [SickbeardShow]()
     
     var databaseManager: DatabaseManager!
     
@@ -59,7 +59,7 @@ public class SickbeardService: Service {
     
     // MARK: - Public methods
     
-    internal func episodeWithFilename(filename: String!) -> SickbeardEpisode? {
+    internal func episodeWithFilename(filename: String) -> SickbeardEpisode? {
         let episode = databaseManager.episodeWithFilename(filename.stringByReplacingOccurrencesOfString(".nzb", withString: ""))
         
         return episode
@@ -67,6 +67,18 @@ public class SickbeardService: Service {
     
     public func getEpisodesAiringToday() -> [SickbeardEpisode] {
         return databaseManager.episodesAiringOnDate(NSDate());
+    }
+    
+    public func showWithId(tvdbid: Int) -> SickbeardShow? {
+        var showWithId: SickbeardShow? = nil
+        for show in shows {
+            if show.tvdbId == tvdbid {
+                showWithId = show
+                break
+            }
+        }
+        
+        return showWithId
     }
     
     // MARK: - History
@@ -92,8 +104,8 @@ public class SickbeardService: Service {
         for jsonItem: JSON in json["data"].array! {
             let tvdbId = jsonItem["tvdbid"].int!
             
-            if let show = shows[String(tvdbId)] {
-                let season = String(jsonItem["season"].int!)
+            if let show = showWithId(tvdbId) {
+                let season = jsonItem["season"].int!
                 let episodeId = jsonItem["episode"].int!
                 
                 if let episode = show.getEpisode(season, episodeId) {
@@ -136,7 +148,7 @@ public class SickbeardService: Service {
             let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
             request(.GET, url).responseJSON { _, _, result in
                 if result.isSuccess {
-                    self.parseShowData(JSON(result.value!)["data"], forTvdbId: tvdbId)
+                    self.parseShowData(JSON(result.value!)["data"], forTvdbId: Int(tvdbId)!)
                 }
                 else {
                     print("Error while fetching Sickbeard showData: \(result.data!)")
@@ -148,7 +160,7 @@ public class SickbeardService: Service {
         dispatch_group_notify(showMetaDataGroup, dispatch_get_main_queue()) {
             let showSeasonsGroup = dispatch_group_create();
             
-            for (_, show) in self.shows {
+            for show in self.shows {
                 self.downloadBanner(show)
                 self.downloadPoster(show)
                 dispatch_group_enter(showSeasonsGroup)
@@ -170,7 +182,7 @@ public class SickbeardService: Service {
         }
     }
     
-    private func parseShowData(json: JSON, forTvdbId tvdbId: String) {
+    private func parseShowData(json: JSON, forTvdbId tvdbId: Int) {
         let name = json["show_name"].string!
         let paused = json["paused"].int!
         
@@ -179,7 +191,7 @@ public class SickbeardService: Service {
         show.name = name
         show.status = paused == 1 ? .Stopped : .Active
         
-        self.shows[String(tvdbId)] = show
+        self.shows.append(show)
     }
     
     private func refreshShowSeasons(show: SickbeardShow, completionHandler: () -> Void) {
@@ -203,7 +215,7 @@ public class SickbeardService: Service {
             let seasonJson = json[seasonKey] as JSON
         
             let season = SickbeardSeason() //(id: seasonKey, show: show)
-            season.id = seasonKey
+            season.id = Int(seasonKey)!
             season.show = show
             
             // Parse season episodes
@@ -212,7 +224,7 @@ public class SickbeardService: Service {
                 let episodeJson = seasonJson[episodeKey] as JSON
                 
                 let episode = SickbeardEpisode() //(id: episodeKey, season: season, show: show)
-                episode.id = episodeKey
+                episode.id = Int(episodeKey)!
                 episode.name = episodeJson["name"].string!
                 episode.airDate = episodeJson["airdate"].string!
                 episode.quality = episodeJson["quality"].string!

@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 public class SickbeardShow: Object {
-    public dynamic var tvdbId = ""
+    public dynamic var tvdbId = 0
     public dynamic var name = ""
     public var status = SickbeardShowStatus.Stopped
     public var seasons = List<SickbeardSeason>()
@@ -47,7 +47,7 @@ public class SickbeardShow: Object {
     // Methods
 
 
-    public func getSeason(seasonId: String) -> SickbeardSeason? {
+    public func getSeason(seasonId: Int) -> SickbeardSeason? {
         var foundSeason: SickbeardSeason?
 
         for season in seasons {
@@ -60,7 +60,7 @@ public class SickbeardShow: Object {
         return foundSeason
     }
 
-    public func getEpisode(seasonId: String, _ episodeNr: Int) -> SickbeardEpisode? {
+    public func getEpisode(seasonId: Int, _ episodeNr: Int) -> SickbeardEpisode? {
         var episode: SickbeardEpisode?
         if let season = getSeason(seasonId) {
             episode = season.episodes[episodeNr - 1]

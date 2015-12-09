@@ -40,10 +40,11 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
     }
     
     override func viewWillAppear(animated: Bool) {
+        todayData = sickbeardService.getEpisodesAiringToday()
+        
         super.viewWillAppear(animated)
         
         sickbeardService.addListener(self)
-        todayData = sickbeardService.getEpisodesAiringToday()
     }
     
     override func viewWillDisappear(animated: Bool) {

@@ -192,24 +192,30 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
         UINavigationBar.appearance().tintColor = UIColor.downDarkGreyColor()
         UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGreyColor()], forState: .Normal)
         
-        let downWindow = (UIApplication.sharedApplication().delegate as! AppDelegate).window as! DownWindow
-        
+        var darkColor = UIColor.clearColor()
+        var lightColor = UIColor.clearColor()
         switch selectedTabIndex {
         case 0:
-            UINavigationBar.appearance().barTintColor = UIColor.downSabNZBdColor()
-            downWindow.statusBarBackgroundColor = UIColor.downSabNZBdDarkColor()
+            darkColor = UIColor.downSabNZBdColor()
+            lightColor = UIColor.downSabNZBdDarkColor()
             break
         case 1:
-            UINavigationBar.appearance().barTintColor = UIColor.downSickbeardColor()
-            downWindow.statusBarBackgroundColor = UIColor.downSickbeardDarkColor()
+            darkColor = UIColor.downSickbeardColor()
+            lightColor = UIColor.downSickbeardDarkColor()
             break
         case 2:
-            UINavigationBar.appearance().barTintColor = UIColor.downCouchPotatoColor()
-            downWindow.statusBarBackgroundColor = UIColor.downCouchPotatoDarkColor()
+            darkColor = UIColor.downCouchPotatoColor()
+            lightColor = UIColor.downCouchPotatoDarkColor()
             break
         default:
             break
         }
+        
+        let downWindow = (UIApplication.sharedApplication().delegate as! AppDelegate).window as! DownWindow
+        downWindow.statusBarBackgroundColor = darkColor
+        UINavigationBar.appearance().barTintColor = lightColor
+        contentView.backgroundColor = lightColor
+        UINavigationBar.appearance().backgroundColor = lightColor
     }
     
 }
