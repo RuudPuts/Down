@@ -23,7 +23,12 @@ public class PreferenceManager {
     
     public class var sabNZBdHost: String {
         get {
-            return "http://\(getPreference(PreferenceKeys.sabNZBdHost))/api"
+            let host = getPreference(PreferenceKeys.sabNZBdHost)
+            if host == "http://ip:port/api" {
+                return ""
+            }
+            
+            return "http://\(host)/api"
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sabNZBdHost)
@@ -41,7 +46,12 @@ public class PreferenceManager {
     
     public class var sickbeardHost: String {
         get {
-            return "http://\(getPreference(PreferenceKeys.sickbeardHost))/api"
+            let host = getPreference(PreferenceKeys.sickbeardHost)
+            if host == "ip:port" {
+                return ""
+            }
+            
+            return "http://\(host)/api"
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sickbeardHost)
@@ -59,7 +69,12 @@ public class PreferenceManager {
     
     public class var couchPotatoHost: String {
         get {
-            return "http://\(getPreference(PreferenceKeys.couchPotatoHost))"
+            let host = getPreference(PreferenceKeys.sabNZBdHost)
+            if host == "ip:port" {
+                return ""
+            }
+            
+            return "http://\(host)"
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.couchPotatoHost)

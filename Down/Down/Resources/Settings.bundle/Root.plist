@@ -16,7 +16,7 @@
 			<key>AutocorrectionType</key>
 			<string>No</string>
 			<key>DefaultValue</key>
-			<string></string>
+			<string>ip:port</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>Key</key>
@@ -58,7 +58,7 @@
 			<key>AutocorrectionType</key>
 			<string>No</string>
 			<key>DefaultValue</key>
-			<string></string>
+			<string>ip:port</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>Key</key>
@@ -76,7 +76,7 @@
 			<key>AutocorrectionType</key>
 			<string>No</string>
 			<key>DefaultValue</key>
-			<string></string>
+			<string>ip:port</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>Key</key>

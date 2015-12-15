@@ -39,7 +39,7 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
         reloadTableView()
         
         // Ugly, lol
-        if PreferenceManager.sickbeardHost.length == 0 || PreferenceManager.sickbeardHost == "http:///api" || PreferenceManager.sickbeardApiKey.length == 0 {
+        if PreferenceManager.sickbeardHost.length == 0 || PreferenceManager.sickbeardApiKey.length == 0 {
             let alertview = UIAlertController(title: nil, message: "Please setup your host using iOS Settings -> Down", preferredStyle: .Alert)
             alertview.addAction(UIAlertAction(title: "Okay", style: .Cancel, handler: nil))
             
