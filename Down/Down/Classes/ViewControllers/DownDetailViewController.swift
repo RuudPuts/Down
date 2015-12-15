@@ -10,6 +10,7 @@ import UIKit
 import DownKit
 
 class DownDetailViewController: DownViewController {
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -20,5 +21,30 @@ class DownDetailViewController: DownViewController {
         super.viewWillDisappear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let tableHeaderView = tableView.tableHeaderView {
+            let headerImageView = tableHeaderView as! UIImageView
+            let imageSize = headerImageView.image!.size
+            let screenWidth = CGRectGetWidth(view.bounds)
+            let ratiodImageHeight = imageSize.height / imageSize.width * screenWidth
+            headerImageView.frame = CGRectMake(0, 0, screenWidth, ratiodImageHeight)
+            
+            tableView.tableHeaderView = headerImageView
+        }
+    }
+    
+    func setTableViewHeaderImage(image: UIImage?) {
+        if image != nil {
+            let headerImageView = UIImageView(image: image)
+            
+            tableView.tableHeaderView = headerImageView
+        }
+        else {
+            tableView.tableHeaderView = nil
+        }
     }
 }

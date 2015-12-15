@@ -69,7 +69,6 @@
 		4269A9561B850501005A06E3 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4269A9471B850501005A06E3 /* Validation.swift */; };
 		426E5D7C1B52EEC000BD7CD0 /* DownWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E5D7B1B52EEC000BD7CD0 /* DownWindow.swift */; };
 		426E5D7E1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E5D7D1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift */; };
-		426E5D801B52F98F00BD7CD0 /* SabNZBdDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 426E5D7F1B52F98F00BD7CD0 /* SabNZBdDetailViewController.xib */; };
 		42746BB51BB3351900CD78BE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BB41BB3351900CD78BE /* DatabaseManager.swift */; };
 		42746BB71BB3353600CD78BE /* DatabaseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BB61BB3353600CD78BE /* DatabaseAdapter.swift */; };
 		42746BB91BB3358A00CD78BE /* DatabaseV1Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BB81BB3358A00CD78BE /* DatabaseV1Adapter.swift */; };
@@ -324,7 +323,6 @@
 		4269A9471B850501005A06E3 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		426E5D7B1B52EEC000BD7CD0 /* DownWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownWindow.swift; sourceTree = "<group>"; };
 		426E5D7D1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdDetailViewController.swift; sourceTree = "<group>"; };
-		426E5D7F1B52F98F00BD7CD0 /* SabNZBdDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SabNZBdDetailViewController.xib; sourceTree = "<group>"; };
 		42746BB41BB3351900CD78BE /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		42746BB61BB3353600CD78BE /* DatabaseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseAdapter.swift; sourceTree = "<group>"; };
 		42746BB81BB3358A00CD78BE /* DatabaseV1Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseV1Adapter.swift; sourceTree = "<group>"; };
@@ -490,7 +488,6 @@
 			children = (
 				42078E261AD172CD009845CC /* SabNZBdViewController.xib */,
 				428F7E551AFFC59B001B49D0 /* SabNZBdHistoryViewController.xib */,
-				426E5D7F1B52F98F00BD7CD0 /* SabNZBdDetailViewController.xib */,
 			);
 			path = SabNZBd;
 			sourceTree = "<group>";
@@ -1328,7 +1325,6 @@
 				42CD253E1AB5BD06008E9717 /* OpenSans-BoldItalic.ttf in Resources */,
 				42078E331AD172CD009845CC /* LaunchScreen.xib in Resources */,
 				42CD25491AB5BD06008E9717 /* Roboto-Bold.ttf in Resources */,
-				426E5D801B52F98F00BD7CD0 /* SabNZBdDetailViewController.xib in Resources */,
 				42A496EF1BAF332800F5395C /* SickbeardTodayCell.xib in Resources */,
 				42CD253F1AB5BD06008E9717 /* OpenSans-ExtraBold.ttf in Resources */,
 				42A496EE1BAF332800F5395C /* SickbeardShowCell.xib in Resources */,

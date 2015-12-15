@@ -22,6 +22,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         let cellNib = UINib(nibName: "DownTextCell", bundle:nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: "DownTextCell")
@@ -32,19 +33,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         
         super.viewWillAppear(animated)
         
-        tableView.tableHeaderView = UIImageView(image: show.banner ?? UIImage(named: "SickbeardDefaultBanner"))
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        let headerView = tableView.tableHeaderView as! UIImageView
-        headerView.contentMode = .ScaleAspectFit
-        let tableWidth = CGRectGetHeight(tableView.bounds)
-        let imageWidth = headerView.image?.size.width ?? 0
-        let imageHeight = headerView.image?.size.height ?? 0
-        let headerViewHeight = imageWidth / tableWidth * imageHeight
-        headerView.frame = CGRectMake(0,0, tableWidth, headerViewHeight);
+        setTableViewHeaderImage(show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
     }
     
     // MARK: - TableView DataSource
@@ -59,10 +48,6 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     
     func tableView(tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
         return show.seasons[section].episodes.count == 0
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

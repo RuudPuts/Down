@@ -10,7 +10,7 @@ import Foundation
 import XCGLogger
 import DownKit
 
-class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
+class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
     private enum SabNZBdDetailRow {
         case Name
@@ -40,23 +40,20 @@ class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UI
     private var historySwitchRefreshCount = 0
     
     convenience init(sabItem: SABItem) {
-        self.init(nibName: "SabNZBdDetailViewController", bundle: nil)
+        self.init(nibName: "DownDetailViewController", bundle: nil)
         
         self.sabItem = sabItem
         sabNZBdService = serviceManager.sabNZBdService
         
         configureTableView()
         title = "Details"
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.rowHeight = UITableViewAutomaticDimension
         
-        if let sickbeardEpisode = sabItem.sickbeardEpisode {
-            let image = sickbeardEpisode.show?.banner ?? UIImage(named: "SickbeardDefaultBanner")
-            let headerImageView = UIImageView(image: image)
-            let screenWidth = CGRectGetWidth(view.bounds)
-            let ratiodImageHeight = image!.size.height / image!.size.width * screenWidth
-            headerImageView.frame = CGRectMake(0, 0, screenWidth, ratiodImageHeight)
-            
-            tableView.tableHeaderView = headerImageView
-        }
+        setTableViewHeaderImage(sabItem.sickbeardEpisode?.show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -132,10 +129,10 @@ class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UI
             break
             
         case .SickbeardShow:
-//            detailText = queueItem.sickbeardEpisode!.show?.name
+            detailText = queueItem.sickbeardEpisode!.show?.name
             break;
         case .SickbeardEpisode:
-//            detailText = "S\(queueItem.sickbeardEpisode!.season?.id)E\(queueItem.sickbeardEpisode!.id)"
+            detailText = "S\(queueItem.sickbeardEpisode!.season?.id)E\(queueItem.sickbeardEpisode!.id)"
             break;
         case .SickbeardEpisodeName:
             detailText = queueItem.sickbeardEpisode!.name
@@ -178,10 +175,10 @@ class SabNZBdDetailViewController: DownViewController, UITableViewDataSource, UI
             break
             
         case .SickbeardShow:
-//            detailText = historyItem.sickbeardEpisode!.show?.name
+            detailText = historyItem.sickbeardEpisode!.show?.name
             break;
         case .SickbeardEpisode:
-//            detailText = "S\(historyItem.sickbeardEpisode!.season)E\(historyItem.sickbeardEpisode!.id)"
+            detailText = "S\(historyItem.sickbeardEpisode!.season!.id)E\(historyItem.sickbeardEpisode!.id)"
             break;
         case .SickbeardEpisodeName:
             detailText = historyItem.sickbeardEpisode!.name
