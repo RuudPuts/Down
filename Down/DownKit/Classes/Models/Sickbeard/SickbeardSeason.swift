@@ -12,7 +12,7 @@ import RealmSwift
 public class SickbeardSeason: Object {
     public dynamic var uniqueId = NSUUID().UUIDString
     public dynamic var id = 0
-    public var episodes = List<SickbeardEpisode>()
+    internal var _episodes = List<SickbeardEpisode>()
     
     public dynamic weak var show: SickbeardShow?
     
@@ -24,7 +24,10 @@ public class SickbeardSeason: Object {
     
     // Properties
     
-    public var sortedEpisodes: Results<SickbeardEpisode> {
-        return episodes.sorted("id")
+    public var episodes: [SickbeardEpisode] {
+        let sortedEpisodes = Array(_episodes).sort {
+            $0.id < $1.id
+        }
+        return sortedEpisodes
     }
 }

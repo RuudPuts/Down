@@ -13,7 +13,7 @@ public class SickbeardShow: Object {
     public dynamic var tvdbId = 0
     public dynamic var name = ""
     public var status = SickbeardShowStatus.Stopped
-    public var seasons = List<SickbeardSeason>()
+    internal var _seasons = List<SickbeardSeason>()
     
     public enum SickbeardShowStatus: Int {
         case Stopped = 0
@@ -27,6 +27,14 @@ public class SickbeardShow: Object {
     }
     
     // Properties
+    
+    public var seasons: [SickbeardSeason] {
+        let sortedSeasons = Array(_seasons).sort {
+            $0.id < $1.id
+        }
+        
+        return Array(sortedSeasons)
+    }
     
     public var banner: UIImage? {
         return ImageProvider.bannerForShow(self.tvdbId)
@@ -46,11 +54,10 @@ public class SickbeardShow: Object {
 
     // Methods
 
-
     public func getSeason(seasonId: Int) -> SickbeardSeason? {
         var foundSeason: SickbeardSeason?
 
-        for season in seasons {
+        for season in _seasons {
             if season.id == seasonId {
                 foundSeason = season
                 break

@@ -31,8 +31,10 @@ class DatabaseV1Adapter: DatabaseAdapter {
     
     func allSickbeardShows() -> Results<SickbeardShow> {
         let realm = defaultRealm()
+        let shows = realm.objects(SickbeardShow)
+        let sortedShows = shows.sorted("name")
         
-        return realm.objects(SickbeardShow)
+        return sortedShows
     }
     
     func setFilename(filename: String, forEpisode episode: SickbeardEpisode) {

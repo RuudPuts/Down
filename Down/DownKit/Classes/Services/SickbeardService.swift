@@ -87,10 +87,12 @@ public class SickbeardService: Service {
         let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
-                self.parseHistoryJson(JSON(result.value!))
-                self.refreshCompleted()
-
-                self.notifyListeners(.HistoryUpdated)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.parseHistoryJson(JSON(result.value!))
+                    self.refreshCompleted()
+                    
+                    self.notifyListeners(.HistoryUpdated)
+                })
             }
             else {
                 print("Error while fetching Sickbard history: \(result.error!)")
@@ -232,12 +234,12 @@ public class SickbeardService: Service {
                 episode.season = season
                 episode.show = show
                 
-                season.episodes.append(episode)
+                season._episodes.append(episode)
             }
             
             seasons.append(season)
         }
-        show.seasons = seasons
+        show._seasons = seasons
     }
     
     // MARK: - Listeners
