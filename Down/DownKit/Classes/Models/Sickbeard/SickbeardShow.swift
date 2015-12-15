@@ -36,6 +36,24 @@ public class SickbeardShow: Object {
         return Array(sortedSeasons)
     }
     
+    public var allEpisodes: [SickbeardEpisode] {
+        var episodes = [SickbeardEpisode]()
+        for season in _seasons {
+            episodes.appendContentsOf(season.episodes)
+        }
+        
+        return episodes
+    }
+    
+    public var downloadedEpisodes: [SickbeardEpisode] {
+        var episodes = [SickbeardEpisode]()
+        for season in _seasons {
+            episodes.appendContentsOf(season.downloadedEpisodes)
+        }
+        
+        return episodes
+    }
+    
     public var banner: UIImage? {
         return ImageProvider.bannerForShow(self.tvdbId)
     }

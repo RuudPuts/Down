@@ -30,4 +30,13 @@ public class SickbeardSeason: Object {
         }
         return sortedEpisodes
     }
+    
+    public var downloadedEpisodes: [SickbeardEpisode] {
+        let filteredEpisodes = Array(_episodes).filter {
+            // TODO: Implement a status enum in SickbeardEpisode, use that here
+            $0.status == "Downloaded"
+        }
+        
+        return filteredEpisodes
+    }
 }

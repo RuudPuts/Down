@@ -47,6 +47,7 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
         let cell = tableView.dequeueReusableCellWithIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
         cell.setCellType(.Sickbeard)
         cell.label?.text = show.name
+        cell.detailLabel?.text = "\(show.downloadedEpisodes.count) / \(show.allEpisodes.count) episodes downloaded"
         cell.posterView?.image = show.poster
         
         return cell
