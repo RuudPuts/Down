@@ -51,10 +51,11 @@ public class SickbeardService: Service {
     }
     
     private func startTimers() {
+        // TODO: Enable when show cache is being refreshed
 //        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self,
 //            selector: "refreshHistory", userInfo: nil, repeats: true)
         
-        refreshHistory()
+//        refreshHistory()
     }
     
     // MARK: - Public methods
