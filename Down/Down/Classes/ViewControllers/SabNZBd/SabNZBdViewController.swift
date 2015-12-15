@@ -49,6 +49,14 @@ class SabNZBdViewController: DownViewController, UITableViewDataSource, UITableV
         tableView.registerNib(moreHistoryCellNib, forCellReuseIdentifier: "DownTextCell")
         
         headerView.backgroundColor = .downSabNZBdColor()
+        
+        // Ugly, lol
+        if PreferenceManager.sabNZBdHost.length == 0 || PreferenceManager.sabNZBdHost == "http:///api" || PreferenceManager.sabNZBdApiKey.length == 0 {
+            let alertview = UIAlertController(title: nil, message: "Please setup your host using iOS Settings -> Down", preferredStyle: .Alert)
+            alertview.addAction(UIAlertAction(title: "Okay", style: .Cancel, handler: nil))
+            
+            presentViewController(alertview, animated: true, completion: nil)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {

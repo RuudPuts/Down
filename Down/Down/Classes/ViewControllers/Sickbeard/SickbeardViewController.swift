@@ -37,6 +37,14 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
         tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
         
         reloadTableView()
+        
+        // Ugly, lol
+        if PreferenceManager.sickbeardHost.length == 0 || PreferenceManager.sickbeardHost == "http:///api" || PreferenceManager.sickbeardApiKey.length == 0 {
+            let alertview = UIAlertController(title: nil, message: "Please setup your host using iOS Settings -> Down", preferredStyle: .Alert)
+            alertview.addAction(UIAlertAction(title: "Okay", style: .Cancel, handler: nil))
+            
+            presentViewController(alertview, animated: true, completion: nil)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
