@@ -35,7 +35,8 @@ public class SickbeardService: Service {
             NSLog("Refreshing show cache")
             refreshShowCache {
                 NSLog("Show cache refreshed")
-                self.startTimers()
+//                self.startTimers()
+                self.refreshHistory()
             }
         }
         else {

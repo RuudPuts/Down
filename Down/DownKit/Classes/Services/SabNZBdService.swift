@@ -158,19 +158,21 @@ public class SabNZBdService: Service {
     @objc private func refreshHistory() {
         let url = "\(PreferenceManager.sabNZBdHost)?mode=history&output=json&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
         request(.GET, url).responseJSON { _, _, result in
-            let responseJson = JSON(result.value!)
-            if responseJson["error"] == nil {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    self.parseHistoryJson(responseJson)
-                    self.refreshCompleted()
+            if let responseData = result.value {
+                let responseJson = JSON(responseData)
+                if responseJson["error"] == nil {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        self.parseHistoryJson(responseJson)
+                        self.refreshCompleted()
 
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.notifyListeners(.HistoryUpdated)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.notifyListeners(.HistoryUpdated)
+                        })
                     })
-                })
-            }
-            else {
-                print("Error while fetching SabNZBd history: \(responseJson["error"].string!)")
+                }
+                else {
+                    print("Error while fetching SabNZBd history: \(responseJson["error"].string!)")
+                }
             }
         }
     }
