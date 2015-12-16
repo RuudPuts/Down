@@ -28,6 +28,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         case SickbeardShow
         case SickbeardEpisode
         case SickbeardEpisodeName
+        case SickbeardAirDate
     }
     
     weak var sabNZBdService: SabNZBdService!
@@ -83,8 +84,8 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         }
         
         if sabItem.sickbeardEpisode != nil {
-            cellKeys.append([.SickbeardShow, .SickbeardEpisode, .SickbeardEpisodeName])
-            cellTitles.append(["Show", "Episode", "Title"])
+            cellKeys.append([.SickbeardShow, .SickbeardEpisode, .SickbeardEpisodeName, .SickbeardAirDate])
+            cellTitles.append(["Show", "Episode", "Title", "Aired on"])
         }
     }
     
@@ -182,6 +183,11 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             break;
         case .SickbeardEpisodeName:
             detailText = historyItem.sickbeardEpisode!.name
+            break;
+        case .SickbeardAirDate:
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            detailText = historyItem.sickbeardEpisode!.airDate == nil ? nil : dateFormatter.stringFromDate(historyItem.sickbeardEpisode!.airDate!) // TODO: Ugly
             break;
         default:
             break

@@ -56,19 +56,19 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
     // MARK: Keeping this for later
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.0// 30.0
+        return CGFloat(FLT_EPSILON)// 30.0
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = (NSBundle.mainBundle().loadNibNamed("SickbeardHeaderView", owner: self, options: nil) as Array).first as! SickbeardHeaderView
-        headerView.textLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
-        
-        return headerView
-    }
-    
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return nil
-    }
+//    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = (NSBundle.mainBundle().loadNibNamed("SickbeardHeaderView", owner: self, options: nil) as Array).first as! SickbeardHeaderView
+//        headerView.textLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+//        
+//        return headerView
+//    }
+//    
+//    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return nil
+//    }
     
     // MARK: - TableView Delegate
     

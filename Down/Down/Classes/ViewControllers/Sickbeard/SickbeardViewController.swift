@@ -139,11 +139,13 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
                 cell = emptyCell
             }
             else {
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
                 let itemCell = tableView.dequeueReusableCellWithIdentifier("SickbeardTodayCell", forIndexPath: indexPath) as! SickbeardTodayCell
                 
                 let episode = data![indexPath.row]
                 itemCell.episodeLabel.text = episode.title
-                itemCell.dateLabel.text = episode.airDate
+                itemCell.dateLabel.text = episode.airDate == nil ? nil : dateFormatter.stringFromDate(episode.airDate!) // TODO: Ugly
                 itemCell.bannerView?.image = episode.show?.banner
                 
                 cell = itemCell
