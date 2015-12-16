@@ -13,7 +13,7 @@ public class SickbeardEpisode: Object {
     public dynamic var uniqueId = NSUUID().UUIDString
     public dynamic var id = 0
     public dynamic var name = ""
-    public dynamic var airDate = ""
+    public dynamic var airDate: NSDate? = nil
     public dynamic var quality = ""
     public dynamic var status = ""
     public dynamic var filename = ""

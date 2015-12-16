@@ -14,10 +14,12 @@ protocol DatabaseAdapter {
     var version: Int { get }
     
     func storeSickbeardShows(shows: [SickbeardShow])
+    func setStatus(status: SickbeardShow.SickbeardShowStatus, forShow show: SickbeardShow)
     func allSickbeardShows() -> Results<SickbeardShow>
     
     func setFilename(filename: String, forEpisode episode: SickbeardEpisode)
     func episodeWithFilename(filename: String!) -> SickbeardEpisode?
     
     func episodesAiringOnDate(date: NSDate) -> [SickbeardEpisode];
+    func episodesAiredSince(airDate: NSDate) -> [SickbeardShow]
 }

@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-public class SickbeardShow: Object {
+public class SickbeardShow: Object, Equatable {
     public dynamic var tvdbId = 0
     public dynamic var name = ""
     public var status = SickbeardShowStatus.Stopped
@@ -94,4 +94,8 @@ public class SickbeardShow: Object {
         return episode
     }
     
+}
+
+public func ==(lhs: SickbeardShow, rhs: SickbeardShow) -> Bool {
+    return lhs.tvdbId == rhs.tvdbId
 }

@@ -37,6 +37,13 @@ class DatabaseV1Adapter: DatabaseAdapter {
         return sortedShows
     }
     
+    func setStatus(status: SickbeardShow.SickbeardShowStatus, forShow show: SickbeardShow) {
+        let realm = defaultRealm()
+        try! realm.write({
+            show.status = status
+        })
+    }
+    
     func setFilename(filename: String, forEpisode episode: SickbeardEpisode) {
         let realm = defaultRealm()
         try! realm.write({
@@ -54,15 +61,26 @@ class DatabaseV1Adapter: DatabaseAdapter {
     }
     
     func episodesAiringOnDate(date: NSDate) -> [SickbeardEpisode] {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd"
-        
-        let dateString = dateFormatter.stringFromDate(date)
-        let predicate = NSPredicate(format: "airDate = %@", dateString)
         // TODO: Sort the episodes on first airing
-        let episodes = Array(defaultRealm().objects(SickbeardEpisode).filter(predicate))
+        let calendar = NSCalendar.currentCalendar()
+        let dateComponents = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day], fromDate: date)
+        let episodes = Array(defaultRealm().objects(SickbeardEpisode).filter("airDate == %@", calendar.dateFromComponents(dateComponents)!))
         
         return episodes
+    }
+    
+    func episodesAiredSince(airDate: NSDate) -> [SickbeardShow] {
+        let realm = defaultRealm()
+        let episodes = realm.objects(SickbeardEpisode).filter("airDate > %@ AND airDate < %@", airDate, NSDate())
+        
+        var shows = [SickbeardShow]()
+        for episode in episodes {
+            if !shows.contains(episode.show!) {
+                shows.append(episode.show!)
+            }
+        }
+        
+        return shows
     }
     
 }

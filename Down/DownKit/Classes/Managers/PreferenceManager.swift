@@ -16,6 +16,7 @@ public class PreferenceManager {
         
         static let sickbeardHost = "SickbeardHost"
         static let sickbeardApiKey = "SickbeardApiKey"
+        static let sickbeardCacheRefreshKey = "SickbeardCacheRefreshKey"
         
         static let couchPotatoHost = "CouchPotatoHost"
         static let couchPotatoApiKey = "CouchPotatoApiKey"
@@ -64,6 +65,15 @@ public class PreferenceManager {
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sickbeardApiKey)
+        }
+    }
+    
+    public class var sickbeardLastCacheRefresh: NSDate? {
+        get {
+            return getPreference(PreferenceKeys.sickbeardCacheRefreshKey) as! NSDate?
+        }
+        set {
+            setPreference(newValue, forKey:PreferenceKeys.sickbeardCacheRefreshKey)
         }
     }
     

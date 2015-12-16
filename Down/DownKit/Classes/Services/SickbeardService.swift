@@ -31,16 +31,11 @@ public class SickbeardService: Service {
         databaseManager = DatabaseManager()
         self.shows = databaseManager.fetchAllSickbeardShows()
         
-        if self.shows.count == 0 {
-            NSLog("Refreshing show cache")
-            refreshShowCache {
-                NSLog("Show cache refreshed")
-//                self.startTimers()
-                self.refreshHistory()
-            }
-        }
-        else {
-            NSLog("Skipping show cache refresh")
+        NSLog("Last updated: \(PreferenceManager.sickbeardLastCacheRefresh ?? "never")")
+        NSLog("Refreshing show cache")
+        refreshShowCache {
+            NSLog("Show cache refreshed")
+            PreferenceManager.sickbeardLastCacheRefresh = NSDate()
             self.startTimers()
         }
     }
@@ -52,11 +47,9 @@ public class SickbeardService: Service {
     }
     
     private func startTimers() {
-        // TODO: Enable when show cache is being refreshed
-//        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self,
-//            selector: "refreshHistory", userInfo: nil, repeats: true)
+        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "refreshHistory", userInfo: nil, repeats: true)
         
-//        refreshHistory()
+        refreshHistory()
     }
     
     // MARK: - Public methods
@@ -128,18 +121,38 @@ public class SickbeardService: Service {
     // MARK: - Show cache
     
     private func refreshShowCache(completionHandler: () -> Void) {
-        let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
-        request(.GET, url).responseJSON { _, _, result in
-            if result.isSuccess {
-                let showData = (JSON(result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
-                let tvdbIds = Array(showData.keys)
-                self.refreshShowData(tvdbIds, completionHandler: {
-                    completionHandler()
-                })
+        if self.shows.count == 0 {
+            NSLog("Refreshing full cache")
+            // Find shows to refresh, episodes aired since last update
+            let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
+            request(.GET, url).responseJSON { _, _, result in
+                if result.isSuccess {
+                    let showData = (JSON(result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
+                    let tvdbIds = Array(showData.keys)
+                    self.refreshShowData(tvdbIds, completionHandler: {
+                        completionHandler()
+                    })
+                }
+                else {
+                    print("Error while fetching Sickbeard shows list: \(result.error!)")
+                }
             }
-            else {
-                print("Error while fetching Sickbeard shows list: \(result.error!)")
+        }
+        else if let lastCacheRefresh = PreferenceManager.sickbeardLastCacheRefresh {
+            // Find shows to refresh, episodes aired since last update
+            let showsToRefresh = databaseManager.fetchShowsWithEpisodesAiredSince(lastCacheRefresh)
+            
+            var tvdbIds = [String]()
+            for show in showsToRefresh {
+                NSLog("Refreshing \(show.name)")
+                tvdbIds.append(String(show.tvdbId))
             }
+            
+            refreshShowData(tvdbIds, completionHandler: {
+                completionHandler()
+            })
+            
+            // TODO: Download shows to remove deleted and add new shows to cache
         }
     }
     
@@ -164,7 +177,12 @@ public class SickbeardService: Service {
         dispatch_group_notify(showMetaDataGroup, dispatch_get_main_queue()) {
             let showSeasonsGroup = dispatch_group_create();
             
-            for show in self.shows {
+            // Only download seasons and episodes for given shows
+            let refreshedShows = self.shows.filter({
+                tvdbIds.contains(String($0.tvdbId))
+            })
+            
+            for show in refreshedShows {
                 self.downloadBanner(show)
                 self.downloadPoster(show)
                 dispatch_group_enter(showSeasonsGroup)
@@ -179,7 +197,7 @@ public class SickbeardService: Service {
             }
             
             dispatch_group_notify(showSeasonsGroup, dispatch_get_main_queue()) {
-                self.databaseManager.storeSickbeardShows(self.shows)
+                self.databaseManager.storeSickbeardShows(refreshedShows)
                 
                 completionHandler()
             }
@@ -195,7 +213,14 @@ public class SickbeardService: Service {
         show.name = name
         show.status = paused == 1 ? .Stopped : .Active
         
-        self.shows.append(show)
+        if shows.contains(show) {
+            // Show is being refreshed
+            databaseManager.setStatus(show.status, forShow:showWithId(tvdbId)!)
+        }
+        else {
+            // It's a newly added show
+            shows.append(show)
+        }
     }
     
     private func refreshShowSeasons(show: SickbeardShow, completionHandler: () -> Void) {
@@ -213,6 +238,8 @@ public class SickbeardService: Service {
     
     private func parseShowSeasons(json: JSON, forShow show: SickbeardShow) {
         let seasons = List<SickbeardSeason>()
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
         let seaonsKeys = Array((json.rawValue as! [String: AnyObject]).keys)
         for seasonKey in seaonsKeys {
@@ -230,7 +257,7 @@ public class SickbeardService: Service {
                 let episode = SickbeardEpisode() //(id: episodeKey, season: season, show: show)
                 episode.id = Int(episodeKey)!
                 episode.name = episodeJson["name"].string!
-                episode.airDate = episodeJson["airdate"].string!
+                episode.airDate = dateFormatter.dateFromString(episodeJson["airdate"].string!)
                 episode.quality = episodeJson["quality"].string!
                 episode.status = episodeJson["status"].string!
                 episode.season = season

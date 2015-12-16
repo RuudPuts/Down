@@ -42,8 +42,16 @@ public class DatabaseManager {
         self.adapter.storeSickbeardShows(shows)
     }
     
+    public func setStatus(status: SickbeardShow.SickbeardShowStatus, forShow show: SickbeardShow) {
+        adapter.setStatus(status, forShow:show)
+    }
+    
     public func fetchAllSickbeardShows() -> [SickbeardShow] {
         return Array(self.adapter.allSickbeardShows())
+    }
+    
+    public func fetchShowsWithEpisodesAiredSince(airDate: NSDate) -> [SickbeardShow] {
+        return self.adapter.episodesAiredSince(airDate)
     }
     
     public func setFilename(filename: String, forEpisode episode: SickbeardEpisode) {
