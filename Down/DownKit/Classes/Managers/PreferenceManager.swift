@@ -23,12 +23,12 @@ public class PreferenceManager {
     
     public class var sabNZBdHost: String {
         get {
-            let host = getPreference(PreferenceKeys.sabNZBdHost)
-            if host == "http://ip:port/api" {
+            let host = getPreference(PreferenceKeys.sabNZBdHost) as! String?
+            if host == nil || host == "http://ip:port/api" {
                 return ""
             }
             
-            return "http://\(host)/api"
+            return "http://\(host!)/api"
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sabNZBdHost)
@@ -37,7 +37,7 @@ public class PreferenceManager {
     
     public class var sabNZBdApiKey: String {
         get {
-            return getPreference(PreferenceKeys.sabNZBdApiKey)
+            return getPreference(PreferenceKeys.sabNZBdApiKey) as! String? ?? ""
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sabNZBdApiKey)
@@ -46,12 +46,12 @@ public class PreferenceManager {
     
     public class var sickbeardHost: String {
         get {
-            let host = getPreference(PreferenceKeys.sickbeardHost)
-            if host == "ip:port" {
+            let host = getPreference(PreferenceKeys.sickbeardHost) as! String?
+            if host == nil || host == "ip:port" {
                 return ""
             }
             
-            return "http://\(host)/api"
+            return "http://\(host!)/api"
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sickbeardHost)
@@ -60,7 +60,7 @@ public class PreferenceManager {
     
     public class var sickbeardApiKey: String {
         get {
-            return getPreference(PreferenceKeys.sickbeardApiKey)
+            return getPreference(PreferenceKeys.sickbeardApiKey) as! String? ?? ""
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sickbeardApiKey)
@@ -69,12 +69,12 @@ public class PreferenceManager {
     
     public class var couchPotatoHost: String {
         get {
-            let host = getPreference(PreferenceKeys.sabNZBdHost)
-            if host == "ip:port" {
+            let host = getPreference(PreferenceKeys.sabNZBdHost) as! String?
+            if host == nil || host == "ip:port" {
                 return ""
             }
             
-            return "http://\(host)"
+            return "http://\(host!)"
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.couchPotatoHost)
@@ -83,7 +83,7 @@ public class PreferenceManager {
     
     public class var couchPotatoApiKey: String {
         get {
-            return getPreference(PreferenceKeys.couchPotatoApiKey)
+            return getPreference(PreferenceKeys.couchPotatoApiKey) as! String? ?? ""
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.couchPotatoApiKey)
@@ -92,11 +92,11 @@ public class PreferenceManager {
     
     //MARK: - Private functions
     
-    private class func getPreference(preferenceKey: String) -> String {
-        return NSUserDefaults.standardUserDefaults().objectForKey(preferenceKey) as? String ?? ""
+    private class func getPreference(preferenceKey: String) -> AnyObject? {
+        return NSUserDefaults.standardUserDefaults().objectForKey(preferenceKey)
     }
     
-    private class func setPreference(object: String, forKey key:String) {
+    private class func setPreference(object: AnyObject?, forKey key:String) {
         NSUserDefaults.standardUserDefaults().setObject(object, forKey: key)
         NSUserDefaults.standardUserDefaults().synchronize()
     }
