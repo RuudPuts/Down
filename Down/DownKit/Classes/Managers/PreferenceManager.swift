@@ -25,11 +25,11 @@ public class PreferenceManager {
     public class var sabNZBdHost: String {
         get {
             let host = getPreference(PreferenceKeys.sabNZBdHost) as! String?
-            if host == nil || host == "http://ip:port/api" {
+            if host == nil || host == "http://ip:port" {
                 return ""
             }
             
-            return "http://\(host!)/api"
+            return "http://\(host!)"
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sabNZBdHost)
@@ -52,7 +52,7 @@ public class PreferenceManager {
                 return ""
             }
             
-            return "http://\(host!)/api"
+            return "http://\(host!)"
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sickbeardHost)

@@ -79,7 +79,7 @@ public class SickbeardService: Service {
     // MARK: - History
     
     @objc private func refreshHistory() {
-        let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
+        let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
                 dispatch_async(dispatch_get_main_queue(), {
@@ -124,7 +124,7 @@ public class SickbeardService: Service {
         if self.shows.count == 0 {
             NSLog("Refreshing full cache")
             // Find shows to refresh, episodes aired since last update
-            let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
+            let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
             request(.GET, url).responseJSON { _, _, result in
                 if result.isSuccess {
                     let showData = (JSON(result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
@@ -162,7 +162,7 @@ public class SickbeardService: Service {
         for tvdbId in tvdbIds {
             dispatch_group_enter(showMetaDataGroup)
             
-            let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
+            let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
             request(.GET, url).responseJSON { _, _, result in
                 if result.isSuccess {
                     self.parseShowData(JSON(result.value!)["data"], forTvdbId: Int(tvdbId)!)
@@ -224,7 +224,7 @@ public class SickbeardService: Service {
     }
     
     private func refreshShowSeasons(show: SickbeardShow, completionHandler: () -> Void) {
-        let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show.tvdbId)"
+        let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show.tvdbId)"
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
                 self.parseShowSeasons(JSON(result.value!)["data"], forShow: show)
@@ -297,7 +297,7 @@ public class SickbeardService: Service {
         
         dispatch_async(bannerDownloadQueue, {
             
-            let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
+            let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
             request(.GET, url).responseData { _, _, result in
                 if result.isSuccess {
                     ImageProvider.storeBanner(result.value!, forShow: show.tvdbId)
@@ -315,7 +315,7 @@ public class SickbeardService: Service {
         }
         
         dispatch_async(posterDownloadQueue, {
-            let url = PreferenceManager.sickbeardHost + "/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
+            let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
             request(.GET, url).responseData { _, _, result in
                 if result.isSuccess {
                     ImageProvider.storePoster(result.value!, forShow: show.tvdbId)

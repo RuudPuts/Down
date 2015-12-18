@@ -60,8 +60,8 @@ public class SabNZBdService: Service {
         queueRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(queueRefreshRate, target: self,
             selector: "refreshQueue", userInfo: nil, repeats: true)
         
-//        historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self,
-//            selector: "refreshHistory", userInfo: nil, repeats: true)
+        historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self,
+            selector: "refreshHistory", userInfo: nil, repeats: true)
         
         refreshQueue()
         refreshHistory()
@@ -75,7 +75,7 @@ public class SabNZBdService: Service {
     // MARK: - Queue
     
     @objc private func refreshQueue() {
-        let url = "\(PreferenceManager.sabNZBdHost)?mode=queue&output=json&apikey=\(PreferenceManager.sabNZBdApiKey)"
+        let url = "\(PreferenceManager.sabNZBdHost)/api?mode=queue&output=json&apikey=\(PreferenceManager.sabNZBdApiKey)"
         
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
@@ -164,7 +164,7 @@ public class SabNZBdService: Service {
     // MARK - History
     
     @objc private func refreshHistory() {
-        let url = "\(PreferenceManager.sabNZBdHost)?mode=history&output=json&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
+        let url = "\(PreferenceManager.sabNZBdHost)/api?mode=history&output=json&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
         request(.GET, url).responseJSON { _, _, result in
             if let responseData = result.value {
                 let responseJson = JSON(responseData)
@@ -204,7 +204,7 @@ public class SabNZBdService: Service {
             return
         }
 
-        let url = "\(PreferenceManager.sabNZBdHost)?mode=history&output=json&start=\(self.history.count)&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
+        let url = "\(PreferenceManager.sabNZBdHost)/api?mode=history&output=json&start=\(self.history.count)&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
         request(.GET, url).responseJSON { _, _, result in
             if result.isSuccess {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
@@ -306,7 +306,7 @@ public class SabNZBdService: Service {
             mode = "history"
         }
         
-        let url = "\(PreferenceManager.sabNZBdHost)?mode=\(mode)&name=delete&value=\(item.identifier)&apikey=\(PreferenceManager.sabNZBdApiKey)"
+        let url = "\(PreferenceManager.sabNZBdHost)/api?mode=\(mode)&name=delete&value=\(item.identifier)&apikey=\(PreferenceManager.sabNZBdApiKey)"
         request(.GET, url)
     }
     
