@@ -10,6 +10,7 @@ import UIKit
 
 public class Service {
     
+    var connector: Connector?
     public var lastRefresh: NSDate?
     var listeners = [ServiceListener]()
     
@@ -27,6 +28,10 @@ public class Service {
                 break
             }
         }
+    }
+    
+    public func checkHostReachability(completion: (Bool) -> (Void)) {
+        preconditionFailure("This method must be overridden")
     }
     
     internal func refreshCompleted() {

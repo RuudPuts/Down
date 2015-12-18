@@ -39,12 +39,20 @@ public class SabNZBdService: Service {
         
         super.init()
         
+        connector = SabNZBdConnector()
+        
         startTimers()
     }
     
     override public func addListener(listener: ServiceListener) {
         if listener is SabNZBdListener {
             super.addListener(listener)
+        }
+    }
+    
+    override public func checkHostReachability(completion: (Bool) -> (Void)) {
+        connector!.validateHost(PreferenceManager.sabNZBdHost) {
+            completion($0)
         }
     }
     

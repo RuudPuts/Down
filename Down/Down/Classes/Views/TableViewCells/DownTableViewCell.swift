@@ -9,10 +9,11 @@
 import UIKit
 import DownKit
 
-class DownCell: UITableViewCell {
+class DownTableViewCell: UITableViewCell {
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
     var cellType: DownApplication = .SabNZBd
