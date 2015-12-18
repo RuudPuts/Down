@@ -165,14 +165,7 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
                 
                 let tabBarItem = selectedViewController.tabBarItem as! DownTabBarItem!
                 collectionView!.backgroundColor = tabBarItem.tintColor
-                
-                selectedViewController.view.frame = self.view.bounds
                 contentView.addSubview(selectedViewController.view)
-                
-                let views = ["viewController": selectedViewController.view]
-                contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[viewController]|", options:.AlignAllLeft, metrics: nil, views: views))
-                contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[viewController]|", options:.AlignAllTop, metrics: nil, views: views))
-                
                 self.selectedViewController = selectedViewController
             }
         }
