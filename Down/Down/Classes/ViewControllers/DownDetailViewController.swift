@@ -14,13 +14,17 @@ class DownDetailViewController: DownViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        if self.navigationController?.viewControllers.count == 2 {
+            self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        }
     }
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        if self.navigationController?.viewControllers.count == 1 {
+            self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        }
     }
     
     override func viewDidLayoutSubviews() {

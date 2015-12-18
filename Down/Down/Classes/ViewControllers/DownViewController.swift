@@ -27,17 +27,4 @@ class DownViewController: UIViewController {
     convenience required init(coder: NSCoder) {
         self.init(nibName: nil, bundle: nil)
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-
 }

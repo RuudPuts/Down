@@ -60,7 +60,6 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController!.setNavigationBarHidden(false, animated: true)
         sabNZBdService.addListener(self)
     }
     
@@ -68,7 +67,6 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         super.viewWillDisappear(animated)
             
         sabNZBdService.removeListener(self)
-        self.navigationController!.setNavigationBarHidden(true, animated: true)
     }
     
     // MARK: - TableView datasource
