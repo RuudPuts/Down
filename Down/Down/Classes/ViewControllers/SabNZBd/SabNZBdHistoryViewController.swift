@@ -92,7 +92,19 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
             }
         }
         else if indexPath.row == sabNZBdService.history.count && !sabNZBdService.fullHistoryFetched {
-            cell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath)
+            let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownActivityCell", forIndexPath: indexPath) as! DownTableViewCell
+            loadingCell.setCellType(.SabNZBd)
+            sabNZBdService.checkHostReachability({ reachable in
+                if !reachable {
+                    // Host is not reachable
+                    loadingCell.label?.text = "Host seems down..."
+                }
+                else {
+                    loadingCell.label?.text = "Loading..."
+                }
+            })
+            
+            cell = loadingCell
         }
         else {
             let itemCell = tableView.dequeueReusableCellWithIdentifier("SABItemCell", forIndexPath: indexPath) as! SABItemCell
@@ -106,7 +118,7 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if cell is DownLoadingCell && self.tableView.numberOfRowsInSection(indexPath.section) > 0 {
+        if (cell as? DownTableViewCell)?.activityIndicator?.isAnimating() ?? false && self.tableView.numberOfRowsInSection(indexPath.section) > 0 {
             sabNZBdService.fetchHistory()
         }
     }

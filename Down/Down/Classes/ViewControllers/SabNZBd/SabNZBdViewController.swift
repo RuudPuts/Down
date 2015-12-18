@@ -36,8 +36,8 @@ class SabNZBdViewController: DownViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let loadingCellNib = UINib(nibName: "DownLoadingCell", bundle:nil)
-        tableView.registerNib(loadingCellNib, forCellReuseIdentifier: "DownLoadingCell")
+        let loadingCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
+        tableView.registerNib(loadingCellNib, forCellReuseIdentifier: "DownActivityCell")
         
         let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
         tableView.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
@@ -255,11 +255,22 @@ class SabNZBdViewController: DownViewController, UITableViewDataSource, UITableV
                 
                 let sectionTitle = self.tableView(tableView, titleForHeaderInSection: indexPath.section)!.lowercaseString
                 emptyCell.label.text = "Your \(sectionTitle) is empty."
-                
                 cell = emptyCell
             }
             else {
-                cell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath)
+                let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownActivityCell", forIndexPath: indexPath) as! DownTableViewCell
+                loadingCell.setCellType(.SabNZBd)
+                sabNZBdService.checkHostReachability({ reachable in
+                    if !reachable {
+                        // Host is not reachable
+                        loadingCell.label?.text = "Host seems down..."
+                    }
+                    else {
+                        loadingCell.label?.text = "Loading..."
+                    }
+                })
+                
+                cell = loadingCell
             }
         }
         else if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {

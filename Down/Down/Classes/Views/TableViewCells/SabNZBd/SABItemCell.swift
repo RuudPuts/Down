@@ -9,7 +9,7 @@
 import UIKit
 import DownKit
 
-class SABItemCell: DownCell {
+class SABItemCell: DownTableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!

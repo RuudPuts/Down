@@ -11,21 +11,26 @@ import DownKit
 
 class DownTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var containerView: UIView?
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
-    @IBOutlet weak var detailLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
     
     var cellType: DownApplication = .SabNZBd
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        activityIndicator?.startAnimating()
+    }
     
     override func setHighlighted(highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         
         if (highlighted) {
-            containerView.backgroundColor = highlightedBackgroundColor.colorWithAlphaComponent(0.15)
+            containerView?.backgroundColor = highlightedBackgroundColor.colorWithAlphaComponent(0.15)
         }
         else {
-            containerView.backgroundColor = .downLightGreyColor()
+            containerView?.backgroundColor = .downLightGreyColor()
         }
     }
     
@@ -49,6 +54,18 @@ class DownTableViewCell: UITableViewCell {
     
     func setCellType(type: DownApplication) {
         cellType = type
+        
+        switch cellType {
+        case .SabNZBd:
+            activityIndicator?.color = .downSabNZBdColor()
+            break
+        case .Sickbeard:
+            activityIndicator?.color = .downSickbeardColor()
+            break
+        case .CouchPotato:
+            activityIndicator?.color = .downCouchPotatoColor()
+            break
+        }
     }
     
 }

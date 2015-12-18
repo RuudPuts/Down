@@ -9,7 +9,7 @@
 import UIKit
 import DownKit
 
-class DownTextCell: DownCell {
+class DownTextCell: DownTableViewCell {
 
     @IBOutlet weak private var cheveronView: UIImageView!
     

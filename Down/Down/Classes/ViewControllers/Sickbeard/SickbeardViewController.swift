@@ -128,8 +128,8 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
             }
             
             if data == nil {
-                let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownLoadingCell
-                loadingCell.activityIndicator.color = .downSickbeardColor()
+                let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownTableViewCell
+                loadingCell.setCellType(.Sickbeard)
                 cell = loadingCell
             }
             else if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
