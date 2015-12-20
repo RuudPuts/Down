@@ -30,7 +30,7 @@ public class Service {
         }
     }
     
-    public func checkHostReachability(completion: (Bool) -> (Void)) {
+    func checkHostReachability(completion: (hostReachable: Bool, requiredAuthentication: Bool) -> (Void)) {
         preconditionFailure("This method must be overridden")
     }
     

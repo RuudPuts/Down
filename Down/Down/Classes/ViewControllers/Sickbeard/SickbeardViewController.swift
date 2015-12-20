@@ -217,6 +217,11 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
             let showsViewController = SickbeardShowsViewController()
             navigationController?.pushViewController(showsViewController, animated: true)
         }
+        else if indexPath.section == 1 {
+            let episode = todayData[indexPath.row]
+            let episodeViewController = SickbeardEpisodeViewController(sickbeardEpisode: episode)
+            navigationController?.pushViewController(episodeViewController, animated: true)
+        }
     }
     
     // MARK: - SickbeardListener

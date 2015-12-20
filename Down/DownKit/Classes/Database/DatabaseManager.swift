@@ -58,6 +58,10 @@ public class DatabaseManager {
         self.adapter.setFilename(filename, forEpisode: episode)
     }
     
+    public func setPlot(plot: String, forEpisode episode: SickbeardEpisode) {
+        self.adapter.setPlot(plot, forEpisode: episode)
+    }
+    
     public func episodeWithFilename(filename: String!) -> SickbeardEpisode? {
         return self.adapter.episodeWithFilename(filename)
     }

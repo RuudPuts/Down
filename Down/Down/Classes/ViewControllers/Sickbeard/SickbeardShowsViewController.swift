@@ -75,8 +75,7 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let show = Array(sickbeardService.shows)[indexPath.row]
         
-        let showViewController = SickbeardShowViewController()
-        showViewController.show = show
+        let showViewController = SickbeardShowViewController(show: show)
         navigationController?.pushViewController(showViewController, animated: true)
     }
     

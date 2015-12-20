@@ -17,6 +17,7 @@ public class SickbeardEpisode: Object {
     public dynamic var quality = ""
     public dynamic var status = ""
     public dynamic var filename = ""
+    public dynamic var plot = ""
     
     public dynamic weak var show: SickbeardShow?
     public dynamic weak var season: SickbeardSeason?

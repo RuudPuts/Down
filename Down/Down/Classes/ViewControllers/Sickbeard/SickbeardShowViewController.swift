@@ -14,10 +14,13 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     weak var sickbeardService: SickbeardService!
     weak var show: SickbeardShow!
     
-    convenience init() {
+    convenience init(show: SickbeardShow) {
         self.init(nibName: "DownDetailViewController", bundle: nil)
         
+        self.show = show
         sickbeardService = serviceManager.sickbeardService
+        
+        title = show.name
     }
     
     override func viewDidLoad() {
@@ -29,8 +32,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     override func viewWillAppear(animated: Bool) {
-        title = show.name
-        
+        sickbeardService.refreshEpisodesForShow(show)
         super.viewWillAppear(animated)
         
         setTableViewHeaderImage(show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
@@ -61,6 +63,14 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let season = show.seasons[indexPath.section]
+        let episode = season.episodes[indexPath.row]
+        
+        let episodeViewController = SickbeardEpisodeViewController(sickbeardEpisode: episode)
+        self.navigationController?.pushViewController(episodeViewController, animated: true)
+    }
+    
     // MARK: Keeping this for later
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -75,7 +85,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Season \(show.seasons[section].id)"
+        return show.seasons[section].title
     }
     
     // MARK: - TableView Delegate

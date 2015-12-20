@@ -26,8 +26,15 @@ class DownTextCell: DownTableViewCell {
             cheveronView.image = UIImage(named: "couchpotato-cheveron")
             break
         }
-        
-        
+    }
+    
+    var cheveronHidden: Bool {
+        get {
+            return cheveronView.hidden
+        }
+        set {
+            cheveronView.hidden = newValue
+        }
     }
     
 }

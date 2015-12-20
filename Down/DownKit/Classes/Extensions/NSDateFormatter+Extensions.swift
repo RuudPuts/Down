@@ -2,17 +2,17 @@
 //  NSDateFormatter+Extensions.swift
 //  Down
 //
-//  Created by Ruud Puts on 19/07/15.
+//  Created by Ruud Puts on 20/12/15.
 //  Copyright © 2015 Ruud Puts. All rights reserved.
 //
 
 import Foundation
 
-extension NSDateFormatter {
+public extension NSDateFormatter {
     
-    class func downDateTimeFormatter() -> NSDateFormatter {
+    class func downDateFormatter() -> NSDateFormatter {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
         return dateFormatter
     }

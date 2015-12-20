@@ -260,7 +260,7 @@ class SabNZBdViewController: DownViewController, UITableViewDataSource, UITableV
             else {
                 let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownActivityCell", forIndexPath: indexPath) as! DownTableViewCell
                 loadingCell.setCellType(.SabNZBd)
-                sabNZBdService.checkHostReachability({ reachable in
+                sabNZBdService.checkHostReachability({ reachable, _ in
                     if !reachable {
                         // Host is not reachable
                         loadingCell.label?.text = "Host seems down..."

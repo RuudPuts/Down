@@ -9,21 +9,32 @@
 public class SabNZBdConnector: Connector {
     
     public var host: String?
+    public var apiKey: String?
 
-    public func validateHost(host: String, completion: (Bool) -> (Void)) {
+    public func validateHost(host: String, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
         request(.GET, host).responseString { _, urlResponse, _ in
             var hostValid = false
             
             if let response = urlResponse {
                 let serverHeader = response.allHeaderFields["Server"] as! String?
                 let authenticateHeader = response.allHeaderFields["Www-Authenticate"] as! String?
-                if (serverHeader?.hasPrefix("CherryPy") ?? false) && authenticateHeader?.rangeOfString("SABnzbd") != nil {
+                if (serverHeader?.hasPrefix("CherryPy") ?? false) || authenticateHeader?.rangeOfString("SABnzbd") != nil {
                     hostValid = true
                     self.host = host
+                    
+                    // We got the host, lets fetch the api key
+                    self.fetchApiKey(username: nil, password: nil, completion: {
+                        self.apiKey = $0
+                        
+                        completion(hostValid: hostValid, apiKey: self.apiKey)
+                    })
+                    
+                    // fetchApiKey completion handler will call our completion handler
+                    return
                 }
             }
             
-            completion(hostValid)
+            completion(hostValid: hostValid, apiKey: self.apiKey)
         }
     }
     
@@ -40,7 +51,7 @@ public class SabNZBdConnector: Connector {
                 url = url.insert(authenticationString, atIndex: 7)
             }
             
-            request(.GET, url).responseString { _, urlResponse, reponseString in                
+            request(.GET, url).responseString { _, urlResponse, reponseString in
                 if let html = reponseString.value {
                     if let apikeyInputRange = html.rangeOfString("id=\"apikey\"") {
                         // WARN: Assumption; api key is within 200 characters from the input id
@@ -51,15 +62,16 @@ public class SabNZBdConnector: Connector {
                             let apiKeyRange = Range(start:apikeyInputRange.endIndex, end:apikeyIndexEnd)
                             let usefullPart = html.substringWithRange(apiKeyRange)
                             
-                            if let apikey = usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first {
-                                NSLog("ApiKey: \(apikey)")
-                            }
+                            self.apiKey = usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first
                         }
                     }
                 }
+                
+                completion(self.apiKey)
             }
         }
         else {
+            NSLog("SabNZBdConnector - Please set host before fetching the api key")
             completion(nil)
         }
     }

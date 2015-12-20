@@ -39,4 +39,13 @@ public class SickbeardSeason: Object {
         
         return filteredEpisodes
     }
+    
+    public var title: String {
+        var title = "Season \(id)"
+        if id == 0 {
+            title = "Specials"
+        }
+    
+        return title
+    }
 }

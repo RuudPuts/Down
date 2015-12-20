@@ -40,6 +40,7 @@ public class SabNZBdService: Service {
         super.init()
         
         connector = SabNZBdConnector()
+        connector?.host = PreferenceManager.sabNZBdHost
         
         startTimers()
     }
@@ -50,9 +51,15 @@ public class SabNZBdService: Service {
         }
     }
     
-    override public func checkHostReachability(completion: (Bool) -> (Void)) {
-        connector!.validateHost(PreferenceManager.sabNZBdHost) {
-            completion($0)
+    override public func checkHostReachability(completion: (hostReachable: Bool, requiredAuthentication: Bool) -> (Void)) {
+        connector!.validateHost(PreferenceManager.sabNZBdHost) { hostReachable, apiKey in
+            var requiresAuthentication = true
+            if apiKey != nil {
+                
+                requiresAuthentication = false
+            }
+            
+            completion(hostReachable: hostReachable, requiredAuthentication: requiresAuthentication)
         }
     }
     

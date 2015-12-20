@@ -87,7 +87,7 @@ class SABItemCell: DownTableViewCell {
             var statusText = ""
             if _historyItem != nil && (_historyItem!.status == .Finished || _historyItem!.status == .Failed) {
                 if let completionDate = _historyItem?.completionDate {
-                    statusText = NSDateFormatter.defaultFormatter().stringFromDate(completionDate)
+                    statusText = NSDateFormatter.downDateFormatter().stringFromDate(completionDate)
                 }
             }
             statusLabel.text = statusText

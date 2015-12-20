@@ -18,6 +18,21 @@ class DownTableViewCell: UITableViewCell {
     
     var cellType: DownApplication = .SabNZBd
     
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.backgroundColor = UIColor.downLightGreyColor()
+        self.textLabel?.textColor = UIColor.downSabNZBdColor()
+        self.textLabel?.font = UIFont(name: "OpenSans", size: 14)
+        self.detailTextLabel?.textColor = UIColor.whiteColor()
+        self.detailTextLabel?.font = UIFont(name: "OpenSans-Light", size: 14)
+        self.selectionStyle = .None
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         activityIndicator?.startAnimating()
@@ -55,17 +70,22 @@ class DownTableViewCell: UITableViewCell {
     func setCellType(type: DownApplication) {
         cellType = type
         
+        var cellColor: UIColor
+        
         switch cellType {
         case .SabNZBd:
-            activityIndicator?.color = .downSabNZBdColor()
+            cellColor = .downSabNZBdColor()
             break
         case .Sickbeard:
-            activityIndicator?.color = .downSickbeardColor()
+            cellColor = .downSickbeardColor()
             break
         case .CouchPotato:
-            activityIndicator?.color = .downCouchPotatoColor()
+            cellColor = .downCouchPotatoColor()
             break
         }
+        
+        self.textLabel?.textColor = cellColor
+        activityIndicator?.color = cellColor
     }
     
 }

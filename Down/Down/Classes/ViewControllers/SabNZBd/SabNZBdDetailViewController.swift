@@ -96,7 +96,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: SABDetailCell
+        var cell: DownTableViewCell
         if sabItem is SABQueueItem {
             cell = self.tableView(tableView, queueCellForRowAtIndexPath: indexPath);
         }
@@ -107,9 +107,9 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         return cell
     }
     
-    private func tableView(tableView: UITableView, queueCellForRowAtIndexPath indexPath: NSIndexPath) -> SABDetailCell {
+    private func tableView(tableView: UITableView, queueCellForRowAtIndexPath indexPath: NSIndexPath) -> DownTableViewCell {
         let reuseIdentifier = "queueCell"
-        let cell = SABDetailCell(style: .Value2, reuseIdentifier: reuseIdentifier)
+        let cell = DownTableViewCell(style: .Value2, reuseIdentifier: reuseIdentifier)
         let queueItem = sabItem as! SABQueueItem
         
         cell.textLabel?.text = cellTitles[indexPath.section][indexPath.row]
@@ -143,9 +143,9 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         return cell
     }
     
-    private func tableView(tableView: UITableView, historyCellForRowAtIndexPath indexPath: NSIndexPath) -> SABDetailCell {
+    private func tableView(tableView: UITableView, historyCellForRowAtIndexPath indexPath: NSIndexPath) -> DownTableViewCell {
         let reuseIdentifier = "historyCell"
-        let cell = SABDetailCell(style: .Value2, reuseIdentifier: reuseIdentifier)
+        let cell = DownTableViewCell(style: .Value2, reuseIdentifier: reuseIdentifier)
         let historyItem = sabItem as! SABHistoryItem
         
         cell.textLabel?.text = cellTitles[indexPath.section][indexPath.row]
@@ -170,7 +170,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             detailText = historyItem.size
             break
         case .FinishedAt:
-            detailText = NSDateFormatter.defaultFormatter().stringFromDate(historyItem.completionDate!)
+            detailText = NSDateFormatter.downDateTimeFormatter().stringFromDate(historyItem.completionDate!)
             break
             
         case .SickbeardShow:
@@ -183,9 +183,12 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             detailText = historyItem.sickbeardEpisode!.name
             break;
         case .SickbeardAirDate:
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            detailText = historyItem.sickbeardEpisode!.airDate == nil ? nil : dateFormatter.stringFromDate(historyItem.sickbeardEpisode!.airDate!) // TODO: Ugly
+            if let date = historyItem.sickbeardEpisode!.airDate {
+                detailText = NSDateFormatter.downDateTimeFormatter().stringFromDate(date)
+            }
+            else {
+                detailText = "-"
+            }
             break;
         default:
             break

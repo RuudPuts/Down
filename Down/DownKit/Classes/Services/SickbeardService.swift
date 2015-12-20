@@ -61,7 +61,13 @@ public class SickbeardService: Service {
     }
     
     public func getEpisodesAiringToday() -> [SickbeardEpisode] {
-        return databaseManager.episodesAiringOnDate(NSDate());
+        let episodes = databaseManager.episodesAiringOnDate(NSDate());
+
+        for e in episodes {
+            fetchEpisodeData(e)
+        }
+
+        return episodes
     }
     
     public func showWithId(tvdbid: Int) -> SickbeardShow? {
@@ -74,6 +80,14 @@ public class SickbeardService: Service {
         }
         
         return showWithId
+    }
+    
+    public func refreshEpisodesForShow(show: SickbeardShow) {
+        for season in show.seasons {
+            for episode in season.episodes {
+                fetchEpisodeData(episode)
+            }
+        }
     }
     
     // MARK: - History
@@ -109,7 +123,9 @@ public class SickbeardService: Service {
                     // Remove the extension from the resource
                     let filename = jsonItem["resource"].string!
                     
-                    databaseManager.setFilename(filename, forEpisode:episode)
+                    if episode.filename != filename {
+                        databaseManager.setFilename(filename, forEpisode:episode)
+                    }
                     history.append(episode)
                 }
             }
@@ -238,8 +254,7 @@ public class SickbeardService: Service {
     
     private func parseShowSeasons(json: JSON, forShow show: SickbeardShow) {
         let seasons = List<SickbeardSeason>()
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateFormatter = NSDateFormatter.downDateFormatter()
         
         let seaonsKeys = Array((json.rawValue as! [String: AnyObject]).keys)
         for seasonKey in seaonsKeys {
@@ -269,6 +284,34 @@ public class SickbeardService: Service {
             seasons.append(season)
         }
         show._seasons = seasons
+    }
+    
+    // MARK: - Episodes
+    
+    private func fetchEpisodeData(episode: SickbeardEpisode) -> Bool {
+        if episode.plot.length > 0 {
+            return false
+        }
+        
+        if let tvdbId = episode.show?.tvdbId, seasonId = episode.season?.id {
+            let command = "episode&tvdbid=\(tvdbId)&season=\(seasonId)&episode=\(episode.id)"
+            let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=\(command)"
+            request(.GET, url).responseJSON { _, _, result in
+                if result.isSuccess {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        let plot = JSON(result.value!)["data"]["description"].string ?? ""
+                        self.databaseManager.setPlot(plot, forEpisode: episode)
+                    })
+                }
+                else {
+                    print("Error while fetching Sickbard history: \(result.error!)")
+                }
+            }
+            
+            return true
+        }
+        
+        return false
     }
     
     // MARK: - Listeners
