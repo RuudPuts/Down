@@ -16,18 +16,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var serviceManager: ServiceManager!
+    
+    var isSetup: Bool {
+        let sabNZBdSetup = PreferenceManager.sabNZBdHost.length > 0 && PreferenceManager.sabNZBdApiKey.length > 0
+        let sickbeardSetup = PreferenceManager.sickbeardHost.length > 0 && PreferenceManager.sickbeardApiKey.length > 0
+        
+        return sabNZBdSetup || sickbeardSetup
+    }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [NSObject: AnyObject]?) -> Bool {
         Instabug.startWithToken("dc9091202562420874c069cfc74b57fd", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
 
-        PreferenceManager.sabNZBdHost = "192.168.178.10:8080"
-        PreferenceManager.sabNZBdApiKey = "005a4296d8472a6ac787f09f24f2b70c"
-
-        PreferenceManager.sickbeardHost = "192.168.178.10:8081"
-        PreferenceManager.sickbeardApiKey = "e9c3be0f3315f09d7ceae37f1d3836cd"
-
-        PreferenceManager.couchPotatoHost = "192.168.178.10"
-        PreferenceManager.couchPotatoApiKey = "fb3f91e38ba147b29514d56a24d17d9a"
+//        PreferenceManager.sabNZBdHost = "192.168.178.10:8080"
+//        PreferenceManager.sabNZBdApiKey = "005a4296d8472a6ac787f09f24f2b70c"
+//
+//        PreferenceManager.sickbeardHost = "192.168.178.10:8081"
+//        PreferenceManager.sickbeardApiKey = "e9c3be0f3315f09d7ceae37f1d3836cd"
+//
+//        PreferenceManager.couchPotatoHost = "192.168.178.10"
+//        PreferenceManager.couchPotatoApiKey = "fb3f91e38ba147b29514d56a24d17d9a"
         
         serviceManager = ServiceManager()
         
@@ -63,7 +70,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         downWindow.rootViewController = tabBarController
         window = downWindow
         downWindow.makeKeyAndVisible()
+        
+        // Check if intro should be shown
+        if !isSetup {
+            let introViewController = DownIntroViewController(introType: .Welcome)
+            let introNavigationController = UINavigationController(rootViewController: introViewController)
+            introNavigationController.navigationBarHidden = true
+            
+            downWindow.rootViewController!.presentViewController(introNavigationController, animated: false, completion: nil)
+        }
+        else {
+            // TODO: Start all the services here
+        }
     }
     
 }
 
+extension UIApplication {
+    var downAppDelegate: AppDelegate {
+        return UIApplication.sharedApplication().delegate as! AppDelegate
+    }
+}
+
+extension AppDelegate {
+    var downWindow: DownWindow {
+        return self.window as! DownWindow
+    }
+}

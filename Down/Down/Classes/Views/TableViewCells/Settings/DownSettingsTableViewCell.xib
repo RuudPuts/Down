@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
+        </mutableArray>
+        <mutableArray key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="109" id="zZI-rU-A2O" customClass="DownTableViewCell" customModule="Down" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zZI-rU-A2O" id="rzl-9p-6VV">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="45.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78W-eM-DFv" userLabel="TitleLabel">
+                        <rect key="frame" x="8" y="8" width="100" height="29.5"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="Y1Q-wg-R8v"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="14"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sac-Ik-l0i">
+                        <rect key="frame" x="116" y="8" width="196" height="30"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13.5"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                </subviews>
+                <animations/>
+                <constraints>
+                    <constraint firstItem="sac-Ik-l0i" firstAttribute="top" secondItem="rzl-9p-6VV" secondAttribute="top" constant="8" id="2fM-2W-y1g"/>
+                    <constraint firstAttribute="bottom" secondItem="sac-Ik-l0i" secondAttribute="bottom" constant="8" id="3Sh-3F-Ljs"/>
+                    <constraint firstAttribute="bottom" secondItem="78W-eM-DFv" secondAttribute="bottom" constant="8" id="IqR-n0-gV5"/>
+                    <constraint firstAttribute="trailing" secondItem="sac-Ik-l0i" secondAttribute="trailing" constant="8" id="lpR-31-XrO"/>
+                    <constraint firstItem="78W-eM-DFv" firstAttribute="leading" secondItem="rzl-9p-6VV" secondAttribute="leading" constant="8" id="nYm-4u-7rX"/>
+                    <constraint firstItem="sac-Ik-l0i" firstAttribute="leading" secondItem="78W-eM-DFv" secondAttribute="trailing" constant="8" id="xaC-VM-Xh8"/>
+                    <constraint firstItem="78W-eM-DFv" firstAttribute="top" secondItem="rzl-9p-6VV" secondAttribute="top" constant="8" id="zVE-I7-R2h"/>
+                </constraints>
+            </tableViewCellContentView>
+            <animations/>
+            <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="label" destination="78W-eM-DFv" id="YbB-h6-7rT"/>
+                <outlet property="textField" destination="sac-Ik-l0i" id="vyo-DR-WAA"/>
+            </connections>
+            <point key="canvasLocation" x="271" y="56"/>
+        </tableViewCell>
+    </objects>
+</document>

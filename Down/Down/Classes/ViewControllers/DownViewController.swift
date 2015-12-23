@@ -12,6 +12,9 @@ import DownKit
 class DownViewController: UIViewController {
     
     let serviceManager: ServiceManager!
+    var window: DownWindow {
+        return UIApplication.sharedApplication().downAppDelegate.downWindow
+    }
 
     @IBOutlet weak var tableView: UITableView!
     

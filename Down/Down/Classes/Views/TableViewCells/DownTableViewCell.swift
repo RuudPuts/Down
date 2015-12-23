@@ -15,18 +15,20 @@ class DownTableViewCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
+    @IBOutlet weak var textField: UITextField?
     
     var cellType: DownApplication = .SabNZBd
+    var cellColor = UIColor.downSabNZBdColor()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.backgroundColor = UIColor.downLightGreyColor()
-        self.textLabel?.textColor = UIColor.downSabNZBdColor()
-        self.textLabel?.font = UIFont(name: "OpenSans", size: 14)
-        self.detailTextLabel?.textColor = UIColor.whiteColor()
-        self.detailTextLabel?.font = UIFont(name: "OpenSans-Light", size: 14)
-        self.selectionStyle = .None
+        backgroundColor = UIColor.clearColor()
+        textLabel?.textColor = UIColor.downSabNZBdColor()
+        textLabel?.font = UIFont(name: "OpenSans", size: 14)
+        detailTextLabel?.textColor = UIColor.whiteColor()
+        detailTextLabel?.font = UIFont(name: "OpenSans-Light", size: 14)
+        selectionStyle = .None
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,7 +37,14 @@ class DownTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         activityIndicator?.startAnimating()
+        
+        textLabel?.textColor = cellColor
+        activityIndicator?.color = cellColor
+        textField?.layer.cornerRadius = 5
+        textField?.layer.borderWidth = 0.7
+        textField?.layer.borderColor = cellColor.CGColor
     }
     
     override func setHighlighted(highlighted: Bool, animated: Bool) {
@@ -62,6 +71,9 @@ class DownTableViewCell: UITableViewCell {
         case .CouchPotato:
             color = .downCouchPotatoDarkColor()
             break
+        case .Down:
+            color = .downRedColor()
+            break
         }
         
         return color
@@ -69,8 +81,6 @@ class DownTableViewCell: UITableViewCell {
     
     func setCellType(type: DownApplication) {
         cellType = type
-        
-        var cellColor: UIColor
         
         switch cellType {
         case .SabNZBd:
@@ -82,10 +92,25 @@ class DownTableViewCell: UITableViewCell {
         case .CouchPotato:
             cellColor = .downCouchPotatoColor()
             break
+        case .Down:
+            cellColor = .downRedColor()
+            break
         }
-        
-        self.textLabel?.textColor = cellColor
-        activityIndicator?.color = cellColor
+    }
+    
+    var textFieldPlaceholder: String? {
+        get {
+            return textField?.attributedPlaceholder?.string
+        }
+        set {
+            if let placeholder = newValue {
+                let color = UIColor.whiteColor().colorWithAlphaComponent(0.5)
+                textField?.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: color])
+            }
+            else {
+                textField?.attributedPlaceholder = nil
+            }
+        }
     }
     
 }

@@ -25,6 +25,10 @@ class DownTextCell: DownTableViewCell {
         case .CouchPotato:
             cheveronView.image = UIImage(named: "couchpotato-cheveron")
             break
+        case .Down:
+            // TODO: Create asset
+            cheveronView.image = UIImage(named: "down-cheveron")
+            break
         }
     }
     

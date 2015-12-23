@@ -7,6 +7,8 @@
 //
 
 public enum DownApplication {
+    case Down
+    
     case SabNZBd
     case Sickbeard
     case CouchPotato
