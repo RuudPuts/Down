@@ -17,12 +17,24 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         case ApiKey = 3
     }
     
+    private struct SettingDataSource {
+        var rowType = DownSettingsRow.Host
+        var title = ""
+        var detailText = ""
+        var isValidatingHost = false
+        
+        init(rowType: DownSettingsRow, title: String, detailText: String) {
+            self.rowType = rowType
+            self.title = title
+            self.detailText = detailText
+        }
+    }
+    
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerImageView: UIImageView!
     @IBOutlet weak var actionButton: UIButton!
     
-    private var cellData = [DownSettingsRow: String]()
-    private var cellDetailData = [DownSettingsRow: String]()
+    private var cellData = [DownSettingsRow: SettingDataSource]()
     
     convenience init() {
         self.init(nibName: "DownSettingsViewController", bundle: nil)
@@ -49,8 +61,12 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     // MARK: - UITableViewDataSource
     
     func configureTableView() {
-        cellData = [.Host : "Host", .Username: "Username", .Password: "Password", .ApiKey : "Api key"]
-        cellDetailData = [.Host: "Your SabNZBd Host <ip:port>", .Username: "Your SabNZBd username", .Password: "Your SabNZBd password", .ApiKey: "Your SabNZBd api key"]
+        let host = SettingDataSource(rowType: .Host, title: "Host", detailText: "Your SabNZBd host <ip:port>")
+        let username = SettingDataSource(rowType: .Username, title: "Username", detailText: "Your SabNZBd username")
+        let password = SettingDataSource(rowType: .Password, title: "Password", detailText: "Your SabNZBd password")
+        let apikey = SettingDataSource(rowType: .ApiKey, title: "Api key", detailText: "Your SabNZBd api key")
+        
+        cellData = [.Host : host, .Username: username, .Password: password, .ApiKey: apikey]
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -66,8 +82,9 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         cell.setCellType(.SabNZBd)
         
         let dataKey: DownSettingsRow = DownSettingsRow(rawValue: indexPath.row)!
-        cell.label.text = cellData[dataKey]
-        cell.textFieldPlaceholder = cellDetailData[dataKey]
+        let data = cellData[dataKey]!
+        cell.label.text = data.title
+        cell.textFieldPlaceholder = data.detailText
         
         if dataKey == .Host {
             cell.textField?.text = "192.168..."
