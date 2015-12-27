@@ -10,7 +10,9 @@ import Foundation
 
 public protocol Connector {
     
+    var requestManager: Manager? { get set }
     var host: String? { get set }
+    var apiKey: String? { get set }
     
     func validateHost(host: String, completion: (hostValid: Bool, apiKey: String?) -> (Void))
     

@@ -32,6 +32,25 @@ public extension String {
             self = String(format: "%.0f%@", size, sizeDisplay)
         }
     }
+    
+    func insert(string: String, atIndex index: Int) -> String {
+        return  String(self.characters.prefix(index)) + string + String(self.characters.suffix(self.characters.count - index))
+    }
+    
+    func componentsMatchingRegex(regex: String) -> [String] {
+        var matches = [String]()
+        
+        do {
+            let regex = try NSRegularExpression(pattern: regex, options: [])
+            let text = self as NSString
+            let results = regex.matchesInString(self, options: [], range: NSMakeRange(0, text.length))
+            matches = results.map { text.substringWithRange($0.range)}
+        } catch let error as NSError {
+            print("invalid regex: \(error.localizedDescription)")
+        }
+        
+        return matches
+    }
 }
 
 extension String {

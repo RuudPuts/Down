@@ -30,7 +30,12 @@ public class Service {
         }
     }
     
-    func checkHostReachability(completion: (hostReachable: Bool, requiredAuthentication: Bool) -> (Void)) {
+    // For some reason the extra argument requires it to be public?
+    public func checkHostReachability(host: String, completion: (hostReachable: Bool, requiresAuthentication: Bool) -> (Void)) {
+        preconditionFailure("This method must be overridden")
+    }
+    
+    func checkHostReachability(completion: (hostReachable: Bool, requiresAuthentication: Bool) -> (Void)) {
         preconditionFailure("This method must be overridden")
     }
     

@@ -51,15 +51,20 @@ public class SabNZBdService: Service {
         }
     }
     
-    override public func checkHostReachability(completion: (hostReachable: Bool, requiredAuthentication: Bool) -> (Void)) {
-        connector!.validateHost(PreferenceManager.sabNZBdHost) { hostReachable, apiKey in
-            var requiresAuthentication = true
+    override public func checkHostReachability(host: String, completion: (hostReachable: Bool, requiresAuthentication: Bool) -> (Void)) {
+        connector!.validateHost(host) { hostReachable, apiKey in
             if apiKey != nil {
-                
-                requiresAuthentication = false
+                PreferenceManager.sabNZBdApiKey = apiKey!
             }
-            
-            completion(hostReachable: hostReachable, requiredAuthentication: requiresAuthentication)
+            let requiresAuthentication = hostReachable && apiKey == nil
+            completion(hostReachable: hostReachable, requiresAuthentication: requiresAuthentication)
+        }
+    }
+    
+    override public func checkHostReachability(completion: (hostReachable: Bool, requiresAuthentication: Bool) -> (Void)) {
+        connector!.validateHost(PreferenceManager.sabNZBdHost) { hostReachable, apiKey in
+            let requiresAuthentication = hostReachable && apiKey == nil
+            completion(hostReachable: hostReachable, requiresAuthentication: requiresAuthentication)
         }
     }
     

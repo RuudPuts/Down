@@ -7,12 +7,21 @@
 //
 
 public class SabNZBdConnector: Connector {
-    
+
+    public var requestManager: Manager?
     public var host: String?
     public var apiKey: String?
+    
+    public init() {
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.timeoutIntervalForRequest = 1
+        configuration.timeoutIntervalForResource = 1
+        
+        requestManager = Manager(configuration: configuration)
+    }
 
     public func validateHost(host: String, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
-        request(.GET, host).responseString { _, urlResponse, _ in
+        requestManager!.request(.GET, host).responseString { _, urlResponse, _ in
             var hostValid = false
             
             if let response = urlResponse {
@@ -51,7 +60,7 @@ public class SabNZBdConnector: Connector {
                 url = url.insert(authenticationString, atIndex: 7)
             }
             
-            request(.GET, url).responseString { _, urlResponse, reponseString in
+            requestManager!.request(.GET, url).responseString { _, urlResponse, reponseString in
                 if let html = reponseString.value {
                     if let apikeyInputRange = html.rangeOfString("id=\"apikey\"") {
                         // WARN: Assumption; api key is within 200 characters from the input id
@@ -65,6 +74,9 @@ public class SabNZBdConnector: Connector {
                             self.apiKey = usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first
                         }
                     }
+                    else {
+                        NSLog("apikey input not found")
+                    }
                 }
                 
                 completion(self.apiKey)
@@ -76,25 +88,4 @@ public class SabNZBdConnector: Connector {
         }
     }
     
-}
-
-extension String {
-    func insert(string: String, atIndex index: Int) -> String {
-        return  String(self.characters.prefix(index)) + string + String(self.characters.suffix(self.characters.count - index))
-    }
-    
-    func componentsMatchingRegex(regex: String) -> [String] {
-        var matches = [String]()
-        
-        do {
-            let regex = try NSRegularExpression(pattern: regex, options: [])
-            let text = self as NSString
-            let results = regex.matchesInString(self, options: [], range: NSMakeRange(0, text.length))
-            matches = results.map { text.substringWithRange($0.range)}
-        } catch let error as NSError {
-            print("invalid regex: \(error.localizedDescription)")
-        }
-        
-        return matches
-    }
 }

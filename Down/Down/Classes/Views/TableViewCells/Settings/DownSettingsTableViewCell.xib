@@ -33,20 +33,34 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sac-Ik-l0i">
-                        <rect key="frame" x="116" y="8" width="196" height="30"/>
+                        <rect key="frame" x="116" y="8" width="168" height="30"/>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="13.5"/>
                         <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <action selector="textFieldDidChangeText:" destination="zZI-rU-A2O" eventType="editingChanged" id="1b5-TV-iHH"/>
+                            <outlet property="delegate" destination="zZI-rU-A2O" id="ljA-DX-p5s"/>
+                        </connections>
                     </textField>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fD5-Va-oVN">
+                        <rect key="frame" x="292" y="13" width="20" height="20"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="F3o-ti-DbC"/>
+                            <constraint firstAttribute="height" constant="20" id="kGn-CZ-UB0"/>
+                        </constraints>
+                    </activityIndicatorView>
                 </subviews>
                 <animations/>
                 <constraints>
                     <constraint firstItem="sac-Ik-l0i" firstAttribute="top" secondItem="rzl-9p-6VV" secondAttribute="top" constant="8" id="2fM-2W-y1g"/>
                     <constraint firstAttribute="bottom" secondItem="sac-Ik-l0i" secondAttribute="bottom" constant="8" id="3Sh-3F-Ljs"/>
+                    <constraint firstAttribute="trailing" secondItem="fD5-Va-oVN" secondAttribute="trailing" constant="8" id="8wR-0B-gJM"/>
                     <constraint firstAttribute="bottom" secondItem="78W-eM-DFv" secondAttribute="bottom" constant="8" id="IqR-n0-gV5"/>
-                    <constraint firstAttribute="trailing" secondItem="sac-Ik-l0i" secondAttribute="trailing" constant="8" id="lpR-31-XrO"/>
+                    <constraint firstItem="fD5-Va-oVN" firstAttribute="centerY" secondItem="rzl-9p-6VV" secondAttribute="centerY" id="SNx-7b-gaS"/>
+                    <constraint firstItem="fD5-Va-oVN" firstAttribute="leading" secondItem="sac-Ik-l0i" secondAttribute="trailing" constant="8" id="WnP-74-aeO"/>
                     <constraint firstItem="78W-eM-DFv" firstAttribute="leading" secondItem="rzl-9p-6VV" secondAttribute="leading" constant="8" id="nYm-4u-7rX"/>
                     <constraint firstItem="sac-Ik-l0i" firstAttribute="leading" secondItem="78W-eM-DFv" secondAttribute="trailing" constant="8" id="xaC-VM-Xh8"/>
                     <constraint firstItem="78W-eM-DFv" firstAttribute="top" secondItem="rzl-9p-6VV" secondAttribute="top" constant="8" id="zVE-I7-R2h"/>
@@ -55,10 +69,11 @@
             <animations/>
             <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
+                <outlet property="activityIndicator" destination="fD5-Va-oVN" id="lwe-W5-2PP"/>
                 <outlet property="label" destination="78W-eM-DFv" id="YbB-h6-7rT"/>
                 <outlet property="textField" destination="sac-Ik-l0i" id="vyo-DR-WAA"/>
             </connections>
-            <point key="canvasLocation" x="271" y="56"/>
+            <point key="canvasLocation" x="10" y="78"/>
         </tableViewCell>
     </objects>
 </document>
