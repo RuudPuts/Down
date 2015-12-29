@@ -114,37 +114,45 @@ public class SabNZBdService: Service {
         var newQueueIdentifiers = [String]()
         
         // Parse queue
-        for jsonJob: JSON in json["queue"]["slots"].array! {
-            let identifier = jsonJob["nzo_id"].string!
-            let filename = jsonJob["filename"].string!
-            let category = jsonJob["cat"].string!
-            let nzbName = filename + ".nzb"
-            let statusDescription = jsonJob["status"].string!
-            let totalMb = jsonJob["mb"].string!.floatValue
-            let remainingMb = jsonJob["mbleft"].string!.floatValue
-            let timeRemaining = jsonJob["timeleft"].string!
-            let progress = jsonJob["percentage"].string!.floatValue
-            
-            
-            let item = findQueueItem(identifier)
-            if item == nil {
-                queue.append(SABQueueItem(identifier, filename, category, nzbName, statusDescription, totalMb, remainingMb, progress, timeRemaining))
+        if let jobs = json["queue"]["slots"].array {
+            for jsonJob: JSON in jobs {
+                let identifier = jsonJob["nzo_id"].string!
+                let filename = jsonJob["filename"].string!
+                let category = jsonJob["cat"].string!
+                let nzbName = filename + ".nzb"
+                let statusDescription = jsonJob["status"].string!
+                let totalMb = jsonJob["mb"].string!.floatValue
+                let remainingMb = jsonJob["mbleft"].string!.floatValue
+                let timeRemaining = jsonJob["timeleft"].string!
+                let progress = jsonJob["percentage"].string!.floatValue
+                
+                
+                let item = findQueueItem(identifier)
+                if item == nil {
+                    queue.append(SABQueueItem(identifier, filename, category, nzbName, statusDescription, totalMb, remainingMb, progress, timeRemaining))
+                }
+                else {
+                    item!.update(statusDescription, remainingMb, progress, timeRemaining)
+                }
+                newQueueIdentifiers.append(identifier)
             }
-            else {
-                item!.update(statusDescription, remainingMb, progress, timeRemaining)
-            }
-            newQueueIdentifiers.append(identifier)
+            
+            // Cleanup items removed from queue
+            let removedQueueIdentifiers = difference(currentQueueIdentifiers, newQueueIdentifiers)
+            removeItemsFromQueue(removedQueueIdentifiers)
+            
+            // Parse speed, timeleft and mbleft
+            currentSpeed = json["queue"]["kbpersec"].string!.floatValue
+            timeRemaining = json["queue"]["timeleft"].string!
+            mbLeft = json["queue"]["mbleft"].string!.floatValue
+            paused = json["queue"]["paused"].bool!
         }
-        
-        // Cleanup items removed from queue
-        let removedQueueIdentifiers = difference(currentQueueIdentifiers, newQueueIdentifiers)
-        removeItemsFromQueue(removedQueueIdentifiers)
-        
-        // Parse speed, timeleft and mbleft
-        currentSpeed = json["queue"]["kbpersec"].string!.floatValue
-        timeRemaining = json["queue"]["timeleft"].string!
-        mbLeft = json["queue"]["mbleft"].string!.floatValue
-        paused = json["queue"]["paused"].bool!
+        else {
+            currentSpeed = nil
+            timeRemaining = nil
+            mbLeft = nil
+            paused = false
+        }
     }
     
     private func findQueueItem(identifier: String) -> SABQueueItem? {
@@ -244,43 +252,45 @@ public class SabNZBdService: Service {
         let currentHistoryIdentifiers = (history as AnyObject).valueForKey("identifier") as! [String]
         var newHistoryIdentifiers = [String]()
         
-        for jsonJob: JSON in json["history"]["slots"].array! {
-            let identifier = jsonJob["nzo_id"].string!
-            let title = jsonJob["name"].string!
-            let filename = jsonJob["nzb_name"].string!
-            let category = jsonJob["category"].string!
-            let nzbName = jsonJob["nzb_name"].string!
-            let size = jsonJob["size"].string!
-            let statusDescription = jsonJob["status"].string!
-            let actionLine = jsonJob["action_line"].string!
-            let completedTimestamp = jsonJob["completed"].int
-            let completedDate = NSDate(timeIntervalSince1970: NSTimeInterval(completedTimestamp!))
-            
-            let item = findHistoryItem(identifier)
-            if item == nil {
-                let historyItem: SABHistoryItem = SABHistoryItem(identifier, title, filename, category, nzbName, size, statusDescription, actionLine, completedDate)
-                history.append(historyItem)
+        if let jobs = json["history"]["slots"].array {
+            for jsonJob: JSON in jobs {
+                let identifier = jsonJob["nzo_id"].string!
+                let title = jsonJob["name"].string!
+                let filename = jsonJob["nzb_name"].string!
+                let category = jsonJob["category"].string!
+                let nzbName = jsonJob["nzb_name"].string!
+                let size = jsonJob["size"].string!
+                let statusDescription = jsonJob["status"].string!
+                let actionLine = jsonJob["action_line"].string!
+                let completedTimestamp = jsonJob["completed"].int
+                let completedDate = NSDate(timeIntervalSince1970: NSTimeInterval(completedTimestamp!))
                 
-                if let imdbIdentifier = historyItem.imdbIdentifier as String! {
-                    fetchTitleFromIMDB(imdbIdentifier, completionClosure: { (title) -> () in
-                        historyItem.imdbTitle = title
-                    })
+                let item = findHistoryItem(identifier)
+                if item == nil {
+                    let historyItem: SABHistoryItem = SABHistoryItem(identifier, title, filename, category, nzbName, size, statusDescription, actionLine, completedDate)
+                    history.append(historyItem)
+                    
+                    if let imdbIdentifier = historyItem.imdbIdentifier as String! {
+                        fetchTitleFromIMDB(imdbIdentifier, completionClosure: { (title) -> () in
+                            historyItem.imdbTitle = title
+                        })
+                    }
                 }
+                else {
+                    item!.update(category, statusDescription, actionLine, completedDate)
+                }
+                newHistoryIdentifiers.append(identifier)
             }
-            else {
-                item!.update(category, statusDescription, actionLine, completedDate)
+            
+            // Cleanup items removed from history
+            let removedHistoryIdentifiers = difference(currentHistoryIdentifiers, newHistoryIdentifiers)
+            removeItemsFromHistory(removedHistoryIdentifiers)
+            
+            // Parse history size
+            historySize = json["history"]["noofslots"].int!
+            history.sortInPlace {
+                return $0.completionDate!.compare($1.completionDate!) == .OrderedDescending
             }
-            newHistoryIdentifiers.append(identifier)
-        }
-        
-        // Cleanup items removed from history
-        let removedHistoryIdentifiers = difference(currentHistoryIdentifiers, newHistoryIdentifiers)
-        removeItemsFromHistory(removedHistoryIdentifiers)
-        
-        // Parse history size
-        historySize = json["history"]["noofslots"].int!
-        history.sortInPlace {
-            return $0.completionDate!.compare($1.completionDate!) == .OrderedDescending
         }
     }
     

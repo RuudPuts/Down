@@ -107,6 +107,7 @@
 		42A496ED1BAF332800F5395C /* SABItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42A496E91BAF332800F5395C /* SABItemCell.xib */; };
 		42A496EE1BAF332800F5395C /* SickbeardShowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42A496EB1BAF332800F5395C /* SickbeardShowCell.xib */; };
 		42A496EF1BAF332800F5395C /* SickbeardTodayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42A496EC1BAF332800F5395C /* SickbeardTodayCell.xib */; };
+		42ADB24D1C31F86C00BDF078 /* SickbeardConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ADB24C1C31F86C00BDF078 /* SickbeardConnector.swift */; };
 		42AE88CE1B9F7CF200E4F0CF /* SickbeardEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AE88CD1B9F7CF200E4F0CF /* SickbeardEpisode.swift */; };
 		42AE88D31B9F7D0A00E4F0CF /* SickbeardSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */; };
 		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
@@ -368,6 +369,7 @@
 		42A496E91BAF332800F5395C /* SABItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABItemCell.xib; sourceTree = "<group>"; };
 		42A496EB1BAF332800F5395C /* SickbeardShowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardShowCell.xib; sourceTree = "<group>"; };
 		42A496EC1BAF332800F5395C /* SickbeardTodayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardTodayCell.xib; sourceTree = "<group>"; };
+		42ADB24C1C31F86C00BDF078 /* SickbeardConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardConnector.swift; sourceTree = "<group>"; };
 		42AE88CD1B9F7CF200E4F0CF /* SickbeardEpisode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardEpisode.swift; sourceTree = "<group>"; };
 		42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardSeason.swift; sourceTree = "<group>"; };
 		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -923,6 +925,7 @@
 		429947711C249F6500934B03 /* Connectors */ = {
 			isa = PBXGroup;
 			children = (
+				42ADB24C1C31F86C00BDF078 /* SickbeardConnector.swift */,
 				429947761C249F7300934B03 /* Connector.swift */,
 				429947781C24A00300934B03 /* SabNZBdConnector.swift */,
 			);
@@ -1432,6 +1435,7 @@
 				4269A94D1B850501005A06E3 /* Manager.swift in Sources */,
 				4269A9501B850501005A06E3 /* Request.swift in Sources */,
 				4221ADD71B7BC0B20027C3A0 /* String+Extensions.swift in Sources */,
+				42ADB24D1C31F86C00BDF078 /* SickbeardConnector.swift in Sources */,
 				4221ADDC1B7BC0B20027C3A0 /* PreferenceManager.swift in Sources */,
 				429947771C249F7300934B03 /* Connector.swift in Sources */,
 				42746BB51BB3351900CD78BE /* DatabaseManager.swift in Sources */,

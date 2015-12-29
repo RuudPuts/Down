@@ -6,10 +6,10 @@
 //  Copyright © 2015 Ruud Puts. All rights reserved.
 //
 
-public enum DownApplication {
-    case Down
+public enum DownApplication: String {
+    case Down = "Down"
     
-    case SabNZBd
-    case Sickbeard
-    case CouchPotato
+    case SabNZBd = "SabNZBd"
+    case Sickbeard = "Sickbeard"
+    case CouchPotato = "CouchPotato"
 }

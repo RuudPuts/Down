@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DownIntroViewController: DownViewController {
+class DownIntroViewController: DownViewController, DownSettingsViewControllerDelegate {
     
     enum IntroType {
         case Welcome
@@ -30,8 +30,22 @@ class DownIntroViewController: DownViewController {
     }
     
     @IBAction func actionButtonPressed(sender: AnyObject) {
-        let settingsViewController = DownSettingsViewController()
+        let settingsViewController = DownSettingsViewController(application: .SabNZBd)
+        settingsViewController.delegate = self
         navigationController?.pushViewController(settingsViewController, animated: true)
+    }
+    
+    // MARK: - DownSettingsViewController
+    
+    func settingsViewControllerDidTapActionButton(viewController: DownSettingsViewController) {
+        if viewController.application == .SabNZBd {
+            let settingsViewController = DownSettingsViewController(application: .Sickbeard)
+            settingsViewController.delegate = self
+            navigationController?.pushViewController(settingsViewController, animated: true)
+        }
+        else {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
 }

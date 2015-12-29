@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sabNZBdSetup = PreferenceManager.sabNZBdHost.length > 0 && PreferenceManager.sabNZBdApiKey.length > 0
         let sickbeardSetup = PreferenceManager.sickbeardHost.length > 0 && PreferenceManager.sickbeardApiKey.length > 0
         
-        return sabNZBdSetup || sickbeardSetup
+        return sabNZBdSetup && sickbeardSetup
     }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [NSObject: AnyObject]?) -> Bool {
