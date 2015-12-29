@@ -20,6 +20,14 @@ public class CouchPotatoService: Service {
         }
     }
     
+    override public func startService() {
+        
+    }
+    
+    override public func stopService() {
+        
+    }
+    
     // MARK: - Snatched & Available
     
     private func refreshSnatchedAndAvailable() {

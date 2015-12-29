@@ -117,6 +117,28 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         }
     }
     
+    var serviceForApplication: Service? {
+        get {
+            var service: Service?
+            switch application as DownApplication {
+            case .SabNZBd:
+                service = serviceManager.sabNZBdService
+                break
+            case .Sickbeard:
+                service = serviceManager.sickbeardService
+                break
+            case .CouchPotato:
+                service = serviceManager.couchPotatoService
+                break
+                
+            default:
+                break
+            }
+            
+            return service
+        }
+    }
+    
     convenience init(application: DownApplication) {
         self.init(nibName: "DownSettingsViewController", bundle: nil)
         self.application = application
@@ -181,7 +203,23 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     }
     
     @IBAction func actionButtonPressed(sender: UIButton) {
-        delegate?.settingsViewControllerDidTapActionButton(self)
+        if hostForApplication.length > 0 && apiKeyForApplication.length > 0 {
+            if let service = serviceForApplication {
+                if service is SickbeardService && PreferenceManager.sickbeardLastCacheRefresh == nil {
+                    actionButton.enabled = false
+                    actionButton.setTitle("Loading show cache", forState: .Application)
+                    (service as! SickbeardService).refreshShowCache {
+                        self.actionButton.setTitle("Start Down", forState: .Application)
+                        self.actionButton.enabled = true
+                    }
+                    return
+                }
+                else {
+                    service.startService()
+                }
+            }
+            delegate?.settingsViewControllerDidTapActionButton(self)
+        }
     }
     
     // MARK: - UITableViewDataSource

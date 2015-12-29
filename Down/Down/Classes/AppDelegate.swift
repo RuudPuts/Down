@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             downWindow.rootViewController!.presentViewController(introNavigationController, animated: false, completion: nil)
         }
         else {
-            // TODO: Start all the services here
+            serviceManager.startAllServices()
         }
     }
     

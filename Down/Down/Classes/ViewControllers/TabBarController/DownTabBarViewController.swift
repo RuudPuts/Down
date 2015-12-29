@@ -39,6 +39,7 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
         if self.selectedViewController == nil {
             selectViewController(viewControllers?.first)
         }
+        applyAppearance()
     }
     
     override func viewDidLayoutSubviews() {

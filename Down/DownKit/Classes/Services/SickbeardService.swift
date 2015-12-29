@@ -29,15 +29,6 @@ public class SickbeardService: Service {
     override init() {
         super.init()
         databaseManager = DatabaseManager()
-        self.shows = databaseManager.fetchAllSickbeardShows()
-        
-        NSLog("Last updated: \(PreferenceManager.sickbeardLastCacheRefresh ?? "never")")
-        NSLog("Refreshing show cache")
-        refreshShowCache {
-            NSLog("Show cache refreshed")
-            PreferenceManager.sickbeardLastCacheRefresh = NSDate()
-            self.startTimers()
-        }
     }
     
     override public func addListener(listener: ServiceListener) {
@@ -46,10 +37,29 @@ public class SickbeardService: Service {
         }
     }
     
+    override public func startService() {
+        self.shows = databaseManager.fetchAllSickbeardShows()
+        
+        NSLog("SickbeardService - Last updated: %@", PreferenceManager.sickbeardLastCacheRefresh ?? "never")
+        NSLog("SickbeardService - Refreshing show cache")
+        refreshShowCache {
+            NSLog("SickbeardService - Show cache refreshed")
+            self.startTimers()
+        }
+    }
+    
+    override public func stopService() {
+        stopTimers()
+    }
+    
     private func startTimers() {
         refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "refreshHistory", userInfo: nil, repeats: true)
         
         refreshHistory()
+    }
+    
+    private func stopTimers() {
+        refreshTimer?.invalidate()
     }
     
     // MARK: - Public methods
@@ -136,9 +146,9 @@ public class SickbeardService: Service {
     
     // MARK: - Show cache
     
-    private func refreshShowCache(completionHandler: () -> Void) {
+    public func refreshShowCache(completionHandler: () -> Void) {
         if self.shows.count == 0 {
-            NSLog("Refreshing full cache")
+            NSLog("SickbeardService - Refreshing full cache")
             // Find shows to refresh, episodes aired since last update
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
             request(.GET, url).responseJSON { _, _, result in
@@ -146,6 +156,7 @@ public class SickbeardService: Service {
                     let showData = (JSON(result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
                     let tvdbIds = Array(showData.keys)
                     self.refreshShowData(tvdbIds, completionHandler: {
+                        PreferenceManager.sickbeardLastCacheRefresh = NSDate()
                         completionHandler()
                     })
                 }
@@ -160,15 +171,19 @@ public class SickbeardService: Service {
             
             var tvdbIds = [String]()
             for show in showsToRefresh {
-                NSLog("Refreshing \(show.name)")
+                NSLog("SickbeardService - Refreshing \(show.name)")
                 tvdbIds.append(String(show.tvdbId))
             }
             
             refreshShowData(tvdbIds, completionHandler: {
+                PreferenceManager.sickbeardLastCacheRefresh = NSDate()
                 completionHandler()
             })
             
             // TODO: Download shows to remove deleted and add new shows to cache
+        }
+        else {
+            NSLog("SickbeardService - Nothing to do")
         }
     }
     

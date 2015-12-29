@@ -25,6 +25,18 @@ public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
         sickbeardService.addListener(self)
     }
     
+    public func startAllServices() {
+        sabNZBdService.startService()
+        sickbeardService.startService()
+        couchPotatoService.startService()
+    }
+    
+    public func stopAllServices() {
+        sabNZBdService.stopService()
+        sickbeardService.stopService()
+        couchPotatoService.stopService()
+    }
+    
     // MARK: SabNZBdListener
     
     public func sabNZBdQueueUpdated() {

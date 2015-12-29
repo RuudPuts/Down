@@ -51,6 +51,14 @@ public class SabNZBdService: Service {
         }
     }
     
+    override public func startService() {
+        startTimers()
+    }
+    
+    override public func stopService() {
+        stopTimers()
+    }
+    
     override public func checkHostReachability(host: String, completion: (hostReachable: Bool, requiresAuthentication: Bool) -> (Void)) {
         connector!.validateHost(host) { hostReachable, apiKey in
             if apiKey != nil {
@@ -77,6 +85,11 @@ public class SabNZBdService: Service {
         
         refreshQueue()
         refreshHistory()
+    }
+    
+    private func stopTimers() {
+        queueRefreshTimer?.invalidate()
+        historyRefreshTimer?.invalidate()
     }
     
     func difference<S: Equatable>(a: [S], _ b: [S]) -> [S] {
