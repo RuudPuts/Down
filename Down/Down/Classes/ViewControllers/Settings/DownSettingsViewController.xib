@@ -5,6 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
+        </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
         </mutableArray>
@@ -15,6 +18,9 @@
                 <outlet property="actionButton" destination="qjX-EU-DCi" id="lgb-cI-CyE"/>
                 <outlet property="headerImageView" destination="M93-Ke-RDo" id="nTp-7Q-Zwf"/>
                 <outlet property="headerView" destination="jYA-fU-3zv" id="hsc-Oe-sck"/>
+                <outlet property="progressIndicator" destination="hMc-xP-SDS" id="LxR-fq-sGS"/>
+                <outlet property="progressLabel" destination="phG-1f-Pjg" id="sfg-Dm-Dqw"/>
+                <outlet property="progressView" destination="Jwu-Ll-DH9" id="nSD-gY-bW2"/>
                 <outlet property="tableView" destination="4r7-Dk-UQr" id="fZa-5m-U4C"/>
                 <outlet property="view" destination="iN0-l3-epB" id="nwd-nO-deY"/>
             </connections>
@@ -41,7 +47,7 @@
                     </constraints>
                 </view>
                 <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4r7-Dk-UQr">
-                    <rect key="frame" x="0.0" y="134" width="600" height="367"/>
+                    <rect key="frame" x="0.0" y="134" width="600" height="311"/>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
@@ -60,6 +66,32 @@
                         <action selector="actionButtonPressed:" destination="-1" eventType="touchUpInside" id="dtH-jL-vmf"/>
                     </connections>
                 </button>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jwu-Ll-DH9" userLabel="Activity View">
+                    <rect key="frame" x="258" y="465" width="85.5" height="36"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="hMc-xP-SDS">
+                            <rect key="frame" x="8" y="8" width="20" height="20"/>
+                            <animations/>
+                        </activityIndicatorView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phG-1f-Pjg">
+                            <rect key="frame" x="36" y="6" width="41.5" height="23.5"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="hMc-xP-SDS" firstAttribute="top" secondItem="Jwu-Ll-DH9" secondAttribute="top" constant="8" id="LKh-rh-8sT"/>
+                        <constraint firstItem="hMc-xP-SDS" firstAttribute="leading" secondItem="Jwu-Ll-DH9" secondAttribute="leading" constant="8" id="U7R-Hp-ton"/>
+                        <constraint firstItem="phG-1f-Pjg" firstAttribute="leading" secondItem="hMc-xP-SDS" secondAttribute="trailing" constant="8" id="YKo-dd-W71"/>
+                        <constraint firstItem="phG-1f-Pjg" firstAttribute="centerY" secondItem="Jwu-Ll-DH9" secondAttribute="centerY" id="Yaa-er-JY3"/>
+                        <constraint firstAttribute="trailing" secondItem="phG-1f-Pjg" secondAttribute="trailing" constant="8" id="hWl-fY-XTP"/>
+                        <constraint firstAttribute="bottom" secondItem="hMc-xP-SDS" secondAttribute="bottom" constant="8" id="lEe-SQ-8zZ"/>
+                    </constraints>
+                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
@@ -70,9 +102,11 @@
                 <constraint firstAttribute="bottom" secondItem="qjX-EU-DCi" secondAttribute="bottom" constant="43" id="Moe-Uq-HuR"/>
                 <constraint firstItem="jYA-fU-3zv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="NAJ-dT-6DF"/>
                 <constraint firstAttribute="trailing" secondItem="4r7-Dk-UQr" secondAttribute="trailing" id="bnf-jg-QXi"/>
-                <constraint firstItem="qjX-EU-DCi" firstAttribute="top" secondItem="4r7-Dk-UQr" secondAttribute="bottom" constant="20" id="nHS-qa-xrv"/>
+                <constraint firstItem="qjX-EU-DCi" firstAttribute="top" secondItem="Jwu-Ll-DH9" secondAttribute="bottom" constant="20" id="n1N-fQ-qiU"/>
                 <constraint firstItem="4r7-Dk-UQr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="nKI-Rd-8Ar"/>
                 <constraint firstItem="jYA-fU-3zv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="t2H-ti-6gA"/>
+                <constraint firstItem="Jwu-Ll-DH9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vpd-kn-zYl"/>
+                <constraint firstItem="Jwu-Ll-DH9" firstAttribute="top" secondItem="4r7-Dk-UQr" secondAttribute="bottom" constant="20" id="zFG-TA-ou5"/>
             </constraints>
         </view>
     </objects>

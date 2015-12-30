@@ -28,6 +28,10 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     @IBOutlet weak var headerImageView: UIImageView!
     @IBOutlet weak var actionButton: UIButton!
     
+    @IBOutlet weak var progressView: UIView!
+    @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var progressLabel: UILabel!
+    
     var application: DownApplication!
     var delegate: DownSettingsViewControllerDelegate?
     
@@ -206,11 +210,15 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         if hostForApplication.length > 0 && apiKeyForApplication.length > 0 {
             if let service = serviceForApplication {
                 if service is SickbeardService && PreferenceManager.sickbeardLastCacheRefresh == nil {
-                    actionButton.enabled = false
-                    actionButton.setTitle("Loading show cache", forState: .Application)
+                    progressLabel.text = "Preparing show cache..."
+                    progressIndicator.startAnimating()
+                    progressView.hidden = false
+                    
+                    actionButton.hidden = true
                     (service as! SickbeardService).refreshShowCache {
-                        self.actionButton.setTitle("Start Down", forState: .Application)
-                        self.actionButton.enabled = true
+                        self.progressView.hidden = true
+                        self.actionButton.setTitle("Start Down!", forState: self.actionButton.state)
+                        self.actionButton.hidden = false
                     }
                     return
                 }
