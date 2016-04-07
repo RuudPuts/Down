@@ -245,7 +245,7 @@ public class SabNZBdService: Service {
                     self.refreshCompleted()
                     
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.notifyListeners(.FullHistoryFetched)
+                        self.notifyListeners(.HistoryUpdated)
                         
                         if self.fullHistoryFetched {
                             self.notifyListeners(.FullHistoryFetched)
