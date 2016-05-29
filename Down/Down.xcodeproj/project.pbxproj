@@ -90,6 +90,8 @@
 		42A496ED1BAF332800F5395C /* SABItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42A496E91BAF332800F5395C /* SABItemCell.xib */; };
 		42A496EE1BAF332800F5395C /* SickbeardShowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42A496EB1BAF332800F5395C /* SickbeardShowCell.xib */; };
 		42A496EF1BAF332800F5395C /* SickbeardTodayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42A496EC1BAF332800F5395C /* SickbeardTodayCell.xib */; };
+		42A4FC201CFB68A60049C60A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42A4FC1E1CFB68A60049C60A /* Crashlytics.framework */; };
+		42A4FC211CFB68A60049C60A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42A4FC1F1CFB68A60049C60A /* Fabric.framework */; };
 		42ADB24D1C31F86C00BDF078 /* SickbeardConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ADB24C1C31F86C00BDF078 /* SickbeardConnector.swift */; };
 		42AE88CE1B9F7CF200E4F0CF /* SickbeardEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AE88CD1B9F7CF200E4F0CF /* SickbeardEpisode.swift */; };
 		42AE88D31B9F7D0A00E4F0CF /* SickbeardSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */; };
@@ -399,6 +401,8 @@
 		42A496E91BAF332800F5395C /* SABItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABItemCell.xib; sourceTree = "<group>"; };
 		42A496EB1BAF332800F5395C /* SickbeardShowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardShowCell.xib; sourceTree = "<group>"; };
 		42A496EC1BAF332800F5395C /* SickbeardTodayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardTodayCell.xib; sourceTree = "<group>"; };
+		42A4FC1E1CFB68A60049C60A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		42A4FC1F1CFB68A60049C60A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		42ADB24C1C31F86C00BDF078 /* SickbeardConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardConnector.swift; sourceTree = "<group>"; };
 		42AE88CD1B9F7CF200E4F0CF /* SickbeardEpisode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardEpisode.swift; sourceTree = "<group>"; };
 		42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardSeason.swift; sourceTree = "<group>"; };
@@ -473,9 +477,11 @@
 				42E97C2D1BBD9E130040A979 /* RealmSwift.framework in Frameworks */,
 				428CF72F1AE199B5007F3E54 /* CoreTelephony.framework in Frameworks */,
 				428CF7301AE199B5007F3E54 /* GLKit.framework in Frameworks */,
+				42A4FC211CFB68A60049C60A /* Fabric.framework in Frameworks */,
 				428CF7311AE199B5007F3E54 /* MessageUI.framework in Frameworks */,
 				42391A9F1B5BF07700E4E0B4 /* XCGLogger.framework in Frameworks */,
 				428CF7321AE199B5007F3E54 /* OpenGLES.framework in Frameworks */,
+				42A4FC201CFB68A60049C60A /* Crashlytics.framework in Frameworks */,
 				428CF7331AE199B5007F3E54 /* QuartzCore.framework in Frameworks */,
 				428CF7341AE199B5007F3E54 /* SystemConfiguration.framework in Frameworks */,
 				428CF7351AE199B5007F3E54 /* UIKit.framework in Frameworks */,
@@ -910,6 +916,8 @@
 		428CF6FE1AE19779007F3E54 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				42A4FC1E1CFB68A60049C60A /* Crashlytics.framework */,
+				42A4FC1F1CFB68A60049C60A /* Fabric.framework */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -1205,6 +1213,7 @@
 				42DC20941B529F950060DA10 /* Embed Frameworks */,
 				423D87A91B700B3D00AFB7FF /* Embed App Extensions */,
 				42641F281C18D14E00E87D4A /* ShellScript */,
+				420AF6531CFB674000DC4DD4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1480,6 +1489,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
+		420AF6531CFB674000DC4DD4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Down/Dependencies/Fabric.framework/run fd7501efa3a9abb16103f351213d7b72ff764052 f2769c1a542364cb5281af857c1220006aa4a2d2d658d426988f0d0ba596dfa8";
 		};
 		4258D1781BB9EA95000FE7C7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1860,6 +1882,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/DownKit/Dependencies/Realm",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Down/Dependencies",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1882,6 +1906,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/DownKit/Dependencies/Realm",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Down/Dependencies",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1970,6 +1996,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/DownKit/Dependencies/Realm",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Down/Dependencies",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

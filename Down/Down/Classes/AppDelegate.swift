@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 import XCGLogger
 import DownKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //
 //        PreferenceManager.couchPotatoHost = "192.168.178.10"
 //        PreferenceManager.couchPotatoApiKey = "fb3f91e38ba147b29514d56a24d17d9a"
+        
+        Fabric.with([Crashlytics.self])
         
         serviceManager = ServiceManager()
         
