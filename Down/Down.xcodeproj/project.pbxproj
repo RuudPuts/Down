@@ -366,8 +366,6 @@
 		42746BB61BB3353600CD78BE /* DatabaseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseAdapter.swift; sourceTree = "<group>"; };
 		42746BB81BB3358A00CD78BE /* DatabaseV1Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseV1Adapter.swift; sourceTree = "<group>"; };
 		42746BBA1BB3392800CD78BE /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
-		428CF7001AE19779007F3E54 /* Instabug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Instabug.bundle; sourceTree = "<group>"; };
-		428CF7011AE19779007F3E54 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Instabug.framework; sourceTree = "<group>"; };
 		428CF7041AE197DA007F3E54 /* Down-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Down-Bridging-Header.h"; sourceTree = "<group>"; };
 		428CF71E1AE1996B007F3E54 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		428CF7201AE19973007F3E54 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -912,18 +910,8 @@
 		428CF6FE1AE19779007F3E54 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				428CF6FF1AE19779007F3E54 /* Instabug */,
 			);
 			path = Dependencies;
-			sourceTree = "<group>";
-		};
-		428CF6FF1AE19779007F3E54 /* Instabug */ = {
-			isa = PBXGroup;
-			children = (
-				428CF7001AE19779007F3E54 /* Instabug.bundle */,
-				428CF7011AE19779007F3E54 /* Instabug.framework */,
-			);
-			path = Instabug;
 			sourceTree = "<group>";
 		};
 		428CF71D1AE1995E007F3E54 /* Frameworks */ = {
