@@ -6,11 +6,10 @@
 //  Copyright © 2015 Ruud Puts. All rights reserved.
 //
 
-import Foundation
+import Alamofire
 
 public protocol Connector {
     
-    var requestManager: Manager? { get set }
     var host: String? { get set }
     var apiKey: String? { get set }
     
@@ -18,5 +17,14 @@ public protocol Connector {
     
     func fetchApiKey(completion: (String?) -> (Void))
     func fetchApiKey(username username: String?, password: String?, completion: (String?) -> (Void))
+    
+}
+
+extension Response {
+
+    // TODO: Use this in a Bolts implementation
+    func validateResponse() -> Bool {
+        return result.isSuccess && response != nil && response?.statusCode < 400
+    }
     
 }

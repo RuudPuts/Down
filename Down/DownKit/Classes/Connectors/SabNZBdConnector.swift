@@ -6,25 +6,27 @@
 //  Copyright © 2015 Ruud Puts. All rights reserved.
 //
 
+import Alamofire
+
 public class SabNZBdConnector: Connector {
 
-    public var requestManager: Manager?
     public var host: String?
     public var apiKey: String?
-    
+
+    // TODO: Set request timeouts
     public init() {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        configuration.timeoutIntervalForRequest = 1
-        configuration.timeoutIntervalForResource = 1
-        
-        requestManager = Manager(configuration: configuration)
+//        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+//        configuration.timeoutIntervalForRequest = 1
+//        configuration.timeoutIntervalForResource = 1
+//        
+//        requestManager = Manager(configuration: configuration)
     }
 
     public func validateHost(host: String, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
-        requestManager!.request(.GET, host).responseString { _, urlResponse, _ in
+        Alamofire.request(.GET, host).responseString { handler in
             var hostValid = false
             
-            if let response = urlResponse {
+            if handler.validateResponse(), let response = handler.response {
                 let serverHeader = response.allHeaderFields["Server"] as! String?
                 let authenticateHeader = response.allHeaderFields["Www-Authenticate"] as! String?
                 if (serverHeader?.hasPrefix("CherryPy") ?? false) || authenticateHeader?.rangeOfString("SABnzbd") != nil {
@@ -60,15 +62,15 @@ public class SabNZBdConnector: Connector {
                 url = url.insert(authenticationString, atIndex: 7)
             }
             
-            requestManager!.request(.GET, url).responseString { _, urlResponse, reponseString in
-                if let html = reponseString.value {
+            Alamofire.request(.GET, url).responseString { handler in
+                if handler.validateResponse(), let html = handler.result.value {
                     if let apikeyInputRange = html.rangeOfString("id=\"apikey\"") {
                         // WARN: Assumption; api key is within 200 characters from the input id
                         let substringLength = 200
                         let apikeyIndexEnd = apikeyInputRange.endIndex.advancedBy(substringLength)
                         
                         if html.endIndex > apikeyIndexEnd {
-                            let apiKeyRange = Range(start:apikeyInputRange.endIndex, end:apikeyIndexEnd)
+                            let apiKeyRange = apikeyInputRange.endIndex..<apikeyIndexEnd
                             let usefullPart = html.substringWithRange(apiKeyRange)
                             
                             self.apiKey = usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first

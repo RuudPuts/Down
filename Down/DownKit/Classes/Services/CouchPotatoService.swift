@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Ruud Puts. All rights reserved.
 //
 
+import Alamofire
+
 public class CouchPotatoService: Service {
    
 //    override init() {
@@ -32,14 +34,14 @@ public class CouchPotatoService: Service {
     
     private func refreshSnatchedAndAvailable() {
         let url = PreferenceManager.couchPotatoHost + "/" + PreferenceManager.couchPotatoApiKey + "/media.list?release_status=snatched,available&limit_offset=20"        
-        request(.GET, url).responseJSON { _, _, result in
-            if result.isSuccess {
+        Alamofire.request(.GET, url).responseJSON { handler in
+            if handler.validateResponse() {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     self.refreshCompleted()
                 })
             }
             else {
-                print("Error while fetching CouchPotato snachted and available: \(result.error!)")
+                print("Error while fetching CouchPotato snachted and available: \(handler.result.error!)")
             }
         }
     }

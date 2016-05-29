@@ -6,38 +6,35 @@
 //  Copyright © 2015 Ruud Puts. All rights reserved.
 //
 
+import Alamofire
+
 public class SickbeardConnector: Connector {
 
-    public var requestManager: Manager?
     public var host: String?
     public var apiKey: String?
     
     public init() {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        configuration.timeoutIntervalForRequest = 1
-        configuration.timeoutIntervalForResource = 1
-        
-        requestManager = Manager(configuration: configuration)
     }
 
     public func validateHost(host: String, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
-        requestManager!.request(.GET, host).responseString { _, urlResponse, _ in
+        Alamofire.request(.GET, host).responseJSON { response in
             var hostValid = false
-            
-            if let response = urlResponse {
+
+            // TODO: Create something like a request factory, using the bolts framwork
+            if response.validateResponse(), let response = response.response {
                 let serverHeader = response.allHeaderFields["Server"] as! String?
                 let authenticateHeader = response.allHeaderFields["Www-Authenticate"] as! String?
                 if (serverHeader?.hasPrefix("CherryPy") ?? false) || authenticateHeader?.rangeOfString("Sickbeard") != nil {
                     hostValid = true
                     self.host = host
-                    
+
                     // We got the host, lets fetch the api key
                     self.fetchApiKey(username: nil, password: nil, completion: {
                         self.apiKey = $0
-                        
+
                         completion(hostValid: hostValid, apiKey: self.apiKey)
                     })
-                    
+
                     // fetchApiKey completion handler will call our completion handler
                     return
                 }
@@ -60,21 +57,22 @@ public class SickbeardConnector: Connector {
                 url = url.insert(authenticationString, atIndex: 7)
             }
             
-            requestManager!.request(.GET, url).responseString { _, urlResponse, reponseString in
-                if let html = reponseString.value {
+            Alamofire.request(.GET, url).responseString { response in
+                if let html = response.result.value {
                     if let apikeyInputRange = html.rangeOfString("id=\"api_key\"") {
-                        // WARN: Assumption; api key is within 200 characters from the input id
+                        // WARNING: Assumption; api key is within 200 characters from the input id
                         let substringLength = 200
                         let apikeyIndexEnd = apikeyInputRange.endIndex.advancedBy(substringLength)
                         
                         if html.endIndex > apikeyIndexEnd {
-                            let apiKeyRange = Range(start:apikeyInputRange.endIndex, end:apikeyIndexEnd)
+                            let apiKeyRange = apikeyInputRange.endIndex..<apikeyIndexEnd
                             let usefullPart = html.substringWithRange(apiKeyRange)
                             
                             self.apiKey = usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first
                         }
                     }
                     else {
+                        // TODO: Use XCGLogger
                         NSLog("apikey input not found")
                     }
                 }
@@ -83,6 +81,7 @@ public class SickbeardConnector: Connector {
             }
         }
         else {
+            // TODO: Use XCGLogger
             NSLog("SabNZBdConnector - Please set host before fetching the api key")
             completion(nil)
         }

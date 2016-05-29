@@ -14,22 +14,24 @@ public extension String {
         return self.utf16.count
     }
     
-    init(var fromMB size: Float) {
+    init(fromMB size: Float) {
+        // TODO: See if a number formatter can be used here
         var sizeDisplay = "MB"
-        if (size < 0) {
-            size = size * 1024
+        var adjustedSize = size
+        if (adjustedSize < 0) {
+            adjustedSize = adjustedSize * 1024
             sizeDisplay = "KB"
         }
-        else if (size > 1024) {
-            size = size / 1024
+        else if (adjustedSize > 1024) {
+            adjustedSize = adjustedSize / 1024
             sizeDisplay = "GB"
         }
         
-        if (size > 0) {
-            self = String(format: "%.1f%@", size, sizeDisplay)
+        if (adjustedSize > 0) {
+            self = String(format: "%.1f%@", adjustedSize, sizeDisplay)
         }
         else {
-            self = String(format: "%.0f%@", size, sizeDisplay)
+            self = String(format: "%.0f%@", adjustedSize, sizeDisplay)
         }
     }
     

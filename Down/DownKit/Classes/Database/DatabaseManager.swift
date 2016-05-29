@@ -14,14 +14,14 @@ public class DatabaseManager {
     let _adapter: DatabaseAdapter
     
     class var databasePath: String {
-        let sickbeardDirectory = "\(UIApplication.documentsDirectory)/sickbeard"
+        let storageDirectory = "\(UIApplication.documentsDirectory)"
         do {
-            try NSFileManager.defaultManager().createDirectoryAtPath(sickbeardDirectory, withIntermediateDirectories: true, attributes: nil)
+            try NSFileManager.defaultManager().createDirectoryAtPath(storageDirectory, withIntermediateDirectories: true, attributes: nil)
         }
         catch let error as NSError {
             print("Error while creating databasePath: \(error)")
         }
-        return sickbeardDirectory + "/sickbeard.realm"
+        return storageDirectory + "/down.realm"
     }
     
     class var databaseExists: Bool {

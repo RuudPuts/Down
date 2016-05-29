@@ -7,6 +7,7 @@
 //
 
 import RealmSwift
+import Alamofire
 
 public class SickbeardService: Service {
 
@@ -53,7 +54,7 @@ public class SickbeardService: Service {
     }
     
     private func startTimers() {
-        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "refreshHistory", userInfo: nil, repeats: true)
+        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(refreshHistory), userInfo: nil, repeats: true)
         
         refreshHistory()
     }
@@ -104,17 +105,17 @@ public class SickbeardService: Service {
     
     @objc private func refreshHistory() {
         let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
-        request(.GET, url).responseJSON { _, _, result in
-            if result.isSuccess {
+        Alamofire.request(.GET, url).responseJSON { handler in
+            if handler.validateResponse() {
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.parseHistoryJson(JSON(result.value!))
+                    self.parseHistoryJson(JSON(handler.result.value!))
                     self.refreshCompleted()
                     
                     self.notifyListeners(.HistoryUpdated)
                 })
             }
             else {
-                print("Error while fetching Sickbard history: \(result.error!)")
+                print("Error while fetching Sickbard history: \(handler.result.error!)")
             }
         }
     }
@@ -151,9 +152,9 @@ public class SickbeardService: Service {
             NSLog("SickbeardService - Refreshing full cache")
             // Find shows to refresh, episodes aired since last update
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
-            request(.GET, url).responseJSON { _, _, result in
-                if result.isSuccess {
-                    let showData = (JSON(result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
+            Alamofire.request(.GET, url).responseJSON { handler in
+                if handler.validateResponse() {
+                    let showData = (JSON(handler.result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
                     let tvdbIds = Array(showData.keys)
                     self.refreshShowData(tvdbIds, completionHandler: {
                         PreferenceManager.sickbeardLastCacheRefresh = NSDate()
@@ -161,7 +162,7 @@ public class SickbeardService: Service {
                     })
                 }
                 else {
-                    print("Error while fetching Sickbeard shows list: \(result.error!)")
+                    print("Error while fetching Sickbeard shows list: \(handler.result.error!)")
                 }
             }
         }
@@ -194,12 +195,12 @@ public class SickbeardService: Service {
             dispatch_group_enter(showMetaDataGroup)
             
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
-            request(.GET, url).responseJSON { _, _, result in
-                if result.isSuccess {
-                    self.parseShowData(JSON(result.value!)["data"], forTvdbId: Int(tvdbId)!)
+            Alamofire.request(.GET, url).responseJSON { handler in
+                if handler.validateResponse() {
+                    self.parseShowData(JSON(handler.result.value!)["data"], forTvdbId: Int(tvdbId)!)
                 }
                 else {
-                    print("Error while fetching Sickbeard showData: \(result.data!)")
+                    print("Error while fetching Sickbeard showData: \(handler.result.error!)")
                 }
                 dispatch_group_leave(showMetaDataGroup)
             }
@@ -256,13 +257,13 @@ public class SickbeardService: Service {
     
     private func refreshShowSeasons(show: SickbeardShow, completionHandler: () -> Void) {
         let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show.tvdbId)"
-        request(.GET, url).responseJSON { _, _, result in
-            if result.isSuccess {
-                self.parseShowSeasons(JSON(result.value!)["data"], forShow: show)
+        Alamofire.request(.GET, url).responseJSON { handler in
+            if handler.validateResponse() {
+                self.parseShowSeasons(JSON(handler.result.value!)["data"], forShow: show)
                 completionHandler()
             }
             else {
-                print("Error while fetching Sickbeard showData: \(result.data!)")
+                print("Error while fetching Sickbeard showData: \(handler.result.error!)")
             }
         }
     }
@@ -311,15 +312,15 @@ public class SickbeardService: Service {
         if let tvdbId = episode.show?.tvdbId, seasonId = episode.season?.id {
             let command = "episode&tvdbid=\(tvdbId)&season=\(seasonId)&episode=\(episode.id)"
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=\(command)"
-            request(.GET, url).responseJSON { _, _, result in
-                if result.isSuccess {
+            Alamofire.request(.GET, url).responseJSON { handler in
+                if handler.validateResponse() {
                     dispatch_async(dispatch_get_main_queue(), {
-                        let plot = JSON(result.value!)["data"]["description"].string ?? ""
+                        let plot = JSON(handler.result.value!)["data"]["description"].string ?? ""
                         self.databaseManager.setPlot(plot, forEpisode: episode)
                     })
                 }
                 else {
-                    print("Error while fetching Sickbard history: \(result.error!)")
+                    print("Error while fetching Sickbard history: \(handler.result.error!)")
                 }
             }
             
@@ -356,12 +357,12 @@ public class SickbeardService: Service {
         dispatch_async(bannerDownloadQueue, {
             
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
-            request(.GET, url).responseData { _, _, result in
-                if result.isSuccess {
-                    ImageProvider.storeBanner(result.value!, forShow: show.tvdbId)
+            Alamofire.request(.GET, url).responseData { handler in
+                if handler.validateResponse() {
+                    ImageProvider.storeBanner(handler.result.value!, forShow: show.tvdbId)
                 }
                 else {
-                    print("Error while fetching banner: \(result.error!)")
+                    print("Error while fetching banner: \(handler.result.error!)")
                 }
             }
         })
@@ -374,12 +375,12 @@ public class SickbeardService: Service {
         
         dispatch_async(posterDownloadQueue, {
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
-            request(.GET, url).responseData { _, _, result in
-                if result.isSuccess {
-                    ImageProvider.storePoster(result.value!, forShow: show.tvdbId)
+            Alamofire.request(.GET, url).responseData { handler in
+                if handler.validateResponse() {
+                    ImageProvider.storePoster(handler.result.value!, forShow: show.tvdbId)
                 }
                 else {
-                    print("Error while fetching poster: \(result.error!)")
+                    print("Error while fetching poster: \(handler.result.error!)")
                 }
             }
         })

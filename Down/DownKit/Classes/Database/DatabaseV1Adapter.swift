@@ -14,7 +14,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
     var version = 1
     
     func defaultRealm() -> Realm {
-        return try! Realm(path: DatabaseManager.databasePath)
+        return try! Realm(fileURL: NSURL(fileURLWithPath:DatabaseManager.databasePath))
     }
 
     // MARK: Shows

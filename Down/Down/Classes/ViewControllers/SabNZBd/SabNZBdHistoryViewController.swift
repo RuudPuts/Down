@@ -54,7 +54,7 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRows = sabNZBdService.history.count
         if !sabNZBdService.fullHistoryFetched {
-            numberOfRows++
+            numberOfRows += 1
         }
         return max(numberOfRows, 1)
     }

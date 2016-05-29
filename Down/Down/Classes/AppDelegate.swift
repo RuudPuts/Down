@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [NSObject: AnyObject]?) -> Bool {
-        Instabug.startWithToken("dc9091202562420874c069cfc74b57fd", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
-
 //        PreferenceManager.sabNZBdHost = "192.168.178.10:8080"
 //        PreferenceManager.sabNZBdApiKey = "005a4296d8472a6ac787f09f24f2b70c"
 //

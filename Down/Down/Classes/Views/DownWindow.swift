@@ -6,7 +6,7 @@
 //  Copyright © 2015 Ruud Puts. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class DownWindow : UIWindow {
     

@@ -218,7 +218,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
                 tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 3, inSection: 0)], withRowAnimation: .Automatic)
             }
             else {
-                historySwitchRefreshCount++
+                historySwitchRefreshCount += 1
                 if (historySwitchRefreshCount == 1) {
                     self.navigationController?.popViewControllerAnimated(true)
                 }

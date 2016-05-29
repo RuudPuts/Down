@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Ruud Puts. All rights reserved.
 //
 
+import Alamofire
+
 public class SabNZBdService: Service {
     
     let queueRefreshRate: NSTimeInterval!
@@ -77,11 +79,8 @@ public class SabNZBdService: Service {
     }
     
     private func startTimers() {
-        queueRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(queueRefreshRate, target: self,
-            selector: "refreshQueue", userInfo: nil, repeats: true)
-        
-        historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self,
-            selector: "refreshHistory", userInfo: nil, repeats: true)
+        queueRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(queueRefreshRate, target: self, selector: #selector(refreshQueue), userInfo: nil, repeats: true)
+        historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self, selector: #selector(refreshHistory), userInfo: nil, repeats: true)
         
         refreshQueue()
         refreshHistory()
@@ -102,9 +101,9 @@ public class SabNZBdService: Service {
     @objc private func refreshQueue() {
         let url = "\(PreferenceManager.sabNZBdHost)/api?mode=queue&output=json&apikey=\(PreferenceManager.sabNZBdApiKey)"
         
-        request(.GET, url).responseJSON { _, _, result in
-            if result.isSuccess {
-            let responseJson = JSON(result.value!)
+        Alamofire.request(.GET, url).responseJSON { handler in
+            if handler.validateResponse() {
+                let responseJson = JSON(handler.result.value!)
                 if responseJson["error"] == nil {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         self.parseQueueJson(responseJson)
@@ -198,8 +197,8 @@ public class SabNZBdService: Service {
     
     @objc private func refreshHistory() {
         let url = "\(PreferenceManager.sabNZBdHost)/api?mode=history&output=json&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
-        request(.GET, url).responseJSON { _, _, result in
-            if let responseData = result.value {
+        Alamofire.request(.GET, url).responseJSON { handler in
+            if handler.validateResponse(), let responseData = handler.result.value {
                 let responseJson = JSON(responseData)
                 if responseJson["error"] == nil {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
@@ -238,10 +237,10 @@ public class SabNZBdService: Service {
         }
 
         let url = "\(PreferenceManager.sabNZBdHost)/api?mode=history&output=json&start=\(self.history.count)&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
-        request(.GET, url).responseJSON { _, _, result in
-            if result.isSuccess {
+        Alamofire.request(.GET, url).responseJSON { handler in
+            if handler.validateResponse() {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    self.parseHistoryJson(JSON(result.value!))
+                    self.parseHistoryJson(JSON(handler.result.value!))
                     self.refreshCompleted()
                     
                     dispatch_async(dispatch_get_main_queue(), {
@@ -254,7 +253,7 @@ public class SabNZBdService: Service {
                 })
             }
             else {
-                print("Error while fetching : \(result.error!)")
+                print("Error while fetching : \(handler.result.error!)")
             }
             self.isFetchingHistory = false
         }
@@ -352,17 +351,17 @@ public class SabNZBdService: Service {
             completionClosure(title: title)
         }
         else {
-            let url = "\(imdbApiUrl)?idIMDB=\(imdbIdentifier)&format=JSON&data=S"            
-            request(.GET, url).responseJSON { _, _, result in
-                if result.isSuccess {
+            let url = "\(imdbApiUrl)?idIMDB=\(imdbIdentifier)&format=JSON&data=S"
+            Alamofire.request(.GET, url).responseJSON { handler in
+                if handler.validateResponse() {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                        let title = JSON(result.value!)["title"].string!
+                        let title = JSON(handler.result.value!)["title"].string!
                         self.imdbTitleCache[imdbIdentifier] = title
                         completionClosure(title: title)
                     })
                 }
                 else {
-                    print("Error while fetching IMDB data: \(result.error!)")
+                    print("Error while fetching IMDB data: \(handler.result.error!)")
                 }
             }
         }
