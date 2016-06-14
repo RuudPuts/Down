@@ -10,11 +10,17 @@ import Foundation
 
 extension NSDateFormatter {
     
+    convenience init(dateFormat: String) {
+        self.init()
+        self.dateFormat = dateFormat
+    }
+    
     class func downDateTimeFormatter() -> NSDateFormatter {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-        
-        return dateFormatter
+        return NSDateFormatter(dateFormat: "dd-MM-yyyy HH:mm")
+    }
+    
+    class func downDateFormatter() -> NSDateFormatter {
+        return NSDateFormatter(dateFormat: "yyyy-MM-dd")
     }
     
 }

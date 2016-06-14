@@ -8,11 +8,12 @@
 
 import UIKit
 import DownKit
+import RealmSwift
 
 class SickbeardViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
     weak var sickbeardService: SickbeardService!
-    var todayData: [SickbeardEpisode]!
+    var todayData: Results<SickbeardEpisode>!
     var soonData: [SickbeardEpisode]?
 
     convenience init() {
@@ -122,12 +123,12 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
         let cell: UITableViewCell
         
         if indexPath.section > 0 {
-            var data = todayData
+            var dataAvailable = true
             if indexPath.section == 2 {
-                data = soonData
+                dataAvailable = soonData != nil
             }
-            
-            if data == nil {
+
+            if dataAvailable {
                 let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownTableViewCell
                 loadingCell.setCellType(.Sickbeard)
                 cell = loadingCell
@@ -139,13 +140,18 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
                 cell = emptyCell
             }
             else {
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
                 let itemCell = tableView.dequeueReusableCellWithIdentifier("SickbeardTodayCell", forIndexPath: indexPath) as! SickbeardTodayCell
                 
-                let episode = data![indexPath.row]
+                let episode: SickbeardEpisode
+                if indexPath.section == 2 {
+                    episode = soonData![indexPath.row]
+                }
+                else {
+                    episode = todayData[indexPath.row]
+                }
+                
                 itemCell.episodeLabel.text = episode.title
-                itemCell.dateLabel.text = episode.airDate == nil ? nil : dateFormatter.stringFromDate(episode.airDate!) // TODO: Ugly
+                itemCell.dateLabel.text = formatDateToString(episode.airDate)
                 itemCell.bannerView?.image = episode.show?.banner
                 
                 cell = itemCell
@@ -208,6 +214,17 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, iconForHeaderInSection section: Int) -> UIImage? {
         return UIImage(named: "sickbeard-airingtoday")
+    }
+    
+    func formatDateToString(date: NSDate?) -> String? {
+        var formattedString: String? = nil
+        let dateFormatter = NSDateFormatter.downDateFormatter()
+        
+        if date != nil {
+            formattedString = dateFormatter.stringFromDate(date!)
+        }
+        
+        return formattedString
     }
     
     // MARK: - TableView Delegate

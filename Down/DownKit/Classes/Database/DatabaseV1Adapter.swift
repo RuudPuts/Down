@@ -70,15 +70,17 @@ class DatabaseV1Adapter: DatabaseAdapter {
         return episode
     }
     
-    func episodesAiringOnDate(date: NSDate) -> [SickbeardEpisode] {
-        // TODO: Sort the episodes on first airing
+    func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode> {
         let calendar = NSCalendar.currentCalendar()
         let dateComponents = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day], fromDate: date)
-        let episodes = Array(defaultRealm().objects(SickbeardEpisode).filter("airDate == %@", calendar.dateFromComponents(dateComponents)!))
+        let episodes = defaultRealm().objects(SickbeardEpisode)
+            .filter("airDate == %@", calendar.dateFromComponents(dateComponents)!)
+            .sorted("airDate", ascending: true)
         
         return episodes
     }
     
+    // TODO: Also make this return a Results set
     func episodesAiredSince(airDate: NSDate) -> [SickbeardShow] {
         let realm = defaultRealm()
         let episodes = realm.objects(SickbeardEpisode).filter("airDate > %@ AND airDate < %@", airDate, NSDate())

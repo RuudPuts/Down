@@ -66,7 +66,7 @@ public class DatabaseManager {
         return self.adapter.episodeWithFilename(filename)
     }
     
-    public func episodesAiringOnDate(date: NSDate) -> [SickbeardEpisode] {
+    public func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode> {
         return self.adapter.episodesAiringOnDate(date)
     }
     

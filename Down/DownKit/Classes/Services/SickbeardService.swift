@@ -71,11 +71,11 @@ public class SickbeardService: Service {
         return episode
     }
     
-    public func getEpisodesAiringToday() -> [SickbeardEpisode] {
+    public func getEpisodesAiringToday() -> Results<SickbeardEpisode> {
         let episodes = databaseManager.episodesAiringOnDate(NSDate());
 
-        for e in episodes {
-            fetchEpisodeData(e)
+        for episode in episodes {
+            fetchEpisodeData(episode)
         }
 
         return episodes

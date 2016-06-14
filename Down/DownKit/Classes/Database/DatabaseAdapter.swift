@@ -21,6 +21,6 @@ protocol DatabaseAdapter {
     func setPlot(plot: String, forEpisode episode: SickbeardEpisode)
     func episodeWithFilename(filename: String!) -> SickbeardEpisode?
     
-    func episodesAiringOnDate(date: NSDate) -> [SickbeardEpisode];
+    func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode>
     func episodesAiredSince(airDate: NSDate) -> [SickbeardShow]
 }
