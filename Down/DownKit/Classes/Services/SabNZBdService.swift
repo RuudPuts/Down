@@ -268,7 +268,7 @@ public class SabNZBdService: Service {
             for jsonJob: JSON in jobs {
                 let identifier = jsonJob["nzo_id"].string!
                 let title = jsonJob["name"].string!
-                let filename = jsonJob["nzb_name"].string!
+                let filename = jsonJob["storage"].string!.componentsSeparatedByString("/").last ?? ""
                 let category = jsonJob["category"].string!
                 let nzbName = jsonJob["nzb_name"].string!
                 let size = jsonJob["size"].string!

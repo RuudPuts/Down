@@ -45,14 +45,14 @@ class DatabaseV1Adapter: DatabaseAdapter {
     }
     
     func setFilename(filename: String, forEpisode episode: SickbeardEpisode) {
-        let realm = defaultRealm()
-        try! realm.write({
-            // WARN: this if-statement seems to result in false positives?
-            if !episode.filename.containsString(filename) && episode.filename != filename {
+        if filename.length > 0 && !episode.filename.containsString(filename) && episode.filename != filename {
+            let realm = defaultRealm()
+            try! realm.write({
                 episode.filename = filename
-                NSLog("Stored filename for (\(episode.show!.name) S\(episode.season!.id)E\(episode.id))")
-            }
-        })
+            })
+            
+            NSLog("Stored filename for (\(episode.show!.name) S\(episode.season!.id)E\(episode.id): \(episode.filename))")
+        }
     }
     
     func setPlot(plot: String, forEpisode episode: SickbeardEpisode) {

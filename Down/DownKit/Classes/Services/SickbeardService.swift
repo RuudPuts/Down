@@ -15,6 +15,7 @@ public class SickbeardService: Service {
     
     public var history = Array<SickbeardEpisode>()
     
+    // WARN: Shows should be directly fetched from the database
     public var shows = [SickbeardShow]()
     
     var databaseManager: DatabaseManager!
@@ -132,11 +133,10 @@ public class SickbeardService: Service {
                 
                 if let episode = show.getEpisode(season, episodeId) {
                     // Remove the extension from the resource
-                    let filename = jsonItem["resource"].string!
+                    let resourcePath = jsonItem["resource_path"].string!
+                    let filename = resourcePath.componentsSeparatedByString("/").last ?? ""
                     
-                    if episode.filename != filename {
-                        databaseManager.setFilename(filename, forEpisode:episode)
-                    }
+                    databaseManager.setFilename(filename, forEpisode:episode)
                     history.append(episode)
                 }
             }
