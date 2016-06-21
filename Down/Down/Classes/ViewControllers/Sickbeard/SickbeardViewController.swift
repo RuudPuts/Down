@@ -28,8 +28,8 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
         let moreCellNib = UINib(nibName: "DownIconTextCell", bundle:nil)
         tableView.registerNib(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
         
-        let loadingCellNib = UINib(nibName: "DownLoadingCell", bundle:nil)
-        tableView.registerNib(loadingCellNib, forCellReuseIdentifier: "DownLoadingCell")
+        let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
+        tableView.registerNib(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
         
         let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
         tableView.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
@@ -128,10 +128,10 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
                 dataAvailable = soonData != nil
             }
 
-            if dataAvailable {
-                let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownLoadingCell", forIndexPath: indexPath) as! DownTableViewCell
-                loadingCell.setCellType(.Sickbeard)
-                cell = loadingCell
+            if !dataAvailable {
+                let activityCell = tableView.dequeueReusableCellWithIdentifier("DownActivityCell", forIndexPath: indexPath) as! DownTableViewCell
+                activityCell.setCellType(.Sickbeard)
+                cell = activityCell
             }
             else if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
                 let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
