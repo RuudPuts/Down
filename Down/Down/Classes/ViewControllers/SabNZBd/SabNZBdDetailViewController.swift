@@ -72,18 +72,21 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     // MARK: - TableView datasource
     
     func configureTableView() {
-        if sabItem is SABQueueItem {
-            cellKeys = [[.Name, .Status, .Progress]]
-            cellTitles = [["Name", "Status", "Progress"]]
-        }
-        else {
-            cellKeys = [[.Name, .TotalSize, .Status, .FinishedAt]]
-            cellTitles = [["Name", "Total size", "Status", "Finished at"]]
-        }
+        cellKeys = []
+        cellTitles = []
         
         if sabItem.sickbeardEpisode != nil {
             cellKeys.append([.SickbeardShow, .SickbeardEpisode, .SickbeardEpisodeName, .SickbeardAirDate])
             cellTitles.append(["Show", "Episode", "Title", "Aired on"])
+        }
+        
+        if sabItem is SABQueueItem {
+            cellKeys.append([.Status, .Progress])
+            cellTitles.append(["Status", "Progress"])
+        }
+        else {
+            cellKeys.append([.Status, .TotalSize, .FinishedAt])
+            cellTitles.append(["Status", "Total size", "Finished at"])
         }
     }
     
