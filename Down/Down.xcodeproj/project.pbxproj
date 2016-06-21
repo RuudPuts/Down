@@ -38,6 +38,8 @@
 		4221ADEB1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADEA1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift */; };
 		422D54921AE04AE200200EF0 /* DownTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D54901AE04AE200200EF0 /* DownTabBarItem.swift */; };
 		422D54931AE04AE200200EF0 /* DownTabBarItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D54911AE04AE200200EF0 /* DownTabBarItemCell.swift */; };
+		42354FD61D182BA80016B518 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; };
+		42354FD71D182BA80016B518 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42391A9F1B5BF07700E4E0B4 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42391A9A1B5BF01100E4E0B4 /* XCGLogger.framework */; };
 		42391AA01B5BF07700E4E0B4 /* XCGLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42391A9A1B5BF01100E4E0B4 /* XCGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		424595161B7933EB009DA699 /* DownKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 424595151B7933EB009DA699 /* DownKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -209,6 +211,13 @@
 			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
 			remoteInfo = "Alamofire iOS";
 		};
+		42354FD81D182BA80016B518 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 420AF6371CFB392C00DC4DD4 /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
 		42391A991B5BF01100E4E0B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
@@ -301,6 +310,7 @@
 				42E97C2C1BBD9E130040A979 /* Realm.framework in Embed Frameworks */,
 				424595291B7933EB009DA699 /* DownKit.framework in Embed Frameworks */,
 				42E97C2E1BBD9E130040A979 /* RealmSwift.framework in Embed Frameworks */,
+				42354FD71D182BA80016B518 /* Alamofire.framework in Embed Frameworks */,
 				42391AA01B5BF07700E4E0B4 /* XCGLogger.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -483,6 +493,7 @@
 				428CF7321AE199B5007F3E54 /* OpenGLES.framework in Frameworks */,
 				42A4FC201CFB68A60049C60A /* Crashlytics.framework in Frameworks */,
 				428CF7331AE199B5007F3E54 /* QuartzCore.framework in Frameworks */,
+				42354FD61D182BA80016B518 /* Alamofire.framework in Frameworks */,
 				428CF7341AE199B5007F3E54 /* SystemConfiguration.framework in Frameworks */,
 				428CF7351AE199B5007F3E54 /* UIKit.framework in Frameworks */,
 				428CF7231AE1997A007F3E54 /* CoreGraphics.framework in Frameworks */,
@@ -1220,6 +1231,7 @@
 			dependencies = (
 				42391AA21B5BF07700E4E0B4 /* PBXTargetDependency */,
 				424595271B7933EB009DA699 /* PBXTargetDependency */,
+				42354FD91D182BA80016B518 /* PBXTargetDependency */,
 			);
 			name = Down;
 			productName = Down;
@@ -1629,6 +1641,11 @@
 			isa = PBXTargetDependency;
 			name = "Alamofire iOS";
 			targetProxy = 420AF64F1CFB396C00DC4DD4 /* PBXContainerItemProxy */;
+		};
+		42354FD91D182BA80016B518 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Alamofire iOS";
+			targetProxy = 42354FD81D182BA80016B518 /* PBXContainerItemProxy */;
 		};
 		42391AA21B5BF07700E4E0B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
