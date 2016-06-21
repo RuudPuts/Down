@@ -23,8 +23,8 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let loadingCellNib = UINib(nibName: "DownLoadingCell", bundle:nil)
-        tableView.registerNib(loadingCellNib, forCellReuseIdentifier: "DownLoadingCell")
+        let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
+        tableView.registerNib(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
         
         let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
         tableView.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
@@ -92,19 +92,11 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
             }
         }
         else if indexPath.row == sabNZBdService.history.count && !sabNZBdService.fullHistoryFetched {
-            let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownActivityCell", forIndexPath: indexPath) as! DownTableViewCell
-            loadingCell.setCellType(.SabNZBd)
-            sabNZBdService.checkHostReachability({ reachable, _ in
-                if !reachable {
-                    // Host is not reachable
-                    loadingCell.label?.text = "Host seems down..."
-                }
-                else {
-                    loadingCell.label?.text = "Loading..."
-                }
-            })
+            let activityCell = tableView.dequeueReusableCellWithIdentifier("DownActivityCell", forIndexPath: indexPath) as! DownTableViewCell
+            activityCell.setCellType(.SabNZBd)
+            activityCell.label?.text = "Loading..."
             
-            cell = loadingCell
+            cell = activityCell
         }
         else {
             let itemCell = tableView.dequeueReusableCellWithIdentifier("SABItemCell", forIndexPath: indexPath) as! SABItemCell
