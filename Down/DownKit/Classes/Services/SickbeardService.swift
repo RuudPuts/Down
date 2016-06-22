@@ -157,7 +157,7 @@ public class SickbeardService: Service {
                     let showData = (JSON(handler.result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
                     let tvdbIds = Array(showData.keys)
                     self.refreshShowData(tvdbIds, completionHandler: {
-                        PreferenceManager.sickbeardLastCacheRefresh = NSDate()
+                        PreferenceManager.sickbeardLastCacheRefresh = NSDate().dateWithoutTime()
                         completionHandler()
                     })
                 }
@@ -177,7 +177,7 @@ public class SickbeardService: Service {
             }
             
             refreshShowData(tvdbIds, completionHandler: {
-                PreferenceManager.sickbeardLastCacheRefresh = NSDate()
+                PreferenceManager.sickbeardLastCacheRefresh = NSDate().dateWithoutTime()
                 completionHandler()
             })
             

@@ -73,28 +73,26 @@ public class SickbeardShow: Object {
     // Methods
 
     public func getSeason(seasonId: Int) -> SickbeardSeason? {
-        var foundSeason: SickbeardSeason?
-
         for season in _seasons {
             if season.id == seasonId {
-                foundSeason = season
-                break
+                return season
             }
         }
 
-        return foundSeason
+        return nil
     }
 
     public func getEpisode(seasonId: Int, _ episodeNr: Int) -> SickbeardEpisode? {
-        var episode: SickbeardEpisode? = nil
         if let season = getSeason(seasonId) {
             let episodeIndex = episodeNr - 1
-            if season.episodes.count < episodeIndex {
-                episode = season.episodes[episodeIndex]
+            guard season.episodes.count > episodeIndex else {
+                return nil
             }
+            
+            return season.episodes[episodeIndex]
         }
-
-        return episode
+        
+        return nil
     }
     
 }

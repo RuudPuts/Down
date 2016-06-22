@@ -19,6 +19,7 @@
 		420F496F1ADC431E006CFA11 /* DownActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F496E1ADC431E006CFA11 /* DownActivityCell.xib */; };
 		420F49731ADC4B50006CFA11 /* DownEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */; };
 		421129631C17762300E7B0BB /* SickbeardShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421129621C17762300E7B0BB /* SickbeardShowViewController.swift */; };
+		4216CF961D1B221700A89C4C /* NSDate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4216CF951D1B221700A89C4C /* NSDate+Extensions.swift */; };
 		422063DE1B85126300DAFB46 /* DownImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422063DD1B85126300DAFB46 /* DownImageView.swift */; };
 		4221ADD71B7BC0B20027C3A0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */; };
 		4221ADD81B7BC0B20027C3A0 /* CouchPotatoListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB71B7BC0B20027C3A0 /* CouchPotatoListener.swift */; };
@@ -280,6 +281,7 @@
 		420F496E1ADC431E006CFA11 /* DownActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownActivityCell.xib; sourceTree = "<group>"; };
 		420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownEmptyCell.xib; sourceTree = "<group>"; };
 		421129621C17762300E7B0BB /* SickbeardShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowViewController.swift; sourceTree = "<group>"; };
+		4216CF951D1B221700A89C4C /* NSDate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Extensions.swift"; sourceTree = "<group>"; };
 		422063DD1B85126300DAFB46 /* DownImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownImageView.swift; sourceTree = "<group>"; };
 		4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		4221ADB71B7BC0B20027C3A0 /* CouchPotatoListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoListener.swift; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 				4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */,
 				42746BBA1BB3392800CD78BE /* UIApplication+Extensions.swift */,
 				4299479A1C261A5600934B03 /* NSDateFormatter+Extensions.swift */,
+				4216CF951D1B221700A89C4C /* NSDate+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1447,6 +1450,7 @@
 				4221ADE91B7BC0D50027C3A0 /* SwiftyJSON.swift in Sources */,
 				4221ADDA1B7BC0B20027C3A0 /* ServiceListener.swift in Sources */,
 				4221ADDF1B7BC0B20027C3A0 /* SABItem.swift in Sources */,
+				4216CF961D1B221700A89C4C /* NSDate+Extensions.swift in Sources */,
 				42746BB91BB3358A00CD78BE /* DatabaseV1Adapter.swift in Sources */,
 				4221ADE41B7BC0B20027C3A0 /* CouchPotatoService.swift in Sources */,
 				4221ADDD1B7BC0B20027C3A0 /* ServiceManager.swift in Sources */,
