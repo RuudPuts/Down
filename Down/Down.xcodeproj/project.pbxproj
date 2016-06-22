@@ -40,8 +40,6 @@
 		422D54931AE04AE200200EF0 /* DownTabBarItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D54911AE04AE200200EF0 /* DownTabBarItemCell.swift */; };
 		42354FD61D182BA80016B518 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; };
 		42354FD71D182BA80016B518 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		42391A9F1B5BF07700E4E0B4 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42391A9A1B5BF01100E4E0B4 /* XCGLogger.framework */; };
-		42391AA01B5BF07700E4E0B4 /* XCGLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42391A9A1B5BF01100E4E0B4 /* XCGLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		424595161B7933EB009DA699 /* DownKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 424595151B7933EB009DA699 /* DownKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4245951D1B7933EB009DA699 /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424595131B7933EA009DA699 /* DownKit.framework */; };
 		424595241B7933EB009DA699 /* DownKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 424595231B7933EB009DA699 /* DownKitTests.m */; };
@@ -148,13 +146,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		420AF6351CFB38F700DC4DD4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5515A3DF1BA119FA0047BA31;
-			remoteInfo = "XCGLogger (tvOS)";
-		};
 		420AF6411CFB392C00DC4DD4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 420AF6371CFB392C00DC4DD4 /* Alamofire.xcodeproj */;
@@ -218,34 +209,6 @@
 			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
 			remoteInfo = "Alamofire iOS";
 		};
-		42391A991B5BF01100E4E0B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E3EE4519D76F280068C3A7;
-			remoteInfo = "XCGLogger (iOS)";
-		};
-		42391A9B1B5BF01100E4E0B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 554DF41719D76FE7005708BE;
-			remoteInfo = "XCGLogger (OS X)";
-		};
-		42391A9D1B5BF01100E4E0B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E3EE5019D76F280068C3A7;
-			remoteInfo = XCGLoggerTests;
-		};
-		42391AA11B5BF07700E4E0B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 55E3EE4419D76F280068C3A7;
-			remoteInfo = "XCGLogger (iOS)";
-		};
 		4245951E1B7933EB009DA699 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4253E7CD1AB4B7B900EF1254 /* Project object */;
@@ -274,20 +237,6 @@
 			remoteGlobalIDString = 4253E7D41AB4B7B900EF1254;
 			remoteInfo = Down;
 		};
-		4269A91C1B850049005A06E3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55BB1F011B79DC7500709779;
-			remoteInfo = "XCGLoggerTests (OS X)";
-		};
-		42DEEB4B1BACCBC50061723F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 70CB94201B99E728007802FF;
-			remoteInfo = "XCGLogger (watchOS)";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -311,7 +260,6 @@
 				424595291B7933EB009DA699 /* DownKit.framework in Embed Frameworks */,
 				42E97C2E1BBD9E130040A979 /* RealmSwift.framework in Embed Frameworks */,
 				42354FD71D182BA80016B518 /* Alamofire.framework in Embed Frameworks */,
-				42391AA01B5BF07700E4E0B4 /* XCGLogger.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,7 +299,6 @@
 		4221ADEA1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		422D54901AE04AE200200EF0 /* DownTabBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarItem.swift; sourceTree = "<group>"; };
 		422D54911AE04AE200200EF0 /* DownTabBarItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarItemCell.swift; sourceTree = "<group>"; };
-		42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCGLogger.xcodeproj; path = ../XCGLogger/XCGLogger/Library/XCGLogger.xcodeproj; sourceTree = "<group>"; };
 		423D87941B700B3D00AFB7FF /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		424595131B7933EA009DA699 /* DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		424595151B7933EB009DA699 /* DownKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownKit.h; sourceTree = "<group>"; };
@@ -489,7 +436,6 @@
 				428CF7301AE199B5007F3E54 /* GLKit.framework in Frameworks */,
 				42A4FC211CFB68A60049C60A /* Fabric.framework in Frameworks */,
 				428CF7311AE199B5007F3E54 /* MessageUI.framework in Frameworks */,
-				42391A9F1B5BF07700E4E0B4 /* XCGLogger.framework in Frameworks */,
 				428CF7321AE199B5007F3E54 /* OpenGLES.framework in Frameworks */,
 				42A4FC201CFB68A60049C60A /* Crashlytics.framework in Frameworks */,
 				428CF7331AE199B5007F3E54 /* QuartzCore.framework in Frameworks */,
@@ -729,19 +675,6 @@
 			path = TabBarController;
 			sourceTree = "<group>";
 		};
-		42391A941B5BF01100E4E0B4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				42391A9A1B5BF01100E4E0B4 /* XCGLogger.framework */,
-				42391A9C1B5BF01100E4E0B4 /* XCGLogger.framework */,
-				42DEEB4C1BACCBC50061723F /* XCGLogger.framework */,
-				420AF6361CFB38F700DC4DD4 /* XCGLogger.framework */,
-				42391A9E1B5BF01100E4E0B4 /* XCGLoggerTests (iOS).xctest */,
-				4269A91D1B850049005A06E3 /* XCGLoggerTests (OS X).xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		423D87931B700B3D00AFB7FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -779,7 +712,6 @@
 				424595221B7933EB009DA699 /* DownKitTests */,
 				423D87931B700B3D00AFB7FF /* Frameworks */,
 				4253E7D61AB4B7B900EF1254 /* Products */,
-				42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */,
 				420AF6371CFB392C00DC4DD4 /* Alamofire.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -1229,7 +1161,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				42391AA21B5BF07700E4E0B4 /* PBXTargetDependency */,
 				424595271B7933EB009DA699 /* PBXTargetDependency */,
 				42354FD91D182BA80016B518 /* PBXTargetDependency */,
 			);
@@ -1300,10 +1231,6 @@
 					ProductGroup = 420AF6381CFB392C00DC4DD4 /* Products */;
 					ProjectRef = 420AF6371CFB392C00DC4DD4 /* Alamofire.xcodeproj */;
 				},
-				{
-					ProductGroup = 42391A941B5BF01100E4E0B4 /* Products */;
-					ProjectRef = 42391A931B5BF01100E4E0B4 /* XCGLogger.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1316,13 +1243,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		420AF6361CFB38F700DC4DD4 /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = 420AF6351CFB38F700DC4DD4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		420AF6421CFB392C00DC4DD4 /* Alamofire.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1370,41 +1290,6 @@
 			fileType = wrapper.framework;
 			path = Alamofire.framework;
 			remoteRef = 420AF64D1CFB392C00DC4DD4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		42391A9A1B5BF01100E4E0B4 /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = 42391A991B5BF01100E4E0B4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		42391A9C1B5BF01100E4E0B4 /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = 42391A9B1B5BF01100E4E0B4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		42391A9E1B5BF01100E4E0B4 /* XCGLoggerTests (iOS).xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "XCGLoggerTests (iOS).xctest";
-			remoteRef = 42391A9D1B5BF01100E4E0B4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4269A91D1B850049005A06E3 /* XCGLoggerTests (OS X).xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "XCGLoggerTests (OS X).xctest";
-			remoteRef = 4269A91C1B850049005A06E3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		42DEEB4C1BACCBC50061723F /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = 42DEEB4B1BACCBC50061723F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1646,11 +1531,6 @@
 			isa = PBXTargetDependency;
 			name = "Alamofire iOS";
 			targetProxy = 42354FD81D182BA80016B518 /* PBXContainerItemProxy */;
-		};
-		42391AA21B5BF07700E4E0B4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "XCGLogger (iOS)";
-			targetProxy = 42391AA11B5BF07700E4E0B4 /* PBXContainerItemProxy */;
 		};
 		4245951F1B7933EB009DA699 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

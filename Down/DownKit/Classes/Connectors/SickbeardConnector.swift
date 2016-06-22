@@ -72,7 +72,7 @@ public class SickbeardConnector: Connector {
                         }
                     }
                     else {
-                        // TODO: Use XCGLogger
+                        // TODO: Use some kind of logging
                         NSLog("apikey input not found")
                     }
                 }
@@ -81,7 +81,7 @@ public class SickbeardConnector: Connector {
             }
         }
         else {
-            // TODO: Use XCGLogger
+            // TODO: Use some kind of logging
             NSLog("SabNZBdConnector - Please set host before fetching the api key")
             completion(nil)
         }

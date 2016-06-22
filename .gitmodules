@@ -4,6 +4,3 @@
 [submodule "SwiftyJSON"]
 	path = SwiftyJSON
 	url = https://github.com/SwiftyJSON/SwiftyJSON.git
-[submodule "XCGLogger"]
-	path = XCGLogger
-url=https://github.com/DaveWoodCom/XCGLogger.git

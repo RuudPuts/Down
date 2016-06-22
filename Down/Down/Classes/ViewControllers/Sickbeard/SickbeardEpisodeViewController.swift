@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import XCGLogger
 import DownKit
 
 class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate {

@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import XCGLogger
 import DownKit
 import Fabric
 import Crashlytics
@@ -39,9 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         
         serviceManager = ServiceManager()
-        
-        let log = XCGLogger.defaultInstance()
-        log.setup(.Debug, showThreadName: true, showLogLevel: true, showFileNames: false, showLineNumbers: false, writeToFile: nil, fileLogLevel: .None)
         
         initializeWindow()
         

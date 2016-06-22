@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import XCGLogger
 import DownKit
 
 class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
