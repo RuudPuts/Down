@@ -301,9 +301,13 @@ public class SabNZBdService: Service {
             
             // Parse history size
             historySize = json["history"]["noofslots"].int!
-            history.sortInPlace {
+            
+            // Store history in a new variable, to prevent race conditions of getting items from history while sorting
+            var unsortedHistory = history
+            unsortedHistory.sortInPlace {
                 return $0.completionDate!.compare($1.completionDate!) == .OrderedDescending
             }
+            history = unsortedHistory
         }
     }
     
