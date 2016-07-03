@@ -87,6 +87,8 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             cellKeys.append([.Status, .TotalSize, .FinishedAt])
             cellTitles.append(["Status", "Total size", "Finished at"])
         }
+        
+        // TODO: Add plot for sickbeard show
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -133,7 +135,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             detailText = queueItem.sickbeardEpisode!.show?.name
             break;
         case .SickbeardEpisode:
-            detailText = "S\(queueItem.sickbeardEpisode!.season?.id)E\(queueItem.sickbeardEpisode!.id)"
+            detailText = "S\(queueItem.sickbeardEpisode!.season!.id)E\(queueItem.sickbeardEpisode!.id)"
             break;
         case .SickbeardEpisodeName:
             detailText = queueItem.sickbeardEpisode!.name

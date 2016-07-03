@@ -26,7 +26,6 @@ public class SabNZBdService: Service {
     public var mbLeft: Float?
     public var paused: Bool = true
     
-    var imdbApiUrl = "http://www.myapifilms.com/imdb"
     var imdbTitleCache = [String: String]()
     
     private enum SabNZBDNotifyType {
@@ -137,14 +136,21 @@ public class SabNZBdService: Service {
                 let progress = jsonJob["percentage"].string!.floatValue
                 
                 
-                let item = findQueueItem(identifier)
+                var item = findQueueItem(identifier)
                 if item == nil {
-                    queue.append(SABQueueItem(identifier, category, nzbName, statusDescription, totalMb, remainingMb, progress, timeRemaining))
+                    item = SABQueueItem(identifier, category, nzbName, statusDescription, totalMb, remainingMb, progress, timeRemaining)
+                    queue.append(item!)
                 }
                 else {
                     item!.update(statusDescription, remainingMb, progress, timeRemaining)
                 }
                 newQueueIdentifiers.append(identifier)
+                
+                if let imdbIdentifier = item!.imdbIdentifier as String! {
+                    fetchTitleFromIMDB(imdbIdentifier, completionClosure: { (title) -> () in
+                        item!.imdbTitle = title
+                    })
+                }
             }
             
             // Cleanup items removed from queue
@@ -348,15 +354,16 @@ public class SabNZBdService: Service {
     // MARK - IMDB
     
     private func fetchTitleFromIMDB(imdbIdentifier: String, completionClosure: (title: String) ->()) {
+        // TODO: Cache data in database, match like sickbeard shows
         if let title = self.imdbTitleCache[imdbIdentifier] as String! {
             completionClosure(title: title)
         }
         else {
-            let url = "\(imdbApiUrl)?idIMDB=\(imdbIdentifier)&format=JSON&data=S"
+            let url = "http://www.omdbapi.com/?i=\(imdbIdentifier)"
             Alamofire.request(.GET, url).responseJSON { handler in
                 if handler.validateResponse() {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                        let title = JSON(handler.result.value!)["title"].string!
+                        let title = JSON(handler.result.value!)["Title"].string!
                         self.imdbTitleCache[imdbIdentifier] = title
                         completionClosure(title: title)
                     })
