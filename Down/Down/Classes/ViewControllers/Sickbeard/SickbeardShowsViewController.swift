@@ -9,7 +9,7 @@
 import UIKit
 import DownKit
 
-class SickbeardShowsViewController: DownViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     weak var sickbeardService: SickbeardService!
     
@@ -24,9 +24,7 @@ class SickbeardShowsViewController: DownViewController, UICollectionViewDataSour
         super.viewDidLoad()
         
         let cellNib = UINib(nibName: "SickbeardShowCell", bundle:nil)
-        collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "SickbeardShowCell")
-        
-        
+        collectionView!.registerNib(cellNib, forCellWithReuseIdentifier: "SickbeardShowCell")
     }
     
     // MARK: - CollectionView DataSource
@@ -57,8 +55,22 @@ class SickbeardShowsViewController: DownViewController, UICollectionViewDataSour
     // MARK: - CollectionView Delegate
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let cellWidth = self.view.frame.width / 3
-        let cellHeight = (cellWidth / 66 * 100) + 30
+        let showsPerLine = 3
+        // Calculate the widt
+        var cellWidth = self.view.frame.width / CGFloat(showsPerLine)
+        
+        let modulus = indexPath.row % showsPerLine
+        if modulus == 0 {
+            // Floor the outer left column
+            cellWidth = floor(cellWidth)
+        }
+        else if modulus == showsPerLine - 1 {
+            // Ceil the outer right column
+            cellWidth = ceil(cellWidth)
+        }
+        
+        // Calculate the height, aspect ration 66:100
+        let cellHeight = (cellWidth / 66 * 100)
         
         return CGSize(width: cellWidth, height: cellHeight)
     }

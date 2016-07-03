@@ -37,16 +37,16 @@ class SabNZBdViewController: DownViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         
         let loadingCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
-        tableView.registerNib(loadingCellNib, forCellReuseIdentifier: "DownActivityCell")
+        tableView!.registerNib(loadingCellNib, forCellReuseIdentifier: "DownActivityCell")
         
         let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
-        tableView.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
+        tableView!.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
         
         let itemCellNib = UINib(nibName: "SABItemCell", bundle:nil)
-        tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SABItemCell")
+        tableView!.registerNib(itemCellNib, forCellReuseIdentifier: "SABItemCell")
         
         let moreHistoryCellNib = UINib(nibName: "DownTextCell", bundle: nil)
-        tableView.registerNib(moreHistoryCellNib, forCellReuseIdentifier: "DownTextCell")
+        tableView!.registerNib(moreHistoryCellNib, forCellReuseIdentifier: "DownTextCell")
         
         headerView.backgroundColor = .downSabNZBdColor()
     }
@@ -57,7 +57,7 @@ class SabNZBdViewController: DownViewController, UITableViewDataSource, UITableV
         sabNZBdService.addListener(self)
         sickbeardService.addListener(self)
         
-        tableView.reloadData()
+        tableView!.reloadData()
         updateHeader()
     }
     
@@ -305,7 +305,7 @@ class SabNZBdViewController: DownViewController, UITableViewDataSource, UITableV
             navigationController!.pushViewController(detailViewController, animated: true)
         }
         
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -330,12 +330,12 @@ class SabNZBdViewController: DownViewController, UITableViewDataSource, UITableV
     // MARK: - SabNZBdListener
     
     func sabNZBdQueueUpdated() {
-        self.tableView.reloadData()
+        tableView!.reloadData()
         updateHeader()
     }
     
     func sabNZBdHistoryUpdated() {
-        self.tableView.reloadData()
+        tableView!.reloadData()
     }
     
     func sabNZBDFullHistoryFetched() { }
@@ -344,11 +344,11 @@ class SabNZBdViewController: DownViewController, UITableViewDataSource, UITableV
     // MARK: - SickbeardListener
     
     func sickbeardHistoryUpdated() {
-        self.tableView.reloadData()
+        tableView!.reloadData()
     }
     
     func sickbeardFutureUpdated() {
-        self.tableView.reloadData()
+        tableView!.reloadData()
     }
 
 }

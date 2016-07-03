@@ -530,8 +530,8 @@
 		42078E3C1AD1C702009845CC /* Sickbeard */ = {
 			isa = PBXGroup;
 			children = (
-				429947981C2614BB00934B03 /* SickbeardEpisodeViewController.swift */,
 				42078E3D1AD1C702009845CC /* SickbeardViewController.swift */,
+				429947981C2614BB00934B03 /* SickbeardEpisodeViewController.swift */,
 				42E1CCC51BA226CE00DFED2E /* SickbeardShowsViewController.swift */,
 				421129621C17762300E7B0BB /* SickbeardShowViewController.swift */,
 			);

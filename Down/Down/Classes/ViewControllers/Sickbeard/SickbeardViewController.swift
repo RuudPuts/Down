@@ -26,16 +26,16 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         let moreCellNib = UINib(nibName: "DownIconTextCell", bundle:nil)
-        tableView.registerNib(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
+        tableView!.registerNib(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
         
         let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
-        tableView.registerNib(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
+        tableView!.registerNib(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
         
         let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
-        tableView.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
+        tableView!.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
         
         let itemCellNib = UINib(nibName: "SickbeardTodayCell", bundle:nil)
-        tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
+        tableView!.registerNib(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
         
         reloadTableView()
         
@@ -65,7 +65,7 @@ class SickbeardViewController: DownViewController, UITableViewDataSource, UITabl
     // MARK: - TableView DataSource
     
     private func reloadTableView() {
-        tableView.reloadData()
+        tableView!.reloadData()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

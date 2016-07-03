@@ -177,7 +177,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         
         // Nib registering
         let settingsNib = UINib(nibName: "DownSettingsTableViewCell", bundle: NSBundle.mainBundle())
-        tableView.registerNib(settingsNib, forCellReuseIdentifier: "settingsCell")
+        tableView!.registerNib(settingsNib, forCellReuseIdentifier: "settingsCell")
     }
     
     func applyTheming() {
@@ -324,7 +324,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     // MARK - DownTableViewCellDelegate
     
     func downTableViewCell(cell: DownTableViewCell, didChangeText text: String) {
-        let indexPath = tableView.indexPathForCell(cell)!
+        let indexPath = tableView!.indexPathForCell(cell)!
         let rowType: DownSettingsRow = DownSettingsRow(rawValue: indexPath.row)!
         switch rowType {
         case .Host:
@@ -341,13 +341,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             break
         }
         
-        self.tableView(tableView, reloadCell: cell, forIndexPath: indexPath)
+        self.tableView(tableView!, reloadCell: cell, forIndexPath: indexPath)
     }
     
     // =
     
     func validateHost(var host: String) {
-        // check the host, in an ugly way.. NSUrl maybe?
+        // TODO: check the host, in an ugly way.. NSUrl maybe?
         if !host.hasPrefix("http://") {
             host = "http://" + host
         }
@@ -363,18 +363,18 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
                         self.apiKeyForApplication = apiKey!
                     }
                     self.configureTableView()
-                    self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                    self.tableView!.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
                 }
                 else {
                     let indexPath = NSIndexPath(forRow: DownSettingsRow.Host.rawValue, inSection: 0)
-                    let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! DownTableViewCell
+                    let cell = self.tableView!.cellForRowAtIndexPath(indexPath) as! DownTableViewCell
                     if let text = cell.textField?.text {
                         if !host.hasSuffix(text) {
                             self.validateHost(text)
                             return
                         }
                     }
-                    self.tableView(self.tableView, reloadCell: cell, forIndexPath: indexPath)
+                    self.tableView(self.tableView!, reloadCell: cell, forIndexPath: indexPath)
                 }
             })
         }
@@ -382,11 +382,11 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     
     func fetchApiKey() {
         let usernameIndexPath = NSIndexPath(forRow: DownSettingsRow.Username.rawValue, inSection: 0)
-        let usernameCell = self.tableView.cellForRowAtIndexPath(usernameIndexPath) as! DownTableViewCell
+        let usernameCell = tableView!.cellForRowAtIndexPath(usernameIndexPath) as! DownTableViewCell
         let username = usernameCell.textField?.text ?? ""
         
         let passwordIndexPath = NSIndexPath(forRow: DownSettingsRow.Password.rawValue, inSection: 0)
-        let passwordCell = self.tableView.cellForRowAtIndexPath(passwordIndexPath) as! DownTableViewCell
+        let passwordCell = tableView!.cellForRowAtIndexPath(passwordIndexPath) as! DownTableViewCell
         let password = passwordCell.textField?.text ?? ""
         
         if !fetchingApiKey && connector?.host?.length > 0 && username.length > 0 && password.length > 0 {
@@ -395,7 +395,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
                 if apiKey != nil && apiKey!.length > 0 {
                     self.apiKeyForApplication = apiKey!
                     self.configureTableView()
-                    self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                    self.tableView!.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
                 }
                 self.fetchingApiKey = false
             })

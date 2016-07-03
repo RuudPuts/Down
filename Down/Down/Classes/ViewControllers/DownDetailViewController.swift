@@ -14,30 +14,28 @@ class DownDetailViewController: DownViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.navigationController?.viewControllers.count == 2 {
-            self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        }
+        hideNavigationBar(animated)
     }
-
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if self.navigationController?.viewControllers.count == 1 {
-            self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        }
+        showNavigationBar(animated)
     }
+    
+    // MARK: Table header view
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if let tableHeaderView = tableView.tableHeaderView {
+        if let tableHeaderView = tableView?.tableHeaderView {
             let headerImageView = tableHeaderView as! UIImageView
             let imageSize = headerImageView.image!.size
             let screenWidth = CGRectGetWidth(view.bounds)
             let ratiodImageHeight = imageSize.height / imageSize.width * screenWidth
             headerImageView.frame = CGRectMake(0, 0, screenWidth, ratiodImageHeight)
             
-            tableView.tableHeaderView = headerImageView
+            tableView?.tableHeaderView = headerImageView
         }
     }
     
@@ -45,10 +43,29 @@ class DownDetailViewController: DownViewController {
         if image != nil {
             let headerImageView = UIImageView(image: image)
             
-            tableView.tableHeaderView = headerImageView
+            tableView?.tableHeaderView = headerImageView
         }
         else {
-            tableView.tableHeaderView = nil
+            tableView?.tableHeaderView = nil
         }
     }
+
+    // MARK: Navigation bar
+    
+    func hideNavigationBar(animated: Bool) {
+        guard self.navigationController?.viewControllers.count == 2 else {
+            return
+        }
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    func showNavigationBar(animated: Bool) {
+        guard self.navigationController?.viewControllers.count == 1 else {
+            return
+        }
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
 }

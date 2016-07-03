@@ -16,8 +16,8 @@ class DownViewController: UIViewController {
         return UIApplication.sharedApplication().downAppDelegate.downWindow
     }
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var collectionView: UICollectionView?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate

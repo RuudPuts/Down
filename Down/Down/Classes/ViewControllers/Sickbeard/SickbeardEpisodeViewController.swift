@@ -42,10 +42,10 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView!.rowHeight = UITableViewAutomaticDimension
         
         let plotCellNib = UINib(nibName: "DownTextCell", bundle: NSBundle.mainBundle())
-        tableView.registerNib(plotCellNib, forCellReuseIdentifier: "DownTextCell")
+        tableView!.registerNib(plotCellNib, forCellReuseIdentifier: "DownTextCell")
         
         setTableViewHeaderImage(episode?.show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
     }

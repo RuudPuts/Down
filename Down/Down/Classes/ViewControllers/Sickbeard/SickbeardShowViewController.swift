@@ -25,10 +25,10 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView!.rowHeight = UITableViewAutomaticDimension
         
         let cellNib = UINib(nibName: "DownTextCell", bundle:nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: "DownTextCell")
+        tableView!.registerNib(cellNib, forCellReuseIdentifier: "DownTextCell")
     }
     
     override func viewWillAppear(animated: Bool) {

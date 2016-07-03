@@ -24,13 +24,13 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
         super.viewDidLoad()
         
         let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
-        tableView.registerNib(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
+        tableView!.registerNib(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
         
         let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
-        tableView.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
+        tableView!.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
         
         let itemCellNib = UINib(nibName: "SABItemCell", bundle:nil)
-        tableView.registerNib(itemCellNib, forCellReuseIdentifier: "SABItemCell")
+        tableView!.registerNib(itemCellNib, forCellReuseIdentifier: "SABItemCell")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -110,7 +110,7 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (cell as? DownTableViewCell)?.activityIndicator?.isAnimating() ?? false && self.tableView.numberOfRowsInSection(indexPath.section) > 0 {
+        if (cell as? DownTableViewCell)?.activityIndicator?.isAnimating() ?? false && tableView.numberOfRowsInSection(indexPath.section) > 0 {
             sabNZBdService.fetchHistory()
         }
     }
@@ -137,20 +137,20 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
     // MARK: - SabNZBdListener
     
     func sabNZBdQueueUpdated() {
-        self.tableView.reloadData()
+        tableView!.reloadData()
     }
     
     func sabNZBdHistoryUpdated() {
-        self.tableView.reloadData()
+        tableView!.reloadData()
     }
     
     func sabNZBDFullHistoryFetched() {
-        self.tableView.reloadData()
+        tableView!.reloadData()
     }
     
     func willRemoveSABItem(sabItem: SABItem) {
         if sabItem is SABHistoryItem {
-            self.tableView.reloadData()
+            tableView!.reloadData()
         }
     }
     

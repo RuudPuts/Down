@@ -29,7 +29,7 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
         super.viewDidLoad()
         
         let tabBarCellNib = UINib(nibName: "DownTabBarItemCell", bundle: nil)
-        collectionView.registerNib(tabBarCellNib, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView!.registerNib(tabBarCellNib, forCellWithReuseIdentifier: cellIdentifier)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -177,7 +177,7 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
         }
         else {
             contentView.removeAllSubViews()
-            collectionView.backgroundColor = UIColor.whiteColor()
+            collectionView!.backgroundColor = UIColor.whiteColor()
         }
     }
     

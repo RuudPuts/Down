@@ -51,7 +51,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView!.rowHeight = UITableViewAutomaticDimension
         
         setTableViewHeaderImage(sabItem.sickbeardEpisode?.show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
     }
@@ -204,7 +204,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     
     func sabNZBdQueueUpdated() {
         if sabItem is SABQueueItem {
-            tableView.reloadData()
+            tableView!.reloadData()
         }
     }
     
@@ -217,7 +217,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
                 historyItemReplacement = nil
                 shouldReloadTable = true
                 configureTableView()
-                tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 3, inSection: 0)], withRowAnimation: .Automatic)
+                tableView!.insertRowsAtIndexPaths([NSIndexPath(forRow: 3, inSection: 0)], withRowAnimation: .Automatic)
             }
             else {
                 historySwitchRefreshCount += 1
@@ -228,7 +228,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         }
         
         if shouldReloadTable {
-            tableView.reloadData()
+            tableView!.reloadData()
         }
     }
     
