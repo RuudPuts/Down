@@ -66,10 +66,36 @@ public class SickbeardService: Service {
     
     // MARK: - Public methods
     
-    internal func episodeWithFilename(filename: String) -> SickbeardEpisode? {
-        let episode = databaseManager.episodeWithFilename(filename.stringByReplacingOccurrencesOfString(".nzb", withString: ""))
+    internal func parseNzbName(nzbName: String) -> SickbeardEpisode? {
+        // Check if show contains season/episode identifiers
+        let regex = try! NSRegularExpression(pattern: "S\\d+E\\d+", options: .CaseInsensitive)
+        let seasonRange = regex.rangeOfFirstMatchInString(nzbName, options: [], range: nzbName.fullNSRange) as NSRange!
         
-        return episode
+        guard seasonRange.location != NSNotFound else {
+            return nil
+        }
+        
+        // Take everything before season/episode identifiers
+        let cleanedName = nzbName[0...seasonRange.location - 2]
+        
+        // Get te components
+        let nameComponents = cleanedName.componentsSeparatedByString(".")
+        
+        // Let the database manager match te best show
+        if let show = databaseManager.showBestMatchingComponents(nameComponents) {
+            let seasonEpisodeIdentifier = nzbName[seasonRange.location + 1...seasonRange.location + seasonRange.length - 1].uppercaseString
+            let components = seasonEpisodeIdentifier.componentsSeparatedByString("E")
+            
+            let seasonId = Int(components[0])
+            let episodeId = Int(components[1])
+            
+            return show.getEpisode(seasonId!, episodeId!)
+        }
+        else {
+            print("Failed to parse nzb \(nzbName), with show name components \(nameComponents)")
+        }
+        
+        return nil
     }
     
     public func getEpisodesAiringToday() -> Results<SickbeardEpisode> {
@@ -132,11 +158,6 @@ public class SickbeardService: Service {
                 let episodeId = jsonItem["episode"].int!
                 
                 if let episode = show.getEpisode(season, episodeId) {
-                    // Remove the extension from the resource
-                    let resourcePath = jsonItem["resource_path"].string!
-                    let filename = resourcePath.componentsSeparatedByString("/").last ?? ""
-                    
-                    databaseManager.setFilename(filename, forEpisode:episode)
                     history.append(episode)
                 }
             }

@@ -17,9 +17,9 @@ protocol DatabaseAdapter {
     func setStatus(status: SickbeardShow.SickbeardShowStatus, forShow show: SickbeardShow)
     func allSickbeardShows() -> Results<SickbeardShow>
     
-    func setFilename(filename: String, forEpisode episode: SickbeardEpisode)
+    func showBestMatchingComponents(components: [String]) -> SickbeardShow?
+    
     func setPlot(plot: String, forEpisode episode: SickbeardEpisode)
-    func episodeWithFilename(filename: String!) -> SickbeardEpisode?
     
     func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode>
     func episodesAiredSince(airDate: NSDate) -> [SickbeardShow]

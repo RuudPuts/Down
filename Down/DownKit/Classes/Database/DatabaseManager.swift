@@ -54,20 +54,16 @@ public class DatabaseManager {
         return self.adapter.episodesAiredSince(airDate)
     }
     
-    public func setFilename(filename: String, forEpisode episode: SickbeardEpisode) {
-        self.adapter.setFilename(filename, forEpisode: episode)
-    }
-    
     public func setPlot(plot: String, forEpisode episode: SickbeardEpisode) {
         self.adapter.setPlot(plot, forEpisode: episode)
     }
     
-    public func episodeWithFilename(filename: String!) -> SickbeardEpisode? {
-        return self.adapter.episodeWithFilename(filename)
-    }
-    
     public func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode> {
         return self.adapter.episodesAiringOnDate(date)
+    }
+    
+    public func showBestMatchingComponents(components: [String]) -> SickbeardShow? {
+        return self.adapter.showBestMatchingComponents(components)
     }
     
 }

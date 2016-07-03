@@ -71,4 +71,13 @@ extension String {
     func toFloat() -> Float? {
         return floatValue
     }
+    
+    subscript (r: Range<Int>) -> String {
+        get {
+            let startIndex = self.startIndex.advancedBy(r.startIndex)
+            let endIndex = startIndex.advancedBy(r.endIndex - r.startIndex)
+            
+            return self[Range(start: startIndex, end: endIndex)]
+        }
+    }
 }

@@ -44,15 +44,29 @@ class DatabaseV1Adapter: DatabaseAdapter {
         })
     }
     
-    func setFilename(filename: String, forEpisode episode: SickbeardEpisode) {
-        if filename.length > 0 && !episode.filename.containsString(filename) && episode.filename != filename {
-            let realm = defaultRealm()
-            try! realm.write({
-                episode.filename = filename
-            })
+    func showBestMatchingComponents(components: [String]) -> SickbeardShow? {
+        var matchingShows: Results<SickbeardShow>?
+        
+        let realm = defaultRealm()
+        for component in components {
+            let componentFilter = "name contains '\(component)'"
             
-            NSLog("Stored filename for (\(episode.show!.name) S\(episode.season!.id)E\(episode.id): \(episode.filename))")
+            var shows: Results<SickbeardShow>?
+            if matchingShows == nil {
+                shows = realm.objects(SickbeardShow).filter(componentFilter)
+            }
+            else {
+                shows = matchingShows?.filter(componentFilter)
+            }
+            
+            guard shows!.count > 0 else {
+                return matchingShows?.first
+            }
+            
+            matchingShows = shows
         }
+
+        return matchingShows?.first
     }
     
     func setPlot(plot: String, forEpisode episode: SickbeardEpisode) {
@@ -65,13 +79,6 @@ class DatabaseV1Adapter: DatabaseAdapter {
             episode.plot = plot
             NSLog("Stored plot for (\(episode.show!.name) S\(episode.season!.id)E\(episode.id))")
         })
-    }
-    
-    func episodeWithFilename(filename: String!) -> SickbeardEpisode? {
-        let predicate = NSPredicate(format: "filename BEGINSWITH %@", filename)
-        let episode = defaultRealm().objects(SickbeardEpisode).filter(predicate).first
-        
-        return episode
     }
     
     func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode> {

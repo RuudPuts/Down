@@ -130,9 +130,8 @@ public class SabNZBdService: Service {
         if let jobs = json["queue"]["slots"].array {
             for jsonJob: JSON in jobs {
                 let identifier = jsonJob["nzo_id"].string!
-                let filename = jsonJob["filename"].string!
                 let category = jsonJob["cat"].string!
-                let nzbName = filename + ".nzb"
+                let nzbName = jsonJob["filename"].string! + ".nzb"
                 let statusDescription = jsonJob["status"].string!
                 let totalMb = jsonJob["mb"].string!.floatValue
                 let remainingMb = jsonJob["mbleft"].string!.floatValue
@@ -142,7 +141,7 @@ public class SabNZBdService: Service {
                 
                 let item = findQueueItem(identifier)
                 if item == nil {
-                    queue.append(SABQueueItem(identifier, filename, category, nzbName, statusDescription, totalMb, remainingMb, progress, timeRemaining))
+                    queue.append(SABQueueItem(identifier, category, nzbName, statusDescription, totalMb, remainingMb, progress, timeRemaining))
                 }
                 else {
                     item!.update(statusDescription, remainingMb, progress, timeRemaining)
@@ -269,7 +268,6 @@ public class SabNZBdService: Service {
             for jsonJob: JSON in jobs {
                 let identifier = jsonJob["nzo_id"].string!
                 let title = jsonJob["name"].string!
-                let filename = jsonJob["storage"].string!.componentsSeparatedByString("/").last ?? ""
                 let category = jsonJob["category"].string!
                 let nzbName = jsonJob["nzb_name"].string!
                 let size = jsonJob["size"].string!
@@ -280,7 +278,7 @@ public class SabNZBdService: Service {
                 
                 let item = findHistoryItem(identifier)
                 if item == nil {
-                    let historyItem: SABHistoryItem = SABHistoryItem(identifier, title, filename, category, nzbName, size, statusDescription, actionLine, completedDate)
+                    let historyItem: SABHistoryItem = SABHistoryItem(identifier, title, category, nzbName, size, statusDescription, actionLine, completedDate)
                     history.append(historyItem)
                     
                     if let imdbIdentifier = historyItem.imdbIdentifier as String! {

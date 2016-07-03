@@ -16,7 +16,6 @@ public class SickbeardEpisode: Object {
     public dynamic var airDate: NSDate? = nil
     public dynamic var quality = ""
     public dynamic var status = ""
-    public dynamic var filename = ""
     public dynamic var plot = ""
     
     public dynamic weak var show: SickbeardShow?

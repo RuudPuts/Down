@@ -11,7 +11,6 @@ import UIKit
 public class SABItem: NSObject {
     
     public let identifier: String!
-    let filename: String!
     public var category: String!
     public let nzbName: String!
     var progressDescription: String?
@@ -20,9 +19,8 @@ public class SABItem: NSObject {
     
     var imdbTitle: String?
     
-    init(_ identifier: String, _ filename: String, _ category: String, _ nzbName: String, _ statusDescription: String) {
+    init(_ identifier: String, _ category: String, _ nzbName: String, _ statusDescription: String) {
         self.identifier = identifier
-        self.filename = filename
         self.category = category
         self.nzbName = nzbName
         self.statusDescription = statusDescription;
@@ -37,9 +35,9 @@ public class SABItem: NSObject {
         do {
             try regularExpression = NSRegularExpression(pattern: regex, options: .CaseInsensitive)
             
-            let range = regularExpression.rangeOfFirstMatchInString(filename, options: .Anchored, range: filename.fullNSRange) as NSRange!
+            let range = regularExpression.rangeOfFirstMatchInString(nzbName, options: [], range: nzbName.fullNSRange) as NSRange!
             if (range.location != NSNotFound) {
-                imdbIdentifier = (self.filename as NSString).substringWithRange(range!)
+                imdbIdentifier = (nzbName as NSString).substringWithRange(range!)
             }
         }
         catch _ {
@@ -50,7 +48,7 @@ public class SABItem: NSObject {
     }
     
     public var displayName: String! {
-        var displayName = self.filename as String
+        var displayName = nzbName as String
         if let imdbTitle = self.imdbTitle {
             displayName = imdbTitle
         }
