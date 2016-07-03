@@ -44,7 +44,11 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        for subview in contentView.subviews as [UIView] {
+        layoutContentView()
+    }
+    
+    func layoutContentView() {
+        for subview in contentView.subviews {
             subview.frame = contentView.bounds
         }
     }
@@ -167,6 +171,8 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
                 collectionView!.backgroundColor = tabBarItem.tintColor
                 contentView.addSubview(selectedViewController.view)
                 self.selectedViewController = selectedViewController
+                
+                layoutContentView()
             }
         }
         else {
@@ -207,7 +213,6 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
         let downWindow = (UIApplication.sharedApplication().delegate as! AppDelegate).window as! DownWindow
         downWindow.statusBarBackgroundColor = darkColor
         UINavigationBar.appearance().barTintColor = lightColor
-        contentView.backgroundColor = lightColor
         UINavigationBar.appearance().backgroundColor = lightColor
     }
     
