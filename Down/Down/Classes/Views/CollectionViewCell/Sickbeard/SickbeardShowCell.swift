@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SickbeardShowCell: DownTextCell {
+class SickbeardShowCell: DownCollectionViewCell {
     
     @IBOutlet weak var posterView: UIImageView!
         

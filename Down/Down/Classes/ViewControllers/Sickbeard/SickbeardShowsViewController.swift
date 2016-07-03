@@ -9,12 +9,12 @@
 import UIKit
 import DownKit
 
-class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate {
+class SickbeardShowsViewController: DownViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     weak var sickbeardService: SickbeardService!
     
     convenience init() {
-        self.init(nibName: "DownDetailViewController", bundle: nil)
+        self.init(nibName: "SickbeardShowsViewController", bundle: nil)
         
         title = "Shows"
         sickbeardService = serviceManager.sickbeardService
@@ -24,55 +24,46 @@ class SickbeardShowsViewController: DownDetailViewController, UITableViewDataSou
         super.viewDidLoad()
         
         let cellNib = UINib(nibName: "SickbeardShowCell", bundle:nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: "SickbeardShowCell")
+        collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "SickbeardShowCell")
+        
+        
     }
     
-    // MARK: - TableView DataSource
+    // MARK: - CollectionView DataSource
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sickbeardService.shows.count
     }
     
-    func tableView(tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
+    func collectionView(collectionView: UICollectionView, isSectionEmtpy section: Int) -> Bool {
         return sickbeardService.shows.count == 0
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let show = Array(sickbeardService.shows)[indexPath.row]
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
         cell.setCellType(.Sickbeard)
         cell.label?.text = show.name
-        cell.detailLabel?.text = "\(show.downloadedEpisodes.count) / \(show.allEpisodes.count) episodes downloaded"
         cell.posterView?.image = show.poster
         
         return cell
     }
     
-    // MARK: Keeping this for later
+    // MARK: - CollectionView Delegate
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(FLT_EPSILON)// 30.0
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let cellWidth = self.view.frame.width / 3
+        let cellHeight = (cellWidth / 66 * 100) + 30
+        
+        return CGSize(width: cellWidth, height: cellHeight)
     }
     
-//    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = (NSBundle.mainBundle().loadNibNamed("SickbeardHeaderView", owner: self, options: nil) as Array).first as! SickbeardHeaderView
-//        headerView.textLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
-//        
-//        return headerView
-//    }
-//    
-//    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return nil
-//    }
-    
-    // MARK: - TableView Delegate
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let show = Array(sickbeardService.shows)[indexPath.row]
         
         let showViewController = SickbeardShowViewController(show: show)

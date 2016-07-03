@@ -11,7 +11,6 @@ import UIKit
 class DownTabBarViewController: DownViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var collectionView: UICollectionView!
     
     var selectedViewController: UIViewController?
     var selectedTabIndex: Int!
@@ -30,13 +29,13 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
         super.viewDidLoad()
         
         let tabBarCellNib = UINib(nibName: "DownTabBarItemCell", bundle: nil)
-        self.collectionView.registerNib(tabBarCellNib, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.registerNib(tabBarCellNib, forCellWithReuseIdentifier: cellIdentifier)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.selectedViewController == nil {
+        if selectedViewController == nil {
             selectViewController(viewControllers?.first)
         }
         applyAppearance()
@@ -45,7 +44,7 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        for subview in self.contentView.subviews as [UIView] {
+        for subview in contentView.subviews as [UIView] {
             subview.frame = contentView.bounds
         }
     }
@@ -137,7 +136,7 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let numberOfCells = Float(self.collectionView(collectionView, numberOfItemsInSection: indexPath.section))
-        let width = Float(CGRectGetWidth(self.view.bounds)) / numberOfCells
+        let width = Float(CGRectGetWidth(view.bounds)) / numberOfCells
         
         return CGSizeMake(CGFloat(width), CGRectGetHeight(collectionView.bounds))
     }

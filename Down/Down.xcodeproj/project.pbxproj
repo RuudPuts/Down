@@ -20,6 +20,9 @@
 		420F49731ADC4B50006CFA11 /* DownEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */; };
 		421129631C17762300E7B0BB /* SickbeardShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421129621C17762300E7B0BB /* SickbeardShowViewController.swift */; };
 		4216CF961D1B221700A89C4C /* NSDate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4216CF951D1B221700A89C4C /* NSDate+Extensions.swift */; };
+		4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4216CF9E1D1B283000A89C4C /* DownCollectionViewCell.swift */; };
+		4216CFA21D1B294C00A89C4C /* SickbeardShowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4216CFA11D1B294C00A89C4C /* SickbeardShowCell.swift */; };
+		4216CFA41D1B2A1900A89C4C /* SickbeardShowsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4216CFA31D1B2A1900A89C4C /* SickbeardShowsViewController.xib */; };
 		422063DE1B85126300DAFB46 /* DownImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422063DD1B85126300DAFB46 /* DownImageView.swift */; };
 		4221ADD71B7BC0B20027C3A0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */; };
 		4221ADD81B7BC0B20027C3A0 /* CouchPotatoListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB71B7BC0B20027C3A0 /* CouchPotatoListener.swift */; };
@@ -86,7 +89,6 @@
 		429E97FD1B97898200C3F58B /* SABHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429E97FA1B97898200C3F58B /* SABHeaderView.xib */; };
 		429E97FE1B97898200C3F58B /* SickbeardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429E97FC1B97898200C3F58B /* SickbeardHeaderView.xib */; };
 		42A496E51BAF32FA00F5395C /* SABItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A496E01BAF32FA00F5395C /* SABItemCell.swift */; };
-		42A496E61BAF32FA00F5395C /* SickbeardShowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A496E21BAF32FA00F5395C /* SickbeardShowCell.swift */; };
 		42A496E71BAF32FA00F5395C /* SickbeardTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A496E31BAF32FA00F5395C /* SickbeardTodayCell.swift */; };
 		42A496ED1BAF332800F5395C /* SABItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42A496E91BAF332800F5395C /* SABItemCell.xib */; };
 		42A496EE1BAF332800F5395C /* SickbeardShowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42A496EB1BAF332800F5395C /* SickbeardShowCell.xib */; };
@@ -282,6 +284,9 @@
 		420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownEmptyCell.xib; sourceTree = "<group>"; };
 		421129621C17762300E7B0BB /* SickbeardShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowViewController.swift; sourceTree = "<group>"; };
 		4216CF951D1B221700A89C4C /* NSDate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Extensions.swift"; sourceTree = "<group>"; };
+		4216CF9E1D1B283000A89C4C /* DownCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownCollectionViewCell.swift; sourceTree = "<group>"; };
+		4216CFA11D1B294C00A89C4C /* SickbeardShowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowCell.swift; sourceTree = "<group>"; };
+		4216CFA31D1B2A1900A89C4C /* SickbeardShowsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardShowsViewController.xib; sourceTree = "<group>"; };
 		422063DD1B85126300DAFB46 /* DownImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownImageView.swift; sourceTree = "<group>"; };
 		4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		4221ADB71B7BC0B20027C3A0 /* CouchPotatoListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoListener.swift; sourceTree = "<group>"; };
@@ -355,7 +360,6 @@
 		429E97FA1B97898200C3F58B /* SABHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABHeaderView.xib; sourceTree = "<group>"; };
 		429E97FC1B97898200C3F58B /* SickbeardHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardHeaderView.xib; sourceTree = "<group>"; };
 		42A496E01BAF32FA00F5395C /* SABItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABItemCell.swift; sourceTree = "<group>"; };
-		42A496E21BAF32FA00F5395C /* SickbeardShowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowCell.swift; sourceTree = "<group>"; };
 		42A496E31BAF32FA00F5395C /* SickbeardTodayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardTodayCell.swift; sourceTree = "<group>"; };
 		42A496E91BAF332800F5395C /* SABItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SABItemCell.xib; sourceTree = "<group>"; };
 		42A496EB1BAF332800F5395C /* SickbeardShowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardShowCell.xib; sourceTree = "<group>"; };
@@ -547,6 +551,7 @@
 			children = (
 				42078E431AD1C71A009845CC /* SickbeardViewController.xib */,
 				42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */,
+				4216CFA31D1B2A1900A89C4C /* SickbeardShowsViewController.xib */,
 			);
 			path = Sickbeard;
 			sourceTree = "<group>";
@@ -571,6 +576,23 @@
 				420AF64E1CFB392C00DC4DD4 /* Alamofire.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4216CF9D1D1B283000A89C4C /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				4216CF9E1D1B283000A89C4C /* DownCollectionViewCell.swift */,
+				4216CFA01D1B294C00A89C4C /* Sickbeard */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		4216CFA01D1B294C00A89C4C /* Sickbeard */ = {
+			isa = PBXGroup;
+			children = (
+				4216CFA11D1B294C00A89C4C /* SickbeardShowCell.swift */,
+			);
+			path = Sickbeard;
 			sourceTree = "<group>";
 		};
 		4221ADB21B7BC0B20027C3A0 /* Classes */ = {
@@ -932,7 +954,6 @@
 		42A496E11BAF32FA00F5395C /* Sickbeard */ = {
 			isa = PBXGroup;
 			children = (
-				42A496E21BAF32FA00F5395C /* SickbeardShowCell.swift */,
 				42A496E31BAF32FA00F5395C /* SickbeardTodayCell.swift */,
 			);
 			path = Sickbeard;
@@ -1029,6 +1050,7 @@
 				42078E1C1AD1721F009845CC /* SabNZBd */,
 				429E97F61B97871600C3F58B /* Sickbeard */,
 				422D548F1AE04AE200200EF0 /* TabBarController */,
+				4216CF9D1D1B283000A89C4C /* CollectionViewCell */,
 				42CD255C1AB5BF93008E9717 /* TableViewCells */,
 				426E5D7B1B52EEC000BD7CD0 /* DownWindow.swift */,
 				422063DD1B85126300DAFB46 /* DownImageView.swift */,
@@ -1332,6 +1354,7 @@
 				42CD25541AB5BD06008E9717 /* Roboto-Regular.ttf in Resources */,
 				42CC1D9A1C289A8B000CC68C /* DownWelcomeViewController.xib in Resources */,
 				42CD25521AB5BD06008E9717 /* Roboto-Medium.ttf in Resources */,
+				4216CFA41D1B2A1900A89C4C /* SickbeardShowsViewController.xib in Resources */,
 				42CD25441AB5BD06008E9717 /* OpenSans-Regular.ttf in Resources */,
 				42670EF91ADDAB5E006341EA /* DownTextCell.xib in Resources */,
 				42CD25411AB5BD06008E9717 /* OpenSans-Italic.ttf in Resources */,
@@ -1506,11 +1529,12 @@
 				429E97EB1B977CE200C3F58B /* DownTextCell.swift in Sources */,
 				426E5D7C1B52EEC000BD7CD0 /* DownWindow.swift in Sources */,
 				42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */,
+				4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */,
 				422D54931AE04AE200200EF0 /* DownTabBarItemCell.swift in Sources */,
 				42CC1D981C289989000CC68C /* DownIntroViewController.swift in Sources */,
+				4216CFA21D1B294C00A89C4C /* SickbeardShowCell.swift in Sources */,
 				422D54921AE04AE200200EF0 /* DownTabBarItem.swift in Sources */,
 				42078E411AD1C702009845CC /* CouchPotatoViewController.swift in Sources */,
-				42A496E61BAF32FA00F5395C /* SickbeardShowCell.swift in Sources */,
 				429947991C2614BB00934B03 /* SickbeardEpisodeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
