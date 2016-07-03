@@ -47,7 +47,7 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
         cell.setCellType(.Sickbeard)
         cell.label?.text = show.name
-        cell.posterView?.image = show.poster
+        cell.posterView?.image = show.poster?.resize(cell.posterView.frame.size ?? CGSizeMake(0, 0))
         
         return cell
     }
