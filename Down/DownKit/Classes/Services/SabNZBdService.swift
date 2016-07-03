@@ -44,8 +44,6 @@ public class SabNZBdService: Service {
         
         connector = SabNZBdConnector()
         connector?.host = PreferenceManager.sabNZBdHost
-        
-        startTimers()
     }
     
     override public func addListener(listener: ServiceListener) {
