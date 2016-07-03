@@ -187,6 +187,7 @@ class DownTabBarViewController: DownViewController, UICollectionViewDataSource, 
     
     private func applyAppearance() {
         UINavigationBar.appearance().barStyle = .Default
+        UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.downLightGreyColor()]
         UINavigationBar.appearance().tintColor = UIColor.downDarkGreyColor()
         UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGreyColor()], forState: .Normal)
