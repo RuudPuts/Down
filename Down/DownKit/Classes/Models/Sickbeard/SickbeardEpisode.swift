@@ -44,7 +44,7 @@ public class SickbeardEpisode: Object {
     public var title: String {
         var title = name
         if season != nil && show != nil {
-            title = "\(show!.name) - S\(season!.id)E\(id) - \(name)"
+            title = String(format: "%@ - S%02dE%02d - %@", show!.name, season!.id, id, name)
         }
         return title
     }
