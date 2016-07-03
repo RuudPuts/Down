@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="u55-KD-dRL">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="550"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="9rD-LP-NqU">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -33,7 +33,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="u55-KD-dRL" secondAttribute="trailing" id="1M1-qI-oJu"/>
-                <constraint firstAttribute="bottom" secondItem="u55-KD-dRL" secondAttribute="bottom" constant="50" id="D7b-JV-x7f"/>
+                <constraint firstAttribute="bottom" secondItem="u55-KD-dRL" secondAttribute="bottom" id="D7b-JV-x7f"/>
                 <constraint firstItem="u55-KD-dRL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gv6-KG-jYu"/>
                 <constraint firstItem="u55-KD-dRL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vpD-FJ-TXK"/>
             </constraints>
