@@ -56,6 +56,10 @@ class DatabaseV1Adapter: DatabaseAdapter {
     }
     
     func setPlot(plot: String, forEpisode episode: SickbeardEpisode) {
+        guard episode.plot.length == 0 else {
+            return
+        }
+        
         let realm = defaultRealm()
         try! realm.write({
             episode.plot = plot

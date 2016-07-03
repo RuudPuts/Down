@@ -305,7 +305,7 @@ public class SickbeardService: Service {
     // MARK: - Episodes
     
     private func fetchEpisodeData(episode: SickbeardEpisode) -> Bool {
-        if episode.plot.length > 0 {
+        guard episode.plot.length == 0 else {
             return false
         }
         
@@ -376,6 +376,8 @@ public class SickbeardService: Service {
         dispatch_async(posterDownloadQueue, {
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
             Alamofire.request(.GET, url).responseData { handler in
+                // TODO: Store small variant of poster
+                
                 if handler.validateResponse() {
                     ImageProvider.storePoster(handler.result.value!, forShow: show.tvdbId)
                 }

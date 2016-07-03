@@ -9,7 +9,7 @@
 import UIKit
 import DownKit
 
-class SabNZBdViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener, SickbeardListener {
+class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener, SickbeardListener {
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerIcon: UIImageView!

@@ -10,7 +10,7 @@ import UIKit
 import DownKit
 import RealmSwift
 
-class SickbeardViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
+class SickbeardViewController: DownRootViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
     weak var sickbeardService: SickbeardService!
     var todayData: Results<SickbeardEpisode>!

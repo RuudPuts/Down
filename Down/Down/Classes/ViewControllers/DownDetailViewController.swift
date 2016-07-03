@@ -11,18 +11,6 @@ import DownKit
 
 class DownDetailViewController: DownViewController {
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        hideNavigationBar(animated)
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        showNavigationBar(animated)
-    }
-    
     // MARK: Table header view
     
     override func viewDidLayoutSubviews() {
@@ -48,24 +36,6 @@ class DownDetailViewController: DownViewController {
         else {
             tableView?.tableHeaderView = nil
         }
-    }
-
-    // MARK: Navigation bar
-    
-    func hideNavigationBar(animated: Bool) {
-        guard self.navigationController?.viewControllers.count == 2 else {
-            return
-        }
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-    
-    func showNavigationBar(animated: Bool) {
-        guard self.navigationController?.viewControllers.count == 1 else {
-            return
-        }
-        
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
 }
