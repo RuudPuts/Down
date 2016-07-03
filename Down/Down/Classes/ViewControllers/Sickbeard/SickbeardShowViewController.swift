@@ -45,16 +45,16 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return show.seasons[section].episodes.count
+        return show.seasons.reverse()[section].episodes.count
     }
     
     func tableView(tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
-        return show.seasons[section].episodes.count == 0
+        return show.seasons.reverse()[section].episodes.count == 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let season = show.seasons[indexPath.section]
-        let episode = season.episodes[indexPath.row]
+        let season = show.seasons.reverse()[indexPath.section]
+        let episode = season.episodes.reverse()[indexPath.row]
         
         let cell = tableView.dequeueReusableCellWithIdentifier("DownTextCell", forIndexPath: indexPath) as! DownTextCell
         cell.setCellType(.Sickbeard)
@@ -64,8 +64,8 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let season = show.seasons[indexPath.section]
-        let episode = season.episodes[indexPath.row]
+        let season = show.seasons.reverse()[indexPath.section]
+        let episode = season.episodes.reverse()[indexPath.row]
         
         let episodeViewController = SickbeardEpisodeViewController(sickbeardEpisode: episode)
         self.navigationController?.pushViewController(episodeViewController, animated: true)
@@ -85,7 +85,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return show.seasons[section].title
+        return show.seasons.reverse()[section].title
     }
     
     // MARK: - TableView Delegate
