@@ -12,6 +12,8 @@ import DownKit
 class DownTextCell: DownTableViewCell {
 
     @IBOutlet weak private var cheveronView: UIImageView!
+    @IBOutlet weak var labelToCellConstraint: NSLayoutConstraint!
+    @IBOutlet weak var labelToCheveronConstraint: NSLayoutConstraint!
     
     override func setCellType(type: DownApplication) {
         super.setCellType(type)
@@ -38,6 +40,11 @@ class DownTextCell: DownTableViewCell {
         }
         set {
             cheveronView.hidden = newValue
+            
+            // TODO: Fix this so the label actually becomes larger
+            labelToCheveronConstraint.active = !newValue
+            labelToCellConstraint.active = newValue
+            containerView?.layoutIfNeeded()
         }
     }
     
