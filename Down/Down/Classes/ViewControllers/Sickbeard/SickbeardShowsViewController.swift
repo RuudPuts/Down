@@ -25,6 +25,8 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         
         let cellNib = UINib(nibName: "SickbeardShowCell", bundle:nil)
         collectionView!.registerNib(cellNib, forCellWithReuseIdentifier: "SickbeardShowCell")
+        
+        collectionView!.backgroundColor = .downLightGreyColor()
     }
     
     // MARK: - CollectionView DataSource
