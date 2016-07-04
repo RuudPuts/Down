@@ -62,6 +62,10 @@ public class DatabaseManager {
         return self.adapter.episodesAiringOnDate(date)
     }
     
+    public func episodesAiringAfter(date: NSDate, max maxEpisodes: Int) -> Results<SickbeardEpisode> {
+        return self.adapter.episodesAiringAfter(date, max: maxEpisodes)
+    }
+    
     public func showBestMatchingComponents(components: [String]) -> SickbeardShow? {
         return self.adapter.showBestMatchingComponents(components)
     }

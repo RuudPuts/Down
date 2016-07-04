@@ -14,7 +14,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     
     weak var sickbeardService: SickbeardService!
     var todayData: Results<SickbeardEpisode>!
-    var soonData: [SickbeardEpisode]?
+    var soonData: Results<SickbeardEpisode>!
 
     convenience init() {
         self.init(nibName: "SickbeardViewController", bundle: nil)
@@ -25,19 +25,10 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let moreCellNib = UINib(nibName: "DownIconTextCell", bundle:nil)
-        tableView!.registerNib(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
+        todayData = sickbeardService.getEpisodesAiringToday()
+        soonData = sickbeardService.getEpisodesAiringSoon()
         
-        let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
-        tableView!.registerNib(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
-        
-        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
-        tableView!.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
-        
-        let itemCellNib = UINib(nibName: "SickbeardTodayCell", bundle:nil)
-        tableView!.registerNib(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
-        
-        reloadTableView()
+        registerTableViewCells()
         
         // Ugly, lol
         if PreferenceManager.sickbeardHost.length == 0 || PreferenceManager.sickbeardApiKey.length == 0 {
@@ -49,8 +40,6 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     }
     
     override func viewWillAppear(animated: Bool) {
-        todayData = sickbeardService.getEpisodesAiringToday()
-        
         super.viewWillAppear(animated)
         
         sickbeardService.addListener(self)
@@ -60,6 +49,20 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         super.viewWillDisappear(animated)
         
         sickbeardService.removeListener(self)
+    }
+    
+    func registerTableViewCells() {
+        let moreCellNib = UINib(nibName: "DownIconTextCell", bundle:nil)
+        tableView!.registerNib(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
+        
+        let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
+        tableView!.registerNib(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
+        
+        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
+        tableView!.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
+        
+        let itemCellNib = UINib(nibName: "SickbeardTodayCell", bundle:nil)
+        tableView!.registerNib(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
     }
     
     // MARK: - TableView DataSource
@@ -80,10 +83,10 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         var rows = 2
         
         if section == 1 {
-            rows = todayData?.count ?? 1
+            rows = max(todayData.count, 1)
         }
         else if section == 2 {
-            rows = soonData?.count ?? 1
+            rows = soonData.count
         }
         
         return rows
@@ -93,16 +96,10 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         var isEmpty = false
         
         if section == 1 {
-            isEmpty = true
-            if let data = todayData {
-                isEmpty = data.count == 0
-            }
+            isEmpty = todayData.count == 0
         }
         else if section == 2 {
-            isEmpty = true
-            if let data = soonData {
-                isEmpty = data.count == 0
-            }
+            isEmpty = soonData.count == 0
         }
     
         return isEmpty
@@ -234,8 +231,15 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
             let showsViewController = SickbeardShowsViewController()
             navigationController?.pushViewController(showsViewController, animated: true)
         }
-        else if indexPath.section == 1 {
-            let episode = todayData[indexPath.row]
+        else {
+            var episode: SickbeardEpisode
+            if indexPath.section == 1 {
+                episode = todayData[indexPath.row]
+            }
+            else {
+                episode = soonData[indexPath.row]
+            }
+            
             let episodeViewController = SickbeardEpisodeViewController(sickbeardEpisode: episode)
             navigationController?.pushViewController(episodeViewController, animated: true)
         }

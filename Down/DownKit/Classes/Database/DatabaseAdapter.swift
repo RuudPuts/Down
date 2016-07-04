@@ -23,4 +23,5 @@ protocol DatabaseAdapter {
     
     func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode>
     func episodesAiredSince(airDate: NSDate) -> [SickbeardShow]
+    func episodesAiringAfter(date: NSDate, max maxEpisodes: Int) -> Results<SickbeardEpisode>
 }

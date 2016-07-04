@@ -17,4 +17,8 @@ public extension NSDate {
         return calendar.dateFromComponents(components)!
     }
     
+    class func tomorrow() -> NSDate {
+        return NSDate().dateByAddingTimeInterval(86400)
+    }
+    
 }

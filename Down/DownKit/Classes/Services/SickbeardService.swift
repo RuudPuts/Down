@@ -108,6 +108,16 @@ public class SickbeardService: Service {
         return episodes
     }
     
+    public func getEpisodesAiringSoon() -> Results<SickbeardEpisode> {
+        let episodes = databaseManager.episodesAiringAfter(NSDate.tomorrow(), max: 5);
+        
+        for episode in episodes {
+            fetchEpisodeData(episode)
+        }
+        
+        return episodes
+    }
+    
     public func showWithId(tvdbid: Int) -> SickbeardShow? {
         var showWithId: SickbeardShow? = nil
         for show in shows {
