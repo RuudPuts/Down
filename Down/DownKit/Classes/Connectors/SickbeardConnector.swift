@@ -17,11 +17,16 @@ public class SickbeardConnector: Connector {
     }
 
     public func validateHost(host: String, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
-        Alamofire.request(.GET, host).responseJSON { response in
+        guard host.length > 0 else {
+            completion(hostValid: false, apiKey: nil)
+            return
+        }
+        
+        Alamofire.request(.GET, host).responseJSON { handler in
             var hostValid = false
 
             // TODO: Create something like a request factory, using the bolts framwork
-            if response.validateResponse(), let response = response.response {
+            if handler.result.isSuccess, let response = handler.response {
                 let serverHeader = response.allHeaderFields["Server"] as! String?
                 let authenticateHeader = response.allHeaderFields["Www-Authenticate"] as! String?
                 if (serverHeader?.hasPrefix("CherryPy") ?? false) || authenticateHeader?.rangeOfString("Sickbeard") != nil {
