@@ -33,7 +33,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     convenience init(sickbeardEpisode: SickbeardEpisode) {
         self.init(nibName: "DownDetailViewController", bundle: nil)
         
-        self.episode = sickbeardEpisode
+        episode = sickbeardEpisode
         sickbeardService = serviceManager.sickbeardService
         
         configureTableView()
@@ -57,9 +57,11 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         cellKeys.append([.Name, .AirDate, .Show, .Season, .EpisodeNumber])
         cellTitles.append(["Name", "Aired on", "Show", "Season", "Episode #"])
         
-        // Section 1
-        cellKeys.append([.Plot])
-        cellTitles.append([""])
+        if episode.plot.length > 0 {
+            // Section 1
+            cellKeys.append([.Plot])
+            cellTitles.append([""])
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
