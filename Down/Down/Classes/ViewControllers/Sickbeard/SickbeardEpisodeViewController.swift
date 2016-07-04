@@ -16,7 +16,8 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         case AirDate
         case Show
         case Season
-        case EpisodeNumber
+        case Episode
+        case Status
         
         case Plot
     }
@@ -54,8 +55,8 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     
     func configureTableView() {
         // Section 0
-        cellKeys.append([.Name, .AirDate, .Show, .Season, .EpisodeNumber])
-        cellTitles.append(["Name", "Aired on", "Show", "Season", "Episode #"])
+        cellKeys.append([.Name, .AirDate, .Show, .Season, .Episode, .Status])
+        cellTitles.append(["Name", "Aired on", "Show", "Season", "Episode", "Status"])
         
         if episode.plot.length > 0 {
             // Section 1
@@ -112,8 +113,11 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
             case .Season:
                 detailText = episode.season == nil ? "-" : String(episode.season!.id)
                 break
-            case .EpisodeNumber:
+            case .Episode:
                 detailText = String(episode.id)
+                break
+            case .Status:
+                detailText = episode.status
                 break
                 
             default:

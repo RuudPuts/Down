@@ -78,7 +78,7 @@ public class SabNZBdService: Service {
     
     private func startTimers() {
         queueRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(queueRefreshRate, target: self, selector: #selector(refreshQueue), userInfo: nil, repeats: true)
-        historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self, selector: #selector(refreshHistory), userInfo: nil, repeats: true)
+//        historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self, selector: #selector(refreshHistory), userInfo: nil, repeats: true)
         
         refreshQueue()
         refreshHistory()
@@ -240,10 +240,14 @@ public class SabNZBdService: Service {
             return
         }
 
-        let url = "\(PreferenceManager.sabNZBdHost)/api?mode=history&output=json&start=\(self.history.count)&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
+        let url = "\(PreferenceManager.sabNZBdHost)/api?mode=history&output=json&start=\(history.count)&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
+        
+        print("Fetching history \(history.count) - \(history.count + 20)")
+        
         Alamofire.request(.GET, url).responseJSON { handler in
             if handler.validateResponse() {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    print("Parsing history")
                     self.parseHistoryJson(JSON(handler.result.value!))
                     self.refreshCompleted()
                     
@@ -265,9 +269,6 @@ public class SabNZBdService: Service {
     }
     
     private func parseHistoryJson(json: JSON!) {
-        let currentHistoryIdentifiers = (history as AnyObject).valueForKey("identifier") as! [String]
-        var newHistoryIdentifiers = [String]()
-        
         if let jobs = json["history"]["slots"].array {
             for jsonJob: JSON in jobs {
                 let identifier = jsonJob["nzo_id"].string!
@@ -294,12 +295,7 @@ public class SabNZBdService: Service {
                 else {
                     item!.update(category, statusDescription, actionLine, completedDate)
                 }
-                newHistoryIdentifiers.append(identifier)
             }
-            
-            // Cleanup items removed from history
-            let removedHistoryIdentifiers = difference(currentHistoryIdentifiers, newHistoryIdentifiers)
-            removeItemsFromHistory(removedHistoryIdentifiers)
             
             // Parse history size
             historySize = json["history"]["noofslots"].int!
@@ -310,6 +306,8 @@ public class SabNZBdService: Service {
                 return $0.completionDate!.compare($1.completionDate!) == .OrderedDescending
             }
             history = unsortedHistory
+            
+            NSLog("New history count: \(history.count)")
         }
     }
     

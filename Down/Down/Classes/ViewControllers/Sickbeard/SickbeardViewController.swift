@@ -231,7 +231,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
             let showsViewController = SickbeardShowsViewController()
             navigationController?.pushViewController(showsViewController, animated: true)
         }
-        else {
+        else if indexPath.section > 0 {
             var episode: SickbeardEpisode
             if indexPath.section == 1 {
                 episode = todayData[indexPath.row]

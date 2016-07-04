@@ -110,7 +110,7 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (cell as? DownTableViewCell)?.activityIndicator?.isAnimating() ?? false && tableView.numberOfRowsInSection(indexPath.section) > 0 {
+        if tableView.numberOfRowsInSection(indexPath.section) > 0 && indexPath.row == sabNZBdService.history.count {
             sabNZBdService.fetchHistory()
         }
     }
