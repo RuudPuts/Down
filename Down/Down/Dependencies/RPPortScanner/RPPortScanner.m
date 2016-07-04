@@ -13,7 +13,7 @@
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
-static NSInteger const kNumberOfWorkers = 50;
+static NSInteger const kNumberOfWorkers = 200;
 static NSInteger const kIPSuffixMin = 2;
 static NSInteger const kIPSuffixMax = 254;
 
