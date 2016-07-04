@@ -65,6 +65,10 @@ public class SickbeardShow: Object {
     public var poster: UIImage? {
         return ImageProvider.posterForShow(self.tvdbId)
     }
+    
+    public var posterThumbnail: UIImage? {
+        return ImageProvider.posterThumbnailForShow(self.tvdbId)
+    }
 
     internal var hasPoster: Bool {
         return ImageProvider.hasPosterForShow(self.tvdbId)

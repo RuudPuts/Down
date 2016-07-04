@@ -6,7 +6,7 @@
 //  Copyright © 2015 Ruud Puts. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class ImageProvider {
     
@@ -78,6 +78,15 @@ extension ImageProvider {
     internal class func storePoster(poster: NSData, forShow tvdbid: Int) {
         let posterPath = posterPathForShow(tvdbid)
         storeImage(poster, atPath:posterPath)
+        
+        storePosterThumbnail(poster, forShow:tvdbid)
+    }
+    
+    private class func storePosterThumbnail(posterData: NSData, forShow tvdbid: Int) {
+        let poster = UIImage(data: posterData)!.resize(scale: 0.25)
+        
+        let thumbnailPath = posterThumbnailPathForShow(tvdbid)
+        storeImage(UIImagePNGRepresentation(poster)!, atPath:thumbnailPath)
     }
     
     internal class func posterForShow(tvdbid: Int) -> UIImage? {
@@ -85,7 +94,16 @@ extension ImageProvider {
         return loadImage(posterPath)
     }
     
+    internal class func posterThumbnailForShow(tvdbid: Int) -> UIImage? {
+        let posterPath = posterThumbnailPathForShow(tvdbid)
+        return loadImage(posterPath)
+    }
+    
     private class func posterPathForShow(tvdbid: Int) -> String {
         return UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbid).png"
+    }
+    
+    private class func posterThumbnailPathForShow(tvdbid: Int) -> String {
+        return UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbid)_thumb.png"
     }
 }

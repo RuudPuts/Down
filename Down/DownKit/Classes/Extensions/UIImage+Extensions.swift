@@ -16,14 +16,20 @@ extension UIImage {
         }
         
         let scale = min(newSize.width / size.width, newSize.height / size.height)
+        
+        return resize(scale: scale)
+    }
+    
+    func resize(scale scale: CGFloat) -> UIImage {
         let scaleTransform = CGSizeApplyAffineTransform(size, CGAffineTransformMakeScale(scale, scale))
-
+        let scaledSize = CGSize(width: size.width * scale, height: size.height * scale)
+        
         UIGraphicsBeginImageContextWithOptions(scaleTransform, true, UIScreen.mainScreen().scale)
-        drawInRect(CGRect(origin: CGPointZero, size: newSize))
-
+        drawInRect(CGRect(origin: CGPointZero, size: scaledSize))
+        
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         return resizedImage
-    }    
+    }
 }
