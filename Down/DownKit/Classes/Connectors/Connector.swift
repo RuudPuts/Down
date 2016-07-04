@@ -18,13 +18,18 @@ public protocol Connector {
     func fetchApiKey(completion: (String?) -> (Void))
     func fetchApiKey(username username: String?, password: String?, completion: (String?) -> (Void))
     
+    // TODO: Add some generic fetch method, to prevent overhead in services
+    
 }
 
 extension Response {
 
-    // TODO: Use this in a Bolts implementation
     func validateResponse() -> Bool {
-        return result.isSuccess && response != nil && response?.statusCode < 400
+        let resultSuccess = result.isSuccess
+        let responseValid = response != nil
+        let returnCodeValid = response?.statusCode < 400
+        
+        return resultSuccess && responseValid && returnCodeValid
     }
     
 }
