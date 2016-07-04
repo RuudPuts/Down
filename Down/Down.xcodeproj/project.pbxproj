@@ -103,6 +103,10 @@
 		42B818691D295C1C003672C3 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B818681D295C1C003672C3 /* String+Extensions.swift */; };
 		42B8186B1D2969B3003672C3 /* DownRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8186A1D2969B3003672C3 /* DownRootViewController.swift */; };
 		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
+		42C4AE011D2AFB390096FF71 /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4ADFA1D2AFB390096FF71 /* FastSocket.m */; };
+		42C4AE021D2AFB390096FF71 /* RPPortScanJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4ADFC1D2AFB390096FF71 /* RPPortScanJob.m */; };
+		42C4AE031D2AFB390096FF71 /* RPPortScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4ADFE1D2AFB390096FF71 /* RPPortScanner.m */; };
+		42C4AE041D2AFB390096FF71 /* RPPortScanWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4AE001D2AFB390096FF71 /* RPPortScanWorker.m */; };
 		42CC1D981C289989000CC68C /* DownIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC1D971C289989000CC68C /* DownIntroViewController.swift */; };
 		42CC1D9A1C289A8B000CC68C /* DownWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42CC1D991C289A8B000CC68C /* DownWelcomeViewController.xib */; };
 		42CC1D9D1C28A2AC000CC68C /* DownSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC1D9C1C28A2AC000CC68C /* DownSettingsViewController.swift */; };
@@ -377,6 +381,14 @@
 		42B818681D295C1C003672C3 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		42B8186A1D2969B3003672C3 /* DownRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownRootViewController.swift; sourceTree = "<group>"; };
 		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		42C4ADF91D2AFB390096FF71 /* FastSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastSocket.h; sourceTree = "<group>"; };
+		42C4ADFA1D2AFB390096FF71 /* FastSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocket.m; sourceTree = "<group>"; };
+		42C4ADFB1D2AFB390096FF71 /* RPPortScanJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPortScanJob.h; sourceTree = "<group>"; };
+		42C4ADFC1D2AFB390096FF71 /* RPPortScanJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPortScanJob.m; sourceTree = "<group>"; };
+		42C4ADFD1D2AFB390096FF71 /* RPPortScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPortScanner.h; sourceTree = "<group>"; };
+		42C4ADFE1D2AFB390096FF71 /* RPPortScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPortScanner.m; sourceTree = "<group>"; };
+		42C4ADFF1D2AFB390096FF71 /* RPPortScanWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPortScanWorker.h; sourceTree = "<group>"; };
+		42C4AE001D2AFB390096FF71 /* RPPortScanWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPortScanWorker.m; sourceTree = "<group>"; };
 		42CC1D971C289989000CC68C /* DownIntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownIntroViewController.swift; sourceTree = "<group>"; };
 		42CC1D991C289A8B000CC68C /* DownWelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownWelcomeViewController.xib; sourceTree = "<group>"; };
 		42CC1D9C1C28A2AC000CC68C /* DownSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownSettingsViewController.swift; sourceTree = "<group>"; };
@@ -894,6 +906,7 @@
 		428CF6FE1AE19779007F3E54 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				42C4ADF71D2AFB390096FF71 /* RPPortScanner */,
 				42A4FC1E1CFB68A60049C60A /* Crashlytics.framework */,
 				42A4FC1F1CFB68A60049C60A /* Fabric.framework */,
 			);
@@ -984,6 +997,29 @@
 				42A496EC1BAF332800F5395C /* SickbeardTodayCell.xib */,
 			);
 			path = Sickbeard;
+			sourceTree = "<group>";
+		};
+		42C4ADF71D2AFB390096FF71 /* RPPortScanner */ = {
+			isa = PBXGroup;
+			children = (
+				42C4ADF81D2AFB390096FF71 /* FastSocket */,
+				42C4ADFB1D2AFB390096FF71 /* RPPortScanJob.h */,
+				42C4ADFC1D2AFB390096FF71 /* RPPortScanJob.m */,
+				42C4ADFD1D2AFB390096FF71 /* RPPortScanner.h */,
+				42C4ADFE1D2AFB390096FF71 /* RPPortScanner.m */,
+				42C4ADFF1D2AFB390096FF71 /* RPPortScanWorker.h */,
+				42C4AE001D2AFB390096FF71 /* RPPortScanWorker.m */,
+			);
+			path = RPPortScanner;
+			sourceTree = "<group>";
+		};
+		42C4ADF81D2AFB390096FF71 /* FastSocket */ = {
+			isa = PBXGroup;
+			children = (
+				42C4ADF91D2AFB390096FF71 /* FastSocket.h */,
+				42C4ADFA1D2AFB390096FF71 /* FastSocket.m */,
+			);
+			path = FastSocket;
 			sourceTree = "<group>";
 		};
 		42CC1D921C289976000CC68C /* Introduction */ = {
@@ -1517,6 +1553,7 @@
 			files = (
 				42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */,
 				429E97E91B977CE200C3F58B /* DownEmptyCell.swift in Sources */,
+				42C4AE021D2AFB390096FF71 /* RPPortScanJob.m in Sources */,
 				429E97F81B97871F00C3F58B /* SickbeardHeaderView.swift in Sources */,
 				4253E80F1AB4B84C00EF1254 /* DownViewController.swift in Sources */,
 				42DEEB461BACCBC50061723F /* DownTableViewCell.swift in Sources */,
@@ -1529,7 +1566,9 @@
 				428F7E541AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift in Sources */,
 				421129631C17762300E7B0BB /* SickbeardShowViewController.swift in Sources */,
 				4221ADEB1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift in Sources */,
+				42C4AE011D2AFB390096FF71 /* FastSocket.m in Sources */,
 				42078E1A1AD16E68009845CC /* SabNZBdViewController.swift in Sources */,
+				42C4AE031D2AFB390096FF71 /* RPPortScanner.m in Sources */,
 				42B818691D295C1C003672C3 /* String+Extensions.swift in Sources */,
 				422063DE1B85126300DAFB46 /* DownImageView.swift in Sources */,
 				429E97ED1B977F0B00C3F58B /* DownIconTextCell.swift in Sources */,
@@ -1543,6 +1582,7 @@
 				426E5D7C1B52EEC000BD7CD0 /* DownWindow.swift in Sources */,
 				42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */,
 				4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */,
+				42C4AE041D2AFB390096FF71 /* RPPortScanWorker.m in Sources */,
 				422D54931AE04AE200200EF0 /* DownTabBarItemCell.swift in Sources */,
 				42CC1D981C289989000CC68C /* DownIntroViewController.swift in Sources */,
 				4216CFA21D1B294C00A89C4C /* SickbeardShowCell.swift in Sources */,
