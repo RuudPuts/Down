@@ -10,6 +10,8 @@ import Alamofire
 
 public class CouchPotatoService: Service {
    
+    public static let defaultPort = 8081
+    
 //    override init() {
 //        super.init()
 //        

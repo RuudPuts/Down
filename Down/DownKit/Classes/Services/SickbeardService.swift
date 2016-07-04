@@ -10,6 +10,8 @@ import RealmSwift
 import Alamofire
 
 public class SickbeardService: Service {
+    
+    public static let defaultPort = 8081
 
     var refreshTimer: NSTimer?
     

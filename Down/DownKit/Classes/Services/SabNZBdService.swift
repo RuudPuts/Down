@@ -11,6 +11,8 @@ import Alamofire
 
 public class SabNZBdService: Service {
     
+    public static let defaultPort = 8080
+    
     let queueRefreshRate: NSTimeInterval!
     let historyRefreshRate: NSTimeInterval!
     
