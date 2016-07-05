@@ -29,7 +29,7 @@ public class PreferenceManager {
                 return ""
             }
             
-            return "http://\(host!)"
+            return cleanupHost(host!)
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sabNZBdHost)
@@ -52,7 +52,7 @@ public class PreferenceManager {
                 return ""
             }
             
-            return "http://\(host!)"
+            return cleanupHost(host!)
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.sickbeardHost)
@@ -84,7 +84,7 @@ public class PreferenceManager {
                 return ""
             }
             
-            return "http://\(host!)"
+            return cleanupHost(host!)
         }
         set {
             setPreference(newValue, forKey:PreferenceKeys.couchPotatoHost)

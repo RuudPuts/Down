@@ -17,6 +17,9 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
     
     var introType: IntroType!
     
+    @IBOutlet weak var searchingContainer: UIView!
+    @IBOutlet weak var startButton: UIButton!
+    
     convenience init(introType: IntroType) {
         self.init(nibName: "DownWelcomeViewController", bundle: nil)
         
@@ -30,6 +33,9 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
     }
     
     @IBAction func actionButtonPressed(sender: AnyObject) {
+        startButton.hidden = true
+        searchingContainer.hidden = false
+        
         let portScanner = RPPortScanner()
         portScanner.delegate = self
         portScanner.scanPorts([SabNZBdService.defaultPort, SickbeardService.defaultPort, CouchPotatoService.defaultPort])
