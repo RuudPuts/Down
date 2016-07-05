@@ -22,7 +22,7 @@ public class SickbeardConnector: Connector {
             return
         }
         
-        Alamofire.request(.GET, host).responseJSON { handler in
+        Alamofire.request(.GET, host).responseString { handler in
             var hostValid = false
 
             // TODO: Create something like a request factory, using the bolts framwork
