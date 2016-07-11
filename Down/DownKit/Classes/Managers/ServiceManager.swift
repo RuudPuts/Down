@@ -66,6 +66,10 @@ public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     
     private func matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: [SABItem]) {
         for sabNZBdItem in sabNZBdItems {
+            guard sabNZBdItem.sickbeardEpisode == nil else {
+                continue
+            }
+            
             sabNZBdItem.sickbeardEpisode = sickbeardService.parseNzbName(sabNZBdItem.nzbName)
         }
     }
