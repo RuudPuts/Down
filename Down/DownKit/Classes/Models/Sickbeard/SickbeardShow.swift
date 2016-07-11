@@ -11,9 +11,15 @@ import RealmSwift
 
 public class SickbeardShow: Object {
     public dynamic var tvdbId = 0
-    public dynamic var name = ""
     public var status = SickbeardShowStatus.Stopped
     internal var _seasons = List<SickbeardSeason>()
+    
+    public dynamic var name = "" {
+        didSet {
+            _simpleName = name.simple()
+        }
+    }
+    internal dynamic var _simpleName = ""
     
     public enum SickbeardShowStatus: Int {
         case Stopped = 0
@@ -97,6 +103,19 @@ public class SickbeardShow: Object {
         }
         
         return nil
+    }
+    
+}
+
+extension String {
+    
+    func simple() -> String {
+        var simpleString = self
+        [".", "'", ":", "(", ")", "&"].forEach {
+            simpleString = simpleString.stringByReplacingOccurrencesOfString($0, withString: "")
+        }
+        
+        return simpleString
     }
     
 }

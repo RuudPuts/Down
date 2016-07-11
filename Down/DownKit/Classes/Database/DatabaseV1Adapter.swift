@@ -49,7 +49,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
         
         let realm = defaultRealm()
         for component in components {
-            let componentFilter = "name contains '\(component)'"
+            let componentFilter = "_simpleName contains '\(component)'"
             
             var shows: Results<SickbeardShow>?
             if matchingShows == nil {
