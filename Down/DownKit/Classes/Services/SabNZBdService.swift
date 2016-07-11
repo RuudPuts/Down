@@ -132,10 +132,10 @@ public class SabNZBdService: Service {
                 let category = jsonJob["cat"].string!
                 let nzbName = jsonJob["filename"].string! + ".nzb"
                 let statusDescription = jsonJob["status"].string!
-                let totalMb = jsonJob["mb"].string!.floatValue
-                let remainingMb = jsonJob["mbleft"].string!.floatValue
+                let totalMb = Float(jsonJob["mb"].string!) ?? 0
+                let remainingMb = Float(jsonJob["mbleft"].string!) ?? 0
                 let timeRemaining = jsonJob["timeleft"].string!
-                let progress = jsonJob["percentage"].string!.floatValue
+                let progress = Float(jsonJob["percentage"].string!) ?? 0
                 
                 
                 var item = findQueueItem(identifier)
@@ -160,9 +160,9 @@ public class SabNZBdService: Service {
             removeItemsFromQueue(removedQueueIdentifiers)
             
             // Parse speed, timeleft and mbleft
-            currentSpeed = json["queue"]["kbpersec"].string!.floatValue
+            currentSpeed = Float(json["queue"]["kbpersec"].string!) ?? 0
             timeRemaining = json["queue"]["timeleft"].string!
-            mbLeft = json["queue"]["mbleft"].string!.floatValue
+            mbLeft = Float(json["queue"]["mbleft"].string!) ?? 0
             paused = json["queue"]["paused"].bool!
         }
         else {

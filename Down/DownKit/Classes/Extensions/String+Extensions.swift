@@ -56,20 +56,12 @@ public extension String {
 }
 
 extension String {
-    var floatValue: Float {
-        return (self as NSString).floatValue
-    }
-    
     var fullNSRange: NSRange {
         return NSRange(location: 0, length: self.length)
     }
     
     var fullRange: Range<String.Index> {
         return self.startIndex..<self.endIndex
-    }
-    
-    func toFloat() -> Float? {
-        return floatValue
     }
     
     subscript (r: Range<Int>) -> String {

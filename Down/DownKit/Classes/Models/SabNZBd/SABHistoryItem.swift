@@ -62,8 +62,8 @@ public class SABHistoryItem: SABItem {
             let progressString = self.actionLine!.componentsSeparatedByString(" ").last as String!
             let progressComponents = progressString.componentsSeparatedByString("/")
             
-            let part = progressComponents.first!.toFloat() ?? 0
-            let total = progressComponents.last!.toFloat() ?? 0
+            let part = Float(progressComponents.first!) ?? 0
+            let total = Float(progressComponents.last!) ?? 0
             
             progress = part / total * 100
         }
