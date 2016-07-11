@@ -70,7 +70,7 @@ public class SickbeardService: Service {
     
     internal func parseNzbName(nzbName: String) -> SickbeardEpisode? {
         // Check if show contains season/episode identifiers
-        let regex = try! NSRegularExpression(pattern: "S\\d+E\\d+", options: .CaseInsensitive)
+        let regex = try! NSRegularExpression(pattern: "S\\d+(.)?E\\d+", options: .CaseInsensitive)
         let seasonRange = regex.rangeOfFirstMatchInString(nzbName, options: [], range: nzbName.fullNSRange) as NSRange!
         
         guard seasonRange.location != NSNotFound else {
@@ -85,11 +85,12 @@ public class SickbeardService: Service {
         
         // Let the database manager match te best show
         if let show = databaseManager.showBestMatchingComponents(nameComponents) {
-            let seasonEpisodeIdentifier = nzbName[seasonRange.location + 1...seasonRange.location + seasonRange.length - 1].uppercaseString
+            let seasonEpisodeIdentifier = nzbName[seasonRange.location + 1...seasonRange.location + seasonRange.length - 1]
+                .uppercaseString.stringByReplacingOccurrencesOfString(".", withString: "")
             let components = seasonEpisodeIdentifier.componentsSeparatedByString("E")
             
-            let seasonId = Int(components[0])
-            let episodeId = Int(components[1])
+            let seasonId = Int(components.first!)
+            let episodeId = Int(components.last!)
             
             return show.getEpisode(seasonId!, episodeId!)
         }
