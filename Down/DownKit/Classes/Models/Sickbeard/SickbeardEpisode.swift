@@ -49,3 +49,11 @@ public class SickbeardEpisode: Object {
     }
     
 }
+
+extension Results where T: SickbeardEpisode {
+    
+    public func sortedEpisodes() -> RealmSwift.Results<T> {
+        return self.sorted([SortDescriptor(property:"airDate", ascending: true), SortDescriptor(property:"id", ascending: true)])
+    }
+    
+}
