@@ -48,15 +48,12 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
         cell.setCellType(.Sickbeard)
-        cell.label?.text = show.name
-        cell.posterView?.image = show.posterThumbnail
+        cell.show = show
         
-        if let nextEpisode = show.nextAiringEpisode() {
-            cell.nextEpisodeLabel.hidden = false
-            cell.nextEpisodeLabel.text = "\(nextEpisode.daysUntilAiring)"
-        }
-        else {
-            cell.nextEpisodeLabel.hidden = true
+        show.getPosterThumbnail {
+            if cell.show == show {
+                cell.posterView?.image = $0
+            }
         }
         
         return cell

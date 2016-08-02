@@ -71,16 +71,24 @@ public class SickbeardShow: Object {
     public var poster: UIImage? {
         return ImageProvider.posterForShow(self.tvdbId)
     }
-    
-    public var posterThumbnail: UIImage? {
-        return ImageProvider.posterThumbnailForShow(self.tvdbId)
-    }
 
     internal var hasPoster: Bool {
         return ImageProvider.hasPosterForShow(self.tvdbId)
     }
 
     // Methods
+    
+    public func getPosterThumbnail(completion: (thumbnail: UIImage?) -> Void) {
+        let tvdbId = self.tvdbId
+        
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
+        dispatch_async(queue) { 
+            let thumbnail = ImageProvider.posterThumbnailForShow(tvdbId)
+            dispatch_async(dispatch_get_main_queue(), { 
+                completion(thumbnail: thumbnail)
+            })
+        }
+    }
 
     public func getSeason(seasonId: Int) -> SickbeardSeason? {
         for season in _seasons {

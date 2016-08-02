@@ -7,10 +7,25 @@
 //
 
 import UIKit
+import DownKit
 
 class SickbeardShowCell: DownCollectionViewCell {
     
     @IBOutlet weak var posterView: UIImageView!
     @IBOutlet weak var nextEpisodeLabel: UILabel!
+    
+    weak var show: SickbeardShow? {
+        didSet {
+            label?.text = show!.name
+            
+            if let nextEpisode = show!.nextAiringEpisode() {
+                nextEpisodeLabel.hidden = false
+                nextEpisodeLabel.text = "\(nextEpisode.daysUntilAiring)"
+            }
+            else {
+                nextEpisodeLabel.hidden = true
+            }
+        }
+    }
         
 }
