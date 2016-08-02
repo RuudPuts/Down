@@ -48,6 +48,17 @@ public class SickbeardEpisode: Object {
         return title
     }
     
+    public var daysUntilAiring: Int {
+        let now = NSDate()
+        
+        // TODO: Subscript NSDate to add < > comparisson
+        if let date = airDate where date.compare(now) == .OrderedDescending {
+            return Int(date.timeIntervalSinceNow / 86400)
+        }
+        
+        return -1
+    }
+    
 }
 
 extension Results where T: SickbeardEpisode {

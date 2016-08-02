@@ -44,7 +44,7 @@ public class SickbeardShow: Object {
     
     public var allEpisodes: [SickbeardEpisode] {
         var episodes = [SickbeardEpisode]()
-        for season in _seasons {
+        for season in seasons {
             episodes.appendContentsOf(season.episodes)
         }
         
@@ -53,7 +53,7 @@ public class SickbeardShow: Object {
     
     public var downloadedEpisodes: [SickbeardEpisode] {
         var episodes = [SickbeardEpisode]()
-        for season in _seasons {
+        for season in seasons {
             episodes.appendContentsOf(season.downloadedEpisodes)
         }
         
@@ -100,6 +100,26 @@ public class SickbeardShow: Object {
             }
             
             return season.episodes[episodeIndex]
+        }
+        
+        return nil
+    }
+    
+    public func nextAiringEpisode() -> SickbeardEpisode? {
+        let now = NSDate()
+        
+        for season in seasons {
+            if let lastEpisodeAirDate = season.episodes.last?.airDate where
+                lastEpisodeAirDate.compare(now) == .OrderedAscending {
+                // Last episode of the season, no need to loop
+                continue
+            }
+            
+            for episode in season.episodes {
+                if let airDate = episode.airDate where airDate.compare(now) == .OrderedDescending {
+                    return episode
+                }
+            }
         }
         
         return nil

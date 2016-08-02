@@ -11,5 +11,6 @@ import UIKit
 class SickbeardShowCell: DownCollectionViewCell {
     
     @IBOutlet weak var posterView: UIImageView!
+    @IBOutlet weak var nextEpisodeLabel: UILabel!
         
 }

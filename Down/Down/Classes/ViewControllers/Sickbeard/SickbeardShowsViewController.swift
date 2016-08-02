@@ -51,6 +51,14 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         cell.label?.text = show.name
         cell.posterView?.image = show.posterThumbnail
         
+        if let nextEpisode = show.nextAiringEpisode() {
+            cell.nextEpisodeLabel.hidden = false
+            cell.nextEpisodeLabel.text = "\(nextEpisode.daysUntilAiring)"
+        }
+        else {
+            cell.nextEpisodeLabel.hidden = true
+        }
+        
         return cell
     }
     
