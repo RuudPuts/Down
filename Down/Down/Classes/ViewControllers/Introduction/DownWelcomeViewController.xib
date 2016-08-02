@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -7,9 +7,9 @@
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Light.ttf">
             <string>OpenSans-Light</string>
+            <string>OpenSans-Light</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
-            <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
         </mutableArray>
@@ -41,8 +41,8 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Before we begin, there's some things to set up." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtV-Ud-xen">
-                    <rect key="frame" x="50" y="300" width="500" height="25"/>
-                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="18"/>
+                    <rect key="frame" x="50" y="300" width="500" height="22"/>
+                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="16"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -57,14 +57,14 @@
                     </connections>
                 </button>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QF6-Hz-T6D" userLabel="SearchingContainer">
-                    <rect key="frame" x="205" y="528.5" width="189" height="21"/>
+                    <rect key="frame" x="215.5" y="528.5" width="168.5" height="21"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for server" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pS-22-6YB">
-                            <rect key="frame" x="30" y="0.0" width="159" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for hosts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pS-22-6YB">
+                            <rect key="frame" x="30" y="0.0" width="138.5" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="2Ak-D3-7xn"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="16"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -86,12 +86,14 @@
             <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="dtV-Ud-xen" firstAttribute="top" secondItem="jzB-TQ-bcf" secondAttribute="bottom" constant="25" id="3HY-uk-Oat"/>
+                <constraint firstAttribute="bottom" secondItem="QF6-Hz-T6D" secondAttribute="bottom" constant="50" id="5kr-Z8-hVw"/>
                 <constraint firstItem="jzB-TQ-bcf" firstAttribute="top" secondItem="mVO-F0-8vM" secondAttribute="bottom" constant="40" id="9go-Eq-Qfk"/>
                 <constraint firstItem="dtV-Ud-xen" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="Krv-od-4Ej"/>
                 <constraint firstItem="mVO-F0-8vM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="NHj-Qo-Mi7"/>
                 <constraint firstItem="D58-Dn-H1l" firstAttribute="centerY" secondItem="QF6-Hz-T6D" secondAttribute="centerY" id="S9Y-y2-0Xh"/>
                 <constraint firstItem="D58-Dn-H1l" firstAttribute="centerX" secondItem="QF6-Hz-T6D" secondAttribute="centerX" id="Zo3-RL-ghW"/>
                 <constraint firstAttribute="trailing" secondItem="dtV-Ud-xen" secondAttribute="trailing" constant="111.5" id="aNa-xg-Fj2"/>
+                <constraint firstItem="QF6-Hz-T6D" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ebg-3C-81r"/>
                 <constraint firstItem="dtV-Ud-xen" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fHM-Jy-txY"/>
                 <constraint firstItem="jzB-TQ-bcf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="mQV-W9-oy9"/>
                 <constraint firstItem="mVO-F0-8vM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nRk-LB-oX6"/>

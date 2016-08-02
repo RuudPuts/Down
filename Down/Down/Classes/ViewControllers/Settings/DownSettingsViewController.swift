@@ -217,7 +217,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
                     actionButton.hidden = true
                     (service as! SickbeardService).refreshShowCache {
                         self.progressView.hidden = true
-                        self.actionButton.setTitle("Start Down!", forState: self.actionButton.state)
+                        self.actionButton.setTitle("All done, let's go!", forState: self.actionButton.state)
                         self.actionButton.hidden = false
                     }
                     return
