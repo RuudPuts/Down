@@ -279,12 +279,14 @@ public class SickbeardService: Service {
         show.name = name
         show.status = paused == 1 ? .Stopped : .Active
         
-        if shows.contains(show) {
+        if let existingShow = showWithId(tvdbId) {
             // Show is being refreshed
-            databaseManager.setStatus(show.status, forShow:showWithId(tvdbId)!)
+            NSLog("Skipping show \(show.tvdbId) - \(show.name)")
+            databaseManager.setStatus(show.status, forShow:existingShow)
         }
         else {
             // It's a newly added show
+            NSLog("Adding show \(show.tvdbId) - \(show.name)")
             shows.append(show)
         }
     }
