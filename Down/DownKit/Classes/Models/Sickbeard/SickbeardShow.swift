@@ -114,17 +114,22 @@ public class SickbeardShow: Object {
     }
     
     public func nextAiringEpisode() -> SickbeardEpisode? {
-        let now = NSDate()
+        let now = NSDate().dateWithoutTime()
         
         for season in seasons {
-            if let lastEpisodeAirDate = season.episodes.last?.airDate where
-                lastEpisodeAirDate.compare(now) == .OrderedAscending {
-                // Last episode of the season, no need to loop
+            guard season.id > 0 else {
                 continue
             }
             
+            if let lastEpisodeAirDate = season.episodes.last?.airDate {
+                guard lastEpisodeAirDate.compare(now) != .OrderedAscending else {
+                    // Last episode of the season, no need to loop
+                    continue
+                }
+            }
+            
             for episode in season.episodes {
-                if let airDate = episode.airDate where airDate.compare(now) == .OrderedDescending {
+                if let airDate = episode.airDate where airDate.compare(now) != .OrderedAscending {
                     return episode
                 }
             }
