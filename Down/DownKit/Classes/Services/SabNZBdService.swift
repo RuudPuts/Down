@@ -80,7 +80,7 @@ public class SabNZBdService: Service {
     
     private func startTimers() {
         queueRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(queueRefreshRate, target: self, selector: #selector(refreshQueue), userInfo: nil, repeats: true)
-//        historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self, selector: #selector(refreshHistory), userInfo: nil, repeats: true)
+        historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self, selector: #selector(refreshHistory), userInfo: nil, repeats: true)
         
         refreshQueue()
         refreshHistory()
