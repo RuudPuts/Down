@@ -58,14 +58,22 @@ public class SABHistoryItem: SABItem {
     public var progress: Float {
         var progress: Float = 0
         
-        if self.status == .Verifying || self.status == .Extracting {
-            let progressString = self.actionLine!.componentsSeparatedByString(" ").last as String!
+        if status == .Verifying || status == .Extracting {
+            let progressString = actionLine!.componentsSeparatedByString(" ").last as String!
             let progressComponents = progressString.componentsSeparatedByString("/")
             
             let part = Float(progressComponents.first!) ?? 0
             let total = Float(progressComponents.last!) ?? 0
             
             progress = part / total * 100
+        }
+        else if status == .Repairing {
+            let regex = "(\\d+)%$"
+            
+            if let percentage = actionLine!.componentsMatchingRegex(regex).first {
+                let percentageNumber = percentage.stringByReplacingOccurrencesOfString("%", withString: "")
+                progress = Float(percentageNumber) ?? 0
+            }
         }
         
         return progress
@@ -77,29 +85,29 @@ public class SABHistoryItem: SABItem {
         switch (string) {
         case "Verifying":
             status = SABHistoryItemStatus.Verifying
-            self.statusDescription = self.actionLine
-            break;
+            statusDescription = actionLine
+            break
         case "Repairing":
             status = SABHistoryItemStatus.Repairing
-            break;
+            break
         case "Extracting":
             status = SABHistoryItemStatus.Extracting
-            self.statusDescription = self.actionLine
-            break;
+            statusDescription = actionLine
+            break
         case "Running":
             status = SABHistoryItemStatus.RunningScript
-            self.statusDescription = "Running script"
-            break;
+            statusDescription = "Running script"
+            break
         case "Failed":
             status = SABHistoryItemStatus.Failed
-            break;
+            break
         case "Completed":
             status = SABHistoryItemStatus.Finished
-            break;
+            break
             
         default:
             status = SABHistoryItemStatus.Queued
-            break;
+            break
         }
         
         return status
