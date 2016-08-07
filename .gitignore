@@ -17,3 +17,6 @@ DerivedData
 *.ipa
 *.xcuserstate
 .idea
+
+# Fastlane
+Down/fastlane/report.xml
