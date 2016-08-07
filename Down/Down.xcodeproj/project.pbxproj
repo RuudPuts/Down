@@ -1818,7 +1818,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Down/Dependencies",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
@@ -1842,7 +1842,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Down/Dependencies",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Down/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
