@@ -1,0 +1,3 @@
+Down 0.1 (4)
+- [SabNZBd] Fixed history refresh
+- [Sickbeard] Fixed 'days until next episode' badge 
