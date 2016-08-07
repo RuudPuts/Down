@@ -36,7 +36,7 @@ public class SABItem: NSObject {
             try regularExpression = NSRegularExpression(pattern: regex, options: .CaseInsensitive)
             
             let range = regularExpression.rangeOfFirstMatchInString(nzbName, options: [], range: nzbName.fullNSRange) as NSRange!
-            if (range.location != NSNotFound) {
+            if range.location != NSNotFound {
                 imdbIdentifier = (nzbName as NSString).substringWithRange(range!)
             }
         }

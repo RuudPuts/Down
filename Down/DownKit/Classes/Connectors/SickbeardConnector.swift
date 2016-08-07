@@ -29,7 +29,7 @@ public class SickbeardConnector: Connector {
             if handler.result.isSuccess, let response = handler.response {
                 let serverHeader = response.allHeaderFields["Server"] as! String?
                 let authenticateHeader = response.allHeaderFields["Www-Authenticate"] as! String?
-                if (serverHeader?.hasPrefix("CherryPy") ?? false) || authenticateHeader?.rangeOfString("Sickbeard") != nil {
+                if serverHeader?.hasPrefix("CherryPy") ?? false || authenticateHeader?.rangeOfString("Sickbeard") != nil {
                     hostValid = true
                     self.host = host
 

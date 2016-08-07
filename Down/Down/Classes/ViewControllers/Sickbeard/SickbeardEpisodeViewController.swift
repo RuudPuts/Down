@@ -74,7 +74,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (cellKeys[indexPath.section][indexPath.row] == .Plot) {
+        if cellKeys[indexPath.section][indexPath.row] == .Plot {
             let font = UIFont(name: "OpenSans-Light", size: 14.0)!
             let maxWidth = CGRectGetWidth(view.bounds) - 34 // TODO: Change to 20 once sizing issue is fixed
             

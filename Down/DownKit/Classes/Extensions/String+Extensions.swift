@@ -18,16 +18,16 @@ public extension String {
         // TODO: See if a number formatter can be used here
         var sizeDisplay = "MB"
         var adjustedSize = size
-        if (adjustedSize < 0) {
+        if adjustedSize < 0 {
             adjustedSize = adjustedSize * 1024
             sizeDisplay = "KB"
         }
-        else if (adjustedSize > 1024) {
+        else if adjustedSize > 1024 {
             adjustedSize = adjustedSize / 1024
             sizeDisplay = "GB"
         }
         
-        if (adjustedSize > 0) {
+        if adjustedSize > 0 {
             self = String(format: "%.1f%@", adjustedSize, sizeDisplay)
         }
         else {

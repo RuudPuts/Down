@@ -34,7 +34,7 @@ public class SabNZBdConnector: Connector {
             if handler.result.isSuccess, let response = handler.response {
                 let serverHeader = response.allHeaderFields["Server"] as! String?
                 let authenticateHeader = response.allHeaderFields["Www-Authenticate"] as! String?
-                if (serverHeader?.hasPrefix("CherryPy") ?? false) || authenticateHeader?.rangeOfString("SABnzbd") != nil {
+                if serverHeader?.hasPrefix("CherryPy") ?? false || authenticateHeader?.rangeOfString("SABnzbd") != nil {
                     hostValid = true
                     self.host = host
                     

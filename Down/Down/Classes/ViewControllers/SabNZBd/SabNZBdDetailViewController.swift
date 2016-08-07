@@ -223,7 +223,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             }
             else {
                 historySwitchRefreshCount += 1
-                if (historySwitchRefreshCount == 1) {
+                if historySwitchRefreshCount == 1 {
                     self.navigationController?.popViewControllerAnimated(true)
                 }
             }

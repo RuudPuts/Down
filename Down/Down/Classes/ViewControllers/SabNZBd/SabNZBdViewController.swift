@@ -118,7 +118,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
             displaySpeed = displaySpeed / 1024
             displayString = "MB/s"
             
-            if (displaySpeed > 1024) {
+            if displaySpeed > 1024 {
                 displaySpeed = displaySpeed / 1024
                 displayString = "GB/s"
             }
@@ -165,7 +165,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         }
         else {
             numberOfRows = min(sabNZBdService.history.count, kMaxHistoryDisplayCount)
-            if (!sabNZBdService.history.isEmpty) {
+            if !sabNZBdService.history.isEmpty {
                 numberOfRows += 1
             }
         }
@@ -190,14 +190,14 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         var rowHeight: Float = 60
         if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if indexPath.section == 0 {
-                let queueItem: SABQueueItem = serviceManager.sabNZBdService.queue[indexPath.row];
-                if (queueItem.hasProgress) {
+                let queueItem = serviceManager.sabNZBdService.queue[indexPath.row];
+                if queueItem.hasProgress {
                     rowHeight = 66.0
                 }
             }
             else if indexPath.row < serviceManager.sabNZBdService.history.count - 1 {
-                let historyItem: SABHistoryItem = serviceManager.sabNZBdService.history[indexPath.row];
-                if (historyItem.hasProgress) {
+                let historyItem = serviceManager.sabNZBdService.history[indexPath.row];
+                if historyItem.hasProgress {
                     rowHeight = 66.0
                 }
             }

@@ -47,7 +47,7 @@ public class SABHistoryItem: SABItem {
     
     public var hasProgress: Bool {
         var hasProgress = false
-        if ((self.status == .Verifying || self.status == .Repairing || self.status == .Extracting) && self.progress > 0) {
+        if (self.status == .Verifying || self.status == .Repairing || self.status == .Extracting) && self.progress > 0 {
             hasProgress = true
         }
         
@@ -58,7 +58,7 @@ public class SABHistoryItem: SABItem {
     public var progress: Float {
         var progress: Float = 0
         
-        if (self.status == .Verifying || self.status == .Extracting) {
+        if self.status == .Verifying || self.status == .Extracting {
             let progressString = self.actionLine!.componentsSeparatedByString(" ").last as String!
             let progressComponents = progressString.componentsSeparatedByString("/")
             

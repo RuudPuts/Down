@@ -44,7 +44,7 @@ public class SABQueueItem: SABItem {
     
     public var hasProgress: Bool {
         var hasProgress = false
-        if (self.status == SABQueueItemStatus.Downloading || (self.status == SABQueueItemStatus.Queued && self.progress > 0)) {
+        if self.status == SABQueueItemStatus.Downloading || (self.status == SABQueueItemStatus.Queued && self.progress > 0) {
             hasProgress = true
         }
         return hasProgress

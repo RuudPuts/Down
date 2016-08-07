@@ -52,8 +52,8 @@ class DownTableViewCell: UITableViewCell {
     override func setHighlighted(highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         
-        if (highlighted) {
-            containerView?.backgroundColor = highlightedBackgroundColor.colorWithAlphaComponent(0.15)
+        if highlighted {
+            containerView?.backgroundColor = highlighted ? highlightedBackgroundColor.colorWithAlphaComponent(0.15) : .downLightGreyColor()
         }
         else {
             containerView?.backgroundColor = .downLightGreyColor()

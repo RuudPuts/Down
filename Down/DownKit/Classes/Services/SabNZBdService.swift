@@ -308,8 +308,6 @@ public class SabNZBdService: Service {
                 return $0.completionDate!.compare($1.completionDate!) == .OrderedDescending
             }
             history = unsortedHistory
-            
-            NSLog("New history count: \(history.count)")
         }
     }
     
