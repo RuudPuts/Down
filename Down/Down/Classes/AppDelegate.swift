@@ -26,15 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [NSObject: AnyObject]?) -> Bool {
-//        PreferenceManager.sabNZBdHost = "192.168.178.10:8080"
-//        PreferenceManager.sabNZBdApiKey = "005a4296d8472a6ac787f09f24f2b70c"
-//
-//        PreferenceManager.sickbeardHost = "192.168.178.10:8081"
-//        PreferenceManager.sickbeardApiKey = "e9c3be0f3315f09d7ceae37f1d3836cd"
-//
-//        PreferenceManager.couchPotatoHost = "192.168.178.10"
-//        PreferenceManager.couchPotatoApiKey = "fb3f91e38ba147b29514d56a24d17d9a"
-        
         Fabric.with([Crashlytics.self])
         
         serviceManager = ServiceManager()
