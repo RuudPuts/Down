@@ -152,7 +152,7 @@ public class SabNZBdService: Service {
                     queue.append(item!)
                 }
                 else {
-                    item!.update(statusDescription, remainingMb, progress, timeRemaining)
+                    item!.update(nzbName, statusDescription, remainingMb, progress, timeRemaining)
                 }
                 newQueueIdentifiers.append(identifier)
                 

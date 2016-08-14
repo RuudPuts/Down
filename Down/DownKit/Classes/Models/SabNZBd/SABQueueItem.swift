@@ -34,7 +34,8 @@ public class SABQueueItem: SABItem {
         self.status = stringToStatus(statusDescription)
     }
     
-    internal func update(statusDescription: String, _ remainingMb: Float, _ progress: Float, _ timeRemaining: NSTimeInterval) {
+    internal func update(nzbName: String, _ statusDescription: String, _ remainingMb: Float, _ progress: Float, _ timeRemaining: NSTimeInterval) {
+        self.nzbName = nzbName
         self.remainingMb = remainingMb
         self.statusDescription = statusDescription
         self.status = stringToStatus(statusDescription)

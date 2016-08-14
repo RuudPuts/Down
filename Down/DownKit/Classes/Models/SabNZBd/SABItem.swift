@@ -12,7 +12,7 @@ public class SABItem: NSObject {
     
     public let identifier: String!
     public var category: String!
-    public let nzbName: String!
+    public var nzbName: String!
     var progressDescription: String?
     public var statusDescription: String!
     public var sickbeardEpisode: SickbeardEpisode?
