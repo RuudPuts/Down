@@ -112,7 +112,7 @@ typedef int swift_int4  __attribute__((__ext_vector_type__(4)));
 /// Object is a class used to define Realm model objects.
 ///
 /// In Realm you define your model classes by subclassing <code>Object
-/// </code> and adding properties to be persisted.
+/// </code> and adding properties to be managed.
 /// You then instantiate and use your custom subclasses instead of using the <code>Object
 /// </code> class directly.
 ///
@@ -192,25 +192,24 @@ SWIFT_CLASS_NAMED("Object")
 
 /// Initializes an unmanaged instance of a Realm object.
 ///
-/// Pass in an <code>Array<AnyObject>
-/// </code> or <code>Dictionary<String, AnyObject>
-/// </code> instance to set the values of the object's
-/// properties, or any other valid object as described below.
+/// The <code>value
+/// </code> argument is used to populate the object. It can be a key-value coding compliant object, an array or
+/// dictionary returned from the methods in <code>NSJSONSerialization
+/// </code>, or an <code>Array
+/// </code> containing one element for each
+/// managed property. An exception will be thrown if any required properties are not present and those properties were
+/// not defined with default values.
+///
+/// When passing in an <code>Array
+/// </code> as the <code>value
+/// </code> argument, all properties must be present, valid and in the same order as
+/// the properties defined in the model.
 ///
 /// Call <code>add(_:)
 /// </code> on a <code>Realm
 /// </code> instance to add an unmanaged object into that Realm.
 ///
-/// \param value The value used to populate the object. This can be any key-value coding compliant
-/// object, or an array or dictionary returned from the methods in <code>NSJSONSerialization
-/// </code>, or
-/// an <code>Array
-/// </code> containing one element for each persisted property. An exception will be
-/// thrown if any required properties are not present and those properties were not defined with
-/// default values.
-/// When passing in an <code>Array
-/// </code>, all properties must be present,
-/// valid and in the same order as the properties defined in the model.
+/// \param value The value used to populate the object.
 - (nonnull instancetype)initWithValue:(id _Nonnull)value OBJC_DESIGNATED_INITIALIZER;
 
 /// Indicates if the object can no longer be accessed because it is now invalid.
@@ -241,7 +240,7 @@ SWIFT_CLASS_NAMED("Object")
 /// </code> if the model has no primary key.
 + (NSString * _Nullable)primaryKey;
 
-/// Override this method to specify the names of properties to ignore. These properties will not be persisted within the Realm that manages the object.
+/// Override this method to specify the names of properties to ignore. These properties will not be managed by the Realm that manages the object.
 ///
 /// \returns  An array of property names to ignore.
 + (NSArray<NSString *> * _Nonnull)ignoredProperties;
