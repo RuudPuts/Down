@@ -66,7 +66,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
             break
         case SickbeardService.defaultPort:
             SickbeardConnector().validateHost(host, completion: { hostValid, apiKey in
-                NSLog("Validated Sickbeard host \(host) - \(hostValid) - \(apiKey)")
+                NSLog("Validated Sickbeard host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
                 
                 if hostValid {
                     if PreferenceManager.sickbeardHost.length == 0 {

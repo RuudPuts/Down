@@ -12,7 +12,7 @@ public class SABQueueItem: SABItem {
     
     let totalMb: Float!
     var remainingMb: Float!
-    public var timeRemaining: String!
+    public var timeRemaining: NSTimeInterval!
     public var progress: Float!
     var status: SABQueueItemStatus!
     
@@ -23,7 +23,7 @@ public class SABQueueItem: SABItem {
         case Downloaded
     }
     
-    init(_ identifier: String, _ category: String, _ nzbName: String, _ statusDescription: String, _ totalMb: Float, _ remainingMb: Float, _ progress: Float, _ timeRemaining: String) {
+    init(_ identifier: String, _ category: String, _ nzbName: String, _ statusDescription: String, _ totalMb: Float, _ remainingMb: Float, _ progress: Float, _ timeRemaining: NSTimeInterval) {
         self.timeRemaining = timeRemaining
         self.totalMb = totalMb
         self.remainingMb = remainingMb
@@ -34,12 +34,16 @@ public class SABQueueItem: SABItem {
         self.status = stringToStatus(statusDescription)
     }
     
-    internal func update(statusDescription: String, _ remainingMb: Float, _ progress: Float, _ timeRemaining: String) {
+    internal func update(statusDescription: String, _ remainingMb: Float, _ progress: Float, _ timeRemaining: NSTimeInterval) {
         self.remainingMb = remainingMb
         self.statusDescription = statusDescription
         self.status = stringToStatus(statusDescription)
         self.progress = progress
         self.timeRemaining = timeRemaining
+    }
+    
+    public var downloadedMb: Float {
+        return max(0, self.totalMb - self.remainingMb)
     }
     
     public var hasProgress: Bool {
@@ -59,7 +63,7 @@ public class SABQueueItem: SABItem {
         case .Queued:
             progressString = String(fromMB:self.totalMb)
         case .Downloading:
-            progressString = String(format: "%@ / %@", String(fromMB:self.totalMb - self.remainingMb), String(fromMB:self.totalMb));
+            progressString = String(format: "%@ / %@", String(fromMB:self.downloadedMb), String(fromMB:self.totalMb));
         default:
             progressString = ""
         }

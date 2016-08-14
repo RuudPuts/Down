@@ -47,7 +47,17 @@ class SABItemCell: DownTableViewCell {
                 statusLabel!.text = "-"
             }
             else {
-                statusLabel!.text = _queueItem?.timeRemaining
+                // TODO: DateFormatter?
+                var secondsRemaining = _queueItem?.timeRemaining ?? 0
+                
+                let hoursRemaining = floor(secondsRemaining / 3600)
+                secondsRemaining -= hoursRemaining * 3600
+                
+                let minutesRemaining = floor(secondsRemaining / 60)
+                secondsRemaining -= minutesRemaining * 60
+                
+                let timeRemainingString = String(format:"%01d:%02d:%02d", Int(hoursRemaining), Int(minutesRemaining), Int(secondsRemaining))
+                statusLabel!.text = timeRemainingString
             }
             categoryLabel!.text = _queueItem?.category
         }

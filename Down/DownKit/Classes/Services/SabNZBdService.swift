@@ -134,9 +134,17 @@ public class SabNZBdService: Service {
                 let statusDescription = jsonJob["status"].string!
                 let totalMb = Float(jsonJob["mb"].string!) ?? 0
                 let remainingMb = Float(jsonJob["mbleft"].string!) ?? 0
-                let timeRemaining = jsonJob["timeleft"].string!
+                let timeRemainingString = jsonJob["timeleft"].string!
                 let progress = Float(jsonJob["percentage"].string!) ?? 0
                 
+                // TODO: DateFormatter?
+                // Parse time remaining to actual seconds
+                // Format 00:00:00
+                let timeComponents = timeRemainingString.componentsSeparatedByString(":")
+                let hours = Int(timeComponents[0]) ?? 0
+                let minutes = Int(timeComponents[1]) ?? 0
+                let seconds = Int(timeComponents[2]) ?? 0
+                let timeRemaining = NSTimeInterval(hours * 3600 + minutes * 60 + seconds)
                 
                 var item = findQueueItem(identifier)
                 if item == nil {
@@ -158,6 +166,13 @@ public class SabNZBdService: Service {
             // Cleanup items removed from queue
             let removedQueueIdentifiers = difference(currentQueueIdentifiers, newQueueIdentifiers)
             removeItemsFromQueue(removedQueueIdentifiers)
+            
+            // Sort the queue
+            var unsortedQueue = queue
+            unsortedQueue.sortInPlace {
+                return $0.timeRemaining < $1.timeRemaining
+            }
+            queue = unsortedQueue
             
             // Parse speed, timeleft and mbleft
             currentSpeed = Float(json["queue"]["kbpersec"].string!) ?? 0
