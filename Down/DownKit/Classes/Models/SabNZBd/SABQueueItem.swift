@@ -44,7 +44,7 @@ public class SABQueueItem: SABItem {
     }
     
     public var downloadedMb: Float {
-        return max(0, self.totalMb - self.remainingMb)
+        return max(0.0, self.totalMb - self.remainingMb)
     }
     
     public var hasProgress: Bool {
