@@ -1,14 +1,2 @@
-Down 0.1 (4)
-
 Fixes
-- [SabNZBd] Fixed issue where history would not refresh
-- [SabNZBd] Fixed queue not being ordered correctly
-- [Sickbeard] Fixed 'days until next episode' giving the wrong number
-
-New
-- [SabNZBd] Progress is shown when repairing download
-
-Technical stuff
-- Updated Realm to version 1.0.2
-- Updated Alamofire to version 3.4.1
-- Updated Crashlytics to version 3.7.3
+ - [Settings] Fixed crash when editing the API key field after autodetection
