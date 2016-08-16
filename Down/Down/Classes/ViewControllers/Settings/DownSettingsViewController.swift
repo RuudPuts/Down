@@ -11,14 +11,14 @@ import DownKit
 
 class DownSettingsViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, DownTableViewCellDegate {
     
-    private enum DownSettingsRow: Int {
+    enum DownSettingsRow: Int {
         case Host = 0
         case Username = 1
         case Password = 2
         case ApiKey = 3
     }
     
-    private struct SettingDataSource {
+    struct SettingDataSource {
         var rowType = DownSettingsRow.Host
         var title = ""
         var detailText = ""
@@ -247,6 +247,10 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         cellData[.ApiKey] = apikey
     }
     
+    func cellTypeForIndexPath(indexPath: NSIndexPath) -> DownSettingsRow {
+        return Array(cellData.keys).sort({$0.rawValue < $1.rawValue})[indexPath.row]
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -258,8 +262,8 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     func tableView(tableView: UITableView, shouldShowActivityIndicatorForIndexPath indexPath: NSIndexPath) -> Bool {
         var showIndicator = false
         
-        let dataKey: DownSettingsRow = DownSettingsRow(rawValue: indexPath.row)!
-        switch dataKey {
+        let cellType = cellTypeForIndexPath(indexPath)
+        switch cellType {
         case .Host:
             showIndicator = validatingHost
             break
@@ -287,13 +291,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     func tableView(tableView: UITableView, reloadCell cell: DownTableViewCell, forIndexPath indexPath: NSIndexPath) -> Void {
         // If keyboard is open for cell, don't reload
         if cell.textField?.isFirstResponder() == false ?? false {
-            let dataKey: DownSettingsRow = Array(cellData.keys).sort({$0.rawValue < $1.rawValue})[indexPath.row]
-            let data = cellData[dataKey]!
+            let cellType = cellTypeForIndexPath(indexPath)
+            let data = cellData[cellType]!
             
             cell.setCellType(application)
             cell.label.text = data.title
             cell.textFieldPlaceholder = data.detailText
-            switch dataKey {
+            switch cellType {
             case .Host:
                 cell.textField?.text = hostForApplication
                 break
@@ -304,7 +308,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             default:
                 break
             }
-            cell.textField?.secureTextEntry = dataKey == .Password
+            cell.textField?.secureTextEntry = cellType == .Password
             
             if self.tableView(tableView, shouldShowActivityIndicatorForIndexPath: indexPath) {
                 cell.showActivityIndicator()
@@ -325,8 +329,8 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     
     func downTableViewCell(cell: DownTableViewCell, didChangeText text: String) {
         let indexPath = tableView!.indexPathForCell(cell)!
-        let rowType: DownSettingsRow = DownSettingsRow(rawValue: indexPath.row)!
-        switch rowType {
+        let cellType = cellTypeForIndexPath(indexPath)
+        switch cellType {
         case .Host:
             validateHost(text)
             break
