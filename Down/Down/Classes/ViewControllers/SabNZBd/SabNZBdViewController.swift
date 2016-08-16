@@ -252,15 +252,18 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
             else {
                 let loadingCell = tableView.dequeueReusableCellWithIdentifier("DownActivityCell", forIndexPath: indexPath) as! DownTableViewCell
                 loadingCell.setCellType(.SabNZBd)
-                sabNZBdService.checkHostReachability({ reachable, _ in
-                    if !reachable {
-                        // Host is not reachable
-                        loadingCell.label?.text = "Host seems down..."
-                    }
-                    else {
-                        loadingCell.label?.text = "Loading..."
-                    }
-                })
+                
+                if let sabNZBdHost = NSURL(string: PreferenceManager.sabNZBdHost) {
+                    SabNZBdConnector().validateHost(sabNZBdHost, completion: { (reachable, _) in
+                        if !reachable {
+                            // Host is not reachable
+                            loadingCell.label?.text = "Host seems down..."
+                        }
+                        else {
+                            loadingCell.label?.text = "Loading..."
+                        }
+                    })
+                }
                 
                 cell = loadingCell
             }

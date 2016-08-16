@@ -42,9 +42,6 @@ public class SabNZBdService: Service {
         self.historyRefreshRate = historyRefreshRate
         
         super.init()
-        
-        connector = SabNZBdConnector()
-        connector?.host = PreferenceManager.sabNZBdHost
     }
     
     override public func addListener(listener: ServiceListener) {
@@ -59,23 +56,6 @@ public class SabNZBdService: Service {
     
     override public func stopService() {
         stopTimers()
-    }
-    
-    override public func checkHostReachability(host: String, completion: (hostReachable: Bool, requiresAuthentication: Bool) -> (Void)) {
-        connector!.validateHost(host) { hostReachable, apiKey in
-            if apiKey != nil {
-                PreferenceManager.sabNZBdApiKey = apiKey!
-            }
-            let requiresAuthentication = hostReachable && apiKey == nil
-            completion(hostReachable: hostReachable, requiresAuthentication: requiresAuthentication)
-        }
-    }
-    
-    override public func checkHostReachability(completion: (hostReachable: Bool, requiresAuthentication: Bool) -> (Void)) {
-        connector!.validateHost(PreferenceManager.sabNZBdHost) { hostReachable, apiKey in
-            let requiresAuthentication = hostReachable && apiKey == nil
-            completion(hostReachable: hostReachable, requiresAuthentication: requiresAuthentication)
-        }
     }
     
     private func startTimers() {

@@ -83,7 +83,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         }
     }
     
-    var apiKeyForApplication: String {
+    var apiKeyForApplication: String? {
         get {
             var apiKey = ""
             switch application as DownApplication {
@@ -106,13 +106,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         set {
             switch application as DownApplication {
             case .SabNZBd:
-                PreferenceManager.sabNZBdApiKey = newValue
+                PreferenceManager.sabNZBdApiKey = newValue ?? ""
                 break
             case .Sickbeard:
-                PreferenceManager.sickbeardApiKey = newValue
+                PreferenceManager.sickbeardApiKey = newValue ?? ""
                 break
             case .CouchPotato:
-                PreferenceManager.couchPotatoApiKey = newValue
+                PreferenceManager.couchPotatoApiKey = newValue ?? ""
                 break
                 
             default:
@@ -121,7 +121,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         }
     }
     
-    var serviceForApplication: Service? {
+    var applicationService: Service? {
         get {
             var service: Service?
             switch application as DownApplication {
@@ -207,27 +207,27 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     }
     
     @IBAction func actionButtonPressed(sender: UIButton) {
-        if hostForApplication.length > 0 && apiKeyForApplication.length > 0 {
-            if let service = serviceForApplication {
-                if service is SickbeardService && PreferenceManager.sickbeardLastCacheRefresh == nil {
-                    progressLabel.text = "Preparing show cache..."
-                    progressIndicator.startAnimating()
-                    progressView.hidden = false
-                    
-                    actionButton.hidden = true
-                    (service as! SickbeardService).refreshShowCache {
-                        self.progressView.hidden = true
-                        self.actionButton.setTitle("All done, let's go!", forState: self.actionButton.state)
-                        self.actionButton.hidden = false
-                    }
-                    return
-                }
-                else {
-                    service.startService()
-                }
-            }
-            delegate?.settingsViewControllerDidTapActionButton(self)
+        guard hostForApplication.length > 0 && apiKeyForApplication?.length > 0 else {
+            return
         }
+        
+        if applicationService is SickbeardService && PreferenceManager.sickbeardLastCacheRefresh == nil {
+            progressLabel.text = "Preparing show cache..."
+            progressIndicator.startAnimating()
+            progressView.hidden = false
+            
+            actionButton.hidden = true
+            (applicationService as! SickbeardService).refreshShowCache {
+                self.progressView.hidden = true
+                self.actionButton.setTitle("All done, let's go!", forState: self.actionButton.state)
+                self.actionButton.hidden = false
+            }
+            return
+        }
+        else {
+            applicationService?.startService()
+        }
+        delegate?.settingsViewControllerDidTapActionButton(self)
     }
     
     // MARK: - UITableViewDataSource
@@ -348,40 +348,36 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         self.tableView(tableView!, reloadCell: cell, forIndexPath: indexPath)
     }
     
-    // =
+    // Host validation
     
-    func validateHost(var host: String) {
-        // TODO: check the host, in an ugly way.. NSUrl maybe?
-        if !host.hasPrefix("http://") {
-            host = "http://" + host
+    func validateHost(host: String) {
+        let hostURL = NSURL(string: host)
+        guard !validatingHost && hostURL != nil else {
+            return
         }
         
-        if !validatingHost {
-            validatingHost = true
-            connector?.validateHost(host, completion: { hostValid, apiKey in
-                self.validatingHost = false
-                
-                if hostValid {
-                    self.hostForApplication = host.stringByReplacingOccurrencesOfString("http://", withString: "")
-                    if apiKey != nil {
-                        self.apiKeyForApplication = apiKey!
+        validatingHost = true
+        connector?.validateHost(hostURL!, completion: { hostValid, apiKey in
+            self.validatingHost = false
+            
+            if hostValid {
+                self.hostForApplication = host.stringByReplacingOccurrencesOfString("http://", withString: "")
+                self.apiKeyForApplication = apiKey
+                self.configureTableView()
+                self.tableView!.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            }
+            else {
+                let indexPath = NSIndexPath(forRow: DownSettingsRow.Host.rawValue, inSection: 0)
+                let cell = self.tableView!.cellForRowAtIndexPath(indexPath) as! DownTableViewCell
+                if let text = cell.textField?.text {
+                    if !host.hasSuffix(text) {
+                        self.validateHost(text)
+                        return
                     }
-                    self.configureTableView()
-                    self.tableView!.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
                 }
-                else {
-                    let indexPath = NSIndexPath(forRow: DownSettingsRow.Host.rawValue, inSection: 0)
-                    let cell = self.tableView!.cellForRowAtIndexPath(indexPath) as! DownTableViewCell
-                    if let text = cell.textField?.text {
-                        if !host.hasSuffix(text) {
-                            self.validateHost(text)
-                            return
-                        }
-                    }
-                    self.tableView(self.tableView!, reloadCell: cell, forIndexPath: indexPath)
-                }
-            })
-        }
+                self.tableView(self.tableView!, reloadCell: cell, forIndexPath: indexPath)
+            }
+        })
     }
     
     func fetchApiKey() {

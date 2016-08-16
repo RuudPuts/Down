@@ -12,38 +12,39 @@ public class SabNZBdConnector: Connector {
 
     public var host: String?
     public var apiKey: String?
-
-    // TODO: Set request timeouts
+    let requestManager: Manager
+    
     public init() {
-//        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-//        configuration.timeoutIntervalForRequest = 1
-//        configuration.timeoutIntervalForResource = 1
-//        
-//        requestManager = Manager(configuration: configuration)
+        let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        sessionConfiguration.timeoutIntervalForRequest = 1
+        sessionConfiguration.timeoutIntervalForResource = 1
+        
+        requestManager = Manager(configuration: sessionConfiguration)
     }
 
-    public func validateHost(host: String, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
-        guard host.length > 0 else {
+    public func validateHost(host: NSURL, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
+        let urlString = host.absoluteString
+        
+        guard urlString.length > 0 else {
             completion(hostValid: false, apiKey: nil)
             return
         }
         
-        Alamofire.request(.GET, host).responseString { handler in
+        requestManager.request(.GET, urlString).responseString { handler in
             var hostValid = false
             
             if handler.result.isSuccess, let response = handler.response {
-                let serverHeader = response.allHeaderFields["Server"] as! String?
-                let authenticateHeader = response.allHeaderFields["Www-Authenticate"] as! String?
-                if serverHeader?.hasPrefix("CherryPy") ?? false || authenticateHeader?.rangeOfString("SABnzbd") != nil {
-                    hostValid = true
-                    self.host = host
+                hostValid = self.validateResponseHeaders(response.allHeaderFields)
+                if hostValid {
+                    // Host is valid
+                    self.host = urlString
                     
                     // We got the host, lets fetch the api key
-                    self.fetchApiKey(username: nil, password: nil, completion: {
+                    self.fetchApiKey {
                         self.apiKey = $0
                         
                         completion(hostValid: hostValid, apiKey: self.apiKey)
-                    })
+                    }
                     
                     // fetchApiKey completion handler will call our completion handler
                     return
@@ -54,45 +55,51 @@ public class SabNZBdConnector: Connector {
         }
     }
     
-    public func fetchApiKey(completion: (String?) -> (Void)) {
-        fetchApiKey(username: nil, password: nil, completion: completion)
+    func validateResponseHeaders(headers: [NSObject: AnyObject]) -> Bool {
+        let serverHeader = headers["Server"] as? String
+        let serverHeaderValid = serverHeader?.hasPrefix("CherryPy") ?? false
+        
+        let authenticateHeader = headers["Www-Authenticate"] as? String
+        let authenticateHeaderValid = authenticateHeader?.rangeOfString("SABnzbd") != nil
+        
+        return serverHeaderValid || authenticateHeaderValid
     }
     
-    public func fetchApiKey(username username: String?, password: String?, completion: (String?) -> (Void)) {
+    public func fetchApiKey(username username: String = "", password: String = "", completion: (String?) -> (Void)) {
         if let sabNZBdHost = host {
-            var url = "\(sabNZBdHost)/config/general/"
-            if username != nil || password != nil {
-                let authenticationString = "\(username ?? ""):\(password ?? "")@"
-                // TODO: Nope, this is not good :-)
-                url = url.insert(authenticationString, atIndex: 7)
-            }
+            let url = sabNZBdHost + "/config/general/"
             
-            Alamofire.request(.GET, url).responseString { handler in
+            requestManager.request(.GET, url).authenticate(user: username, password: password).responseString { handler in
+                var apiKey: String?
+                
                 if handler.result.isSuccess, let html = handler.result.value {
-                    if let apikeyInputRange = html.rangeOfString("id=\"apikey\"") {
-                        // WARN: Assumption; api key is within 200 characters from the input id
-                        let substringLength = 200
-                        let apikeyIndexEnd = apikeyInputRange.endIndex.advancedBy(substringLength)
-                        
-                        if html.endIndex > apikeyIndexEnd {
-                            let apiKeyRange = apikeyInputRange.endIndex..<apikeyIndexEnd
-                            let usefullPart = html.substringWithRange(apiKeyRange)
-                            
-                            self.apiKey = usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first
-                        }
-                    }
-                    else {
-                        NSLog("apikey input not found")
-                    }
+                    apiKey = self.extractApiKey(html)
                 }
                 
-                completion(self.apiKey)
+                completion(apiKey)
             }
         }
         else {
             NSLog("SabNZBdConnector - Please set host before fetching the api key")
             completion(nil)
         }
+    }
+    
+    func extractApiKey(configHtml: String) -> String? {
+        if let apikeyInputRange = configHtml.rangeOfString("id=\"apikey\"") {
+            // WARN: Assumption; api key is within 200 characters from the input id
+            let substringLength = 200
+            let apikeyIndexEnd = apikeyInputRange.endIndex.advancedBy(substringLength)
+            
+            if configHtml.endIndex > apikeyIndexEnd {
+                let apiKeyRange = apikeyInputRange.endIndex..<apikeyIndexEnd
+                let usefullPart = configHtml.substringWithRange(apiKeyRange)
+                
+                return usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first
+            }
+        }
+        
+        return nil
     }
     
 }

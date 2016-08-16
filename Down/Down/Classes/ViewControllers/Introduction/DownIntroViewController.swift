@@ -44,21 +44,22 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
     // MARK - RPPortScannerDelegate
     
     func portScanner(portScanner: RPPortScanner!, didFindPort port: Int, onIPAddress ipAddress: String!) {
-        let host = "http://\(ipAddress):\(port)"
+        let host = NSURL(string: "http://\(ipAddress):\(port)")!
+        
         switch port {
         case SabNZBdService.defaultPort:
             SabNZBdConnector().validateHost(host, completion: { hostValid, apiKey in
-                NSLog("Validated sabNZBd host \(host) - \(hostValid) - \(apiKey)")
+                NSLog("Validated sabNZBd host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
                 
                 if hostValid {
                     if PreferenceManager.sabNZBdHost.length == 0 {
                         // No host set yet, save it all
-                        PreferenceManager.sabNZBdHost = host
+                        PreferenceManager.sabNZBdHost = host.absoluteString
                         PreferenceManager.sabNZBdApiKey = apiKey ?? ""
                     }
                     else if PreferenceManager.sabNZBdApiKey.length == 0 && apiKey?.length > 0 {
                         // Host with valid API key found, replace
-                        PreferenceManager.sabNZBdHost = host
+                        PreferenceManager.sabNZBdHost = host.absoluteString
                         PreferenceManager.sabNZBdApiKey = apiKey!
                     }
                 }
@@ -71,12 +72,12 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                 if hostValid {
                     if PreferenceManager.sickbeardHost.length == 0 {
                         // No host set yet, save it all
-                        PreferenceManager.sickbeardHost = host
+                        PreferenceManager.sickbeardHost = host.absoluteString
                         PreferenceManager.sickbeardApiKey = apiKey ?? ""
                     }
                     else if PreferenceManager.sickbeardApiKey.length == 0 && apiKey?.length > 0 {
                         // Host with valid API key found, replace
-                        PreferenceManager.sickbeardHost = host
+                        PreferenceManager.sickbeardHost = host.absoluteString
                         PreferenceManager.sickbeardApiKey = apiKey!
                     }
                 }

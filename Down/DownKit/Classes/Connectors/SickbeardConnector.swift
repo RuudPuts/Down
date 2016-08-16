@@ -12,33 +12,39 @@ public class SickbeardConnector: Connector {
 
     public var host: String?
     public var apiKey: String?
+    let requestManager: Manager
     
     public init() {
+        let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        sessionConfiguration.timeoutIntervalForRequest = 1.5
+        sessionConfiguration.timeoutIntervalForResource = 1.5
+        
+        requestManager = Manager(configuration: sessionConfiguration)
     }
 
-    public func validateHost(host: String, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
-        guard host.length > 0 else {
+    public func validateHost(host: NSURL, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
+        let urlString = host.absoluteString
+        
+        guard urlString.length > 0 else {
             completion(hostValid: false, apiKey: nil)
             return
         }
         
-        Alamofire.request(.GET, host).responseString { handler in
+        requestManager.request(.GET, urlString).responseString { handler in
             var hostValid = false
-
-            // TODO: Create something like a request factory, using the bolts framwork
+            
             if handler.result.isSuccess, let response = handler.response {
-                let serverHeader = response.allHeaderFields["Server"] as! String?
-                let authenticateHeader = response.allHeaderFields["Www-Authenticate"] as! String?
-                if serverHeader?.hasPrefix("CherryPy") ?? false || authenticateHeader?.rangeOfString("Sickbeard") != nil {
-                    hostValid = true
-                    self.host = host
+                hostValid = self.validateResponseHeaders(response.allHeaderFields)
+                if hostValid {
+                    // Host is valid
+                    self.host = urlString
 
                     // We got the host, lets fetch the api key
-                    self.fetchApiKey(username: nil, password: nil, completion: {
+                    self.fetchApiKey {
                         self.apiKey = $0
 
                         completion(hostValid: hostValid, apiKey: self.apiKey)
-                    })
+                    }
 
                     // fetchApiKey completion handler will call our completion handler
                     return
@@ -49,40 +55,27 @@ public class SickbeardConnector: Connector {
         }
     }
     
-    public func fetchApiKey(completion: (String?) -> (Void)) {
-        fetchApiKey(username: nil, password: nil, completion: completion)
+    func validateResponseHeaders(headers: [NSObject: AnyObject]) -> Bool {
+        let serverHeader = headers["Server"] as? String
+        let serverHeaderValid = serverHeader?.hasPrefix("CherryPy") ?? false
+        
+        let authenticateHeader = headers["Www-Authenticate"] as? String
+        let authenticateHeaderValid = authenticateHeader?.rangeOfString("Sickbeard") != nil
+        
+        return serverHeaderValid || authenticateHeaderValid
     }
-    
-    public func fetchApiKey(username username: String?, password: String?, completion: (String?) -> (Void)) {
-        if let sabNZBdHost = host {
-            var url = "\(sabNZBdHost)/config/general/"
-            if username != nil || password != nil {
-                let authenticationString = "\(username ?? ""):\(password ?? "")@"
-                // TODO: Nope, this is not good :-)
-                url = url.insert(authenticationString, atIndex: 7)
-            }
+    public func fetchApiKey(username username: String = "", password: String = "", completion: (String?) -> (Void)) {
+        if let sickbeardHost = host {
+            let url = sickbeardHost + "/config/general/"
             
-            Alamofire.request(.GET, url).responseString { response in
-                if let html = response.result.value {
-                    if let apikeyInputRange = html.rangeOfString("id=\"api_key\"") {
-                        // WARNING: Assumption; api key is within 200 characters from the input id
-                        let substringLength = 200
-                        let apikeyIndexEnd = apikeyInputRange.endIndex.advancedBy(substringLength)
-                        
-                        if html.endIndex > apikeyIndexEnd {
-                            let apiKeyRange = apikeyInputRange.endIndex..<apikeyIndexEnd
-                            let usefullPart = html.substringWithRange(apiKeyRange)
-                            
-                            self.apiKey = usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first
-                        }
-                    }
-                    else {
-                        // TODO: Use some kind of logging
-                        NSLog("apikey input not found")
-                    }
+            requestManager.request(.GET, url).authenticate(user: username, password: password).responseString { handler in
+                var apiKey: String?
+                
+                if handler.result.isSuccess, let html = handler.result.value {
+                    apiKey = self.extractApiKey(html)
                 }
                 
-                completion(self.apiKey)
+                completion(apiKey)
             }
         }
         else {
@@ -90,6 +83,23 @@ public class SickbeardConnector: Connector {
             NSLog("SabNZBdConnector - Please set host before fetching the api key")
             completion(nil)
         }
+    }
+    
+    func extractApiKey(configHtml: String) -> String? {
+        if let apikeyInputRange = configHtml.rangeOfString("id=\"api_key\"") {
+            // WARNING: Assumption; api key is within 200 characters from the input id
+            let substringLength = 200
+            let apikeyIndexEnd = apikeyInputRange.endIndex.advancedBy(substringLength)
+            
+            if configHtml.endIndex > apikeyIndexEnd {
+                let apiKeyRange = apikeyInputRange.endIndex..<apikeyIndexEnd
+                let usefullPart = configHtml.substringWithRange(apiKeyRange)
+                
+                return usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first
+            }
+        }
+        
+        return nil
     }
     
 }

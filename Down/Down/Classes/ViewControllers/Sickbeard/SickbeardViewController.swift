@@ -25,12 +25,10 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        todayData = sickbeardService.getEpisodesAiringToday()
-        soonData = sickbeardService.getEpisodesAiringSoon()
-        
+        loadData()
         registerTableViewCells()
         
-        // Ugly, lol
+        // TODO: Ugly, lol
         if PreferenceManager.sickbeardHost.length == 0 || PreferenceManager.sickbeardApiKey.length == 0 {
             let alertview = UIAlertController(title: nil, message: "Please setup your host using iOS Settings -> Down", preferredStyle: .Alert)
             alertview.addAction(UIAlertAction(title: "Okay", style: .Cancel, handler: nil))
@@ -51,6 +49,11 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         sickbeardService.removeListener(self)
     }
     
+    func loadData() {
+        todayData = sickbeardService.getEpisodesAiringToday()
+        soonData = sickbeardService.getEpisodesAiringSoon()
+    }
+    
     func registerTableViewCells() {
         let moreCellNib = UINib(nibName: "DownIconTextCell", bundle:nil)
         tableView!.registerNib(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
@@ -68,6 +71,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     // MARK: - TableView DataSource
     
     private func reloadTableView() {
+        loadData()
         tableView!.reloadData()
     }
     
@@ -246,6 +250,10 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     }
     
     // MARK: - SickbeardListener
+    
+    func sickbeardCacheRefreshed() {
+        reloadTableView()
+    }
     
     func sickbeardHistoryUpdated() { }
     

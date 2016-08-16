@@ -13,13 +13,8 @@ public protocol Connector {
     var host: String? { get set }
     var apiKey: String? { get set }
     
-    func validateHost(host: String, completion: (hostValid: Bool, apiKey: String?) -> (Void))
-    
-    func fetchApiKey(completion: (String?) -> (Void))
-    func fetchApiKey(username username: String?, password: String?, completion: (String?) -> (Void))
-    
-    // TODO: Add some generic fetch method, to prevent overhead in services
-    
+    func validateHost(host: NSURL, completion: (hostValid: Bool, apiKey: String?) -> (Void))
+    func fetchApiKey(username username: String, password: String, completion: (String?) -> (Void))
 }
 
 extension Response {

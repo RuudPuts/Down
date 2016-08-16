@@ -10,12 +10,8 @@ import UIKit
 
 public class Service {
     
-    var connector: Connector?
     public var lastRefresh: NSDate?
     var listeners = [ServiceListener]()
-    
-    init() {
-    }
     
     public func addListener(listener: ServiceListener) {
         listeners.append(listener)
@@ -31,20 +27,9 @@ public class Service {
     }
     
     public func startService() {
-        preconditionFailure("This method must be overridden")
     }
 
     public func stopService() {
-        preconditionFailure("This method must be overridden")
-    }
-    
-    // For some reason the extra argument requires it to be public?
-    public func checkHostReachability(host: String, completion: (hostReachable: Bool, requiresAuthentication: Bool) -> (Void)) {
-        preconditionFailure("This method must be overridden")
-    }
-    
-    func checkHostReachability(completion: (hostReachable: Bool, requiresAuthentication: Bool) -> (Void)) {
-        preconditionFailure("This method must be overridden")
     }
     
     internal func refreshCompleted() {
