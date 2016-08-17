@@ -1,2 +1,5 @@
 Fixes
- - [Settings] Fixed crash when editing the API key field after autodetection
+ - Fixed crash on startup when data fetching takes to long 💤
+
+New
+ - Made the Settings more user friendly 🐳
