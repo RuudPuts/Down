@@ -22,28 +22,24 @@ public class SabNZBdConnector: Connector {
         requestManager = Manager(configuration: sessionConfiguration)
     }
 
-    public func validateHost(host: NSURL, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
-        let urlString = host.absoluteString
-        
-        guard urlString.length > 0 else {
+    public func validateHost(url: NSURL, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
+        guard url.absoluteString.length > 0 else {
             completion(hostValid: false, apiKey: nil)
             return
         }
+        let fixedUrl = url.prefixScheme()
         
-        requestManager.request(.GET, urlString).responseString { handler in
-            var hostValid = false
-            
+        requestManager.request(.GET, fixedUrl).responseString { handler in
+            var hostValid = false 
             if handler.result.isSuccess, let response = handler.response {
                 hostValid = self.validateResponseHeaders(response.allHeaderFields)
                 if hostValid {
                     // Host is valid
-                    self.host = urlString
+                    self.host = fixedUrl.absoluteString
                     
                     // We got the host, lets fetch the api key
                     self.fetchApiKey {
-                        self.apiKey = $0
-                        
-                        completion(hostValid: hostValid, apiKey: self.apiKey)
+                        completion(hostValid: hostValid, apiKey: $0)
                     }
                     
                     // fetchApiKey completion handler will call our completion handler
@@ -70,13 +66,13 @@ public class SabNZBdConnector: Connector {
             let url = sabNZBdHost + "/config/general/"
             
             requestManager.request(.GET, url).authenticate(user: username, password: password).responseString { handler in
-                var apiKey: String?
+                self.apiKey = nil
                 
                 if handler.result.isSuccess, let html = handler.result.value {
-                    apiKey = self.extractApiKey(html)
+                    self.apiKey = self.extractApiKey(html)
                 }
                 
-                completion(apiKey)
+                completion(self.apiKey)
             }
         }
         else {

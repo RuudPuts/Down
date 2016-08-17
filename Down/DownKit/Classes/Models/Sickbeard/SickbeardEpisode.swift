@@ -21,17 +21,6 @@ public class SickbeardEpisode: Object {
     public dynamic weak var show: SickbeardShow?
     public dynamic weak var season: SickbeardSeason?
     
-    // MARK: Warning: set uniqueId before storing
-    
-//    public convenience init(id: String, season: SickbeardSeason, show: SickbeardShow) {
-//        self.init()
-//        
-//        self.id = id
-//        self.show = show
-//        self.season = season
-//        uniqueId = "\(show.tvdbId)-\(season.id)-\(id)"//objectHash = NSUUID().UUIDString
-//    }
-    
     // MARK: Realm
     
     public override static func primaryKey() -> String {
@@ -51,8 +40,7 @@ public class SickbeardEpisode: Object {
     public var daysUntilAiring: Int {
         let now = NSDate().dateWithoutTime()
         
-        // TODO: Subscript NSDate to add < > comparisson
-        if let date = airDate where date.compare(now) != .OrderedAscending {
+        if let date = airDate where date < now {
             return Int(abs(date.timeIntervalSinceNow) / 86400)
         }
         

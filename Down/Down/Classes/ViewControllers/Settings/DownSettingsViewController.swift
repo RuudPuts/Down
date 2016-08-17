@@ -19,9 +19,9 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     }
     
     struct SettingDataSource {
-        var rowType = DownSettingsRow.Host
-        var title = ""
-        var detailText = ""
+        var rowType: DownSettingsRow
+        var title: String
+        var detailText: String
     }
     
     @IBOutlet weak var headerView: UIView!
@@ -35,8 +35,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     var application: DownApplication!
     var delegate: DownSettingsViewControllerDelegate?
     
-    private var connector: Connector?
-    private var cellData = [DownSettingsRow: SettingDataSource]()
+    var connector: Connector?
+    var cellData = [SettingDataSource]()
+    
+    let activityDurationTimeout = NSTimeInterval(1.0)
+    let activityCheckInterval = NSTimeInterval(0.3)
+    var activityCheckTimer: NSTimer?
+    var activityStart = [DownSettingsRow: NSDate]()
     
     private var validatingHost = false
     private var fetchingApiKey = false
@@ -233,22 +238,30 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     // MARK: - UITableViewDataSource
     
     func configureTableView() {
-        cellData = [DownSettingsRow: SettingDataSource]()
-        
-        let host = SettingDataSource(rowType: .Host, title: "Host", detailText: "Your \(application.rawValue) host <ip:port>")
-        cellData = [.Host: host]
+        cellData = [SettingDataSource]()
+        cellData.append(SettingDataSource(rowType: .Host, title: "Host", detailText: "Your \(application.rawValue) host <ip:port>"))
         if connector?.host?.length > 0 && (connector?.apiKey == nil || connector?.apiKey?.length == 0) {
-            let username = SettingDataSource(rowType: .Username, title: "Username", detailText: "Your \(application.rawValue) username")
-            let password = SettingDataSource(rowType: .Password, title: "Password", detailText: "Your \(application.rawValue) password")
-            cellData[.Username] = username
-            cellData[.Password] = password
+            cellData.append(SettingDataSource(rowType: .Username, title: "Username", detailText: "Your \(application.rawValue) username"))
+            cellData.append(SettingDataSource(rowType: .Password, title: "Password", detailText: "Your \(application.rawValue) password"))
         }
-        let apikey = SettingDataSource(rowType: .ApiKey, title: "Api key", detailText: "Your \(application.rawValue) api key")
-        cellData[.ApiKey] = apikey
+        cellData.append(SettingDataSource(rowType: .ApiKey, title: "Api key", detailText: "Your \(application.rawValue) api key"))
     }
     
     func cellTypeForIndexPath(indexPath: NSIndexPath) -> DownSettingsRow {
-        return Array(cellData.keys).sort({$0.rawValue < $1.rawValue})[indexPath.row]
+        return cellData[indexPath.row].rowType
+    }
+    
+    func indexPathForCell(withType cellType: DownSettingsRow) -> NSIndexPath {
+        var rowIndex = 0
+        for row in cellData {
+            if row.rowType == cellType {
+                break
+            }
+            
+            rowIndex += 1
+        }
+        
+        return NSIndexPath(forRow: rowIndex, inSection: 0)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -274,7 +287,6 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             break
         }
         
-        
         return showIndicator
     }
     
@@ -283,20 +295,30 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         cell.delegate = self
         cell.setCellType(application)
         
-        self.tableView(tableView, reloadCell: cell, forIndexPath: indexPath)
+        reloadCell(cell, forIndexPath: indexPath)
         
         return cell
     }
     
-    func tableView(tableView: UITableView, reloadCell cell: DownTableViewCell, forIndexPath indexPath: NSIndexPath) -> Void {
+    func reloadCell(cellType: DownSettingsRow) {
+        let indexPath = indexPathForCell(withType: cellType)
+        if let visibleRowIndexes = tableView?.indexPathsForVisibleRows where visibleRowIndexes.contains(indexPath) {
+            if let cell = tableView?.visibleCells[visibleRowIndexes.indexOf(indexPath)!] as? DownTableViewCell {
+                reloadCell(cell, forIndexPath: indexPath)
+            }
+        }
+    }
+    
+    func reloadCell(cell: DownTableViewCell, forIndexPath indexPath: NSIndexPath) -> Void {
+        let cellType = cellTypeForIndexPath(indexPath)
+        
         // If keyboard is open for cell, don't reload
-        if cell.textField?.isFirstResponder() == false ?? false {
-            let cellType = cellTypeForIndexPath(indexPath)
-            let data = cellData[cellType]!
-            
+        if let textField = cell.textField where !textField.isFirstResponder() {
+            let data = cellData[indexPath.row]
             cell.setCellType(application)
             cell.label.text = data.title
             cell.textFieldPlaceholder = data.detailText
+            
             switch cellType {
             case .Host:
                 cell.textField?.text = hostForApplication
@@ -308,14 +330,15 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             default:
                 break
             }
-            cell.textField?.secureTextEntry = cellType == .Password
             
-            if self.tableView(tableView, shouldShowActivityIndicatorForIndexPath: indexPath) {
-                cell.showActivityIndicator()
-            }
-            else {
-                cell.hideActivityIndicator()
-            }
+            cell.textField?.secureTextEntry = cellType == .Password
+        }
+        
+        if self.tableView(tableView!, shouldShowActivityIndicatorForIndexPath: indexPath) {
+            cell.showActivityIndicator()
+        }
+        else {
+            cell.hideActivityIndicator()
         }
     }
     
@@ -345,61 +368,114 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             break
         }
         
-        self.tableView(tableView!, reloadCell: cell, forIndexPath: indexPath)
+        reloadCell(cell, forIndexPath: indexPath)
     }
     
-    // Host validation
+    // Activities
+    
+    func startActivityVerification(cellType: DownSettingsRow) {
+        activityStart[cellType] = NSDate()
+        activityCheckTimer = NSTimer.scheduledTimerWithTimeInterval(activityCheckInterval, target: self, selector: #selector(verifyActivities),
+                                                                    userInfo: nil, repeats: true)
+    }
+    
+    func verifyActivities() {
+        let now = NSDate()
+        
+        cellData.forEach { row in
+            if let date = activityStart[row.rowType] where now > date.dateByAddingTimeInterval(activityDurationTimeout) {
+                activityStart[row.rowType] = nil
+                
+                switch row.rowType {
+                case .Host:
+                    validatingHost = false
+                    break
+                case .ApiKey:
+                    fetchingApiKey = false
+                    break
+                    
+                default:
+                    break
+                }
+                
+                reloadCell(row.rowType)
+            }
+        }
+        
+        if activityStart.isEmpty {
+            activityCheckTimer?.invalidate()
+        }
+    }
     
     func validateHost(host: String) {
         let hostURL = NSURL(string: host)
-        guard !validatingHost && hostURL != nil else {
+        guard !validatingHost && hostURL != nil && host.length > 0 else {
             return
         }
         
         validatingHost = true
+        startActivityVerification(.Host)
         connector?.validateHost(hostURL!, completion: { hostValid, apiKey in
-            self.validatingHost = false
-            
             if hostValid {
+                self.validatingHost = false
+                
                 self.hostForApplication = host.stringByReplacingOccurrencesOfString("http://", withString: "")
                 self.apiKeyForApplication = apiKey
+                
                 self.configureTableView()
                 self.tableView!.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
             }
             else {
-                let indexPath = NSIndexPath(forRow: DownSettingsRow.Host.rawValue, inSection: 0)
-                let cell = self.tableView!.cellForRowAtIndexPath(indexPath) as! DownTableViewCell
-                if let text = cell.textField?.text {
-                    if !host.hasSuffix(text) {
-                        self.validateHost(text)
-                        return
-                    }
+                self.reloadCell(.Host)
+                
+                // Check if user changed input during validation
+                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
+                dispatch_after(delayTime, dispatch_get_main_queue()) {
+                    self.revalidateHost(host)
                 }
-                self.tableView(self.tableView!, reloadCell: cell, forIndexPath: indexPath)
             }
         })
+        
+        self.reloadCell(.Host)
+    }
+    
+    func revalidateHost(host: String) {
+        let indexPath = self.indexPathForCell(withType: .Host)
+        let cell = self.tableView?.cellForRowAtIndexPath(indexPath) as? DownTableViewCell
+        
+        if let text = cell?.textField?.text {
+            if !host.hasSuffix(text) {
+                self.validatingHost = false
+                self.validateHost(text)
+                return
+            }
+        }
     }
     
     func fetchApiKey() {
-        let usernameIndexPath = NSIndexPath(forRow: DownSettingsRow.Username.rawValue, inSection: 0)
-        let usernameCell = tableView!.cellForRowAtIndexPath(usernameIndexPath) as! DownTableViewCell
-        let username = usernameCell.textField?.text ?? ""
+        let usernameIndexPath = indexPathForCell(withType: .Username)
+        let usernameCell = tableView?.cellForRowAtIndexPath(usernameIndexPath) as? DownTableViewCell
+        let username = usernameCell?.textField?.text ?? ""
         
-        let passwordIndexPath = NSIndexPath(forRow: DownSettingsRow.Password.rawValue, inSection: 0)
-        let passwordCell = tableView!.cellForRowAtIndexPath(passwordIndexPath) as! DownTableViewCell
-        let password = passwordCell.textField?.text ?? ""
+        let passwordIndexPath = indexPathForCell(withType: .Password)
+        let passwordCell = tableView?.cellForRowAtIndexPath(passwordIndexPath) as? DownTableViewCell
+        let password = passwordCell?.textField?.text ?? ""
         
         if !fetchingApiKey && connector?.host?.length > 0 && username.length > 0 && password.length > 0 {
             fetchingApiKey = true
-            connector?.fetchApiKey(username: username, password: password, completion: { apiKey in
-                if apiKey != nil && apiKey!.length > 0 {
-                    self.apiKeyForApplication = apiKey!
+            startActivityVerification(.ApiKey)
+            connector?.fetchApiKey(username: username, password: password, completion: { fetchedApiKey in
+                if let apiKey = fetchedApiKey where apiKey.length > 0 {
+                    self.fetchingApiKey = false
+                    
+                    self.apiKeyForApplication = fetchedApiKey
                     self.configureTableView()
                     self.tableView!.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
                 }
-                self.fetchingApiKey = false
             })
         }
+        
+        self.reloadCell(.ApiKey)
     }
 }
 

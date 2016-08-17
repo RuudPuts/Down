@@ -13,7 +13,7 @@ public protocol Connector {
     var host: String? { get set }
     var apiKey: String? { get set }
     
-    func validateHost(host: NSURL, completion: (hostValid: Bool, apiKey: String?) -> (Void))
+    func validateHost(url: NSURL, completion: (hostValid: Bool, apiKey: String?) -> (Void))
     func fetchApiKey(username username: String, password: String, completion: (String?) -> (Void))
 }
 

@@ -9,7 +9,7 @@
 import UIKit
 import DownKit
 
-class DownTableViewCell: UITableViewCell {
+class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     @IBOutlet weak var containerView: UIView?
     @IBOutlet weak var label: UILabel!
@@ -44,6 +44,7 @@ class DownTableViewCell: UITableViewCell {
         
         textLabel?.textColor = cellColor
         activityIndicator?.color = cellColor
+        textField?.delegate = self
         textField?.layer.cornerRadius = 5
         textField?.layer.borderWidth = 0.7
         textField?.layer.borderColor = cellColor.CGColor
@@ -152,6 +153,12 @@ class DownTableViewCell: UITableViewCell {
     }
     
     // MARK - TextField
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
+    }
     
     @IBAction func textFieldDidChangeText(textField: UITextField) {
         delegate?.downTableViewCell(self, didChangeText: textField.text ?? "")

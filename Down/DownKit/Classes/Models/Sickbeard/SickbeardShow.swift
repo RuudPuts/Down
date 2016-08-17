@@ -122,14 +122,14 @@ public class SickbeardShow: Object {
             }
             
             if let lastEpisodeAirDate = season.episodes.last?.airDate {
-                guard lastEpisodeAirDate.compare(now) != .OrderedAscending else {
+                guard lastEpisodeAirDate < now else {
                     // Last episode of the season, no need to loop
                     continue
                 }
             }
             
             for episode in season.episodes {
-                if let airDate = episode.airDate where airDate.compare(now) != .OrderedAscending {
+                if let airDate = episode.airDate where airDate < now {
                     return episode
                 }
             }
