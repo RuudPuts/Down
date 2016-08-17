@@ -84,7 +84,7 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
         if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if sabNZBdService.lastRefresh != nil {
                 let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
-                emptyCell.label.text = "Your History is empty."
+                emptyCell.label?.text = "Your History is empty."
                 cell = emptyCell
             }
             else {

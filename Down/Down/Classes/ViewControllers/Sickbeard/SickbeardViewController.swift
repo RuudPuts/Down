@@ -136,7 +136,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
             }
             else if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
                 let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
-                emptyCell.label.text = "No shows airing today."
+                emptyCell.label?.text = "No shows airing today."
                 
                 cell = emptyCell
             }

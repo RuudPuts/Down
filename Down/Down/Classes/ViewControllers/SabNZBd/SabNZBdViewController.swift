@@ -246,7 +246,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
                 let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
                 
                 let sectionTitle = self.tableView(tableView, titleForHeaderInSection: indexPath.section)!.lowercaseString
-                emptyCell.label.text = "Your \(sectionTitle) is empty."
+                emptyCell.label?.text = "Your \(sectionTitle) is empty."
                 cell = emptyCell
             }
             else {

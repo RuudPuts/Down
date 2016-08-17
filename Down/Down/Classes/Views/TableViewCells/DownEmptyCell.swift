@@ -10,6 +10,6 @@ import UIKit
 
 class DownEmptyCell: UITableViewCell {
     
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var label: UILabel?
     
 }
