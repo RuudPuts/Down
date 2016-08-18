@@ -1,5 +1,5 @@
 Fixes
- - Fixed crash on startup when data fetching takes to long 💤
+ - Fixed crash on startup when data fetching takes to long 🚀
 
 New
  - Made the Settings more user friendly 🐳

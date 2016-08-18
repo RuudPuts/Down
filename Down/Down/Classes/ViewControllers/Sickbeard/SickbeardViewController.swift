@@ -167,7 +167,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
                 iconTextCell.iconView?.image = UIImage(named: "sickbeard-allshows")
             }
             else {
-                iconTextCell.label?.text = "History"
+                iconTextCell.label?.text = "Recently aired"
                 iconTextCell.iconView?.image = UIImage(named: "sickbeard-history")
             }
             cell = iconTextCell
