@@ -114,7 +114,7 @@ public class SickbeardShow: Object {
     }
     
     public func nextAiringEpisode() -> SickbeardEpisode? {
-        let now = NSDate().dateWithoutTime()
+        let today = NSDate().dateWithoutTime()
         
         for season in seasons {
             guard season.id > 0 else {
@@ -122,14 +122,14 @@ public class SickbeardShow: Object {
             }
             
             if let lastEpisodeAirDate = season.episodes.last?.airDate {
-                guard lastEpisodeAirDate < now else {
+                guard lastEpisodeAirDate > today else {
                     // Last episode of the season, no need to loop
                     continue
                 }
             }
             
             for episode in season.episodes {
-                if let airDate = episode.airDate where airDate < now {
+                if let airDate = episode.airDate where airDate >= today {
                     return episode
                 }
             }

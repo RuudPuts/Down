@@ -38,9 +38,9 @@ public class SickbeardEpisode: Object {
     }
     
     public var daysUntilAiring: Int {
-        let now = NSDate().dateWithoutTime()
+        let today = NSDate().dateWithoutTime()
         
-        if let date = airDate where date < now {
+        if let date = airDate where date >= today {
             return Int(abs(date.timeIntervalSinceNow) / 86400)
         }
         
