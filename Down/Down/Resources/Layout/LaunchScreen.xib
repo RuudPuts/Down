@@ -17,8 +17,8 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Down" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vgb-qS-783">
-                    <rect key="frame" x="268.5" y="284" width="62.5" height="32"/>
-                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="23"/>
+                    <rect key="frame" x="244.5" y="272" width="111" height="56"/>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="41"/>
                     <color key="textColor" red="0.87450980392156863" green="0.20392156862745098" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
