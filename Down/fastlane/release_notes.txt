@@ -1,5 +1,7 @@
 Fixes
- - Fixed crash on startup when data fetching takes to long 🚀
+ - Badges in show overview would show odd values
+ - 'Coming soon' sectino wouln't show episodes airing tomorrow
+ - SabNZBd history was ordered oldest to newest
 
 New
- - Made the Settings more user friendly 🐳
+ - 'Recently aired' for Sickbeard shows episodes aired the last few days
