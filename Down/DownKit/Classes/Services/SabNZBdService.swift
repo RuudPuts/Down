@@ -300,7 +300,7 @@ public class SabNZBdService: Service {
             // Store history in a new variable, to prevent race conditions of getting items from history while sorting
             var unsortedHistory = history
             unsortedHistory.sortInPlace {
-                return $0.completionDate < $1.completionDate
+                return $0.completionDate > $1.completionDate
             }
             history = unsortedHistory
         }
