@@ -14,9 +14,9 @@ class DownTabBarViewController: DownViewController {
     @IBOutlet var tabButtons: [UIButton]!
 
     var currentViewController: UIViewController?
-    var selectedTabIndex = 0
+    var selectedTab = TabBarSegue.SabNZBd
     
-    enum TabBarSegues: String {
+    enum TabBarSegue: String {
         case SabNZBd = "SabNZBdTab"
         case Sickbeard = "SickbeardTab"
         case CouchPotato = "CouchPotatoTab"
@@ -37,7 +37,7 @@ class DownTabBarViewController: DownViewController {
         
         if currentViewController == nil {
             // Load the SabNZBd view by default
-            performSegueWithIdentifier(TabBarSegues.SabNZBd.rawValue, sender: tabButtons.first)
+            performSegueWithIdentifier(TabBarSegue.SabNZBd.rawValue, sender: tabButtons.first)
         }
         applyAppearance()
     }
@@ -57,57 +57,27 @@ class DownTabBarViewController: DownViewController {
     // MARK: Setters and getters
     
     var selectedTabColor: UIColor {
-        let color: UIColor
-        
-        switch selectedTabIndex {
-        case 0:
-            color = .downSabNZBdDarkColor()
-            break
-        case 1:
-            color = .downSickbeardDarkColor()
-            break
-        case 2:
-            color = .downCouchPotatoDarkColor()
-            break
-        default:
-            color = .blackColor()
-            break
+        switch selectedTab {
+        case .SabNZBd: return .downSabNZBdDarkColor()
+        case .CouchPotato: return .downSickbeardDarkColor()
+        case .Sickbeard: return .downCouchPotatoDarkColor()
         }
-        
-        return color
     }
     
     var deselectedTabColor: UIColor {
-        let color: UIColor
-        
-        switch selectedTabIndex {
-        case 0:
-            color = .downSabNZBdColor()
-            break
-        case 1:
-            color = .downSickbeardColor()
-            break
-        case 2:
-            color = .downCouchPotatoColor()
-            break
-        default:
-            color = .blackColor()
-            break
+        switch selectedTab {
+        case .SabNZBd: return .downSabNZBdColor()
+        case .CouchPotato: return .downSickbeardColor()
+        case .Sickbeard: return .downCouchPotatoColor()
         }
-        
-        return color
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "SabNZBdTab" {
-            
+        if let tabIdentifier = segue.identifier, tabBarSegue = TabBarSegue(rawValue: tabIdentifier){
+            selectedTab = tabBarSegue
         }
-        else if segue.identifier == "SickbeardTab" {
-            
-        }
-        else if segue.identifier == "CouchPotatoTab" {
-            
-        }
+        
+        applyAppearance()
     }
     
     private func applyAppearance() {
@@ -117,28 +87,31 @@ class DownTabBarViewController: DownViewController {
         UINavigationBar.appearance().tintColor = UIColor.downDarkGreyColor()
         UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGreyColor()], forState: .Normal)
         
-        var darkColor = UIColor.clearColor()
         var lightColor = UIColor.clearColor()
-        switch selectedTabIndex {
-        case 0:
-            darkColor = UIColor.downSabNZBdColor()
-            lightColor = UIColor.downSabNZBdDarkColor()
+        var darkColor = UIColor.clearColor()
+        switch selectedTab {
+        case .SabNZBd:
+            lightColor = UIColor.downSabNZBdColor()
+            darkColor = UIColor.downSabNZBdDarkColor()
             break
-        case 1:
-            darkColor = UIColor.downSickbeardColor()
-            lightColor = UIColor.downSickbeardDarkColor()
+        case .Sickbeard:
+            lightColor = UIColor.downSickbeardColor()
+            darkColor = UIColor.downSickbeardDarkColor()
             break
-        case 2:
-            darkColor = UIColor.downCouchPotatoColor()
-            lightColor = UIColor.downCouchPotatoDarkColor()
-            break
-        default:
+        case .CouchPotato:
+            lightColor = UIColor.downCouchPotatoColor()
+            darkColor = UIColor.downCouchPotatoDarkColor()
             break
         }
         
-        window.statusBarBackgroundColor = darkColor
+//        window.statusBarBackgroundColor = darkColor
         UINavigationBar.appearance().barTintColor = lightColor
         UINavigationBar.appearance().backgroundColor = lightColor
+        
+        tabButtons.forEach { button in
+            let buttonIndex = tabButtons.indexOf(button)!
+            button.backgroundColor = buttonIndex == selectedTab.tabIndex ? darkColor : lightColor
+        }
     }
     
 }

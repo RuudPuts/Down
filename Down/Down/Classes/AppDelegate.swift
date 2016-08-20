@@ -16,6 +16,7 @@ import Crashlytics
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
     var serviceManager: ServiceManager!
     
     var isSetup: Bool {
@@ -29,59 +30,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         
         serviceManager = ServiceManager()
-//
-//        initializeWindow()
+
+        startOnboarding()
         
         return true
     }
     
-//    func initializeWindow() {
-//        let downWindow = DownWindow(frame: UIScreen.mainScreen().bounds)
-//
-//        let sabNZBdViewController = SabNZBdViewController()
-//        sabNZBdViewController.tabBarItem = DownTabBarItem(title: "SabNZBd", image: UIImage(named: "sabnzbd-tabbar"), tintColor: UIColor.downSabNZBdColor())
-//        let sabNZBdNavigationController = UINavigationController(rootViewController: sabNZBdViewController)
-//        sabNZBdNavigationController.navigationBarHidden = true
-//
-//        let sickbeardViewController = SickbeardViewController()
-//        sickbeardViewController.tabBarItem = DownTabBarItem(title: "Sickbeard", image: UIImage(named: "sickbeard-tabbar"), tintColor: UIColor.downSickbeardDarkColor())
-//        let sickbeardNavigationController = UINavigationController(rootViewController: sickbeardViewController)
-//        sickbeardNavigationController.navigationBarHidden = true
-//        
-//        let couchPotatoViewController = CouchPotatoViewController()
-//        couchPotatoViewController.tabBarItem = DownTabBarItem(title: "CouchPotato", image: UIImage(named: "couchpotato-tabbar"), tintColor: UIColor.downCouchPotatoColor())
-//        let couchPotatoNavigationController = UINavigationController(rootViewController: couchPotatoViewController)
-//        couchPotatoNavigationController.navigationBarHidden = true
-//
-//        let tabBarController = DownTabBarViewController()
-//        tabBarController.viewControllers = [sabNZBdNavigationController, sickbeardNavigationController, couchPotatoNavigationController]
-//        
-//        downWindow.rootViewController = tabBarController
-//        window = downWindow
-//        downWindow.makeKeyAndVisible()
-//        
-//        // Check if intro should be shown
-//        if !isSetup {
-//            let introViewController = DownIntroViewController(introType: .Welcome)
-//            let introNavigationController = UINavigationController(rootViewController: introViewController)
-//            introNavigationController.navigationBarHidden = true
-//            
-//            downWindow.rootViewController!.presentViewController(introNavigationController, animated: false, completion: nil)
-//        }
-//        else {
-//            serviceManager.startAllServices()
-//        }
-//    }
+    func startOnboarding() {
+        // Check if intro should be shown
+        if !isSetup {
+            let introViewController = DownIntroViewController(introType: .Welcome)
+            let introNavigationController = UINavigationController(rootViewController: introViewController)
+            introNavigationController.navigationBarHidden = true
+            
+            window?.makeKeyAndVisible()
+            window?.rootViewController?.presentViewController(introNavigationController, animated: false, completion: nil)
+        }
+        else {
+            serviceManager.startAllServices()
+        }
+    }
 }
 
 extension UIApplication {
     var downAppDelegate: AppDelegate {
         return UIApplication.sharedApplication().delegate as! AppDelegate
-    }
-}
-
-extension AppDelegate {
-    var downWindow: DownWindow {
-        return DownWindow() //self.window as! DownWindow
     }
 }

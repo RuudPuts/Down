@@ -26,11 +26,11 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
         self.introType = introType
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        window.statusBarBackgroundColor = .downRedColor()
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        window.statusBarBackgroundColor = .downRedColor()
+//    }
     
     @IBAction func actionButtonPressed(sender: AnyObject) {
         startButton.hidden = true

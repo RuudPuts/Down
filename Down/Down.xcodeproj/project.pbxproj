@@ -55,7 +55,6 @@
 		42670EF91ADDAB5E006341EA /* DownTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* DownTextCell.xib */; };
 		4269A9201B85009E005A06E3 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4269A91F1B85009E005A06E3 /* ImageProvider.swift */; };
 		426E38571D64FBB9009FC287 /* NSURL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E38561D64FBB9009FC287 /* NSURL+Extensions.swift */; };
-		426E5D7C1B52EEC000BD7CD0 /* DownWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E5D7B1B52EEC000BD7CD0 /* DownWindow.swift */; };
 		426E5D7E1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E5D7D1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift */; };
 		426F5FE91D2AE4340074C06B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF72C1AE199B5007F3E54 /* UIKit.framework */; };
 		426F5FF11D2AE4880074C06B /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F5FF01D2AE4880074C06B /* UIImage+Extensions.swift */; };
@@ -332,7 +331,6 @@
 		42670EF81ADDAB5E006341EA /* DownTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownTextCell.xib; sourceTree = "<group>"; };
 		4269A91F1B85009E005A06E3 /* ImageProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		426E38561D64FBB9009FC287 /* NSURL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Extensions.swift"; sourceTree = "<group>"; };
-		426E5D7B1B52EEC000BD7CD0 /* DownWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownWindow.swift; sourceTree = "<group>"; };
 		426E5D7D1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdDetailViewController.swift; sourceTree = "<group>"; };
 		426F5FF01D2AE4880074C06B /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		42746BB41BB3351900CD78BE /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -1095,7 +1093,6 @@
 				422D548F1AE04AE200200EF0 /* TabBarController */,
 				4216CF9D1D1B283000A89C4C /* CollectionViewCell */,
 				42CD255C1AB5BF93008E9717 /* TableViewCells */,
-				426E5D7B1B52EEC000BD7CD0 /* DownWindow.swift */,
 				422063DD1B85126300DAFB46 /* DownImageView.swift */,
 			);
 			path = Views;
@@ -1567,7 +1564,6 @@
 				42078E401AD1C702009845CC /* SickbeardViewController.swift in Sources */,
 				42078E1F1AD1721F009845CC /* SABHeaderView.swift in Sources */,
 				429E97EB1B977CE200C3F58B /* DownTextCell.swift in Sources */,
-				426E5D7C1B52EEC000BD7CD0 /* DownWindow.swift in Sources */,
 				42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */,
 				4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */,
 				42C4AE041D2AFB390096FF71 /* RPPortScanWorker.m in Sources */,

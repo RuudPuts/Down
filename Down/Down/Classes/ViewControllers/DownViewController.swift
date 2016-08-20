@@ -11,10 +11,6 @@ import DownKit
 
 class DownViewController: UIViewController {
     
-    var window: DownWindow {
-        return UIApplication.sharedApplication().downAppDelegate.downWindow
-    }
-    
     var serviceManager: ServiceManager {
         get {
             return UIApplication.sharedApplication().downAppDelegate.serviceManager
@@ -39,5 +35,6 @@ class DownViewController: UIViewController {
         super.viewDidLoad()
         
         self.edgesForExtendedLayout = .None
+        self.view.backgroundColor = .downDarkGreyColor()
     }
 }

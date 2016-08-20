@@ -190,19 +190,19 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         case .SabNZBd:
             headerView.backgroundColor = .downSabNZBdColor()
             headerImageView.image = UIImage(named: "sabnzbd-icon")
-            window.statusBarBackgroundColor = .downSabNZBdDarkColor()
+//            window.statusBarBackgroundColor = .downSabNZBdDarkColor()
             actionButton.setTitleColor(.downSabNZBdColor(), forState: .Normal)
             break
         case .Sickbeard:
             headerView.backgroundColor = .downSickbeardColor()
             headerImageView.image = UIImage(named: "sickbeard-icon")
-            window.statusBarBackgroundColor = .downSickbeardDarkColor()
+//            window.statusBarBackgroundColor = .downSickbeardDarkColor()
             actionButton.setTitleColor(.downSickbeardColor(), forState: .Normal)
             break
         case .CouchPotato:
             headerView.backgroundColor = .downCouchPotatoColor()
             headerImageView.image = UIImage(named: "couchpotato-icon")
-            window.statusBarBackgroundColor = .downCouchPotatoDarkColor()
+//            window.statusBarBackgroundColor = .downCouchPotatoDarkColor()
             actionButton.setTitleColor(.downCouchPotatoColor(), forState: .Normal)
             break
             
