@@ -1,6 +1,6 @@
 Fixes
  - Badges in show overview would show odd values
- - 'Coming soon' sectino wouln't show episodes airing tomorrow
+ - 'Coming soon' section wouln't show episodes airing tomorrow
  - SabNZBd history was ordered oldest to newest
 
 New
