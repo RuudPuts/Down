@@ -201,6 +201,7 @@
                         <outlet property="timeleftLabel" destination="3M3-qC-Skb" id="41k-8W-pCd"/>
                         <outlet property="widgetsContainer" destination="YY7-Dw-CfJ" id="DDl-O8-oBM"/>
                         <segue destination="e4D-Oo-oxV" kind="show" identifier="SabNZBdHistory" id="lJS-cp-kpQ"/>
+                        <segue destination="xre-Ry-Jiq" kind="show" identifier="SabNZBdDetail" id="OBk-3d-Fb0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5pl-at-LTW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -219,9 +220,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="GFC-A4-fjN">
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="GFC-A4-fjN">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="xre-Ry-Jiq" id="7yF-lj-Rhw"/>
+                                    <outlet property="delegate" destination="xre-Ry-Jiq" id="Jfd-xW-X5m"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -232,6 +237,9 @@
                             <constraint firstAttribute="trailing" secondItem="GFC-A4-fjN" secondAttribute="trailing" id="sCZ-m1-Uqn"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="GFC-A4-fjN" id="xpP-Bt-car"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egb-jr-vId" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -588,6 +596,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="tUF-U8-wLZ" id="kWG-ud-73w"/>
+                        <segue destination="xre-Ry-Jiq" kind="show" identifier="SabNZBdDetail" id="BLu-oo-sOU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1m2-mK-6Ga" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -603,4 +612,7 @@
         <image name="sickbeard-icon" width="161" height="72"/>
         <image name="sickbeard-tabbar" width="30" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="OBk-3d-Fb0"/>
+    </inferredMetricsTieBreakers>
 </document>

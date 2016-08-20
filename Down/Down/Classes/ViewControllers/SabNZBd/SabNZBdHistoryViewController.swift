@@ -37,6 +37,15 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
         sabNZBdService.removeListener(self)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let indexPath = tableView!.indexPathForSelectedRow where segue.identifier == "SabNZBdDetail" {
+            let selectedItem = sabNZBdService.history[indexPath.row];
+            
+            let detailViewController = segue.destinationViewController as! SabNZBdDetailViewController
+            detailViewController.sabItem = selectedItem
+        }
+    }
+    
     // MARK: - TableView datasource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -121,9 +130,7 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let item = sabNZBdService.history[indexPath.row];
-        let detailViewController = SabNZBdDetailViewController(sabItem: item)
-        navigationController!.pushViewController(detailViewController, animated: true)
+        self.performSegueWithIdentifier("SabNZBdDetail", sender: nil)
     }
     
     // MARK: - SabNZBdListener

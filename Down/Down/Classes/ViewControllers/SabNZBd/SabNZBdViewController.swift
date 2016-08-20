@@ -59,6 +59,21 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         sickbeardService.removeListener(self)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let indexPath = tableView!.indexPathForSelectedRow where segue.identifier == "SabNZBdDetail" {
+            var selectedItem: SABItem
+            if indexPath.section == 0 {
+                selectedItem = sabNZBdService.queue[indexPath.row];
+            }
+            else {
+                selectedItem = sabNZBdService.history[indexPath.row];
+            }
+            
+            let detailViewController = segue.destinationViewController as! SabNZBdDetailViewController
+            detailViewController.sabItem = selectedItem
+        }
+    }
+    
     // MARK: - Header widgets
     
     private func updateHeader() {
@@ -284,20 +299,9 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
             performSegueWithIdentifier("SabNZBdHistory", sender: nil)
-//            let historyViewController = SabNZBdHistoryViewController()
-//            self.navigationController!.pushViewController(historyViewController, animated: true)
         }
         else if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
-            var item: SABItem
-            if indexPath.section == 0 {
-                item = sabNZBdService.queue[indexPath.row];
-            }
-            else {
-                item = sabNZBdService.history[indexPath.row];
-            }
-            
-            let detailViewController = SabNZBdDetailViewController(sabItem: item)
-            navigationController!.pushViewController(detailViewController, animated: true)
+            performSegueWithIdentifier("SabNZBdDetail", sender: nil)
         }
         
         self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)

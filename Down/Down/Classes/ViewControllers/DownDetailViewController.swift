@@ -18,7 +18,7 @@ class DownDetailViewController: DownViewController {
         
         if let tableHeaderView = tableView?.tableHeaderView {
             let headerImageView = tableHeaderView as! UIImageView
-            let imageSize = headerImageView.image!.size
+            let imageSize = headerImageView.image?.size ?? CGSize(width: 0, height: 0)
             let screenWidth = CGRectGetWidth(view.bounds)
             let ratiodImageHeight = imageSize.height / imageSize.width * screenWidth
             headerImageView.frame = CGRectMake(0, 0, screenWidth, ratiodImageHeight)
