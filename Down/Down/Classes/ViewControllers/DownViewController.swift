@@ -11,24 +11,33 @@ import DownKit
 
 class DownViewController: UIViewController {
     
-    let serviceManager: ServiceManager!
     var window: DownWindow {
         return UIApplication.sharedApplication().downAppDelegate.downWindow
+    }
+    
+    var serviceManager: ServiceManager {
+        get {
+            return UIApplication.sharedApplication().downAppDelegate.serviceManager
+        }
+    }
+    
+    var sabNZBdService: SabNZBdService {
+        get {
+            return serviceManager.sabNZBdService
+        }
+    }
+    var sickbeardService: SickbeardService {
+        get {
+            return serviceManager.sickbeardService
+        }
     }
 
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var collectionView: UICollectionView?
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        serviceManager = appDelegate.serviceManager
-        
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         self.edgesForExtendedLayout = .None
-    }
-    
-    convenience required init(coder: NSCoder) {
-        self.init(nibName: nil, bundle: nil)
     }
 }

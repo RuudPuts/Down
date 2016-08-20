@@ -12,16 +12,9 @@ import RealmSwift
 
 class SickbeardViewController: DownRootViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
-    weak var sickbeardService: SickbeardService!
     var todayData: Results<SickbeardEpisode>!
     var soonData: Results<SickbeardEpisode>!
 
-    convenience init() {
-        self.init(nibName: "SickbeardViewController", bundle: nil)
-        
-        sickbeardService = serviceManager.sickbeardService
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

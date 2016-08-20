@@ -9,11 +9,9 @@
 /* Begin PBXBuildFile section */
 		42078E1A1AD16E68009845CC /* SabNZBdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E191AD16E68009845CC /* SabNZBdViewController.swift */; };
 		42078E1F1AD1721F009845CC /* SABHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E1D1AD1721F009845CC /* SABHeaderView.swift */; };
-		42078E2F1AD172CD009845CC /* SabNZBdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E261AD172CD009845CC /* SabNZBdViewController.xib */; };
 		42078E331AD172CD009845CC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E2E1AD172CD009845CC /* LaunchScreen.xib */; };
 		42078E401AD1C702009845CC /* SickbeardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E3D1AD1C702009845CC /* SickbeardViewController.swift */; };
 		42078E411AD1C702009845CC /* CouchPotatoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */; };
-		42078E461AD1C71A009845CC /* SickbeardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E431AD1C71A009845CC /* SickbeardViewController.xib */; };
 		42078E471AD1C71A009845CC /* CouchPotatoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */; };
 		420E7E351B9CC65B00D3DCC4 /* SickbeardShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E7E341B9CC65B00D3DCC4 /* SickbeardShow.swift */; };
 		420F496F1ADC431E006CFA11 /* DownActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F496E1ADC431E006CFA11 /* DownActivityCell.xib */; };
@@ -104,6 +102,8 @@
 		42B818691D295C1C003672C3 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B818681D295C1C003672C3 /* String+Extensions.swift */; };
 		42B8186B1D2969B3003672C3 /* DownRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8186A1D2969B3003672C3 /* DownRootViewController.swift */; };
 		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
+		42C12E4A1D678C0B00D2A21C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C12E491D678C0B00D2A21C /* Main.storyboard */; };
+		42C2D6EB1D68B3DB008E195E /* DownTabBarSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2D6EA1D68B3DB008E195E /* DownTabBarSegue.swift */; };
 		42C4AE011D2AFB390096FF71 /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4ADFA1D2AFB390096FF71 /* FastSocket.m */; };
 		42C4AE021D2AFB390096FF71 /* RPPortScanJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4ADFC1D2AFB390096FF71 /* RPPortScanJob.m */; };
 		42C4AE031D2AFB390096FF71 /* RPPortScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4ADFE1D2AFB390096FF71 /* RPPortScanner.m */; };
@@ -139,9 +139,7 @@
 		42CD25551AB5BD06008E9717 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD253B1AB5BD06008E9717 /* Roboto-Thin.ttf */; };
 		42CD25561AB5BD06008E9717 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD253C1AB5BD06008E9717 /* Roboto-ThinItalic.ttf */; };
 		42D154F61AD4505400778713 /* DownTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D154F51AD4505400778713 /* DownTabBarViewController.swift */; };
-		42D154FB1AD453D100778713 /* DownTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D154FA1AD453D100778713 /* DownTabBarViewController.xib */; };
 		42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */; };
-		42D155011AD4579500778713 /* DownTabBarItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D155001AD4579500778713 /* DownTabBarItemCell.xib */; };
 		42D2AE541C2B30F60089512D /* DownSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D2AE531C2B30F60089512D /* DownSettingsTableViewCell.xib */; };
 		42DEEB461BACCBC50061723F /* DownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEEB451BACCBC50061723F /* DownTableViewCell.swift */; };
 		42DEEB4F1BACCC860061723F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEEB4E1BACCC860061723F /* Constants.swift */; };
@@ -281,11 +279,9 @@
 /* Begin PBXFileReference section */
 		42078E191AD16E68009845CC /* SabNZBdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdViewController.swift; sourceTree = "<group>"; };
 		42078E1D1AD1721F009845CC /* SABHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SABHeaderView.swift; sourceTree = "<group>"; };
-		42078E261AD172CD009845CC /* SabNZBdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SabNZBdViewController.xib; sourceTree = "<group>"; };
 		42078E2E1AD172CD009845CC /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		42078E3D1AD1C702009845CC /* SickbeardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardViewController.swift; sourceTree = "<group>"; };
 		42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoViewController.swift; sourceTree = "<group>"; };
-		42078E431AD1C71A009845CC /* SickbeardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardViewController.xib; sourceTree = "<group>"; };
 		42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouchPotatoViewController.xib; sourceTree = "<group>"; };
 		420AF6371CFB392C00DC4DD4 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = ../Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		420E7E341B9CC65B00D3DCC4 /* SickbeardShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShow.swift; sourceTree = "<group>"; };
@@ -383,6 +379,8 @@
 		42B818681D295C1C003672C3 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		42B8186A1D2969B3003672C3 /* DownRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownRootViewController.swift; sourceTree = "<group>"; };
 		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		42C12E491D678C0B00D2A21C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		42C2D6EA1D68B3DB008E195E /* DownTabBarSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarSegue.swift; sourceTree = "<group>"; };
 		42C4ADF91D2AFB390096FF71 /* FastSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastSocket.h; sourceTree = "<group>"; };
 		42C4ADFA1D2AFB390096FF71 /* FastSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocket.m; sourceTree = "<group>"; };
 		42C4ADFB1D2AFB390096FF71 /* RPPortScanJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPortScanJob.h; sourceTree = "<group>"; };
@@ -422,9 +420,7 @@
 		42CD253B1AB5BD06008E9717 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		42CD253C1AB5BD06008E9717 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
 		42D154F51AD4505400778713 /* DownTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarViewController.swift; sourceTree = "<group>"; };
-		42D154FA1AD453D100778713 /* DownTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownTabBarViewController.xib; sourceTree = "<group>"; };
 		42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
-		42D155001AD4579500778713 /* DownTabBarItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownTabBarItemCell.xib; sourceTree = "<group>"; };
 		42D2AE531C2B30F60089512D /* DownSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownSettingsTableViewCell.xib; sourceTree = "<group>"; };
 		42DEEB451BACCBC50061723F /* DownTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTableViewCell.swift; sourceTree = "<group>"; };
 		42DEEB4E1BACCC860061723F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -509,7 +505,6 @@
 		42078E241AD172CD009845CC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				42D154F91AD453C200778713 /* TabBarController */,
 				42078E251AD172CD009845CC /* SabNZBd */,
 				42078E421AD1C71A009845CC /* Sickbeard */,
 				42078E441AD1C71A009845CC /* CouchPotato */,
@@ -520,7 +515,6 @@
 		42078E251AD172CD009845CC /* SabNZBd */ = {
 			isa = PBXGroup;
 			children = (
-				42078E261AD172CD009845CC /* SabNZBdViewController.xib */,
 				428F7E551AFFC59B001B49D0 /* SabNZBdHistoryViewController.xib */,
 			);
 			path = SabNZBd;
@@ -571,7 +565,6 @@
 		42078E421AD1C71A009845CC /* Sickbeard */ = {
 			isa = PBXGroup;
 			children = (
-				42078E431AD1C71A009845CC /* SickbeardViewController.xib */,
 				42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */,
 				4216CFA31D1B2A1900A89C4C /* SickbeardShowsViewController.xib */,
 			);
@@ -874,6 +867,7 @@
 			children = (
 				42078E241AD172CD009845CC /* ViewControllers */,
 				42078E291AD172CD009845CC /* Views */,
+				42C12E491D678C0B00D2A21C /* Main.storyboard */,
 				42078E2E1AD172CD009845CC /* LaunchScreen.xib */,
 			);
 			path = Layout;
@@ -1125,15 +1119,7 @@
 			isa = PBXGroup;
 			children = (
 				42D154F51AD4505400778713 /* DownTabBarViewController.swift */,
-			);
-			path = TabBarController;
-			sourceTree = "<group>";
-		};
-		42D154F91AD453C200778713 /* TabBarController */ = {
-			isa = PBXGroup;
-			children = (
-				42D154FA1AD453D100778713 /* DownTabBarViewController.xib */,
-				42D155001AD4579500778713 /* DownTabBarItemCell.xib */,
+				42C2D6EA1D68B3DB008E195E /* DownTabBarSegue.swift */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
@@ -1389,10 +1375,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				42E1CCCB1BA22B6200DFED2E /* DownDetailViewController.xib in Resources */,
+				42C12E4A1D678C0B00D2A21C /* Main.storyboard in Resources */,
 				42D2AE541C2B30F60089512D /* DownSettingsTableViewCell.xib in Resources */,
 				429E97FD1B97898200C3F58B /* SABHeaderView.xib in Resources */,
 				42CD25551AB5BD06008E9717 /* Roboto-Thin.ttf in Resources */,
-				42078E2F1AD172CD009845CC /* SabNZBdViewController.xib in Resources */,
 				42CD25451AB5BD06008E9717 /* OpenSans-Semibold.ttf in Resources */,
 				42CD25461AB5BD06008E9717 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				42CD25531AB5BD06008E9717 /* Roboto-MediumItalic.ttf in Resources */,
@@ -1410,16 +1396,13 @@
 				42CD25411AB5BD06008E9717 /* OpenSans-Italic.ttf in Resources */,
 				42CD254A1AB5BD06008E9717 /* Roboto-BoldCondensed.ttf in Resources */,
 				42CD25401AB5BD06008E9717 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
-				42D154FB1AD453D100778713 /* DownTabBarViewController.xib in Resources */,
 				42CD254B1AB5BD06008E9717 /* Roboto-BoldCondensedItalic.ttf in Resources */,
 				42CD254F1AB5BD06008E9717 /* Roboto-Italic.ttf in Resources */,
-				42D155011AD4579500778713 /* DownTabBarItemCell.xib in Resources */,
 				420F496F1ADC431E006CFA11 /* DownActivityCell.xib in Resources */,
 				42078E471AD1C71A009845CC /* CouchPotatoViewController.xib in Resources */,
 				42CD25481AB5BD06008E9717 /* Roboto-BlackItalic.ttf in Resources */,
 				420F49731ADC4B50006CFA11 /* DownEmptyCell.xib in Resources */,
 				42CD25431AB5BD06008E9717 /* OpenSans-LightItalic.ttf in Resources */,
-				42078E461AD1C71A009845CC /* SickbeardViewController.xib in Resources */,
 				42CD253D1AB5BD06008E9717 /* OpenSans-Bold.ttf in Resources */,
 				429E97EF1B97833800C3F58B /* DownIconTextCell.xib in Resources */,
 				42CD254C1AB5BD06008E9717 /* Roboto-BoldItalic.ttf in Resources */,
@@ -1560,6 +1543,7 @@
 				42C4AE021D2AFB390096FF71 /* RPPortScanJob.m in Sources */,
 				429E97F81B97871F00C3F58B /* SickbeardHeaderView.swift in Sources */,
 				4253E80F1AB4B84C00EF1254 /* DownViewController.swift in Sources */,
+				42C2D6EB1D68B3DB008E195E /* DownTabBarSegue.swift in Sources */,
 				42DEEB461BACCBC50061723F /* DownTableViewCell.swift in Sources */,
 				4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */,
 				42CC1D9D1C28A2AC000CC68C /* DownSettingsViewController.swift in Sources */,

@@ -11,13 +11,9 @@ import DownKit
 
 class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
-    weak var sabNZBdService: SabNZBdService!
-    
     convenience init() {
         self.init(nibName: "SabNZBdHistoryViewController", bundle: nil)
         title = "History"
-        
-        sabNZBdService = serviceManager.sabNZBdService
     }
     
     override func viewDidLoad() {

@@ -30,8 +30,6 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         case SickbeardAirDate
     }
     
-    weak var sabNZBdService: SabNZBdService!
-    
     private weak var sabItem: SABItem!
     private var cellKeys: [[SabNZBdDetailRow]]!
     private var cellTitles: [[String]]!
@@ -43,7 +41,6 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         self.init(nibName: "DownDetailViewController", bundle: nil)
         
         self.sabItem = sabItem
-        sabNZBdService = serviceManager.sabNZBdService
         
         configureTableView()
         title = "Details"

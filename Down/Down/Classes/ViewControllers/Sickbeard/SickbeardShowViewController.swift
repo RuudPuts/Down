@@ -11,14 +11,12 @@ import DownKit
 
 class SickbeardShowViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate {
     
-    weak var sickbeardService: SickbeardService!
     weak var show: SickbeardShow!
     
     convenience init(show: SickbeardShow) {
         self.init(nibName: "DownDetailViewController", bundle: nil)
         
         self.show = show
-        sickbeardService = serviceManager.sickbeardService
         
         title = show.name
     }

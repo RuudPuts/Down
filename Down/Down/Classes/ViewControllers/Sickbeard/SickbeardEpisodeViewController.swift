@@ -22,8 +22,6 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         case Plot
     }
     
-    weak var sickbeardService: SickbeardService!
-    
     private var episode: SickbeardEpisode!
     private var cellKeys = [[EpisodeDetailRow]]()
     private var cellTitles =  [[String]]()
@@ -35,7 +33,6 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         self.init(nibName: "DownDetailViewController", bundle: nil)
         
         episode = sickbeardEpisode
-        sickbeardService = serviceManager.sickbeardService
         
         configureTableView()
         title = "Details"

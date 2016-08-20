@@ -11,13 +11,10 @@ import DownKit
 
 class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    weak var sickbeardService: SickbeardService!
-    
     convenience init() {
         self.init(nibName: "SickbeardShowsViewController", bundle: nil)
         
         title = "Shows"
-        sickbeardService = serviceManager.sickbeardService
     }
     
     override func viewDidLoad() {

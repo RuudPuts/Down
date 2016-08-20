@@ -20,21 +20,12 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     @IBOutlet weak var timeleftLabel: UILabel!
     @IBOutlet weak var mbRemainingLabel: UILabel!
     
-    weak var sabNZBdService: SabNZBdService!
-    weak var sickbeardService: SickbeardService!
-    
     private let kMaxHistoryDisplayCount = 20
-    
-    convenience init() {
-        self.init(nibName: "SabNZBdViewController", bundle: nil)
-        title = "SABnzbd"
-        
-        sabNZBdService = serviceManager.sabNZBdService
-        sickbeardService = serviceManager.sickbeardService
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "SABnzbd"
         
         let loadingCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
         tableView!.registerNib(loadingCellNib, forCellReuseIdentifier: "DownActivityCell")
