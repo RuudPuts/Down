@@ -44,6 +44,20 @@ class DatabaseV1Adapter: DatabaseAdapter {
         })
     }
     
+    // TODO: Also make this return a Results set
+    func showsWithEpisodesAiredSince(airDate: NSDate) -> [SickbeardShow] {
+        let episodes = episodesAiredSince(airDate)
+        
+        var shows = [SickbeardShow]()
+        for episode in episodes {
+            if !shows.contains(episode.show!) {
+                shows.append(episode.show!)
+            }
+        }
+        
+        return shows
+    }
+    
     func showBestMatchingComponents(components: [String]) -> SickbeardShow? {
         var matchingShows: Results<SickbeardShow>?
         
@@ -81,6 +95,13 @@ class DatabaseV1Adapter: DatabaseAdapter {
         })
     }
     
+    func episodesAiredSince(airDate: NSDate) -> Results<SickbeardEpisode> {
+        let realm = defaultRealm()
+        let episodes = realm.objects(SickbeardEpisode).filter("airDate > %@ AND airDate < %@", airDate, NSDate())
+        
+        return episodes.sortedEpisodes()
+    }
+    
     func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode> {
         let calendar = NSCalendar.currentCalendar()
         let dateComponents = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day], fromDate: date)
@@ -89,21 +110,6 @@ class DatabaseV1Adapter: DatabaseAdapter {
             .sortedEpisodes()
         
         return episodes
-    }
-    
-    // TODO: Also make this return a Results set
-    func episodesAiredSince(airDate: NSDate) -> [SickbeardShow] {
-        let realm = defaultRealm()
-        let episodes = realm.objects(SickbeardEpisode).filter("airDate > %@ AND airDate < %@", airDate, NSDate())
-        
-        var shows = [SickbeardShow]()
-        for episode in episodes {
-            if !shows.contains(episode.show!) {
-                shows.append(episode.show!)
-            }
-        }
-        
-        return shows
     }
     
     // TODO: This method might return more than maxEpisodes, since it'll give all shows of the last show's date

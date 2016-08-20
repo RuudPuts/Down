@@ -15,13 +15,14 @@ protocol DatabaseAdapter {
     
     func storeSickbeardShows(shows: [SickbeardShow])
     func setStatus(status: SickbeardShow.SickbeardShowStatus, forShow show: SickbeardShow)
-    func allSickbeardShows() -> Results<SickbeardShow>
     
+    func allSickbeardShows() -> Results<SickbeardShow>
+    func showsWithEpisodesAiredSince(airDate: NSDate) -> [SickbeardShow]
     func showBestMatchingComponents(components: [String]) -> SickbeardShow?
     
     func setPlot(plot: String, forEpisode episode: SickbeardEpisode)
     
     func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode>
-    func episodesAiredSince(airDate: NSDate) -> [SickbeardShow]
+    func episodesAiredSince(airDate: NSDate) -> Results<SickbeardEpisode>
     func episodesAiringAfter(date: NSDate, max maxEpisodes: Int) -> Results<SickbeardEpisode>
 }

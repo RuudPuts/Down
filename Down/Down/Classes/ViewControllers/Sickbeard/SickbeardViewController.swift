@@ -160,7 +160,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
                 }
                 
                 itemCell.episodeLabel.text = episode.title
-                itemCell.dateLabel.text = formatDateToString(episode.airDate)
+                itemCell.dateLabel.text = episode.airDate?.dateString
                 itemCell.bannerView?.image = episode.show?.banner
                 
                 cell = itemCell
@@ -225,22 +225,14 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         return UIImage(named: "sickbeard-airingtoday")
     }
     
-    func formatDateToString(date: NSDate?) -> String? {
-        var formattedString: String? = nil
-        let dateFormatter = NSDateFormatter.downDateFormatter()
-        
-        if date != nil {
-            formattedString = dateFormatter.stringFromDate(date!)
-        }
-        
-        return formattedString
-    }
-    
     // MARK: - TableView Delegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.isEqual(NSIndexPath(forRow: 0, inSection: 0)) {
             performSegueWithIdentifier("SickbeardShows", sender: nil)
+        }
+        else if indexPath.isEqual(NSIndexPath(forRow: 1, inSection: 0)) {
+            performSegueWithIdentifier("SickbeardRecentlyAired", sender: nil)
         }
         else if indexPath.section > 0 {
             performSegueWithIdentifier("SickbeardEpisode", sender: nil)

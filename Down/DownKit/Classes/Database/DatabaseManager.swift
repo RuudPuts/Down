@@ -51,7 +51,7 @@ public class DatabaseManager {
     }
     
     public func fetchShowsWithEpisodesAiredSince(airDate: NSDate) -> [SickbeardShow] {
-        return self.adapter.episodesAiredSince(airDate)
+        return self.adapter.showsWithEpisodesAiredSince(airDate)
     }
     
     public func setPlot(plot: String, forEpisode episode: SickbeardEpisode) {
@@ -64,6 +64,13 @@ public class DatabaseManager {
     
     public func episodesAiringAfter(date: NSDate, max maxEpisodes: Int) -> Results<SickbeardEpisode> {
         return self.adapter.episodesAiringAfter(date, max: maxEpisodes)
+    }
+    
+    public func lastAiredEpisodes(maxDays maxDays: Int) -> Results<SickbeardEpisode> {
+        let today = NSDate().dateWithoutTime()
+        let daysAgo = today.dateByAddingTimeInterval(-(86400 * Double(maxDays)))
+        
+        return self.adapter.episodesAiredSince(daysAgo)
     }
     
     public func showBestMatchingComponents(components: [String]) -> SickbeardShow? {

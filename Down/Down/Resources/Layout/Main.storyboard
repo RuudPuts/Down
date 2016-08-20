@@ -363,10 +363,10 @@
             </objects>
             <point key="canvasLocation" x="3432" y="602"/>
         </scene>
-        <!--View Controller-->
+        <!--Sickbeard Recently Aired View Controller-->
         <scene sceneID="0NP-cV-t86">
             <objects>
-                <viewController id="v0G-ku-uVB" sceneMemberID="viewController">
+                <viewController id="v0G-ku-uVB" customClass="SickbeardRecentlyAiredViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3j5-RJ-8UU"/>
                         <viewControllerLayoutGuide type="bottom" id="Aag-8s-7wN"/>
@@ -374,8 +374,28 @@
                     <view key="view" contentMode="scaleToFill" id="Pho-P7-HxO">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dMK-ew-yNF">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="v0G-ku-uVB" id="rLv-X4-09v"/>
+                                    <outlet property="delegate" destination="v0G-ku-uVB" id="dLx-VZ-XjK"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dMK-ew-yNF" firstAttribute="leading" secondItem="Pho-P7-HxO" secondAttribute="leading" id="6pV-xx-9pp"/>
+                            <constraint firstAttribute="trailing" secondItem="dMK-ew-yNF" secondAttribute="trailing" id="QHG-bp-s2a"/>
+                            <constraint firstItem="Aag-8s-7wN" firstAttribute="top" secondItem="dMK-ew-yNF" secondAttribute="bottom" id="eNe-Ey-8ds"/>
+                            <constraint firstItem="dMK-ew-yNF" firstAttribute="top" secondItem="3j5-RJ-8UU" secondAttribute="bottom" id="iKV-83-Fzk"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="dMK-ew-yNF" id="3Uu-Ha-GBX"/>
+                        <segue destination="bSP-xD-BJn" kind="show" identifier="SickbeardEpisode" id="Sp5-j3-Trg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LuH-s4-lRJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -753,6 +773,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="BLu-oo-sOU"/>
-        <segue reference="twH-Ht-PzP"/>
+        <segue reference="Sp5-j3-Trg"/>
     </inferredMetricsTieBreakers>
 </document>

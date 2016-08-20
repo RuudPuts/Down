@@ -121,6 +121,16 @@ public class SickbeardService: Service {
         return episodes
     }
     
+    public func getRecentlyAiredEpisodes() -> Results<SickbeardEpisode> {
+        let episodes = databaseManager.lastAiredEpisodes(maxDays: 4);
+        
+        for episode in episodes {
+            fetchEpisodeData(episode)
+        }
+        
+        return episodes
+    }
+    
     public func showWithId(tvdbid: Int) -> SickbeardShow? {
         var showWithId: SickbeardShow? = nil
         for show in shows {
