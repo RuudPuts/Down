@@ -11,13 +11,9 @@ import DownKit
 
 class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
-    convenience init() {
-        self.init(nibName: "SabNZBdHistoryViewController", bundle: nil)
-        title = "History"
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "History"
         
         let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
         tableView!.registerNib(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
