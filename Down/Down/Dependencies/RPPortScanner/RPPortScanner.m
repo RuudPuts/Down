@@ -100,8 +100,8 @@ static NSInteger const kIPSuffixMax = 254;
     NSUInteger count = mutableArray.count;
     for (NSUInteger i = 0; i < count; ++i) {
         // Select a random element between i and end of array to swap with.
-        NSUInteger nElements = count - i;
-        NSUInteger n = arc4random_uniform(nElements) + i;
+        NSInteger nElements = count - i;
+        NSUInteger n = arc4random_uniform((uint32_t)nElements) + i;
         [mutableArray exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
     return [NSArray arrayWithArray:mutableArray];
@@ -189,7 +189,7 @@ static NSInteger const kIPSuffixMax = 254;
 - (void)portScanWorkerCompletedAllJobs:(RPPortScanWorker *)worker {
     if (self.progress == 100) {
         NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:self.startDate];
-        NSLog(@"\n\nPORTSCAN COMPLETED.\nSCANNED %ld PORTS ON %d HOSTS USING %lu WORKERS (%ld JOBS IN TOTAL, %u JOBS A WORKER).\n%ld OUT OF %ld JOBS SUCCEEDED\nTOOK %.0f SECONDS\n\n", (long)self.totalPorts, kIPSuffixMax - kIPSuffixMin, (unsigned long)self.workers.count, (long)self.totalJobs, self.totalJobs / self.workers.count, (unsigned long)self.succeededJobs.count, (long)self.totalJobs, interval);
+        NSLog(@"\n\nPORTSCAN COMPLETED.\nSCANNED %ld PORTS ON %ld HOSTS USING %lu WORKERS (%ld JOBS IN TOTAL, %lu JOBS A WORKER).\n%ld OUT OF %ld JOBS SUCCEEDED\nTOOK %.0f SECONDS\n\n", (long)self.totalPorts, kIPSuffixMax - kIPSuffixMin, (unsigned long)self.workers.count, (long)self.totalJobs, self.totalJobs / self.workers.count, (unsigned long)self.succeededJobs.count, (long)self.totalJobs, interval);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate portScannerDidFinish:self];

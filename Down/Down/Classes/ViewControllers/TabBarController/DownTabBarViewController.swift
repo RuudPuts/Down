@@ -15,6 +15,7 @@ class DownTabBarViewController: DownViewController {
 
     var currentViewController: UIViewController?
     var selectedTab = TabBarSegue.SabNZBd
+    var tabChanged = false
     
     enum TabBarSegue: String {
         case SabNZBd = "SabNZBdTab"
@@ -74,10 +75,13 @@ class DownTabBarViewController: DownViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let tabIdentifier = segue.identifier, tabBarSegue = TabBarSegue(rawValue: tabIdentifier){
+            tabChanged = selectedTab != tabBarSegue
             selectedTab = tabBarSegue
         }
         
-        applyAppearance()
+        if tabChanged {
+            applyAppearance()
+        }
     }
     
     private func applyAppearance() {

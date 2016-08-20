@@ -14,32 +14,41 @@ class DownTabBarSegue: UIStoryboardSegue {
         
         let tabBarController = self.sourceViewController as! DownTabBarViewController
         let destinationController = self.destinationViewController
+        let contentView = tabBarController.contentView
         
-        
-        
-        for view in tabBarController.contentView.subviews as [UIView] {
-            view.removeFromSuperview()
+        if tabBarController.tabChanged || contentView.subviews.count == 0 {
+            // New tab selected, update the content view
+            let contentView = tabBarController.contentView
+            
+            for view in contentView.subviews as [UIView] {
+                view.removeFromSuperview()
+            }
+            
+            tabBarController.currentViewController = destinationController
+            contentView.addSubview(destinationController.view)
+            
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            destinationController.view.translatesAutoresizingMaskIntoConstraints = false
+            
+            // Add constraints to new view
+            let horizontalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[v1]-0-|", options: .AlignAllTop, metrics: nil, views: ["v1": destinationController.view])
+            contentView.addConstraints(horizontalConstraint)
+            
+            let verticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[v1]-0-|", options: .AlignAllTop, metrics: nil, views: ["v1": destinationController.view])
+            contentView.addConstraints(verticalConstraint)
+            
+            // Layout the view
+            contentView.layoutIfNeeded()
+            
+            // Inform the view controller shit went down (get it? Down... I'll see myself out)
+            destinationController.didMoveToParentViewController(tabBarController)
         }
-        
-        // Add view to placeholder view
-        tabBarController.currentViewController = destinationController
-        tabBarController.contentView.addSubview(destinationController.view)
-        
-        // Set autoresizing
-        tabBarController.contentView.translatesAutoresizingMaskIntoConstraints = false
-        destinationController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        let horizontalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[v1]-0-|", options: .AlignAllTop, metrics: nil, views: ["v1": destinationController.view])
-        
-        tabBarController.contentView.addConstraints(horizontalConstraint)
-        
-        let verticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[v1]-0-|", options: .AlignAllTop, metrics: nil, views: ["v1": destinationController.view])
-        
-        tabBarController.contentView.addConstraints(verticalConstraint)
-        
-        tabBarController.contentView.layoutIfNeeded()
-        destinationController.didMoveToParentViewController(tabBarController)
-        
+        else {
+            // Selected tab repressed, pop navigation controller to root
+            if tabBarController.currentViewController!.isKindOfClass(UINavigationController) {
+                (tabBarController.currentViewController as! UINavigationController).popToRootViewControllerAnimated(true)
+            }
+        }
     }
     
 }

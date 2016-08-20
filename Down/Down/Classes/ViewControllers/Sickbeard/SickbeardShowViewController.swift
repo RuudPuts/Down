@@ -11,18 +11,12 @@ import DownKit
 
 class SickbeardShowViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate {
     
-    weak var show: SickbeardShow!
-    
-    convenience init(show: SickbeardShow) {
-        self.init(nibName: "DownDetailViewController", bundle: nil)
-        
-        self.show = show
-        
-        title = show.name
-    }
+    var show: SickbeardShow?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = show?.name
+        
         tableView!.rowHeight = UITableViewAutomaticDimension
         
         let cellNib = UINib(nibName: "DownTextCell", bundle:nil)
@@ -30,28 +24,38 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     override func viewWillAppear(animated: Bool) {
-        sickbeardService.refreshEpisodesForShow(show)
+        sickbeardService.refreshEpisodesForShow(show!)
         super.viewWillAppear(animated)
         
         setTableViewHeaderImage(show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let indexPath = tableView!.indexPathForSelectedRow where segue.identifier == "SickbeardEpisode" {
+            let season = show?.seasons.reverse()[indexPath.section]
+            let episode = season?.episodes.reverse()[indexPath.row]
+            
+            let detailViewController = segue.destinationViewController as! SickbeardEpisodeViewController
+            detailViewController.episode = episode
+        }
+    }
+    
     // MARK: - TableView DataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return show.seasons.count
+        return show?.seasons.count ?? 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return show.seasons.reverse()[section].episodes.count
+        return show!.seasons.reverse()[section].episodes.count
     }
     
     func tableView(tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
-        return show.seasons.reverse()[section].episodes.count == 0
+        return show!.seasons.reverse()[section].episodes.count == 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let season = show.seasons.reverse()[indexPath.section]
+        let season = show!.seasons.reverse()[indexPath.section]
         let episode = season.episodes.reverse()[indexPath.row]
         
         let cell = tableView.dequeueReusableCellWithIdentifier("DownTextCell", forIndexPath: indexPath) as! DownTextCell
@@ -62,11 +66,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let season = show.seasons.reverse()[indexPath.section]
-        let episode = season.episodes.reverse()[indexPath.row]
-        
-        let episodeViewController = SickbeardEpisodeViewController(sickbeardEpisode: episode)
-        self.navigationController?.pushViewController(episodeViewController, animated: true)
+        performSegueWithIdentifier("SickbeardEpisode", sender: nil)
     }
     
     // MARK: Keeping this for later
@@ -83,7 +83,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return show.seasons.reverse()[section].title
+        return show!.seasons.reverse()[section].title
     }
     
     // MARK: - TableView Delegate

@@ -11,19 +11,23 @@ import DownKit
 
 class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    convenience init() {
-        self.init(nibName: "SickbeardShowsViewController", bundle: nil)
-        
-        title = "Shows"
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Shows"
         
         let cellNib = UINib(nibName: "SickbeardShowCell", bundle:nil)
         collectionView!.registerNib(cellNib, forCellWithReuseIdentifier: "SickbeardShowCell")
         
         collectionView!.backgroundColor = .downLightGreyColor()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let indexPath = collectionView!.indexPathsForSelectedItems()?.first where segue.identifier == "SickbeardShow" {
+            let show = Array(sickbeardService.shows)[indexPath.item]
+            
+            let detailViewController = segue.destinationViewController as! SickbeardShowViewController
+            detailViewController.show = show
+        }
     }
     
     // MARK: - CollectionView DataSource
@@ -80,10 +84,7 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let show = Array(sickbeardService.shows)[indexPath.row]
-        
-        let showViewController = SickbeardShowViewController(show: show)
-        navigationController?.pushViewController(showViewController, animated: true)
+        performSegueWithIdentifier("SickbeardShow", sender: nil)
     }
     
 }

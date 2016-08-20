@@ -36,7 +36,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     var delegate: DownSettingsViewControllerDelegate?
     
     var connector: Connector?
-    var cellData = [SettingDataSource]()
+    var tableData = [SettingDataSource]()
     
     let activityDurationTimeout = NSTimeInterval(1.0)
     let activityCheckInterval = NSTimeInterval(0.3)
@@ -238,22 +238,22 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     // MARK: - UITableViewDataSource
     
     func configureTableView() {
-        cellData = [SettingDataSource]()
-        cellData.append(SettingDataSource(rowType: .Host, title: "Host", detailText: "Your \(application.rawValue) host <ip:port>"))
+        tableData = [SettingDataSource]()
+        tableData.append(SettingDataSource(rowType: .Host, title: "Host", detailText: "Your \(application.rawValue) host <ip:port>"))
         if connector?.host?.length > 0 && (connector?.apiKey == nil || connector?.apiKey?.length == 0) {
-            cellData.append(SettingDataSource(rowType: .Username, title: "Username", detailText: "Your \(application.rawValue) username"))
-            cellData.append(SettingDataSource(rowType: .Password, title: "Password", detailText: "Your \(application.rawValue) password"))
+            tableData.append(SettingDataSource(rowType: .Username, title: "Username", detailText: "Your \(application.rawValue) username"))
+            tableData.append(SettingDataSource(rowType: .Password, title: "Password", detailText: "Your \(application.rawValue) password"))
         }
-        cellData.append(SettingDataSource(rowType: .ApiKey, title: "Api key", detailText: "Your \(application.rawValue) api key"))
+        tableData.append(SettingDataSource(rowType: .ApiKey, title: "Api key", detailText: "Your \(application.rawValue) api key"))
     }
     
     func cellTypeForIndexPath(indexPath: NSIndexPath) -> DownSettingsRow {
-        return cellData[indexPath.row].rowType
+        return tableData[indexPath.row].rowType
     }
     
     func indexPathForCell(withType cellType: DownSettingsRow) -> NSIndexPath {
         var rowIndex = 0
-        for row in cellData {
+        for row in tableData {
             if row.rowType == cellType {
                 break
             }
@@ -269,7 +269,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellData.count
+        return tableData.count
     }
     
     func tableView(tableView: UITableView, shouldShowActivityIndicatorForIndexPath indexPath: NSIndexPath) -> Bool {
@@ -314,7 +314,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         
         // If keyboard is open for cell, don't reload
         if let textField = cell.textField where !textField.isFirstResponder() {
-            let data = cellData[indexPath.row]
+            let data = tableData[indexPath.row]
             cell.setCellType(application)
             cell.label.text = data.title
             cell.textFieldPlaceholder = data.detailText
@@ -382,7 +382,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     func verifyActivities() {
         let now = NSDate()
         
-        cellData.forEach { row in
+        tableData.forEach { row in
             if let date = activityStart[row.rowType] where now > date.dateByAddingTimeInterval(activityDurationTimeout) {
                 activityStart[row.rowType] = nil
                 

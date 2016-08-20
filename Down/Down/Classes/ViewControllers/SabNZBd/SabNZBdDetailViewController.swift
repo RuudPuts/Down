@@ -30,12 +30,12 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         case SickbeardAirDate
     }
     
-    private struct SabNZBDDetailDataSource {
+    private struct SabNZBdDetailDataSource {
         var rowType: SabNZBdDetailRow
         var title: String
     }
     
-    private var cellData = [[SabNZBDDetailDataSource]]()
+    private var cellData = [[SabNZBdDetailDataSource]]()
     
     private var historyItemReplacement: String?
     private var historySwitchRefreshCount = 0
@@ -72,27 +72,27 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         cellData.removeAll()
         
         if sabItem?.sickbeardEpisode != nil {
-            var section = [SabNZBDDetailDataSource]()
-            section.append(SabNZBDDetailDataSource(rowType: .SickbeardShow, title: "Show"))
-            section.append(SabNZBDDetailDataSource(rowType: .SickbeardEpisode, title: "Episode"))
-            section.append(SabNZBDDetailDataSource(rowType: .SickbeardEpisodeName, title: "Title"))
-            section.append(SabNZBDDetailDataSource(rowType: .SickbeardAirDate, title: "Aired on"))
+            var section = [SabNZBdDetailDataSource]()
+            section.append(SabNZBdDetailDataSource(rowType: .SickbeardShow, title: "Show"))
+            section.append(SabNZBdDetailDataSource(rowType: .SickbeardEpisode, title: "Episode"))
+            section.append(SabNZBdDetailDataSource(rowType: .SickbeardEpisodeName, title: "Title"))
+            section.append(SabNZBdDetailDataSource(rowType: .SickbeardAirDate, title: "Aired on"))
             
             cellData.append(section)
         }
         
         if sabItem is SABQueueItem {
-            var section = [SabNZBDDetailDataSource]()
-            section.append(SabNZBDDetailDataSource(rowType: .Status, title: "Status"))
-            section.append(SabNZBDDetailDataSource(rowType: .Progress, title: "Progress"))
+            var section = [SabNZBdDetailDataSource]()
+            section.append(SabNZBdDetailDataSource(rowType: .Status, title: "Status"))
+            section.append(SabNZBdDetailDataSource(rowType: .Progress, title: "Progress"))
             
             cellData.append(section)
         }
         else {
-            var section = [SabNZBDDetailDataSource]()
-            section.append(SabNZBDDetailDataSource(rowType: .Status, title: "Status"))
-            section.append(SabNZBDDetailDataSource(rowType: .TotalSize, title: "Total size"))
-            section.append(SabNZBDDetailDataSource(rowType: .FinishedAt, title: "Finished at"))
+            var section = [SabNZBdDetailDataSource]()
+            section.append(SabNZBdDetailDataSource(rowType: .Status, title: "Status"))
+            section.append(SabNZBdDetailDataSource(rowType: .TotalSize, title: "Total size"))
+            section.append(SabNZBdDetailDataSource(rowType: .FinishedAt, title: "Finished at"))
             
             cellData.append(section)
         }

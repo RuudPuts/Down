@@ -61,6 +61,21 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         tableView!.registerNib(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let indexPath = tableView!.indexPathForSelectedRow where segue.identifier == "SickbeardEpisode" {
+            var episode: SickbeardEpisode
+            if indexPath.section == 1 {
+                episode = todayData[indexPath.row]
+            }
+            else {
+                episode = soonData[indexPath.row]
+            }
+            
+            let detailViewController = segue.destinationViewController as! SickbeardEpisodeViewController
+            detailViewController.episode = episode
+        }
+    }
+    
     // MARK: - TableView DataSource
     
     private func reloadTableView() {
@@ -225,20 +240,10 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.isEqual(NSIndexPath(forRow: 0, inSection: 0)) {
-            let showsViewController = SickbeardShowsViewController()
-            navigationController?.pushViewController(showsViewController, animated: true)
+            performSegueWithIdentifier("SickbeardShows", sender: nil)
         }
         else if indexPath.section > 0 {
-            var episode: SickbeardEpisode
-            if indexPath.section == 1 {
-                episode = todayData[indexPath.row]
-            }
-            else {
-                episode = soonData[indexPath.row]
-            }
-            
-            let episodeViewController = SickbeardEpisodeViewController(sickbeardEpisode: episode)
-            navigationController?.pushViewController(episodeViewController, animated: true)
+            performSegueWithIdentifier("SickbeardEpisode", sender: nil)
         }
     }
     

@@ -11,7 +11,7 @@ import DownKit
 
 class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate {
     
-    private enum EpisodeDetailRow {
+    private enum EpisodeDetailRowType {
         case Name
         case AirDate
         case Show
@@ -22,24 +22,25 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         case Plot
     }
     
-    private var episode: SickbeardEpisode!
-    private var cellKeys = [[EpisodeDetailRow]]()
-    private var cellTitles =  [[String]]()
+    private struct EpisodeDetailDataSource {
+        var rowType: EpisodeDetailRowType
+        var title: String
+    }
+    
+    var episode: SickbeardEpisode? {
+        didSet {
+            configureTableView()
+        }
+    }
+    private var tableData = [[EpisodeDetailDataSource]]()
     
     private var historyItemReplacement: String?
     private var historySwitchRefreshCount = 0
     
-    convenience init(sickbeardEpisode: SickbeardEpisode) {
-        self.init(nibName: "DownDetailViewController", bundle: nil)
-        
-        episode = sickbeardEpisode
-        
-        configureTableView()
-        title = "Details"
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Details"
+        
         tableView!.rowHeight = UITableViewAutomaticDimension
         
         let plotCellNib = UINib(nibName: "DownTextCell", bundle: NSBundle.mainBundle())
@@ -51,31 +52,40 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     // MARK: - TableView datasource
     
     func configureTableView() {
-        // Section 0
-        cellKeys.append([.Name, .AirDate, .Show, .Season, .Episode, .Status])
-        cellTitles.append(["Name", "Aired on", "Show", "Season", "Episode", "Status"])
+        tableData.removeAll()
         
-        if episode.plot.length > 0 {
+        // Section 0
+        var section0 = [EpisodeDetailDataSource]()
+        section0.append(EpisodeDetailDataSource(rowType: .Name, title: "Name"))
+        section0.append(EpisodeDetailDataSource(rowType: .AirDate, title: "Aired on"))
+        section0.append(EpisodeDetailDataSource(rowType: .Show, title: "Show"))
+        section0.append(EpisodeDetailDataSource(rowType: .Season, title: "Season"))
+        section0.append(EpisodeDetailDataSource(rowType: .Episode, title: "Episode"))
+        section0.append(EpisodeDetailDataSource(rowType: .Status, title: "Status"))
+        tableData.append(section0)
+        
+        if episode?.plot.length > 0 {
             // Section 1
-            cellKeys.append([.Plot])
-            cellTitles.append([""])
+            var section1 = [EpisodeDetailDataSource]()
+            section1.append(EpisodeDetailDataSource(rowType: .Plot, title: ""))
+            tableData.append(section1)
         }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return cellKeys.count
+        return tableData.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellKeys[section].count
+        return tableData[section].count
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if cellKeys[indexPath.section][indexPath.row] == .Plot {
+        if tableData[indexPath.section][indexPath.row].rowType == .Plot {
             let font = UIFont(name: "OpenSans-Light", size: 14.0)!
             let maxWidth = CGRectGetWidth(view.bounds) - 34 // TODO: Change to 20 once sizing issue is fixed
             
-            return episode.plot.sizeWithFont(font, width:maxWidth).height + 30
+            return episode!.plot.sizeWithFont(font, width:maxWidth).height + 30
         }
         
         return tableView.rowHeight;
@@ -87,17 +97,17 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         if indexPath.section == 0 {
             let reuseIdentifier = "episodeCell"
             cell = DownTableViewCell(style: .Value2, reuseIdentifier: reuseIdentifier)
+            let cellData = tableData[indexPath.section][indexPath.row]
             
-            cell.textLabel?.text = cellTitles[indexPath.section][indexPath.row]
+            cell.textLabel?.text = cellData.title
             var detailText: String?
             
-            switch cellKeys[indexPath.section][indexPath.row] {
-                
+            switch cellData.rowType {
             case .Name:
-                detailText = episode.name
+                detailText = episode?.name
                 break
             case .AirDate:
-                if let date = episode.airDate {
+                if let date = episode?.airDate {
                     detailText = NSDateFormatter.downDateFormatter().stringFromDate(date)
                 }
                 else {
@@ -105,16 +115,16 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
                 }
                 break
             case .Show:
-                detailText = episode.show?.name ?? "-"
+                detailText = episode?.show?.name ?? "-"
                 break
             case .Season:
-                detailText = episode.season == nil ? "-" : String(episode.season!.id)
+                detailText = episode?.season == nil ? "-" : String(episode?.season!.id)
                 break
             case .Episode:
-                detailText = String(episode.id)
+                detailText = String(episode?.id)
                 break
             case .Status:
-                detailText = episode.status
+                detailText = episode?.status
                 break
                 
             default:
@@ -126,7 +136,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         else {
             let plotCell = tableView.dequeueReusableCellWithIdentifier("DownTextCell") as! DownTextCell
             plotCell.cheveronHidden = true
-            plotCell.label.text = episode.plot
+            plotCell.label.text = episode?.plot
             
             cell = plotCell
         }

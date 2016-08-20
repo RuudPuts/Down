@@ -12,7 +12,6 @@
 		42078E331AD172CD009845CC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E2E1AD172CD009845CC /* LaunchScreen.xib */; };
 		42078E401AD1C702009845CC /* SickbeardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E3D1AD1C702009845CC /* SickbeardViewController.swift */; };
 		42078E411AD1C702009845CC /* CouchPotatoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */; };
-		42078E471AD1C71A009845CC /* CouchPotatoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */; };
 		420E7E351B9CC65B00D3DCC4 /* SickbeardShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E7E341B9CC65B00D3DCC4 /* SickbeardShow.swift */; };
 		420F496F1ADC431E006CFA11 /* DownActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F496E1ADC431E006CFA11 /* DownActivityCell.xib */; };
 		420F49731ADC4B50006CFA11 /* DownEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F49721ADC4B50006CFA11 /* DownEmptyCell.xib */; };
@@ -280,7 +279,6 @@
 		42078E2E1AD172CD009845CC /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		42078E3D1AD1C702009845CC /* SickbeardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardViewController.swift; sourceTree = "<group>"; };
 		42078E3F1AD1C702009845CC /* CouchPotatoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoViewController.swift; sourceTree = "<group>"; };
-		42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouchPotatoViewController.xib; sourceTree = "<group>"; };
 		420AF6371CFB392C00DC4DD4 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = ../Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		420E7E341B9CC65B00D3DCC4 /* SickbeardShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShow.swift; sourceTree = "<group>"; };
 		420F496E1ADC431E006CFA11 /* DownActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownActivityCell.xib; sourceTree = "<group>"; };
@@ -502,7 +500,6 @@
 			isa = PBXGroup;
 			children = (
 				42078E421AD1C71A009845CC /* Sickbeard */,
-				42078E441AD1C71A009845CC /* CouchPotato */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -556,14 +553,6 @@
 				4216CFA31D1B2A1900A89C4C /* SickbeardShowsViewController.xib */,
 			);
 			path = Sickbeard;
-			sourceTree = "<group>";
-		};
-		42078E441AD1C71A009845CC /* CouchPotato */ = {
-			isa = PBXGroup;
-			children = (
-				42078E451AD1C71A009845CC /* CouchPotatoViewController.xib */,
-			);
-			path = CouchPotato;
 			sourceTree = "<group>";
 		};
 		420AF6381CFB392C00DC4DD4 /* Products */ = {
@@ -1385,7 +1374,6 @@
 				42CD254B1AB5BD06008E9717 /* Roboto-BoldCondensedItalic.ttf in Resources */,
 				42CD254F1AB5BD06008E9717 /* Roboto-Italic.ttf in Resources */,
 				420F496F1ADC431E006CFA11 /* DownActivityCell.xib in Resources */,
-				42078E471AD1C71A009845CC /* CouchPotatoViewController.xib in Resources */,
 				42CD25481AB5BD06008E9717 /* Roboto-BlackItalic.ttf in Resources */,
 				420F49731ADC4B50006CFA11 /* DownEmptyCell.xib in Resources */,
 				42CD25431AB5BD06008E9717 /* OpenSans-LightItalic.ttf in Resources */,
@@ -1627,7 +1615,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = DownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.ruudputs.Down.DownKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1659,7 +1647,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = DownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.ruudputs.Down.DownKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1734,7 +1722,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1770,7 +1758,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1791,7 +1779,7 @@
 					"$(PROJECT_DIR)/Down/Dependencies",
 				);
 				INFOPLIST_FILE = "Down/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1815,7 +1803,7 @@
 					"$(PROJECT_DIR)/Down/Dependencies",
 				);
 				INFOPLIST_FILE = "Down/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
 				PRODUCT_NAME = "$(TARGET_NAME)";
