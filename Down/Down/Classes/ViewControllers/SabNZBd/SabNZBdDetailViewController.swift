@@ -28,6 +28,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         case SickbeardEpisode
         case SickbeardEpisodeName
         case SickbeardAirDate
+        case SickbeardPlot
     }
     
     private struct SabNZBdDetailDataSource {
@@ -51,6 +52,9 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         title = "Details"
         
         tableView!.rowHeight = UITableViewAutomaticDimension
+        
+        let plotCellNib = UINib(nibName: "DownTextCell", bundle: NSBundle.mainBundle())
+        tableView!.registerNib(plotCellNib, forCellReuseIdentifier: "DownTextCell")
         
         if let showBanner = sabItem?.sickbeardEpisode?.show?.banner {
             setTableViewHeaderImage(showBanner)
@@ -102,6 +106,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         
         if sabItem?.sickbeardEpisode?.plot.length > 0 {
             var section = [SabNZBdDetailDataSource]()
+            section.append(SabNZBdDetailDataSource(rowType: .SickbeardPlot, title: ""))
             
             tableData.append(section)
         }
@@ -115,13 +120,37 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         return tableData[section].count
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if tableData[indexPath.section][indexPath.row].rowType == .SickbeardPlot {
+            let font = UIFont(name: "OpenSans-Light", size: 14.0)!
+            let maxWidth = CGRectGetWidth(view.bounds) - 34 // TODO: Change to 20 once sizing issue is fixed
+            
+            return sabItem!.sickbeardEpisode!.plot.sizeWithFont(font, width:maxWidth).height + 30
+        }
+        
+        return tableView.rowHeight;
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: DownTableViewCell
-        if sabItem is SABQueueItem {
-            cell = self.tableView(tableView, queueCellForRowAtIndexPath: indexPath);
+        let rowData = tableData[indexPath.section][indexPath.row]
+        
+        if rowData.rowType == .SickbeardPlot {
+            let plotCell = tableView.dequeueReusableCellWithIdentifier("DownTextCell") as! DownTextCell
+            plotCell.label.text = sabItem!.sickbeardEpisode!.plot
+            plotCell.cheveronHidden = true
+            
+            cell = plotCell
         }
         else {
-            cell = self.tableView(tableView, historyCellForRowAtIndexPath: indexPath);
+            // TODO, some generic filler upper? 
+            // And a queue/history specific thingy for quuee/history
+            if sabItem is SABQueueItem {
+                cell = self.tableView(tableView, queueCellForRowAtIndexPath: indexPath);
+            }
+            else {
+                cell = self.tableView(tableView, historyCellForRowAtIndexPath: indexPath);
+            }
         }
         
         return cell

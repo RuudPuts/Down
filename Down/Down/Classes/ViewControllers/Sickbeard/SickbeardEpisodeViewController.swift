@@ -96,7 +96,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell
+        let cell: DownTableViewCell
         
         if indexPath.section == 0 {
             let reuseIdentifier = "episodeCell"
@@ -139,8 +139,8 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         }
         else {
             let plotCell = tableView.dequeueReusableCellWithIdentifier("DownTextCell") as! DownTextCell
-            plotCell.cheveronHidden = true
             plotCell.label.text = episode!.plot
+            plotCell.cheveronHidden = true
             
             cell = plotCell
         }
