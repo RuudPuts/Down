@@ -8,8 +8,12 @@
 
 import UIKit
 import DownKit
+import Preheat
+import Nuke
 
 class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    var preheatController: PreheatController<UICollectionView>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,8 +21,34 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         
         let cellNib = UINib(nibName: "SickbeardShowCell", bundle:nil)
         collectionView!.registerNib(cellNib, forCellWithReuseIdentifier: "SickbeardShowCell")
-        
         collectionView!.backgroundColor = .downLightGreyColor()
+
+        preheatController = PreheatController(view: collectionView!)
+        preheatController.handler = { [weak self] in
+            self?.preheatWindowChanged(addedIndexPaths: $0, removedIndexPaths: $1)
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        preheatController.enabled = true
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        // When you disable preheat controller it removes all preheating
+        // index paths and calls its handler
+        preheatController.enabled = false
+    }
+    
+    func preheatWindowChanged(addedIndexPaths added: [NSIndexPath], removedIndexPaths removed: [NSIndexPath]) {
+        func requestsForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest] {
+            return indexPaths.map { sickbeardService.shows[$0.item].posterThumbnailRequest }
+        }
+        Nuke.startPreheatingImages(requestsForIndexPaths(added))
+        Nuke.stopPreheatingImages(requestsForIndexPaths(removed))
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -51,11 +81,7 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         cell.setCellType(.Sickbeard)
         cell.show = show
         
-        show.getPosterThumbnail {
-            if cell.show == show {
-                cell.posterView?.image = $0
-            }
-        }
+        cell.posterView.nk_setImageWith(show.posterThumbnailRequest)
         
         return cell
     }
@@ -85,6 +111,17 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("SickbeardShow", sender: nil)
+    }
+    
+}
+
+extension SickbeardShow {
+    
+    var posterThumbnailRequest: ImageRequest {
+        get {
+            let filePath = UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbId)_thumb.png"
+            return ImageRequest(URL: NSURL(fileURLWithPath: filePath))
+        }
     }
     
 }
