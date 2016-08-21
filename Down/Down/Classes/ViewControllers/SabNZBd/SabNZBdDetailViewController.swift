@@ -35,7 +35,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         var title: String
     }
     
-    private var cellData = [[SabNZBdDetailDataSource]]()
+    private var tableData = [[SabNZBdDetailDataSource]]()
     
     private var historyItemReplacement: String?
     private var historySwitchRefreshCount = 0
@@ -72,7 +72,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     // MARK: - TableView datasource
     
     func configureTableView() {
-        cellData.removeAll()
+        tableData.removeAll()
         
         if sabItem?.sickbeardEpisode != nil {
             var section = [SabNZBdDetailDataSource]()
@@ -81,34 +81,38 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             section.append(SabNZBdDetailDataSource(rowType: .SickbeardEpisodeName, title: "Title"))
             section.append(SabNZBdDetailDataSource(rowType: .SickbeardAirDate, title: "Aired on"))
             
-            cellData.append(section)
+            tableData.append(section)
+        }
+        
+        var detailSection = [SabNZBdDetailDataSource]()
+        if sabItem?.sickbeardEpisode == nil {
+            detailSection.append(SabNZBdDetailDataSource(rowType: .Name, title: "Name"))
         }
         
         if sabItem is SABQueueItem {
-            var section = [SabNZBdDetailDataSource]()
-            section.append(SabNZBdDetailDataSource(rowType: .Status, title: "Status"))
-            section.append(SabNZBdDetailDataSource(rowType: .Progress, title: "Progress"))
-            
-            cellData.append(section)
+            detailSection.append(SabNZBdDetailDataSource(rowType: .Status, title: "Status"))
+            detailSection.append(SabNZBdDetailDataSource(rowType: .Progress, title: "Progress"))
         }
         else {
-            var section = [SabNZBdDetailDataSource]()
-            section.append(SabNZBdDetailDataSource(rowType: .Status, title: "Status"))
-            section.append(SabNZBdDetailDataSource(rowType: .TotalSize, title: "Total size"))
-            section.append(SabNZBdDetailDataSource(rowType: .FinishedAt, title: "Finished at"))
-            
-            cellData.append(section)
+            detailSection.append(SabNZBdDetailDataSource(rowType: .Status, title: "Status"))
+            detailSection.append(SabNZBdDetailDataSource(rowType: .TotalSize, title: "Total size"))
+            detailSection.append(SabNZBdDetailDataSource(rowType: .FinishedAt, title: "Finished at"))
         }
+        tableData.append(detailSection)
         
-        // TODO: Add plot for sickbeard show
+        if sabItem?.sickbeardEpisode?.plot.length > 0 {
+            var section = [SabNZBdDetailDataSource]()
+            
+            tableData.append(section)
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return cellData.count
+        return tableData.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellData[section].count
+        return tableData[section].count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -127,7 +131,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         let reuseIdentifier = "queueCell"
         let cell = DownTableViewCell(style: .Value2, reuseIdentifier: reuseIdentifier)
         let queueItem = sabItem as! SABQueueItem
-        let dataSource = cellData[indexPath.section][indexPath.row]
+        let dataSource = tableData[indexPath.section][indexPath.row]
         
         cell.textLabel?.text = dataSource.title
         var detailText: String?
@@ -164,7 +168,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         let reuseIdentifier = "historyCell"
         let cell = DownTableViewCell(style: .Value2, reuseIdentifier: reuseIdentifier)
         let historyItem = sabItem as! SABHistoryItem
-        let dataSource = cellData[indexPath.section][indexPath.row]
+        let dataSource = tableData[indexPath.section][indexPath.row]
         
         cell.textLabel?.text = dataSource.title
         var detailText: String?
