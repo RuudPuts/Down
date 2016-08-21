@@ -21,13 +21,20 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         
         let cellNib = UINib(nibName: "DownTextCell", bundle:nil)
         tableView!.registerNib(cellNib, forCellReuseIdentifier: "DownTextCell")
+        
+        setTableViewHeaderImage(show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
     }
     
     override func viewWillAppear(animated: Bool) {
-        sickbeardService.refreshEpisodesForShow(show!)
         super.viewWillAppear(animated)
         
-        setTableViewHeaderImage(show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
+        self.sickbeardService.refreshEpisodesForShow(self.show!)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        NSLog("\(tableView?.tableHeaderView?.frame)")
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

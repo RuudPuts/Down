@@ -38,7 +38,7 @@ public class CouchPotatoService: Service {
         let url = PreferenceManager.couchPotatoHost + "/" + PreferenceManager.couchPotatoApiKey + "/media.list?release_status=snatched,available&limit_offset=20"        
         Alamofire.request(.GET, url).responseJSON { handler in
             if handler.validateResponse() {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                dispatch_async(dispatch_get_main_queue(), {
                     self.refreshCompleted()
                 })
             }
