@@ -1,7 +1,13 @@
-Fixes
- - Badges in show overview would show odd values
- - 'Coming soon' section wouln't show episodes airing tomorrow
- - SabNZBd history was ordered oldest to newest
-
 New
- - 'Recently aired' for Sickbeard shows episodes aired the last few days
+ - Showing plot for Sickbeard episode in SabNZBd detail when available
+
+Fixes
+ - Shows overview now scrolls silky smooth
+ - Show's episode list would glitch when overscrolling
+ - Show's header banner would double size when switching tabs
+ - SabNZBd detail view would show Sickbeard banner for non-Sickbeard downloads
+ - SabNZBd detail view would not show NZB name for non-Sickbeard downloads
+
+Technicall stuff
+ - Moved ViewController UI to storyboards
+ - Complete rewrite of TabBar controller
