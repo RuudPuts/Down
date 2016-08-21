@@ -51,7 +51,10 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         title = "Details"
         
         tableView!.rowHeight = UITableViewAutomaticDimension
-        setTableViewHeaderImage(sabItem?.sickbeardEpisode?.show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
+        
+        if let showBanner = sabItem?.sickbeardEpisode?.show?.banner {
+            setTableViewHeaderImage(showBanner)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
