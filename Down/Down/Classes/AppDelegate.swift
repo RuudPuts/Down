@@ -31,18 +31,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         serviceManager = ServiceManager()
 
-        startOnboarding()
+        setupAppearance()
+        setupTabBarController()
+        setupOnboarding()
         
         return true
     }
     
-    func startOnboarding() {
+    func setupAppearance() {
+        UINavigationBar.appearance().barStyle = .Default
+        UINavigationBar.appearance().translucent = false
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.downLightGreyColor()]
+        UINavigationBar.appearance().tintColor = UIColor.downDarkGreyColor()
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGreyColor()], forState: .Normal)
+    }
+    
+    func setupTabBarController() {
+        let sabNZBdController = UIStoryboard(name: "SabNZBd", bundle: NSBundle.mainBundle()).instantiateInitialViewController()!
+        (sabNZBdController as! UINavigationController).setupForApplication(.SabNZBd)
+        
+        let sickbeardController = UIStoryboard(name: "Sickbeard", bundle: NSBundle.mainBundle()).instantiateInitialViewController()!
+        (sickbeardController as! UINavigationController).setupForApplication(.Sickbeard)
+        
+        let couchPotatoController = UIStoryboard(name: "CouchPotato", bundle: NSBundle.mainBundle()).instantiateInitialViewController()!
+        (couchPotatoController as! UINavigationController).setupForApplication(.CouchPotato)
+        
+        let tabBarController = window?.rootViewController as! DownTabBarViewController
+        tabBarController.viewControllers = [sabNZBdController, sickbeardController, couchPotatoController]
+    }
+    
+    func setupOnboarding() {
         // Check if intro should be shown
         if !isSetup {
             let introViewController = DownIntroViewController(introType: .Welcome)
             let introNavigationController = UINavigationController(rootViewController: introViewController)
             introNavigationController.navigationBarHidden = true
             
+            // Trigger window showing automatically
             window?.makeKeyAndVisible()
             window?.rootViewController?.presentViewController(introNavigationController, animated: false, completion: nil)
         }

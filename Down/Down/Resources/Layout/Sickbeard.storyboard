@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jat-8d-6n2">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Sickbeard Shows View Controller-->
+        <scene sceneID="5Tv-nH-LWi">
+            <objects>
+                <viewController id="jP4-yj-hKZ" customClass="SickbeardShowsViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7SG-Ka-X0j"/>
+                        <viewControllerLayoutGuide type="bottom" id="ERA-aH-jgv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pkh-9J-UnB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="M9E-Av-XUN">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="gv2-hB-FCs">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
+                                </collectionViewFlowLayout>
+                                <connections>
+                                    <outlet property="dataSource" destination="jP4-yj-hKZ" id="Rqg-iE-O3O"/>
+                                    <outlet property="delegate" destination="jP4-yj-hKZ" id="LUC-c2-iYQ"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ERA-aH-jgv" firstAttribute="top" secondItem="M9E-Av-XUN" secondAttribute="bottom" id="5jc-KA-Iac"/>
+                            <constraint firstItem="M9E-Av-XUN" firstAttribute="leading" secondItem="pkh-9J-UnB" secondAttribute="leading" id="7Qc-iE-Ks6"/>
+                            <constraint firstItem="M9E-Av-XUN" firstAttribute="top" secondItem="pkh-9J-UnB" secondAttribute="top" id="Bit-zW-XO0"/>
+                            <constraint firstAttribute="trailing" secondItem="M9E-Av-XUN" secondAttribute="trailing" id="xTW-gi-FbM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="M9E-Av-XUN" id="Jx4-7r-n8J"/>
+                        <segue destination="zIl-cP-Hb1" kind="show" identifier="SickbeardShow" id="uDI-eE-FoJ">
+                            <nil key="action"/>
+                        </segue>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bA8-iE-mYn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1976" y="226"/>
+        </scene>
+        <!--Sickbeard Show View Controller-->
+        <scene sceneID="mAW-8c-KnL">
+            <objects>
+                <viewController id="zIl-cP-Hb1" customClass="SickbeardShowViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SDK-Yd-AVE"/>
+                        <viewControllerLayoutGuide type="bottom" id="jPf-ip-CdS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jaa-NW-3r4">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="QPh-Fp-WCc">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="zIl-cP-Hb1" id="jPe-1p-lzW"/>
+                                    <outlet property="delegate" destination="zIl-cP-Hb1" id="GeG-QO-BL7"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="QPh-Fp-WCc" secondAttribute="trailing" id="2n1-bC-KIb"/>
+                            <constraint firstItem="jPf-ip-CdS" firstAttribute="top" secondItem="QPh-Fp-WCc" secondAttribute="bottom" id="8qa-WI-YjG"/>
+                            <constraint firstItem="QPh-Fp-WCc" firstAttribute="top" secondItem="SDK-Yd-AVE" secondAttribute="bottom" id="UTa-Xw-qye"/>
+                            <constraint firstItem="QPh-Fp-WCc" firstAttribute="leading" secondItem="jaa-NW-3r4" secondAttribute="leading" id="epN-lh-edh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="QPh-Fp-WCc" id="DAk-Qn-WbG"/>
+                        <segue destination="qAK-Zc-3Fe" kind="show" identifier="SickbeardEpisode" id="nfu-fe-JUV">
+                            <nil key="action"/>
+                        </segue>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0wn-bd-BPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2702" y="226"/>
+        </scene>
+        <!--Sickbeard Episode View Controller-->
+        <scene sceneID="QDg-Mb-cVC">
+            <objects>
+                <viewController id="qAK-Zc-3Fe" customClass="SickbeardEpisodeViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jY2-b0-hKF"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vg0-af-rjP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="A3n-eg-Uc2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="344-Kf-R0Y">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="qAK-Zc-3Fe" id="f9K-Kj-c5m"/>
+                                    <outlet property="delegate" destination="qAK-Zc-3Fe" id="wQu-ca-5Iq"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="344-Kf-R0Y" secondAttribute="trailing" id="mJG-mO-jbP"/>
+                            <constraint firstItem="344-Kf-R0Y" firstAttribute="top" secondItem="jY2-b0-hKF" secondAttribute="bottom" id="nUh-3Q-6oM"/>
+                            <constraint firstItem="Vg0-af-rjP" firstAttribute="top" secondItem="344-Kf-R0Y" secondAttribute="bottom" id="vbe-L0-mFk"/>
+                            <constraint firstItem="344-Kf-R0Y" firstAttribute="leading" secondItem="A3n-eg-Uc2" secondAttribute="leading" id="zKL-i1-ac8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="344-Kf-R0Y" id="6RA-6x-hC3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nrR-U4-pvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3432" y="602"/>
+        </scene>
+        <!--Sickbeard Recently Aired View Controller-->
+        <scene sceneID="dFB-dA-wdf">
+            <objects>
+                <viewController id="9a9-F6-J3K" customClass="SickbeardRecentlyAiredViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VfA-Us-uYa"/>
+                        <viewControllerLayoutGuide type="bottom" id="pOZ-7C-wNI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="akB-8R-8Jt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kfu-mZ-Qjj">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="9a9-F6-J3K" id="axv-SJ-gQX"/>
+                                    <outlet property="delegate" destination="9a9-F6-J3K" id="dAR-gC-8u3"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="kfu-mZ-Qjj" secondAttribute="trailing" id="GG2-pb-DEa"/>
+                            <constraint firstItem="kfu-mZ-Qjj" firstAttribute="top" secondItem="VfA-Us-uYa" secondAttribute="bottom" id="cvW-SS-a9w"/>
+                            <constraint firstItem="kfu-mZ-Qjj" firstAttribute="leading" secondItem="akB-8R-8Jt" secondAttribute="leading" id="hal-6W-eOs"/>
+                            <constraint firstItem="pOZ-7C-wNI" firstAttribute="top" secondItem="kfu-mZ-Qjj" secondAttribute="bottom" id="wmi-Sw-QU0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="kfu-mZ-Qjj" id="pzL-qF-aWL"/>
+                        <segue destination="qAK-Zc-3Fe" kind="show" identifier="SickbeardEpisode" id="Wc6-dX-boY">
+                            <nil key="action"/>
+                        </segue>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="97j-aT-3Td" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1976" y="985"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="b4L-hf-RWO">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="Jat-8d-6n2" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AkS-Rf-IJv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="PPA-Tv-nYs" kind="relationship" relationship="rootViewController" id="23x-P0-FGc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sIM-uC-Y4r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="504" y="602"/>
+        </scene>
+        <!--Sickbeard View Controller-->
+        <scene sceneID="DYG-rQ-ji9">
+            <objects>
+                <viewController id="PPA-Tv-nYs" customClass="SickbeardViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YWs-Xz-rmW"/>
+                        <viewControllerLayoutGuide type="bottom" id="wLk-Bk-jGt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S0v-cW-A90">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5w-rO-vLJ" userLabel="Header">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sickbeard-icon" translatesAutoresizingMaskIntoConstraints="NO" id="rxj-2q-xnM">
+                                        <rect key="frame" x="219.5" y="27" width="161" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="161" id="lYm-Ar-7Uy"/>
+                                            <constraint firstAttribute="height" constant="66" id="zp3-jA-F9q"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1529411765" green="0.68235294120000001" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Scn-qN-iat"/>
+                                    <constraint firstAttribute="centerX" secondItem="rxj-2q-xnM" secondAttribute="centerX" id="cDR-rR-HmK"/>
+                                    <constraint firstItem="rxj-2q-xnM" firstAttribute="top" secondItem="d5w-rO-vLJ" secondAttribute="top" constant="27" id="vbJ-Xd-IMo"/>
+                                </constraints>
+                            </view>
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="PZl-XW-7iU">
+                                <rect key="frame" x="0.0" y="100" width="600" height="500"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="PPA-Tv-nYs" id="hDu-2v-1xR"/>
+                                    <outlet property="delegate" destination="PPA-Tv-nYs" id="SHG-jp-NlP"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="d5w-rO-vLJ" firstAttribute="leading" secondItem="S0v-cW-A90" secondAttribute="leading" id="Oa2-rU-EJC"/>
+                            <constraint firstItem="PZl-XW-7iU" firstAttribute="top" secondItem="d5w-rO-vLJ" secondAttribute="bottom" id="QGE-fC-sT6"/>
+                            <constraint firstItem="PZl-XW-7iU" firstAttribute="leading" secondItem="S0v-cW-A90" secondAttribute="leading" id="VKj-HY-EI2"/>
+                            <constraint firstAttribute="trailing" secondItem="d5w-rO-vLJ" secondAttribute="trailing" id="Zpu-UW-E9k"/>
+                            <constraint firstItem="d5w-rO-vLJ" firstAttribute="top" secondItem="S0v-cW-A90" secondAttribute="top" id="axn-Pa-YRf"/>
+                            <constraint firstItem="wLk-Bk-jGt" firstAttribute="top" secondItem="PZl-XW-7iU" secondAttribute="bottom" id="qET-VT-43f"/>
+                            <constraint firstAttribute="trailing" secondItem="PZl-XW-7iU" secondAttribute="trailing" id="w9y-uk-cin"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="76q-OB-qEJ"/>
+                    <connections>
+                        <outlet property="tableView" destination="PZl-XW-7iU" id="vHE-Px-l0u"/>
+                        <segue destination="jP4-yj-hKZ" kind="show" identifier="SickbeardShows" id="AYe-8R-t6e">
+                            <nil key="action"/>
+                        </segue>
+                        <segue destination="qAK-Zc-3Fe" kind="show" identifier="SickbeardEpisode" id="eZO-pi-lVi">
+                            <nil key="action"/>
+                        </segue>
+                        <segue destination="9a9-F6-J3K" kind="show" identifier="SickbeardRecentlyAired" id="UuA-6N-8pw">
+                            <nil key="action"/>
+                        </segue>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="okz-kO-lpD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1240" y="602"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="sickbeard-icon" width="161" height="72"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="eZO-pi-lVi"/>
+    </inferredMetricsTieBreakers>
+</document>

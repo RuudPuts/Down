@@ -351,3 +351,24 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     }
 
 }
+
+extension SabNZBdViewController: DownTabBarItem {
+    
+    var tabIcon: UIImage {
+        get {
+            return UIImage(named: "sabnzbd-tabbar")!
+        }
+    }
+    
+    var selectedTabBackground: UIColor {
+        get {
+            return .downSabNZBdColor()
+        }
+    }
+    
+    var deselectedTabBackground: UIColor {
+        get {
+            return .downSabNZBdDarkColor()
+        }
+    }
+}

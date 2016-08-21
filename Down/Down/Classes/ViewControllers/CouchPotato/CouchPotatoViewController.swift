@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DownKit
 
 class CouchPotatoViewController: DownRootViewController {
 
@@ -14,4 +15,25 @@ class CouchPotatoViewController: DownRootViewController {
         self.init(nibName: "CouchPotatoViewController", bundle: nil)
     }
     
+}
+
+extension CouchPotatoViewController: DownTabBarItem {
+    
+    var tabIcon: UIImage {
+        get {
+            return UIImage(named: "couchpotato-tabbar")!
+        }
+    }
+    
+    var selectedTabBackground: UIColor {
+        get {
+            return .downCouchPotatoColor()
+        }
+    }
+    
+    var deselectedTabBackground: UIColor {
+        get {
+            return .downCouchPotatoDarkColor()
+        }
+    }
 }

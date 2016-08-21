@@ -37,8 +37,7 @@
 		4221ADE71B7BC0B20027C3A0 /* SickbeardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADCB1B7BC0B20027C3A0 /* SickbeardService.swift */; };
 		4221ADE91B7BC0D50027C3A0 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADE81B7BC0D50027C3A0 /* SwiftyJSON.swift */; };
 		4221ADEB1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADEA1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift */; };
-		422D54921AE04AE200200EF0 /* DownTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D54901AE04AE200200EF0 /* DownTabBarItem.swift */; };
-		422D54931AE04AE200200EF0 /* DownTabBarItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D54911AE04AE200200EF0 /* DownTabBarItemCell.swift */; };
+		422D54931AE04AE200200EF0 /* DownTabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D54911AE04AE200200EF0 /* DownTabBarCell.swift */; };
 		42354FD61D182BA80016B518 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; };
 		42354FD71D182BA80016B518 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		424595161B7933EB009DA699 /* DownKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 424595151B7933EB009DA699 /* DownKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -100,9 +99,12 @@
 		42B8186B1D2969B3003672C3 /* DownRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8186A1D2969B3003672C3 /* DownRootViewController.swift */; };
 		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
 		42C12E4A1D678C0B00D2A21C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C12E491D678C0B00D2A21C /* Main.storyboard */; };
-		42C2D6EB1D68B3DB008E195E /* DownTabBarSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2D6EA1D68B3DB008E195E /* DownTabBarSegue.swift */; };
 		42C2D6FF1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2D6FE1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift */; };
 		42C2D7011D68EBE5008E195E /* NSDate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2D7001D68EBE5008E195E /* NSDate+Extensions.swift */; };
+		42C2D73F1D6A1F44008E195E /* SabNZBd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C2D73E1D6A1F44008E195E /* SabNZBd.storyboard */; };
+		42C2D7411D6A1F77008E195E /* Sickbeard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C2D7401D6A1F77008E195E /* Sickbeard.storyboard */; };
+		42C2D7431D6A1F90008E195E /* CouchPotato.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C2D7421D6A1F90008E195E /* CouchPotato.storyboard */; };
+		42C2D7451D6A227B008E195E /* DownTabBarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42C2D7441D6A227B008E195E /* DownTabBarCell.xib */; };
 		42C4AE011D2AFB390096FF71 /* FastSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4ADFA1D2AFB390096FF71 /* FastSocket.m */; };
 		42C4AE021D2AFB390096FF71 /* RPPortScanJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4ADFC1D2AFB390096FF71 /* RPPortScanJob.m */; };
 		42C4AE031D2AFB390096FF71 /* RPPortScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4ADFE1D2AFB390096FF71 /* RPPortScanner.m */; };
@@ -307,8 +309,7 @@
 		4221ADCB1B7BC0B20027C3A0 /* SickbeardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardService.swift; sourceTree = "<group>"; };
 		4221ADE81B7BC0D50027C3A0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../../../SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		4221ADEA1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+Extensions.swift"; sourceTree = "<group>"; };
-		422D54901AE04AE200200EF0 /* DownTabBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarItem.swift; sourceTree = "<group>"; };
-		422D54911AE04AE200200EF0 /* DownTabBarItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarItemCell.swift; sourceTree = "<group>"; };
+		422D54911AE04AE200200EF0 /* DownTabBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarCell.swift; sourceTree = "<group>"; };
 		423D87941B700B3D00AFB7FF /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		424595131B7933EA009DA699 /* DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		424595151B7933EB009DA699 /* DownKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownKit.h; sourceTree = "<group>"; };
@@ -376,9 +377,12 @@
 		42B8186A1D2969B3003672C3 /* DownRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownRootViewController.swift; sourceTree = "<group>"; };
 		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		42C12E491D678C0B00D2A21C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		42C2D6EA1D68B3DB008E195E /* DownTabBarSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarSegue.swift; sourceTree = "<group>"; };
 		42C2D6FE1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardRecentlyAiredViewController.swift; sourceTree = "<group>"; };
 		42C2D7001D68EBE5008E195E /* NSDate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Extensions.swift"; sourceTree = "<group>"; };
+		42C2D73E1D6A1F44008E195E /* SabNZBd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SabNZBd.storyboard; sourceTree = "<group>"; };
+		42C2D7401D6A1F77008E195E /* Sickbeard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sickbeard.storyboard; sourceTree = "<group>"; };
+		42C2D7421D6A1F90008E195E /* CouchPotato.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CouchPotato.storyboard; sourceTree = "<group>"; };
+		42C2D7441D6A227B008E195E /* DownTabBarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownTabBarCell.xib; sourceTree = "<group>"; };
 		42C4ADF91D2AFB390096FF71 /* FastSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastSocket.h; sourceTree = "<group>"; };
 		42C4ADFA1D2AFB390096FF71 /* FastSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastSocket.m; sourceTree = "<group>"; };
 		42C4ADFB1D2AFB390096FF71 /* RPPortScanJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPortScanJob.h; sourceTree = "<group>"; };
@@ -692,8 +696,8 @@
 		422D548F1AE04AE200200EF0 /* TabBarController */ = {
 			isa = PBXGroup;
 			children = (
-				422D54901AE04AE200200EF0 /* DownTabBarItem.swift */,
-				422D54911AE04AE200200EF0 /* DownTabBarItemCell.swift */,
+				422D54911AE04AE200200EF0 /* DownTabBarCell.swift */,
+				42C2D7441D6A227B008E195E /* DownTabBarCell.xib */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
@@ -848,8 +852,11 @@
 			children = (
 				42078E241AD172CD009845CC /* ViewControllers */,
 				42078E291AD172CD009845CC /* Views */,
-				42C12E491D678C0B00D2A21C /* Main.storyboard */,
 				42078E2E1AD172CD009845CC /* LaunchScreen.xib */,
+				42C12E491D678C0B00D2A21C /* Main.storyboard */,
+				42C2D73E1D6A1F44008E195E /* SabNZBd.storyboard */,
+				42C2D7401D6A1F77008E195E /* Sickbeard.storyboard */,
+				42C2D7421D6A1F90008E195E /* CouchPotato.storyboard */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -1099,7 +1106,6 @@
 			isa = PBXGroup;
 			children = (
 				42D154F51AD4505400778713 /* DownTabBarViewController.swift */,
-				42C2D6EA1D68B3DB008E195E /* DownTabBarSegue.swift */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
@@ -1357,7 +1363,9 @@
 			files = (
 				42E1CCCB1BA22B6200DFED2E /* DownDetailViewController.xib in Resources */,
 				42C12E4A1D678C0B00D2A21C /* Main.storyboard in Resources */,
+				42C2D73F1D6A1F44008E195E /* SabNZBd.storyboard in Resources */,
 				42D2AE541C2B30F60089512D /* DownSettingsTableViewCell.xib in Resources */,
+				42C2D7431D6A1F90008E195E /* CouchPotato.storyboard in Resources */,
 				429E97FD1B97898200C3F58B /* SABHeaderView.xib in Resources */,
 				42CD25551AB5BD06008E9717 /* Roboto-Thin.ttf in Resources */,
 				42CD25451AB5BD06008E9717 /* OpenSans-Semibold.ttf in Resources */,
@@ -1367,6 +1375,7 @@
 				42CD25561AB5BD06008E9717 /* Roboto-ThinItalic.ttf in Resources */,
 				42A496ED1BAF332800F5395C /* SABItemCell.xib in Resources */,
 				42CD25501AB5BD06008E9717 /* Roboto-Light.ttf in Resources */,
+				42C2D7411D6A1F77008E195E /* Sickbeard.storyboard in Resources */,
 				42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */,
 				42CD25541AB5BD06008E9717 /* Roboto-Regular.ttf in Resources */,
 				42CC1D9A1C289A8B000CC68C /* DownWelcomeViewController.xib in Resources */,
@@ -1391,6 +1400,7 @@
 				42CD25421AB5BD06008E9717 /* OpenSans-Light.ttf in Resources */,
 				429E97FE1B97898200C3F58B /* SickbeardHeaderView.xib in Resources */,
 				42CC1D9F1C28A2B8000CC68C /* DownSettingsViewController.xib in Resources */,
+				42C2D7451D6A227B008E195E /* DownTabBarCell.xib in Resources */,
 				42CD254E1AB5BD06008E9717 /* Roboto-CondensedItalic.ttf in Resources */,
 				42CD25471AB5BD06008E9717 /* Roboto-Black.ttf in Resources */,
 				42CD253E1AB5BD06008E9717 /* OpenSans-BoldItalic.ttf in Resources */,
@@ -1522,7 +1532,6 @@
 				42C4AE021D2AFB390096FF71 /* RPPortScanJob.m in Sources */,
 				429E97F81B97871F00C3F58B /* SickbeardHeaderView.swift in Sources */,
 				4253E80F1AB4B84C00EF1254 /* DownViewController.swift in Sources */,
-				42C2D6EB1D68B3DB008E195E /* DownTabBarSegue.swift in Sources */,
 				42DEEB461BACCBC50061723F /* DownTableViewCell.swift in Sources */,
 				4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */,
 				42CC1D9D1C28A2AC000CC68C /* DownSettingsViewController.swift in Sources */,
@@ -1549,11 +1558,10 @@
 				42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */,
 				4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */,
 				42C4AE041D2AFB390096FF71 /* RPPortScanWorker.m in Sources */,
-				422D54931AE04AE200200EF0 /* DownTabBarItemCell.swift in Sources */,
+				422D54931AE04AE200200EF0 /* DownTabBarCell.swift in Sources */,
 				42CC1D981C289989000CC68C /* DownIntroViewController.swift in Sources */,
 				4216CFA21D1B294C00A89C4C /* SickbeardShowCell.swift in Sources */,
 				42C2D7011D68EBE5008E195E /* NSDate+Extensions.swift in Sources */,
-				422D54921AE04AE200200EF0 /* DownTabBarItem.swift in Sources */,
 				42078E411AD1C702009845CC /* CouchPotatoViewController.swift in Sources */,
 				42B8186B1D2969B3003672C3 /* DownRootViewController.swift in Sources */,
 				429947991C2614BB00934B03 /* SickbeardEpisodeViewController.swift in Sources */,

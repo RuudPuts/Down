@@ -6,6 +6,9 @@
 //  Copyright © 2016 Ruud Puts. All rights reserved.
 //
 
+import UIKit
+import DownKit
+
 class DownRootViewController: DownViewController {
     
     override func viewWillAppear(animated: Bool) {
@@ -38,4 +41,64 @@ class DownRootViewController: DownViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
+}
+
+extension UINavigationController {
+    
+    func setupForApplication(application: DownApplication) {
+        let color: UIColor
+        
+        switch application {
+        case .SabNZBd:
+            color = .downSabNZBdColor()
+            break
+        case .Sickbeard:
+            color = .downSickbeardColor()
+            break
+        case .CouchPotato:
+            color = .downCouchPotatoColor()
+            break
+        case .Down:
+            color = .downRedColor()
+            break
+            
+        }
+        
+        navigationBar.barTintColor = color
+        navigationBar.backgroundColor = color
+    }
+    
+}
+
+extension UINavigationController: DownTabBarItem {
+    
+    var tabIcon: UIImage {
+        get {
+            if let viewController = viewControllers.first as? DownTabBarItem {
+                return viewController.tabIcon
+            }
+            
+            return UIImage()
+        }
+    }
+    
+    var selectedTabBackground: UIColor {
+        get {
+            if let viewController = viewControllers.first as? DownTabBarItem {
+                return viewController.selectedTabBackground
+            }
+            
+            return UIColor.clearColor()
+        }
+    }
+    
+    var deselectedTabBackground: UIColor {
+        get {
+            if let viewController = viewControllers.first as? DownTabBarItem {
+                return viewController.deselectedTabBackground
+            }
+            
+            return UIColor.clearColor()
+        }
+    }    
 }

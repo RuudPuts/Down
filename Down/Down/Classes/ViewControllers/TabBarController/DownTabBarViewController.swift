@@ -7,40 +7,35 @@
 //
 
 import UIKit
+import DownKit
 
 class DownTabBarViewController: DownViewController {
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet var tabButtons: [UIButton]!
 
-    var currentViewController: UIViewController?
-    var selectedTab = TabBarSegue.SabNZBd
-    var tabChanged = false
+    var selectedViewController: UIViewController?
+    var viewControllers = [UIViewController]()
     
-    enum TabBarSegue: String {
-        case SabNZBd = "SabNZBdTab"
-        case Sickbeard = "SickbeardTab"
-        case CouchPotato = "CouchPotatoTab"
-        
-        var tabIndex: Int {
-            get {
-                switch self {
-                case .SabNZBd: return 0
-                case .Sickbeard: return 1
-                case .CouchPotato: return 2
-                }
-            }
+    var selectedTabBarItem: DownTabBarItem? {
+        get {
+            return selectedViewController as? DownTabBarItem
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let tabBarCellNib = UINib(nibName: "DownTabBarCell", bundle: nil)
+        collectionView!.registerNib(tabBarCellNib, forCellWithReuseIdentifier: "DownTabBarCell")
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if currentViewController == nil {
-            // Load the SabNZBd view by default
-            performSegueWithIdentifier(TabBarSegue.SabNZBd.rawValue, sender: tabButtons.first)
+        if let firstTabItem = viewControllers.first where selectedViewController == nil {
+            selectViewController(firstTabItem)
         }
-        applyAppearance()
     }
 
     override func viewDidLayoutSubviews() {
@@ -55,67 +50,89 @@ class DownTabBarViewController: DownViewController {
         }
     }
     
-    // MARK: Setters and getters
-    
-    var selectedTabColor: UIColor {
-        switch selectedTab {
-        case .SabNZBd: return .downSabNZBdDarkColor()
-        case .CouchPotato: return .downSickbeardDarkColor()
-        case .Sickbeard: return .downCouchPotatoDarkColor()
+    func selectViewController(viewController: UIViewController) {
+        if viewController == selectedViewController {
+            // Selected tab repressed, pop navigation controller to root
+            if let navigationController = selectedViewController as? UINavigationController {
+                navigationController.popToRootViewControllerAnimated(true)
+            }
+        }
+        else {
+            // New tab selected, update the content view
+            for view in contentView.subviews as [UIView] {
+                view.removeFromSuperview()
+            }
+            
+            selectedViewController = viewController
+            contentView.addSubview(viewController.view)
+            
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            viewController.view.translatesAutoresizingMaskIntoConstraints = false
+            
+            // Add constraints to new view
+            let views = ["view": viewController.view]
+            let horizontalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: .AlignAllTop, metrics: nil, views: views)
+            contentView.addConstraints(horizontalConstraint)
+            
+            let verticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[view]-0-|", options: .AlignAllTop, metrics: nil, views: views)
+            contentView.addConstraints(verticalConstraint)
+            
+            // Layout the view
+            contentView.layoutIfNeeded()
+            
+            // Inform the view controller shit went down (get it? Down... I'll see myself out)
+            viewController.didMoveToParentViewController(self)
         }
     }
     
-    var deselectedTabColor: UIColor {
-        switch selectedTab {
-        case .SabNZBd: return .downSabNZBdColor()
-        case .CouchPotato: return .downSickbeardColor()
-        case .Sickbeard: return .downCouchPotatoColor()
-        }
+    // MARK: CollectionView datasource
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let tabIdentifier = segue.identifier, tabBarSegue = TabBarSegue(rawValue: tabIdentifier){
-            tabChanged = selectedTab != tabBarSegue
-            selectedTab = tabBarSegue
-        }
-        
-        if tabChanged {
-            applyAppearance()
-        }
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewControllers.count
     }
     
-    private func applyAppearance() {
-        UINavigationBar.appearance().barStyle = .Default
-        UINavigationBar.appearance().translucent = false
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.downLightGreyColor()]
-        UINavigationBar.appearance().tintColor = UIColor.downDarkGreyColor()
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGreyColor()], forState: .Normal)
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell("DownTabBarCell", indexPath: indexPath) as! DownTabBarCell
         
-        var lightColor = UIColor.clearColor()
-        var darkColor = UIColor.clearColor()
-        switch selectedTab {
-        case .SabNZBd:
-            lightColor = UIColor.downSabNZBdColor()
-            darkColor = UIColor.downSabNZBdDarkColor()
-            break
-        case .Sickbeard:
-            lightColor = UIColor.downSickbeardColor()
-            darkColor = UIColor.downSickbeardDarkColor()
-            break
-        case .CouchPotato:
-            lightColor = UIColor.downCouchPotatoColor()
-            darkColor = UIColor.downCouchPotatoDarkColor()
-            break
+        let viewController = viewControllers[indexPath.row]
+        
+        if let tabBarItem = viewController as? DownTabBarItem {
+            cell.imageView.image = tabBarItem.tabIcon
+            
+            if viewController == selectedViewController {
+                cell.backgroundColor = selectedTabBarItem?.selectedTabBackground
+            }
+            else {
+                cell.backgroundColor = selectedTabBarItem?.deselectedTabBackground
+            }
         }
         
-//        window.statusBarBackgroundColor = darkColor
-        UINavigationBar.appearance().barTintColor = lightColor
-        UINavigationBar.appearance().backgroundColor = lightColor
-        
-        tabButtons.forEach { button in
-            let buttonIndex = tabButtons.indexOf(button)!
-            button.backgroundColor = buttonIndex == selectedTab.tabIndex ? darkColor : lightColor
-        }
+        return cell
     }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let tabCount = Float(viewControllers.count)
+        let width = Float(CGRectGetWidth(view.bounds)) / tabCount
+        
+        return CGSizeMake(CGFloat(width), CGRectGetHeight(collectionView.bounds))
+    }
+    
+    // MARK: CollectionView delegate
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        selectViewController(viewControllers[indexPath.row])
+        collectionView.reloadData()
+    }
+}
+
+protocol DownTabBarItem {
+    
+    var selectedTabBackground: UIColor { get }
+    var deselectedTabBackground: UIColor { get }
+    var tabIcon: UIImage { get }
     
 }

@@ -11,6 +11,9 @@ import DownKit
 
 class DownViewController: UIViewController {
     
+    @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var collectionView: UICollectionView?
+    
     var serviceManager: ServiceManager {
         get {
             return UIApplication.sharedApplication().downAppDelegate.serviceManager
@@ -27,9 +30,6 @@ class DownViewController: UIViewController {
             return serviceManager.sickbeardService
         }
     }
-
-    @IBOutlet weak var tableView: UITableView?
-    @IBOutlet weak var collectionView: UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()

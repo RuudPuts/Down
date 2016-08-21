@@ -252,3 +252,24 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     }
     
 }
+
+extension SickbeardViewController: DownTabBarItem {
+    
+    var tabIcon: UIImage {
+        get {
+            return UIImage(named: "sickbeard-tabbar")!
+        }
+    }
+    
+    var selectedTabBackground: UIColor {
+        get {
+            return .downSickbeardColor()
+        }
+    }
+    
+    var deselectedTabBackground: UIColor {
+        get {
+            return .downSickbeardDarkColor()
+        }
+    }
+}
