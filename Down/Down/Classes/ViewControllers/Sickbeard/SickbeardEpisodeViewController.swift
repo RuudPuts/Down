@@ -54,6 +54,10 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     func configureTableView() {
         tableData.removeAll()
         
+        guard episode != nil else {
+            return
+        }
+        
         // Section 0
         var section0 = [EpisodeDetailDataSource]()
         section0.append(EpisodeDetailDataSource(rowType: .Name, title: "Name"))
@@ -64,7 +68,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         section0.append(EpisodeDetailDataSource(rowType: .Status, title: "Status"))
         tableData.append(section0)
         
-        if episode?.plot.length > 0 {
+        if episode!.plot.length > 0 {
             // Section 1
             var section1 = [EpisodeDetailDataSource]()
             section1.append(EpisodeDetailDataSource(rowType: .Plot, title: ""))
@@ -104,10 +108,10 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
             
             switch cellData.rowType {
             case .Name:
-                detailText = episode?.name
+                detailText = episode!.name
                 break
             case .AirDate:
-                if let date = episode?.airDate {
+                if let date = episode!.airDate {
                     detailText = NSDateFormatter.downDateFormatter().stringFromDate(date)
                 }
                 else {
@@ -115,16 +119,16 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
                 }
                 break
             case .Show:
-                detailText = episode?.show?.name ?? "-"
+                detailText = episode!.show?.name ?? "-"
                 break
             case .Season:
-                detailText = episode?.season == nil ? "-" : String(episode?.season!.id)
+                detailText = episode!.season == nil ? "-" : String(episode!.season!.id)
                 break
             case .Episode:
-                detailText = String(episode?.id)
+                detailText = String(episode!.id)
                 break
             case .Status:
-                detailText = episode?.status
+                detailText = episode!.status
                 break
                 
             default:
@@ -136,7 +140,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         else {
             let plotCell = tableView.dequeueReusableCellWithIdentifier("DownTextCell") as! DownTextCell
             plotCell.cheveronHidden = true
-            plotCell.label.text = episode?.plot
+            plotCell.label.text = episode!.plot
             
             cell = plotCell
         }
