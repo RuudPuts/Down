@@ -23,7 +23,7 @@ class SickbeardShowHeaderView: UIView {
         didSet {
             posterView.image = show!.posterThumbnail;
             nameLabel.text = show!.name
-            airsLabel.text = "\(show!.airs) on \(show!.network)"
+            airsLabel.text = show!.airs.length > 0 ? "\(show!.airs) on \(show!.network)" : show!.network
             statusLabel.text = show!.status.rawValue
             qualityLabel.text = show!.quality.rawValue
             qualityLabel.backgroundColor = colorForQuality(show!.quality)

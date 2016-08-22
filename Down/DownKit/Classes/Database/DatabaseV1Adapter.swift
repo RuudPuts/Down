@@ -24,7 +24,6 @@ class DatabaseV1Adapter: DatabaseAdapter {
         try! realm.write({
             for show in shows {
                 realm.add(show, update: true)
-                NSLog("Stored show \(show.name) (\(show.seasons.count) seasons)")
             }
         })
     }
