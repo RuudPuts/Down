@@ -16,8 +16,8 @@ public class SickbeardConnector: Connector {
     
     public init() {
         let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        sessionConfiguration.timeoutIntervalForRequest = 1.5
-        sessionConfiguration.timeoutIntervalForResource = 1.5
+        sessionConfiguration.timeoutIntervalForRequest = 2
+        sessionConfiguration.timeoutIntervalForResource = 2
         
         requestManager = Manager(configuration: sessionConfiguration)
     }
