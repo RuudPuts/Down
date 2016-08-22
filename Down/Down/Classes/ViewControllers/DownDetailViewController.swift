@@ -29,12 +29,20 @@ class DownDetailViewController: DownViewController {
     func setTableViewHeaderImage(image: UIImage?) {
         if image != nil {
             let headerImageView = UIImageView(image: image)
+            headerImageView.userInteractionEnabled = true
+            
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerImageTapped))
+            headerImageView.addGestureRecognizer(gestureRecognizer)
             
             tableView?.tableHeaderView = headerImageView
         }
         else {
             tableView?.tableHeaderView = nil
         }
+    }
+    
+    func headerImageTapped() {
+        
     }
     
 }

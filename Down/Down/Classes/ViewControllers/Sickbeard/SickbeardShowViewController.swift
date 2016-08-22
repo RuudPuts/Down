@@ -30,7 +30,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.sickbeardService.refreshEpisodesForShow(self.show!)
+        self.sickbeardService.refreshEpisodesForShow(show!)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

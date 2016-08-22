@@ -63,7 +63,7 @@
         <!--Sickbeard Show View Controller-->
         <scene sceneID="mAW-8c-KnL">
             <objects>
-                <viewController id="zIl-cP-Hb1" customClass="SickbeardShowViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SickbeardShowDetail" id="zIl-cP-Hb1" customClass="SickbeardShowViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SDK-Yd-AVE"/>
                         <viewControllerLayoutGuide type="bottom" id="jPf-ip-CdS"/>
@@ -200,6 +200,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="344-Kf-R0Y" id="6RA-6x-hC3"/>
+                        <segue destination="zIl-cP-Hb1" kind="show" identifier="SickbeardShow" id="xd4-2f-0CB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nrR-U4-pvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -335,6 +336,7 @@
         <image name="sickbeard-icon" width="161" height="72"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="xd4-2f-0CB"/>
         <segue reference="nfu-fe-JUV"/>
     </inferredMetricsTieBreakers>
 </document>

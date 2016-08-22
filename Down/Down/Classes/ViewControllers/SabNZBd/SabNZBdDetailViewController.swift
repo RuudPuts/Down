@@ -73,6 +73,14 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         sabNZBdService.removeListener(self)
     }
     
+    override func headerImageTapped() {
+        super.headerImageTapped()
+        
+        if let show = sabItem?.sickbeardEpisode?.show {
+            showDetailsForShow(show)
+        }
+    }
+    
     // MARK: - TableView datasource
     
     func configureTableView() {
@@ -160,12 +168,12 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         let reuseIdentifier = "queueCell"
         let cell = DownTableViewCell(style: .Value2, reuseIdentifier: reuseIdentifier)
         let queueItem = sabItem as! SABQueueItem
-        let dataSource = tableData[indexPath.section][indexPath.row]
+        let cellData = tableData[indexPath.section][indexPath.row]
         
-        cell.textLabel?.text = dataSource.title
+        cell.textLabel?.text = cellData.title
         var detailText: String?
         
-        switch dataSource.rowType {
+        switch cellData.rowType {
         case .Name:
             detailText = queueItem.displayName
             break
@@ -197,12 +205,12 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         let reuseIdentifier = "historyCell"
         let cell = DownTableViewCell(style: .Value2, reuseIdentifier: reuseIdentifier)
         let historyItem = sabItem as! SABHistoryItem
-        let dataSource = tableData[indexPath.section][indexPath.row]
+        let cellData = tableData[indexPath.section][indexPath.row]
         
-        cell.textLabel?.text = dataSource.title
+        cell.textLabel?.text = cellData.title
         var detailText: String?
         
-        switch dataSource.rowType {
+        switch cellData.rowType {
         case .Name:
             detailText = historyItem.displayName
             break
@@ -247,6 +255,23 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         cell.detailTextLabel?.text = detailText
         
         return cell
+    }
+    
+    // MARK: - TableView delegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cellData = tableData[indexPath.section][indexPath.row]
+        if cellData.rowType == .SickbeardShow {
+            showDetailsForShow(sabItem!.sickbeardEpisode!.show!)
+        }
+    }
+    
+    func showDetailsForShow(show: SickbeardShow) {
+        let sickbeardStoryboard = UIStoryboard(name: "Sickbeard", bundle: NSBundle.mainBundle())
+        let showDetailViewcontroller = sickbeardStoryboard.instantiateViewControllerWithIdentifier("SickbeardShowDetail") as! SickbeardShowViewController
+        showDetailViewcontroller.show = show
+            
+        navigationController?.pushViewController(showDetailViewcontroller, animated: true)
     }
     
     // MARK: - SabNZBdListener

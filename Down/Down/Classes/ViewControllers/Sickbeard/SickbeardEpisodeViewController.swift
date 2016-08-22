@@ -49,6 +49,17 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         setTableViewHeaderImage(episode?.show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
     }
     
+    override func headerImageTapped() {
+        performSegueWithIdentifier("SickbeardShow", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let show = episode?.show where segue.identifier == "SickbeardShow" {
+            let showViewController = segue.destinationViewController as! SickbeardShowViewController
+            showViewController.show = show
+        }
+    }
+    
     // MARK: - TableView datasource
     
     func configureTableView() {
@@ -145,6 +156,13 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
             cell = plotCell
         }
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cellData = tableData[indexPath.section][indexPath.row]
+        if cellData.rowType == .Show {
+            performSegueWithIdentifier("SickbeardShow", sender: nil)
+        }
     }
     
 }
