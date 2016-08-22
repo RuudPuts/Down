@@ -128,7 +128,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
         }
         
         return realm.objects(SickbeardEpisode)
-            .filter("airDate >= %@ AND airDate < %@", startDate, lastAirDate)
+            .filter("airDate >= %@ AND airDate <= %@", startDate, lastAirDate)
             .sortedEpisodes()
     }
     
