@@ -41,7 +41,8 @@ public class SickbeardEpisode: Object {
         let today = NSDate().dateWithoutTime()
         
         if let date = airDate where date >= today {
-            return Int(abs(date.timeIntervalSinceNow) / 86400)
+            let calendar = NSCalendar.currentCalendar()
+            return calendar.components(.Day, fromDate: today, toDate: date, options: []).day
         }
         
         return -1
