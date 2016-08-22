@@ -11,10 +11,10 @@ import DownKit
 
 class CouchPotatoViewController: DownRootViewController {
 
-    convenience init() {
-        self.init(nibName: "CouchPotatoViewController", bundle: nil)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "CouchPotato"
     }
-    
 }
 
 extension CouchPotatoViewController: DownTabBarItem {

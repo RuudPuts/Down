@@ -17,6 +17,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Sickbeard"
         
         loadData()
         registerTableViewCells()
