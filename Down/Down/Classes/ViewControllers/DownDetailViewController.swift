@@ -16,14 +16,13 @@ class DownDetailViewController: DownViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if let tableHeaderView = tableView?.tableHeaderView {
-            let headerImageView = tableHeaderView as! UIImageView
-            let imageSize = headerImageView.image?.size ?? CGSize(width: 0, height: 0)
+        if let tableHeaderView = tableView?.tableHeaderView as? UIImageView {
+            let imageSize = tableHeaderView.image?.size ?? CGSize(width: 0, height: 0)
             let screenWidth = CGRectGetWidth(view.bounds)
             let ratiodImageHeight = imageSize.height / imageSize.width * screenWidth
-            headerImageView.frame = CGRectMake(0, 0, screenWidth, ratiodImageHeight)
+            tableHeaderView.frame = CGRectMake(0, 0, screenWidth, ratiodImageHeight)
             
-            tableView?.tableHeaderView = headerImageView
+            tableView?.tableHeaderView = tableHeaderView
         }
     }
     

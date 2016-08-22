@@ -40,6 +40,7 @@
 		422D54931AE04AE200200EF0 /* DownTabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D54911AE04AE200200EF0 /* DownTabBarCell.swift */; };
 		42354FD61D182BA80016B518 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; };
 		42354FD71D182BA80016B518 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42360B191D6B77C1007D2723 /* SickbeardShowHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42360B181D6B77C1007D2723 /* SickbeardShowHeaderView.swift */; };
 		424595161B7933EB009DA699 /* DownKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 424595151B7933EB009DA699 /* DownKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4245951D1B7933EB009DA699 /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424595131B7933EA009DA699 /* DownKit.framework */; };
 		424595241B7933EB009DA699 /* DownKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 424595231B7933EB009DA699 /* DownKitTests.m */; };
@@ -393,6 +394,7 @@
 		4221ADE81B7BC0D50027C3A0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../../../SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		4221ADEA1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		422D54911AE04AE200200EF0 /* DownTabBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarCell.swift; sourceTree = "<group>"; };
+		42360B181D6B77C1007D2723 /* SickbeardShowHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowHeaderView.swift; sourceTree = "<group>"; };
 		423D87941B700B3D00AFB7FF /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		424595131B7933EA009DA699 /* DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		424595151B7933EB009DA699 /* DownKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownKit.h; sourceTree = "<group>"; };
@@ -1020,6 +1022,7 @@
 			isa = PBXGroup;
 			children = (
 				429E97F71B97871F00C3F58B /* SickbeardHeaderView.swift */,
+				42360B181D6B77C1007D2723 /* SickbeardShowHeaderView.swift */,
 			);
 			path = Sickbeard;
 			sourceTree = "<group>";
@@ -1514,7 +1517,7 @@
 		42C2D7681D6A3419008E195E /* Nuke macOS Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Nuke macOS Tests.xctest";
+			path = "Nuke OSX Tests.xctest";
 			remoteRef = 42C2D7671D6A3419008E195E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1725,6 +1728,7 @@
 				42E1CCC61BA226CE00DFED2E /* SickbeardShowsViewController.swift in Sources */,
 				42A496E51BAF32FA00F5395C /* SABItemCell.swift in Sources */,
 				428F7E541AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift in Sources */,
+				42360B191D6B77C1007D2723 /* SickbeardShowHeaderView.swift in Sources */,
 				421129631C17762300E7B0BB /* SickbeardShowViewController.swift in Sources */,
 				4221ADEB1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift in Sources */,
 				42C4AE011D2AFB390096FF71 /* FastSocket.m in Sources */,
