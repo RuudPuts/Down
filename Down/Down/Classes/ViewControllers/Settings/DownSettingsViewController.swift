@@ -216,22 +216,18 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             return
         }
         
-        if applicationService is SickbeardService && PreferenceManager.sickbeardLastCacheRefresh == nil {
+        applicationService?.startService()
+        if let sickbeardService = applicationService as? SickbeardService where PreferenceManager.sickbeardLastCacheRefresh == nil {
             progressLabel.text = "Preparing show cache..."
             progressIndicator.startAnimating()
             progressView.hidden = false
             
             actionButton.hidden = true
-            if let sickbeardService = applicationService as? SickbeardService {
-                sickbeardService.addListener(self)
-                sickbeardService.refreshShowCache()
-            }
-            return
+            sickbeardService.addListener(self)
         }
         else {
-            applicationService?.startService()
+            delegate?.settingsViewControllerDidTapActionButton(self)    
         }
-        delegate?.settingsViewControllerDidTapActionButton(self)
     }
     
     // MARK: - UITableViewDataSource
