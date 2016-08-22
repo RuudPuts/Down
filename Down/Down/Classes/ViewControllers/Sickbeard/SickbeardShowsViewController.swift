@@ -75,7 +75,7 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let show = Array(sickbeardService.shows)[indexPath.row]
+        let show = sickbeardService.shows[indexPath.row]
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
         cell.setCellType(.Sickbeard)

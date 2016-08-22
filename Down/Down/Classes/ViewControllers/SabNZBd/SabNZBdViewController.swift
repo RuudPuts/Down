@@ -342,11 +342,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     
     // MARK: - SickbeardListener
     
-    func sickbeardHistoryUpdated() {
-        tableView!.reloadData()
-    }
-    
-    func sickbeardFutureUpdated() {
+    func sickbeardShowCacheUpdated() {
         tableView!.reloadData()
     }
 

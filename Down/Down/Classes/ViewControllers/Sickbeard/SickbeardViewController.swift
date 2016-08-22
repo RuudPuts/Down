@@ -247,13 +247,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     
     // MARK: - SickbeardListener
     
-    func sickbeardCacheRefreshed() {
-        reloadTableView()
-    }
-    
-    func sickbeardHistoryUpdated() { }
-    
-    func sickbeardFutureUpdated() {
+    func sickbeardShowCacheUpdated() {
         reloadTableView()
     }
     

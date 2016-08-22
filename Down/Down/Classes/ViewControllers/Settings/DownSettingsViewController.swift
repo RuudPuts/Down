@@ -9,7 +9,7 @@
 import Foundation
 import DownKit
 
-class DownSettingsViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, DownTableViewCellDegate {
+class DownSettingsViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, DownTableViewCellDegate, SickbeardListener {
     
     enum DownSettingsRow: Int {
         case Host = 0
@@ -222,10 +222,9 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             progressView.hidden = false
             
             actionButton.hidden = true
-            (applicationService as! SickbeardService).refreshShowCache {
-                self.progressView.hidden = true
-                self.actionButton.setTitle("All done, let's go!", forState: self.actionButton.state)
-                self.actionButton.hidden = false
+            if let sickbeardService = applicationService as? SickbeardService {
+                sickbeardService.addListener(self)
+                sickbeardService.refreshShowCache()
             }
             return
         }
@@ -477,6 +476,19 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         
         self.reloadCell(.ApiKey)
     }
+    
+    // MARK: SickbeardService
+    
+    func sickbeardShowCacheUpdated() {
+        if let sickbeardService = applicationService as? SickbeardService {
+            sickbeardService.removeListener(self)
+        }
+        
+        self.progressView.hidden = true
+        self.actionButton.setTitle("All done, let's go!", forState: self.actionButton.state)
+        self.actionButton.hidden = false
+    }
+    
 }
 
 protocol DownSettingsViewControllerDelegate {

@@ -46,8 +46,8 @@ public class DatabaseManager {
         adapter.setStatus(status, forShow:show)
     }
     
-    public func fetchAllSickbeardShows() -> [SickbeardShow] {
-        return Array(self.adapter.allSickbeardShows())
+    public func fetchAllSickbeardShows() -> Results<SickbeardShow> {
+        return self.adapter.allSickbeardShows()
     }
     
     public func fetchShowsWithEpisodesAiredSince(airDate: NSDate) -> [SickbeardShow] {

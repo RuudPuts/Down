@@ -10,7 +10,6 @@ import Foundation
 
 public protocol SickbeardListener: ServiceListener {
     
-    func sickbeardHistoryUpdated()
-    func sickbeardFutureUpdated()
+    func sickbeardShowCacheUpdated()
     
 }

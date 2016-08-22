@@ -12,27 +12,19 @@ import Alamofire
 public class SickbeardService: Service {
     
     public static let defaultPort = 8081
-
-    var refreshTimer: NSTimer?
+    public var shows: Results<SickbeardShow> {
+        get {
+            return databaseManager.fetchAllSickbeardShows()
+        }
+    }
     
-    public var history = Array<SickbeardEpisode>()
-    
-    // WARN: Shows should be directly fetched from the database
-    public var shows = [SickbeardShow]()
-    
-    var databaseManager: DatabaseManager!
+    var databaseManager = DatabaseManager()
     
     private let bannerDownloadQueue = dispatch_queue_create("com.ruudputs.down.BannerDownloadQueue", DISPATCH_QUEUE_SERIAL)
     private let posterDownloadQueue = dispatch_queue_create("com.ruudputs.down.PosterDownloadQueue", DISPATCH_QUEUE_SERIAL)
     
     private enum SickbeardNotifyType {
-        case HistoryUpdated
         case ShowCacheUpdated
-    }
-   
-    override init() {
-        super.init()
-        databaseManager = DatabaseManager()
     }
     
     override public func addListener(listener: ServiceListener) {
@@ -42,28 +34,9 @@ public class SickbeardService: Service {
     }
     
     override public func startService() {
-        self.shows = databaseManager.fetchAllSickbeardShows()
-        
         NSLog("SickbeardService - Last updated: %@", PreferenceManager.sickbeardLastCacheRefresh ?? "never")
         NSLog("SickbeardService - Refreshing show cache")
-        refreshShowCache {
-            NSLog("SickbeardService - Show cache refreshed")
-            self.startTimers()
-        }
-    }
-    
-    override public func stopService() {
-        stopTimers()
-    }
-    
-    private func startTimers() {
-        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(refreshHistory), userInfo: nil, repeats: true)
-        
-        refreshHistory()
-    }
-    
-    private func stopTimers() {
-        refreshTimer?.invalidate()
+        refreshShowCache()
     }
     
     // MARK: - Public methods
@@ -150,48 +123,10 @@ public class SickbeardService: Service {
             }
         }
     }
-    
-    // MARK: - History
-    
-    @objc private func refreshHistory() {
-        let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=history&limit=40"
-        Alamofire.request(.GET, url).responseJSON { handler in
-            if handler.validateResponse() {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.parseHistoryJson(JSON(handler.result.value!))
-                    self.refreshCompleted()
-                    
-                    self.notifyListeners(.HistoryUpdated)
-                })
-            }
-            else {
-                print("Error while fetching Sickbard history: \(handler.result.error!)")
-            }
-        }
-    }
-    
-    private func parseHistoryJson(json: JSON!) {
-        var history: Array<SickbeardEpisode> = Array<SickbeardEpisode>()
-        
-        for jsonItem: JSON in json["data"].array! {
-            let tvdbId = jsonItem["tvdbid"].int!
-            
-            if let show = showWithId(tvdbId) {
-                let season = jsonItem["season"].int!
-                let episodeId = jsonItem["episode"].int!
-                
-                if let episode = show.getEpisode(season, episodeId) {
-                    history.append(episode)
-                }
-            }
-        }
-        
-        self.history = history
-    }
-    
+
     // MARK: - Show cache
     
-    public func refreshShowCache(completionHandler: () -> Void) {
+    public func refreshShowCache() {
         if self.shows.count == 0 {
             NSLog("SickbeardService - Refreshing full cache")
             // Find shows to refresh, episodes aired since last update
@@ -202,7 +137,7 @@ public class SickbeardService: Service {
                     let tvdbIds = Array(showData.keys)
                     self.refreshShowData(tvdbIds, completionHandler: {
                         PreferenceManager.sickbeardLastCacheRefresh = NSDate().dateWithoutTime()
-                        completionHandler()
+                        self.notifyListeners(.ShowCacheUpdated)
                     })
                 }
                 else {
@@ -222,7 +157,7 @@ public class SickbeardService: Service {
             
             refreshShowData(tvdbIds, completionHandler: {
                 PreferenceManager.sickbeardLastCacheRefresh = NSDate().dateWithoutTime()
-                completionHandler()
+                self.notifyListeners(.ShowCacheUpdated)
             })
             
             // TODO: Download shows to remove deleted and add new shows to cache
@@ -234,14 +169,16 @@ public class SickbeardService: Service {
     
     private func refreshShowData(tvdbIds: [String], completionHandler: () -> Void) {
         let showMetaDataGroup = dispatch_group_create();
+        var refreshedShows = [SickbeardShow]()
         
-        for tvdbId in tvdbIds {
+        tvdbIds.forEach { tvdbId in
             dispatch_group_enter(showMetaDataGroup)
             
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
             Alamofire.request(.GET, url).responseJSON { handler in
                 if handler.validateResponse() {
-                    self.parseShowData(JSON(handler.result.value!)["data"], forTvdbId: Int(tvdbId)!)
+                    let show = self.parseShowData(JSON(handler.result.value!)["data"], forTvdbId: Int(tvdbId)!)
+                    refreshedShows.append(show)
                 }
                 else {
                     print("Error while fetching Sickbeard showData: \(handler.result.error!)")
@@ -253,21 +190,11 @@ public class SickbeardService: Service {
         dispatch_group_notify(showMetaDataGroup, dispatch_get_main_queue()) {
             let showSeasonsGroup = dispatch_group_create();
             
-            // Only download seasons and episodes for given shows
-            let refreshedShows = self.shows.filter({
-                tvdbIds.contains(String($0.tvdbId))
-            })
-            
-            for show in refreshedShows {
+            refreshedShows.forEach { show in
                 self.downloadBanner(show)
                 self.downloadPoster(show)
                 dispatch_group_enter(showSeasonsGroup)
                 self.refreshShowSeasons(show, completionHandler: {
-                    var allEpisodes = 0
-                    for s in show.seasons {
-                        allEpisodes += s.episodes.count
-                    }
-
                     dispatch_group_leave(showSeasonsGroup)
                 })
             }
@@ -280,25 +207,16 @@ public class SickbeardService: Service {
         }
     }
     
-    private func parseShowData(json: JSON, forTvdbId tvdbId: Int) {
+    private func parseShowData(json: JSON, forTvdbId tvdbId: Int) -> SickbeardShow {
         let name = json["show_name"].string!
         let paused = json["paused"].int!
         
-        let show = SickbeardShow()
+        let show = showWithId(tvdbId) ?? SickbeardShow()
         show.tvdbId = tvdbId
         show.name = name
         show.status = paused == 1 ? .Stopped : .Active
         
-        if let existingShow = showWithId(tvdbId) {
-            // Show is being refreshed
-            NSLog("Skipping show \(show.tvdbId) - \(show.name)")
-            databaseManager.setStatus(show.status, forShow:existingShow)
-        }
-        else {
-            // It's a newly added show
-            NSLog("Adding show \(show.tvdbId) - \(show.name)")
-            shows.append(show)
-        }
+        return show
     }
     
     private func refreshShowSeasons(show: SickbeardShow, completionHandler: () -> Void) {
@@ -366,7 +284,7 @@ public class SickbeardService: Service {
                     })
                 }
                 else {
-                    print("Error while fetching Sickbard history: \(handler.result.error!)")
+                    print("Error while fetching Sickbeard episode data: \(handler.result.error!)")
                 }
             }
             
@@ -383,10 +301,9 @@ public class SickbeardService: Service {
             if listener is SickbeardListener {
                 let sickbeardListener = listener as! SickbeardListener
                 switch notifyType {
-                case .HistoryUpdated:
-                    sickbeardListener.sickbeardHistoryUpdated()
-                    break
                 case .ShowCacheUpdated:
+                    NSLog("SickbeardService - Show cache refreshed")
+                    sickbeardListener.sickbeardShowCacheUpdated()
                     break
                 }
             }

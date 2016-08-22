@@ -52,12 +52,7 @@ public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
 
     // MARK: SickbearListener
     
-    public func sickbeardHistoryUpdated() {
-        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.queue)
-        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.history)
-    }
-    
-    public func sickbeardFutureUpdated() {
+    public func sickbeardShowCacheUpdated() {
         matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.queue)
         matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.history)
     }
