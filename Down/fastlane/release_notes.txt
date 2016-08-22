@@ -5,3 +5,5 @@ Fixes
 
 New
  - Added 'emtpy' cell when no shows are airing in near future
+ - Added header for show detail page
+ - Added shortcut from download / episode detail to show page (tap 'Show' line or banner)
