@@ -11,19 +11,50 @@ import RealmSwift
 
 public class SickbeardShow: Object {
     public dynamic var tvdbId = 0
-    public var status = SickbeardShowStatus.Stopped
-    internal var _seasons = List<SickbeardSeason>()
+    public dynamic var airs = ""
+    public dynamic var network = ""
+    
+    public var status: SickbeardShowStatus {
+        get {
+            return SickbeardShowStatus(rawValue: statusString) ?? .Ended
+        }
+        set {
+            statusString = status.rawValue
+        }
+    }
+    private dynamic var statusString = ""
+    
+    public var quality: SickbeardShowQuality {
+        get {
+            return SickbeardShowQuality(rawValue: qualityString) ?? .Any
+        }
+        set {
+            qualityString = quality.rawValue
+        }
+    }
+    private dynamic var qualityString = ""
     
     public dynamic var name = "" {
         didSet {
             _simpleName = name.simple()
         }
     }
-    internal dynamic var _simpleName = ""
     
-    public enum SickbeardShowStatus: Int {
-        case Stopped = 0
-        case Active = 1
+    internal dynamic var _simpleName = ""
+    internal var _seasons = List<SickbeardSeason>()
+    
+    public enum SickbeardShowStatus: String {
+        case Continuing = "Continuing"
+        case Ended = "Ended"
+    }
+    
+    public enum SickbeardShowQuality: String {
+        case Custom = "Custom"
+        case Any = "Any"
+        case HD = "HD"
+        case HD1080p = "HD1080p"
+        case HD720p = "HD720p"
+        case SD = "SD"
     }
     
     // Realm

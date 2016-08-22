@@ -5,6 +5,11 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+        </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
         </mutableArray>
@@ -80,25 +85,63 @@
                                                 <constraint firstAttribute="width" secondItem="Efn-ef-pOT" secondAttribute="height" multiplier="68:100" id="p7z-cX-tuL"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7b-1U-n3B" userLabel="Name label">
-                                            <rect key="frame" x="108.5" y="15" width="481.5" height="23.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7b-1U-n3B" userLabel="Name label">
+                                            <rect key="frame" x="108" y="13" width="481.5" height="23.5"/>
                                             <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="17"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airs on" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Hc-hf-AG3" userLabel="Airs label">
+                                            <rect key="frame" x="108.5" y="36.5" width="481.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ir9-zN-ZUT" userLabel="Status label">
+                                            <rect key="frame" x="109" y="72" width="481.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quality" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jef-Za-RCR" userLabel="Quality label">
+                                            <rect key="frame" x="109" y="97.5" width="80" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="GLb-e7-16G"/>
+                                                <constraint firstAttribute="width" constant="80" id="aKa-dt-Dq5"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
+                                        <constraint firstItem="Jef-Za-RCR" firstAttribute="top" secondItem="ir9-zN-ZUT" secondAttribute="bottom" constant="5" id="0CO-Qu-owh"/>
                                         <constraint firstAttribute="trailing" secondItem="i7b-1U-n3B" secondAttribute="trailing" constant="10" id="1hp-NU-y1H"/>
+                                        <constraint firstItem="Jef-Za-RCR" firstAttribute="leading" secondItem="ir9-zN-ZUT" secondAttribute="leading" id="4Rf-mf-l2e"/>
+                                        <constraint firstItem="6Hc-hf-AG3" firstAttribute="top" secondItem="i7b-1U-n3B" secondAttribute="bottom" id="7gH-2n-TQX"/>
                                         <constraint firstItem="Efn-ef-pOT" firstAttribute="top" secondItem="daB-vX-BzT" secondAttribute="top" constant="10" id="F61-dd-zsI"/>
                                         <constraint firstItem="Efn-ef-pOT" firstAttribute="leading" secondItem="daB-vX-BzT" secondAttribute="leading" constant="10" id="G1t-pc-DQR"/>
+                                        <constraint firstItem="6Hc-hf-AG3" firstAttribute="leading" secondItem="i7b-1U-n3B" secondAttribute="leading" id="GMD-DX-9Za"/>
                                         <constraint firstAttribute="bottom" secondItem="Efn-ef-pOT" secondAttribute="bottom" constant="10" id="HEa-yN-uSq"/>
-                                        <constraint firstItem="Efn-ef-pOT" firstAttribute="top" secondItem="i7b-1U-n3B" secondAttribute="top" constant="-5" id="cl0-vE-4kr"/>
+                                        <constraint firstItem="ir9-zN-ZUT" firstAttribute="top" secondItem="6Hc-hf-AG3" secondAttribute="bottom" constant="15" id="XRU-qG-Kde"/>
+                                        <constraint firstItem="Efn-ef-pOT" firstAttribute="top" secondItem="i7b-1U-n3B" secondAttribute="top" constant="-3" id="cl0-vE-4kr"/>
+                                        <constraint firstItem="ir9-zN-ZUT" firstAttribute="trailing" secondItem="6Hc-hf-AG3" secondAttribute="trailing" id="njD-nI-RAv"/>
+                                        <constraint firstItem="6Hc-hf-AG3" firstAttribute="trailing" secondItem="i7b-1U-n3B" secondAttribute="trailing" id="oPH-n3-cG8"/>
                                         <constraint firstItem="i7b-1U-n3B" firstAttribute="leading" secondItem="Efn-ef-pOT" secondAttribute="trailing" constant="10" id="xny-Hk-JMO"/>
+                                        <constraint firstItem="ir9-zN-ZUT" firstAttribute="leading" secondItem="6Hc-hf-AG3" secondAttribute="leading" id="zml-KN-AwS"/>
                                     </constraints>
                                     <connections>
+                                        <outlet property="airsLabel" destination="6Hc-hf-AG3" id="WZT-y0-Z5v"/>
                                         <outlet property="nameLabel" destination="i7b-1U-n3B" id="TCc-MO-PGm"/>
                                         <outlet property="posterView" destination="Efn-ef-pOT" id="4F6-MU-aMu"/>
+                                        <outlet property="qualityLabel" destination="Jef-Za-RCR" id="plj-Pu-0tg"/>
+                                        <outlet property="statusLabel" destination="ir9-zN-ZUT" id="Vr1-p0-MQc"/>
                                     </connections>
                                 </view>
                                 <connections>

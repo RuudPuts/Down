@@ -11,7 +11,7 @@ import RealmSwift
 
 public class DatabaseManager {
     
-    let _adapter: DatabaseAdapter
+    let adapter = DatabaseV1Adapter()
     
     class var databasePath: String {
         let storageDirectory = "\(UIApplication.documentsDirectory)"
@@ -29,11 +29,7 @@ public class DatabaseManager {
     }
     
     public init() {
-        _adapter = DatabaseV1Adapter()
-    }
-    
-    var adapter: DatabaseV1Adapter {
-        return _adapter as! DatabaseV1Adapter
+        NSLog("DatabasePath: \(DatabaseManager.databasePath)")
     }
     
     // MARK: Sickbeard

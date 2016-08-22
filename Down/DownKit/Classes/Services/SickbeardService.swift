@@ -209,12 +209,18 @@ public class SickbeardService: Service {
     
     private func parseShowData(json: JSON, forTvdbId tvdbId: Int) -> SickbeardShow {
         let name = json["show_name"].string!
-        let paused = json["paused"].int!
+        let status = json["status"].string!
+        let quality = json["quality"].string!
+        let airs = json["airs"].string!
+        let network = json["network"].string!
         
         let show = showWithId(tvdbId) ?? SickbeardShow()
         show.tvdbId = tvdbId
         show.name = name
-        show.status = paused == 1 ? .Stopped : .Active
+        show.status = SickbeardShow.SickbeardShowStatus(rawValue: status) ?? show.status
+        show.quality = SickbeardShow.SickbeardShowQuality(rawValue: quality) ?? show.quality
+        show.airs = airs
+        show.network = network
         
         return show
     }
