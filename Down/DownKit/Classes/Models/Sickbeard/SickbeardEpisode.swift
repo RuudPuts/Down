@@ -52,8 +52,12 @@ public class SickbeardEpisode: Object {
 
 extension Results where T: SickbeardEpisode {
     
-    public func sortedEpisodes() -> RealmSwift.Results<T> {
+    public func sortOldestFirst() -> RealmSwift.Results<T> {
         return self.sorted([SortDescriptor(property:"airDate", ascending: true), SortDescriptor(property:"id", ascending: true)])
+    }
+    
+    public func sortNewestFirst() -> RealmSwift.Results<T> {
+        return self.sorted([SortDescriptor(property:"airDate", ascending: false), SortDescriptor(property:"id", ascending: true)])
     }
     
 }
