@@ -98,7 +98,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
             rows = max(todayData.count, 1)
         }
         else if section == 2 {
-            rows = soonData.count
+            rows = max(soonData.count, 1)
         }
         
         return rows
@@ -144,7 +144,12 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
             }
             else if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
                 let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
-                emptyCell.label?.text = "No shows airing today."
+                if  indexPath.section == 1 {
+                    emptyCell.label?.text = "No shows airing today."
+                }
+                else {
+                    emptyCell.label?.text = "No shows airing soon."
+                }
                 emptyCell.selectionStyle = .None
                 
                 cell = emptyCell
