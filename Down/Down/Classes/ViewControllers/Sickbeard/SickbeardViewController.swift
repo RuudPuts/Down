@@ -145,6 +145,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
             else if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
                 let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
                 emptyCell.label?.text = "No shows airing today."
+                emptyCell.selectionStyle = .None
                 
                 cell = emptyCell
             }
@@ -234,7 +235,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         else if indexPath.isEqual(NSIndexPath(forRow: 1, inSection: 0)) {
             performSegueWithIdentifier("SickbeardRecentlyAired", sender: nil)
         }
-        else if indexPath.section > 0 {
+        else if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             performSegueWithIdentifier("SickbeardEpisode", sender: nil)
         }
     }
