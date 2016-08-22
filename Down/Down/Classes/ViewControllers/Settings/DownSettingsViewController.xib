@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="OpenSans-Light.ttf">
             <string>OpenSans-Light</string>
-        </mutableArray>
-        <mutableArray key="OpenSans-Regular.ttf">
-            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -45,16 +41,15 @@
                     </constraints>
                 </view>
                 <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4r7-Dk-UQr">
-                    <rect key="frame" x="0.0" y="134" width="600" height="337"/>
+                    <rect key="frame" x="0.0" y="134" width="600" height="339"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="Veh-wT-d2F"/>
                         <outlet property="delegate" destination="-1" id="uX5-UZ-C7U"/>
                     </connections>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qjX-EU-DCi">
-                    <rect key="frame" x="281" y="521" width="37" height="36"/>
-                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qjX-EU-DCi">
+                    <rect key="frame" x="279.5" y="523" width="40" height="34"/>
                     <state key="normal" title="Save">
                         <color key="titleColor" red="0.1529411765" green="0.68235294120000001" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
@@ -63,7 +58,7 @@
                     </connections>
                 </button>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jwu-Ll-DH9" userLabel="Activity View">
-                    <rect key="frame" x="258.5" y="521" width="83" height="36"/>
+                    <rect key="frame" x="258" y="522" width="83" height="36"/>
                     <subviews>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="hMc-xP-SDS">
                             <rect key="frame" x="8" y="8" width="20" height="20"/>

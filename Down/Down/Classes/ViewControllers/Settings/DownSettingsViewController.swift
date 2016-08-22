@@ -480,8 +480,9 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             sickbeardService.removeListener(self)
         }
         
-        self.progressView.hidden = true
         self.actionButton.setTitle("All done, let's go!", forState: self.actionButton.state)
+        
+        self.progressView.hidden = true
         self.actionButton.hidden = false
     }
     
