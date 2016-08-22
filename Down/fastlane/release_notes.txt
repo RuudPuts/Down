@@ -1,13 +1,7 @@
-New
- - Showing plot for Sickbeard episode in SabNZBd detail when available
-
 Fixes
- - Shows overview now scrolls silky smooth
- - Show's episode list would glitch when overscrolling
- - Show's header banner would double size when switching tabs
- - SabNZBd detail view would show Sickbeard banner for non-Sickbeard downloads
- - SabNZBd detail view would not show NZB name for non-Sickbeard downloads
+ - Fixed crash when 'empty' cell in SickBeard was selected
+ - Rewrote logic for determining next airing episode
+ - 'Coming soon' wouldn't show data from near future
 
-Technicall stuff
- - Moved ViewController UI to storyboards
- - Complete rewrite of TabBar controller
+New
+ - Added 'emtpy' cell when no shows are airing in near future
