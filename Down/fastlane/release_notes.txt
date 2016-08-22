@@ -1,3 +1,6 @@
+IMPORTANT NOTICE:
+For this build it's required to uninstall any previously installed Down versions
+
 Fixes
  - Fixed crash when 'empty' cell in SickBeard was selected
  - Rewrote logic for determining next airing episode
