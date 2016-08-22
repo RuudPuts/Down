@@ -358,13 +358,13 @@ extension SabNZBdViewController: DownTabBarItem {
     
     var selectedTabBackground: UIColor {
         get {
-            return .downSabNZBdColor()
+            return .downSabNZBdDarkColor()
         }
     }
     
     var deselectedTabBackground: UIColor {
         get {
-            return .downSabNZBdDarkColor()
+            return .downSabNZBdColor()
         }
     }
 }
