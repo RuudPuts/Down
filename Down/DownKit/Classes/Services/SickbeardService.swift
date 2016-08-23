@@ -127,7 +127,7 @@ public class SickbeardService: Service {
     // MARK: - Show cache
     
     public func refreshShowCache() {
-        if self.shows.count == 0 {
+        if shows.count == 0 {
             NSLog("SickbeardService - Refreshing full cache")
             // Find shows to refresh, episodes aired since last update
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
@@ -214,7 +214,7 @@ public class SickbeardService: Service {
         let airs = json["airs"].string!
         let network = json["network"].string!
         
-        let show = showWithId(tvdbId) ?? SickbeardShow()
+        let show = SickbeardShow()
         show.tvdbId = tvdbId
         show.name = name
         show.status = SickbeardShow.SickbeardShowStatus(rawValue: status) ?? show.status
