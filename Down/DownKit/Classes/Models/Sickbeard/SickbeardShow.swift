@@ -19,7 +19,7 @@ public class SickbeardShow: Object {
             return SickbeardShowStatus(rawValue: statusString) ?? .Ended
         }
         set {
-            statusString = status.rawValue
+            statusString = newValue.rawValue
         }
     }
     private dynamic var statusString = ""
@@ -29,7 +29,7 @@ public class SickbeardShow: Object {
             return SickbeardShowQuality(rawValue: qualityString) ?? .Any
         }
         set {
-            qualityString = quality.rawValue
+            qualityString = newValue.rawValue
         }
     }
     private dynamic var qualityString = ""
