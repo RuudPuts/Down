@@ -297,7 +297,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
+        if indexPath.section == 1 && (indexPath.row == kMaxHistoryDisplayCount || indexPath.row == sabNZBdService.history.count) {
             performSegueWithIdentifier("SabNZBdHistory", sender: nil)
         }
         else if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
