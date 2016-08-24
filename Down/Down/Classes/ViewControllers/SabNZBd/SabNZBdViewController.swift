@@ -183,10 +183,10 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         var isEmpty = true
         
         if section == 0 {
-            isEmpty = serviceManager.sabNZBdService.queue.count == 0
+            isEmpty = sabNZBdService.queue.count == 0
         }
         else {
-            isEmpty = serviceManager.sabNZBdService.history.count == 0
+            isEmpty = sabNZBdService.history.count == 0
         }
         
         return isEmpty
@@ -196,13 +196,13 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         var rowHeight: Float = 60
         if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if indexPath.section == 0 {
-                let queueItem = serviceManager.sabNZBdService.queue[indexPath.row];
+                let queueItem = sabNZBdService.queue[indexPath.row];
                 if queueItem.hasProgress {
                     rowHeight = 66.0
                 }
             }
-            else if indexPath.row < serviceManager.sabNZBdService.history.count - 1 {
-                let historyItem = serviceManager.sabNZBdService.history[indexPath.row];
+            else if indexPath.row < sabNZBdService.history.count - 1 {
+                let historyItem = sabNZBdService.history[indexPath.row];
                 if historyItem.hasProgress {
                     rowHeight = 66.0
                 }
@@ -246,7 +246,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         
-        let sabNZBdService = self.serviceManager.sabNZBdService
+        let sabNZBdService = self.sabNZBdService
         if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if sabNZBdService.lastRefresh != nil {
                 let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
@@ -274,7 +274,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
                 cell = loadingCell
             }
         }
-        else if indexPath.section == 1 && indexPath.row == kMaxHistoryDisplayCount {
+        else if indexPath.section == 1 && (indexPath.row == kMaxHistoryDisplayCount || indexPath.row == sabNZBdService.history.count) {
             let historyCell = tableView.dequeueReusableCellWithIdentifier("DownTextCell", forIndexPath: indexPath) as! DownTextCell
             historyCell.setCellType(.SabNZBd)
             historyCell.label?.text = "Full history"

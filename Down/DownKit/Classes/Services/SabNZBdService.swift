@@ -19,8 +19,8 @@ public class SabNZBdService: Service {
     var queueRefreshTimer: NSTimer?
     var historyRefreshTimer: NSTimer?
     
-    public var queue = Array<SABQueueItem>()
-    public var history = Array<SABHistoryItem>()
+    public var queue = [SABQueueItem]()
+    public var history = [SABHistoryItem]()
     public var historySize: Int?
     
     public var currentSpeed: Float?
