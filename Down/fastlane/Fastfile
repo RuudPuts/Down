@@ -1,19 +1,26 @@
-fastlane_version "1.99.0"
 default_platform :ios
+
+output_folder = (ENV["WORKSPACE"] || Dir.pwd + '/..') + "/Artifacts"
+build_number = ENV["BUILD_NUMBER"]
 
 platform :ios do
 
   desc "Create new build"
   lane :build do
-    gym(scheme: 'Down', configuration: 'Release', use_legacy_build_api: true)
+    gym(scheme: 'Down', configuration: 'Release', use_legacy_build_api: true, output_directory: output_folder)
   end
 
   desc "Submit a new Beta Build to Crashlytics"
   lane :beta do
-	increment_build_number
+    increment_build_number
     build
+    upload_beta
+  end
+
+  desc "Uploads a new build to Crashlytics"
+  lane :upload_beta do
     crashlytics(notes_path: 'fastlane/release_notes.txt', api_token: 'fd7501efa3a9abb16103f351213d7b72ff764052', 
-    	build_secret: 'f2769c1a542364cb5281af857c1220006aa4a2d2d658d426988f0d0ba596dfa8')
+        build_secret: 'f2769c1a542364cb5281af857c1220006aa4a2d2d658d426988f0d0ba596dfa8')
     sh "open https://fabric.io/_/beta"
   end
 

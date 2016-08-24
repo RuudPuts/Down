@@ -6,11 +6,21 @@ sudo gem install fastlane
 ```
 # Available Actions
 ## iOS
+### ios build
+```
+fastlane ios build
+```
+Create new build
 ### ios beta
 ```
 fastlane ios beta
 ```
 Submit a new Beta Build to Crashlytics
+### ios upload_beta
+```
+fastlane ios upload_beta
+```
+Uploads a new build to Crashlytics
 
 ----
 
