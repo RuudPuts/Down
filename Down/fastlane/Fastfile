@@ -3,10 +3,15 @@ default_platform :ios
 
 platform :ios do
 
+  desc "Create new build"
+  lane :build do
+    gym(scheme: 'Down', configuration: 'Release', use_legacy_build_api: true)
+  end
+
   desc "Submit a new Beta Build to Crashlytics"
   lane :beta do
 	increment_build_number
-    gym(scheme: 'Down', configuration: 'Release', use_legacy_build_api: true)
+    build
     crashlytics(notes_path: 'fastlane/release_notes.txt', api_token: 'fd7501efa3a9abb16103f351213d7b72ff764052', 
     	build_secret: 'f2769c1a542364cb5281af857c1220006aa4a2d2d658d426988f0d0ba596dfa8')
     sh "open https://fabric.io/_/beta"
