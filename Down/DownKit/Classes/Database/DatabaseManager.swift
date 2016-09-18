@@ -38,8 +38,8 @@ public class DatabaseManager {
         self.adapter.storeSickbeardShows(shows)
     }
     
-    public func setStatus(status: SickbeardShow.SickbeardShowStatus, forShow show: SickbeardShow) {
-        adapter.setStatus(status, forShow:show)
+    public func deleteSickbeardShow(show: SickbeardShow) {
+        self.adapter.deleteSickbeardShow(show)
     }
     
     public func fetchAllSickbeardShows() -> Results<SickbeardShow> {

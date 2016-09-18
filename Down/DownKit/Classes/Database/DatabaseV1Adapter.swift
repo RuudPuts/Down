@@ -20,11 +20,29 @@ class DatabaseV1Adapter: DatabaseAdapter {
     // MARK: Shows
     
     func storeSickbeardShows(shows: [SickbeardShow]) {
+        // Until Realm supports cascading deletion remove the show manually
+        shows.forEach {
+            deleteSickbeardShow($0)
+        }
+        
         let realm = defaultRealm()
         try! realm.write({
-            for show in shows {
-                realm.add(show, update: true)
+            shows.forEach {
+                realm.add($0, update: false)
             }
+        })
+    }
+    
+    func deleteSickbeardShow(show: SickbeardShow) {
+        guard let showToDelete = sickbeardShowWithIdentifier(show.tvdbId) else {
+            return
+        }
+        
+        let realm = defaultRealm()
+        try! realm.write({
+            realm.delete(showToDelete.allEpisodes)
+            realm.delete(showToDelete.seasons)
+            realm.delete(showToDelete)
         })
     }
     
@@ -36,11 +54,8 @@ class DatabaseV1Adapter: DatabaseAdapter {
         return sortedShows
     }
     
-    func setStatus(status: SickbeardShow.SickbeardShowStatus, forShow show: SickbeardShow) {
-        let realm = defaultRealm()
-        try! realm.write({
-            show.status = status
-        })
+    func sickbeardShowWithIdentifier(tvdbId: Int) -> SickbeardShow? {
+        return defaultRealm().objects(SickbeardShow).filter("tvdbId == \(tvdbId)").first
     }
     
     // TODO: Also make this return a Results set
@@ -116,7 +131,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
         let realm = defaultRealm()
         
         let startDate = date.dateWithoutTime()
-        let episodes = realm.objects(SickbeardEpisode).filter("airDate >= %@", startDate)
+        let episodes = realm.objects(SickbeardEpisode).filter("airDate > %@", startDate)
         
         var lastAirDate = NSDate()
         if episodes.count > maxEpisodes {
@@ -127,7 +142,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
         }
         
         return realm.objects(SickbeardEpisode)
-            .filter("airDate >= %@ AND airDate <= %@", startDate, lastAirDate)
+            .filter("airDate > %@ AND airDate <= %@", startDate, lastAirDate)
             .sortOldestFirst()
     }
     

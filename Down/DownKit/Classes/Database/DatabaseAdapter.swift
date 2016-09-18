@@ -14,7 +14,7 @@ protocol DatabaseAdapter {
     var version: Int { get }
     
     func storeSickbeardShows(shows: [SickbeardShow])
-    func setStatus(status: SickbeardShow.SickbeardShowStatus, forShow show: SickbeardShow)
+    func deleteSickbeardShow(show: SickbeardShow)
     
     func allSickbeardShows() -> Results<SickbeardShow>
     func showsWithEpisodesAiredSince(airDate: NSDate) -> [SickbeardShow]
