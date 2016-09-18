@@ -10,18 +10,24 @@ import UIKit
 import DownKit
 import Preheat
 import Nuke
+import RealmSwift
 
 class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var preheatController: PreheatController<UICollectionView>!
+    var shows: Results<SickbeardShow>?
     
     override func viewDidLoad() {
+        shows = sickbeardService.shows
+        
         super.viewDidLoad()
         title = "Shows"
         
+        addSearchBar()
+        
         let cellNib = UINib(nibName: "SickbeardShowCell", bundle:nil)
-        collectionView!.registerNib(cellNib, forCellWithReuseIdentifier: "SickbeardShowCell")
-        collectionView!.backgroundColor = .downLightGreyColor()
+        collectionView?.registerNib(cellNib, forCellWithReuseIdentifier: "SickbeardShowCell")
+        collectionView?.backgroundColor = .downLightGrayColor()
 
         preheatController = PreheatController(view: collectionView!)
         preheatController.handler = { [weak self] in
@@ -53,7 +59,7 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let indexPath = collectionView!.indexPathsForSelectedItems()?.first where segue.identifier == "SickbeardShow" {
-            let show = Array(sickbeardService.shows)[indexPath.item]
+            let show = shows![indexPath.item]
             
             let detailViewController = segue.destinationViewController as! SickbeardShowViewController
             detailViewController.show = show
@@ -67,15 +73,15 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sickbeardService.shows.count
+        return shows?.count ?? 0
     }
     
     func collectionView(collectionView: UICollectionView, isSectionEmtpy section: Int) -> Bool {
-        return sickbeardService.shows.count == 0
+        return shows?.count == 0
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let show = sickbeardService.shows[indexPath.row]
+        let show = shows![indexPath.row]
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
         cell.setCellType(.Sickbeard)
@@ -109,8 +115,43 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return searchBar?.bounds.size ?? CGSizeZero
+    }
+    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("SickbeardShow", sender: nil)
+    }
+    
+}
+
+extension SickbeardShowsViewController { // UISearchBarDelegate
+    
+    override func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.length == 0 {
+            shows = sickbeardService.shows
+        }
+        else {
+            shows = sickbeardService.shows.filter("_simpleName contains[c] %@", searchText)
+        }
+        
+        super.searchBar(searchBar, textDidChange: searchText)
+    }
+    
+    override func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        shows = sickbeardService.shows
+        
+        super.searchBarCancelButtonClicked(searchBar)
+    }
+    
+}
+
+extension UISearchBar {
+    
+    var textfield: UITextField? {
+        get {
+            return valueForKey("searchField") as? UITextField
+        }
     }
     
 }

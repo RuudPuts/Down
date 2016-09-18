@@ -42,9 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupAppearance() {
         UINavigationBar.appearance().barStyle = .Default
         UINavigationBar.appearance().translucent = false
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.downLightGreyColor()]
-        UINavigationBar.appearance().tintColor = UIColor.downDarkGreyColor()
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGreyColor()], forState: .Normal)
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.downLightGrayColor()]
+        UINavigationBar.appearance().tintColor = UIColor.downDarkGrayColor()
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGrayColor()], forState: .Normal)
+        
+        let cancelButtonAttributes = [NSForegroundColorAttributeName: UIColor.lightGrayColor()]
+        UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes, forState: .Normal)
     }
     
     func checkClearCache() {

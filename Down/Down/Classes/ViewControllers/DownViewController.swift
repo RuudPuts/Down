@@ -13,6 +13,14 @@ class DownViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var collectionView: UICollectionView?
+    var scrollView: UIScrollView? {
+        get {
+            return tableView ?? collectionView
+        }
+    }
+    
+    var searchBar: UISearchBar?
+    var scrollViewAdjusted = false
     
     var serviceManager: ServiceManager {
         get {
@@ -35,6 +43,59 @@ class DownViewController: UIViewController {
         super.viewDidLoad()
         
         self.edgesForExtendedLayout = .None
-        self.view.backgroundColor = .downDarkGreyColor()
+        self.view.backgroundColor = .downDarkGrayColor()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if !scrollViewAdjusted {
+            adjustScrollView()
+            scrollViewAdjusted = true
+        }
+    }
+    
+    func adjustScrollView() {
+        guard let scrollView = scrollView, let searchBar = searchBar else {
+            return
+        }
+        
+        scrollView.contentOffset = CGPointMake(0, CGRectGetHeight(searchBar.bounds))
+    }
+}
+
+extension DownViewController: UISearchBarDelegate {
+    
+    func addSearchBar() {
+        let searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.placeholder = "Search..."
+        searchBar.sizeToFit()
+        searchBar.showsCancelButton = true
+        searchBar.searchBarStyle = .Minimal
+        searchBar.textfield?.textColor = .lightGrayColor()
+        
+        self.searchBar = searchBar
+        
+        collectionView?.addSubview(searchBar)
+        tableView?.addSubview(searchBar)
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        collectionView?.reloadData()
+        tableView?.reloadData()
+        searchBar.becomeFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.text = ""
+        
+        collectionView?.reloadData()
+        tableView?.reloadData()
+        adjustScrollView()
     }
 }
