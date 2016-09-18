@@ -1,2 +1,7 @@
 Fixes
- - App would crash when sab history was less than 20 items long
+ - Episodes would show up multiple times in 'Airing Today', 'Coming soon' and 'Recently aired'
+   Note: Please reinstall, or use the new cache clear option in order to fix the issue in full
+
+New
+ - Added a toggle in iOS Settings to clear the cache on startup of the app
+   Note: Please kill the app after changing a setting to take effect
