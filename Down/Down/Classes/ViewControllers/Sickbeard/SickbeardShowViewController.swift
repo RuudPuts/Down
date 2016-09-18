@@ -15,6 +15,8 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     var show: SickbeardShow?
     var seasons: [SickbeardSeason]?
     
+    var longPressRecognizer: UILongPressGestureRecognizer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = show?.name
@@ -24,6 +26,9 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         
         let cellNib = UINib(nibName: "DownTextCell", bundle:nil)
         tableView!.registerNib(cellNib, forCellReuseIdentifier: "DownTextCell")
+        
+        longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler))
+        tableView?.addGestureRecognizer(longPressRecognizer!)
         
         if let headerView = tableView!.tableHeaderView as? SickbeardShowHeaderView {
             headerView.show = show
@@ -98,6 +103,43 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         return String(seasons![section].id)
     }
     
+    // MARK: Season/Episode state
+    
+    func longPressHandler() {
+        guard let touch = longPressRecognizer?.locationInView(view),
+            let indexPath = tableView?.indexPathForRowAtPoint(touch) else {
+            return
+        }
+        
+        let season = seasons![indexPath.section]
+        let episode = season.episodes.reverse()[indexPath.row]
+        showStateActionSheet(episode: episode)
+    }
+    
+    func showStateActionSheet(episode episode: SickbeardEpisode) {
+        let actionSheet = showStateActionSheet {
+            print("Selected \($0)")
+        }
+        
+        actionSheet.message = episode.name
+        presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
+    func showStateActionSheet(completion: (selectedStatus: SickbeardEpisode.SickbeardEpisodeStatus) -> (Void)) -> UIAlertController {
+        let actionSheet = UIAlertController(title: "Change status", message: nil, preferredStyle: .ActionSheet)
+        
+        let states = [SickbeardEpisode.SickbeardEpisodeStatus.Wanted, SickbeardEpisode.SickbeardEpisodeStatus.Skipped,
+                      SickbeardEpisode.SickbeardEpisodeStatus.Archived, SickbeardEpisode.SickbeardEpisodeStatus.Downloaded]
+        for state in states {
+            let action = UIAlertAction(title: state.rawValue, style: .Default, handler: { (action) in
+                completion(selectedStatus: state)
+            })
+            actionSheet.addAction(action)
+        }
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .Destructive, handler: nil))
+        return actionSheet
+    }
 }
 
 extension SickbeardEpisode {
@@ -109,7 +151,7 @@ extension SickbeardEpisode {
             }
             
             switch showStatus {
-            case .Unaired: return UIColor(red:0.87, green:0.78, blue:0.25, alpha:1.00)
+            case .Unaired, .Archived: return UIColor(red:0.87, green:0.78, blue:0.25, alpha:1.00)
             case .Skipped: return UIColor(red:0.38, green:0.53, blue:0.82, alpha:1.00)
             case .Wanted: return UIColor(red:0.73, green:0.33, blue:0.20, alpha:1.00)
             case .Snatched: return UIColor(red:0.55, green:0.38, blue:0.69, alpha:1.00)
