@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -44,16 +43,26 @@
                                     <constraint firstAttribute="width" constant="8" id="usw-w4-xI5"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddr-DY-5XZ" userLabel="ColorView">
+                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="63"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" id="JJ7-Uk-DOa"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="w6j-cJ-Ebm" secondAttribute="trailing" constant="10" id="2gT-hg-Zya"/>
                             <constraint firstItem="RhI-13-9t7" firstAttribute="centerY" secondItem="w6j-cJ-Ebm" secondAttribute="centerY" id="53h-ov-ICS"/>
-                            <constraint firstItem="w6j-cJ-Ebm" firstAttribute="leading" secondItem="T2V-Uh-6YJ" secondAttribute="leading" constant="10" id="5I4-zF-Pu0"/>
+                            <constraint firstItem="w6j-cJ-Ebm" firstAttribute="leading" secondItem="ddr-DY-5XZ" secondAttribute="trailing" constant="10" id="IQz-mG-GXT"/>
                             <constraint firstItem="w6j-cJ-Ebm" firstAttribute="top" secondItem="T2V-Uh-6YJ" secondAttribute="top" constant="10" id="LhD-kB-wQS"/>
                             <constraint firstAttribute="trailing" secondItem="RhI-13-9t7" secondAttribute="trailing" constant="8" id="MHR-JJ-3wL"/>
+                            <constraint firstItem="ddr-DY-5XZ" firstAttribute="leading" secondItem="T2V-Uh-6YJ" secondAttribute="leading" id="N3x-Gz-pJy"/>
                             <constraint firstItem="w6j-cJ-Ebm" firstAttribute="centerY" secondItem="T2V-Uh-6YJ" secondAttribute="centerY" constant="-2" id="b1h-Yz-duS"/>
                             <constraint firstItem="RhI-13-9t7" firstAttribute="leading" secondItem="w6j-cJ-Ebm" secondAttribute="trailing" constant="8" id="dfm-Zg-yD1"/>
+                            <constraint firstItem="ddr-DY-5XZ" firstAttribute="top" secondItem="T2V-Uh-6YJ" secondAttribute="top" id="hR5-Cl-aCu"/>
+                            <constraint firstAttribute="bottom" secondItem="ddr-DY-5XZ" secondAttribute="bottom" id="pUY-g5-FHD"/>
                             <constraint firstAttribute="bottom" secondItem="w6j-cJ-Ebm" secondAttribute="bottom" constant="13.5" id="pjH-sz-V3V"/>
                         </constraints>
                         <variation key="default">
@@ -74,12 +83,13 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="cheveronView" destination="RhI-13-9t7" id="dls-Px-gCC"/>
+                <outlet property="colorView" destination="ddr-DY-5XZ" id="bga-ja-9c4"/>
                 <outlet property="containerView" destination="T2V-Uh-6YJ" id="5fx-XK-hLF"/>
                 <outlet property="label" destination="w6j-cJ-Ebm" id="MJZ-7m-MeI"/>
                 <outlet property="labelToCellConstraint" destination="2gT-hg-Zya" id="kwB-NV-sYw"/>
                 <outlet property="labelToCheveronConstraint" destination="dfm-Zg-yD1" id="1be-fp-M8k"/>
             </connections>
-            <point key="canvasLocation" x="256" y="208"/>
+            <point key="canvasLocation" x="192" y="241"/>
         </tableViewCell>
     </objects>
     <resources>

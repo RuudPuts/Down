@@ -21,6 +21,14 @@ public class SickbeardEpisode: Object {
     public dynamic weak var show: SickbeardShow?
     public dynamic weak var season: SickbeardSeason?
     
+    public enum SickbeardEpisodeStatus: String {
+        case Unaired = "Unaired"
+        case Skipped = "Skipped"
+        case Wanted = "Wanted"
+        case Snatched = "Snatched"
+        case Downloaded = "Downloaded"
+    }
+    
     // MARK: Realm
     
     public override static func primaryKey() -> String {

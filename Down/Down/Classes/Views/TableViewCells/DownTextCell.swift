@@ -15,6 +15,8 @@ class DownTextCell: DownTableViewCell {
     @IBOutlet weak var labelToCellConstraint: NSLayoutConstraint!
     @IBOutlet weak var labelToCheveronConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var colorView: UIView!
+    
     override func setCellType(type: DownApplication) {
         super.setCellType(type)
         switch type {
@@ -45,6 +47,15 @@ class DownTextCell: DownTableViewCell {
             labelToCheveronConstraint.active = !newValue
             labelToCellConstraint.active = newValue
             containerView?.layoutIfNeeded()
+        }
+    }
+    
+    var colorViewHidden: Bool {
+        get {
+            return colorView.widthConstraint?.constant == 0
+        }
+        set {
+            colorView.widthConstraint?.constant = 4
         }
     }
     

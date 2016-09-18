@@ -8,14 +8,17 @@
 
 import UIKit
 import DownKit
+import RealmSwift
 
 class SickbeardShowViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate {
     
     var show: SickbeardShow?
+    var seasons: [SickbeardSeason]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = show?.name
+        seasons = show?.seasons.reverse()
         
         tableView!.rowHeight = UITableViewAutomaticDimension
         
@@ -25,12 +28,6 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         if let headerView = tableView!.tableHeaderView as? SickbeardShowHeaderView {
             headerView.show = show
         }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.sickbeardService.refreshEpisodesForShow(show!)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -46,24 +43,27 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     // MARK: - TableView DataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return show?.seasons.count ?? 0
+        return seasons?.count ?? 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return show!.seasons.reverse()[section].episodes.count
+        return seasons![section].episodes.count
     }
     
     func tableView(tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
-        return show!.seasons.reverse()[section].episodes.count == 0
+        return seasons![section].episodes.count == 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let season = show!.seasons.reverse()[indexPath.section]
+        let season = seasons![indexPath.section]
         let episode = season.episodes.reverse()[indexPath.row]
         
         let cell = tableView.dequeueReusableCellWithIdentifier("DownTextCell", forIndexPath: indexPath) as! DownTextCell
         cell.setCellType(.Sickbeard)
         cell.label?.text = "\(episode.id). \(episode.name)"
+        
+        cell.colorViewHidden = false
+        cell.colorView.backgroundColor = episode.statusColor
         
         return cell
     }
@@ -85,14 +85,37 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = (NSBundle.mainBundle().loadNibNamed("SickbeardHeaderView", owner: self, options: nil) as Array).first as! SickbeardHeaderView
         headerView.textLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
+        headerView.detailLabel.text = self.tableView(tableView, detailForHeaderInSection: section)
         
         return headerView
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return show!.seasons.reverse()[section].title
+        return seasons![section].title
     }
     
-    // MARK: - TableView Delegate
+    func tableView(tableView: UITableView, detailForHeaderInSection section: Int) -> String? {
+        return String(seasons![section].id)
+    }
     
+}
+
+extension SickbeardEpisode {
+    
+    var statusColor: UIColor {
+        get {
+            guard let showStatus = SickbeardEpisodeStatus(rawValue: status) else {
+                return .clearColor()
+            }
+            
+            switch showStatus {
+            case .Unaired: return UIColor(red:0.87, green:0.78, blue:0.25, alpha:1.00)
+            case .Skipped: return UIColor(red:0.38, green:0.53, blue:0.82, alpha:1.00)
+            case .Wanted: return UIColor(red:0.73, green:0.33, blue:0.20, alpha:1.00)
+            case .Snatched: return UIColor(red:0.55, green:0.38, blue:0.69, alpha:1.00)
+            case .Downloaded: return UIColor(red:0.38, green:0.63, blue:0.36, alpha:1.00)
+            }
+
+        }
+    }
 }
