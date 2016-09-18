@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+protocol DownCache {
+    static func clearCache()
+}

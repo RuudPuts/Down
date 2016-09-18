@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
         
+        checkClearCache()
         serviceManager = ServiceManager()
 
         setupAppearance()
@@ -44,6 +45,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.downLightGreyColor()]
         UINavigationBar.appearance().tintColor = UIColor.downDarkGreyColor()
         UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGreyColor()], forState: .Normal)
+    }
+    
+    func checkClearCache() {
+        guard PreferenceManager.downClearCache else {
+            return
+        }
+        
+        ImageProvider.clearCache()
+        DatabaseManager.clearCache()
+        PreferenceManager.clearCache()
     }
     
     func setupTabBarController() {

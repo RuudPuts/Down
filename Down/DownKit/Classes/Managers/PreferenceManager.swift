@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class PreferenceManager {
+public class PreferenceManager: DownCache {
     
     struct PreferenceKeys {
         static let sabNZBdHost = "SabNZBdHost"
@@ -20,6 +20,8 @@ public class PreferenceManager {
         
         static let couchPotatoHost = "CouchPotatoHost"
         static let couchPotatoApiKey = "CouchPotatoApiKey"
+        
+        static let downClearCache = "DownClearCache"
     }
     
     public class var sabNZBdHost: String {
@@ -100,14 +102,44 @@ public class PreferenceManager {
         }
     }
     
-    //MARK: - Private functions
-    
-    private class func getPreference(preferenceKey: String) -> AnyObject? {
-        return NSUserDefaults.standardUserDefaults().objectForKey(preferenceKey)
+    public class var downClearCache: Bool {
+        get {
+            return getPreference(PreferenceKeys.downClearCache) as! Bool? ?? false
+        }
+        set {
+            setPreference(newValue, forKey:PreferenceKeys.downClearCache)
+        }
     }
     
-    private class func setPreference(object: AnyObject?, forKey key:String) {
+    // MARK: - DownCache
+    
+    public static func clearCache() {
+        deletePreference(PreferenceKeys.sabNZBdHost)
+        deletePreference(PreferenceKeys.sabNZBdApiKey)
+        
+        deletePreference(PreferenceKeys.sickbeardHost)
+        deletePreference(PreferenceKeys.sickbeardApiKey)
+        deletePreference(PreferenceKeys.sickbeardCacheRefreshKey)
+        
+        deletePreference(PreferenceKeys.couchPotatoHost)
+        deletePreference(PreferenceKeys.couchPotatoApiKey)
+        
+        deletePreference(PreferenceKeys.downClearCache)
+    }
+    
+    // MARK: - Private functions
+    
+    private class func getPreference(key: String) -> AnyObject? {
+        return NSUserDefaults.standardUserDefaults().objectForKey(key)
+    }
+    
+    private class func setPreference(object: AnyObject?, forKey key: String) {
         NSUserDefaults.standardUserDefaults().setObject(object, forKey: key)
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    private class func deletePreference(key: String) {
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     

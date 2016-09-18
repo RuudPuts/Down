@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ImageProvider {
+public class ImageProvider: DownCache {
     
     private static let diskQueue: dispatch_queue_t = dispatch_queue_create("com.ruudputs.down.ImageQueue", DISPATCH_QUEUE_SERIAL)
     
@@ -45,6 +45,19 @@ public class ImageProvider {
             image = UIImage(contentsOfFile: filepath)
         }
         return image
+    }
+    
+    public static func clearCache() {
+        do {
+            let sickbeardBannerPath = UIApplication.documentsDirectory + "/sickbeard/banners"
+            let sickbeardPosterPath = UIApplication.documentsDirectory + "/sickbeard/posters"
+            
+            try NSFileManager.defaultManager().removeItemAtPath(sickbeardBannerPath)
+            try NSFileManager.defaultManager().removeItemAtPath(sickbeardPosterPath)
+        }
+        catch let error as NSError {
+            print("Error while clearing ImageProvider: \(error)")
+        }
     }
     
 }

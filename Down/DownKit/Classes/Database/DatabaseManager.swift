@@ -9,9 +9,11 @@
 import Foundation
 import RealmSwift
 
-public class DatabaseManager {
+public class DatabaseManager: DownCache {
     
     let adapter = DatabaseV1Adapter()
+    
+    static let DatabaseFile = "down.realm"
     
     class var databasePath: String {
         let storageDirectory = "\(UIApplication.documentsDirectory)"
@@ -21,7 +23,7 @@ public class DatabaseManager {
         catch let error as NSError {
             print("Error while creating databasePath: \(error)")
         }
-        return storageDirectory + "/down.realm"
+        return storageDirectory + "/" + DatabaseFile
     }
     
     class var databaseExists: Bool {
@@ -30,6 +32,26 @@ public class DatabaseManager {
     
     public init() {
         NSLog("DatabasePath: \(DatabaseManager.databasePath)")
+    }
+    
+    public static func clearCache() {
+        let storageDirectory = UIApplication.documentsDirectory
+        
+        do {
+            let allFiles = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(storageDirectory)
+            
+            for file in allFiles {
+                if !file.hasPrefix(DatabaseFile) {
+                    continue
+                }
+                
+                let filePath = storageDirectory + "/" + file
+                try NSFileManager.defaultManager().removeItemAtPath(filePath)
+            }
+        }
+        catch let error as NSError {
+            print("Error while clearing DatabaseManager: \(error)")
+        }
     }
     
     // MARK: Sickbeard
