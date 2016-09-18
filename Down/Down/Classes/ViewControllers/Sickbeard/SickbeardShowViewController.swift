@@ -117,16 +117,13 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func showStateActionSheet(episode episode: SickbeardEpisode) {
-        let actionSheet = showStateActionSheet {
+        showStateActionSheet(episode.name) {
             print("Selected \($0)")
         }
-        
-        actionSheet.message = episode.name
-        presentViewController(actionSheet, animated: true, completion: nil)
     }
     
-    func showStateActionSheet(completion: (selectedStatus: SickbeardEpisode.SickbeardEpisodeStatus) -> (Void)) -> UIAlertController {
-        let actionSheet = UIAlertController(title: "Change status", message: nil, preferredStyle: .ActionSheet)
+    func showStateActionSheet(message: String, completion: (selectedStatus: SickbeardEpisode.SickbeardEpisodeStatus) -> (Void)) {
+        let actionSheet = UIAlertController(title: "Change status", message: message, preferredStyle: .ActionSheet)
         
         let states = [SickbeardEpisode.SickbeardEpisodeStatus.Wanted, SickbeardEpisode.SickbeardEpisodeStatus.Skipped,
                       SickbeardEpisode.SickbeardEpisodeStatus.Archived, SickbeardEpisode.SickbeardEpisodeStatus.Downloaded]
@@ -138,7 +135,6 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         }
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .Destructive, handler: nil))
-        return actionSheet
     }
 }
 
