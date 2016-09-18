@@ -50,17 +50,18 @@ class DownViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         if !scrollViewAdjusted {
-            adjustScrollView()
+            adjustScrollView(false)
             scrollViewAdjusted = true
         }
     }
     
-    func adjustScrollView() {
+    func adjustScrollView(animated: Bool) {
         guard let scrollView = scrollView, let searchBar = searchBar else {
             return
         }
         
-        scrollView.contentOffset = CGPointMake(0, CGRectGetHeight(searchBar.bounds))
+        scrollView.setContentOffset(CGPointMake(0, CGRectGetHeight(searchBar.bounds)),
+                                    animated: animated)
     }
 }
 
@@ -96,6 +97,6 @@ extension DownViewController: UISearchBarDelegate {
         
         collectionView?.reloadData()
         tableView?.reloadData()
-        adjustScrollView()
+        adjustScrollView(true)
     }
 }
