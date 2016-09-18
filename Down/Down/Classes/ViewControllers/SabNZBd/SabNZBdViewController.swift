@@ -159,6 +159,11 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     
     // MARK: - TableView datasource
     
+    // TODO: Implement some kind of row type enum (queue, history, fullhistory)
+    func isFullHistoryIndexPath(indexPath: NSIndexPath) -> Bool {
+        return indexPath.section == 1 && indexPath.row == max(kMaxHistoryDisplayCount, sabNZBdService.history.count)
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
@@ -274,7 +279,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
                 cell = loadingCell
             }
         }
-        else if indexPath.section == 1 && (indexPath.row == kMaxHistoryDisplayCount || indexPath.row == sabNZBdService.history.count) {
+        else if isFullHistoryIndexPath(indexPath) {
             let historyCell = tableView.dequeueReusableCellWithIdentifier("DownTextCell", forIndexPath: indexPath) as! DownTextCell
             historyCell.setCellType(.SabNZBd)
             historyCell.label?.text = "Full history"
@@ -297,7 +302,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 && (indexPath.row == kMaxHistoryDisplayCount || indexPath.row == sabNZBdService.history.count) {
+        if isFullHistoryIndexPath(indexPath) {
             performSegueWithIdentifier("SabNZBdHistory", sender: nil)
         }
         else if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
@@ -308,7 +313,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+        return !isFullHistoryIndexPath(indexPath)
     }
     
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
