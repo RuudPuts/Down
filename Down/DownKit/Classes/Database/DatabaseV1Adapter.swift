@@ -26,11 +26,11 @@ class DatabaseV1Adapter: DatabaseAdapter {
         }
         
         let realm = defaultRealm()
-        try! realm.write({
+        try! realm.write {
             shows.forEach {
                 realm.add($0, update: false)
             }
-        })
+        }
     }
     
     func deleteSickbeardShow(show: SickbeardShow) {
@@ -39,11 +39,11 @@ class DatabaseV1Adapter: DatabaseAdapter {
         }
         
         let realm = defaultRealm()
-        try! realm.write({
+        try! realm.write {
             realm.delete(showToDelete.allEpisodes)
             realm.delete(showToDelete.seasons)
             realm.delete(showToDelete)
-        })
+        }
     }
     
     func allSickbeardShows() -> Results<SickbeardShow> {
@@ -103,10 +103,10 @@ class DatabaseV1Adapter: DatabaseAdapter {
         }
         
         let realm = defaultRealm()
-        try! realm.write({
+        try! realm.write {
             episode.plot = plot
             NSLog("Stored plot for (\(episode.show!.name) S\(episode.season!.id)E\(episode.id))")
-        })
+        }
     }
     
     func episodesAiredSince(airDate: NSDate) -> Results<SickbeardEpisode> {
