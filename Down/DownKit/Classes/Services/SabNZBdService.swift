@@ -11,10 +11,20 @@ import Alamofire
 
 public class SabNZBdService: Service {
     
+    public static let shared = SabNZBdService()
+    
     public static let defaultPort = 8080
     
-    let queueRefreshRate: NSTimeInterval!
-    let historyRefreshRate: NSTimeInterval!
+    var queueRefreshRate: NSTimeInterval = 1 {
+        didSet {
+            startTimers()
+        }
+    }
+    var historyRefreshRate: NSTimeInterval = 1 {
+        didSet {
+            startTimers()
+        }
+    }
     
     var queueRefreshTimer: NSTimer?
     var historyRefreshTimer: NSTimer?
@@ -36,13 +46,6 @@ public class SabNZBdService: Service {
         case FullHistoryFetched
         case WillRemoveSabItem
     }
-   
-    init(queueRefreshRate: NSTimeInterval, historyRefreshRate: NSTimeInterval) {
-        self.queueRefreshRate = queueRefreshRate
-        self.historyRefreshRate = historyRefreshRate
-        
-        super.init()
-    }
     
     override public func addListener(listener: ServiceListener) {
         if listener is SabNZBdListener {
@@ -51,14 +54,23 @@ public class SabNZBdService: Service {
     }
     
     override public func startService() {
+        super.startService()
         startTimers()
     }
     
     override public func stopService() {
+        super.startService()
         stopTimers()
     }
     
     private func startTimers() {
+        guard started else {
+            return
+        }
+        
+        queueRefreshTimer?.invalidate()
+        historyRefreshTimer?.invalidate()
+        
         queueRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(queueRefreshRate, target: self, selector: #selector(refreshQueue), userInfo: nil, repeats: true)
         historyRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(historyRefreshRate, target: self, selector: #selector(refreshHistory), userInfo: nil, repeats: true)
         

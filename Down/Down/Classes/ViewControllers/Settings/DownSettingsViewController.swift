@@ -131,13 +131,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             var service: Service?
             switch application as DownApplication {
             case .SabNZBd:
-                service = serviceManager.sabNZBdService
+                service = SabNZBdService.shared
                 break
             case .Sickbeard:
-                service = serviceManager.sickbeardService
+                service = SickbeardService.shared
                 break
             case .CouchPotato:
-                service = serviceManager.couchPotatoService
+                service = CouchPotatoService.shared
                 break
                 
             default:

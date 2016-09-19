@@ -64,13 +64,13 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        sabNZBdService.addListener(self)
+        SabNZBdService.shared.addListener(self)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-            
-        sabNZBdService.removeListener(self)
+        
+        SabNZBdService.shared.removeListener(self)
     }
     
     override func headerImageTapped() {
@@ -285,7 +285,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     func sabNZBdHistoryUpdated() {
         var shouldReloadTable = sabItem is SABHistoryItem
         if let historyItemIdentifier = historyItemReplacement {
-            sabItem = sabNZBdService.findHistoryItem(historyItemIdentifier)
+            sabItem = SabNZBdService.shared.findHistoryItem(historyItemIdentifier)
             
             if sabItem != nil {
                 historyItemReplacement = nil

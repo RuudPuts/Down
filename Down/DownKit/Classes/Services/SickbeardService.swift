@@ -11,6 +11,8 @@ import Alamofire
 
 public class SickbeardService: Service {
     
+    public static let shared = SickbeardService()
+    
     public static let defaultPort = 8081
     public var shows: Results<SickbeardShow> {
         get {
@@ -34,6 +36,7 @@ public class SickbeardService: Service {
     }
     
     override public func startService() {
+        super.startService()
         NSLog("SickbeardService - Last updated: %@", PreferenceManager.sickbeardLastCacheRefresh ?? "never")
         NSLog("SickbeardService - Refreshing show cache")
         refreshShowCache()

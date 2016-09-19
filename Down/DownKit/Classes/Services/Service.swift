@@ -12,6 +12,7 @@ public class Service {
     
     public var lastRefresh: NSDate?
     var listeners = [ServiceListener]()
+    internal var started = false
     
     public func addListener(listener: ServiceListener) {
         listeners.append(listener)
@@ -27,9 +28,11 @@ public class Service {
     }
     
     public func startService() {
+        started = true
     }
 
     public func stopService() {
+        started = false
     }
     
     internal func refreshCompleted() {

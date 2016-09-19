@@ -10,41 +10,33 @@ import UIKit
 
 public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     
-    public let sabNZBdService: SabNZBdService
-    public let sickbeardService: SickbeardService
-    public let couchPotatoService: CouchPotatoService
-    
     public override init() {
-        sabNZBdService = SabNZBdService(queueRefreshRate: 1, historyRefreshRate: 1)
-        sickbeardService = SickbeardService()
-        couchPotatoService = CouchPotatoService()
-        
         super.init()
         
-        sabNZBdService.addListener(self)
-        sickbeardService.addListener(self)
+        SabNZBdService.shared.addListener(self)
+        SickbeardService.shared.addListener(self)
     }
     
     public func startAllServices() {
-        sabNZBdService.startService()
-        sickbeardService.startService()
-        couchPotatoService.startService()
+        SabNZBdService.shared.startService()
+        SickbeardService.shared.startService()
+        CouchPotatoService.shared.startService()
     }
     
     public func stopAllServices() {
-        sabNZBdService.stopService()
-        sickbeardService.stopService()
-        couchPotatoService.stopService()
+        SabNZBdService.shared.stopService()
+        SickbeardService.shared.stopService()
+        CouchPotatoService.shared.stopService()
     }
     
     // MARK: SabNZBdListener
     
     public func sabNZBdQueueUpdated() {
-        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.queue)
+        matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.queue)
     }
     
     public func sabNZBdHistoryUpdated() {
-        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.history)
+        matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.history)
     }
     
     public func sabNZBDFullHistoryFetched() { }
@@ -53,8 +45,8 @@ public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     // MARK: SickbearListener
     
     public func sickbeardShowCacheUpdated() {
-        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.queue)
-        matchSabNZBdItemsWithSickbeardHistory(sabNZBdService.history)
+        matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.queue)
+        matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.history)
     }
     
     // MARK: Private methods
@@ -65,7 +57,7 @@ public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
                 continue
             }
             
-            sabNZBdItem.sickbeardEpisode = sickbeardService.parseNzbName(sabNZBdItem.nzbName)
+            sabNZBdItem.sickbeardEpisode = SickbeardService.shared.parseNzbName(sabNZBdItem.nzbName)
         }
     }
    

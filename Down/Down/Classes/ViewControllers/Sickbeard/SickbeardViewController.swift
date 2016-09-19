@@ -34,18 +34,18 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        sickbeardService.addListener(self)
+        SickbeardService.shared.addListener(self)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        sickbeardService.removeListener(self)
+        SickbeardService.shared.removeListener(self)
     }
     
     func loadData() {
-        todayData = sickbeardService.getEpisodesAiringToday()
-        soonData = sickbeardService.getEpisodesAiringSoon()
+        todayData = SickbeardService.shared.getEpisodesAiringToday()
+        soonData = SickbeardService.shared.getEpisodesAiringSoon()
     }
     
     func registerTableViewCells() {

@@ -119,6 +119,8 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     func showStateActionSheet(episode episode: SickbeardEpisode) {
         showStateActionSheet(episode.name) {
             print("Selected \($0)")
+            
+            // http://192.168.2.100:8081/api/e9c3be0f3315f09d7ceae37f1d3836cd?cmd=episode.setstatus&status=wanted&tvdbid=248741&season=4&episode=17
         }
     }
     

@@ -45,8 +45,8 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        sabNZBdService.addListener(self)
-        sickbeardService.addListener(self)
+        SabNZBdService.shared.addListener(self)
+        SickbeardService.shared.addListener(self)
         
         tableView!.reloadData()
         updateHeader()
@@ -55,18 +55,18 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        sabNZBdService.removeListener(self)
-        sickbeardService.removeListener(self)
+        SabNZBdService.shared.removeListener(self)
+        SickbeardService.shared.removeListener(self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let indexPath = tableView!.indexPathForSelectedRow where segue.identifier == "SabNZBdDetail" {
             var selectedItem: SABItem
             if indexPath.section == 0 {
-                selectedItem = sabNZBdService.queue[indexPath.row];
+                selectedItem = SabNZBdService.shared.queue[indexPath.row];
             }
             else {
-                selectedItem = sabNZBdService.history[indexPath.row];
+                selectedItem = SabNZBdService.shared.history[indexPath.row];
             }
             
             let detailViewController = segue.destinationViewController as! SabNZBdDetailViewController
@@ -80,7 +80,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         let expandedHeaderHeight: CGFloat = 190
         let collapsedHeaderHeight: CGFloat = 100
         
-        let queueEmpty = sabNZBdService.queue.isEmpty
+        let queueEmpty = SabNZBdService.shared.queue.isEmpty
         let headerExpanded = headerView.heightConstraint?.constant == expandedHeaderHeight
         
         var updateHeader = false
@@ -117,7 +117,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     }
     
     private func updateCurrentSpeedWidget() {
-        var displaySpeed = sabNZBdService.currentSpeed ?? 0
+        var displaySpeed = SabNZBdService.shared.currentSpeed ?? 0
         var displayString = "KB/s"
         
         if displaySpeed > 1024 {
@@ -150,18 +150,18 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     }
     
     private func updateTimeRemainingWidget() {
-        self.timeleftLabel!.text = sabNZBdService.timeRemaining ?? "-"
+        self.timeleftLabel!.text = SabNZBdService.shared.timeRemaining ?? "-"
     }
     
     private func updateMbRemainingWidget() {
-        self.mbRemainingLabel!.text = String(fromMB: sabNZBdService.mbLeft ?? 0)
+        self.mbRemainingLabel!.text = String(fromMB: SabNZBdService.shared.mbLeft ?? 0)
     }
     
     // MARK: - TableView datasource
     
     // TODO: Implement some kind of row type enum (queue, history, fullhistory)
     func isFullHistoryIndexPath(indexPath: NSIndexPath) -> Bool {
-        return indexPath.section == 1 && indexPath.row == max(kMaxHistoryDisplayCount, sabNZBdService.history.count)
+        return indexPath.section == 1 && indexPath.row == max(kMaxHistoryDisplayCount, SabNZBdService.shared.history.count)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -172,11 +172,11 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         var numberOfRows = 1
         
         if section == 0 {
-            numberOfRows = sabNZBdService.queue.count
+            numberOfRows = SabNZBdService.shared.queue.count
         }
         else {
-            numberOfRows = min(sabNZBdService.history.count, kMaxHistoryDisplayCount)
-            if !sabNZBdService.history.isEmpty {
+            numberOfRows = min(SabNZBdService.shared.history.count, kMaxHistoryDisplayCount)
+            if !SabNZBdService.shared.history.isEmpty {
                 numberOfRows += 1
             }
         }
@@ -188,10 +188,10 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         var isEmpty = true
         
         if section == 0 {
-            isEmpty = sabNZBdService.queue.count == 0
+            isEmpty = SabNZBdService.shared.queue.count == 0
         }
         else {
-            isEmpty = sabNZBdService.history.count == 0
+            isEmpty = SabNZBdService.shared.history.count == 0
         }
         
         return isEmpty
@@ -201,13 +201,13 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         var rowHeight: Float = 60
         if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if indexPath.section == 0 {
-                let queueItem = sabNZBdService.queue[indexPath.row];
+                let queueItem = SabNZBdService.shared.queue[indexPath.row];
                 if queueItem.hasProgress {
                     rowHeight = 66.0
                 }
             }
-            else if indexPath.row < sabNZBdService.history.count - 1 {
-                let historyItem = sabNZBdService.history[indexPath.row];
+            else if indexPath.row < SabNZBdService.shared.history.count - 1 {
+                let historyItem = SabNZBdService.shared.history[indexPath.row];
                 if historyItem.hasProgress {
                     rowHeight = 66.0
                 }
@@ -251,9 +251,8 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         
-        let sabNZBdService = self.sabNZBdService
         if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
-            if sabNZBdService.lastRefresh != nil {
+            if SabNZBdService.shared.lastRefresh != nil {
                 let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
                 
                 let sectionTitle = self.tableView(tableView, titleForHeaderInSection: indexPath.section)!.lowercaseString
@@ -288,11 +287,11 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         else {
             let itemCell = tableView.dequeueReusableCellWithIdentifier("SABItemCell", forIndexPath: indexPath) as! SABItemCell
             if indexPath.section == 0 {
-                let queueItem: SABQueueItem = sabNZBdService.queue[indexPath.row];
+                let queueItem: SABQueueItem = SabNZBdService.shared.queue[indexPath.row];
                 itemCell.queueItem = queueItem
             }
             else {
-                let historyItem: SABHistoryItem = sabNZBdService.history[indexPath.row];
+                let historyItem: SABHistoryItem = SabNZBdService.shared.history[indexPath.row];
                 itemCell.historyItem = historyItem
             }
             cell = itemCell
@@ -323,12 +322,12 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         var item: SABItem
         if indexPath.section == 0 {
-            item = sabNZBdService.queue[indexPath.row]
+            item = SabNZBdService.shared.queue[indexPath.row]
         }
         else {
-            item = sabNZBdService.history[indexPath.row]
+            item = SabNZBdService.shared.history[indexPath.row]
         }
-        sabNZBdService.deleteItem(item)
+        SabNZBdService.shared.deleteItem(item)
     }
     
     // MARK: - SabNZBdListener

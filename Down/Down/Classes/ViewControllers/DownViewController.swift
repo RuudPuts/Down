@@ -28,17 +28,6 @@ class DownViewController: UIViewController {
         }
     }
     
-    var sabNZBdService: SabNZBdService {
-        get {
-            return serviceManager.sabNZBdService
-        }
-    }
-    var sickbeardService: SickbeardService {
-        get {
-            return serviceManager.sickbeardService
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

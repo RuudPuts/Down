@@ -19,12 +19,6 @@ class SABItemCell: DownTableViewCell {
 
     private var _historyItem: SABHistoryItem?
     private var _queueItem: SABQueueItem?
-    var sabNZBdService: SabNZBdService!
-    
-    override func awakeFromNib() {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        self.sabNZBdService = appDelegate.serviceManager.sabNZBdService;
-    }
     
     var queueItem: SABQueueItem? {
         set {
@@ -43,7 +37,7 @@ class SABItemCell: DownTableViewCell {
             progressBar.progress = progress
             progressLabel.text = _queueItem?.progressString
             progressLabel.textColor = UIColor.whiteColor()
-            if self.sabNZBdService.paused {
+            if SabNZBdService.shared.paused {
                 statusLabel!.text = "-"
             }
             else {

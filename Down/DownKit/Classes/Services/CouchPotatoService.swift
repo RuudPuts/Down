@@ -9,6 +9,8 @@
 import Alamofire
 
 public class CouchPotatoService: Service {
+    
+    public static let shared = SabNZBdService()
    
     public static let defaultPort = 8081
     
@@ -22,14 +24,6 @@ public class CouchPotatoService: Service {
         if listener is CouchPotatoListener {
             super.addListener(listener)
         }
-    }
-    
-    override public func startService() {
-        
-    }
-    
-    override public func stopService() {
-        
     }
     
     // MARK: - Snatched & Available

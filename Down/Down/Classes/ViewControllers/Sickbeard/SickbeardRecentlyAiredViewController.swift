@@ -18,7 +18,7 @@ class SickbeardRecentlyAiredViewController: DownViewController, UITableViewDataS
         super.viewDidLoad()
         title = "Recently aired"
         
-        episodes = sickbeardService.getRecentlyAiredEpisodes()
+        episodes = SickbeardService.shared.getRecentlyAiredEpisodes()
         registerTableViewCells()
     }
     

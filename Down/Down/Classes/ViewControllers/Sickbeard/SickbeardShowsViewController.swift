@@ -18,7 +18,7 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     var shows: Results<SickbeardShow>?
     
     override func viewDidLoad() {
-        shows = sickbeardService.shows
+        shows = SickbeardService.shared.shows
         
         super.viewDidLoad()
         title = "Shows"
@@ -51,7 +51,7 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     
     func preheatWindowChanged(addedIndexPaths added: [NSIndexPath], removedIndexPaths removed: [NSIndexPath]) {
         func requestsForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest] {
-            return indexPaths.map { sickbeardService.shows[$0.item].posterThumbnailRequest }
+            return indexPaths.map { SickbeardService.shared.shows[$0.item].posterThumbnailRequest }
         }
         Nuke.startPreheatingImages(requestsForIndexPaths(added))
         Nuke.stopPreheatingImages(requestsForIndexPaths(removed))
@@ -129,17 +129,17 @@ extension SickbeardShowsViewController { // UISearchBarDelegate
     
     override func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.length == 0 {
-            shows = sickbeardService.shows
+            shows = SickbeardService.shared.shows
         }
         else {
-            shows = sickbeardService.shows.filter("_simpleName contains[c] %@", searchText)
+            shows = SickbeardService.shared.shows.filter("_simpleName contains[c] %@", searchText)
         }
         
         super.searchBar(searchBar, textDidChange: searchText)
     }
     
     override func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        shows = sickbeardService.shows
+        shows = SickbeardService.shared.shows
         
         super.searchBarCancelButtonClicked(searchBar)
     }
