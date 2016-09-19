@@ -22,6 +22,7 @@ public class SickbeardEpisode: Object {
     public dynamic weak var season: SickbeardSeason?
     
     public enum SickbeardEpisodeStatus: String {
+        case Ignored = "Ignored"
         case Archived = "Archived"
         case Unaired = "Unaired"
         case Skipped = "Skipped"

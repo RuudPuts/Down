@@ -126,7 +126,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         let actionSheet = UIAlertController(title: "Set state for", message: message, preferredStyle: .ActionSheet)
         
         let states = [SickbeardEpisode.SickbeardEpisodeStatus.Wanted, SickbeardEpisode.SickbeardEpisodeStatus.Skipped,
-                      SickbeardEpisode.SickbeardEpisodeStatus.Archived, SickbeardEpisode.SickbeardEpisodeStatus.Downloaded]
+                      SickbeardEpisode.SickbeardEpisodeStatus.Archived, SickbeardEpisode.SickbeardEpisodeStatus.Ignored]
         for state in states {
             let action = UIAlertAction(title: state.rawValue, style: .Default, handler: { (action) in
                 completion(selectedStatus: state)
@@ -148,7 +148,7 @@ extension SickbeardEpisode {
             }
             
             switch showStatus {
-            case .Unaired, .Archived: return UIColor(red:0.87, green:0.78, blue:0.25, alpha:1.00)
+            case .Ignored, .Archived, .Unaired: return UIColor(red:0.87, green:0.78, blue:0.25, alpha:1.00)
             case .Skipped: return UIColor(red:0.38, green:0.53, blue:0.82, alpha:1.00)
             case .Wanted: return UIColor(red:0.73, green:0.33, blue:0.20, alpha:1.00)
             case .Snatched: return UIColor(red:0.55, green:0.38, blue:0.69, alpha:1.00)
