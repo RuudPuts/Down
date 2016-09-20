@@ -56,7 +56,11 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         let plotCellNib = UINib(nibName: "DownTextCell", bundle: NSBundle.mainBundle())
         tableView!.registerNib(plotCellNib, forCellReuseIdentifier: "DownTextCell")
         
-        if let showBanner = sabItem?.sickbeardEpisode?.show?.banner {
+        guard let episode = sabItem?.sickbeardEpisode where !episode.invalidated else {
+            return
+        }
+        
+        if let showBanner = episode.show?.banner {
             setTableViewHeaderImage(showBanner)
         }
     }
@@ -86,7 +90,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     func configureTableView() {
         tableData.removeAll()
         
-        if sabItem?.sickbeardEpisode != nil {
+        if let episode = sabItem?.sickbeardEpisode where !episode.invalidated {
             var section = [SabNZBdDetailDataSource]()
             section.append(SabNZBdDetailDataSource(rowType: .SickbeardShow, title: "Show"))
             section.append(SabNZBdDetailDataSource(rowType: .SickbeardEpisode, title: "Episode"))
@@ -97,7 +101,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         }
         
         var detailSection = [SabNZBdDetailDataSource]()
-        if sabItem?.sickbeardEpisode == nil {
+        if sabItem?.sickbeardEpisode == nil || sabItem!.sickbeardEpisode!.invalidated {
             detailSection.append(SabNZBdDetailDataSource(rowType: .Name, title: "Name"))
         }
         
@@ -112,7 +116,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         }
         tableData.append(detailSection)
         
-        if sabItem?.sickbeardEpisode?.plot.length > 0 {
+        if let episode = sabItem?.sickbeardEpisode where !episode.invalidated && episode.plot.length > 0 {
             var section = [SabNZBdDetailDataSource]()
             section.append(SabNZBdDetailDataSource(rowType: .SickbeardPlot, title: ""))
             
