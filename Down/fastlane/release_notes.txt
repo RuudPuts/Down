@@ -3,3 +3,6 @@ Fixes
 
 New
 - Season/Episode status can now be set, tap a season header or long press an episode!
+
+Changes
+- The search bar's Cancel button looks pretty
