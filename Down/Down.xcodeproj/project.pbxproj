@@ -58,7 +58,7 @@
 		426E5D7E1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E5D7D1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift */; };
 		426F5FE91D2AE4340074C06B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF72C1AE199B5007F3E54 /* UIKit.framework */; };
 		426F5FF11D2AE4880074C06B /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F5FF01D2AE4880074C06B /* UIImage+Extensions.swift */; };
-		42746BB51BB3351900CD78BE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BB41BB3351900CD78BE /* DatabaseManager.swift */; };
+		42746BB51BB3351900CD78BE /* DownDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BB41BB3351900CD78BE /* DownDatabase.swift */; };
 		42746BB71BB3353600CD78BE /* DatabaseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BB61BB3353600CD78BE /* DatabaseAdapter.swift */; };
 		42746BB91BB3358A00CD78BE /* DatabaseV1Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BB81BB3358A00CD78BE /* DatabaseV1Adapter.swift */; };
 		42746BBB1BB3392800CD78BE /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BBA1BB3392800CD78BE /* UIApplication+Extensions.swift */; };
@@ -420,7 +420,7 @@
 		426E38561D64FBB9009FC287 /* NSURL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Extensions.swift"; sourceTree = "<group>"; };
 		426E5D7D1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdDetailViewController.swift; sourceTree = "<group>"; };
 		426F5FF01D2AE4880074C06B /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
-		42746BB41BB3351900CD78BE /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		42746BB41BB3351900CD78BE /* DownDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownDatabase.swift; sourceTree = "<group>"; };
 		42746BB61BB3353600CD78BE /* DatabaseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseAdapter.swift; sourceTree = "<group>"; };
 		42746BB81BB3358A00CD78BE /* DatabaseV1Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseV1Adapter.swift; sourceTree = "<group>"; };
 		42746BBA1BB3392800CD78BE /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
@@ -974,7 +974,7 @@
 		42746BB31BB334FB00CD78BE /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				42746BB41BB3351900CD78BE /* DatabaseManager.swift */,
+				42746BB41BB3351900CD78BE /* DownDatabase.swift */,
 				42746BB61BB3353600CD78BE /* DatabaseAdapter.swift */,
 				42746BB81BB3358A00CD78BE /* DatabaseV1Adapter.swift */,
 			);
@@ -1677,7 +1677,7 @@
 				42ADB24D1C31F86C00BDF078 /* SickbeardConnector.swift in Sources */,
 				4221ADDC1B7BC0B20027C3A0 /* PreferenceManager.swift in Sources */,
 				429947771C249F7300934B03 /* Connector.swift in Sources */,
-				42746BB51BB3351900CD78BE /* DatabaseManager.swift in Sources */,
+				42746BB51BB3351900CD78BE /* DownDatabase.swift in Sources */,
 				42AE88D31B9F7D0A00E4F0CF /* SickbeardSeason.swift in Sources */,
 				42746BB71BB3353600CD78BE /* DatabaseAdapter.swift in Sources */,
 				4221ADE01B7BC0B20027C3A0 /* SABQueueItem.swift in Sources */,

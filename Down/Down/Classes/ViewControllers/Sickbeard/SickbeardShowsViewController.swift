@@ -15,11 +15,9 @@ import RealmSwift
 class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var preheatController: PreheatController<UICollectionView>!
-    var shows: Results<SickbeardShow>?
+    var shows = DownDatabase.shared.fetchAllSickbeardShows()
     
     override func viewDidLoad() {
-        shows = SickbeardService.shared.shows
-        
         super.viewDidLoad()
         title = "Shows"
         
@@ -51,7 +49,7 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     
     func preheatWindowChanged(addedIndexPaths added: [NSIndexPath], removedIndexPaths removed: [NSIndexPath]) {
         func requestsForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest] {
-            return indexPaths.map { SickbeardService.shared.shows[$0.item].posterThumbnailRequest }
+            return indexPaths.map { shows[$0.item].posterThumbnailRequest }
         }
         Nuke.startPreheatingImages(requestsForIndexPaths(added))
         Nuke.stopPreheatingImages(requestsForIndexPaths(removed))
@@ -59,7 +57,7 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let indexPath = collectionView!.indexPathsForSelectedItems()?.first where segue.identifier == "SickbeardShow" {
-            let show = shows![indexPath.item]
+            let show = shows[indexPath.item]
             
             let detailViewController = segue.destinationViewController as! SickbeardShowViewController
             detailViewController.show = show
@@ -73,15 +71,15 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return shows?.count ?? 0
+        return shows.count
     }
     
     func collectionView(collectionView: UICollectionView, isSectionEmtpy section: Int) -> Bool {
-        return shows?.count == 0
+        return shows.count == 0
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let show = shows![indexPath.row]
+        let show = shows[indexPath.row]
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SickbeardShowCell", forIndexPath: indexPath) as! SickbeardShowCell
         cell.setCellType(.Sickbeard)
@@ -128,18 +126,18 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
 extension SickbeardShowsViewController { // UISearchBarDelegate
     
     override func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.length == 0 {
-            shows = SickbeardService.shared.shows
-        }
-        else {
-            shows = SickbeardService.shared.shows.filter("_simpleName contains[c] %@", searchText)
+        let trimmedText = searchText.trimmed
+        
+        shows = DownDatabase.shared.fetchAllSickbeardShows()
+        if trimmedText.length > 0 {
+            shows = shows.filter("_simpleName contains[c] %@", trimmedText)
         }
         
         super.searchBar(searchBar, textDidChange: searchText)
     }
     
     override func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        shows = SickbeardService.shared.shows
+        shows = DownDatabase.shared.fetchAllSickbeardShows()
         
         super.searchBarCancelButtonClicked(searchBar)
     }

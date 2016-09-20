@@ -14,16 +14,19 @@ public class SickbeardService: Service {
     public static let shared = SickbeardService()
     
     public static let defaultPort = 8081
-    public var shows: Results<SickbeardShow> {
+    private var shows: Results<SickbeardShow> {
         get {
-            return databaseManager.fetchAllSickbeardShows()
+            return DownDatabase.shared.fetchAllSickbeardShows()
         }
     }
     
-    var databaseManager = DatabaseManager()
-    
     private let bannerDownloadQueue = dispatch_queue_create("com.ruudputs.down.BannerDownloadQueue", DISPATCH_QUEUE_SERIAL)
     private let posterDownloadQueue = dispatch_queue_create("com.ruudputs.down.PosterDownloadQueue", DISPATCH_QUEUE_SERIAL)
+    
+    public enum ErrorType: Int {
+        case GuardFailed = -1
+        case InvalidValue = -2
+    }
     
     private enum SickbeardNotifyType {
         case ShowCacheUpdated
@@ -59,8 +62,8 @@ public class SickbeardService: Service {
         // Get te components
         let nameComponents = cleanedName.componentsSeparatedByString(".")
         
-        // Let the database manager match te best show
-        if let show = databaseManager.showBestMatchingComponents(nameComponents) {
+        // Let the DownDatabase.shared manager match te best show
+        if let show = DownDatabase.shared.showBestMatchingComponents(nameComponents) {
             let seasonEpisodeIdentifier = nzbName[seasonRange.location + 1...seasonRange.location + seasonRange.length - 1]
                 .uppercaseString.stringByReplacingOccurrencesOfString(".", withString: "")
             let components = seasonEpisodeIdentifier.componentsSeparatedByString("E")
@@ -78,7 +81,7 @@ public class SickbeardService: Service {
     }
     
     public func getEpisodesAiringToday() -> Results<SickbeardEpisode> {
-        let episodes = databaseManager.episodesAiringOnDate(NSDate());
+        let episodes = DownDatabase.shared.episodesAiringOnDate(NSDate());
 
         for episode in episodes {
             fetchEpisodeData(episode)
@@ -88,7 +91,7 @@ public class SickbeardService: Service {
     }
     
     public func getEpisodesAiringSoon() -> Results<SickbeardEpisode> {
-        let episodes = databaseManager.episodesAiringAfter(NSDate.tomorrow(), max: 5);
+        let episodes = DownDatabase.shared.episodesAiringAfter(NSDate.tomorrow(), max: 5);
         
         for episode in episodes {
             fetchEpisodeData(episode)
@@ -98,7 +101,7 @@ public class SickbeardService: Service {
     }
     
     public func getRecentlyAiredEpisodes() -> Results<SickbeardEpisode> {
-        let episodes = databaseManager.lastAiredEpisodes(maxDays: 4);
+        let episodes = DownDatabase.shared.lastAiredEpisodes(maxDays: 4);
         
         for episode in episodes {
             fetchEpisodeData(episode)
@@ -150,7 +153,7 @@ public class SickbeardService: Service {
         }
         else if let lastCacheRefresh = PreferenceManager.sickbeardLastCacheRefresh {
             // Find shows to refresh, episodes aired since last update
-            let showsToRefresh = databaseManager.fetchShowsWithEpisodesAiredSince(lastCacheRefresh)
+            let showsToRefresh = DownDatabase.shared.fetchShowsWithEpisodesAiredSince(lastCacheRefresh)
             
             var tvdbIds = [String]()
             for show in showsToRefresh {
@@ -203,7 +206,7 @@ public class SickbeardService: Service {
             }
             
             dispatch_group_notify(showSeasonsGroup, dispatch_get_main_queue()) {
-                self.databaseManager.storeSickbeardShows(refreshedShows)
+                DownDatabase.shared.storeSickbeardShows(refreshedShows)
                 
                 completionHandler()
             }
@@ -263,7 +266,8 @@ public class SickbeardService: Service {
                 episode.name = episodeJson["name"].string!
                 episode.airDate = dateFormatter.dateFromString(episodeJson["airdate"].string!)
                 episode.quality = episodeJson["quality"].string!
-                episode.status = episodeJson["status"].string!
+                let status = episodeJson["status"].string!
+                episode.status = SickbeardEpisode.SickbeardEpisodeStatus(rawValue: status) ?? episode.status
                 episode.season = season
                 episode.show = show
                 
@@ -289,7 +293,7 @@ public class SickbeardService: Service {
                 if handler.validateResponse() {
                     dispatch_async(dispatch_get_main_queue(), {
                         let plot = JSON(handler.result.value!)["data"]["description"].string ?? ""
-                        self.databaseManager.setPlot(plot, forEpisode: episode)
+                        DownDatabase.shared.setPlot(plot, forEpisode: episode)
                     })
                 }
                 else {
@@ -298,6 +302,46 @@ public class SickbeardService: Service {
             }
             
             return true
+        }
+        
+        return false
+    }
+    
+    public func update(status: SickbeardEpisode.SickbeardEpisodeStatus, forEpisode episode: SickbeardEpisode, completion: (NSError?) -> (Void)) -> Bool {
+        guard let tvdbId = episode.show?.tvdbId, let seasonId = episode.season?.id else {
+            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.GuardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
+            return false
+        }
+        
+        guard SickbeardEpisode.SickbeardEpisodeStatus.updatable.contains(status) else {
+            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.InvalidValue.rawValue, userInfo: [NSLocalizedDescriptionKey: "Invalid value for 'status'"]))
+            return false
+        }
+        
+        let command = "episode.setstatus&status=\(status.rawValue.lowercaseString)&tvdbid=\(tvdbId)&season=\(seasonId)&episode=\(episode.id)&force=1"
+        let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=\(command)"
+        Alamofire.request(.GET, url).responseJSON { handler in
+            completion(handler.result.error)
+        }
+        
+        return false
+    }
+    
+    public func update(status: SickbeardEpisode.SickbeardEpisodeStatus, forSeason season: SickbeardSeason, completion: (NSError?) -> (Void)) -> Bool {
+        guard let tvdbId = season.show?.tvdbId else {
+            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.GuardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
+            return false
+        }
+        
+        guard SickbeardEpisode.SickbeardEpisodeStatus.updatable.contains(status) else {
+            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.InvalidValue.rawValue, userInfo: [NSLocalizedDescriptionKey: "Invalid value for 'status'"]))
+            return false
+        }
+        
+        let command = "episode.setstatus&status=\(status.rawValue.lowercaseString)&tvdbid=\(tvdbId)&season=\(season.id)&force=1"
+        let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=\(command)"
+        Alamofire.request(.GET, url).responseJSON { handler in
+            completion(handler.result.error)
         }
         
         return false

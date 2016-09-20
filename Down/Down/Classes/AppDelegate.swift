@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         ImageProvider.clearCache()
-        DatabaseManager.clearCache()
+        DownDatabase.clearCache()
         PreferenceManager.clearCache()
     }
     

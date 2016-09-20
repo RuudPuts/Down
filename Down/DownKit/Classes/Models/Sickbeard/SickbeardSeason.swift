@@ -33,8 +33,7 @@ public class SickbeardSeason: Object {
     
     public var downloadedEpisodes: [SickbeardEpisode] {
         let filteredEpisodes = Array(_episodes).filter {
-            // TODO: Implement a status enum in SickbeardEpisode, use that here
-            $0.status == "Downloaded"
+            $0.status == .Downloaded
         }
         
         return filteredEpisodes
@@ -47,5 +46,23 @@ public class SickbeardSeason: Object {
         }
     
         return title
+    }
+    
+    // MARK: Functions
+    
+    public func update(status: SickbeardEpisode.SickbeardEpisodeStatus, completion:((NSError?) -> (Void))?) {
+        SickbeardService.shared.update(status, forSeason: self, completion: { error in
+            if let error = error {
+                NSLog("Error while updating episode status: \(error)")
+            }
+            
+            DownDatabase.shared.write {
+                self._episodes.forEach({$0.status = status})
+            }
+            
+            if let completion = completion {
+                completion(error)
+            }
+        })
     }
 }

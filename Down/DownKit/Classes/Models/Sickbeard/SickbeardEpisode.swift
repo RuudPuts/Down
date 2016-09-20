@@ -15,20 +15,50 @@ public class SickbeardEpisode: Object {
     public dynamic var name = ""
     public dynamic var airDate: NSDate? = nil
     public dynamic var quality = ""
-    public dynamic var status = ""
     public dynamic var plot = ""
     
+    public var status: SickbeardEpisodeStatus {
+        get {
+            return SickbeardEpisodeStatus(rawValue: statusString) ?? .Unknown
+        }
+        set {
+//            if statusString.length == 0 {
+//                DownDatabase.shared.write {
+//                    self.statusString = newValue.rawValue
+//                }
+//            }
+//            else {
+//                setStatus(newValue, completion: { error in
+//                    guard error != nil else {
+//                        return
+//                    }
+//                    
+//                    self.statusString = newValue.rawValue
+//                })
+//            }
+        
+            statusString = newValue.rawValue
+        }
+    }
+    private dynamic var statusString = ""
+    
+    // TODO: show and season should not be optional (or maybe only internal..?)
     public dynamic weak var show: SickbeardShow?
     public dynamic weak var season: SickbeardSeason?
     
     public enum SickbeardEpisodeStatus: String {
-        case Ignored = "Ignored"
-        case Archived = "Archived"
-        case Unaired = "Unaired"
-        case Skipped = "Skipped"
-        case Wanted = "Wanted"
-        case Snatched = "Snatched"
-        case Downloaded = "Downloaded"
+        case Unknown
+        case Ignored
+        case Archived
+        case Unaired
+        case Skipped
+        case Wanted
+        case Snatched
+        case Downloaded
+        
+        static var updatable: [SickbeardEpisodeStatus] {
+            return [.Wanted, .Skipped, .Archived, .Ignored]
+        }
     }
     
     // MARK: Realm
@@ -56,6 +86,24 @@ public class SickbeardEpisode: Object {
         }
         
         return -1
+    }
+    
+    // MARK: Functions
+    
+    public func update(status: SickbeardEpisodeStatus, completion:((NSError?) -> (Void))?) {
+        SickbeardService.shared.update(status, forEpisode: self, completion: { error in
+            if let error = error {
+                NSLog("Error while updating episode status: \(error)")
+            }
+            
+            DownDatabase.shared.write {
+                self.status = status
+            }
+            
+            if let completion = completion {
+                completion(error)
+            }
+        })
     }
     
 }

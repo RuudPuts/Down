@@ -1,5 +1,5 @@
 //
-//  DatabaseManager.swift
+//  DownDatabase.swift
 //  Down
 //
 //  Created by Ruud Puts on 23/09/15.
@@ -9,7 +9,9 @@
 import Foundation
 import RealmSwift
 
-public class DatabaseManager: DownCache {
+public class DownDatabase: DownCache {
+    
+    public static let shared = DownDatabase()
     
     let adapter = DatabaseV1Adapter()
     
@@ -31,7 +33,11 @@ public class DatabaseManager: DownCache {
     }
     
     public init() {
-        NSLog("DatabasePath: \(DatabaseManager.databasePath)")
+        NSLog("DatabasePath: \(DownDatabase.databasePath)")
+    }
+    
+    public func write(commands: () -> (Void)) {
+        self.adapter.write(commands)
     }
     
     public static func clearCache() {
@@ -50,7 +56,7 @@ public class DatabaseManager: DownCache {
             }
         }
         catch let error as NSError {
-            print("Error while clearing DatabaseManager: \(error)")
+            print("Error while clearing DownDatabase: \(error)")
         }
     }
     

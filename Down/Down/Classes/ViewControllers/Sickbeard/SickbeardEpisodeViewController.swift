@@ -139,7 +139,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
                 detailText = String(episode!.id)
                 break
             case .Status:
-                detailText = episode!.status
+                detailText = episode!.status.rawValue
                 break
                 
             default:

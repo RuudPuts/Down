@@ -91,6 +91,8 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         let headerView = (NSBundle.mainBundle().loadNibNamed("SickbeardHeaderView", owner: self, options: nil) as Array).first as! SickbeardHeaderView
         headerView.textLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
         headerView.detailLabel.text = self.tableView(tableView, detailForHeaderInSection: section)
+        headerView.setupGestureRecognizer(self, action: #selector(handleHeaderTap(_:)))
+        headerView.tag = section
         
         return headerView
     }
@@ -103,10 +105,18 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         return String(seasons![section].id)
     }
     
+    func handleHeaderTap(recogniger: UITapGestureRecognizer) {
+        guard let section = recogniger.view?.tag else {
+            return
+        }
+        
+        showStateActionSheet(season: seasons![section])
+    }
+    
     // MARK: Season/Episode state
     
     func longPressHandler() {
-        guard let touch = longPressRecognizer?.locationInView(view),
+        guard let touch = longPressRecognizer?.locationInView(tableView),
             let indexPath = tableView?.indexPathForRowAtPoint(touch) else {
             return
         }
@@ -117,10 +127,22 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func showStateActionSheet(episode episode: SickbeardEpisode) {
-        showStateActionSheet(episode.name) {
-            print("Selected \($0)")
+        showStateActionSheet(episode.name) { selectedStatus in
+            guard episode.status != selectedStatus else {
+                return
+            }
             
-            // http://192.168.2.100:8081/api/e9c3be0f3315f09d7ceae37f1d3836cd?cmd=episode.setstatus&status=wanted&tvdbid=248741&season=4&episode=17
+            episode.update(selectedStatus, completion: { error in
+                self.tableView?.reloadData()
+            })
+        }
+    }
+    
+    func showStateActionSheet(season season: SickbeardSeason) {
+        showStateActionSheet("Season \(season.id)") { selectedStatus in
+            season.update(selectedStatus, completion: { error in
+                self.tableView?.reloadData()
+            })
         }
     }
     
@@ -145,18 +167,27 @@ extension SickbeardEpisode {
     
     var statusColor: UIColor {
         get {
-            guard let showStatus = SickbeardEpisodeStatus(rawValue: status) else {
-                return .clearColor()
-            }
-            
-            switch showStatus {
-            case .Ignored, .Archived, .Unaired: return UIColor(red:0.87, green:0.78, blue:0.25, alpha:1.00)
+            switch status {
             case .Skipped: return UIColor(red:0.38, green:0.53, blue:0.82, alpha:1.00)
             case .Wanted: return UIColor(red:0.73, green:0.33, blue:0.20, alpha:1.00)
             case .Snatched: return UIColor(red:0.55, green:0.38, blue:0.69, alpha:1.00)
             case .Downloaded: return UIColor(red:0.38, green:0.63, blue:0.36, alpha:1.00)
+            default: return UIColor(red:0.87, green:0.78, blue:0.25, alpha:1.00)
             }
 
         }
     }
+}
+
+extension SickbeardHeaderView: UIGestureRecognizerDelegate {
+    
+    func setupGestureRecognizer(target: AnyObject, action: Selector) {
+        var recognizer = gestureRecognizers?.last as? UITapGestureRecognizer
+        if recognizer == nil {
+            recognizer = UITapGestureRecognizer(target: target, action: action)
+            recognizer!.delegate = self
+            addGestureRecognizer(recognizer!)
+        }
+    }
+    
 }
