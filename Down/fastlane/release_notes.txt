@@ -1,7 +1,5 @@
 Fixes
- - Episodes would show up multiple times in 'Airing Today', 'Coming soon' and 'Recently aired'
-   Note: Please reinstall, or use the new cache clear option in order to fix the issue in full
+- App could crash on startup
 
 New
- - Added a toggle in iOS Settings to clear the cache on startup of the app
-   Note: Please kill the app after changing a setting to take effect
+- Season/Episode status can now be set, tap a season header or long press an episode!
