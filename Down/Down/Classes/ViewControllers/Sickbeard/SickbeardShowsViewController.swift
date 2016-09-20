@@ -49,7 +49,15 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     
     func preheatWindowChanged(addedIndexPaths added: [NSIndexPath], removedIndexPaths removed: [NSIndexPath]) {
         func requestsForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest] {
-            return indexPaths.map { shows[$0.item].posterThumbnailRequest }
+            var requests = [ImageRequest]()
+            indexPaths.forEach {
+                if $0.item < shows.count {
+                    let request = shows[$0.item].posterThumbnailRequest
+                    requests.append(request)
+                }
+            }
+            
+            return requests
         }
         Nuke.startPreheatingImages(requestsForIndexPaths(added))
         Nuke.stopPreheatingImages(requestsForIndexPaths(removed))
