@@ -4,6 +4,14 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>2813AE6F-3BD5-36A1-8D41-82D9F5AAE132.bcsymbolmap</key>
+		<data>
+		b6TzJsLdIg4SEz1K/l2szCvC98I=
+		</data>
+		<key>BBF82B5B-E0AA-38C2-B8D2-95B104BAB427.bcsymbolmap</key>
+		<data>
+		V+k3hSIaxi/VABLGpfrEf1/aCv4=
+		</data>
 		<key>CHANGELOG.md</key>
 		<data>
 		39OZiWVrGQEtIalx1SyyJ58VoyE=
@@ -147,6 +155,28 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>2813AE6F-3BD5-36A1-8D41-82D9F5AAE132.bcsymbolmap</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			b6TzJsLdIg4SEz1K/l2szCvC98I=
+			</data>
+			<key>hash2</key>
+			<data>
+			dRPnEXIr1949lbl96/b6AegNFrK1GJPnwJRJigJxP8Q=
+			</data>
+		</dict>
+		<key>BBF82B5B-E0AA-38C2-B8D2-95B104BAB427.bcsymbolmap</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			V+k3hSIaxi/VABLGpfrEf1/aCv4=
+			</data>
+			<key>hash2</key>
+			<data>
+			wv5pQTRwWkJ8acBPCjEFIam6lCDy9guIyWzXeZIVXnA=
+			</data>
+		</dict>
 		<key>CHANGELOG.md</key>
 		<dict>
 			<key>hash</key>
