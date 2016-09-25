@@ -56,7 +56,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         let plotCellNib = UINib(nibName: "DownTextCell", bundle: NSBundle.mainBundle())
         tableView!.registerNib(plotCellNib, forCellReuseIdentifier: "DownTextCell")
         
-        guard let episode = sabItem?.sickbeardEpisode where !episode.invalidated else {
+        guard let episode = sabItem?.sickbeardEpisode else {
             return
         }
         
@@ -90,7 +90,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     func configureTableView() {
         tableData.removeAll()
         
-        if let episode = sabItem?.sickbeardEpisode where !episode.invalidated {
+        if let episode = sabItem?.sickbeardEpisode {
             var section = [SabNZBdDetailDataSource]()
             section.append(SabNZBdDetailDataSource(rowType: .SickbeardShow, title: "Show"))
             section.append(SabNZBdDetailDataSource(rowType: .SickbeardEpisode, title: "Episode"))
@@ -101,7 +101,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         }
         
         var detailSection = [SabNZBdDetailDataSource]()
-        if sabItem?.sickbeardEpisode == nil || sabItem!.sickbeardEpisode!.invalidated {
+        if sabItem?.sickbeardEpisode == nil {
             detailSection.append(SabNZBdDetailDataSource(rowType: .Name, title: "Name"))
         }
         
@@ -116,7 +116,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         }
         tableData.append(detailSection)
         
-        if let episode = sabItem?.sickbeardEpisode where !episode.invalidated && episode.plot.length > 0 {
+        if let episode = sabItem?.sickbeardEpisode where episode.plot.length > 0 {
             var section = [SabNZBdDetailDataSource]()
             section.append(SabNZBdDetailDataSource(rowType: .SickbeardPlot, title: ""))
             
