@@ -348,7 +348,7 @@ public class SabNZBdService: Service {
     
     public func deleteItem(item: SABItem) {
         var mode = "queue"
-        if item.isMemberOfClass(SABHistoryItem) {
+        if item is SABHistoryItem {
             mode = "history"
         }
         
