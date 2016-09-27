@@ -29,7 +29,6 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         sectionIndexView.delegate = self
         
         addSearchBar()
-        addPlusButton()
         
         let cellNib = UINib(nibName: "SickbeardShowCell", bundle:nil)
         collectionView?.registerNib(cellNib, forCellWithReuseIdentifier: "SickbeardShowCell")
@@ -192,19 +191,6 @@ extension SickbeardShowsViewController { // UISearchBarDelegate
         loadShows()
         
         super.searchBarCancelButtonClicked(searchBar)
-    }
-    
-}
-
-extension SickbeardShowsViewController { // Adding show
-    
-    func addPlusButton() {
-        let button = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(plusButtonTapped))
-        navigationItem.rightBarButtonItem = button
-    }
-    
-    func plusButtonTapped() {
-        performSegueWithIdentifier("addShow", sender: nil)
     }
     
 }

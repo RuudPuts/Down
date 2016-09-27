@@ -33,7 +33,7 @@
             </objects>
             <point key="canvasLocation" x="1976" y="-527"/>
         </scene>
-        <!--Sickbeard Shows View Controller-->
+        <!--Shows-->
         <scene sceneID="5Tv-nH-LWi">
             <objects>
                 <viewController id="jP4-yj-hKZ" customClass="SickbeardShowsViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
@@ -132,13 +132,19 @@
                             <constraint firstItem="wvD-ya-8Bd" firstAttribute="leading" secondItem="M9E-Av-XUN" secondAttribute="trailing" id="qCX-Ha-n90"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Shows" id="dBE-X5-iMa">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Aej-sz-iNj">
+                            <connections>
+                                <segue destination="PaU-1y-4oi" kind="presentation" id="P1L-ho-OGx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="M9E-Av-XUN" id="Jx4-7r-n8J"/>
                         <outlet property="sectionIndexView" destination="wvD-ya-8Bd" id="StG-OI-qZK"/>
                         <segue destination="zIl-cP-Hb1" kind="show" identifier="SickbeardShow" id="uDI-eE-FoJ">
                             <nil key="action"/>
                         </segue>
-                        <segue destination="PaU-1y-4oi" kind="presentation" identifier="addShow" modalPresentationStyle="fullScreen" id="8e1-Rk-82o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bA8-iE-mYn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -516,6 +522,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="uDI-eE-FoJ"/>
-        <segue reference="nfu-fe-JUV"/>
+        <segue reference="eZO-pi-lVi"/>
     </inferredMetricsTieBreakers>
 </document>
