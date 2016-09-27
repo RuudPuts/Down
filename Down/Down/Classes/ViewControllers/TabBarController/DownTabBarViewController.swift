@@ -15,7 +15,11 @@ class DownTabBarViewController: DownViewController {
     @IBOutlet var tabButtons: [UIButton]!
 
     var selectedViewController: UIViewController?
-    var viewControllers = [UIViewController]()
+    var viewControllers = [UIViewController]() {
+        didSet {
+            updateChildViewControllers()
+        }
+    }
     
     var selectedTabBarItem: DownTabBarItem? {
         get {
@@ -42,6 +46,11 @@ class DownTabBarViewController: DownViewController {
         super.viewDidLayoutSubviews()
         
         layoutContentView()
+    }
+    
+    func updateChildViewControllers() {
+        childViewControllers.forEach { $0.removeFromParentViewController() }
+        viewControllers.forEach { addChildViewController($0) }
     }
     
     func layoutContentView() {
