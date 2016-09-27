@@ -36,7 +36,7 @@ public class SickbeardShow: Object {
     
     public dynamic var name = "" {
         didSet {
-            _simpleName = name.simple()
+            _simpleName = name.simple
         }
     }
     
@@ -159,19 +159,6 @@ public class SickbeardShow: Object {
         }
         
         return nil
-    }
-    
-}
-
-extension String {
-    
-    func simple() -> String {
-        var simpleString = self
-        [".", "'", ":", "(", ")", "&"].forEach {
-            simpleString = simpleString.stringByReplacingOccurrencesOfString($0, withString: "")
-        }
-        
-        return simpleString
     }
     
 }

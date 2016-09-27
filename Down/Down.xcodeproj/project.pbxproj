@@ -160,6 +160,7 @@
 		42E97C2D1BBD9E130040A979 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; };
 		42E97C2E1BBD9E130040A979 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42F035361AD45BC2001AE5B3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F035351AD45BC2001AE5B3 /* UIView+Extensions.swift */; };
+		42FD80051D99AF990025CAB8 /* DownSectionIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD7FF51D99AF430025CAB8 /* DownSectionIndexView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -519,6 +520,7 @@
 		42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownDetailViewController.xib; sourceTree = "<group>"; };
 		42E1CCCC1BA22BE600DFED2E /* DownDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownDetailViewController.swift; sourceTree = "<group>"; };
 		42F035351AD45BC2001AE5B3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		42FD7FF51D99AF430025CAB8 /* DownSectionIndexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownSectionIndexView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1201,6 +1203,7 @@
 				4216CF9D1D1B283000A89C4C /* CollectionViewCell */,
 				42CD255C1AB5BF93008E9717 /* TableViewCells */,
 				422063DD1B85126300DAFB46 /* DownImageView.swift */,
+				42FD7FF51D99AF430025CAB8 /* DownSectionIndexView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1732,6 +1735,7 @@
 				42E1CCC61BA226CE00DFED2E /* SickbeardShowsViewController.swift in Sources */,
 				42A496E51BAF32FA00F5395C /* SABItemCell.swift in Sources */,
 				428F7E541AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift in Sources */,
+				42FD80051D99AF990025CAB8 /* DownSectionIndexView.swift in Sources */,
 				42360B191D6B77C1007D2723 /* SickbeardShowHeaderView.swift in Sources */,
 				421129631C17762300E7B0BB /* SickbeardShowViewController.swift in Sources */,
 				4221ADEB1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift in Sources */,
