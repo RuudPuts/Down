@@ -13,7 +13,13 @@ class SicbkeardAddShowViewController: DownDetailViewController, UITableViewDataS
     var shows = [SickbeardShow]()
     
     override func viewDidLoad() {
-        self.viewDidLoad()
+        super.viewDidLoad()
+        
+        navigationController?.setupForApplication(.Sickbeard)
+    }
+    
+    @IBAction func closeButtonPressed(sender: UIBarButtonItem) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     // MARK: TableView
