@@ -59,7 +59,9 @@ class DownSectionIndexView: UIView, UICollectionViewDataSource, UICollectionView
     }
     
     func collectionViewPanned(recognizer: UIPanGestureRecognizer) {
-        let touch = recognizer.locationInView(indexView)
+        var touch = recognizer.locationInView(indexView)
+        touch.x = CGRectGetMidX(self.bounds)
+        
         if let indexPath = indexView.indexPathForItemAtPoint(touch) {
             collectionView(indexView, didSelectItemAtIndexPath: indexPath)
         }
