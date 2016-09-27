@@ -17,6 +17,22 @@
         </mutableArray>
     </customFonts>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="IjA-OA-4ig">
+            <objects>
+                <navigationController id="PaU-1y-4oi" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="imb-l6-wRG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="UEY-Fi-YV1" kind="relationship" relationship="rootViewController" id="LaH-vJ-kcH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gvm-3u-ftO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1976" y="-527"/>
+        </scene>
         <!--Sickbeard Shows View Controller-->
         <scene sceneID="5Tv-nH-LWi">
             <objects>
@@ -122,11 +138,37 @@
                         <segue destination="zIl-cP-Hb1" kind="show" identifier="SickbeardShow" id="uDI-eE-FoJ">
                             <nil key="action"/>
                         </segue>
+                        <segue destination="PaU-1y-4oi" kind="presentation" identifier="addShow" modalPresentationStyle="fullScreen" id="8e1-Rk-82o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bA8-iE-mYn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1976" y="226"/>
+        </scene>
+        <!--Add Show-->
+        <scene sceneID="U9O-dB-3to">
+            <objects>
+                <viewController id="UEY-Fi-YV1" customClass="SicbkeardAddShowViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tY1-cA-33d"/>
+                        <viewControllerLayoutGuide type="bottom" id="EzR-tE-od9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nIv-Dc-bHD">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Show" id="44Y-CE-VjM">
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="p0d-IB-Cc8">
+                            <connections>
+                                <action selector="closeButtonPressed:" destination="UEY-Fi-YV1" id="Hne-Xp-ctv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tRT-FA-Pgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2702" y="-527"/>
         </scene>
         <!--Sickbeard Show View Controller-->
         <scene sceneID="mAW-8c-KnL">

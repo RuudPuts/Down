@@ -99,6 +99,7 @@
 		42AE88D31B9F7D0A00E4F0CF /* SickbeardSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */; };
 		42B818691D295C1C003672C3 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B818681D295C1C003672C3 /* String+Extensions.swift */; };
 		42B8186B1D2969B3003672C3 /* DownRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8186A1D2969B3003672C3 /* DownRootViewController.swift */; };
+		42BAA33C1D98637C00AC32FB /* SicbkeardAddShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BAA32C1D98637600AC32FB /* SicbkeardAddShowViewController.swift */; };
 		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
 		42C12E4A1D678C0B00D2A21C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C12E491D678C0B00D2A21C /* Main.storyboard */; };
 		42C2D6FF1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2D6FE1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift */; };
@@ -463,6 +464,7 @@
 		42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardSeason.swift; sourceTree = "<group>"; };
 		42B818681D295C1C003672C3 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		42B8186A1D2969B3003672C3 /* DownRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownRootViewController.swift; sourceTree = "<group>"; };
+		42BAA32C1D98637600AC32FB /* SicbkeardAddShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SicbkeardAddShowViewController.swift; sourceTree = "<group>"; };
 		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		42C12E491D678C0B00D2A21C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		42C2D6FE1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardRecentlyAiredViewController.swift; sourceTree = "<group>"; };
@@ -636,6 +638,7 @@
 				429947981C2614BB00934B03 /* SickbeardEpisodeViewController.swift */,
 				42E1CCC51BA226CE00DFED2E /* SickbeardShowsViewController.swift */,
 				421129621C17762300E7B0BB /* SickbeardShowViewController.swift */,
+				42BAA32C1D98637600AC32FB /* SicbkeardAddShowViewController.swift */,
 			);
 			path = Sickbeard;
 			sourceTree = "<group>";
@@ -1751,6 +1754,7 @@
 				42E1CCCD1BA22BE600DFED2E /* DownDetailViewController.swift in Sources */,
 				42078E401AD1C702009845CC /* SickbeardViewController.swift in Sources */,
 				42078E1F1AD1721F009845CC /* SABHeaderView.swift in Sources */,
+				42BAA33C1D98637C00AC32FB /* SicbkeardAddShowViewController.swift in Sources */,
 				429E97EB1B977CE200C3F58B /* DownTextCell.swift in Sources */,
 				42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */,
 				4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */,
