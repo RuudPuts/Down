@@ -28,6 +28,8 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         }
     }
     
+    @IBOutlet weak var sectionIndexView: DownSectionIndexView!
+    
     var longPressRecognizer: UILongPressGestureRecognizer?
     var refreshControl: UIRefreshControl?
     
@@ -35,6 +37,9 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         super.viewDidLoad()
         title = show?.name
         refreshShow()
+        
+        sectionIndexView.datasource = seasons.map { String($0.id) }
+        sectionIndexView.tableView = tableView
         
         refreshControl = UIRefreshControl()
         // TODO: UIFont extension

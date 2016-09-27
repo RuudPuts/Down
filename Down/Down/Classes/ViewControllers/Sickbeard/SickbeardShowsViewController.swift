@@ -12,14 +12,21 @@ import Preheat
 import Nuke
 import RealmSwift
 
-class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DownSectionIndexViewDelegate {
     
     var preheatController: PreheatController<UICollectionView>!
-    var shows = DownDatabase.shared.fetchAllSickbeardShows()
+    var shows = [SickbeardShow]()
+    
+    @IBOutlet weak var sectionIndexView: DownSectionIndexView!
+    
+    let SymbolSectionTitle = "#"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Shows"
+        loadShows()
+        
+        sectionIndexView.delegate = self
         
         addSearchBar()
         addPlusButton()
@@ -73,6 +80,26 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         }
     }
     
+    func loadShows() {
+        let symbolPrefixes = ["'", "\\", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        
+        var sectionTitles = [String]()
+        
+        let allShows = DownDatabase.shared.fetchAllSickbeardShows()
+        allShows.forEach() { show in
+            var sectionTitle = show.nameWithoutPrefix[0..<1].uppercaseString
+            if symbolPrefixes.contains(sectionTitle) {
+                sectionTitle = SymbolSectionTitle
+            }
+            
+            sectionTitles.append(sectionTitle)
+        }
+        sectionTitles = Array(Set(sectionTitles)).sort { $0 < $1 }
+        
+        shows = Array(allShows).sort { $0.nameWithoutPrefix.uppercaseString < $1.nameWithoutPrefix.uppercaseString }
+        sectionIndexView.datasource = sectionTitles
+    }
+    
     // MARK: - CollectionView DataSource
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -104,7 +131,7 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let showsPerLine = 3
         // Calculate the widt
-        var cellWidth = self.view.frame.width / CGFloat(showsPerLine)
+        var cellWidth = CGRectGetWidth(collectionView.bounds) / CGFloat(showsPerLine)
         
         let modulus = indexPath.row % showsPerLine
         if modulus == 0 {
@@ -130,6 +157,21 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         performSegueWithIdentifier("SickbeardShow", sender: nil)
     }
     
+    // MARK: SectionIndexView
+    
+    func sectionIndexView(sectionIndexView: DownSectionIndexView, didSelectSection section: String, atIndex index: Int) {
+        var indexPath = NSIndexPath(forItem: 0, inSection: 0)
+        if (section != SymbolSectionTitle) {
+            // Find first show with selected section title as first character
+            let firstShow = shows.filter { $0.nameWithoutPrefix[0..<1] == section }.first
+            let showIndex = shows.indexOf(firstShow!)
+            
+            indexPath = NSIndexPath(forItem: Int(showIndex!), inSection: 0)
+        }
+        
+        collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: false)
+    }
+    
 }
 
 extension SickbeardShowsViewController { // UISearchBarDelegate
@@ -137,16 +179,17 @@ extension SickbeardShowsViewController { // UISearchBarDelegate
     override func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         let trimmedText = searchText.trimmed
         
-        shows = DownDatabase.shared.fetchAllSickbeardShows()
+        var foundShows = DownDatabase.shared.fetchAllSickbeardShows()
         if trimmedText.length > 0 {
-            shows = shows.filter("_simpleName contains[c] %@", trimmedText)
+            foundShows = foundShows.filter("_simpleName contains[c] %@", trimmedText)
         }
+        self.shows = Array(foundShows)
         
         super.searchBar(searchBar, textDidChange: searchText)
     }
     
     override func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        shows = DownDatabase.shared.fetchAllSickbeardShows()
+        loadShows()
         
         super.searchBarCancelButtonClicked(searchBar)
     }
@@ -183,6 +226,19 @@ extension SickbeardShow {
             let filePath = UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbId)_thumb.png"
             return ImageRequest(URL: NSURL(fileURLWithPath: filePath))
         }
+    }
+    
+    var nameWithoutPrefix: String {
+        let prefixes = ["The ", "A "]
+        
+        var showName = name
+        prefixes.forEach { prefix in
+            if showName.hasPrefix(prefix) {
+                showName = showName.substringFromIndex(showName.startIndex.advancedBy(prefix.length))
+            }
+        }
+        
+        return showName
     }
     
 }

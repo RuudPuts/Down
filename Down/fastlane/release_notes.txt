@@ -1,8 +1,5 @@
-Fixes
-- App could crash on startup
-
 New
-- Season/Episode status can now be set, tap a season header or long press an episode!
-
-Changes
-- The search bar's Cancel button looks pretty
+- Shows overview now has quick index scroller
+- Show detail view now has quick index scroller
+- Show detail view now refreshes
+- Pull to refresh added to show detail view

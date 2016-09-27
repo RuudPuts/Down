@@ -49,6 +49,7 @@ class DownViewController: UIViewController {
             return
         }
         
+        searchBar.frame = CGRectMake(0, 0, CGRectGetWidth(scrollView.bounds), CGRectGetHeight(searchBar.bounds))
         scrollView.setContentOffset(CGPointMake(0, CGRectGetHeight(searchBar.bounds)),
                                     animated: animated)
     }
@@ -57,18 +58,21 @@ class DownViewController: UIViewController {
 extension DownViewController: UISearchBarDelegate {
     
     func addSearchBar() {
+        guard let targetView = scrollView else {
+            return
+        }
+        
         let searchBar = UISearchBar()
         searchBar.delegate = self
         searchBar.placeholder = "Search..."
-        searchBar.sizeToFit()
         searchBar.showsCancelButton = true
         searchBar.searchBarStyle = .Minimal
         searchBar.textfield?.textColor = .lightGrayColor()
         
+        searchBar.sizeToFit()
         self.searchBar = searchBar
         
-        collectionView?.addSubview(searchBar)
-        tableView?.addSubview(searchBar)
+        targetView.addSubview(searchBar)
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
