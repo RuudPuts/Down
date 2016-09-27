@@ -27,7 +27,7 @@ class SicbkeardAddShowViewController: DownDetailViewController, UITableViewDataS
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return 
+        return UITableViewCell()
     }
     
 }

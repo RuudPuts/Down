@@ -196,7 +196,7 @@ extension SickbeardShowsViewController { // UISearchBarDelegate
     
 }
 
-extension SickbeardShowViewController { // Adding show
+extension SickbeardShowsViewController { // Adding show
     
     func addPlusButton() {
         let button = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(plusButtonTapped))
