@@ -11,6 +11,11 @@ sudo gem install fastlane
 fastlane ios build
 ```
 Create new build
+### ios test
+```
+fastlane ios test
+```
+Test app and create coverage report
 ### ios beta
 ```
 fastlane ios beta
