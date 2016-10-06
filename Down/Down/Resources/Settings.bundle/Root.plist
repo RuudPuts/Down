@@ -140,7 +140,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Clear cache on app launch</string>
+			<string>Clear cache on next app launch</string>
 			<key>Key</key>
 			<string>DownClearCache</string>
 			<key>DefaultValue</key>
