@@ -16,6 +16,13 @@ platform :ios do
     slather(proj: 'Down.xcodeproj', cobertura_xml: true, output_directory: output_folder)
   end
 
+  desc "Set up for Jenkins, currently only building"
+  lane :jenkins do
+    update_fastlane
+    setup_jenkins
+    build
+  end
+
   desc "Submit a new Beta Build to Crashlytics"
   lane :beta do
     increment_build_number
