@@ -16,6 +16,11 @@ Create new build
 fastlane ios test
 ```
 Test app and create coverage report
+### ios jenkins
+```
+fastlane ios jenkins
+```
+Set up for Jenkins, currently only building
 ### ios beta
 ```
 fastlane ios beta
