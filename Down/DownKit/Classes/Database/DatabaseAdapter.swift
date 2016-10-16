@@ -13,18 +13,18 @@ protocol DatabaseAdapter {
     
     var version: Int { get }
     
-    func write(commands: () -> (Void))
+    func write(_ commands: () -> (Void))
     
-    func storeSickbeardShows(shows: [SickbeardShow])
-    func deleteSickbeardShow(show: SickbeardShow)
+    func storeSickbeardShows(_ shows: [SickbeardShow])
+    func deleteSickbeardShow(_ show: SickbeardShow)
     
     func allSickbeardShows() -> Results<SickbeardShow>
-    func showsWithEpisodesAiredSince(airDate: NSDate) -> [SickbeardShow]
-    func showBestMatchingComponents(components: [String]) -> SickbeardShow?
+    func showsWithEpisodesAiredSince(_ airDate: Date) -> [SickbeardShow]
+    func showBestMatchingComponents(_ components: [String]) -> SickbeardShow?
     
-    func setPlot(plot: String, forEpisode episode: SickbeardEpisode)
+    func setPlot(_ plot: String, forEpisode episode: SickbeardEpisode)
     
-    func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode>
-    func episodesAiredSince(airDate: NSDate) -> Results<SickbeardEpisode>
-    func episodesAiringAfter(date: NSDate, max maxEpisodes: Int) -> Results<SickbeardEpisode>
+    func episodesAiringOnDate(_ date: Date) -> Results<SickbeardEpisode>
+    func episodesAiredSince(_ airDate: Date) -> Results<SickbeardEpisode>
+    func episodesAiringAfter(_ date: Date, max maxEpisodes: Int) -> Results<SickbeardEpisode>
 }

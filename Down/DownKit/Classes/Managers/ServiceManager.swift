@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
+open class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     
     public override init() {
         super.init()
@@ -17,13 +17,13 @@ public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
         SickbeardService.shared.addListener(self)
     }
     
-    public func startAllServices() {
+    open func startAllServices() {
         SabNZBdService.shared.startService()
         SickbeardService.shared.startService()
         CouchPotatoService.shared.startService()
     }
     
-    public func stopAllServices() {
+    open func stopAllServices() {
         SabNZBdService.shared.stopService()
         SickbeardService.shared.stopService()
         CouchPotatoService.shared.stopService()
@@ -31,29 +31,29 @@ public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     
     // MARK: SabNZBdListener
     
-    public func sabNZBdQueueUpdated() {
+    open func sabNZBdQueueUpdated() {
         matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.queue)
     }
     
-    public func sabNZBdHistoryUpdated() {
+    open func sabNZBdHistoryUpdated() {
         matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.history)
     }
     
-    public func sabNZBDFullHistoryFetched() { }
-    public func willRemoveSABItem(sabItem: SABItem) { }
+    open func sabNZBDFullHistoryFetched() { }
+    open func willRemoveSABItem(_ sabItem: SABItem) { }
 
     // MARK: SickbearListener
     
-    public func sickbeardShowCacheUpdated() {
+    open func sickbeardShowCacheUpdated() {
         matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.queue)
         matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.history)
     }
     
     // MARK: Private methods
     
-    private func matchSabNZBdItemsWithSickbeardHistory(sabNZBdItems: [SABItem]) {
+    fileprivate func matchSabNZBdItemsWithSickbeardHistory(_ sabNZBdItems: [SABItem]) {
         for sabNZBdItem in sabNZBdItems {
-            guard sabNZBdItem.sickbeardEpisode == nil || sabNZBdItem.sickbeardEpisode!.invalidated else {
+            guard sabNZBdItem.sickbeardEpisode == nil || sabNZBdItem.sickbeardEpisode!.isInvalidated else {
 //                NSLog("Reusing \(sabNZBdItem.sickbeardEpisode!.show!.name) - S\(sabNZBdItem.sickbeardEpisode!.season!.id)E\(sabNZBdItem.sickbeardEpisode!.id) - Valid \(!sabNZBdItem.sickbeardEpisode!.invalidated)")
                 continue
             }

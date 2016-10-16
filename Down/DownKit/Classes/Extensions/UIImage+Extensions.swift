@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImage {
     
-    func resize(newSize: CGSize) -> UIImage {
+    func resize(_ newSize: CGSize) -> UIImage {
         guard newSize.height > 0 && newSize.width > 0 else {
             return self
         }
@@ -20,16 +20,16 @@ extension UIImage {
         return resize(scale: scale)
     }
     
-    func resize(scale scale: CGFloat) -> UIImage {
-        let scaleTransform = CGSizeApplyAffineTransform(size, CGAffineTransformMakeScale(scale, scale))
+    func resize(scale: CGFloat) -> UIImage {
+        let scaleTransform = size.applying(CGAffineTransform(scaleX: scale, y: scale))
         let scaledSize = CGSize(width: size.width * scale, height: size.height * scale)
         
-        UIGraphicsBeginImageContextWithOptions(scaleTransform, true, UIScreen.mainScreen().scale)
-        drawInRect(CGRect(origin: CGPointZero, size: scaledSize))
+        UIGraphicsBeginImageContextWithOptions(scaleTransform, true, UIScreen.main.scale)
+        draw(in: CGRect(origin: CGPoint.zero, size: scaledSize))
         
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return resizedImage
+        return resizedImage!
     }
 }

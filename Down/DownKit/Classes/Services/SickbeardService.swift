@@ -9,36 +9,36 @@
 import RealmSwift
 import Alamofire
 
-public class SickbeardService: Service {
+open class SickbeardService: Service {
     
-    public static let shared = SickbeardService()
+    open static let shared = SickbeardService()
     
-    public static let defaultPort = 8081
-    private var shows: Results<SickbeardShow> {
+    open static let defaultPort = 8081
+    fileprivate var shows: Results<SickbeardShow> {
         get {
             return DownDatabase.shared.fetchAllSickbeardShows()
         }
     }
     
-    private let bannerDownloadQueue = dispatch_queue_create("com.ruudputs.down.BannerDownloadQueue", DISPATCH_QUEUE_SERIAL)
-    private let posterDownloadQueue = dispatch_queue_create("com.ruudputs.down.PosterDownloadQueue", DISPATCH_QUEUE_SERIAL)
+    fileprivate let bannerDownloadQueue = DispatchQueue(label: "com.ruudputs.down.BannerDownloadQueue", attributes: [])
+    fileprivate let posterDownloadQueue = DispatchQueue(label: "com.ruudputs.down.PosterDownloadQueue", attributes: [])
     
     public enum ErrorType: Int {
-        case GuardFailed = -1
-        case InvalidValue = -2
+        case guardFailed = -1
+        case invalidValue = -2
     }
     
-    private enum SickbeardNotifyType {
-        case ShowCacheUpdated
+    fileprivate enum SickbeardNotifyType {
+        case showCacheUpdated
     }
     
-    override public func addListener(listener: ServiceListener) {
+    override open func addListener(_ listener: ServiceListener) {
         if listener is SickbeardListener {
             super.addListener(listener)
         }
     }
     
-    override public func startService() {
+    override open func startService() {
         super.startService()
         NSLog("SickbeardService - Last updated: %@", PreferenceManager.sickbeardLastCacheRefresh ?? "never")
         NSLog("SickbeardService - Refreshing show cache")
@@ -47,26 +47,25 @@ public class SickbeardService: Service {
     
     // MARK: - Public methods
     
-    internal func parseNzbName(nzbName: String) -> SickbeardEpisode? {
+    internal func parseNzbName(_ nzbName: String) -> SickbeardEpisode? {
         // Check if show contains season/episode identifiers
-        let regex = try! NSRegularExpression(pattern: "S\\d+(.)?E\\d+", options: .CaseInsensitive)
-        let seasonRange = regex.rangeOfFirstMatchInString(nzbName, options: [], range: nzbName.fullNSRange) as NSRange!
+        let regex = try! NSRegularExpression(pattern: "S\\d+(.)?E\\d+", options: .caseInsensitive)
+        let seasonRange = regex.rangeOfFirstMatch(in: nzbName, options: [], range: nzbName.fullNSRange) as NSRange!
         
-        guard seasonRange.location != NSNotFound else {
+        guard seasonRange?.location != NSNotFound else {
             return nil
         }
         
         // Take everything before season/episode identifiers
-        let cleanedName = nzbName[0...seasonRange.location - 2]
+        let cleanedName = nzbName[0...(seasonRange?.location)! - 2]
         
         // Get te components
-        let nameComponents = cleanedName.componentsSeparatedByString(".")
+        let nameComponents = cleanedName.components(separatedBy: ".")
         
         // Let the DownDatabase.shared manager match te best show
         if let show = DownDatabase.shared.showBestMatchingComponents(nameComponents) {
-            let seasonEpisodeIdentifier = nzbName[seasonRange.location + 1...seasonRange.location + seasonRange.length - 1]
-                .uppercaseString.stringByReplacingOccurrencesOfString(".", withString: "")
-            let components = seasonEpisodeIdentifier.componentsSeparatedByString("E")
+            let seasonEpisodeIdentifier = nzbName[(seasonRange?.location)! + 1...(seasonRange?.location)! + (seasonRange?.length)! - 1].uppercased().replacingOccurrences(of: ".", with: "")
+            let components = seasonEpisodeIdentifier.components(separatedBy: "E")
             
             let seasonId = Int(components.first!)
             let episodeId = Int(components.last!)
@@ -80,8 +79,8 @@ public class SickbeardService: Service {
         return nil
     }
     
-    public func getEpisodesAiringToday() -> Results<SickbeardEpisode> {
-        let episodes = DownDatabase.shared.episodesAiringOnDate(NSDate());
+    open func getEpisodesAiringToday() -> Results<SickbeardEpisode> {
+        let episodes = DownDatabase.shared.episodesAiringOnDate(Date());
 
         for episode in episodes {
             fetchEpisodeData(episode)
@@ -90,8 +89,8 @@ public class SickbeardService: Service {
         return episodes
     }
     
-    public func getEpisodesAiringSoon() -> Results<SickbeardEpisode> {
-        let episodes = DownDatabase.shared.episodesAiringAfter(NSDate.tomorrow(), max: 5);
+    open func getEpisodesAiringSoon() -> Results<SickbeardEpisode> {
+        let episodes = DownDatabase.shared.episodesAiringAfter(Date.tomorrow(), max: 5);
         
         for episode in episodes {
             fetchEpisodeData(episode)
@@ -100,7 +99,7 @@ public class SickbeardService: Service {
         return episodes
     }
     
-    public func getRecentlyAiredEpisodes() -> Results<SickbeardEpisode> {
+    open func getRecentlyAiredEpisodes() -> Results<SickbeardEpisode> {
         let episodes = DownDatabase.shared.lastAiredEpisodes(maxDays: 4);
         
         for episode in episodes {
@@ -110,7 +109,7 @@ public class SickbeardService: Service {
         return episodes
     }
     
-    public func showWithId(tvdbid: Int) -> SickbeardShow? {
+    open func showWithId(_ tvdbid: Int) -> SickbeardShow? {
         var showWithId: SickbeardShow? = nil
         for show in shows {
             if show.tvdbId == tvdbid {
@@ -122,7 +121,7 @@ public class SickbeardService: Service {
         return showWithId
     }
     
-    public func refreshEpisodesForShow(show: SickbeardShow) {
+    open func refreshEpisodesForShow(_ show: SickbeardShow) {
         for season in show.seasons {
             for episode in season.episodes {
                 fetchEpisodeData(episode)
@@ -132,18 +131,18 @@ public class SickbeardService: Service {
 
     // MARK: - Show cache
     
-    public func refreshShowCache() {
+    open func refreshShowCache() {
         if shows.count == 0 {
             NSLog("SickbeardService - Refreshing full cache")
             // Find shows to refresh, episodes aired since last update
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
-            Alamofire.request(.GET, url).responseJSON { handler in
+            Alamofire.request(url).responseJSON { handler in
                 if handler.validateResponse() {
                     let showData = (JSON(handler.result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
                     let tvdbIds = Array(showData.keys)
                     self.refreshShowData(tvdbIds, completionHandler: {
-                        PreferenceManager.sickbeardLastCacheRefresh = NSDate().dateWithoutTime()
-                        self.notifyListeners(.ShowCacheUpdated)
+                        PreferenceManager.sickbeardLastCacheRefresh = Date().dateWithoutTime()
+                        self.notifyListeners(.showCacheUpdated)
                     })
                 }
                 else {
@@ -162,8 +161,8 @@ public class SickbeardService: Service {
             }
             
             refreshShowData(tvdbIds, completionHandler: {
-                PreferenceManager.sickbeardLastCacheRefresh = NSDate().dateWithoutTime()
-                self.notifyListeners(.ShowCacheUpdated)
+                PreferenceManager.sickbeardLastCacheRefresh = Date().dateWithoutTime()
+                self.notifyListeners(.showCacheUpdated)
             })
             
             // TODO: Download shows to remove deleted and add new shows to cache
@@ -173,15 +172,15 @@ public class SickbeardService: Service {
         }
     }
     
-    private func refreshShowData(tvdbIds: [String], completionHandler: () -> Void) {
-        let showMetaDataGroup = dispatch_group_create();
+    fileprivate func refreshShowData(_ tvdbIds: [String], completionHandler: @escaping () -> Void) {
+        let showMetaDataGroup = DispatchGroup();
         var refreshedShows = [SickbeardShow]()
         
         tvdbIds.forEach { tvdbId in
-            dispatch_group_enter(showMetaDataGroup)
+            showMetaDataGroup.enter()
             
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
-            Alamofire.request(.GET, url).responseJSON { handler in
+            Alamofire.request(url).responseJSON { handler in
                 if handler.validateResponse() {
                     let show = self.parseShowData(JSON(handler.result.value!)["data"], forTvdbId: Int(tvdbId)!)
                     refreshedShows.append(show)
@@ -189,23 +188,23 @@ public class SickbeardService: Service {
                 else {
                     print("Error while fetching Sickbeard showData: \(handler.result.error!)")
                 }
-                dispatch_group_leave(showMetaDataGroup)
+                showMetaDataGroup.leave()
             }
         }
         
-        dispatch_group_notify(showMetaDataGroup, dispatch_get_main_queue()) {
-            let showSeasonsGroup = dispatch_group_create();
+        showMetaDataGroup.notify(queue: DispatchQueue.main) {
+            let showSeasonsGroup = DispatchGroup();
             
             refreshedShows.forEach { show in
                 self.downloadBanner(show)
                 self.downloadPoster(show)
-                dispatch_group_enter(showSeasonsGroup)
+                showSeasonsGroup.enter()
                 self.refreshShowSeasons(show, completionHandler: {
-                    dispatch_group_leave(showSeasonsGroup)
+                    showSeasonsGroup.leave()
                 })
             }
             
-            dispatch_group_notify(showSeasonsGroup, dispatch_get_main_queue()) {
+            showSeasonsGroup.notify(queue: DispatchQueue.main) {
                 DownDatabase.shared.storeSickbeardShows(refreshedShows)
                 
                 completionHandler()
@@ -213,7 +212,7 @@ public class SickbeardService: Service {
         }
     }
     
-    private func parseShowData(json: JSON, forTvdbId tvdbId: Int) -> SickbeardShow {
+    fileprivate func parseShowData(_ json: JSON, forTvdbId tvdbId: Int) -> SickbeardShow {
         let name = json["show_name"].string!
         let status = json["status"].string!
         let quality = json["quality"].string!
@@ -231,9 +230,9 @@ public class SickbeardService: Service {
         return show
     }
     
-    private func refreshShowSeasons(show: SickbeardShow, completionHandler: () -> Void) {
+    fileprivate func refreshShowSeasons(_ show: SickbeardShow, completionHandler: @escaping () -> Void) {
         let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show.tvdbId)"
-        Alamofire.request(.GET, url).responseJSON { handler in
+        Alamofire.request(url).responseJSON { handler in
             if handler.validateResponse() {
                 self.parseShowSeasons(JSON(handler.result.value!)["data"], forShow: show)
                 completionHandler()
@@ -244,9 +243,9 @@ public class SickbeardService: Service {
         }
     }
     
-    private func parseShowSeasons(json: JSON, forShow show: SickbeardShow) {
+    fileprivate func parseShowSeasons(_ json: JSON, forShow show: SickbeardShow) {
         let seasons = List<SickbeardSeason>()
-        let dateFormatter = NSDateFormatter.downDateFormatter()
+        let dateFormatter = DateFormatter.downDateFormatter()
         
         let seaonsKeys = Array((json.rawValue as! [String: AnyObject]).keys)
         for seasonKey in seaonsKeys {
@@ -264,7 +263,7 @@ public class SickbeardService: Service {
                 let episode = SickbeardEpisode() //(id: episodeKey, season: season, show: show)
                 episode.id = Int(episodeKey)!
                 episode.name = episodeJson["name"].string!
-                episode.airDate = dateFormatter.dateFromString(episodeJson["airdate"].string!)
+                episode.airDate = dateFormatter.date(from: episodeJson["airdate"].string!)
                 episode.quality = episodeJson["quality"].string!
                 let status = episodeJson["status"].string!
                 episode.status = SickbeardEpisode.SickbeardEpisodeStatus(rawValue: status) ?? episode.status
@@ -281,17 +280,17 @@ public class SickbeardService: Service {
     
     // MARK: - Episodes
     
-    private func fetchEpisodeData(episode: SickbeardEpisode) -> Bool {
+    fileprivate func fetchEpisodeData(_ episode: SickbeardEpisode) -> Bool {
         guard episode.plot.length == 0 else {
             return false
         }
         
-        if let tvdbId = episode.show?.tvdbId, seasonId = episode.season?.id {
+        if let tvdbId = episode.show?.tvdbId, let seasonId = episode.season?.id {
             let command = "episode&tvdbid=\(tvdbId)&season=\(seasonId)&episode=\(episode.id)"
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=\(command)"
-            Alamofire.request(.GET, url).responseJSON { handler in
+            Alamofire.request(url).responseJSON { handler in
                 if handler.validateResponse() {
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.asynchronously(execute: {
                         let plot = JSON(handler.result.value!)["data"]["description"].string ?? ""
                         DownDatabase.shared.setPlot(plot, forEpisode: episode)
                     })
@@ -307,40 +306,40 @@ public class SickbeardService: Service {
         return false
     }
     
-    public func update(status: SickbeardEpisode.SickbeardEpisodeStatus, forEpisode episode: SickbeardEpisode, completion: (NSError?) -> (Void)) -> Bool {
+    open func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, forEpisode episode: SickbeardEpisode, completion: @escaping (NSError?) -> (Void)) -> Bool {
         guard let tvdbId = episode.show?.tvdbId, let seasonId = episode.season?.id else {
-            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.GuardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
+            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.guardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
             return false
         }
         
         guard SickbeardEpisode.SickbeardEpisodeStatus.updatable.contains(status) else {
-            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.InvalidValue.rawValue, userInfo: [NSLocalizedDescriptionKey: "Invalid value for 'status'"]))
+            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.invalidValue.rawValue, userInfo: [NSLocalizedDescriptionKey: "Invalid value for 'status'"]))
             return false
         }
         
-        let command = "episode.setstatus&status=\(status.rawValue.lowercaseString)&tvdbid=\(tvdbId)&season=\(seasonId)&episode=\(episode.id)&force=1"
+        let command = "episode.setstatus&status=\(status.rawValue.lowercased())&tvdbid=\(tvdbId)&season=\(seasonId)&episode=\(episode.id)&force=1"
         let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=\(command)"
-        Alamofire.request(.GET, url).responseJSON { handler in
+        Alamofire.request(url).responseJSON { handler in
             completion(handler.result.error)
         }
         
         return false
     }
     
-    public func update(status: SickbeardEpisode.SickbeardEpisodeStatus, forSeason season: SickbeardSeason, completion: (NSError?) -> (Void)) -> Bool {
+    open func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, forSeason season: SickbeardSeason, completion: @escaping (NSError?) -> (Void)) -> Bool {
         guard let tvdbId = season.show?.tvdbId else {
-            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.GuardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
+            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.guardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
             return false
         }
         
         guard SickbeardEpisode.SickbeardEpisodeStatus.updatable.contains(status) else {
-            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.InvalidValue.rawValue, userInfo: [NSLocalizedDescriptionKey: "Invalid value for 'status'"]))
+            completion(NSError(domain: "Down.SickbeardService", code: ErrorType.invalidValue.rawValue, userInfo: [NSLocalizedDescriptionKey: "Invalid value for 'status'"]))
             return false
         }
         
-        let command = "episode.setstatus&status=\(status.rawValue.lowercaseString)&tvdbid=\(tvdbId)&season=\(season.id)&force=1"
+        let command = "episode.setstatus&status=\(status.rawValue.lowercased())&tvdbid=\(tvdbId)&season=\(season.id)&force=1"
         let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=\(command)"
-        Alamofire.request(.GET, url).responseJSON { handler in
+        Alamofire.request(url).responseJSON { handler in
             completion(handler.result.error)
         }
         
@@ -349,12 +348,12 @@ public class SickbeardService: Service {
     
     // MARK: - Listeners
     
-    private func notifyListeners(notifyType: SickbeardNotifyType) {
+    fileprivate func notifyListeners(_ notifyType: SickbeardNotifyType) {
         for listener in self.listeners {
             if listener is SickbeardListener {
                 let sickbeardListener = listener as! SickbeardListener
                 switch notifyType {
-                case .ShowCacheUpdated:
+                case .showCacheUpdated:
                     NSLog("SickbeardService - Show cache refreshed")
                     sickbeardListener.sickbeardShowCacheUpdated()
                     break
@@ -365,15 +364,15 @@ public class SickbeardService: Service {
     
     // MARK: - Banners & Posters
     
-    private func downloadBanner(show: SickbeardShow) {
+    fileprivate func downloadBanner(_ show: SickbeardShow) {
         if show.hasBanner {
             return
         }
         
-        dispatch_async(bannerDownloadQueue, {
+        bannerDownloadQueue.async(execute: {
             
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
-            Alamofire.request(.GET, url).responseData { handler in
+            Alamofire.request(url).responseData { handler in
                 if handler.validateResponse() {
                     ImageProvider.storeBanner(handler.result.value!, forShow: show.tvdbId)
                 }
@@ -384,14 +383,14 @@ public class SickbeardService: Service {
         })
     }
     
-    private func downloadPoster(show: SickbeardShow) {
+    fileprivate func downloadPoster(_ show: SickbeardShow) {
         if show.hasPoster {
             return
         }
         
-        dispatch_async(posterDownloadQueue, {
+        posterDownloadQueue.async(execute: {
             let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
-            Alamofire.request(.GET, url).responseData { handler in
+            Alamofire.request(url).responseData { handler in
                 // TODO: Store small variant of poster
                 
                 if handler.validateResponse() {

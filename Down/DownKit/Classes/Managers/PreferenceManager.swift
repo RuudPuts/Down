@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class PreferenceManager: DownCache {
+open class PreferenceManager: DownCache {
     
     struct PreferenceKeys {
         static let sabNZBdHost = "SabNZBdHost"
@@ -24,7 +24,7 @@ public class PreferenceManager: DownCache {
         static let downClearCache = "DownClearCache"
     }
     
-    public class var sabNZBdHost: String {
+    open class var sabNZBdHost: String {
         get {
             let host = getPreference(PreferenceKeys.sabNZBdHost) as! String?
             if host == nil || host == "http://ip:port" {
@@ -34,20 +34,20 @@ public class PreferenceManager: DownCache {
             return cleanupHost(host!)
         }
         set {
-            setPreference(newValue, forKey:PreferenceKeys.sabNZBdHost)
+            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sabNZBdHost)
         }
     }
     
-    public class var sabNZBdApiKey: String {
+    open class var sabNZBdApiKey: String {
         get {
             return getPreference(PreferenceKeys.sabNZBdApiKey) as! String? ?? ""
         }
         set {
-            setPreference(newValue, forKey:PreferenceKeys.sabNZBdApiKey)
+            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sabNZBdApiKey)
         }
     }
     
-    public class var sickbeardHost: String {
+    open class var sickbeardHost: String {
         get {
             let host = getPreference(PreferenceKeys.sickbeardHost) as! String?
             if host == nil || host == "ip:port" {
@@ -57,29 +57,29 @@ public class PreferenceManager: DownCache {
             return cleanupHost(host!)
         }
         set {
-            setPreference(newValue, forKey:PreferenceKeys.sickbeardHost)
+            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sickbeardHost)
         }
     }
     
-    public class var sickbeardApiKey: String {
+    open class var sickbeardApiKey: String {
         get {
             return getPreference(PreferenceKeys.sickbeardApiKey) as! String? ?? ""
         }
         set {
-            setPreference(newValue, forKey:PreferenceKeys.sickbeardApiKey)
+            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sickbeardApiKey)
         }
     }
     
-    public class var sickbeardLastCacheRefresh: NSDate? {
+    open class var sickbeardLastCacheRefresh: Date? {
         get {
-            return getPreference(PreferenceKeys.sickbeardCacheRefreshKey) as! NSDate?
+            return getPreference(PreferenceKeys.sickbeardCacheRefreshKey) as! Date?
         }
         set {
-            setPreference(newValue, forKey:PreferenceKeys.sickbeardCacheRefreshKey)
+            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sickbeardCacheRefreshKey)
         }
     }
     
-    public class var couchPotatoHost: String {
+    open class var couchPotatoHost: String {
         get {
             let host = getPreference(PreferenceKeys.sabNZBdHost) as! String?
             if host == nil || host == "ip:port" {
@@ -89,31 +89,31 @@ public class PreferenceManager: DownCache {
             return cleanupHost(host!)
         }
         set {
-            setPreference(newValue, forKey:PreferenceKeys.couchPotatoHost)
+            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.couchPotatoHost)
         }
     }
     
-    public class var couchPotatoApiKey: String {
+    open class var couchPotatoApiKey: String {
         get {
             return getPreference(PreferenceKeys.couchPotatoApiKey) as! String? ?? ""
         }
         set {
-            setPreference(newValue, forKey:PreferenceKeys.couchPotatoApiKey)
+            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.couchPotatoApiKey)
         }
     }
     
-    public class var downClearCache: Bool {
+    open class var downClearCache: Bool {
         get {
             return getPreference(PreferenceKeys.downClearCache) as! Bool? ?? false
         }
         set {
-            setPreference(newValue, forKey:PreferenceKeys.downClearCache)
+            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.downClearCache)
         }
     }
     
     // MARK: - DownCache
     
-    public static func clearCache() {
+    open static func clearCache() {
         deletePreference(PreferenceKeys.sabNZBdHost)
         deletePreference(PreferenceKeys.sabNZBdApiKey)
         
@@ -129,23 +129,23 @@ public class PreferenceManager: DownCache {
     
     // MARK: - Private functions
     
-    private class func getPreference(key: String) -> AnyObject? {
-        return NSUserDefaults.standardUserDefaults().objectForKey(key)
+    fileprivate class func getPreference(_ key: String) -> AnyObject? {
+        return UserDefaults.standard.object(forKey: key) as AnyObject?
     }
     
-    private class func setPreference(object: AnyObject?, forKey key: String) {
-        NSUserDefaults.standardUserDefaults().setObject(object, forKey: key)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    fileprivate class func setPreference(_ object: AnyObject?, forKey key: String) {
+        UserDefaults.standard.set(object, forKey: key)
+        UserDefaults.standard.synchronize()
     }
     
-    private class func deletePreference(key: String) {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    fileprivate class func deletePreference(_ key: String) {
+        UserDefaults.standard.removeObject(forKey: key)
+        UserDefaults.standard.synchronize()
     }
     
-    private class func cleanupHost(host: String) -> String {
+    fileprivate class func cleanupHost(_ host: String) -> String {
         var cleanedHost = host
-        if host.rangeOfString("http://") == nil {
+        if host.range(of: "http://") == nil {
             cleanedHost = "http://" + host
         }
         return cleanedHost

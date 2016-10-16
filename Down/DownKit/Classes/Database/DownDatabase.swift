@@ -9,9 +9,9 @@
 import Foundation
 import RealmSwift
 
-public class DownDatabase: DownCache {
+open class DownDatabase: DownCache {
     
-    public static let shared = DownDatabase()
+    open static let shared = DownDatabase()
     
     let adapter = DatabaseV1Adapter()
     
@@ -20,7 +20,7 @@ public class DownDatabase: DownCache {
     class var databasePath: String {
         let storageDirectory = "\(UIApplication.documentsDirectory)"
         do {
-            try NSFileManager.defaultManager().createDirectoryAtPath(storageDirectory, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: storageDirectory, withIntermediateDirectories: true, attributes: nil)
         }
         catch let error as NSError {
             print("Error while creating databasePath: \(error)")
@@ -29,22 +29,22 @@ public class DownDatabase: DownCache {
     }
     
     class var databaseExists: Bool {
-        return NSFileManager.defaultManager().fileExistsAtPath(databasePath)
+        return FileManager.default.fileExists(atPath: databasePath)
     }
     
     public init() {
         NSLog("DatabasePath: \(DownDatabase.databasePath)")
     }
     
-    public func write(commands: () -> (Void)) {
+    open func write(_ commands: () -> (Void)) {
         self.adapter.write(commands)
     }
     
-    public static func clearCache() {
+    open static func clearCache() {
         let storageDirectory = UIApplication.documentsDirectory
         
         do {
-            let allFiles = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(storageDirectory)
+            let allFiles = try FileManager.default.contentsOfDirectory(atPath: storageDirectory)
             
             for file in allFiles {
                 if !file.hasPrefix(DatabaseFile) {
@@ -52,7 +52,7 @@ public class DownDatabase: DownCache {
                 }
                 
                 let filePath = storageDirectory + "/" + file
-                try NSFileManager.defaultManager().removeItemAtPath(filePath)
+                try FileManager.default.removeItem(atPath: filePath)
             }
         }
         catch let error as NSError {
@@ -62,42 +62,42 @@ public class DownDatabase: DownCache {
     
     // MARK: Sickbeard
     
-    public func storeSickbeardShows(shows: [SickbeardShow]) {
+    open func storeSickbeardShows(_ shows: [SickbeardShow]) {
         self.adapter.storeSickbeardShows(shows)
     }
     
-    public func deleteSickbeardShow(show: SickbeardShow) {
+    open func deleteSickbeardShow(_ show: SickbeardShow) {
         self.adapter.deleteSickbeardShow(show)
     }
     
-    public func fetchAllSickbeardShows() -> Results<SickbeardShow> {
+    open func fetchAllSickbeardShows() -> Results<SickbeardShow> {
         return self.adapter.allSickbeardShows()
     }
     
-    public func fetchShowsWithEpisodesAiredSince(airDate: NSDate) -> [SickbeardShow] {
+    open func fetchShowsWithEpisodesAiredSince(_ airDate: Date) -> [SickbeardShow] {
         return self.adapter.showsWithEpisodesAiredSince(airDate)
     }
     
-    public func setPlot(plot: String, forEpisode episode: SickbeardEpisode) {
+    open func setPlot(_ plot: String, forEpisode episode: SickbeardEpisode) {
         self.adapter.setPlot(plot, forEpisode: episode)
     }
     
-    public func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode> {
+    open func episodesAiringOnDate(_ date: Date) -> Results<SickbeardEpisode> {
         return self.adapter.episodesAiringOnDate(date)
     }
     
-    public func episodesAiringAfter(date: NSDate, max maxEpisodes: Int) -> Results<SickbeardEpisode> {
+    open func episodesAiringAfter(_ date: Date, max maxEpisodes: Int) -> Results<SickbeardEpisode> {
         return self.adapter.episodesAiringAfter(date, max: maxEpisodes)
     }
     
-    public func lastAiredEpisodes(maxDays maxDays: Int) -> Results<SickbeardEpisode> {
-        let today = NSDate().dateWithoutTime()
-        let daysAgo = today.dateByAddingTimeInterval(-(86400 * Double(maxDays)))
+    open func lastAiredEpisodes(maxDays: Int) -> Results<SickbeardEpisode> {
+        let today = Date().withoutTime()
+        let daysAgo = today.addingTimeInterval(-(86400 * Double(maxDays)))
         
         return self.adapter.episodesAiredSince(daysAgo)
     }
     
-    public func showBestMatchingComponents(components: [String]) -> SickbeardShow? {
+    open func showBestMatchingComponents(_ components: [String]) -> SickbeardShow? {
         return self.adapter.showBestMatchingComponents(components)
     }
     

@@ -15,11 +15,11 @@ class DatabaseV1Adapter: DatabaseAdapter {
     
     var defaultRealm: Realm {
         get {
-            return try! Realm(fileURL: NSURL(fileURLWithPath:DownDatabase.databasePath))
+            return try! Realm(fileURL: NSURL(fileURLWithPath:DownDatabase.databasePath) as URL)
         }
     }
     
-    func write(commands: () -> (Void)) {
+    func write(_ commands: () -> (Void)) {
         let realm = defaultRealm
         do {
             try realm.write(commands)
@@ -31,7 +31,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
 
     // MARK: Shows
     
-    func storeSickbeardShows(shows: [SickbeardShow]) {
+    func storeSickbeardShows(_ shows: [SickbeardShow]) {
         // Until Realm supports cascading deletion remove the show manually
         shows.forEach {
             deleteSickbeardShow($0)
@@ -44,7 +44,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
         }
     }
     
-    func deleteSickbeardShow(show: SickbeardShow) {
+    func deleteSickbeardShow(_ show: SickbeardShow) {
         guard let showToDelete = sickbeardShowWithIdentifier(show.tvdbId) else {
             return
         }
@@ -57,18 +57,18 @@ class DatabaseV1Adapter: DatabaseAdapter {
     }
     
     func allSickbeardShows() -> Results<SickbeardShow> {
-        let shows = defaultRealm.objects(SickbeardShow)
-        let sortedShows = shows.sorted("name")
+        let shows = defaultRealm.objects(SickbeardShow.self)
+        let sortedShows = shows.sorted(byProperty: "name")
         
         return sortedShows
     }
     
-    func sickbeardShowWithIdentifier(tvdbId: Int) -> SickbeardShow? {
-        return self.defaultRealm.objects(SickbeardShow).filter("tvdbId == \(tvdbId)").first
+    func sickbeardShowWithIdentifier(_ tvdbId: Int) -> SickbeardShow? {
+        return self.defaultRealm.objects(SickbeardShow.self).filter("tvdbId == \(tvdbId)").first
     }
     
     // TODO: Also make this return a Results set
-    func showsWithEpisodesAiredSince(airDate: NSDate) -> [SickbeardShow] {
+    func showsWithEpisodesAiredSince(_ airDate: Date) -> [SickbeardShow] {
         let episodes = episodesAiredSince(airDate)
         
         var shows = [SickbeardShow]()
@@ -81,7 +81,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
         return shows
     }
     
-    func showBestMatchingComponents(components: [String]) -> SickbeardShow? {
+    func showBestMatchingComponents(_ components: [String]) -> SickbeardShow? {
         var matchingShows: Results<SickbeardShow>?
         
         for component in components {
@@ -89,7 +89,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
             
             var shows: Results<SickbeardShow>?
             if matchingShows == nil {
-                shows = defaultRealm.objects(SickbeardShow).filter(componentFilter)
+                shows = defaultRealm.objects(SickbeardShow.self).filter(componentFilter)
             }
             else {
                 shows = matchingShows?.filter(componentFilter)
@@ -105,7 +105,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
         return matchingShows?.first
     }
     
-    func setPlot(plot: String, forEpisode episode: SickbeardEpisode) {
+    func setPlot(_ plot: String, forEpisode episode: SickbeardEpisode) {
         guard episode.plot.length == 0 else {
             return
         }
@@ -116,36 +116,36 @@ class DatabaseV1Adapter: DatabaseAdapter {
         }
     }
     
-    func episodesAiredSince(airDate: NSDate) -> Results<SickbeardEpisode> {
-        let episodes = defaultRealm.objects(SickbeardEpisode).filter("airDate >= %@ AND airDate < %@", airDate, NSDate())
+    func episodesAiredSince(_ airDate: Date) -> Results<SickbeardEpisode> {
+        let episodes = defaultRealm.objects(SickbeardEpisode.self).filter("airDate >= %@ AND airDate < %@", airDate, Date())
         
         return episodes.sortNewestFirst()
     }
     
-    func episodesAiringOnDate(date: NSDate) -> Results<SickbeardEpisode> {
-        let calendar = NSCalendar.currentCalendar()
-        let dateComponents = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day], fromDate: date)
-        let episodes = defaultRealm.objects(SickbeardEpisode)
-            .filter("airDate == %@", calendar.dateFromComponents(dateComponents)!)
+    func episodesAiringOnDate(_ date: Date) -> Results<SickbeardEpisode> {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+        let episodes = defaultRealm.objects(SickbeardEpisode.self)
+            .filter("airDate == %@", calendar.date(from: dateComponents))
             .sortOldestFirst()
         
         return episodes
     }
     
     // TODO: This method might return more than maxEpisodes, since it'll give all shows of the last show's date
-    func episodesAiringAfter(date: NSDate, max maxEpisodes: Int) -> Results<SickbeardEpisode> {
+    func episodesAiringAfter(_ date: Date, max maxEpisodes: Int) -> Results<SickbeardEpisode> {
         let startDate = date.dateWithoutTime()
-        let episodes = defaultRealm.objects(SickbeardEpisode).filter("airDate > %@", startDate)
+        let episodes = defaultRealm.objects(SickbeardEpisode.self).filter("airDate > %@", startDate)
         
-        var lastAirDate = NSDate()
+        var lastAirDate = Date()
         if episodes.count > maxEpisodes {
-            lastAirDate = episodes[maxEpisodes - 1].airDate ?? lastAirDate
+            lastAirDate = episodes[maxEpisodes - 1].airDate as Date? ?? lastAirDate
         }
         else if let airDate = episodes.last?.airDate {
-            lastAirDate = airDate
+            lastAirDate = airDate as Date
         }
         
-        return defaultRealm.objects(SickbeardEpisode)
+        return defaultRealm.objects(SickbeardEpisode.self)
             .filter("airDate > %@ AND airDate <= %@", startDate, lastAirDate)
             .sortOldestFirst()
     }

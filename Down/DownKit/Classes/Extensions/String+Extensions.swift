@@ -35,18 +35,18 @@ public extension String {
         }
     }
     
-    func insert(string: String, atIndex index: Int) -> String {
+    func insert(_ string: String, atIndex index: Int) -> String {
         return  String(self.characters.prefix(index)) + string + String(self.characters.suffix(self.characters.count - index))
     }
     
-    func componentsMatchingRegex(regex: String) -> [String] {
+    func componentsMatchingRegex(_ regex: String) -> [String] {
         var matches = [String]()
         
         do {
             let regex = try NSRegularExpression(pattern: regex, options: [])
             let text = self as NSString
-            let results = regex.matchesInString(self, options: [], range: NSMakeRange(0, text.length))
-            matches = results.map { text.substringWithRange($0.range)}
+            let results = regex.matches(in: self, options: [], range: NSMakeRange(0, text.length))
+            matches = results.map { text.substring(with: $0.range)}
         } catch let error as NSError {
             print("invalid regex: \(error.localizedDescription)")
         }
@@ -60,14 +60,14 @@ extension String {
         return NSRange(location: 0, length: self.length)
     }
     
-    var fullRange: Range<String.Index> {
-        return self.startIndex..<self.endIndex
+    var fullRange: Range<Int> {
+        return 0..<self.length
     }
     
     subscript (r: Range<Int>) -> String {
         get {
-            let startIndex = self.startIndex.advancedBy(r.startIndex)
-            let endIndex = startIndex.advancedBy(r.endIndex - r.startIndex)
+            let startIndex = self.index(self.startIndex, offsetBy: r.lowerBound)
+            let endIndex = self.index(startIndex, offsetBy: r.upperBound - r.lowerBound)
             
             return self[startIndex ..< endIndex]
         }

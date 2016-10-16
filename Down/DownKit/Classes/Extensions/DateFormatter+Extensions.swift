@@ -1,5 +1,5 @@
 //
-//  NSDateFormatter+Extensions.swift
+//  DateFormatter+Extensions.swift
 //  Down
 //
 //  Created by Ruud Puts on 20/12/15.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-public extension NSDateFormatter {
+public extension DateFormatter {
     
-    class func downDateFormatter() -> NSDateFormatter {
-        let dateFormatter = NSDateFormatter()
+    class func downDateFormatter() -> DateFormatter {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         return dateFormatter

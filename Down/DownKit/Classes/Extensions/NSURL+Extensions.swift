@@ -8,10 +8,10 @@
 
 import Foundation
 
-extension NSURL {
+extension URL {
     
-    func prefixScheme() -> NSURL {
-        if NSURLComponents(URL: self, resolvingAgainstBaseURL: false) != nil {
+    func prefixScheme() -> URL {
+        if URLComponents(url: self, resolvingAgainstBaseURL: false) != nil {
             let httpScheme = "http://"
             var urlString = self.absoluteString
             
@@ -19,7 +19,7 @@ extension NSURL {
                 urlString = httpScheme + urlString
             }
             
-            return NSURL(string: urlString)!
+            return URL(string: urlString)!
         }
         
         return self

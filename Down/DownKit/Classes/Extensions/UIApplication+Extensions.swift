@@ -11,7 +11,7 @@ import Foundation
 public extension UIApplication {
     
     class var documentsDirectory: String {
-        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
     }
     
 }

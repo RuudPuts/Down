@@ -8,14 +8,14 @@
 
 import UIKit
 
-public class SABItem: NSObject {
+open class SABItem: NSObject {
     
-    public let identifier: String!
-    public var category: String!
-    public var nzbName: String!
+    open let identifier: String!
+    open var category: String!
+    open var nzbName: String!
     var progressDescription: String?
-    public var statusDescription: String!
-    public var sickbeardEpisode: SickbeardEpisode?
+    open var statusDescription: String!
+    open var sickbeardEpisode: SickbeardEpisode?
     
     var imdbTitle: String?
     
@@ -26,18 +26,18 @@ public class SABItem: NSObject {
         self.statusDescription = statusDescription;
     }    
     
-    public var imdbIdentifier: String? {
+    open var imdbIdentifier: String? {
         var imdbIdentifier:String? = nil
         
         // Detect IMDB id
         let regex = "tt[0-9]{7}"
         var regularExpression: NSRegularExpression
         do {
-            try regularExpression = NSRegularExpression(pattern: regex, options: .CaseInsensitive)
+            try regularExpression = NSRegularExpression(pattern: regex, options: .caseInsensitive)
             
-            let range = regularExpression.rangeOfFirstMatchInString(nzbName, options: [], range: nzbName.fullNSRange) as NSRange!
-            if range.location != NSNotFound {
-                imdbIdentifier = (nzbName as NSString).substringWithRange(range!)
+            let range = regularExpression.rangeOfFirstMatch(in: nzbName, options: [], range: nzbName.fullNSRange) as NSRange!
+            if range?.location != NSNotFound {
+                imdbIdentifier = (nzbName as NSString).substring(with: range!)
             }
         }
         catch _ {
@@ -47,16 +47,16 @@ public class SABItem: NSObject {
         return imdbIdentifier
     }
     
-    public var displayName: String! {
+    open var displayName: String! {
         var displayName = nzbName as String
         if let imdbTitle = self.imdbTitle {
             displayName = imdbTitle
         }
-        else if let sickbeardEpisode = self.sickbeardEpisode where !sickbeardEpisode.invalidated {
+        else if let sickbeardEpisode = self.sickbeardEpisode , !sickbeardEpisode.isInvalidated {
             displayName = sickbeardEpisode.title
         }
         else {
-            displayName = displayName.stringByReplacingOccurrencesOfString(".", withString: " ")
+            displayName = displayName.replacingOccurrences(of: ".", with: " ")
         }
         
         return displayName

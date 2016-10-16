@@ -8,22 +8,22 @@
 
 import UIKit
 
-public class ImageProvider: DownCache {
+open class ImageProvider: DownCache {
     
-    private static let diskQueue: dispatch_queue_t = dispatch_queue_create("com.ruudputs.down.ImageQueue", DISPATCH_QUEUE_SERIAL)
+    fileprivate static let diskQueue: DispatchQueue = DispatchQueue(label: "com.ruudputs.down.ImageQueue", attributes: [])
     
-    private class func fileExists(filepath: String) -> Bool {
-        return NSFileManager.defaultManager().fileExistsAtPath(filepath)
+    fileprivate class func fileExists(_ filepath: String) -> Bool {
+        return FileManager.default.fileExists(atPath: filepath)
     }
     
-    private class func ensureFilepath(filepath: String) {
-        let filepathUrl = NSURL(fileURLWithPath: filepath, isDirectory: false)
-        let fileDirectory = filepath.stringByReplacingOccurrencesOfString(filepathUrl.lastPathComponent!, withString: "")
+    fileprivate class func ensureFilepath(_ filepath: String) {
+        let filepathUrl = URL(fileURLWithPath: filepath, isDirectory: false)
+        let fileDirectory = filepath.replacingOccurrences(of: filepathUrl.lastPathComponent, with: "")
         
         var isDirectory: ObjCBool = false
-        if !NSFileManager.defaultManager().fileExistsAtPath(fileDirectory, isDirectory: &isDirectory) {
+        if !FileManager.default.fileExists(atPath: fileDirectory, isDirectory: &isDirectory) {
             do {
-                try NSFileManager.defaultManager().createDirectoryAtPath(fileDirectory, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(atPath: fileDirectory, withIntermediateDirectories: true, attributes: nil)
                 print("Created directory: \(fileDirectory)")
             }
             catch let error as NSError {
@@ -32,14 +32,14 @@ public class ImageProvider: DownCache {
         }
     }
     
-    private class func storeImage(image: NSData, atPath filepath: String) {
+    fileprivate class func storeImage(_ image: Data, atPath filepath: String) {
         ensureFilepath(filepath)
-        dispatch_async(diskQueue, {
-            image.writeToFile(filepath, atomically: true)
+        diskQueue.async(execute: {
+            try? image.write(to: URL(fileURLWithPath: filepath), options: [.atomic])
         })
     }
     
-    private class func loadImage(filepath: String) -> UIImage? {
+    fileprivate class func loadImage(_ filepath: String) -> UIImage? {
         var image: UIImage?
         if fileExists(filepath) {
             image = UIImage(contentsOfFile: filepath)
@@ -47,13 +47,13 @@ public class ImageProvider: DownCache {
         return image
     }
     
-    public static func clearCache() {
+    open static func clearCache() {
         do {
             let sickbeardBannerPath = UIApplication.documentsDirectory + "/sickbeard/banners"
             let sickbeardPosterPath = UIApplication.documentsDirectory + "/sickbeard/posters"
             
-            try NSFileManager.defaultManager().removeItemAtPath(sickbeardBannerPath)
-            try NSFileManager.defaultManager().removeItemAtPath(sickbeardPosterPath)
+            try FileManager.default.removeItem(atPath: sickbeardBannerPath)
+            try FileManager.default.removeItem(atPath: sickbeardPosterPath)
         }
         catch let error as NSError {
             print("Error while clearing ImageProvider: \(error)")
@@ -64,59 +64,59 @@ public class ImageProvider: DownCache {
 
 // MARK: Sickbeard extension
 extension ImageProvider {
-    internal class func hasBannerForShow(tvdbid: Int) -> Bool {
+    internal class func hasBannerForShow(_ tvdbid: Int) -> Bool {
         let bannerPath = bannerPathForShow(tvdbid)
         return fileExists(bannerPath)
     }
     
-    internal class func storeBanner(banner: NSData, forShow tvdbid: Int) {
+    internal class func storeBanner(_ banner: Data, forShow tvdbid: Int) {
         let bannerPath = bannerPathForShow(tvdbid)
         storeImage(banner, atPath:bannerPath)
     }
     
-    internal class func bannerForShow(tvdbid: Int) -> UIImage? {
+    internal class func bannerForShow(_ tvdbid: Int) -> UIImage? {
         let bannerPath = bannerPathForShow(tvdbid)
         return loadImage(bannerPath)
     }
     
-    private class func bannerPathForShow(tvdbid: Int) -> String {
+    fileprivate class func bannerPathForShow(_ tvdbid: Int) -> String {
         return UIApplication.documentsDirectory + "/sickbeard/banners/\(tvdbid).png"
     }
     
-    internal class func hasPosterForShow(tvdbid: Int) -> Bool {
+    internal class func hasPosterForShow(_ tvdbid: Int) -> Bool {
         let posterPath = posterPathForShow(tvdbid)
         return fileExists(posterPath)
     }
     
-    internal class func storePoster(poster: NSData, forShow tvdbid: Int) {
+    internal class func storePoster(_ poster: Data, forShow tvdbid: Int) {
         let posterPath = posterPathForShow(tvdbid)
         storeImage(poster, atPath:posterPath)
         
         storePosterThumbnail(poster, forShow:tvdbid)
     }
     
-    private class func storePosterThumbnail(posterData: NSData, forShow tvdbid: Int) {
+    fileprivate class func storePosterThumbnail(_ posterData: Data, forShow tvdbid: Int) {
         let poster = UIImage(data: posterData)!.resize(scale: 0.25)
         
         let thumbnailPath = posterThumbnailPathForShow(tvdbid)
         storeImage(UIImagePNGRepresentation(poster)!, atPath:thumbnailPath)
     }
     
-    internal class func posterForShow(tvdbid: Int) -> UIImage? {
+    internal class func posterForShow(_ tvdbid: Int) -> UIImage? {
         let posterPath = posterPathForShow(tvdbid)
         return loadImage(posterPath)
     }
     
-    internal class func posterThumbnailForShow(tvdbid: Int) -> UIImage? {
+    internal class func posterThumbnailForShow(_ tvdbid: Int) -> UIImage? {
         let posterPath = posterThumbnailPathForShow(tvdbid)
         return loadImage(posterPath)
     }
     
-    private class func posterPathForShow(tvdbid: Int) -> String {
+    fileprivate class func posterPathForShow(_ tvdbid: Int) -> String {
         return UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbid).png"
     }
     
-    private class func posterThumbnailPathForShow(tvdbid: Int) -> String {
+    fileprivate class func posterThumbnailPathForShow(_ tvdbid: Int) -> String {
         return UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbid)_thumb.png"
     }
 }
