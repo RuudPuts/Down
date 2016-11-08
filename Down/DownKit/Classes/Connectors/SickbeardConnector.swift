@@ -9,7 +9,6 @@
 import Alamofire
 
 open class SickbeardConnector: Connector {
-
     open var host: String?
     open var apiKey: String?
     let requestManager: Manager
@@ -21,8 +20,8 @@ open class SickbeardConnector: Connector {
         
         requestManager = Manager(configuration: sessionConfiguration)
     }
-
-    open func validateHost(_ url: URL, completion: @escaping (_ hostValid: Bool, _ apiKey: String?) -> (Void)) {
+    
+    public func validateHost(_ url: URL, completion: @escaping (Bool, String?) -> (Void)) {
         guard url.absoluteString.length > 0 else {
             completion(false, nil)
             return
@@ -61,7 +60,8 @@ open class SickbeardConnector: Connector {
         
         return serverHeaderValid || authenticateHeaderValid
     }
-    open func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> (Void)) {
+    
+    public func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> (Void)) {
         if let sickbeardHost = host {
             let url = sickbeardHost + "/config/general/"
             

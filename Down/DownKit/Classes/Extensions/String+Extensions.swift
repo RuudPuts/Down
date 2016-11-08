@@ -57,7 +57,7 @@ public extension String {
     var simple: String {
         var simpleString = self
         [".", "'", ":", "(", ")", "&"].forEach {
-            simpleString = simpleString.stringByReplacingOccurrencesOfString($0, withString: "")
+            simpleString = simpleString.replacingOccurrences(of: $0, with: "")
         }
         
         return simpleString

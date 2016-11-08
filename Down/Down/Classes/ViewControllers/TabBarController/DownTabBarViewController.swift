@@ -37,7 +37,7 @@ class DownTabBarViewController: DownViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let firstTabItem = viewControllers.first where selectedViewController == nil {
+        if let firstTabItem = viewControllers.first, selectedViewController == nil {
             selectViewController(firstTabItem)
         }
     }

@@ -13,8 +13,8 @@ public protocol Connector {
     var host: String? { get set }
     var apiKey: String? { get set }
     
-    func validateHost(_ url: URL, completion: (_ hostValid: Bool, _ apiKey: String?) -> (Void))
-    func fetchApiKey(username: String, password: String, completion: (String?) -> (Void))
+    func validateHost(_ url: URL, completion: @escaping (_ hostValid: Bool, _ apiKey: String?) -> (Void))
+    func fetchApiKey(username: String, password: String, completion: @escaping (String?) -> (Void))
 }
 
 extension Response {

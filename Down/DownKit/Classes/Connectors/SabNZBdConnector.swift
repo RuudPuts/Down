@@ -22,7 +22,7 @@ open class SabNZBdConnector: Connector {
         requestManager = Manager(configuration: sessionConfiguration)
     }
 
-    open func validateHost(_ url: URL, completion: @escaping (_ hostValid: Bool, _ apiKey: String?) -> (Void)) {
+    open func validateHost(_ url: URL, completion:  @escaping(_ hostValid: Bool, _ apiKey: String?) -> (Void)) {
         guard url.absoluteString.length > 0 else {
             completion(false, nil)
             return
@@ -70,7 +70,7 @@ open class SabNZBdConnector: Connector {
             requestManager.request(.POST, loginUrl, parameters: credentials).responseString { loginHandler in
                 self.apiKey = nil
                 
-                if loginHandler.result.isSuccess, let loginHtml = loginHandler.result.value where self.loginSuccesfull(loginHtml) {
+                if loginHandler.result.isSuccess, let loginHtml = loginHandler.result.value, self.loginSuccesfull(loginHtml) {
                     self.requestManager.request(.GET, configUrl).responseString { configHandler in
                         if configHandler.result.isSuccess, let configHtml = configHandler.result.value {
                             self.apiKey = self.extractApiKey(configHtml)
@@ -91,7 +91,7 @@ open class SabNZBdConnector: Connector {
     }
     
     func loginSuccesfull(loginHtml: String) -> Bool {
-        return loginHtml.rangeOfString("<form class=\"form-signin\" action=\"./\" method=\"post\">") == nil
+        return loginHtml.range(of: "<form class=\"form-signin\" action=\"./\" method=\"post\">") == nil
     }
     
     func extractApiKey(_ configHtml: String) -> String? {
