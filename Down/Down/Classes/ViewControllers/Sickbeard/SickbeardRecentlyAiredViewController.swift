@@ -24,59 +24,59 @@ class SickbeardRecentlyAiredViewController: DownViewController, UITableViewDataS
     
     func registerTableViewCells() {
         let moreCellNib = UINib(nibName: "DownIconTextCell", bundle:nil)
-        tableView!.registerNib(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
+        tableView!.register(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
         
         let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
-        tableView!.registerNib(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
+        tableView!.register(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
         
         let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
-        tableView!.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
+        tableView!.register(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
         
         let itemCellNib = UINib(nibName: "SickbeardTodayCell", bundle:nil)
-        tableView!.registerNib(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
+        tableView!.register(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let indexPath = tableView!.indexPathForSelectedRow where segue.identifier == "SickbeardEpisode" {
-            let detailViewController = segue.destinationViewController as! SickbeardEpisodeViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = tableView!.indexPathForSelectedRow , segue.identifier == "SickbeardEpisode" {
+            let detailViewController = segue.destination as! SickbeardEpisodeViewController
             detailViewController.episode = episodes[indexPath.row]
         }
     }
     
     // MARK: - TableView DataSource
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return episodes.count
     }
     
-    func tableView(tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
+    func tableView(_ tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
         return episodes.count == 0
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.tableView(tableView, isSectionEmtpy: (indexPath as NSIndexPath).section) {
             return tableView.rowHeight
         }
         
         // Width of screen, in 758x140 ratio. 60 extra for labels
-        return (CGRectGetWidth(view.bounds) / 758 * 140) + 60
+        return (view.bounds.width / 758 * 140) + 60
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         
-        if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
-            let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
+        if self.tableView(tableView, isSectionEmtpy: (indexPath as NSIndexPath).section) {
+            let emptyCell = tableView.dequeueReusableCell(withIdentifier: "DownEmptyCell", for: indexPath) as! DownEmptyCell
             emptyCell.label?.text = "No shows recently aired."
             
             cell = emptyCell
         }
         else {
-            let itemCell = tableView.dequeueReusableCellWithIdentifier("SickbeardTodayCell", forIndexPath: indexPath) as! SickbeardTodayCell
+            let itemCell = tableView.dequeueReusableCell(withIdentifier: "SickbeardTodayCell", for: indexPath) as! SickbeardTodayCell
             
             let episode = episodes[indexPath.row]
             itemCell.episodeLabel.text = episode.title
@@ -89,14 +89,14 @@ class SickbeardRecentlyAiredViewController: DownViewController, UITableViewDataS
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 0.0 : 30.0
     }
     
     // MARK: - TableView Delegate
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("SickbeardEpisode", sender: nil)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "SickbeardEpisode", sender: nil)
     }
     
 }

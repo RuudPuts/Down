@@ -25,12 +25,12 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         textLabel?.textColor = UIColor.downSabNZBdColor()
         textLabel?.font = UIFont(name: "OpenSans", size: 14)
-        detailTextLabel?.textColor = UIColor.whiteColor()
+        detailTextLabel?.textColor = UIColor.white
         detailTextLabel?.font = UIFont(name: "OpenSans-Light", size: 14)
-        selectionStyle = .None
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,21 +47,21 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
         textField?.delegate = self
         textField?.layer.cornerRadius = 5
         textField?.layer.borderWidth = 0.7
-        textField?.layer.borderColor = cellColor.CGColor
+        textField?.layer.borderColor = cellColor.cgColor
     }
     
-    override func setHighlighted(highlighted: Bool, animated: Bool) {
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         
         if highlighted {
-            containerView?.backgroundColor = highlighted ? highlightedBackgroundColor.colorWithAlphaComponent(0.15) : .downLightGrayColor()
+            containerView?.backgroundColor = highlighted ? highlightedBackgroundColor.withAlphaComponent(0.15) : .downLightGrayColor()
         }
         else {
             containerView?.backgroundColor = .downLightGrayColor()
         }
     }
     
-    private var highlightedBackgroundColor: UIColor {
+    fileprivate var highlightedBackgroundColor: UIColor {
         var color: UIColor
         
         switch cellType {
@@ -82,7 +82,7 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
         return color
     }
     
-    func setCellType(type: DownApplication) {
+    func setCellType(_ type: DownApplication) {
         cellType = type
         
         switch cellType {
@@ -107,7 +107,7 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
         }
         set {
             if let placeholder = newValue {
-                let color = UIColor.whiteColor().colorWithAlphaComponent(0.5)
+                let color = UIColor.white.withAlphaComponent(0.5)
                 textField?.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: color])
             }
             else {
@@ -136,7 +136,7 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
         activityIndicator?.widthConstraint?.constant = 20
         
         
-        activityIndicator?.hidden = false
+        activityIndicator?.isHidden = false
         layoutIfNeeded()
     }
     
@@ -148,34 +148,34 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
         activityIndicator?.leftConstraint?.constant = 0
         activityIndicator?.widthConstraint?.constant = 0
         
-        activityIndicator?.hidden = true
+        activityIndicator?.isHidden = true
         layoutIfNeeded()
     }
     
     // MARK - TextField
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
         return true
     }
     
-    @IBAction func textFieldDidChangeText(textField: UITextField) {
+    @IBAction func textFieldDidChangeText(_ textField: UITextField) {
         delegate?.downTableViewCell(self, didChangeText: textField.text ?? "")
     }
 }
 
 protocol DownTableViewCellDegate {
     
-    func downTableViewCell(cell: DownTableViewCell, didChangeText text: String)
+    func downTableViewCell(_ cell: DownTableViewCell, didChangeText text: String)
     
 }
 
 extension UIView {
     
-    func layoutIfNeeded(animated: Bool) {
+    func layoutIfNeeded(_ animated: Bool) {
         if animated {
-            UIView.animateWithDuration(0.3, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.layoutIfNeeded()
             })
         }

@@ -9,12 +9,12 @@
 import Foundation
 import RealmSwift
 
-public class SickbeardShow: Object {
-    public dynamic var tvdbId = 0
-    public dynamic var airs = ""
-    public dynamic var network = ""
+open class SickbeardShow: Object {
+    open dynamic var tvdbId = 0
+    open dynamic var airs = ""
+    open dynamic var network = ""
     
-    public var status: SickbeardShowStatus {
+    open var status: SickbeardShowStatus {
         get {
             return SickbeardShowStatus(rawValue: statusString) ?? .Ended
         }
@@ -22,19 +22,19 @@ public class SickbeardShow: Object {
             statusString = newValue.rawValue
         }
     }
-    private dynamic var statusString = ""
+    fileprivate dynamic var statusString = ""
     
-    public var quality: SickbeardShowQuality {
+    open var quality: SickbeardShowQuality {
         get {
-            return SickbeardShowQuality(rawValue: qualityString) ?? .Any
+            return SickbeardShowQuality(rawValue: qualityString) ?? .Wildcard
         }
         set {
             qualityString = newValue.rawValue
         }
     }
-    private dynamic var qualityString = ""
+    fileprivate dynamic var qualityString = ""
     
-    public dynamic var name = "" {
+    open dynamic var name = "" {
         didSet {
             _simpleName = name.simple
         }
@@ -49,8 +49,8 @@ public class SickbeardShow: Object {
     }
     
     public enum SickbeardShowQuality: String {
+        case Wildcard = "Any"
         case Custom = "Custom"
-        case Any = "Any"
         case HD = "HD"
         case HD1080p = "HD1080p"
         case HD720p = "HD720p"
@@ -59,39 +59,39 @@ public class SickbeardShow: Object {
     
     // Realm
     
-    public override static func primaryKey() -> String? {
+    open override static func primaryKey() -> String? {
         return "tvdbId"
     }
     
     // Properties
     
-    public var seasons: [SickbeardSeason] {
-        let sortedSeasons = Array(_seasons).sort {
+    open var seasons: [SickbeardSeason] {
+        let sortedSeasons = Array(_seasons).sorted {
             $0.id < $1.id
         }
         
         return Array(sortedSeasons)
     }
     
-    public var allEpisodes: [SickbeardEpisode] {
+    open var allEpisodes: [SickbeardEpisode] {
         var episodes = [SickbeardEpisode]()
         for season in seasons {
-            episodes.appendContentsOf(season.episodes)
+            episodes.append(contentsOf: season.episodes)
         }
         
         return episodes
     }
     
-    public var downloadedEpisodes: [SickbeardEpisode] {
+    open var downloadedEpisodes: [SickbeardEpisode] {
         var episodes = [SickbeardEpisode]()
         for season in seasons {
-            episodes.appendContentsOf(season.downloadedEpisodes)
+            episodes.append(contentsOf: season.downloadedEpisodes)
         }
         
         return episodes
     }
     
-    public var banner: UIImage? {
+    open var banner: UIImage? {
         return ImageProvider.bannerForShow(tvdbId)
     }
 
@@ -99,11 +99,11 @@ public class SickbeardShow: Object {
         return ImageProvider.hasBannerForShow(tvdbId)
     }
 
-    public var poster: UIImage? {
+    open var poster: UIImage? {
         return ImageProvider.posterForShow(tvdbId)
     }
     
-    public var posterThumbnail: UIImage? {
+    open var posterThumbnail: UIImage? {
         return ImageProvider.posterThumbnailForShow(tvdbId)
     }
 
@@ -113,7 +113,7 @@ public class SickbeardShow: Object {
 
     // Methods
 
-    public func getSeason(seasonId: Int) -> SickbeardSeason? {
+    open func getSeason(_ seasonId: Int) -> SickbeardSeason? {
         for season in _seasons {
             if season.id == seasonId {
                 return season
@@ -123,7 +123,7 @@ public class SickbeardShow: Object {
         return nil
     }
 
-    public func getEpisode(seasonId: Int, _ episodeNr: Int) -> SickbeardEpisode? {
+    open func getEpisode(_ seasonId: Int, _ episodeNr: Int) -> SickbeardEpisode? {
         if let season = getSeason(seasonId) {
             let episodeIndex = episodeNr - 1
             guard season.episodes.count > episodeIndex else {
@@ -136,8 +136,8 @@ public class SickbeardShow: Object {
         return nil
     }
     
-    public func nextAiringEpisode() -> SickbeardEpisode? {
-        let today = NSDate().dateWithoutTime()
+    open func nextAiringEpisode() -> SickbeardEpisode? {
+        let today = Date().withoutTime()
         
         for season in seasons {
             guard season.id > 0 else {
@@ -152,7 +152,7 @@ public class SickbeardShow: Object {
             }
             
             for episode in season.episodes {
-                if let airDate = episode.airDate where airDate >= today {
+                if let airDate = episode.airDate , airDate >= today {
                     return episode
                 }
             }

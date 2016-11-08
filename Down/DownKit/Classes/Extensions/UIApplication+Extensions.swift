@@ -6,12 +6,12 @@
 //  Copyright © 2015 Ruud Puts. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public extension UIApplication {
     
     class var documentsDirectory: String {
-        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
     }
     
 }

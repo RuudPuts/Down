@@ -10,14 +10,14 @@ import UIKit
 
 extension String {
     
-    func sizeWithFont(font: UIFont, width: CGFloat) -> CGSize {
-        let size = self.boundingRectWithSize(CGSizeMake(width, 2000), options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+    func sizeWithFont(_ font: UIFont, width: CGFloat) -> CGSize {
+        let size = self.boundingRect(with: CGSize(width: width, height: 2000), options: NSStringDrawingOptions.usesLineFragmentOrigin,
                                              attributes: [NSFontAttributeName: font], context: nil).size as CGSize
         
         return size
     }
     
     var trimmed: String {
-        return self.stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
+        return self.trimmingCharacters(in: .whitespaces)
     }
 }

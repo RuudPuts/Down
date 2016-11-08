@@ -8,35 +8,35 @@
 
 import UIKit
 
-public class Service {
+open class Service {
     
-    public var lastRefresh: NSDate?
+    open var lastRefresh: Date?
     var listeners = [ServiceListener]()
     internal var started = false
     
-    public func addListener(listener: ServiceListener) {
+    open func addListener(_ listener: ServiceListener) {
         listeners.append(listener)
     }
     
-    public func removeListener(listener: ServiceListener) {
+    open func removeListener(_ listener: ServiceListener) {
         for i in 0...listeners.count {
             if listeners[i].isEqualTo(listener) {
-                listeners.removeAtIndex(i)
+                listeners.remove(at: i)
                 break
             }
         }
     }
     
-    public func startService() {
+    open func startService() {
         started = true
     }
 
-    public func stopService() {
+    open func stopService() {
         started = false
     }
     
     internal func refreshCompleted() {
-        lastRefresh = NSDate()
+        lastRefresh = Date()
     }
    
 }

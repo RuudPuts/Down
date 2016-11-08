@@ -19,11 +19,11 @@ class SickbeardShowCell: DownCollectionViewCell {
             label?.text = show!.name
             
             if let nextEpisode = show!.nextAiringEpisode() {
-                nextEpisodeLabel.hidden = false
+                nextEpisodeLabel.isHidden = false
                 nextEpisodeLabel.text = "\(nextEpisode.daysUntilAiring)"
             }
             else {
-                nextEpisodeLabel.hidden = true
+                nextEpisodeLabel.isHidden = true
             }
         }
     }

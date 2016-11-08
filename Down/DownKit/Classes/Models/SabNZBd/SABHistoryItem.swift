@@ -8,25 +8,25 @@
 
 import UIKit
 
-public class SABHistoryItem: SABItem {
+open class SABHistoryItem: SABItem {
     
     let title: String!
-    public let size: String!
+    open let size: String!
     var actionLine: String?
-    public var status: SABHistoryItemStatus?
-    public var completionDate: NSDate?
+    open var status: SABHistoryItemStatus?
+    open var completionDate: Date?
     
     public enum SABHistoryItemStatus {
-        case Queued
-        case Verifying
-        case Repairing
-        case Extracting
-        case RunningScript
-        case Failed
-        case Finished
+        case queued
+        case verifying
+        case repairing
+        case extracting
+        case runningScript
+        case failed
+        case finished
     }
     
-    init(_ identifier: String, _ title: String, _ category: String, _ nzbName: String, _ size: String, _ statusDescription: String, _ actionLine: String, _ completionDate: NSDate) {
+    init(_ identifier: String, _ title: String, _ category: String, _ nzbName: String, _ size: String, _ statusDescription: String, _ actionLine: String, _ completionDate: Date) {
         self.size = size
         self.title = title
         self.actionLine = actionLine
@@ -37,7 +37,7 @@ public class SABHistoryItem: SABItem {
         self.status = stringToStatus(statusDescription)
     }
     
-    internal func update(category: String, _ statusDescription: String, _ actionLine: String, _ completionDate: NSDate) {
+    internal func update(_ category: String, _ statusDescription: String, _ actionLine: String, _ completionDate: Date) {
         self.category = category
         self.statusDescription = statusDescription
         self.actionLine = actionLine
@@ -45,9 +45,9 @@ public class SABHistoryItem: SABItem {
         self.status = stringToStatus(statusDescription)
     }
     
-    public var hasProgress: Bool {
+    open var hasProgress: Bool {
         var hasProgress = false
-        if (self.status == .Verifying || self.status == .Repairing || self.status == .Extracting) && self.progress > 0 {
+        if (self.status == .verifying || self.status == .repairing || self.status == .extracting) && self.progress > 0 {
             hasProgress = true
         }
         
@@ -55,23 +55,23 @@ public class SABHistoryItem: SABItem {
         return hasProgress
     }
     
-    public var progress: Float {
+    open var progress: Float {
         var progress: Float = 0
         
-        if status == .Verifying || status == .Extracting {
-            let progressString = actionLine!.componentsSeparatedByString(" ").last as String!
-            let progressComponents = progressString.componentsSeparatedByString("/")
+        if status == .verifying || status == .extracting {
+            let progressString = actionLine!.components(separatedBy: " ").last as String!
+            let progressComponents = progressString?.components(separatedBy: "/")
             
-            let part = Float(progressComponents.first!) ?? 0
-            let total = Float(progressComponents.last!) ?? 0
+            let part = Float((progressComponents?.first!)!) ?? 0
+            let total = Float((progressComponents?.last!)!) ?? 0
             
             progress = part / total * 100
         }
-        else if status == .Repairing {
+        else if status == .repairing {
             let regex = "(\\d+)%$"
             
             if let percentage = actionLine!.componentsMatchingRegex(regex).first {
-                let percentageNumber = percentage.stringByReplacingOccurrencesOfString("%", withString: "")
+                let percentageNumber = percentage.replacingOccurrences(of: "%", with: "")
                 progress = Float(percentageNumber) ?? 0
             }
         }
@@ -79,34 +79,34 @@ public class SABHistoryItem: SABItem {
         return progress
     }
     
-    private func stringToStatus(string: String) -> SABHistoryItemStatus {
-        var status = SABHistoryItemStatus.Queued
+    fileprivate func stringToStatus(_ string: String) -> SABHistoryItemStatus {
+        var status = SABHistoryItemStatus.queued
         
         switch (string) {
         case "Verifying":
-            status = SABHistoryItemStatus.Verifying
+            status = SABHistoryItemStatus.verifying
             statusDescription = actionLine
             break
         case "Repairing":
-            status = SABHistoryItemStatus.Repairing
+            status = SABHistoryItemStatus.repairing
             break
         case "Extracting":
-            status = SABHistoryItemStatus.Extracting
+            status = SABHistoryItemStatus.extracting
             statusDescription = actionLine
             break
         case "Running":
-            status = SABHistoryItemStatus.RunningScript
+            status = SABHistoryItemStatus.runningScript
             statusDescription = "Running script"
             break
         case "Failed":
-            status = SABHistoryItemStatus.Failed
+            status = SABHistoryItemStatus.failed
             break
         case "Completed":
-            status = SABHistoryItemStatus.Finished
+            status = SABHistoryItemStatus.finished
             break
             
         default:
-            status = SABHistoryItemStatus.Queued
+            status = SABHistoryItemStatus.queued
             break
         }
         

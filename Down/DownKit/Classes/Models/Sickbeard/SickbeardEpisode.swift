@@ -9,15 +9,15 @@
 import Foundation
 import RealmSwift
 
-public class SickbeardEpisode: Object {
-    public dynamic var uniqueId = NSUUID().UUIDString
-    public dynamic var id = 0
-    public dynamic var name = ""
-    public dynamic var airDate: NSDate? = nil
-    public dynamic var quality = ""
-    public dynamic var plot = ""
+open class SickbeardEpisode: Object {
+    open dynamic var uniqueId = UUID().uuidString
+    open dynamic var id = 0
+    open dynamic var name = ""
+    open dynamic var airDate: Date? = nil
+    open dynamic var quality = ""
+    open dynamic var plot = ""
     
-    public var status: SickbeardEpisodeStatus {
+    open var status: SickbeardEpisodeStatus {
         get {
             return SickbeardEpisodeStatus(rawValue: statusString) ?? .Unknown
         }
@@ -40,11 +40,11 @@ public class SickbeardEpisode: Object {
             statusString = newValue.rawValue
         }
     }
-    private dynamic var statusString = ""
+    fileprivate dynamic var statusString = ""
     
     // TODO: show and season should not be optional (or maybe only internal..?)
-    public dynamic weak var show: SickbeardShow?
-    public dynamic weak var season: SickbeardSeason?
+    open dynamic weak var show: SickbeardShow?
+    open dynamic weak var season: SickbeardSeason?
     
     public enum SickbeardEpisodeStatus: String {
         case Unknown
@@ -63,13 +63,13 @@ public class SickbeardEpisode: Object {
     
     // MARK: Realm
     
-    public override static func primaryKey() -> String {
+    open override static func primaryKey() -> String {
         return "uniqueId"
     }
     
     // MARK: Public getters
     
-    public var title: String {
+    open var title: String {
         var title = name
         if season != nil && show != nil {
             title = String(format: "%@ - S%02dE%02d - %@", show!.name, season!.id, id, name)
@@ -77,12 +77,12 @@ public class SickbeardEpisode: Object {
         return title
     }
     
-    public var daysUntilAiring: Int {
-        let today = NSDate().dateWithoutTime()
+    open var daysUntilAiring: Int {
+        let today = Date().withoutTime()
         
-        if let date = airDate where date >= today {
-            let calendar = NSCalendar.currentCalendar()
-            return calendar.components(.Day, fromDate: today, toDate: date, options: []).day
+        if let date = airDate , date >= today {
+            let calendar = Calendar.current
+            return (calendar as NSCalendar).components(.day, from: today, to: date, options: []).day ?? -1
         }
         
         return -1
@@ -90,7 +90,7 @@ public class SickbeardEpisode: Object {
     
     // MARK: Functions
     
-    public func update(status: SickbeardEpisodeStatus, completion:((NSError?) -> (Void))?) {
+    open func update(_ status: SickbeardEpisodeStatus, completion:((Error?) -> (Void))?) {
         SickbeardService.shared.update(status, forEpisode: self, completion: { error in
             if let error = error {
                 NSLog("Error while updating episode status: \(error)")
@@ -111,11 +111,11 @@ public class SickbeardEpisode: Object {
 extension Results where T: SickbeardEpisode {
     
     public func sortOldestFirst() -> RealmSwift.Results<T> {
-        return self.sorted([SortDescriptor(property:"airDate", ascending: true), SortDescriptor(property:"id", ascending: true)])
+        return self.sorted(by: [SortDescriptor(property:"airDate", ascending: true), SortDescriptor(property:"id", ascending: true)])
     }
     
     public func sortNewestFirst() -> RealmSwift.Results<T> {
-        return self.sorted([SortDescriptor(property:"airDate", ascending: false), SortDescriptor(property:"id", ascending: true)])
+        return self.sorted(by: [SortDescriptor(property:"airDate", ascending: false), SortDescriptor(property:"id", ascending: true)])
     }
     
 }

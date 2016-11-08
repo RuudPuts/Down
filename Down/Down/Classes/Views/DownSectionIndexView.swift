@@ -18,7 +18,7 @@ class DownSectionIndexView: UIView, UICollectionViewDataSource, UICollectionView
     
     var datasource = [String]() {
         didSet {
-            indexView.heightConstraint?.constant = CGFloat(datasource.count) * CGRectGetWidth(indexView.bounds)
+            indexView.heightConstraint?.constant = CGFloat(datasource.count) * indexView.bounds.width
             indexView.reloadData()
         }
     }
@@ -28,42 +28,42 @@ class DownSectionIndexView: UIView, UICollectionViewDataSource, UICollectionView
         indexView.addGestureRecognizer(panGestureRecognizer)
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return datasource.count
     }
     
-    func collectionView(indexView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = indexView.dequeueReusableCellWithReuseIdentifier("SectionIndexCell", forIndexPath: indexPath) as! DownCollectionViewCell
-        cell.label.text = datasource[indexPath.item]
-        cell.cellColor = .whiteColor()
+    func collectionView(_ indexView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = indexView.dequeueReusableCell(withReuseIdentifier: "SectionIndexCell", for: indexPath) as! DownCollectionViewCell
+        cell.label.text = datasource[(indexPath as NSIndexPath).item]
+        cell.cellColor = .white
         
         return cell
     }
     
-    func collectionView(indexView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let selectedIndex = indexPath.item
+    func collectionView(_ indexView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedIndex = (indexPath as NSIndexPath).item
         
         if let delegate = delegate {
             delegate.sectionIndexView(self, didSelectSection: datasource[selectedIndex], atIndex: selectedIndex)
         }
         else {
-            let tableViewIndex = NSIndexPath(forRow: 0, inSection: selectedIndex)
-            tableView?.scrollToRowAtIndexPath(tableViewIndex, atScrollPosition: .Top, animated: false)
-            let collectionViewIndex = NSIndexPath(forItem: 0, inSection: selectedIndex)
-            collectionView?.scrollToItemAtIndexPath(collectionViewIndex, atScrollPosition: .Top, animated: false)
+            let tableViewIndex = IndexPath(row: 0, section: selectedIndex)
+            tableView?.scrollToRow(at: tableViewIndex, at: .top, animated: false)
+            let collectionViewIndex = IndexPath(item: 0, section: selectedIndex)
+            collectionView?.scrollToItem(at: collectionViewIndex, at: .top, animated: false)
         }
     }
     
-    func collectionViewPanned(recognizer: UIPanGestureRecognizer) {
-        var touch = recognizer.locationInView(indexView)
-        touch.x = CGRectGetMidX(self.bounds)
+    func collectionViewPanned(_ recognizer: UIPanGestureRecognizer) {
+        var touch = recognizer.location(in: indexView)
+        touch.x = self.bounds.midX
         
-        if let indexPath = indexView.indexPathForItemAtPoint(touch) {
-            collectionView(indexView, didSelectItemAtIndexPath: indexPath)
+        if let indexPath = indexView.indexPathForItem(at: touch) {
+            collectionView(indexView, didSelectItemAt: indexPath)
         }
     }
     
@@ -71,6 +71,6 @@ class DownSectionIndexView: UIView, UICollectionViewDataSource, UICollectionView
 
 protocol DownSectionIndexViewDelegate {
     
-    func sectionIndexView(sectionIndexView: DownSectionIndexView, didSelectSection section: String, atIndex index: Int)
+    func sectionIndexView(_ sectionIndexView: DownSectionIndexView, didSelectSection section: String, atIndex index: Int)
     
 }

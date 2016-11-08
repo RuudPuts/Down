@@ -8,28 +8,28 @@
 
 import Alamofire
 
-public class SabNZBdConnector: Connector {
+open class SabNZBdConnector: Connector {
 
-    public var host: String?
-    public var apiKey: String?
-    let requestManager: Manager
+    open var host: String?
+    open var apiKey: String?
+    let requestManager: SessionManager
     
     public init() {
-        let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let sessionConfiguration = URLSessionConfiguration.default
         sessionConfiguration.timeoutIntervalForRequest = 2
         sessionConfiguration.timeoutIntervalForResource = 2
         
-        requestManager = Manager(configuration: sessionConfiguration)
+        requestManager = SessionManager(configuration: sessionConfiguration)
     }
 
-    public func validateHost(url: NSURL, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
+    open func validateHost(_ url: URL, completion:  @escaping(_ hostValid: Bool, _ apiKey: String?) -> (Void)) {
         guard url.absoluteString.length > 0 else {
-            completion(hostValid: false, apiKey: nil)
+            completion(false, nil)
             return
         }
         let fixedUrl = url.prefixScheme()
         
-        requestManager.request(.GET, fixedUrl).responseString { handler in
+        requestManager.request(fixedUrl).responseString { handler in
             var hostValid = false 
             if handler.result.isSuccess, let response = handler.response {
                 hostValid = self.validateResponseHeaders(response.allHeaderFields)
@@ -39,7 +39,7 @@ public class SabNZBdConnector: Connector {
                     
                     // We got the host, lets fetch the api key
                     self.fetchApiKey {
-                        completion(hostValid: hostValid, apiKey: $0)
+                        completion(hostValid, $0)
                     }
                     
                     // fetchApiKey completion handler will call our completion handler
@@ -47,32 +47,31 @@ public class SabNZBdConnector: Connector {
                 }
             }
             
-            completion(hostValid: hostValid, apiKey: self.apiKey)
+            completion(hostValid, self.apiKey)
         }
     }
     
-    func validateResponseHeaders(headers: [NSObject: AnyObject]) -> Bool {
+    func validateResponseHeaders(_ headers: [AnyHashable: Any]) -> Bool {
         let serverHeader = headers["Server"] as? String
         let serverHeaderValid = serverHeader?.hasPrefix("CherryPy") ?? false
         
         let authenticateHeader = headers["Www-Authenticate"] as? String
-        let authenticateHeaderValid = authenticateHeader?.rangeOfString("SABnzbd") != nil
+        let authenticateHeaderValid = authenticateHeader?.range(of: "SABnzbd") != nil
         
         return serverHeaderValid || authenticateHeaderValid
     }
     
-    public func fetchApiKey(username username: String = "", password: String = "", completion: (String?) -> (Void)) {
+    open func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> (Void)) {
         if let sabNZBdHost = host {
             let loginUrl = sabNZBdHost + "/login/"
             let configUrl = sabNZBdHost + "/config/general/"
-            
             let credentials = ["username": username, "password": password]
             
-            requestManager.request(.POST, loginUrl, parameters: credentials).responseString { loginHandler in
+            requestManager.request(loginUrl, method: .post, parameters: credentials, encoding: JSONEncoding.default).responseString { loginHandler in
                 self.apiKey = nil
                 
-                if loginHandler.result.isSuccess, let loginHtml = loginHandler.result.value where self.loginSuccesfull(loginHtml) {
-                    self.requestManager.request(.GET, configUrl).responseString { configHandler in
+                if loginHandler.result.isSuccess, let loginHtml = loginHandler.result.value, self.checkLoginSuccesfull(loginHtml) {
+                    self.requestManager.request(configUrl).responseString { configHandler in
                         if configHandler.result.isSuccess, let configHtml = configHandler.result.value {
                             self.apiKey = self.extractApiKey(configHtml)
                         }
@@ -91,19 +90,19 @@ public class SabNZBdConnector: Connector {
         }
     }
     
-    func loginSuccesfull(loginHtml: String) -> Bool {
-        return loginHtml.rangeOfString("<form class=\"form-signin\" action=\"./\" method=\"post\">") == nil
+    func checkLoginSuccesfull(_ loginHtml: String) -> Bool {
+        return loginHtml.range(of: "<form class=\"form-signin\" action=\"./\" method=\"post\">") == nil
     }
     
-    func extractApiKey(configHtml: String) -> String? {
-        if let apikeyInputRange = configHtml.rangeOfString("id=\"apikey\"") {
+    func extractApiKey(_ configHtml: String) -> String? {
+        if let apikeyInputRange = configHtml.range(of: "id=\"apikey\"") {
             // WARN: Assumption; api key is within 200 characters from the input id
             let substringLength = 200
-            let apikeyIndexEnd = apikeyInputRange.endIndex.advancedBy(substringLength)
+            let apikeyIndexEnd = configHtml.index(apikeyInputRange.upperBound, offsetBy: substringLength)
             
             if configHtml.endIndex > apikeyIndexEnd {
-                let apiKeyRange = apikeyInputRange.endIndex..<apikeyIndexEnd
-                let usefullPart = configHtml.substringWithRange(apiKeyRange)
+                let apiKeyRange = apikeyInputRange.upperBound..<apikeyIndexEnd
+                let usefullPart = configHtml.substring(with: apiKeyRange)
                 
                 return usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first
             }

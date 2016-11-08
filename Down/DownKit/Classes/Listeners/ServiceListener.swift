@@ -9,11 +9,11 @@
 import Foundation
 
 public protocol ServiceListener {
-    func isEqualTo(other: ServiceListener) -> Bool
+    func isEqualTo(_ other: ServiceListener) -> Bool
 }
 
 public extension ServiceListener where Self : Equatable {
-    func isEqualTo(other: ServiceListener) -> Bool {
+    func isEqualTo(_ other: ServiceListener) -> Bool {
         guard let o = other as? Self else { return false }
         return self == o
     }

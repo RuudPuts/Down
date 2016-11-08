@@ -9,29 +9,29 @@
 import Foundation
 import RealmSwift
 
-public class SickbeardSeason: Object {
-    public dynamic var uniqueId = NSUUID().UUIDString
-    public dynamic var id = 0
+open class SickbeardSeason: Object {
+    open dynamic var uniqueId = UUID().uuidString
+    open dynamic var id = 0
     internal var _episodes = List<SickbeardEpisode>()
     
-    public dynamic weak var show: SickbeardShow?
+    open dynamic weak var show: SickbeardShow?
     
     // Realm
     
-    public override static func primaryKey() -> String {
+    open override static func primaryKey() -> String {
         return "uniqueId"
     }
     
     // Properties
     
-    public var episodes: [SickbeardEpisode] {
-        let sortedEpisodes = Array(_episodes).sort {
+    open var episodes: [SickbeardEpisode] {
+        let sortedEpisodes = Array(_episodes).sorted {
             $0.id < $1.id
         }
         return sortedEpisodes
     }
     
-    public var downloadedEpisodes: [SickbeardEpisode] {
+    open var downloadedEpisodes: [SickbeardEpisode] {
         let filteredEpisodes = Array(_episodes).filter {
             $0.status == .Downloaded
         }
@@ -39,7 +39,7 @@ public class SickbeardSeason: Object {
         return filteredEpisodes
     }
     
-    public var title: String {
+    open var title: String {
         var title = "Season \(id)"
         if id == 0 {
             title = "Specials"
@@ -50,7 +50,7 @@ public class SickbeardSeason: Object {
     
     // MARK: Functions
     
-    public func update(status: SickbeardEpisode.SickbeardEpisodeStatus, completion:((NSError?) -> (Void))?) {
+    open func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, completion:((Error?) -> (Void))?) {
         SickbeardService.shared.update(status, forSeason: self, completion: { error in
             if let error = error {
                 NSLog("Error while updating episode status: \(error)")

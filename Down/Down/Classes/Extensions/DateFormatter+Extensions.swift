@@ -8,19 +8,19 @@
 
 import Foundation
 
-extension NSDateFormatter {
+extension DateFormatter {
     
     convenience init(dateFormat: String) {
         self.init()
         self.dateFormat = dateFormat
     }
     
-    class func downDateTimeFormatter() -> NSDateFormatter {
-        return NSDateFormatter(dateFormat: "dd-MM-yyyy HH:mm")
+    class func downDateTimeFormatter() -> DateFormatter {
+        return DateFormatter(dateFormat: "dd-MM-yyyy HH:mm")
     }
     
-    class func downDateFormatter() -> NSDateFormatter {
-        return NSDateFormatter(dateFormat: "yyyy-MM-dd")
+    class func downDateFormatter() -> DateFormatter {
+        return DateFormatter(dateFormat: "yyyy-MM-dd")
     }
     
 }

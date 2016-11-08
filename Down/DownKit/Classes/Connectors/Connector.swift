@@ -13,16 +13,16 @@ public protocol Connector {
     var host: String? { get set }
     var apiKey: String? { get set }
     
-    func validateHost(url: NSURL, completion: (hostValid: Bool, apiKey: String?) -> (Void))
-    func fetchApiKey(username username: String, password: String, completion: (String?) -> (Void))
+    func validateHost(_ url: URL, completion: @escaping (_ hostValid: Bool, _ apiKey: String?) -> (Void))
+    func fetchApiKey(username: String, password: String, completion: @escaping (String?) -> (Void))
 }
 
-extension Response {
+extension DataResponse {
 
     func validateResponse() -> Bool {
         let resultSuccess = result.isSuccess
         let responseValid = response != nil
-        let returnCodeValid = response?.statusCode < 400
+        let returnCodeValid = response?.statusCode ?? NSNotFound < 400
         
         return resultSuccess && responseValid && returnCodeValid
     }

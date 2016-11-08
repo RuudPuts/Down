@@ -11,18 +11,18 @@ import DownKit
 
 class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate {
     
-    private enum EpisodeDetailRowType {
-        case Name
-        case AirDate
-        case Show
-        case Season
-        case Episode
-        case Status
+    fileprivate enum EpisodeDetailRowType {
+        case name
+        case airDate
+        case show
+        case season
+        case episode
+        case status
         
-        case Plot
+        case plot
     }
     
-    private struct EpisodeDetailDataSource {
+    fileprivate struct EpisodeDetailDataSource {
         var rowType: EpisodeDetailRowType
         var title: String
     }
@@ -32,10 +32,10 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
             configureTableView()
         }
     }
-    private var tableData = [[EpisodeDetailDataSource]]()
+    fileprivate var tableData = [[EpisodeDetailDataSource]]()
     
-    private var historyItemReplacement: String?
-    private var historySwitchRefreshCount = 0
+    fileprivate var historyItemReplacement: String?
+    fileprivate var historySwitchRefreshCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,19 +43,19 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         
         tableView!.rowHeight = UITableViewAutomaticDimension
         
-        let plotCellNib = UINib(nibName: "DownTextCell", bundle: NSBundle.mainBundle())
-        tableView!.registerNib(plotCellNib, forCellReuseIdentifier: "DownTextCell")
+        let plotCellNib = UINib(nibName: "DownTextCell", bundle: Bundle.main)
+        tableView!.register(plotCellNib, forCellReuseIdentifier: "DownTextCell")
         
         setTableViewHeaderImage(episode?.show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
     }
     
     override func headerImageTapped() {
-        performSegueWithIdentifier("SickbeardShow", sender: nil)
+        performSegue(withIdentifier: "SickbeardShow", sender: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let show = episode?.show where segue.identifier == "SickbeardShow" {
-            let showViewController = segue.destinationViewController as! SickbeardShowViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let show = episode?.show , segue.identifier == "SickbeardShow" {
+            let showViewController = segue.destination as! SickbeardShowViewController
             showViewController.show = show
         }
     }
@@ -71,34 +71,34 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         
         // Section 0
         var section0 = [EpisodeDetailDataSource]()
-        section0.append(EpisodeDetailDataSource(rowType: .Name, title: "Name"))
-        section0.append(EpisodeDetailDataSource(rowType: .AirDate, title: "Aired on"))
-        section0.append(EpisodeDetailDataSource(rowType: .Show, title: "Show"))
-        section0.append(EpisodeDetailDataSource(rowType: .Season, title: "Season"))
-        section0.append(EpisodeDetailDataSource(rowType: .Episode, title: "Episode"))
-        section0.append(EpisodeDetailDataSource(rowType: .Status, title: "Status"))
+        section0.append(EpisodeDetailDataSource(rowType: .name, title: "Name"))
+        section0.append(EpisodeDetailDataSource(rowType: .airDate, title: "Aired on"))
+        section0.append(EpisodeDetailDataSource(rowType: .show, title: "Show"))
+        section0.append(EpisodeDetailDataSource(rowType: .season, title: "Season"))
+        section0.append(EpisodeDetailDataSource(rowType: .episode, title: "Episode"))
+        section0.append(EpisodeDetailDataSource(rowType: .status, title: "Status"))
         tableData.append(section0)
         
         if episode!.plot.length > 0 {
             // Section 1
             var section1 = [EpisodeDetailDataSource]()
-            section1.append(EpisodeDetailDataSource(rowType: .Plot, title: ""))
+            section1.append(EpisodeDetailDataSource(rowType: .plot, title: ""))
             tableData.append(section1)
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return tableData.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableData[section].count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if tableData[indexPath.section][indexPath.row].rowType == .Plot {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row].rowType == .plot {
             let font = UIFont(name: "OpenSans-Light", size: 14.0)!
-            let maxWidth = CGRectGetWidth(view.bounds) - 34 // TODO: Change to 20 once sizing issue is fixed
+            let maxWidth = view.bounds.width - 34 // TODO: Change to 20 once sizing issue is fixed
             
             return episode!.plot.sizeWithFont(font, width:maxWidth).height + 30
         }
@@ -106,39 +106,39 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         return tableView.rowHeight;
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: DownTableViewCell
         
         if indexPath.section == 0 {
             let reuseIdentifier = "episodeCell"
-            cell = DownTableViewCell(style: .Value2, reuseIdentifier: reuseIdentifier)
+            cell = DownTableViewCell(style: .value2, reuseIdentifier: reuseIdentifier)
             let cellData = tableData[indexPath.section][indexPath.row]
             
             cell.textLabel?.text = cellData.title
             var detailText: String?
             
             switch cellData.rowType {
-            case .Name:
+            case .name:
                 detailText = episode!.name
                 break
-            case .AirDate:
+            case .airDate:
                 if let date = episode!.airDate {
-                    detailText = NSDateFormatter.downDateFormatter().stringFromDate(date)
+                    detailText = date.dateString
                 }
                 else {
                     detailText = "-"
                 }
                 break
-            case .Show:
+            case .show:
                 detailText = episode!.show?.name ?? "-"
                 break
-            case .Season:
+            case .season:
                 detailText = episode!.season == nil ? "-" : String(episode!.season!.id)
                 break
-            case .Episode:
+            case .episode:
                 detailText = String(episode!.id)
                 break
-            case .Status:
+            case .status:
                 detailText = episode!.status.rawValue
                 break
                 
@@ -149,7 +149,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
             cell.detailTextLabel?.text = detailText
         }
         else {
-            let plotCell = tableView.dequeueReusableCellWithIdentifier("DownTextCell") as! DownTextCell
+            let plotCell = tableView.dequeueReusableCell(withIdentifier: "DownTextCell") as! DownTextCell
             plotCell.label.text = episode!.plot
             plotCell.cheveronHidden = true
             
@@ -158,10 +158,10 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cellData = tableData[indexPath.section][indexPath.row]
-        if cellData.rowType == .Show {
-            performSegueWithIdentifier("SickbeardShow", sender: nil)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cellData = tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+        if cellData.rowType == .show {
+            performSegue(withIdentifier: "SickbeardShow", sender: nil)
         }
     }
     

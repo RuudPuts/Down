@@ -19,27 +19,27 @@ extension UIView {
     
     var leftConstraint: NSLayoutConstraint? {
         get {
-            return findParentConstraint(.Leading)
+            return findParentConstraint(.leading)
         }
     }
     
     
     var rightConstraint: NSLayoutConstraint? {
         get {
-            return findParentConstraint(.Trailing)
+            return findParentConstraint(.trailing)
         }
     }
     
     
     var topConstraint: NSLayoutConstraint? {
         get {
-            return findParentConstraint(.Top)
+            return findParentConstraint(.top)
         }
     }
     
     var bottomConstraint: NSLayoutConstraint? {
         get {
-            return findParentConstraint(.Bottom)
+            return findParentConstraint(.bottom)
         }
     }
     
@@ -47,22 +47,22 @@ extension UIView {
     
     var widthConstraint: NSLayoutConstraint? {
         get {
-            return findConstraint(.Width)
+            return findConstraint(.width)
         }
     }
     
     var heightConstraint: NSLayoutConstraint? {
         get {
-            return findConstraint(.Height)
+            return findConstraint(.height)
         }
     }
     
-    private func findConstraint(attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
+    fileprivate func findConstraint(_ attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
         var foundConstraint: NSLayoutConstraint?
         
-        if attribute == .Width || attribute == .Height {
+        if attribute == .width || attribute == .height {
             for constraint: NSLayoutConstraint in self.constraints {
-                if constraint.isMemberOfClass(NSLayoutConstraint) && constraint.firstAttribute == attribute {
+                if constraint.isMember(of: NSLayoutConstraint.self) && constraint.firstAttribute == attribute {
                     foundConstraint = constraint
                 }
             }
@@ -75,23 +75,23 @@ extension UIView {
     
     var horizontalCenterConstraint: NSLayoutConstraint? {
         get {
-            return findParentConstraint(.CenterX)
+            return findParentConstraint(.centerX)
         }
     }
     
     var verticalCenterConstraint: NSLayoutConstraint? {
         get {
-            return findParentConstraint(.CenterY)
+            return findParentConstraint(.centerY)
         }
     }
     
-    private func findParentConstraint(attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
+    fileprivate func findParentConstraint(_ attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
         var foundConstraint: NSLayoutConstraint?
         
         for constraint: NSLayoutConstraint in self.superview!.constraints {
             if ((constraint.firstItem as! UIView == self && constraint.firstAttribute == attribute) ||
                 (constraint.secondItem as! UIView? == self && constraint.secondAttribute == attribute)) &&
-                constraint.isMemberOfClass(NSLayoutConstraint) {
+                constraint.isMember(of: NSLayoutConstraint.self) {
                     foundConstraint = constraint
             }
         }

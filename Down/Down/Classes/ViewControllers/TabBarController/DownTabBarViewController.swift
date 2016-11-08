@@ -31,13 +31,13 @@ class DownTabBarViewController: DownViewController {
         super.viewDidLoad()
         
         let tabBarCellNib = UINib(nibName: "DownTabBarCell", bundle: nil)
-        collectionView!.registerNib(tabBarCellNib, forCellWithReuseIdentifier: "DownTabBarCell")
+        collectionView!.register(tabBarCellNib, forCellWithReuseIdentifier: "DownTabBarCell")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let firstTabItem = viewControllers.first where selectedViewController == nil {
+        if let firstTabItem = viewControllers.first, selectedViewController == nil {
             selectViewController(firstTabItem)
         }
     }
@@ -59,11 +59,11 @@ class DownTabBarViewController: DownViewController {
         }
     }
     
-    func selectViewController(viewController: UIViewController) {
+    func selectViewController(_ viewController: UIViewController) {
         if viewController == selectedViewController {
             // Selected tab repressed, pop navigation controller to root
             if let navigationController = selectedViewController as? UINavigationController {
-                navigationController.popToRootViewControllerAnimated(true)
+                navigationController.popToRootViewController(animated: true)
             }
         }
         else {
@@ -80,34 +80,34 @@ class DownTabBarViewController: DownViewController {
             
             // Add constraints to new view
             let views = ["view": viewController.view]
-            let horizontalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: .AlignAllTop, metrics: nil, views: views)
+            let horizontalConstraint = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: .alignAllTop, metrics: nil, views: views)
             contentView.addConstraints(horizontalConstraint)
             
-            let verticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[view]-0-|", options: .AlignAllTop, metrics: nil, views: views)
+            let verticalConstraint = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: .alignAllTop, metrics: nil, views: views)
             contentView.addConstraints(verticalConstraint)
             
             // Layout the view
             contentView.layoutIfNeeded()
             
             // Inform the view controller shit went down (get it? Down... I'll see myself out)
-            viewController.didMoveToParentViewController(self)
+            viewController.didMove(toParentViewController: self)
         }
     }
     
     // MARK: CollectionView datasource
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSectionsInCollectionView(_ collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewControllers.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell("DownTabBarCell", indexPath: indexPath) as! DownTabBarCell
         
-        let viewController = viewControllers[indexPath.row]
+        let viewController = viewControllers[(indexPath as NSIndexPath).row]
         
         if let tabBarItem = viewController as? DownTabBarItem {
             cell.imageView.image = tabBarItem.tabIcon
@@ -123,17 +123,17 @@ class DownTabBarViewController: DownViewController {
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         let tabCount = Float(viewControllers.count)
-        let width = Float(CGRectGetWidth(view.bounds)) / tabCount
+        let width = Float(view.bounds.width) / tabCount
         
-        return CGSizeMake(CGFloat(width), CGRectGetHeight(collectionView.bounds))
+        return CGSize(width: CGFloat(width), height: collectionView.bounds.height)
     }
     
     // MARK: CollectionView delegate
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        selectViewController(viewControllers[indexPath.row])
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: IndexPath) {
+        selectViewController(viewControllers[(indexPath as NSIndexPath).row])
         collectionView.reloadData()
     }
 }

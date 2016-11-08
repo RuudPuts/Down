@@ -22,7 +22,7 @@ class DownCollectionViewCell: UICollectionViewCell {
         label?.textColor = cellColor
     }
     
-    private var highlightedBackgroundColor: UIColor {
+    fileprivate var highlightedBackgroundColor: UIColor {
         switch cellType {
         case .SabNZBd: return .downSabNZBdDarkColor()
         case .Sickbeard: return .downSickbeardDarkColor()
@@ -31,7 +31,7 @@ class DownCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setCellType(type: DownApplication) {
+    func setCellType(_ type: DownApplication) {
         cellType = type
         
         switch cellType {

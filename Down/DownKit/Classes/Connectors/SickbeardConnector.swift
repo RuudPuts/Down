@@ -8,28 +8,27 @@
 
 import Alamofire
 
-public class SickbeardConnector: Connector {
-
-    public var host: String?
-    public var apiKey: String?
-    let requestManager: Manager
+open class SickbeardConnector: Connector {
+    open var host: String?
+    open var apiKey: String?
+    let requestManager: SessionManager
     
     public init() {
-        let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let sessionConfiguration = URLSessionConfiguration.default
         sessionConfiguration.timeoutIntervalForRequest = 2
         sessionConfiguration.timeoutIntervalForResource = 2
         
-        requestManager = Manager(configuration: sessionConfiguration)
+        requestManager = SessionManager(configuration: sessionConfiguration)
     }
-
-    public func validateHost(url: NSURL, completion: (hostValid: Bool, apiKey: String?) -> (Void)) {
+    
+    public func validateHost(_ url: URL, completion: @escaping (Bool, String?) -> (Void)) {
         guard url.absoluteString.length > 0 else {
-            completion(hostValid: false, apiKey: nil)
+            completion(false, nil)
             return
         }
         let fixedUrl = url.prefixScheme()
         
-        requestManager.request(.GET, fixedUrl).responseString { handler in
+        requestManager.request(fixedUrl).responseString { handler in
             var hostValid = false
             
             if handler.result.isSuccess, let response = handler.response {
@@ -40,7 +39,7 @@ public class SickbeardConnector: Connector {
 
                     // We got the host, lets fetch the api key
                     self.fetchApiKey {
-                        completion(hostValid: hostValid, apiKey: $0)
+                        completion(hostValid, $0)
                     }
 
                     // fetchApiKey completion handler will call our completion handler
@@ -48,24 +47,25 @@ public class SickbeardConnector: Connector {
                 }
             }
             
-            completion(hostValid: hostValid, apiKey: self.apiKey)
+            completion(hostValid, self.apiKey)
         }
     }
     
-    func validateResponseHeaders(headers: [NSObject: AnyObject]) -> Bool {
+    func validateResponseHeaders(_ headers: [AnyHashable: Any]) -> Bool {
         let serverHeader = headers["Server"] as? String
         let serverHeaderValid = serverHeader?.hasPrefix("CherryPy") ?? false
         
         let authenticateHeader = headers["Www-Authenticate"] as? String
-        let authenticateHeaderValid = authenticateHeader?.rangeOfString("Sickbeard") != nil
+        let authenticateHeaderValid = authenticateHeader?.range(of: "Sickbeard") != nil
         
         return serverHeaderValid || authenticateHeaderValid
     }
-    public func fetchApiKey(username username: String = "", password: String = "", completion: (String?) -> (Void)) {
+    
+    public func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> (Void)) {
         if let sickbeardHost = host {
             let url = sickbeardHost + "/config/general/"
             
-            requestManager.request(.GET, url).authenticate(user: username, password: password).responseString { handler in
+            requestManager.request(url).authenticate(user: username, password: password).responseString { handler in
                 self.apiKey = nil
                 
                 if handler.result.isSuccess, let html = handler.result.value {
@@ -82,15 +82,15 @@ public class SickbeardConnector: Connector {
         }
     }
     
-    func extractApiKey(configHtml: String) -> String? {
-        if let apikeyInputRange = configHtml.rangeOfString("id=\"api_key\"") {
+    func extractApiKey(_ configHtml: String) -> String? {
+        if let apikeyInputRange = configHtml.range(of: "id=\"api_key\"") {
             // WARNING: Assumption; api key is within 200 characters from the input id
             let substringLength = 200
-            let apikeyIndexEnd = apikeyInputRange.endIndex.advancedBy(substringLength)
+            let apikeyIndexEnd = configHtml.index(apikeyInputRange.upperBound, offsetBy: substringLength)
             
             if configHtml.endIndex > apikeyIndexEnd {
-                let apiKeyRange = apikeyInputRange.endIndex..<apikeyIndexEnd
-                let usefullPart = configHtml.substringWithRange(apiKeyRange)
+                let apiKeyRange = apikeyInputRange.upperBound..<apikeyIndexEnd
+                let usefullPart = configHtml.substring(with: apiKeyRange)
                 
                 return usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first
             }

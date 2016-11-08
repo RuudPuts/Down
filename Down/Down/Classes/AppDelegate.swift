@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return sabNZBdSetup && sickbeardSetup
     }
 
-    func application(_: UIApplication, didFinishLaunchingWithOptions _: [NSObject: AnyObject]?) -> Bool {
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
         
         checkClearCache()
@@ -40,15 +40,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setupAppearance() {
-        UINavigationBar.appearance().barStyle = .Default
-        UINavigationBar.appearance().translucent = false
+        UINavigationBar.appearance().barStyle = .default
+        UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.downLightGrayColor()]
         UINavigationBar.appearance().tintColor = UIColor.downDarkGrayColor()
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGrayColor()], forState: .Normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGrayColor()], for: UIControlState())
         
         let cancelButtonAttributes = [NSForegroundColorAttributeName: UIColor(red:0.51, green:0.51, blue:0.53, alpha:1.00),
-                                      NSFontAttributeName: UIFont.systemFontOfSize(14)]
-        UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes, forState: .Normal)
+                                      NSFontAttributeName: UIFont.systemFont(ofSize: 14)]
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes, for: UIControlState())
     }
     
     func checkClearCache() {
@@ -62,13 +62,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setupTabBarController() {
-        let sabNZBdController = UIStoryboard(name: "SabNZBd", bundle: NSBundle.mainBundle()).instantiateInitialViewController()!
+        let sabNZBdController = UIStoryboard(name: "SabNZBd", bundle: Bundle.main).instantiateInitialViewController()!
         (sabNZBdController as! UINavigationController).setupForApplication(.SabNZBd)
         
-        let sickbeardController = UIStoryboard(name: "Sickbeard", bundle: NSBundle.mainBundle()).instantiateInitialViewController()!
+        let sickbeardController = UIStoryboard(name: "Sickbeard", bundle: Bundle.main).instantiateInitialViewController()!
         (sickbeardController as! UINavigationController).setupForApplication(.Sickbeard)
         
-        let couchPotatoController = UIStoryboard(name: "CouchPotato", bundle: NSBundle.mainBundle()).instantiateInitialViewController()!
+        let couchPotatoController = UIStoryboard(name: "CouchPotato", bundle: Bundle.main).instantiateInitialViewController()!
         (couchPotatoController as! UINavigationController).setupForApplication(.CouchPotato)
         
         let tabBarController = window?.rootViewController as! DownTabBarViewController
@@ -78,13 +78,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupOnboarding() {
         // Check if intro should be shown
         if !isSetup {
-            let introViewController = DownIntroViewController(introType: .Welcome)
+            let introViewController = DownIntroViewController(introType: .welcome)
             let introNavigationController = UINavigationController(rootViewController: introViewController)
-            introNavigationController.navigationBarHidden = true
+            introNavigationController.isNavigationBarHidden = true
             
             // Trigger window showing automatically
             window?.makeKeyAndVisible()
-            window?.rootViewController?.presentViewController(introNavigationController, animated: false, completion: nil)
+            window?.rootViewController?.present(introNavigationController, animated: false, completion: nil)
         }
         else {
             serviceManager.startAllServices()
@@ -94,6 +94,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension UIApplication {
     var downAppDelegate: AppDelegate {
-        return UIApplication.sharedApplication().delegate as! AppDelegate
+        return UIApplication.shared.delegate as! AppDelegate
     }
 }

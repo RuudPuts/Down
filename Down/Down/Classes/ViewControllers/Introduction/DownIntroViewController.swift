@@ -11,8 +11,8 @@ import DownKit
 class DownIntroViewController: DownViewController, DownSettingsViewControllerDelegate, RPPortScannerDelegate {
     
     enum IntroType {
-        case Welcome
-        case SickbeardCacheRefresh
+        case welcome
+        case sickbeardCacheRefresh
     }
     
     var introType: IntroType!
@@ -32,9 +32,9 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
 //        window.statusBarBackgroundColor = .downRedColor()
 //    }
     
-    @IBAction func actionButtonPressed(sender: AnyObject) {
-        startButton.hidden = true
-        searchingContainer.hidden = false
+    @IBAction func actionButtonPressed(_ sender: AnyObject) {
+        startButton.isHidden = true
+        searchingContainer.isHidden = false
         
         let portScanner = RPPortScanner()
         portScanner.delegate = self
@@ -43,8 +43,8 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
     
     // MARK - RPPortScannerDelegate
     
-    func portScanner(portScanner: RPPortScanner!, didFindPort port: Int, onIPAddress ipAddress: String!) {
-        let host = NSURL(string: "http://\(ipAddress):\(port)")!
+    func portScanner(_ portScanner: RPPortScanner!, didFindPort port: Int, onIPAddress ipAddress: String!) {
+        let host = URL(string: "http://\(ipAddress):\(port)")!
         
         switch port {
         case SabNZBdService.defaultPort:
@@ -57,10 +57,10 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                         PreferenceManager.sabNZBdHost = host.absoluteString
                         PreferenceManager.sabNZBdApiKey = apiKey ?? ""
                     }
-                    else if PreferenceManager.sabNZBdApiKey.length == 0 && apiKey?.length > 0 {
+                    else if PreferenceManager.sabNZBdApiKey.length == 0, let apiKey = apiKey, apiKey.length > 0 {
                         // Host with valid API key found, replace
                         PreferenceManager.sabNZBdHost = host.absoluteString
-                        PreferenceManager.sabNZBdApiKey = apiKey!
+                        PreferenceManager.sabNZBdApiKey = apiKey
                     }
                 }
             })
@@ -75,10 +75,10 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                         PreferenceManager.sickbeardHost = host.absoluteString
                         PreferenceManager.sickbeardApiKey = apiKey ?? ""
                     }
-                    else if PreferenceManager.sickbeardApiKey.length == 0 && apiKey?.length > 0 {
+                    else if PreferenceManager.sickbeardApiKey.length == 0, let apiKey = apiKey, apiKey.length > 0 {
                         // Host with valid API key found, replace
                         PreferenceManager.sickbeardHost = host.absoluteString
-                        PreferenceManager.sickbeardApiKey = apiKey!
+                        PreferenceManager.sickbeardApiKey = apiKey
                     }
                 }
             })
@@ -94,7 +94,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
         }
     }
     
-    func portScannerDidFinish(portScanner: RPPortScanner!) {
+    func portScannerDidFinish(_ portScanner: RPPortScanner!) {
         let settingsViewController = DownSettingsViewController(application: .SabNZBd)
         settingsViewController.delegate = self
         navigationController?.pushViewController(settingsViewController, animated: true)
@@ -102,14 +102,14 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
     
     // MARK: - DownSettingsViewController
     
-    func settingsViewControllerDidTapActionButton(viewController: DownSettingsViewController) {
+    func settingsViewControllerDidTapActionButton(_ viewController: DownSettingsViewController) {
         if viewController.application == .SabNZBd {
             let settingsViewController = DownSettingsViewController(application: .Sickbeard)
             settingsViewController.delegate = self
             navigationController?.pushViewController(settingsViewController, animated: true)
         }
         else {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
