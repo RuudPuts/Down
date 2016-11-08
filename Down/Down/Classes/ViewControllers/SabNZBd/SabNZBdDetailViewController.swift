@@ -11,35 +11,35 @@ import DownKit
 
 class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
     
-    private enum SabNZBdDetailRow {
-        case Name
-        case Status
-        case TotalSize
+    fileprivate enum SabNZBdDetailRow {
+        case name
+        case status
+        case totalSize
         
         // Queue specifics
-        case Progress
-        case Downloaded
+        case progress
+        case downloaded
         
         // History specifics
-        case FinishedAt
+        case finishedAt
         
         // Sickbeard Specifics
-        case SickbeardShow
-        case SickbeardEpisode
-        case SickbeardEpisodeName
-        case SickbeardAirDate
-        case SickbeardPlot
+        case sickbeardShow
+        case sickbeardEpisode
+        case sickbeardEpisodeName
+        case sickbeardAirDate
+        case sickbeardPlot
     }
     
-    private struct SabNZBdDetailDataSource {
+    fileprivate struct SabNZBdDetailDataSource {
         var rowType: SabNZBdDetailRow
         var title: String
     }
     
-    private var tableData = [[SabNZBdDetailDataSource]]()
+    fileprivate var tableData = [[SabNZBdDetailDataSource]]()
     
-    private var historyItemReplacement: String?
-    private var historySwitchRefreshCount = 0
+    fileprivate var historyItemReplacement: String?
+    fileprivate var historySwitchRefreshCount = 0
     
     var sabItem: SABItem? {
         didSet {
@@ -53,8 +53,8 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         
         tableView!.rowHeight = UITableViewAutomaticDimension
         
-        let plotCellNib = UINib(nibName: "DownTextCell", bundle: NSBundle.mainBundle())
-        tableView!.registerNib(plotCellNib, forCellReuseIdentifier: "DownTextCell")
+        let plotCellNib = UINib(nibName: "DownTextCell", bundle: Bundle.main)
+        tableView!.register(plotCellNib, forCellReuseIdentifier: "DownTextCell")
         
         guard let episode = sabItem?.sickbeardEpisode else {
             return
@@ -65,13 +65,13 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         SabNZBdService.shared.addListener(self)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         SabNZBdService.shared.removeListener(self)
@@ -90,52 +90,52 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     func configureTableView() {
         tableData.removeAll()
         
-        if let episode = sabItem?.sickbeardEpisode {
+        if (sabItem?.sickbeardEpisode) != nil {
             var section = [SabNZBdDetailDataSource]()
-            section.append(SabNZBdDetailDataSource(rowType: .SickbeardShow, title: "Show"))
-            section.append(SabNZBdDetailDataSource(rowType: .SickbeardEpisode, title: "Episode"))
-            section.append(SabNZBdDetailDataSource(rowType: .SickbeardEpisodeName, title: "Title"))
-            section.append(SabNZBdDetailDataSource(rowType: .SickbeardAirDate, title: "Aired on"))
+            section.append(SabNZBdDetailDataSource(rowType: .sickbeardShow, title: "Show"))
+            section.append(SabNZBdDetailDataSource(rowType: .sickbeardEpisode, title: "Episode"))
+            section.append(SabNZBdDetailDataSource(rowType: .sickbeardEpisodeName, title: "Title"))
+            section.append(SabNZBdDetailDataSource(rowType: .sickbeardAirDate, title: "Aired on"))
             
             tableData.append(section)
         }
         
         var detailSection = [SabNZBdDetailDataSource]()
         if sabItem?.sickbeardEpisode == nil {
-            detailSection.append(SabNZBdDetailDataSource(rowType: .Name, title: "Name"))
+            detailSection.append(SabNZBdDetailDataSource(rowType: .name, title: "Name"))
         }
         
         if sabItem is SABQueueItem {
-            detailSection.append(SabNZBdDetailDataSource(rowType: .Status, title: "Status"))
-            detailSection.append(SabNZBdDetailDataSource(rowType: .Progress, title: "Progress"))
+            detailSection.append(SabNZBdDetailDataSource(rowType: .status, title: "Status"))
+            detailSection.append(SabNZBdDetailDataSource(rowType: .progress, title: "Progress"))
         }
         else {
-            detailSection.append(SabNZBdDetailDataSource(rowType: .Status, title: "Status"))
-            detailSection.append(SabNZBdDetailDataSource(rowType: .TotalSize, title: "Total size"))
-            detailSection.append(SabNZBdDetailDataSource(rowType: .FinishedAt, title: "Finished at"))
+            detailSection.append(SabNZBdDetailDataSource(rowType: .status, title: "Status"))
+            detailSection.append(SabNZBdDetailDataSource(rowType: .totalSize, title: "Total size"))
+            detailSection.append(SabNZBdDetailDataSource(rowType: .finishedAt, title: "Finished at"))
         }
         tableData.append(detailSection)
         
-        if let episode = sabItem?.sickbeardEpisode where episode.plot.length > 0 {
+        if let episode = sabItem?.sickbeardEpisode, episode.plot.length > 0 {
             var section = [SabNZBdDetailDataSource]()
-            section.append(SabNZBdDetailDataSource(rowType: .SickbeardPlot, title: ""))
+            section.append(SabNZBdDetailDataSource(rowType: .sickbeardPlot, title: ""))
             
             tableData.append(section)
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return tableData.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableData[section].count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if tableData[indexPath.section][indexPath.row].rowType == .SickbeardPlot {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row].rowType == .sickbeardPlot {
             let font = UIFont(name: "OpenSans-Light", size: 14.0)!
-            let maxWidth = CGRectGetWidth(view.bounds) - 34 // TODO: Change to 20 once sizing issue is fixed
+            let maxWidth = view.bounds.width - 34 // TODO: Change to 20 once sizing issue is fixed
             
             return sabItem!.sickbeardEpisode!.plot.sizeWithFont(font, width:maxWidth).height + 30
         }
@@ -143,12 +143,12 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         return tableView.rowHeight;
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: DownTableViewCell
         let rowData = tableData[indexPath.section][indexPath.row]
         
-        if rowData.rowType == .SickbeardPlot {
-            let plotCell = tableView.dequeueReusableCellWithIdentifier("DownTextCell") as! DownTextCell
+        if rowData.rowType == .sickbeardPlot {
+            let plotCell = tableView.dequeueReusableCell(withIdentifier: "DownTextCell") as! DownTextCell
             plotCell.label.text = sabItem!.sickbeardEpisode!.plot
             plotCell.cheveronHidden = true
             
@@ -168,34 +168,34 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         return cell
     }
     
-    private func tableView(tableView: UITableView, queueCellForRowAtIndexPath indexPath: NSIndexPath) -> DownTableViewCell {
+    fileprivate func tableView(_ tableView: UITableView, queueCellForRowAtIndexPath indexPath: IndexPath) -> DownTableViewCell {
         let reuseIdentifier = "queueCell"
-        let cell = DownTableViewCell(style: .Value2, reuseIdentifier: reuseIdentifier)
+        let cell = DownTableViewCell(style: .value2, reuseIdentifier: reuseIdentifier)
         let queueItem = sabItem as! SABQueueItem
-        let cellData = tableData[indexPath.section][indexPath.row]
+        let cellData = tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         
         cell.textLabel?.text = cellData.title
         var detailText: String?
         
         switch cellData.rowType {
-        case .Name:
+        case .name:
             detailText = queueItem.displayName
             break
-        case .Status:
+        case .status:
             detailText = queueItem.statusDescription
-            cell.detailTextLabel?.textColor = .whiteColor()
+            cell.detailTextLabel?.textColor = .white
             break
-        case .Progress:
+        case .progress:
             detailText = queueItem.progressString
             break
             
-        case .SickbeardShow:
+        case .sickbeardShow:
             detailText = queueItem.sickbeardEpisode!.show?.name
             break;
-        case .SickbeardEpisode:
+        case .sickbeardEpisode:
             detailText = "S\(queueItem.sickbeardEpisode!.season!.id)E\(queueItem.sickbeardEpisode!.id)"
             break;
-        case .SickbeardEpisodeName:
+        case .sickbeardEpisodeName:
             detailText = queueItem.sickbeardEpisode!.name
             break;
         default:
@@ -205,49 +205,49 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         return cell
     }
     
-    private func tableView(tableView: UITableView, historyCellForRowAtIndexPath indexPath: NSIndexPath) -> DownTableViewCell {
+    fileprivate func tableView(_ tableView: UITableView, historyCellForRowAtIndexPath indexPath: IndexPath) -> DownTableViewCell {
         let reuseIdentifier = "historyCell"
-        let cell = DownTableViewCell(style: .Value2, reuseIdentifier: reuseIdentifier)
+        let cell = DownTableViewCell(style: .value2, reuseIdentifier: reuseIdentifier)
         let historyItem = sabItem as! SABHistoryItem
-        let cellData = tableData[indexPath.section][indexPath.row]
+        let cellData = tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         
         cell.textLabel?.text = cellData.title
         var detailText: String?
         
         switch cellData.rowType {
-        case .Name:
+        case .name:
             detailText = historyItem.displayName
             break
-        case .Status:
+        case .status:
             detailText = historyItem.statusDescription
             switch (historyItem.status!) {
-            case .Finished:
+            case .finished:
                 cell.detailTextLabel?.textColor = .downGreenColor()
-            case .Failed:
+            case .failed:
                 cell.detailTextLabel?.textColor = .downRedColor()
             default:
-                cell.detailTextLabel?.textColor = .whiteColor()
+                cell.detailTextLabel?.textColor = .white
             }
             break
-        case .TotalSize:
+        case .totalSize:
             detailText = historyItem.size
             break
-        case .FinishedAt:
-            detailText = NSDateFormatter.downDateTimeFormatter().stringFromDate(historyItem.completionDate!)
+        case .finishedAt:
+            detailText = historyItem.completionDate!.dateString
             break
             
-        case .SickbeardShow:
+        case .sickbeardShow:
             detailText = historyItem.sickbeardEpisode!.show?.name
             break;
-        case .SickbeardEpisode:
+        case .sickbeardEpisode:
             detailText = "S\(historyItem.sickbeardEpisode!.season!.id)E\(historyItem.sickbeardEpisode!.id)"
             break;
-        case .SickbeardEpisodeName:
+        case .sickbeardEpisodeName:
             detailText = historyItem.sickbeardEpisode!.name
             break;
-        case .SickbeardAirDate:
+        case .sickbeardAirDate:
             if let date = historyItem.sickbeardEpisode!.airDate {
-                detailText = NSDateFormatter.downDateTimeFormatter().stringFromDate(date)
+                detailText = date.dateString
             }
             else {
                 detailText = "-"
@@ -263,16 +263,16 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     
     // MARK: - TableView delegate
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cellData = tableData[indexPath.section][indexPath.row]
-        if cellData.rowType == .SickbeardShow {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cellData = tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+        if cellData.rowType == .sickbeardShow {
             showDetailsForShow(sabItem!.sickbeardEpisode!.show!)
         }
     }
     
-    func showDetailsForShow(show: SickbeardShow) {
-        let sickbeardStoryboard = UIStoryboard(name: "Sickbeard", bundle: NSBundle.mainBundle())
-        let showDetailViewcontroller = sickbeardStoryboard.instantiateViewControllerWithIdentifier("SickbeardShowDetail") as! SickbeardShowViewController
+    func showDetailsForShow(_ show: SickbeardShow) {
+        let sickbeardStoryboard = UIStoryboard(name: "Sickbeard", bundle: Bundle.main)
+        let showDetailViewcontroller = sickbeardStoryboard.instantiateViewController(withIdentifier: "SickbeardShowDetail") as! SickbeardShowViewController
         showDetailViewcontroller.show = show
             
         navigationController?.pushViewController(showDetailViewcontroller, animated: true)
@@ -295,12 +295,12 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
                 historyItemReplacement = nil
                 shouldReloadTable = true
                 configureTableView()
-                tableView!.insertRowsAtIndexPaths([NSIndexPath(forRow: 3, inSection: 0)], withRowAnimation: .Automatic)
+                tableView!.insertRows(at: [IndexPath(row: 3, section: 0)], with: .automatic)
             }
             else {
                 historySwitchRefreshCount += 1
                 if historySwitchRefreshCount == 1 {
-                    self.navigationController?.popViewControllerAnimated(true)
+                    _ = self.navigationController?.popViewController(animated: true)
                 }
             }
         }
@@ -312,13 +312,13 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     
     func sabNZBDFullHistoryFetched() { }
     
-    func willRemoveSABItem(sabItem: SABItem) {
+    func willRemoveSABItem(_ sabItem: SABItem) {
         if sabItem == self.sabItem {
             if sabItem is SABQueueItem {
                 historyItemReplacement = sabItem.identifier
             }
             else {
-                self.navigationController?.popViewControllerAnimated(true)
+                _ = self.navigationController?.popViewController(animated: true)
             }
         }
     }

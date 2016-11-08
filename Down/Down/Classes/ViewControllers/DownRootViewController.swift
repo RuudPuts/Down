@@ -11,13 +11,13 @@ import DownKit
 
 class DownRootViewController: DownViewController {
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         hideNavigationBar(animated)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         showNavigationBar(animated)
@@ -25,7 +25,7 @@ class DownRootViewController: DownViewController {
     
     // MARK: Navigation bar
     
-    func showNavigationBar(animated: Bool) {
+    func showNavigationBar(_ animated: Bool) {
         guard self.navigationController?.viewControllers.count == 2 else {
             return
         }
@@ -33,7 +33,7 @@ class DownRootViewController: DownViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    func hideNavigationBar(animated: Bool) {
+    func hideNavigationBar(_ animated: Bool) {
         guard self.navigationController?.viewControllers.count == 1 else {
             return
         }
@@ -45,7 +45,7 @@ class DownRootViewController: DownViewController {
 
 extension UINavigationController {
     
-    func setupForApplication(application: DownApplication) {
+    func setupForApplication(_ application: DownApplication) {
         let color: UIColor
         
         switch application {
@@ -88,7 +88,7 @@ extension UINavigationController: DownTabBarItem {
                 return viewController.selectedTabBackground
             }
             
-            return UIColor.clearColor()
+            return UIColor.clear
         }
     }
     
@@ -98,7 +98,7 @@ extension UINavigationController: DownTabBarItem {
                 return viewController.deselectedTabBackground
             }
             
-            return UIColor.clearColor()
+            return UIColor.clear
         }
     }    
 }

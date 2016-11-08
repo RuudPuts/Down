@@ -172,7 +172,7 @@ open class SickbeardService: Service {
         }
     }
 
-    public func refreshShow(show: SickbeardShow, completionHandler: @escaping () -> Void) {
+    public func refreshShow(_ show: SickbeardShow, completionHandler: @escaping () -> Void) {
         refreshShows([String(show.tvdbId)]) {
             completionHandler()
             
@@ -336,24 +336,25 @@ open class SickbeardService: Service {
         completion(nil)
     }
     
-    open func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, forSeason season: SickbeardSeason, completion: @escaping (Error?) -> (Void)) -> Bool {
+    open func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, forSeason season: SickbeardSeason, completion: @escaping (Error?) -> (Void)) {
         guard let tvdbId = season.show?.tvdbId else {
             completion(NSError(domain: "Down.SickbeardService", code: ErrorType.guardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
-            return false
+            return
         }
         
         guard SickbeardEpisode.SickbeardEpisodeStatus.updatable.contains(status) else {
             completion(NSError(domain: "Down.SickbeardService", code: ErrorType.invalidValue.rawValue, userInfo: [NSLocalizedDescriptionKey: "Invalid value for 'status'"]))
-            return false
+            return
         }
         
         let command = "episode.setstatus&status=\(status.rawValue.lowercased())&tvdbid=\(tvdbId)&season=\(season.id)&force=1"
         let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=\(command)"
         Alamofire.request(url).responseJSON { handler in
             completion(handler.result.error)
+            return
         }
         
-        return false
+        completion(nil)
     }
     
     // MARK: - Listeners

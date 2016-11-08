@@ -37,7 +37,7 @@
 		4221ADE61B7BC0B20027C3A0 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADCA1B7BC0B20027C3A0 /* Service.swift */; };
 		4221ADE71B7BC0B20027C3A0 /* SickbeardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADCB1B7BC0B20027C3A0 /* SickbeardService.swift */; };
 		4221ADE91B7BC0D50027C3A0 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADE81B7BC0D50027C3A0 /* SwiftyJSON.swift */; };
-		4221ADEB1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADEA1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift */; };
+		4221ADEB1B7BC34D0027C3A0 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADEA1B7BC34D0027C3A0 /* DateFormatter+Extensions.swift */; };
 		422D54931AE04AE200200EF0 /* DownTabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D54911AE04AE200200EF0 /* DownTabBarCell.swift */; };
 		42354FD61D182BA80016B518 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; };
 		42354FD71D182BA80016B518 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -103,7 +103,7 @@
 		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
 		42C12E4A1D678C0B00D2A21C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C12E491D678C0B00D2A21C /* Main.storyboard */; };
 		42C2D6FF1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2D6FE1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift */; };
-		42C2D7011D68EBE5008E195E /* NSDate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2D7001D68EBE5008E195E /* NSDate+Extensions.swift */; };
+		42C2D7011D68EBE5008E195E /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2D7001D68EBE5008E195E /* Date+Extensions.swift */; };
 		42C2D73F1D6A1F44008E195E /* SabNZBd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C2D73E1D6A1F44008E195E /* SabNZBd.storyboard */; };
 		42C2D7411D6A1F77008E195E /* Sickbeard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C2D7401D6A1F77008E195E /* Sickbeard.storyboard */; };
 		42C2D7431D6A1F90008E195E /* CouchPotato.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C2D7421D6A1F90008E195E /* CouchPotato.storyboard */; };
@@ -410,7 +410,7 @@
 		4221ADCA1B7BC0B20027C3A0 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		4221ADCB1B7BC0B20027C3A0 /* SickbeardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardService.swift; sourceTree = "<group>"; };
 		4221ADE81B7BC0D50027C3A0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../../../SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
-		4221ADEA1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+Extensions.swift"; sourceTree = "<group>"; };
+		4221ADEA1B7BC34D0027C3A0 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		422D54911AE04AE200200EF0 /* DownTabBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarCell.swift; sourceTree = "<group>"; };
 		42360B181D6B77C1007D2723 /* SickbeardShowHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowHeaderView.swift; sourceTree = "<group>"; };
 		423D87941B700B3D00AFB7FF /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -482,7 +482,7 @@
 		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		42C12E491D678C0B00D2A21C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		42C2D6FE1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardRecentlyAiredViewController.swift; sourceTree = "<group>"; };
-		42C2D7001D68EBE5008E195E /* NSDate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Extensions.swift"; sourceTree = "<group>"; };
+		42C2D7001D68EBE5008E195E /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		42C2D73E1D6A1F44008E195E /* SabNZBd.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SabNZBd.storyboard; sourceTree = "<group>"; };
 		42C2D7401D6A1F77008E195E /* Sickbeard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sickbeard.storyboard; sourceTree = "<group>"; };
 		42C2D7421D6A1F90008E195E /* CouchPotato.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CouchPotato.storyboard; sourceTree = "<group>"; };
@@ -1270,12 +1270,12 @@
 		42E19C231AB6154100883359 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				4221ADEA1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift */,
+				4221ADEA1B7BC34D0027C3A0 /* DateFormatter+Extensions.swift */,
 				42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */,
 				42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */,
 				42F035351AD45BC2001AE5B3 /* UIView+Extensions.swift */,
 				42B818681D295C1C003672C3 /* String+Extensions.swift */,
-				42C2D7001D68EBE5008E195E /* NSDate+Extensions.swift */,
+				42C2D7001D68EBE5008E195E /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1394,14 +1394,17 @@
 					};
 					4245951B1B7933EB009DA699 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 						TestTargetID = 4253E7D41AB4B7B900EF1254;
 					};
 					4253E7D41AB4B7B900EF1254 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 3GH9A2WM8V;
+						LastSwiftMigration = 0800;
 					};
 					4253E7EC1AB4B7B900EF1254 = {
 						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 4253E7D41AB4B7B900EF1254;
 					};
 				};
@@ -1772,7 +1775,7 @@
 				42FD80051D99AF990025CAB8 /* DownSectionIndexView.swift in Sources */,
 				42360B191D6B77C1007D2723 /* SickbeardShowHeaderView.swift in Sources */,
 				421129631C17762300E7B0BB /* SickbeardShowViewController.swift in Sources */,
-				4221ADEB1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift in Sources */,
+				4221ADEB1B7BC34D0027C3A0 /* DateFormatter+Extensions.swift in Sources */,
 				42C4AE011D2AFB390096FF71 /* FastSocket.m in Sources */,
 				42078E1A1AD16E68009845CC /* SabNZBdViewController.swift in Sources */,
 				42C4AE031D2AFB390096FF71 /* RPPortScanner.m in Sources */,
@@ -1793,7 +1796,7 @@
 				422D54931AE04AE200200EF0 /* DownTabBarCell.swift in Sources */,
 				42CC1D981C289989000CC68C /* DownIntroViewController.swift in Sources */,
 				4216CFA21D1B294C00A89C4C /* SickbeardShowCell.swift in Sources */,
-				42C2D7011D68EBE5008E195E /* NSDate+Extensions.swift in Sources */,
+				42C2D7011D68EBE5008E195E /* Date+Extensions.swift in Sources */,
 				42078E411AD1C702009845CC /* CouchPotatoViewController.swift in Sources */,
 				42B8186B1D2969B3003672C3 /* DownRootViewController.swift in Sources */,
 				429947991C2614BB00934B03 /* SickbeardEpisodeViewController.swift in Sources */,
@@ -1929,6 +1932,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.ruudputs.Down.DownKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Down.app/Down";
 			};
 			name = Debug;
@@ -1944,6 +1948,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.ruudputs.Down.DownKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Down.app/Down";
 			};
 			name = Release;
@@ -2053,6 +2058,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INCLUDE_PATHS = "(PROJECT_DIR)/../Squeal/modules";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/Down/Supporting Files/Down-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -2078,6 +2084,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = "(PROJECT_DIR)/../Squeal/modules";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/Down/Supporting Files/Down-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -2094,6 +2101,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.ruudputs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Down.app/Down";
 			};
 			name = Debug;
@@ -2107,6 +2115,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.ruudputs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Down.app/Down";
 			};
 			name = Release;

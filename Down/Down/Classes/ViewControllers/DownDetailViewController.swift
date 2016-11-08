@@ -18,18 +18,18 @@ class DownDetailViewController: DownViewController {
         
         if let tableHeaderView = tableView?.tableHeaderView as? UIImageView {
             let imageSize = tableHeaderView.image?.size ?? CGSize(width: 0, height: 0)
-            let screenWidth = CGRectGetWidth(view.bounds)
+            let screenWidth = view.bounds.width
             let ratiodImageHeight = imageSize.height / imageSize.width * screenWidth
-            tableHeaderView.frame = CGRectMake(0, 0, screenWidth, ratiodImageHeight)
+            tableHeaderView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: ratiodImageHeight)
             
             tableView?.tableHeaderView = tableHeaderView
         }
     }
     
-    func setTableViewHeaderImage(image: UIImage?) {
+    func setTableViewHeaderImage(_ image: UIImage?) {
         if image != nil {
             let headerImageView = UIImageView(image: image)
-            headerImageView.userInteractionEnabled = true
+            headerImageView.isUserInteractionEnabled = true
             
             let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerImageTapped))
             headerImageView.addGestureRecognizer(gestureRecognizer)

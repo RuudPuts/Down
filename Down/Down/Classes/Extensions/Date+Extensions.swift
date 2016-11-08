@@ -8,11 +8,11 @@
 
 import Foundation
 
-extension NSDate {
+extension Date {
     
     var dateString: String {
         get {
-            return NSDateFormatter.downDateFormatter().stringFromDate(self)
+            return DateFormatter.downDateFormatter().string(from: self)
         }
     }
 }

@@ -24,20 +24,20 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         
         // TODO: Ugly, lol
         if PreferenceManager.sickbeardHost.length == 0 || PreferenceManager.sickbeardApiKey.length == 0 {
-            let alertview = UIAlertController(title: nil, message: "Please setup your host using iOS Settings -> Down", preferredStyle: .Alert)
-            alertview.addAction(UIAlertAction(title: "Okay", style: .Cancel, handler: nil))
+            let alertview = UIAlertController(title: nil, message: "Please setup your host using iOS Settings -> Down", preferredStyle: .alert)
+            alertview.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
             
-            presentViewController(alertview, animated: true, completion: nil)
+            present(alertview, animated: true, completion: nil)
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         SickbeardService.shared.addListener(self)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         SickbeardService.shared.removeListener(self)
@@ -50,41 +50,41 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     
     func registerTableViewCells() {
         let moreCellNib = UINib(nibName: "DownIconTextCell", bundle:nil)
-        tableView!.registerNib(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
+        tableView!.register(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
         
         let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
-        tableView!.registerNib(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
+        tableView!.register(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
         
         let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
-        tableView!.registerNib(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
+        tableView!.register(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
         
         let itemCellNib = UINib(nibName: "SickbeardTodayCell", bundle:nil)
-        tableView!.registerNib(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
+        tableView!.register(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let indexPath = tableView!.indexPathForSelectedRow where segue.identifier == "SickbeardEpisode" {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = tableView!.indexPathForSelectedRow , segue.identifier == "SickbeardEpisode" {
             var episode: SickbeardEpisode
-            if indexPath.section == 1 {
+            if (indexPath as NSIndexPath).section == 1 {
                 episode = todayData[indexPath.row]
             }
             else {
                 episode = soonData[indexPath.row]
             }
             
-            let detailViewController = segue.destinationViewController as! SickbeardEpisodeViewController
+            let detailViewController = segue.destination as! SickbeardEpisodeViewController
             detailViewController.episode = episode
         }
     }
     
     // MARK: - TableView DataSource
     
-    private func reloadTableView() {
+    fileprivate func reloadTableView() {
         loadData()
         tableView!.reloadData()
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         var sections = 2
         if soonData != nil {
             sections = 3
@@ -92,7 +92,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         return sections
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var rows = 2
         
         if section == 1 {
@@ -105,7 +105,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         return rows
     }
     
-    func tableView(tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
+    func tableView(_ tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
         var isEmpty = false
         
         if section == 1 {
@@ -118,48 +118,48 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         return isEmpty
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height = tableView.rowHeight
         
-        if indexPath.section > 0 && !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
+        if (indexPath as NSIndexPath).section > 0 && !self.tableView(tableView, isSectionEmtpy: (indexPath as NSIndexPath).section) {
             // Width of screen, in 758x140 ratio. 60 extra for labels
-            height = (CGRectGetWidth(view.bounds) / 758 * 140) + 60
+            height = (view.bounds.width / 758 * 140) + 60
         }
         
         return height
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         
-        if indexPath.section > 0 {
+        if (indexPath as NSIndexPath).section > 0 {
             var dataAvailable = true
-            if indexPath.section == 2 {
+            if (indexPath as NSIndexPath).section == 2 {
                 dataAvailable = soonData != nil
             }
 
             if !dataAvailable {
-                let activityCell = tableView.dequeueReusableCellWithIdentifier("DownActivityCell", forIndexPath: indexPath) as! DownTableViewCell
+                let activityCell = tableView.dequeueReusableCell(withIdentifier: "DownActivityCell", for: indexPath) as! DownTableViewCell
                 activityCell.setCellType(.Sickbeard)
                 cell = activityCell
             }
-            else if self.tableView(tableView, isSectionEmtpy: indexPath.section) {
-                let emptyCell = tableView.dequeueReusableCellWithIdentifier("DownEmptyCell", forIndexPath: indexPath) as! DownEmptyCell
-                if  indexPath.section == 1 {
+            else if self.tableView(tableView, isSectionEmtpy: (indexPath as NSIndexPath).section) {
+                let emptyCell = tableView.dequeueReusableCell(withIdentifier: "DownEmptyCell", for: indexPath) as! DownEmptyCell
+                if  (indexPath as NSIndexPath).section == 1 {
                     emptyCell.label?.text = "No shows airing today."
                 }
                 else {
                     emptyCell.label?.text = "No shows airing soon."
                 }
-                emptyCell.selectionStyle = .None
+                emptyCell.selectionStyle = .none
                 
                 cell = emptyCell
             }
             else {
-                let itemCell = tableView.dequeueReusableCellWithIdentifier("SickbeardTodayCell", forIndexPath: indexPath) as! SickbeardTodayCell
+                let itemCell = tableView.dequeueReusableCell(withIdentifier: "SickbeardTodayCell", for: indexPath) as! SickbeardTodayCell
                 
                 let episode: SickbeardEpisode
-                if indexPath.section == 2 {
+                if (indexPath as NSIndexPath).section == 2 {
                     episode = soonData![indexPath.row]
                 }
                 else {
@@ -175,9 +175,9 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
             
         }
         else {
-            let iconTextCell = tableView.dequeueReusableCellWithIdentifier("DownIconTextCell", forIndexPath: indexPath) as! DownIconTextCell
+            let iconTextCell = tableView.dequeueReusableCell(withIdentifier: "DownIconTextCell", for: indexPath) as! DownIconTextCell
             iconTextCell.setCellType(.Sickbeard)
-            if indexPath.row == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 iconTextCell.label?.text = "All shows"
                 iconTextCell.iconView?.image = UIImage(named: "sickbeard-allshows")
             }
@@ -191,18 +191,18 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 0.0 : 30.0
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var headerView: UIView? = nil
         
         if section > 0 {
-            let header = (NSBundle.mainBundle().loadNibNamed("SickbeardHeaderView", owner: self, options: nil) as Array).first as! SickbeardHeaderView
+            let header = Bundle.main.loadNibNamed("SickbeardHeaderView", owner: self, options: nil)!.first as! SickbeardHeaderView
             header.textLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
             header.imageView.image = self.tableView(tableView, iconForHeaderInSection: section)
-            let detailText = section == 1 ? "\(NSCalendar.currentCalendar().components(.Day, fromDate: NSDate()).day)" : "?"
+            let detailText = section == 1 ? "\((Calendar.current as NSCalendar).components(.day, from: Date()).day)" : "?"
             header.detailLabel.text = detailText
             
             headerView = header
@@ -211,7 +211,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         return headerView
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var sectionTitle: String?
         
         switch section {
@@ -228,21 +228,21 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         return sectionTitle
     }
     
-    func tableView(tableView: UITableView, iconForHeaderInSection section: Int) -> UIImage? {
+    private func tableView(_ tableView: UITableView, iconForHeaderInSection section: Int) -> UIImage? {
         return UIImage(named: "sickbeard-airingtoday")
     }
     
     // MARK: - TableView Delegate
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.isEqual(NSIndexPath(forRow: 0, inSection: 0)) {
-            performSegueWithIdentifier("SickbeardShows", sender: nil)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath == IndexPath(row: 0, section: 0) {
+            performSegue(withIdentifier: "SickbeardShows", sender: nil)
         }
-        else if indexPath.isEqual(NSIndexPath(forRow: 1, inSection: 0)) {
-            performSegueWithIdentifier("SickbeardRecentlyAired", sender: nil)
+        else if indexPath == IndexPath(row: 1, section: 0) {
+            performSegue(withIdentifier: "SickbeardRecentlyAired", sender: nil)
         }
-        else if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
-            performSegueWithIdentifier("SickbeardEpisode", sender: nil)
+        else if !self.tableView(tableView, isSectionEmtpy: (indexPath as NSIndexPath).section) {
+            performSegue(withIdentifier: "SickbeardEpisode", sender: nil)
         }
     }
     

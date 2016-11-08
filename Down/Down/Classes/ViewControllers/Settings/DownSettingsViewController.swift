@@ -12,10 +12,10 @@ import DownKit
 class DownSettingsViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, DownTableViewCellDegate, SickbeardListener {
     
     enum DownSettingsRow: Int {
-        case Host = 0
-        case Username = 1
-        case Password = 2
-        case ApiKey = 3
+        case host = 0
+        case username = 1
+        case password = 2
+        case apiKey = 3
     }
     
     struct SettingDataSource {
@@ -38,13 +38,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     var connector: Connector?
     var tableData = [SettingDataSource]()
     
-    let activityDurationTimeout = NSTimeInterval(1.0)
-    let activityCheckInterval = NSTimeInterval(0.3)
-    var activityCheckTimer: NSTimer?
-    var activityStart = [DownSettingsRow: NSDate]()
+    let activityDurationTimeout = TimeInterval(1.0)
+    let activityCheckInterval = TimeInterval(0.3)
+    var activityCheckTimer: Timer?
+    var activityStart = [DownSettingsRow: Date]()
     
-    private var validatingHost = false
-    private var fetchingApiKey = false
+    fileprivate var validatingHost = false
+    fileprivate var fetchingApiKey = false
     
     var hostForApplication: String {
         get {
@@ -66,7 +66,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             
             
             if host.hasPrefix("http://") {
-                host = host.stringByReplacingOccurrencesOfString("http://", withString: "")
+                host = host.replacingOccurrences(of: "http://", with: "")
             }
             return host
         }
@@ -181,8 +181,8 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         applyTheming()
         
         // Nib registering
-        let settingsNib = UINib(nibName: "DownSettingsTableViewCell", bundle: NSBundle.mainBundle())
-        tableView!.registerNib(settingsNib, forCellReuseIdentifier: "settingsCell")
+        let settingsNib = UINib(nibName: "DownSettingsTableViewCell", bundle: Bundle.main)
+        tableView!.register(settingsNib, forCellReuseIdentifier: "settingsCell")
     }
     
     func applyTheming() {
@@ -191,19 +191,19 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             headerView.backgroundColor = .downSabNZBdColor()
             headerImageView.image = UIImage(named: "sabnzbd-icon")
 //            window.statusBarBackgroundColor = .downSabNZBdDarkColor()
-            actionButton.setTitleColor(.downSabNZBdColor(), forState: .Normal)
+            actionButton.setTitleColor(.downSabNZBdColor(), for: .normal)
             break
         case .Sickbeard:
             headerView.backgroundColor = .downSickbeardColor()
             headerImageView.image = UIImage(named: "sickbeard-icon")
 //            window.statusBarBackgroundColor = .downSickbeardDarkColor()
-            actionButton.setTitleColor(.downSickbeardColor(), forState: .Normal)
+            actionButton.setTitleColor(.downSickbeardColor(), for: .normal)
             break
         case .CouchPotato:
             headerView.backgroundColor = .downCouchPotatoColor()
             headerImageView.image = UIImage(named: "couchpotato-icon")
 //            window.statusBarBackgroundColor = .downCouchPotatoDarkColor()
-            actionButton.setTitleColor(.downCouchPotatoColor(), forState: .Normal)
+            actionButton.setTitleColor(.downCouchPotatoColor(), for: .normal)
             break
             
         default:
@@ -211,18 +211,18 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         }
     }
     
-    @IBAction func actionButtonPressed(sender: UIButton) {
-        guard hostForApplication.length > 0 && apiKeyForApplication?.length > 0 else {
+    @IBAction func actionButtonPressed(_ sender: UIButton) {
+        guard let apiKey = apiKeyForApplication, apiKey.length > 0 && hostForApplication.length > 0 else {
             return
         }
         
         applicationService?.startService()
-        if let sickbeardService = applicationService as? SickbeardService where PreferenceManager.sickbeardLastCacheRefresh == nil {
+        if let sickbeardService = applicationService as? SickbeardService , PreferenceManager.sickbeardLastCacheRefresh == nil {
             progressLabel.text = "Preparing show cache..."
             progressIndicator.startAnimating()
-            progressView.hidden = false
+            progressView.isHidden = false
             
-            actionButton.hidden = true
+            actionButton.isHidden = true
             sickbeardService.addListener(self)
         }
         else {
@@ -234,19 +234,20 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     
     func configureTableView() {
         tableData = [SettingDataSource]()
-        tableData.append(SettingDataSource(rowType: .Host, title: "Host", detailText: "Your \(application.rawValue) host <ip:port>"))
-        if connector?.host?.length > 0 && (connector?.apiKey == nil || connector?.apiKey?.length == 0) {
-            tableData.append(SettingDataSource(rowType: .Username, title: "Username", detailText: "Your \(application.rawValue) username"))
-            tableData.append(SettingDataSource(rowType: .Password, title: "Password", detailText: "Your \(application.rawValue) password"))
+        tableData.append(SettingDataSource(rowType: .host, title: "Host", detailText: "Your \(application.rawValue) host <ip:port>"))
+        
+        if let host = connector?.host, host.length > 0, let apiKey = connector?.apiKey, apiKey.length == 0 {
+            tableData.append(SettingDataSource(rowType: .username, title: "Username", detailText: "Your \(application.rawValue) username"))
+            tableData.append(SettingDataSource(rowType: .password, title: "Password", detailText: "Your \(application.rawValue) password"))
         }
-        tableData.append(SettingDataSource(rowType: .ApiKey, title: "Api key", detailText: "Your \(application.rawValue) api key"))
+        tableData.append(SettingDataSource(rowType: .apiKey, title: "Api key", detailText: "Your \(application.rawValue) api key"))
     }
     
-    func cellTypeForIndexPath(indexPath: NSIndexPath) -> DownSettingsRow {
-        return tableData[indexPath.row].rowType
+    func cellTypeForIndexPath(_ indexPath: IndexPath) -> DownSettingsRow {
+        return tableData[(indexPath as NSIndexPath).row].rowType
     }
     
-    func indexPathForCell(withType cellType: DownSettingsRow) -> NSIndexPath {
+    func indexPathForCell(withType cellType: DownSettingsRow) -> IndexPath {
         var rowIndex = 0
         for row in tableData {
             if row.rowType == cellType {
@@ -256,26 +257,26 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             rowIndex += 1
         }
         
-        return NSIndexPath(forRow: rowIndex, inSection: 0)
+        return IndexPath(row: rowIndex, section: 0)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableData.count
     }
     
-    func tableView(tableView: UITableView, shouldShowActivityIndicatorForIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, shouldShowActivityIndicatorForIndexPath indexPath: IndexPath) -> Bool {
         var showIndicator = false
         
         let cellType = cellTypeForIndexPath(indexPath)
         switch cellType {
-        case .Host:
+        case .host:
             showIndicator = validatingHost
             break
-        case .ApiKey:
+        case .apiKey:
             showIndicator = fetchingApiKey
             
         default:
@@ -285,8 +286,8 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         return showIndicator
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("settingsCell", forIndexPath: indexPath) as! DownTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! DownTableViewCell
         cell.delegate = self
         cell.setCellType(application)
         
@@ -295,30 +296,30 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         return cell
     }
     
-    func reloadCell(cellType: DownSettingsRow) {
+    func reloadCell(_ cellType: DownSettingsRow) {
         let indexPath = indexPathForCell(withType: cellType)
-        if let visibleRowIndexes = tableView?.indexPathsForVisibleRows where visibleRowIndexes.contains(indexPath) {
-            if let cell = tableView?.visibleCells[visibleRowIndexes.indexOf(indexPath)!] as? DownTableViewCell {
+        if let visibleRowIndexes = tableView?.indexPathsForVisibleRows , visibleRowIndexes.contains(indexPath) {
+            if let cell = tableView?.visibleCells[visibleRowIndexes.index(of: indexPath)!] as? DownTableViewCell {
                 reloadCell(cell, forIndexPath: indexPath)
             }
         }
     }
     
-    func reloadCell(cell: DownTableViewCell, forIndexPath indexPath: NSIndexPath) -> Void {
+    func reloadCell(_ cell: DownTableViewCell, forIndexPath indexPath: IndexPath) -> Void {
         let cellType = cellTypeForIndexPath(indexPath)
         
         // If keyboard is open for cell, don't reload
-        if let textField = cell.textField where !textField.isFirstResponder() {
-            let data = tableData[indexPath.row]
+        if let textField = cell.textField , !textField.isFirstResponder {
+            let data = tableData[(indexPath as NSIndexPath).row]
             cell.setCellType(application)
             cell.label.text = data.title
             cell.textFieldPlaceholder = data.detailText
             
             switch cellType {
-            case .Host:
+            case .host:
                 cell.textField?.text = hostForApplication
                 break
-            case .ApiKey:
+            case .apiKey:
                 cell.textField?.text = apiKeyForApplication
                 break
                 
@@ -326,7 +327,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
                 break
             }
             
-            cell.textField?.secureTextEntry = cellType == .Password
+            cell.textField?.isSecureTextEntry = cellType == .password
         }
         
         if self.tableView(tableView!, shouldShowActivityIndicatorForIndexPath: indexPath) {
@@ -339,23 +340,23 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     
     // MARK: - UITableViewDelegate
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
     
     // MARK - DownTableViewCellDelegate
     
-    func downTableViewCell(cell: DownTableViewCell, didChangeText text: String) {
-        let indexPath = tableView!.indexPathForCell(cell)!
+    func downTableViewCell(_ cell: DownTableViewCell, didChangeText text: String) {
+        let indexPath = tableView!.indexPath(for: cell)!
         let cellType = cellTypeForIndexPath(indexPath)
         switch cellType {
-        case .Host:
+        case .host:
             validateHost(text)
             break
-        case .Username:
+        case .username:
             fetchApiKey()
             break
-        case .Password:
+        case .password:
             fetchApiKey()
             break
             
@@ -368,24 +369,24 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     
     // Activities
     
-    func startActivityVerification(cellType: DownSettingsRow) {
-        activityStart[cellType] = NSDate()
-        activityCheckTimer = NSTimer.scheduledTimerWithTimeInterval(activityCheckInterval, target: self, selector: #selector(verifyActivities),
+    func startActivityVerification(_ cellType: DownSettingsRow) {
+        activityStart[cellType] = Date()
+        activityCheckTimer = Timer.scheduledTimer(timeInterval: activityCheckInterval, target: self, selector: #selector(verifyActivities),
                                                                     userInfo: nil, repeats: true)
     }
     
     func verifyActivities() {
-        let now = NSDate()
+        let now = Date()
         
         tableData.forEach { row in
-            if let date = activityStart[row.rowType] where now > date.dateByAddingTimeInterval(activityDurationTimeout) {
+            if let date = activityStart[row.rowType] , now > date.addingTimeInterval(activityDurationTimeout) {
                 activityStart[row.rowType] = nil
                 
                 switch row.rowType {
-                case .Host:
+                case .host:
                     validatingHost = false
                     break
-                case .ApiKey:
+                case .apiKey:
                     fetchingApiKey = false
                     break
                     
@@ -402,41 +403,40 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         }
     }
     
-    func validateHost(host: String) {
-        let hostURL = NSURL(string: host)
+    func validateHost(_ host: String) {
+        let hostURL = URL(string: host)
         guard !validatingHost && hostURL != nil && host.length > 0 else {
             return
         }
         
         validatingHost = true
-        startActivityVerification(.Host)
+        startActivityVerification(.host)
         connector?.validateHost(hostURL!, completion: { hostValid, apiKey in
             if hostValid {
                 self.validatingHost = false
                 
-                self.hostForApplication = host.stringByReplacingOccurrencesOfString("http://", withString: "")
+                self.hostForApplication = host.replacingOccurrences(of: "http://", with: "")
                 self.apiKeyForApplication = apiKey
                 
                 self.configureTableView()
-                self.tableView!.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                self.tableView!.reloadSections(IndexSet([0]), with: .automatic)
             }
             else {
-                self.reloadCell(.Host)
+                self.reloadCell(.host)
                 
                 // Check if user changed input during validation
-                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
-                dispatch_after(delayTime, dispatch_get_main_queue()) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     self.revalidateHost(host)
                 }
             }
         })
         
-        self.reloadCell(.Host)
+        self.reloadCell(.host)
     }
     
-    func revalidateHost(host: String) {
-        let indexPath = self.indexPathForCell(withType: .Host)
-        let cell = self.tableView?.cellForRowAtIndexPath(indexPath) as? DownTableViewCell
+    func revalidateHost(_ host: String) {
+        let indexPath = self.indexPathForCell(withType: .host)
+        let cell = self.tableView?.cellForRow(at: indexPath) as? DownTableViewCell
         
         if let text = cell?.textField?.text {
             if !host.hasSuffix(text) {
@@ -448,29 +448,29 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     }
     
     func fetchApiKey() {
-        let usernameIndexPath = indexPathForCell(withType: .Username)
-        let usernameCell = tableView?.cellForRowAtIndexPath(usernameIndexPath) as? DownTableViewCell
+        let usernameIndexPath = indexPathForCell(withType: .username)
+        let usernameCell = tableView?.cellForRow(at: usernameIndexPath) as? DownTableViewCell
         let username = usernameCell?.textField?.text ?? ""
         
-        let passwordIndexPath = indexPathForCell(withType: .Password)
-        let passwordCell = tableView?.cellForRowAtIndexPath(passwordIndexPath) as? DownTableViewCell
+        let passwordIndexPath = indexPathForCell(withType: .password)
+        let passwordCell = tableView?.cellForRow(at: passwordIndexPath) as? DownTableViewCell
         let password = passwordCell?.textField?.text ?? ""
         
-        if !fetchingApiKey && connector?.host?.length > 0 && username.length > 0 && password.length > 0 {
+        if !fetchingApiKey && connector?.host?.length ?? 0 > 0 && username.length > 0 && password.length > 0 {
             fetchingApiKey = true
-            startActivityVerification(.ApiKey)
+            startActivityVerification(.apiKey)
             connector?.fetchApiKey(username: username, password: password, completion: { fetchedApiKey in
-                if let apiKey = fetchedApiKey where apiKey.length > 0 {
+                if let apiKey = fetchedApiKey , apiKey.length > 0 {
                     self.fetchingApiKey = false
                     
                     self.apiKeyForApplication = fetchedApiKey
                     self.configureTableView()
-                    self.tableView!.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                    self.tableView!.reloadSections(IndexSet([0]), with: .automatic)
                 }
             })
         }
         
-        self.reloadCell(.ApiKey)
+        self.reloadCell(.apiKey)
     }
     
     // MARK: SickbeardService
@@ -480,16 +480,16 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             sickbeardService.removeListener(self)
         }
         
-        self.actionButton.setTitle("All done, let's go!", forState: self.actionButton.state)
+        self.actionButton.setTitle("All done, let's go!", for: self.actionButton.state)
         
-        self.progressView.hidden = true
-        self.actionButton.hidden = false
+        self.progressView.isHidden = true
+        self.actionButton.isHidden = false
     }
     
 }
 
 protocol DownSettingsViewControllerDelegate {
     
-    func settingsViewControllerDidTapActionButton(viewController: DownSettingsViewController)
+    func settingsViewControllerDidTapActionButton(_ viewController: DownSettingsViewController)
     
 }

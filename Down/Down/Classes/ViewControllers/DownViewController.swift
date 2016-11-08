@@ -24,14 +24,14 @@ class DownViewController: UIViewController {
     
     var serviceManager: ServiceManager {
         get {
-            return UIApplication.sharedApplication().downAppDelegate.serviceManager
+            return UIApplication.shared.downAppDelegate.serviceManager
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.edgesForExtendedLayout = .None
+        self.edgesForExtendedLayout = UIRectEdge()
         self.view.backgroundColor = .downDarkGrayColor()
     }
     
@@ -44,13 +44,13 @@ class DownViewController: UIViewController {
         }
     }
     
-    func adjustScrollView(animated: Bool) {
+    func adjustScrollView(_ animated: Bool) {
         guard let scrollView = scrollView, let searchBar = searchBar else {
             return
         }
         
-        searchBar.frame = CGRectMake(0, 0, CGRectGetWidth(scrollView.bounds), CGRectGetHeight(searchBar.bounds))
-        scrollView.setContentOffset(CGPointMake(0, CGRectGetHeight(searchBar.bounds)),
+        searchBar.frame = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: searchBar.bounds.height)
+        scrollView.setContentOffset(CGPoint(x: 0, y: searchBar.bounds.height),
                                     animated: animated)
     }
 }
@@ -66,8 +66,8 @@ extension DownViewController: UISearchBarDelegate {
         searchBar.delegate = self
         searchBar.placeholder = "Search..."
         searchBar.showsCancelButton = true
-        searchBar.searchBarStyle = .Minimal
-        searchBar.textfield?.textColor = .lightGrayColor()
+        searchBar.searchBarStyle = .minimal
+        searchBar.textfield?.textColor = .lightGray
         
         searchBar.sizeToFit()
         self.searchBar = searchBar
@@ -75,17 +75,17 @@ extension DownViewController: UISearchBarDelegate {
         targetView.addSubview(searchBar)
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         collectionView?.reloadData()
         tableView?.reloadData()
         searchBar.becomeFirstResponder()
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         
         collectionView?.reloadData()

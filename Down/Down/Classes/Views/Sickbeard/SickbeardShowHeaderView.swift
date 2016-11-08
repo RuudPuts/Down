@@ -30,20 +30,20 @@ class SickbeardShowHeaderView: UIView {
         }
     }
     
-    override func awakeAfterUsingCoder(aDecoder: NSCoder) -> AnyObject? {
-        self.backgroundColor = .clearColor()
+    override func awakeAfter(using aDecoder: NSCoder) -> Any? {
+        self.backgroundColor = .clear
         
         return self
     }
     
-    func colorForQuality(quality: SickbeardShow.SickbeardShowQuality) -> UIColor {
+    func colorForQuality(_ quality: SickbeardShow.SickbeardShowQuality) -> UIColor {
         switch quality { // WARN: Add colors for other qualities
-        case .Custom: return .clearColor()
-        case .Any: return .downLightGrayColor()
-        case .HD: return .clearColor()
+        case .Wildcard: return .downLightGrayColor()
+        case .Custom: return .clear
+        case .HD: return .clear
         case .HD1080p: return .downCouchPotatoDarkColor()
         case .HD720p: return .downSickbeardDarkColor()
-        case .SD: return .clearColor()
+        case .SD: return .clear
         }
     }
     
