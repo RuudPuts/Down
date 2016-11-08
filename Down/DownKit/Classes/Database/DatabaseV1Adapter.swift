@@ -134,7 +134,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
     
     // TODO: This method might return more than maxEpisodes, since it'll give all shows of the last show's date
     func episodesAiringAfter(_ date: Date, max maxEpisodes: Int) -> Results<SickbeardEpisode> {
-        let startDate = date.dateWithoutTime()
+        let startDate = date.withoutTime()
         let episodes = defaultRealm.objects(SickbeardEpisode.self).filter("airDate > %@", startDate)
         
         var lastAirDate = Date()

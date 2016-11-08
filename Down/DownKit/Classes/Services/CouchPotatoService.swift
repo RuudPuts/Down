@@ -32,9 +32,9 @@ open class CouchPotatoService: Service {
         let url = PreferenceManager.couchPotatoHost + "/" + PreferenceManager.couchPotatoApiKey + "/media.list?release_status=snatched,available&limit_offset=20"        
         Alamofire.request(url).responseJSON { handler in
             if handler.validateResponse() {
-                dispatch_async(DispatchQueue.main, {
+                DispatchQueue.main.async {
                     self.refreshCompleted()
-                })
+                }
             }
             else {
                 print("Error while fetching CouchPotato snachted and available: \(handler.result.error!)")

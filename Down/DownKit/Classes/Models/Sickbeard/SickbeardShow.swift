@@ -137,7 +137,7 @@ open class SickbeardShow: Object {
     }
     
     open func nextAiringEpisode() -> SickbeardEpisode? {
-        let today = Date().dateWithoutTime()
+        let today = Date().withoutTime()
         
         for season in seasons {
             guard season.id > 0 else {

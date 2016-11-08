@@ -116,15 +116,15 @@ open class SabNZBdService: Service {
         Alamofire.request(url).responseJSON { handler in
             if handler.validateResponse() {
                 let responseJson = JSON(handler.result.value!)
-                if responseJson["error"] == nil {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                if responseJson["error"] == JSON.null {
+                    DispatchQueue.global().async {
                         self.parseQueueJson(responseJson)
                         self.refreshCompleted()
 
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.notifyListeners(.QueueUpdated)
-                        })
-                    })
+                        DispatchQueue.main.async {
+                            self.notifyListeners(.queueUpdated)
+                        }
+                    }
                 }
                 else {
                     print("Error while fetching SabNZBd queue: \(responseJson["error"].string!)")
@@ -169,7 +169,7 @@ open class SabNZBdService: Service {
                 newQueueIdentifiers.append(identifier)
                 
                 if let imdbIdentifier = item!.imdbIdentifier as String! {
-                    fetchTitleFromIMDB(imdbIdentifier, completionClosure: { (title) -> () in
+                    fetchTitleFromIMDB(imdbIdentifier, completion: { (title) -> () in
                         item!.imdbTitle = title
                     })
                 }
@@ -233,15 +233,15 @@ open class SabNZBdService: Service {
         Alamofire.request(url).responseJSON { handler in
             if handler.validateResponse(), let responseData = handler.result.value {
                 let responseJson = JSON(responseData)
-                if responseJson["error"] == nil {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                if responseJson["error"] == JSON.null {
+                    DispatchQueue.global().async {
                         self.parseHistoryJson(responseJson)
                         self.refreshCompleted()
 
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.notifyListeners(.HistoryUpdated)
-                        })
-                    })
+                        DispatchQueue.main.async {
+                            self.notifyListeners(.historyUpdated)
+                        }
+                    }
                 }
                 else {
                     print("Error while fetching SabNZBd history: \(responseJson["error"].string!)")
@@ -275,19 +275,19 @@ open class SabNZBdService: Service {
         
         Alamofire.request(url).responseJSON { handler in
             if handler.validateResponse() {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                DispatchQueue.global().async {
                     print("Parsing history")
                     self.parseHistoryJson(JSON(handler.result.value!))
                     self.refreshCompleted()
                     
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.notifyListeners(.HistoryUpdated)
+                    DispatchQueue.main.async {
+                        self.notifyListeners(.historyUpdated)
                         
                         if self.fullHistoryFetched {
-                            self.notifyListeners(.FullHistoryFetched)
+                            self.notifyListeners(.fullHistoryFetched)
                         }
-                    })
-                })
+                    }
+                }
             }
             else {
                 print("Error while fetching : \(handler.result.error!)")
@@ -316,7 +316,7 @@ open class SabNZBdService: Service {
                     history.append(historyItem)
                     
                     if let imdbIdentifier = historyItem.imdbIdentifier as String! {
-                        fetchTitleFromIMDB(imdbIdentifier, completionClosure: { (title) -> () in
+                        fetchTitleFromIMDB(imdbIdentifier, completion: { (title) -> () in
                             historyItem.imdbTitle = title
                         })
                     }
@@ -378,20 +378,20 @@ open class SabNZBdService: Service {
     
     // MARK - IMDB
     
-    fileprivate func fetchTitleFromIMDB(_ imdbIdentifier: String, completionClosure: @escaping (_ title: String) ->()) {
+    fileprivate func fetchTitleFromIMDB(_ imdbIdentifier: String, completion: @escaping (_ title: String) ->()) {
         // TODO: Cache data in database, match like sickbeard shows
         if let title = self.imdbTitleCache[imdbIdentifier] as String! {
-            completionClosure(title)
+            completion(title)
         }
         else {
             let url = "http://www.omdbapi.com/?i=\(imdbIdentifier)"
             Alamofire.request(url).responseJSON { handler in
                 if handler.validateResponse() {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    DispatchQueue.global().async {
                         let title = JSON(handler.result.value!)["Title"].string!
                         self.imdbTitleCache[imdbIdentifier] = title
-                        completionClosure(title: title)
-                    })
+                        completion(title)
+                    }
                 }
                 else {
                     print("Error while fetching IMDB data: \(handler.result.error!)")

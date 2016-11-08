@@ -11,14 +11,14 @@ import Alamofire
 open class SickbeardConnector: Connector {
     open var host: String?
     open var apiKey: String?
-    let requestManager: Manager
+    let requestManager: SessionManager
     
     public init() {
         let sessionConfiguration = URLSessionConfiguration.default
         sessionConfiguration.timeoutIntervalForRequest = 2
         sessionConfiguration.timeoutIntervalForResource = 2
         
-        requestManager = Manager(configuration: sessionConfiguration)
+        requestManager = SessionManager(configuration: sessionConfiguration)
     }
     
     public func validateHost(_ url: URL, completion: @escaping (Bool, String?) -> (Void)) {
@@ -39,7 +39,7 @@ open class SickbeardConnector: Connector {
 
                     // We got the host, lets fetch the api key
                     self.fetchApiKey {
-                        completion(hostValid: hostValid, apiKey: $0)
+                        completion(hostValid, $0)
                     }
 
                     // fetchApiKey completion handler will call our completion handler
@@ -47,7 +47,7 @@ open class SickbeardConnector: Connector {
                 }
             }
             
-            completion(hostValid: hostValid, apiKey: self.apiKey)
+            completion(hostValid, self.apiKey)
         }
     }
     

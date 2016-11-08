@@ -17,12 +17,12 @@ public protocol Connector {
     func fetchApiKey(username: String, password: String, completion: @escaping (String?) -> (Void))
 }
 
-extension Response {
+extension DataResponse {
 
     func validateResponse() -> Bool {
         let resultSuccess = result.isSuccess
         let responseValid = response != nil
-        let returnCodeValid = response?.statusCode < 400
+        let returnCodeValid = response?.statusCode ?? NSNotFound < 400
         
         return resultSuccess && responseValid && returnCodeValid
     }

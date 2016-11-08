@@ -12,14 +12,14 @@ open class SabNZBdConnector: Connector {
 
     open var host: String?
     open var apiKey: String?
-    let requestManager: Manager
+    let requestManager: SessionManager
     
     public init() {
         let sessionConfiguration = URLSessionConfiguration.default
         sessionConfiguration.timeoutIntervalForRequest = 2
         sessionConfiguration.timeoutIntervalForResource = 2
         
-        requestManager = Manager(configuration: sessionConfiguration)
+        requestManager = SessionManager(configuration: sessionConfiguration)
     }
 
     open func validateHost(_ url: URL, completion:  @escaping(_ hostValid: Bool, _ apiKey: String?) -> (Void)) {
@@ -39,7 +39,7 @@ open class SabNZBdConnector: Connector {
                     
                     // We got the host, lets fetch the api key
                     self.fetchApiKey {
-                        completion(hostValid: hostValid, apiKey: $0)
+                        completion(hostValid, $0)
                     }
                     
                     // fetchApiKey completion handler will call our completion handler
@@ -47,7 +47,7 @@ open class SabNZBdConnector: Connector {
                 }
             }
             
-            completion(hostValid: hostValid, apiKey: self.apiKey)
+            completion(hostValid, self.apiKey)
         }
     }
     
@@ -67,11 +67,11 @@ open class SabNZBdConnector: Connector {
             let configUrl = sabNZBdHost + "/config/general/"
             let credentials = ["username": username, "password": password]
             
-            requestManager.request(.POST, loginUrl, parameters: credentials).responseString { loginHandler in
+            requestManager.request(loginUrl, method: .post, parameters: credentials, encoding: JSONEncoding.default).responseString { loginHandler in
                 self.apiKey = nil
                 
-                if loginHandler.result.isSuccess, let loginHtml = loginHandler.result.value, self.loginSuccesfull(loginHtml) {
-                    self.requestManager.request(.GET, configUrl).responseString { configHandler in
+                if loginHandler.result.isSuccess, let loginHtml = loginHandler.result.value, self.checkLoginSuccesfull(loginHtml) {
+                    self.requestManager.request(configUrl).responseString { configHandler in
                         if configHandler.result.isSuccess, let configHtml = configHandler.result.value {
                             self.apiKey = self.extractApiKey(configHtml)
                         }
@@ -90,7 +90,7 @@ open class SabNZBdConnector: Connector {
         }
     }
     
-    func loginSuccesfull(loginHtml: String) -> Bool {
+    func checkLoginSuccesfull(_ loginHtml: String) -> Bool {
         return loginHtml.range(of: "<form class=\"form-signin\" action=\"./\" method=\"post\">") == nil
     }
     

@@ -63,13 +63,11 @@ public extension String {
         return simpleString
     }
     
-    subscript (r: Range<Int>) -> String {
-        get {
-            let startIndex = self.index(self.startIndex, offsetBy: r.lowerBound)
-            let endIndex = self.index(startIndex, offsetBy: r.upperBound - r.lowerBound)
-            
-            return self[startIndex ..< endIndex]
-        }
+    func substring(_ r: Range<Int>) -> String {
+        let startIndex = self.index(self.startIndex, offsetBy: r.lowerBound)
+        let endIndex = self.index(startIndex, offsetBy: r.upperBound - r.lowerBound)
+        
+        return self[startIndex ..< endIndex]
     }
 }
 

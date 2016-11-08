@@ -78,11 +78,11 @@ open class SickbeardEpisode: Object {
     }
     
     open var daysUntilAiring: Int {
-        let today = Date().dateWithoutTime()
+        let today = Date().withoutTime()
         
         if let date = airDate , date >= today {
             let calendar = Calendar.current
-            return (calendar as NSCalendar).components(.day, from: today, to: date, options: []).day
+            return (calendar as NSCalendar).components(.day, from: today, to: date, options: []).day ?? -1
         }
         
         return -1
@@ -90,7 +90,7 @@ open class SickbeardEpisode: Object {
     
     // MARK: Functions
     
-    open func update(_ status: SickbeardEpisodeStatus, completion:((NSError?) -> (Void))?) {
+    open func update(_ status: SickbeardEpisodeStatus, completion:((Error?) -> (Void))?) {
         SickbeardService.shared.update(status, forEpisode: self, completion: { error in
             if let error = error {
                 NSLog("Error while updating episode status: \(error)")
