@@ -161,7 +161,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     
     // TODO: Implement some kind of row type enum (queue, history, fullhistory)
     func isFullHistoryIndexPath(indexPath: NSIndexPath) -> Bool {
-        return indexPath.section == 1 && indexPath.row == max(kMaxHistoryDisplayCount, SabNZBdService.shared.history.count)
+        return indexPath.section == 1 && indexPath.row == min(kMaxHistoryDisplayCount, SabNZBdService.shared.history.count)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

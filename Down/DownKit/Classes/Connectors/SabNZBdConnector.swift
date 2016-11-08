@@ -63,22 +63,35 @@ open class SabNZBdConnector: Connector {
     
     open func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> (Void)) {
         if let sabNZBdHost = host {
-            let url = sabNZBdHost + "/config/general/"
+            let loginUrl = sabNZBdHost + "/login/"
+            let configUrl = sabNZBdHost + "/config/general/"
+            let credentials = ["username": username, "password": password]
             
-            requestManager.request(url).authenticate(user: username, password: password).responseString { handler in
+            requestManager.request(.POST, loginUrl, parameters: credentials).responseString { loginHandler in
                 self.apiKey = nil
                 
-                if handler.result.isSuccess, let html = handler.result.value {
-                    self.apiKey = self.extractApiKey(html)
+                if loginHandler.result.isSuccess, let loginHtml = loginHandler.result.value where self.loginSuccesfull(loginHtml) {
+                    self.requestManager.request(.GET, configUrl).responseString { configHandler in
+                        if configHandler.result.isSuccess, let configHtml = configHandler.result.value {
+                            self.apiKey = self.extractApiKey(configHtml)
+                        }
+                        
+                        completion(self.apiKey)
+                    }
                 }
-                
-                completion(self.apiKey)
+                else {
+                    completion(self.apiKey)
+                }
             }
         }
         else {
             NSLog("SabNZBdConnector - Please set host before fetching the api key")
             completion(nil)
         }
+    }
+    
+    func loginSuccesfull(loginHtml: String) -> Bool {
+        return loginHtml.rangeOfString("<form class=\"form-signin\" action=\"./\" method=\"post\">") == nil
     }
     
     func extractApiKey(_ configHtml: String) -> String? {

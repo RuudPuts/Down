@@ -140,7 +140,7 @@ open class SickbeardService: Service {
                 if handler.validateResponse() {
                     let showData = (JSON(handler.result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
                     let tvdbIds = Array(showData.keys)
-                    self.refreshShowData(tvdbIds, completionHandler: {
+                    self.refreshShows(tvdbIds, completionHandler: {
                         PreferenceManager.sickbeardLastCacheRefresh = Date().dateWithoutTime()
                         self.notifyListeners(.showCacheUpdated)
                     })
@@ -160,7 +160,7 @@ open class SickbeardService: Service {
                 tvdbIds.append(String(show.tvdbId))
             }
             
-            refreshShowData(tvdbIds, completionHandler: {
+            refreshShows(tvdbIds, completionHandler: {
                 PreferenceManager.sickbeardLastCacheRefresh = Date().dateWithoutTime()
                 self.notifyListeners(.showCacheUpdated)
             })
@@ -171,8 +171,16 @@ open class SickbeardService: Service {
             NSLog("SickbeardService - Nothing to do")
         }
     }
+
+    public func refreshShow(show: SickbeardShow, completionHandler: @escaping () -> Void) {
+        refreshShows([String(show.tvdbId)]) {
+            completionHandler()
+            
+            self.notifyListeners(.ShowCacheUpdated)
+        }
+    }
     
-    fileprivate func refreshShowData(_ tvdbIds: [String], completionHandler: @escaping () -> Void) {
+    fileprivate func refreshShows(_ tvdbIds: [String], completionHandler: @escaping () -> Void) {
         let showMetaDataGroup = DispatchGroup();
         var refreshedShows = [SickbeardShow]()
         

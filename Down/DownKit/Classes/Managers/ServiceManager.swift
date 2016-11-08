@@ -53,8 +53,7 @@ open class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     
     fileprivate func matchSabNZBdItemsWithSickbeardHistory(_ sabNZBdItems: [SABItem]) {
         for sabNZBdItem in sabNZBdItems {
-            guard sabNZBdItem.sickbeardEpisode == nil || sabNZBdItem.sickbeardEpisode!.isInvalidated else {
-//                NSLog("Reusing \(sabNZBdItem.sickbeardEpisode!.show!.name) - S\(sabNZBdItem.sickbeardEpisode!.season!.id)E\(sabNZBdItem.sickbeardEpisode!.id) - Valid \(!sabNZBdItem.sickbeardEpisode!.invalidated)")
+            if let episode = sabNZBdItem.sickbeardEpisode where !episode.invalidated {
                 continue
             }
             

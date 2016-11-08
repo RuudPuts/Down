@@ -10,17 +10,44 @@ import UIKit
 import DownKit
 import RealmSwift
 
-class SickbeardShowViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate {
+class SickbeardShowViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
-    var show: SickbeardShow?
-    var seasons: [SickbeardSeason]?
+    var tvdbId = 0
+    var show: SickbeardShow? {
+        didSet {
+            if let tvdbId = show?.tvdbId {
+                self.tvdbId = tvdbId
+            }
+        }
+    }
+    var isRefreshing = false
+    
+    var seasons: [SickbeardSeason] {
+        get {
+            return show?.seasons.reverse() ?? [SickbeardSeason]()
+        }
+    }
+    
+    @IBOutlet weak var sectionIndexView: DownSectionIndexView!
     
     var longPressRecognizer: UILongPressGestureRecognizer?
+    var refreshControl: UIRefreshControl?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = show?.name
-        seasons = show?.seasons.reverse()
+        refreshShow()
+        
+        sectionIndexView.datasource = seasons.map { String($0.id) }
+        sectionIndexView.tableView = tableView
+        
+        refreshControl = UIRefreshControl()
+        // TODO: UIFont extension
+        let titleAttributes = [NSForegroundColorAttributeName: UIColor.downSickbeardColor(), NSFontAttributeName: UIFont(name: "OpenSans", size: 13)!]
+        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes:titleAttributes)
+        refreshControl!.tintColor = .downSickbeardColor()
+        refreshControl!.addTarget(self, action: #selector(refreshShow), forControlEvents: UIControlEvents.ValueChanged)
+        tableView!.addSubview(refreshControl!)
         
         tableView!.rowHeight = UITableViewAutomaticDimension
         
@@ -33,6 +60,18 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         if let headerView = tableView!.tableHeaderView as? SickbeardShowHeaderView {
             headerView.show = show
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        SickbeardService.shared.addListener(self)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        SickbeardService.shared.removeListener(self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -48,19 +87,19 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     // MARK: - TableView DataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return seasons?.count ?? 0
+        return seasons.count ?? 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return seasons![section].episodes.count
+        return seasons[section].episodes.count
     }
     
     func tableView(tableView: UITableView, isSectionEmtpy section: Int) -> Bool {
-        return seasons![section].episodes.count == 0
+        return seasons[section].episodes.count == 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let season = seasons![indexPath.section]
+        let season = seasons[indexPath.section]
         let episode = season.episodes.reverse()[indexPath.row]
         
         let cell = tableView.dequeueReusableCellWithIdentifier("DownTextCell", forIndexPath: indexPath) as! DownTextCell
@@ -98,11 +137,11 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return seasons![section].title
+        return seasons[section].title
     }
     
     func tableView(tableView: UITableView, detailForHeaderInSection section: Int) -> String? {
-        return String(seasons![section].id)
+        return String(seasons[section].id)
     }
     
     func handleHeaderTap(recogniger: UITapGestureRecognizer) {
@@ -110,7 +149,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
             return
         }
         
-        showStateActionSheet(season: seasons![section])
+        showStateActionSheet(season: seasons[section])
     }
     
     // MARK: Season/Episode state
@@ -121,7 +160,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
             return
         }
         
-        let season = seasons![indexPath.section]
+        let season = seasons[indexPath.section]
         let episode = season.episodes.reverse()[indexPath.row]
         showStateActionSheet(episode: episode)
     }
@@ -160,6 +199,25 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .Destructive, handler: nil))
         presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
+    // MARK: SickbeardService
+    
+    func refreshShow() {
+        guard let show = show else {
+            return
+        }
+        
+        let showName = show.name
+        SickbeardService.shared.refreshShow(show) {
+            NSLog("Refreshed \(showName), tvdbid \(self.tvdbId)")
+            self.show = SickbeardService.shared.showWithId(self.tvdbId)
+            self.refreshControl?.endRefreshing()
+        }
+    }
+    
+    func sickbeardShowCacheUpdated() {
+        tableView?.reloadData()
     }
 }
 

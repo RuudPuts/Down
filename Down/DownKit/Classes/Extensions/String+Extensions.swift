@@ -53,15 +53,14 @@ public extension String {
         
         return matches
     }
-}
-
-extension String {
-    var fullNSRange: NSRange {
-        return NSRange(location: 0, length: self.length)
-    }
     
-    var fullRange: Range<Int> {
-        return 0..<self.length
+    var simple: String {
+        var simpleString = self
+        [".", "'", ":", "(", ")", "&"].forEach {
+            simpleString = simpleString.stringByReplacingOccurrencesOfString($0, withString: "")
+        }
+        
+        return simpleString
     }
     
     subscript (r: Range<Int>) -> String {
@@ -71,5 +70,15 @@ extension String {
             
             return self[startIndex ..< endIndex]
         }
+    }
+}
+
+extension String {
+    var fullNSRange: NSRange {
+        return NSRange(location: 0, length: self.length)
+    }
+    
+    var fullRange: Range<String.Index> {
+        return self.startIndex..<self.endIndex
     }
 }

@@ -99,6 +99,7 @@
 		42AE88D31B9F7D0A00E4F0CF /* SickbeardSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */; };
 		42B818691D295C1C003672C3 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B818681D295C1C003672C3 /* String+Extensions.swift */; };
 		42B8186B1D2969B3003672C3 /* DownRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8186A1D2969B3003672C3 /* DownRootViewController.swift */; };
+		42BAA33C1D98637C00AC32FB /* SicbkeardAddShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BAA32C1D98637600AC32FB /* SicbkeardAddShowViewController.swift */; };
 		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
 		42C12E4A1D678C0B00D2A21C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C12E491D678C0B00D2A21C /* Main.storyboard */; };
 		42C2D6FF1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2D6FE1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift */; };
@@ -160,6 +161,7 @@
 		42E97C2D1BBD9E130040A979 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; };
 		42E97C2E1BBD9E130040A979 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42F035361AD45BC2001AE5B3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F035351AD45BC2001AE5B3 /* UIView+Extensions.swift */; };
+		42FD80051D99AF990025CAB8 /* DownSectionIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD7FF51D99AF430025CAB8 /* DownSectionIndexView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -476,6 +478,7 @@
 		42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardSeason.swift; sourceTree = "<group>"; };
 		42B818681D295C1C003672C3 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		42B8186A1D2969B3003672C3 /* DownRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownRootViewController.swift; sourceTree = "<group>"; };
+		42BAA32C1D98637600AC32FB /* SicbkeardAddShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SicbkeardAddShowViewController.swift; sourceTree = "<group>"; };
 		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		42C12E491D678C0B00D2A21C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		42C2D6FE1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardRecentlyAiredViewController.swift; sourceTree = "<group>"; };
@@ -533,6 +536,7 @@
 		42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownDetailViewController.xib; sourceTree = "<group>"; };
 		42E1CCCC1BA22BE600DFED2E /* DownDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownDetailViewController.swift; sourceTree = "<group>"; };
 		42F035351AD45BC2001AE5B3 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		42FD7FF51D99AF430025CAB8 /* DownSectionIndexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownSectionIndexView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -648,6 +652,7 @@
 				429947981C2614BB00934B03 /* SickbeardEpisodeViewController.swift */,
 				42E1CCC51BA226CE00DFED2E /* SickbeardShowsViewController.swift */,
 				421129621C17762300E7B0BB /* SickbeardShowViewController.swift */,
+				42BAA32C1D98637600AC32FB /* SicbkeardAddShowViewController.swift */,
 			);
 			path = Sickbeard;
 			sourceTree = "<group>";
@@ -1217,6 +1222,7 @@
 				4216CF9D1D1B283000A89C4C /* CollectionViewCell */,
 				42CD255C1AB5BF93008E9717 /* TableViewCells */,
 				422063DD1B85126300DAFB46 /* DownImageView.swift */,
+				42FD7FF51D99AF430025CAB8 /* DownSectionIndexView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1763,6 +1769,7 @@
 				42E1CCC61BA226CE00DFED2E /* SickbeardShowsViewController.swift in Sources */,
 				42A496E51BAF32FA00F5395C /* SABItemCell.swift in Sources */,
 				428F7E541AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift in Sources */,
+				42FD80051D99AF990025CAB8 /* DownSectionIndexView.swift in Sources */,
 				42360B191D6B77C1007D2723 /* SickbeardShowHeaderView.swift in Sources */,
 				421129631C17762300E7B0BB /* SickbeardShowViewController.swift in Sources */,
 				4221ADEB1B7BC34D0027C3A0 /* NSDateFormatter+Extensions.swift in Sources */,
@@ -1778,6 +1785,7 @@
 				42E1CCCD1BA22BE600DFED2E /* DownDetailViewController.swift in Sources */,
 				42078E401AD1C702009845CC /* SickbeardViewController.swift in Sources */,
 				42078E1F1AD1721F009845CC /* SABHeaderView.swift in Sources */,
+				42BAA33C1D98637C00AC32FB /* SicbkeardAddShowViewController.swift in Sources */,
 				429E97EB1B977CE200C3F58B /* DownTextCell.swift in Sources */,
 				42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */,
 				4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */,
@@ -1853,11 +1861,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 14;
+				DYLIB_CURRENT_VERSION = 16;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1886,11 +1894,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 14;
+				DYLIB_CURRENT_VERSION = 16;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

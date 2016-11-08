@@ -52,7 +52,7 @@ open class SABItem: NSObject {
         if let imdbTitle = self.imdbTitle {
             displayName = imdbTitle
         }
-        else if let sickbeardEpisode = self.sickbeardEpisode , !sickbeardEpisode.isInvalidated {
+        else if let sickbeardEpisode = self.sickbeardEpisode {
             displayName = sickbeardEpisode.title
         }
         else {
