@@ -21,6 +21,7 @@ open class Preferences: DownCache {
         static let couchPotatoHost = "CouchPotatoHost"
         static let couchPotatoApiKey = "CouchPotatoApiKey"
         
+        static let downRefreshSickbeardCache = "DownRefreshSickbeardCache"
         static let downClearCache = "DownClearCache"
     }
     
@@ -99,6 +100,15 @@ open class Preferences: DownCache {
         }
         set {
             setPreference(newValue as AnyObject?, forKey:PreferenceKeys.couchPotatoApiKey)
+        }
+    }
+    
+    open class var downRefreshSickbeardCache: Bool {
+        get {
+            return getPreference(PreferenceKeys.downRefreshSickbeardCache) as! Bool? ?? false
+        }
+        set {
+            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.downRefreshSickbeardCache)
         }
     }
     

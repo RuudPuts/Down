@@ -1,1 +1,2 @@
-- Support for Swift 3
+- Build with Swift 3
+- Added option in Settings to refresh full Sickbeard cache on next startup

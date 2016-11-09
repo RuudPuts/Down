@@ -140,6 +140,16 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Refresh full Sickbeard cache on next app launch</string>
+			<key>Key</key>
+			<string>DownRefreshSickbeardCache</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Clear cache on next app launch</string>
 			<key>Key</key>
 			<string>DownClearCache</string>

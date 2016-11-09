@@ -51,6 +51,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes, for: UIControlState())
     }
     
+    func checkRefreshSickbeardCache() {
+        guard Preferences.downRefreshSickbeardCache else {
+            return
+        }
+        
+        SickbeardService.shared.refreshShowCache(force: true)
+        Preferences.downRefreshSickbeardCache = false
+    }
+    
     func checkClearCache() {
         guard Preferences.downClearCache else {
             return
@@ -88,6 +97,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         else {
             serviceManager.startAllServices()
+            
+            checkRefreshSickbeardCache()
         }
     }
 }
