@@ -1,5 +1,1 @@
-New
-- Shows overview now has quick index scroller
-- Show detail view now has quick index scroller
-- Show detail view now refreshes
-- Pull to refresh added to show detail view
+- Support for Swift 3
