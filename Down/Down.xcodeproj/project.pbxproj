@@ -1919,7 +1919,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "72197afe-e8e8-4052-84a1-f585fedf1d6a";
-				PROVISIONING_PROFILE_SPECIFIER = "Down - Store";
+				PROVISIONING_PROFILE_SPECIFIER = "Down - Ad Hoc";
 				SWIFT_INCLUDE_PATHS = "(PROJECT_DIR)/../Squeal/modules";
 				SWIFT_OBJC_BRIDGING_HEADER = "${SRCROOT}/Down/Supporting Files/Down-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

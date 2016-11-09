@@ -7,7 +7,7 @@ platform :ios do
 
   desc "Create new build"
   lane :build do |options|
-    gym(scheme: 'Down', configuration: options['configuration'], use_legacy_build_api: true, output_directory: output_folder)
+    gym(scheme: 'Down', configuration: options[:configuration], use_legacy_build_api: true, output_directory: output_folder)
   end
 
   desc "Test app and create coverage report"
@@ -27,7 +27,7 @@ platform :ios do
   lane :beta do
   	sigh(adhoc: true, output_path:'fastlane')
     increment_build_number
-    build(configuration: 'AdHoc')
+    build(configuration: 'Release')
     upload_beta
   end
 
