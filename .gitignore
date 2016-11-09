@@ -20,4 +20,5 @@ DerivedData
 *.dSYM.zip
 
 # Fastlane
+Down/fastlane/*.mobileprovision
 Down/fastlane/report.xml
