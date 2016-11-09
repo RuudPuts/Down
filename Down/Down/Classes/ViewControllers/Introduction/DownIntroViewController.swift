@@ -52,15 +52,15 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                 NSLog("Validated sabNZBd host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
                 
                 if hostValid {
-                    if PreferenceManager.sabNZBdHost.length == 0 {
+                    if Preferences.sabNZBdHost.length == 0 {
                         // No host set yet, save it all
-                        PreferenceManager.sabNZBdHost = host.absoluteString
-                        PreferenceManager.sabNZBdApiKey = apiKey ?? ""
+                        Preferences.sabNZBdHost = host.absoluteString
+                        Preferences.sabNZBdApiKey = apiKey ?? ""
                     }
-                    else if PreferenceManager.sabNZBdApiKey.length == 0, let apiKey = apiKey, apiKey.length > 0 {
+                    else if Preferences.sabNZBdApiKey.length == 0, let apiKey = apiKey, apiKey.length > 0 {
                         // Host with valid API key found, replace
-                        PreferenceManager.sabNZBdHost = host.absoluteString
-                        PreferenceManager.sabNZBdApiKey = apiKey
+                        Preferences.sabNZBdHost = host.absoluteString
+                        Preferences.sabNZBdApiKey = apiKey
                     }
                 }
             })
@@ -70,15 +70,15 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                 NSLog("Validated Sickbeard host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
                 
                 if hostValid {
-                    if PreferenceManager.sickbeardHost.length == 0 {
+                    if Preferences.sickbeardHost.length == 0 {
                         // No host set yet, save it all
-                        PreferenceManager.sickbeardHost = host.absoluteString
-                        PreferenceManager.sickbeardApiKey = apiKey ?? ""
+                        Preferences.sickbeardHost = host.absoluteString
+                        Preferences.sickbeardApiKey = apiKey ?? ""
                     }
-                    else if PreferenceManager.sickbeardApiKey.length == 0, let apiKey = apiKey, apiKey.length > 0 {
+                    else if Preferences.sickbeardApiKey.length == 0, let apiKey = apiKey, apiKey.length > 0 {
                         // Host with valid API key found, replace
-                        PreferenceManager.sickbeardHost = host.absoluteString
-                        PreferenceManager.sickbeardApiKey = apiKey
+                        Preferences.sickbeardHost = host.absoluteString
+                        Preferences.sickbeardApiKey = apiKey
                     }
                 }
             })

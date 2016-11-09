@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var serviceManager: ServiceManager!
     
     var isSetup: Bool {
-        let sabNZBdSetup = PreferenceManager.sabNZBdHost.length > 0 && PreferenceManager.sabNZBdApiKey.length > 0
-        let sickbeardSetup = PreferenceManager.sickbeardHost.length > 0 && PreferenceManager.sickbeardApiKey.length > 0
+        let sabNZBdSetup = Preferences.sabNZBdHost.length > 0 && Preferences.sabNZBdApiKey.length > 0
+        let sickbeardSetup = Preferences.sickbeardHost.length > 0 && Preferences.sickbeardApiKey.length > 0
         
         return sabNZBdSetup && sickbeardSetup
     }
@@ -52,13 +52,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func checkClearCache() {
-        guard PreferenceManager.downClearCache else {
+        guard Preferences.downClearCache else {
             return
         }
         
         ImageProvider.clearCache()
         DownDatabase.clearCache()
-        PreferenceManager.clearCache()
+        Preferences.clearCache()
     }
     
     func setupTabBarController() {

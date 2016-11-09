@@ -29,7 +29,7 @@ open class CouchPotatoService: Service {
     // MARK: - Snatched & Available
     
     fileprivate func refreshSnatchedAndAvailable() {
-        let url = PreferenceManager.couchPotatoHost + "/" + PreferenceManager.couchPotatoApiKey + "/media.list?release_status=snatched,available&limit_offset=20"        
+        let url = Preferences.couchPotatoHost + "/" + Preferences.couchPotatoApiKey + "/media.list?release_status=snatched,available&limit_offset=20"        
         Alamofire.request(url).responseJSON { handler in
             if handler.validateResponse() {
                 DispatchQueue.main.async {

@@ -1,5 +1,5 @@
 //
-//  PreferenceManager.swift
+//  Preferences.swift
 //  Down
 //
 //  Created by Ruud Puts on 24/03/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class PreferenceManager: DownCache {
+open class Preferences: DownCache {
     
     struct PreferenceKeys {
         static let sabNZBdHost = "SabNZBdHost"

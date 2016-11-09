@@ -111,7 +111,7 @@ open class SabNZBdService: Service {
     // MARK: - Queue
     
     @objc fileprivate func refreshQueue() {
-        let url = "\(PreferenceManager.sabNZBdHost)/api?mode=queue&output=json&apikey=\(PreferenceManager.sabNZBdApiKey)"
+        let url = "\(Preferences.sabNZBdHost)/api?mode=queue&output=json&apikey=\(Preferences.sabNZBdApiKey)"
         
         Alamofire.request(url).responseJSON { handler in
             if handler.validateResponse() {
@@ -229,7 +229,7 @@ open class SabNZBdService: Service {
     // MARK - History
     
     @objc fileprivate func refreshHistory() {
-        let url = "\(PreferenceManager.sabNZBdHost)/api?mode=history&output=json&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
+        let url = "\(Preferences.sabNZBdHost)/api?mode=history&output=json&limit=20&apikey=\(Preferences.sabNZBdApiKey)"
         Alamofire.request(url).responseJSON { handler in
             if handler.validateResponse(), let responseData = handler.result.value {
                 let responseJson = JSON(responseData)
@@ -269,7 +269,7 @@ open class SabNZBdService: Service {
             return
         }
 
-        let url = "\(PreferenceManager.sabNZBdHost)/api?mode=history&output=json&start=\(history.count)&limit=20&apikey=\(PreferenceManager.sabNZBdApiKey)"
+        let url = "\(Preferences.sabNZBdHost)/api?mode=history&output=json&start=\(history.count)&limit=20&apikey=\(Preferences.sabNZBdApiKey)"
         
         print("Fetching history \(history.count) - \(history.count + 20)")
         
@@ -372,7 +372,7 @@ open class SabNZBdService: Service {
             mode = "history"
         }
         
-        let url = "\(PreferenceManager.sabNZBdHost)/api?mode=\(mode)&name=delete&value=\(item.identifier)&apikey=\(PreferenceManager.sabNZBdApiKey)"
+        let url = "\(Preferences.sabNZBdHost)/api?mode=\(mode)&name=delete&value=\(item.identifier)&apikey=\(Preferences.sabNZBdApiKey)"
         request(url)
     }
     

@@ -40,7 +40,7 @@ open class SickbeardService: Service {
     
     override open func startService() {
         super.startService()
-        NSLog("SickbeardService - Last updated: \(PreferenceManager.sickbeardLastCacheRefresh ?? Date.init(timeIntervalSince1970: 0))")
+        NSLog("SickbeardService - Last updated: \(Preferences.sickbeardLastCacheRefresh ?? Date.init(timeIntervalSince1970: 0))")
         NSLog("SickbeardService - Refreshing show cache")
         refreshShowCache()
     }
@@ -131,17 +131,17 @@ open class SickbeardService: Service {
 
     // MARK: - Show cache
     
-    open func refreshShowCache() {
-        if shows.count == 0 {
+    open func refreshShowCache(force: Bool = false) {
+        if shows.count == 0 || force {
             NSLog("SickbeardService - Refreshing full cache")
             // Find shows to refresh, episodes aired since last update
-            let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=shows"
+            let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=shows"
             Alamofire.request(url).responseJSON { handler in
                 if handler.validateResponse() {
                     let showData = (JSON(handler.result.value!)["data"] as JSON).rawValue as! [String: AnyObject]
                     let tvdbIds = Array(showData.keys)
                     self.refreshShows(tvdbIds, completionHandler: {
-                        PreferenceManager.sickbeardLastCacheRefresh = Date().withoutTime()
+                        Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
                         self.notifyListeners(.showCacheUpdated)
                     })
                 }
@@ -150,7 +150,7 @@ open class SickbeardService: Service {
                 }
             }
         }
-        else if let lastCacheRefresh = PreferenceManager.sickbeardLastCacheRefresh {
+        else if let lastCacheRefresh = Preferences.sickbeardLastCacheRefresh {
             // Find shows to refresh, episodes aired since last update
             let showsToRefresh = DownDatabase.shared.fetchShowsWithEpisodesAiredSince(lastCacheRefresh)
             
@@ -161,7 +161,7 @@ open class SickbeardService: Service {
             }
             
             refreshShows(tvdbIds, completionHandler: {
-                PreferenceManager.sickbeardLastCacheRefresh = Date().withoutTime()
+                Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
                 self.notifyListeners(.showCacheUpdated)
             })
             
@@ -187,7 +187,7 @@ open class SickbeardService: Service {
         tvdbIds.forEach { tvdbId in
             showMetaDataGroup.enter()
             
-            let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
+            let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
             Alamofire.request(url).responseJSON { handler in
                 if handler.validateResponse() {
                     let show = self.parseShowData(JSON(handler.result.value!)["data"], forTvdbId: Int(tvdbId)!)
@@ -239,7 +239,7 @@ open class SickbeardService: Service {
     }
     
     fileprivate func refreshShowSeasons(_ show: SickbeardShow, completionHandler: @escaping () -> Void) {
-        let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show.tvdbId)"
+        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show.tvdbId)"
         Alamofire.request(url).responseJSON { handler in
             if handler.validateResponse() {
                 self.parseShowSeasons(JSON(handler.result.value!)["data"], forShow: show)
@@ -296,7 +296,7 @@ open class SickbeardService: Service {
         
         if let tvdbId = episode.show?.tvdbId, let seasonId = episode.season?.id {
             let command = "episode&tvdbid=\(tvdbId)&season=\(seasonId)&episode=\(episode.id)"
-            let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=\(command)"
+            let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=\(command)"
             Alamofire.request(url).responseJSON { handler in
                 if handler.validateResponse() {
                     DispatchQueue.main.async {
@@ -327,7 +327,7 @@ open class SickbeardService: Service {
         }
         
         let command = "episode.setstatus&status=\(status.rawValue.lowercased())&tvdbid=\(tvdbId)&season=\(seasonId)&episode=\(episode.id)&force=1"
-        let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=\(command)"
+        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=\(command)"
         Alamofire.request(url).responseJSON { handler in
             completion(handler.result.error)
             return
@@ -348,7 +348,7 @@ open class SickbeardService: Service {
         }
         
         let command = "episode.setstatus&status=\(status.rawValue.lowercased())&tvdbid=\(tvdbId)&season=\(season.id)&force=1"
-        let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=\(command)"
+        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=\(command)"
         Alamofire.request(url).responseJSON { handler in
             completion(handler.result.error)
             return
@@ -382,7 +382,7 @@ open class SickbeardService: Service {
         
         bannerDownloadQueue.async(execute: {
             
-            let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
+            let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
             Alamofire.request(url).responseData { handler in
                 if handler.validateResponse() {
                     ImageProvider.storeBanner(handler.result.value!, forShow: show.tvdbId)
@@ -400,7 +400,7 @@ open class SickbeardService: Service {
         }
         
         posterDownloadQueue.async(execute: {
-            let url = PreferenceManager.sickbeardHost + "/api/" + PreferenceManager.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
+            let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
             Alamofire.request(url).responseData { handler in
                 // TODO: Store small variant of poster
                 

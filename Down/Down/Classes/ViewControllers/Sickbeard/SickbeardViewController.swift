@@ -23,7 +23,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         registerTableViewCells()
         
         // TODO: Ugly, lol
-        if PreferenceManager.sickbeardHost.length == 0 || PreferenceManager.sickbeardApiKey.length == 0 {
+        if Preferences.sickbeardHost.length == 0 || Preferences.sickbeardApiKey.length == 0 {
             let alertview = UIAlertController(title: nil, message: "Please setup your host using iOS Settings -> Down", preferredStyle: .alert)
             alertview.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
             

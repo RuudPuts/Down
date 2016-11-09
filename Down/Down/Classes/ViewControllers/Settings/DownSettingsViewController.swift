@@ -51,13 +51,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             var host = ""
             switch application as DownApplication {
             case .SabNZBd:
-                host = PreferenceManager.sabNZBdHost
+                host = Preferences.sabNZBdHost
                 break
             case .Sickbeard:
-                host = PreferenceManager.sickbeardHost
+                host = Preferences.sickbeardHost
                 break
             case .CouchPotato:
-                host = PreferenceManager.couchPotatoHost
+                host = Preferences.couchPotatoHost
                 break
                 
             default:
@@ -73,13 +73,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         set {
             switch application as DownApplication {
             case .SabNZBd:
-                PreferenceManager.sabNZBdHost = newValue
+                Preferences.sabNZBdHost = newValue
                 break
             case .Sickbeard:
-                PreferenceManager.sickbeardHost = newValue
+                Preferences.sickbeardHost = newValue
                 break
             case .CouchPotato:
-                PreferenceManager.couchPotatoHost = newValue
+                Preferences.couchPotatoHost = newValue
                 break
                 
             default:
@@ -93,13 +93,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             var apiKey = ""
             switch application as DownApplication {
             case .SabNZBd:
-                apiKey = PreferenceManager.sabNZBdApiKey
+                apiKey = Preferences.sabNZBdApiKey
                 break
             case .Sickbeard:
-                apiKey = PreferenceManager.sickbeardApiKey
+                apiKey = Preferences.sickbeardApiKey
                 break
             case .CouchPotato:
-                apiKey = PreferenceManager.couchPotatoApiKey
+                apiKey = Preferences.couchPotatoApiKey
                 break
                 
             default:
@@ -111,13 +111,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         set {
             switch application as DownApplication {
             case .SabNZBd:
-                PreferenceManager.sabNZBdApiKey = newValue ?? ""
+                Preferences.sabNZBdApiKey = newValue ?? ""
                 break
             case .Sickbeard:
-                PreferenceManager.sickbeardApiKey = newValue ?? ""
+                Preferences.sickbeardApiKey = newValue ?? ""
                 break
             case .CouchPotato:
-                PreferenceManager.couchPotatoApiKey = newValue ?? ""
+                Preferences.couchPotatoApiKey = newValue ?? ""
                 break
                 
             default:
@@ -160,11 +160,11 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         switch application as DownApplication {
         case .SabNZBd:
             connector = SabNZBdConnector()
-            connector?.host = PreferenceManager.sabNZBdHost
+            connector?.host = Preferences.sabNZBdHost
             break;
         case .Sickbeard:
             connector = SickbeardConnector()
-            connector?.host = PreferenceManager.sickbeardHost
+            connector?.host = Preferences.sickbeardHost
             break;
             
         default:
@@ -217,7 +217,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         }
         
         applicationService?.startService()
-        if let sickbeardService = applicationService as? SickbeardService , PreferenceManager.sickbeardLastCacheRefresh == nil {
+        if let sickbeardService = applicationService as? SickbeardService , Preferences.sickbeardLastCacheRefresh == nil {
             progressLabel.text = "Preparing show cache..."
             progressIndicator.startAnimating()
             progressView.isHidden = false
