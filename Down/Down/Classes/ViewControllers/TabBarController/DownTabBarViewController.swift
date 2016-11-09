@@ -79,7 +79,7 @@ class DownTabBarViewController: DownViewController {
             viewController.view.translatesAutoresizingMaskIntoConstraints = false
             
             // Add constraints to new view
-            let views = ["view": viewController.view]
+            let views: [String: UIView] = ["view": viewController.view] // http://stackoverflow.com/a/39520582
             let horizontalConstraint = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: .alignAllTop, metrics: nil, views: views)
             contentView.addConstraints(horizontalConstraint)
             
