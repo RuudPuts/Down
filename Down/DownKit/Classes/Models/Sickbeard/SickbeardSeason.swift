@@ -50,6 +50,16 @@ open class SickbeardSeason: Object {
     
     // MARK: Functions
     
+    open func getEpisode(_ episodeId: Int) -> SickbeardEpisode? {
+        for episode in _episodes {
+            if episode.id == episodeId {
+                return episode
+            }
+        }
+        
+        return nil
+    }
+    
     open func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, completion:((Error?) -> (Void))?) {
         SickbeardService.shared.update(status, forSeason: self, completion: { error in
             if let error = error {

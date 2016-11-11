@@ -57,20 +57,22 @@ open class SickbeardService: Service {
         }
         
         // Take everything before season/episode identifiers
-        let cleanedName = nzbName.substring(0..<(seasonRange?.location)! - 2)
+        let cleanedName = nzbName.substring(0..<(seasonRange?.location)! - 1)
         
         // Get te components
         let nameComponents = cleanedName.components(separatedBy: ".")
         
         // Let the DownDatabase.shared manager match te best show
         if let show = DownDatabase.shared.showBestMatchingComponents(nameComponents) {
-            let seasonEpisodeIdentifier = nzbName.substring((seasonRange?.location)! + 1..<(seasonRange?.location)! + (seasonRange?.length)! - 1).uppercased().replacingOccurrences(of: ".", with: "")
+            let identifierStart = seasonRange!.location + 1
+            let identifierEnd = seasonRange!.location + seasonRange!.length
+            let seasonEpisodeIdentifier = nzbName.substring(identifierStart..<identifierEnd).uppercased().replacingOccurrences(of: ".", with: "")
             let components = seasonEpisodeIdentifier.components(separatedBy: "E")
             
-            let seasonId = Int(components.first!)
-            let episodeId = Int(components.last!)
+            let seasonId = Int(components.first!)!
+            let episodeId = Int(components.last!)!
             
-            return show.getEpisode(seasonId!, episodeId!)
+            return show.getSeason(seasonId)?.getEpisode(episodeId)
         }
         else {
             print("Failed to parse nzb \(nzbName), with show name components \(nameComponents)")

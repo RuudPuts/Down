@@ -122,19 +122,6 @@ open class SickbeardShow: Object {
 
         return nil
     }
-
-    open func getEpisode(_ seasonId: Int, _ episodeNr: Int) -> SickbeardEpisode? {
-        if let season = getSeason(seasonId) {
-            let episodeIndex = episodeNr - 1
-            guard season.episodes.count > episodeIndex else {
-                return nil
-            }
-            
-            return season.episodes[episodeIndex]
-        }
-        
-        return nil
-    }
     
     open func nextAiringEpisode() -> SickbeardEpisode? {
         let today = Date().withoutTime()
