@@ -76,10 +76,10 @@ class SABItemCell: DownTableViewCell {
             progressBar.isHidden = hideProgressBar
             progressBar.progress = progress
             
-            progressLabel.text = _historyItem?.statusDescription
+            progressLabel.text = _historyItem?.statusDescription()
             if let historyItem = _historyItem {
-                switch (historyItem.status!) {
-                case .finished:
+                switch (historyItem.status) {
+                case .completed:
                     progressLabel.textColor = .downGreenColor()
                 case .failed:
                     progressLabel.textColor = .downRedColor()
@@ -89,7 +89,7 @@ class SABItemCell: DownTableViewCell {
             }
             
             var statusText = ""
-            if _historyItem != nil && (_historyItem!.status == .finished || _historyItem!.status == .failed) {
+            if _historyItem != nil && (_historyItem!.status == .completed || _historyItem!.status == .failed) {
                 if let completionDate = _historyItem?.completionDate {
                     statusText = completionDate.dateString
                 }

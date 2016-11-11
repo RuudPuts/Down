@@ -62,24 +62,7 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
     fileprivate var highlightedBackgroundColor: UIColor {
-        var color: UIColor
-        
-        switch cellType {
-        case .SabNZBd:
-            color = .downSabNZBdDarkColor()
-            break
-        case .Sickbeard:
-            color = .downSickbeardDarkColor()
-            break
-        case .CouchPotato:
-            color = .downCouchPotatoDarkColor()
-            break
-        case .Down:
-            color = .downRedColor()
-            break
-        }
-        
-        return color
+        return cellType.darkColor
     }
     
     func setCellType(_ type: DownApplication) {

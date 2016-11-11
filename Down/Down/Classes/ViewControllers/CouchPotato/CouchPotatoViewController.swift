@@ -27,13 +27,13 @@ extension CouchPotatoViewController: DownTabBarItem {
     
     var selectedTabBackground: UIColor {
         get {
-            return .downCouchPotatoDarkColor()
+            return DownApplication.CouchPotato.color
         }
     }
     
     var deselectedTabBackground: UIColor {
         get {
-            return .downCouchPotatoColor()
+            return DownApplication.CouchPotato.darkColor
         }
     }
 }

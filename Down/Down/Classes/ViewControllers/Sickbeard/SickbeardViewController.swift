@@ -264,13 +264,13 @@ extension SickbeardViewController: DownTabBarItem {
     
     var selectedTabBackground: UIColor {
         get {
-            return .downSickbeardDarkColor()
+            return DownApplication.Sickbeard.color
         }
     }
     
     var deselectedTabBackground: UIColor {
         get {
-            return .downSickbeardColor()
+            return DownApplication.Sickbeard.darkColor
         }
     }
 }

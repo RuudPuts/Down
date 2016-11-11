@@ -29,6 +29,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         case sickbeardEpisodeName
         case sickbeardAirDate
         case sickbeardPlot
+        case sickbeardMarkWatched
     }
     
     fileprivate struct SabNZBdDetailDataSource {
@@ -53,8 +54,10 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         
         tableView!.rowHeight = UITableViewAutomaticDimension
         
-        let plotCellNib = UINib(nibName: "DownTextCell", bundle: Bundle.main)
-        tableView!.register(plotCellNib, forCellReuseIdentifier: "DownTextCell")
+        ["DownTextCell", "DownButtonCell"].forEach {
+            let nib = UINib(nibName: $0, bundle: Bundle.main)
+            tableView!.register(nib, forCellReuseIdentifier: $0)
+        }
         
         guard let episode = sabItem?.sickbeardEpisode else {
             return
@@ -116,12 +119,29 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         }
         tableData.append(detailSection)
         
-        if let episode = sabItem?.sickbeardEpisode, episode.plot.length > 0 {
+        if let episode = sabItem?.sickbeardEpisode {
             var section = [SabNZBdDetailDataSource]()
-            section.append(SabNZBdDetailDataSource(rowType: .sickbeardPlot, title: ""))
             
-            tableData.append(section)
+            if episode.status == .Snatched && sabItem?.status == .failed {
+                section.append(SabNZBdDetailDataSource(rowType: .sickbeardMarkWatched, title: "Mark as watched"))
+            }
+            
+            if episode.plot.length > 0 {
+                section.append(SabNZBdDetailDataSource(rowType: .sickbeardPlot, title: ""))
+            }
+            
+            if section.count > 0 {
+                tableData.append(section)
+            }
         }
+    }
+    
+    fileprivate func cellData(for indexPath: IndexPath) -> SabNZBdDetailDataSource {
+        return tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+    }
+    
+    fileprivate func rowType(for indexPath: IndexPath) -> SabNZBdDetailRow {
+        return cellData(for: indexPath).rowType
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -133,11 +153,16 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row].rowType == .sickbeardPlot {
+        switch rowType(for: indexPath) {
+        case .sickbeardMarkWatched:
+            return 60
+        case .sickbeardPlot:
             let font = UIFont(name: "OpenSans-Light", size: 14.0)!
             let maxWidth = view.bounds.width - 34 // TODO: Change to 20 once sizing issue is fixed
             
             return sabItem!.sickbeardEpisode!.plot.sizeWithFont(font, width:maxWidth).height + 30
+        default:
+            break
         }
         
         return tableView.rowHeight;
@@ -145,17 +170,22 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: DownTableViewCell
-        let rowData = tableData[indexPath.section][indexPath.row]
         
-        if rowData.rowType == .sickbeardPlot {
+        switch rowType(for: indexPath) {
+        case .sickbeardMarkWatched:
+            let buttonCell = tableView.dequeueReusableCell(withIdentifier: "DownButtonCell") as! DownButtonCell
+            buttonCell.setCellType(.Sickbeard)
+            buttonCell.label.text = cellData(for: indexPath).title
+            
+            cell = buttonCell
+        case .sickbeardPlot:
             let plotCell = tableView.dequeueReusableCell(withIdentifier: "DownTextCell") as! DownTextCell
             plotCell.label.text = sabItem!.sickbeardEpisode!.plot
             plotCell.cheveronHidden = true
             
             cell = plotCell
-        }
-        else {
-            // TODO, some generic filler upper? 
+        default:
+            // TODO, some generic filler upper?
             // And a queue/history specific thingy for quuee/history
             if sabItem is SABQueueItem {
                 cell = self.tableView(tableView, queueCellForRowAtIndexPath: indexPath);
@@ -172,7 +202,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         let reuseIdentifier = "queueCell"
         let cell = DownTableViewCell(style: .value2, reuseIdentifier: reuseIdentifier)
         let queueItem = sabItem as! SABQueueItem
-        let cellData = tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+        let cellData = self.cellData(for: indexPath)
         
         cell.textLabel?.text = cellData.title
         var detailText: String?
@@ -182,7 +212,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             detailText = queueItem.displayName
             break
         case .status:
-            detailText = queueItem.statusDescription
+            detailText = queueItem.statusDescription()
             cell.detailTextLabel?.textColor = .white
             break
         case .progress:
@@ -209,7 +239,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         let reuseIdentifier = "historyCell"
         let cell = DownTableViewCell(style: .value2, reuseIdentifier: reuseIdentifier)
         let historyItem = sabItem as! SABHistoryItem
-        let cellData = tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+        let cellData = self.cellData(for: indexPath)
         
         cell.textLabel?.text = cellData.title
         var detailText: String?
@@ -219,9 +249,9 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             detailText = historyItem.displayName
             break
         case .status:
-            detailText = historyItem.statusDescription
-            switch (historyItem.status!) {
-            case .finished:
+            detailText = historyItem.statusDescription()
+            switch (historyItem.status) {
+            case .completed:
                 cell.detailTextLabel?.textColor = .downGreenColor()
             case .failed:
                 cell.detailTextLabel?.textColor = .downRedColor()
@@ -238,13 +268,13 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             
         case .sickbeardShow:
             detailText = historyItem.sickbeardEpisode!.show?.name
-            break;
+            break
         case .sickbeardEpisode:
             detailText = "S\(historyItem.sickbeardEpisode!.season!.id)E\(historyItem.sickbeardEpisode!.id)"
-            break;
+            break
         case .sickbeardEpisodeName:
             detailText = historyItem.sickbeardEpisode!.name
-            break;
+            break
         case .sickbeardAirDate:
             if let date = historyItem.sickbeardEpisode!.airDate {
                 detailText = date.dateString
@@ -252,7 +282,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             else {
                 detailText = "-"
             }
-            break;
+            break
         default:
             break
         }
@@ -264,9 +294,16 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     // MARK: - TableView delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cellData = tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
-        if cellData.rowType == .sickbeardShow {
+        switch rowType(for: indexPath) {
+        case .sickbeardShow:
             showDetailsForShow(sabItem!.sickbeardEpisode!.show!)
+        case .sickbeardMarkWatched:
+            sabItem?.sickbeardEpisode?.update(.Wanted, completion: { _ in
+                self.configureTableView()
+                self.tableView?.reloadData()
+            })
+        default:
+            break
         }
     }
     

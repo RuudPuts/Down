@@ -12,37 +12,23 @@ open class SABHistoryItem: SABItem {
     
     let title: String!
     open let size: String!
-    var actionLine: String?
-    open var status: SABHistoryItemStatus?
+    open var actionLine: String?
     open var completionDate: Date?
     
-    public enum SABHistoryItemStatus {
-        case queued
-        case verifying
-        case repairing
-        case extracting
-        case runningScript
-        case failed
-        case finished
-    }
-    
-    init(_ identifier: String, _ title: String, _ category: String, _ nzbName: String, _ size: String, _ statusDescription: String, _ actionLine: String, _ completionDate: Date) {
+    init(_ identifier: String, _ title: String, _ category: String, _ nzbName: String, _ size: String, _ statusString: String, _ actionLine: String, _ completionDate: Date) {
         self.size = size
         self.title = title
         self.actionLine = actionLine
         self.completionDate = completionDate
         
-        super.init(identifier, category, nzbName, statusDescription)
-        
-        self.status = stringToStatus(statusDescription)
+        super.init(identifier, category, nzbName, statusString)
     }
     
-    internal func update(_ category: String, _ statusDescription: String, _ actionLine: String, _ completionDate: Date) {
+    internal func update(_ category: String, _ statusString: String, _ actionLine: String, _ completionDate: Date) {
         self.category = category
-        self.statusDescription = statusDescription
+        self.statusString = statusString
         self.actionLine = actionLine
         self.completionDate = completionDate
-        self.status = stringToStatus(statusDescription)
     }
     
     open var hasProgress: Bool {
@@ -50,7 +36,6 @@ open class SABHistoryItem: SABItem {
         if (self.status == .verifying || self.status == .repairing || self.status == .extracting) && self.progress > 0 {
             hasProgress = true
         }
-        
         
         return hasProgress
     }
@@ -79,38 +64,12 @@ open class SABHistoryItem: SABItem {
         return progress
     }
     
-    fileprivate func stringToStatus(_ string: String) -> SABHistoryItemStatus {
-        var status = SABHistoryItemStatus.queued
-        
-        switch (string) {
-        case "Verifying":
-            status = SABHistoryItemStatus.verifying
-            statusDescription = actionLine
-            break
-        case "Repairing":
-            status = SABHistoryItemStatus.repairing
-            break
-        case "Extracting":
-            status = SABHistoryItemStatus.extracting
-            statusDescription = actionLine
-            break
-        case "Running":
-            status = SABHistoryItemStatus.runningScript
-            statusDescription = "Running script"
-            break
-        case "Failed":
-            status = SABHistoryItemStatus.failed
-            break
-        case "Completed":
-            status = SABHistoryItemStatus.finished
-            break
-            
-        default:
-            status = SABHistoryItemStatus.queued
-            break
+    open override func statusDescription() -> String? {
+        if status == .verifying || status == .extracting {
+            return actionLine
         }
         
-        return status
+        return super.statusDescription()
     }
     
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DownKit
 
 extension UIColor {
     
@@ -50,4 +51,26 @@ extension UIColor {
         return UIColor(red:0.1, green:0.1, blue:0.1, alpha:1)
     }
     
+}
+
+extension DownApplication {
+    var color: UIColor {
+        switch self {
+        case .Down: return UIColor.downRedColor()
+            
+        case .SabNZBd: return .downSabNZBdColor()
+        case .Sickbeard: return .downSickbeardColor()
+        case .CouchPotato: return .downCouchPotatoColor()
+        }
+    }
+        
+    var darkColor: UIColor {
+        switch self {
+        case .Down: return UIColor.downRedColor()
+            
+        case .SabNZBd: return .downSabNZBdDarkColor()
+        case .Sickbeard: return .downSickbeardDarkColor()
+        case .CouchPotato: return .downCouchPotatoDarkColor()
+        }
+    }
 }

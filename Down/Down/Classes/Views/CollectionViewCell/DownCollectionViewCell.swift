@@ -22,31 +22,8 @@ class DownCollectionViewCell: UICollectionViewCell {
         label?.textColor = cellColor
     }
     
-    fileprivate var highlightedBackgroundColor: UIColor {
-        switch cellType {
-        case .SabNZBd: return .downSabNZBdDarkColor()
-        case .Sickbeard: return .downSickbeardDarkColor()
-        case .CouchPotato: return .downCouchPotatoDarkColor()
-        case .Down: return .downRedColor()
-        }
-    }
-    
     func setCellType(_ type: DownApplication) {
         cellType = type
-        
-        switch cellType {
-        case .SabNZBd:
-            cellColor = .downSabNZBdColor()
-            break
-        case .Sickbeard:
-            cellColor = .downSickbeardColor()
-            break
-        case .CouchPotato:
-            cellColor = .downCouchPotatoColor()
-            break
-        case .Down:
-            cellColor = .downRedColor()
-            break
-        }
+        cellColor = type.color
     }
 }

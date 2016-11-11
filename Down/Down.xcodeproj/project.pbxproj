@@ -20,6 +20,8 @@
 		4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4216CF9E1D1B283000A89C4C /* DownCollectionViewCell.swift */; };
 		4216CFA21D1B294C00A89C4C /* SickbeardShowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4216CFA11D1B294C00A89C4C /* SickbeardShowCell.swift */; };
 		4216CFA41D1B2A1900A89C4C /* SickbeardShowsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4216CFA31D1B2A1900A89C4C /* SickbeardShowsViewController.xib */; };
+		421788B71DD678240038D657 /* DownButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421788B61DD678240038D657 /* DownButtonCell.swift */; };
+		421788C91DD678E20038D657 /* DownButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 421788C81DD678E20038D657 /* DownButtonCell.xib */; };
 		421E3FA71D8EBDC8005A4B56 /* DownCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E3FA61D8EBDC8005A4B56 /* DownCache.swift */; };
 		422063DE1B85126300DAFB46 /* DownImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422063DD1B85126300DAFB46 /* DownImageView.swift */; };
 		4221ADD71B7BC0B20027C3A0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */; };
@@ -393,6 +395,8 @@
 		4216CF9E1D1B283000A89C4C /* DownCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownCollectionViewCell.swift; sourceTree = "<group>"; };
 		4216CFA11D1B294C00A89C4C /* SickbeardShowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowCell.swift; sourceTree = "<group>"; };
 		4216CFA31D1B2A1900A89C4C /* SickbeardShowsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardShowsViewController.xib; sourceTree = "<group>"; };
+		421788B61DD678240038D657 /* DownButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownButtonCell.swift; sourceTree = "<group>"; };
+		421788C81DD678E20038D657 /* DownButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownButtonCell.xib; sourceTree = "<group>"; };
 		421E3FA61D8EBDC8005A4B56 /* DownCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownCache.swift; sourceTree = "<group>"; };
 		422063DD1B85126300DAFB46 /* DownImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownImageView.swift; sourceTree = "<group>"; };
 		4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -1231,6 +1235,8 @@
 			isa = PBXGroup;
 			children = (
 				42DEEB451BACCBC50061723F /* DownTableViewCell.swift */,
+				421788B61DD678240038D657 /* DownButtonCell.swift */,
+				421788C81DD678E20038D657 /* DownButtonCell.xib */,
 				429E97E61B977CE200C3F58B /* DownEmptyCell.swift */,
 				429E97E81B977CE200C3F58B /* DownTextCell.swift */,
 				429E97EC1B977F0B00C3F58B /* DownIconTextCell.swift */,
@@ -1604,6 +1610,7 @@
 				42CD25461AB5BD06008E9717 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				42CD25531AB5BD06008E9717 /* Roboto-MediumItalic.ttf in Resources */,
 				42CD25511AB5BD06008E9717 /* Roboto-LightItalic.ttf in Resources */,
+				421788C91DD678E20038D657 /* DownButtonCell.xib in Resources */,
 				42CD25561AB5BD06008E9717 /* Roboto-ThinItalic.ttf in Resources */,
 				42A496ED1BAF332800F5395C /* SABItemCell.xib in Resources */,
 				42CD25501AB5BD06008E9717 /* Roboto-Light.ttf in Resources */,
@@ -1795,6 +1802,7 @@
 				4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */,
 				42C4AE041D2AFB390096FF71 /* RPPortScanWorker.m in Sources */,
 				422D54931AE04AE200200EF0 /* DownTabBarCell.swift in Sources */,
+				421788B71DD678240038D657 /* DownButtonCell.swift in Sources */,
 				42CC1D981C289989000CC68C /* DownIntroViewController.swift in Sources */,
 				4216CFA21D1B294C00A89C4C /* SickbeardShowCell.swift in Sources */,
 				42C2D7011D68EBE5008E195E /* Date+Extensions.swift in Sources */,

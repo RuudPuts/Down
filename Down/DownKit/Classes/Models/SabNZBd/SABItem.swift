@@ -14,16 +14,48 @@ open class SABItem: NSObject {
     open var category: String!
     open var nzbName: String!
     var progressDescription: String?
-    open var statusDescription: String!
     open var sickbeardEpisode: SickbeardEpisode?
     
     var imdbTitle: String?
     
-    init(_ identifier: String, _ category: String, _ nzbName: String, _ statusDescription: String) {
+    open var status: SabItemStatus {
+        get {
+            let s = SabItemStatus(rawValue: statusString) ?? .unknown
+            if s == .unknown {
+                NSLog("Unknown status string: \(statusString)")
+            }
+            return s
+        }
+        set {
+            statusString = newValue.rawValue
+        }
+    }
+    internal var statusString: String!
+    
+    public enum SabItemStatus: String {
+        case unknown
+        
+        // Queue
+        case grabbing = "Grabbing"
+        case downloading = "Downloading"
+        
+        // History
+        case verifying = "Verifying"
+        case repairing = "Repairing"
+        case extracting = "Extracting"
+        case runningScript = "Running"
+        case failed = "Failed"
+        case completed = "Completed"
+        
+        // General
+        case queued = "Queued"
+    }
+    
+    init(_ identifier: String, _ category: String, _ nzbName: String, _ statusString: String) {
         self.identifier = identifier
         self.category = category
         self.nzbName = nzbName
-        self.statusDescription = statusDescription;
+        self.statusString = statusString;
     }    
     
     open var imdbIdentifier: String? {
@@ -60,6 +92,10 @@ open class SABItem: NSObject {
         }
         
         return displayName
+    }
+    
+    open func statusDescription() -> String? {
+        return status == .runningScript ? "Running script" : status.rawValue
     }
    
 }
