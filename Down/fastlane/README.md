@@ -26,11 +26,6 @@ Set up for Jenkins, currently only building
 fastlane ios beta
 ```
 Submit a new Beta Build to Crashlytics
-### ios upload_beta
-```
-fastlane ios upload_beta
-```
-Uploads a new build to Crashlytics
 
 ----
 

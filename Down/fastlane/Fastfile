@@ -25,14 +25,14 @@ platform :ios do
 
   desc "Submit a new Beta Build to Crashlytics"
   lane :beta do
-  	sigh(adhoc: true, output_path:'fastlane')
+    sigh(adhoc: true, output_path:'fastlane')
     increment_build_number
     build(configuration: 'Release')
     upload_beta
   end
 
   desc "Uploads a new build to Crashlytics"
-  lane :upload_beta do
+  private_lane :upload_beta do
     crashlytics(notes_path: 'fastlane/release_notes.txt', api_token: 'fd7501efa3a9abb16103f351213d7b72ff764052', 
         build_secret: 'f2769c1a542364cb5281af857c1220006aa4a2d2d658d426988f0d0ba596dfa8')#, groups: 'DownBeta')
     sh "open https://fabric.io/_/beta"

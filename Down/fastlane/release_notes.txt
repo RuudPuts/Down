@@ -1,4 +1,7 @@
-- Build with Swift 3
+- Newly added tv shows will now show up
+- Shows deleted from Sickbeard won’t show anymore
 - Added option in Settings to refresh full Sickbeard cache on next startup
+
+- Build with Swift 3
 - Fixed crash if a show’s season would have an episode 0
 - Fixed crash when fetching show episodes airing today
