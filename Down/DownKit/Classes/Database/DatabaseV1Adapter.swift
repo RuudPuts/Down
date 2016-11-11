@@ -123,13 +123,9 @@ class DatabaseV1Adapter: DatabaseAdapter {
     }
     
     func episodesAiringOnDate(_ date: Date) -> Results<SickbeardEpisode> {
-        let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
-        let episodes = defaultRealm.objects(SickbeardEpisode.self)
-            .filter("airDate == %@", calendar.date(from: dateComponents))
+        return defaultRealm.objects(SickbeardEpisode.self)
+            .filter("airDate == %@", date.withoutTime())
             .sortOldestFirst()
-        
-        return episodes
     }
     
     // TODO: This method might return more than maxEpisodes, since it'll give all shows of the last show's date

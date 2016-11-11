@@ -1,2 +1,4 @@
 - Build with Swift 3
 - Added option in Settings to refresh full Sickbeard cache on next startup
+- Fixed crash if a show’s season would have an episode 0
+- Fixed crash when fetching show episodes airing today
