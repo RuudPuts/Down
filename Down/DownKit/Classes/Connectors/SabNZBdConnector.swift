@@ -30,7 +30,8 @@ open class SabNZBdConnector: Connector {
         let fixedUrl = url.prefixScheme()
         
         requestManager.request(fixedUrl).responseString { handler in
-            var hostValid = false 
+            var hostValid = false
+            
             if handler.result.isSuccess, let response = handler.response {
                 hostValid = self.validateResponseHeaders(response.allHeaderFields)
                 if hostValid {
@@ -63,11 +64,11 @@ open class SabNZBdConnector: Connector {
     
     open func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> (Void)) {
         if let sabNZBdHost = host {
-            let loginUrl = sabNZBdHost + "/login/"
+            let loginUrl = sabNZBdHost + "/sabnzbd/login/"
             let configUrl = sabNZBdHost + "/config/general/"
             let credentials = ["username": username, "password": password]
             
-            requestManager.request(loginUrl, method: .post, parameters: credentials, encoding: JSONEncoding.default).responseString { loginHandler in
+            requestManager.request(loginUrl, method: .post, parameters: credentials).responseString { loginHandler in
                 self.apiKey = nil
                 
                 if loginHandler.result.isSuccess, let loginHtml = loginHandler.result.value, self.checkLoginSuccesfull(loginHtml) {
