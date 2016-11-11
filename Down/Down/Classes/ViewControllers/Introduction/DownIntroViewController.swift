@@ -43,8 +43,12 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
     
     // MARK - RPPortScannerDelegate
     
-    func portScanner(_ portScanner: RPPortScanner!, didFindPort port: Int, onIPAddress ipAddress: String!) {
-        let host = URL(string: "http://\(ipAddress):\(port)")!
+    func portScanner(_ portScanner: RPPortScanner, didFindPort port: Int, onIPAddress ipAddress: String) {
+        let url = URL(string: "http://\(ipAddress):\(port)")
+        
+        guard let host = url else {
+            return
+        }
         
         switch port {
         case SabNZBdService.defaultPort:
