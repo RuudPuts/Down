@@ -26,6 +26,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerImageView: UIImageView!
+    @IBOutlet weak var qrCodeView: UIView!
     @IBOutlet weak var actionButton: UIButton!
     
     @IBOutlet weak var progressView: UIView!
@@ -183,6 +184,14 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         // Nib registering
         let settingsNib = UINib(nibName: "DownSettingsTableViewCell", bundle: Bundle.main)
         tableView!.register(settingsNib, forCellReuseIdentifier: "settingsCell")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.scanQRCode()
+        }
     }
     
     func applyTheming() {
@@ -367,7 +376,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         reloadCell(cell, forIndexPath: indexPath)
     }
     
-    // Activities
+    // MARK: Activities
     
     func startActivityVerification(_ cellType: DownSettingsRow) {
         activityStart[cellType] = Date()
@@ -402,6 +411,8 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             activityCheckTimer?.invalidate()
         }
     }
+    
+    // MARK: Host validation
     
     func validateHost(_ host: String) {
         let hostURL = URL(string: host)
@@ -471,6 +482,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         }
         
         self.reloadCell(.apiKey)
+    }
+    
+    // MARK: QR Code scanner
+    
+    func scanQRCode() {
+        let scanner = DownScanner()
+        scanner.scan(hostView: qrCodeView)
     }
     
     // MARK: SickbeardService

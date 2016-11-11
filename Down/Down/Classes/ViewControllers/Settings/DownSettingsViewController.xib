@@ -18,6 +18,7 @@
                 <outlet property="progressIndicator" destination="hMc-xP-SDS" id="LxR-fq-sGS"/>
                 <outlet property="progressLabel" destination="phG-1f-Pjg" id="sfg-Dm-Dqw"/>
                 <outlet property="progressView" destination="Jwu-Ll-DH9" id="nSD-gY-bW2"/>
+                <outlet property="qrCodeView" destination="nHm-LF-zDz" id="Xuy-Fz-uKf"/>
                 <outlet property="tableView" destination="4r7-Dk-UQr" id="fZa-5m-U4C"/>
                 <outlet property="view" destination="iN0-l3-epB" id="nwd-nO-deY"/>
             </connections>
@@ -78,12 +79,19 @@
                         <constraint firstAttribute="bottom" secondItem="hMc-xP-SDS" secondAttribute="bottom" constant="8" id="lEe-SQ-8zZ"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nHm-LF-zDz" userLabel="QRCodeView">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="yXa-vg-kbL"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="jYA-fU-3zv" secondAttribute="trailing" id="0NY-ub-0Br"/>
                 <constraint firstItem="qjX-EU-DCi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="3MX-ua-e5V"/>
                 <constraint firstItem="Jwu-Ll-DH9" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="DZE-7V-zuQ"/>
+                <constraint firstAttribute="bottom" secondItem="nHm-LF-zDz" secondAttribute="bottom" constant="120" id="H6n-bP-7cC"/>
                 <constraint firstItem="4r7-Dk-UQr" firstAttribute="top" secondItem="jYA-fU-3zv" secondAttribute="bottom" constant="4" id="KFM-Yo-lhi"/>
                 <constraint firstAttribute="bottom" secondItem="qjX-EU-DCi" secondAttribute="bottom" constant="43" id="Moe-Uq-HuR"/>
                 <constraint firstItem="jYA-fU-3zv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="NAJ-dT-6DF"/>
@@ -93,7 +101,10 @@
                 <constraint firstItem="4r7-Dk-UQr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" priority="750" id="nKI-Rd-8Ar"/>
                 <constraint firstItem="qjX-EU-DCi" firstAttribute="top" secondItem="4r7-Dk-UQr" secondAttribute="bottom" constant="50" id="qvz-Zg-eq8"/>
                 <constraint firstItem="jYA-fU-3zv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="t2H-ti-6gA"/>
+                <constraint firstItem="nHm-LF-zDz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="vfm-gs-KFY"/>
+                <constraint firstAttribute="trailing" secondItem="nHm-LF-zDz" secondAttribute="trailing" id="z0c-j2-A9g"/>
             </constraints>
+            <point key="canvasLocation" x="25.5" y="51.5"/>
         </view>
     </objects>
     <resources>

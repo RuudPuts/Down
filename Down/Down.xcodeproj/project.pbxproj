@@ -20,6 +20,8 @@
 		4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4216CF9E1D1B283000A89C4C /* DownCollectionViewCell.swift */; };
 		4216CFA21D1B294C00A89C4C /* SickbeardShowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4216CFA11D1B294C00A89C4C /* SickbeardShowCell.swift */; };
 		4216CFA41D1B2A1900A89C4C /* SickbeardShowsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4216CFA31D1B2A1900A89C4C /* SickbeardShowsViewController.xib */; };
+		421788A71DD6426D0038D657 /* DownScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421788A61DD6426D0038D657 /* DownScanner.swift */; };
+		421788A91DD6427E0038D657 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 421788A81DD6427E0038D657 /* AVFoundation.framework */; };
 		421E3FA71D8EBDC8005A4B56 /* DownCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E3FA61D8EBDC8005A4B56 /* DownCache.swift */; };
 		422063DE1B85126300DAFB46 /* DownImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422063DD1B85126300DAFB46 /* DownImageView.swift */; };
 		4221ADD71B7BC0B20027C3A0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */; };
@@ -393,6 +395,8 @@
 		4216CF9E1D1B283000A89C4C /* DownCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownCollectionViewCell.swift; sourceTree = "<group>"; };
 		4216CFA11D1B294C00A89C4C /* SickbeardShowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowCell.swift; sourceTree = "<group>"; };
 		4216CFA31D1B2A1900A89C4C /* SickbeardShowsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SickbeardShowsViewController.xib; sourceTree = "<group>"; };
+		421788A61DD6426D0038D657 /* DownScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownScanner.swift; sourceTree = "<group>"; };
+		421788A81DD6427E0038D657 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		421E3FA61D8EBDC8005A4B56 /* DownCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownCache.swift; sourceTree = "<group>"; };
 		422063DD1B85126300DAFB46 /* DownImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownImageView.swift; sourceTree = "<group>"; };
 		4221ADB51B7BC0B20027C3A0 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -544,6 +548,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				421788A91DD6427E0038D657 /* AVFoundation.framework in Frameworks */,
 				426F5FE91D2AE4340074C06B /* UIKit.framework in Frameworks */,
 				42E97C291BBD9DB60040A979 /* Realm.framework in Frameworks */,
 				42E97C2A1BBD9DB60040A979 /* RealmSwift.framework in Frameworks */,
@@ -705,6 +710,14 @@
 			path = Sickbeard;
 			sourceTree = "<group>";
 		};
+		421788A51DD642630038D657 /* QRScanner */ = {
+			isa = PBXGroup;
+			children = (
+				421788A61DD6426D0038D657 /* DownScanner.swift */,
+			);
+			path = QRScanner;
+			sourceTree = "<group>";
+		};
 		4221ADB21B7BC0B20027C3A0 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -716,6 +729,7 @@
 				4221ADBE1B7BC0B20027C3A0 /* Models */,
 				4269A91E1B850090005A06E3 /* Providers */,
 				4221ADC71B7BC0B20027C3A0 /* Services */,
+				421788A51DD642630038D657 /* QRScanner */,
 				42DEEB4D1BACCC6A0061723F /* Others */,
 			);
 			path = Classes;
@@ -815,6 +829,7 @@
 		423D87931B700B3D00AFB7FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				421788A81DD6427E0038D657 /* AVFoundation.framework */,
 				423D87941B700B3D00AFB7FF /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
@@ -1720,6 +1735,7 @@
 				426E38571D64FBB9009FC287 /* NSURL+Extensions.swift in Sources */,
 				426F5FF11D2AE4880074C06B /* UIImage+Extensions.swift in Sources */,
 				42ADB24D1C31F86C00BDF078 /* SickbeardConnector.swift in Sources */,
+				421788A71DD6426D0038D657 /* DownScanner.swift in Sources */,
 				4221ADDC1B7BC0B20027C3A0 /* PreferenceManager.swift in Sources */,
 				429947771C249F7300934B03 /* Connector.swift in Sources */,
 				42746BB51BB3351900CD78BE /* DownDatabase.swift in Sources */,

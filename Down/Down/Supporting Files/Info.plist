@@ -84,5 +84,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Down needs permission to your camera to scan for QR-codes. Nothing else, I promise 🍻</string>
 </dict>
 </plist>
