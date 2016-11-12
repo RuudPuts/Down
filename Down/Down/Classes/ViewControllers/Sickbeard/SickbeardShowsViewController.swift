@@ -8,15 +8,11 @@
 
 import UIKit
 import DownKit
-import Preheat
-import Nuke
 import RealmSwift
 
-class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DownSectionIndexViewDelegate {
+class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, DownSectionIndexViewDelegate {
     
-    let preheater = Preheater()
-    var preheatController: Controller<UICollectionView>!
-    var shows = [SickbeardShow]()
+    var dataSource: ShowsCollectionViewDataSource?
     
     @IBOutlet weak var sectionIndexView: DownSectionIndexView!
     
@@ -25,26 +21,29 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Shows"
-        loadShows()
         
-        sectionIndexView.delegate = self
+        guard let collectionView = collectionView else {
+            return
+        }
         
         addSearchBar()
         
         let cellNib = UINib(nibName: "SickbeardShowCell", bundle:nil)
-        collectionView?.register(cellNib, forCellWithReuseIdentifier: "SickbeardShowCell")
-        collectionView?.backgroundColor = .downLightGrayColor()
-
-        preheatController = Controller(view: collectionView!)
-        preheatController.handler = { [weak self] in
-            self?.preheatWindowChanged(addedIndexPaths: $0, removedIndexPaths: $1)
-        }
+        collectionView.register(cellNib, forCellWithReuseIdentifier: "SickbeardShowCell")
+        collectionView.backgroundColor = .downLightGrayColor()
+        
+        dataSource = ShowsCollectionViewDataSource(collectionView)
+        collectionView.dataSource = dataSource!
+        
+        loadShows()
+        
+        sectionIndexView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        preheatController.enabled = true
+        dataSource!.preheatController.enabled = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -52,28 +51,12 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         
         // When you disable preheat controller it removes all preheating
         // index paths and calls its handler
-        preheatController.enabled = false
-    }
-    
-    func preheatWindowChanged(addedIndexPaths added: [IndexPath], removedIndexPaths removed: [IndexPath]) {
-        func requestsForIndexPaths(_ indexPaths: [IndexPath]) -> [Request] {
-            var requests = [Request]()
-            indexPaths.forEach {
-                if $0.item < shows.count {
-                    let request = shows[$0.item].posterThumbnailRequest
-                    requests.append(request)
-                }
-            }
-            
-            return requests
-        }
-        preheater.startPreheating(with: requestsForIndexPaths(added))
-        preheater.stopPreheating(with: requestsForIndexPaths(removed))
+        dataSource!.preheatController.enabled = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = collectionView!.indexPathsForSelectedItems?.first , segue.identifier == "SickbeardShow" {
-            let show = shows[indexPath.item]
+            let show = dataSource?.shows[indexPath.item]
             
             let detailViewController = segue.destination as! SickbeardShowViewController
             detailViewController.show = show
@@ -96,34 +79,8 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         }
         sectionTitles = Array(Set(sectionTitles)).sorted { $0 < $1 }
         
-        shows = Array(allShows).sorted(by: { $0.nameWithoutPrefix.uppercased() < $1.nameWithoutPrefix.uppercased() })
+        dataSource!.shows = Array(allShows).sorted(by: { $0.nameWithoutPrefix.uppercased() < $1.nameWithoutPrefix.uppercased() })
         sectionIndexView.datasource = sectionTitles
-    }
-    
-    // MARK: - CollectionView DataSource
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return shows.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, isSectionEmtpy section: Int) -> Bool {
-        return shows.count == 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let show = shows[indexPath.row]
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SickbeardShowCell", for: indexPath) as! SickbeardShowCell
-        cell.setCellType(.Sickbeard)
-        cell.show = show
-        
-        Nuke.loadImage(with: show.posterThumbnailRequest, into: cell.posterView)
-        
-        return cell
     }
     
     // MARK: - CollectionView Delegate
@@ -163,8 +120,8 @@ class SickbeardShowsViewController: DownDetailViewController, UICollectionViewDa
         var indexPath = IndexPath(item: 0, section: 0)
         if (section != SymbolSectionTitle) {
             // Find first show with selected section title as first character
-            let firstShow = shows.filter { $0.nameWithoutPrefix.substring(0..<1) == section }.first
-            let showIndex = shows.index(of: firstShow!)
+            let firstShow = dataSource!.shows.filter { $0.nameWithoutPrefix.substring(0..<1) == section }.first
+            let showIndex = dataSource!.shows.index(of: firstShow!)
             
             indexPath = IndexPath(item: Int(showIndex!), section: 0)
         }
@@ -183,7 +140,7 @@ extension SickbeardShowsViewController { // UISearchBarDelegate
         if trimmedText.length > 0 {
             foundShows = foundShows.filter("_simpleName contains[c] %@", trimmedText)
         }
-        self.shows = Array(foundShows)
+        dataSource!.shows = Array(foundShows)
         
         super.searchBar(searchBar, textDidChange: searchText)
     }
@@ -207,13 +164,6 @@ extension UISearchBar {
 }
 
 extension SickbeardShow {
-    
-    var posterThumbnailRequest: Request {
-        get {
-            let filePath = UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbId)_thumb.png"
-            return Request(url: URL(fileURLWithPath: filePath))
-        }
-    }
     
     var nameWithoutPrefix: String {
         let prefixes = ["The ", "A "]

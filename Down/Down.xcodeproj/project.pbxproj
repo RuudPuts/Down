@@ -149,6 +149,7 @@
 		42CD25541AB5BD06008E9717 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD253A1AB5BD06008E9717 /* Roboto-Regular.ttf */; };
 		42CD25551AB5BD06008E9717 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD253B1AB5BD06008E9717 /* Roboto-Thin.ttf */; };
 		42CD25561AB5BD06008E9717 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD253C1AB5BD06008E9717 /* Roboto-ThinItalic.ttf */; };
+		42CE8F131DD7BF39000CF2F5 /* ShowsCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CE8F121DD7BF39000CF2F5 /* ShowsCollectionViewDataSource.swift */; };
 		42D154F61AD4505400778713 /* DownTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D154F51AD4505400778713 /* DownTabBarViewController.swift */; };
 		42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */; };
 		42D2AE541C2B30F60089512D /* DownSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D2AE531C2B30F60089512D /* DownSettingsTableViewCell.xib */; };
@@ -533,6 +534,7 @@
 		42CD253A1AB5BD06008E9717 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		42CD253B1AB5BD06008E9717 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		42CD253C1AB5BD06008E9717 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		42CE8F121DD7BF39000CF2F5 /* ShowsCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowsCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		42D154F51AD4505400778713 /* DownTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarViewController.swift; sourceTree = "<group>"; };
 		42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		42D2AE531C2B30F60089512D /* DownSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownSettingsTableViewCell.xib; sourceTree = "<group>"; };
@@ -659,6 +661,7 @@
 				42E1CCC51BA226CE00DFED2E /* SickbeardShowsViewController.swift */,
 				421129621C17762300E7B0BB /* SickbeardShowViewController.swift */,
 				42BAA32C1D98637600AC32FB /* SicbkeardAddShowViewController.swift */,
+				42CE8F121DD7BF39000CF2F5 /* ShowsCollectionViewDataSource.swift */,
 			);
 			path = Sickbeard;
 			sourceTree = "<group>";
@@ -1804,6 +1807,7 @@
 				42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */,
 				4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */,
 				42C4AE041D2AFB390096FF71 /* RPPortScanWorker.m in Sources */,
+				42CE8F131DD7BF39000CF2F5 /* ShowsCollectionViewDataSource.swift in Sources */,
 				422D54931AE04AE200200EF0 /* DownTabBarCell.swift in Sources */,
 				421788B71DD678240038D657 /* DownButtonCell.swift in Sources */,
 				4249CA181DD690B5007D7A6C /* DownApplication+Extensions.swift in Sources */,
