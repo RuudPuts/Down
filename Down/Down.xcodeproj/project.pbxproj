@@ -49,6 +49,7 @@
 		424595241B7933EB009DA699 /* DownKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 424595231B7933EB009DA699 /* DownKitTests.m */; };
 		424595281B7933EB009DA699 /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424595131B7933EA009DA699 /* DownKit.framework */; };
 		424595291B7933EB009DA699 /* DownKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 424595131B7933EA009DA699 /* DownKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4249CA181DD690B5007D7A6C /* DownApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249CA171DD690B5007D7A6C /* DownApplication+Extensions.swift */; };
 		4253E80E1AB4B84C00EF1254 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E7FE1AB4B84C00EF1254 /* AppDelegate.swift */; };
 		4253E80F1AB4B84C00EF1254 /* DownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8031AB4B84C00EF1254 /* DownViewController.swift */; };
 		4253E8181AB4B85800EF1254 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8151AB4B85800EF1254 /* DownTests.swift */; };
@@ -424,6 +425,7 @@
 		4245951C1B7933EB009DA699 /* DownKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		424595231B7933EB009DA699 /* DownKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownKitTests.m; sourceTree = "<group>"; };
 		424595251B7933EB009DA699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4249CA171DD690B5007D7A6C /* DownApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DownApplication+Extensions.swift"; sourceTree = "<group>"; };
 		4253E7D51AB4B7B900EF1254 /* Down.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Down.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4253E7ED1AB4B7B900EF1254 /* DownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4253E7FE1AB4B84C00EF1254 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1282,6 +1284,7 @@
 				42F035351AD45BC2001AE5B3 /* UIView+Extensions.swift */,
 				42B818681D295C1C003672C3 /* String+Extensions.swift */,
 				42C2D7001D68EBE5008E195E /* Date+Extensions.swift */,
+				4249CA171DD690B5007D7A6C /* DownApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1803,6 +1806,7 @@
 				42C4AE041D2AFB390096FF71 /* RPPortScanWorker.m in Sources */,
 				422D54931AE04AE200200EF0 /* DownTabBarCell.swift in Sources */,
 				421788B71DD678240038D657 /* DownButtonCell.swift in Sources */,
+				4249CA181DD690B5007D7A6C /* DownApplication+Extensions.swift in Sources */,
 				42CC1D981C289989000CC68C /* DownIntroViewController.swift in Sources */,
 				4216CFA21D1B294C00A89C4C /* SickbeardShowCell.swift in Sources */,
 				42C2D7011D68EBE5008E195E /* Date+Extensions.swift in Sources */,

@@ -16,10 +16,9 @@ class DownButtonCell: DownIconTextCell {
         super.setCellType(type)
         
         buttonView.backgroundColor = type.color
-    }
-    
-    fileprivate var highlightedBackgroundColor: UIColor {
-        return .clear
+        iconView.image = type.icon
+        
+        iconView.verticalCenterConstraint?.constant = type == .SabNZBd ? 2 : 0
     }
     
 }

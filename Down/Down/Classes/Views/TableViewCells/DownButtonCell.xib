@@ -46,6 +46,7 @@
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sickbeard-icon" translatesAutoresizingMaskIntoConstraints="NO" id="QKj-bm-AcS">
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="PhV-Oo-IJv"/>
                                     <constraint firstAttribute="width" secondItem="QKj-bm-AcS" secondAttribute="height" multiplier="1.5:1" id="jPd-JN-deY"/>
                                 </constraints>
                             </imageView>
@@ -55,11 +56,10 @@
                             <constraint firstItem="wHU-en-lw7" firstAttribute="leading" secondItem="QKj-bm-AcS" secondAttribute="trailing" constant="8" id="1gM-wc-axj"/>
                             <constraint firstAttribute="centerY" secondItem="wHU-en-lw7" secondAttribute="centerY" id="5AV-tX-Ms2"/>
                             <constraint firstItem="5Cq-cb-ePk" firstAttribute="top" secondItem="uXS-Vy-4Qo" secondAttribute="top" constant="8" id="6z1-Yu-FiQ"/>
+                            <constraint firstItem="QKj-bm-AcS" firstAttribute="centerY" secondItem="uXS-Vy-4Qo" secondAttribute="centerY" id="Cz5-US-So7"/>
                             <constraint firstItem="5Cq-cb-ePk" firstAttribute="leading" secondItem="uXS-Vy-4Qo" secondAttribute="leading" constant="40" id="Huz-21-al4"/>
-                            <constraint firstItem="QKj-bm-AcS" firstAttribute="top" secondItem="uXS-Vy-4Qo" secondAttribute="top" constant="9.5" id="IOe-hz-6Iu"/>
                             <constraint firstAttribute="bottom" secondItem="5Cq-cb-ePk" secondAttribute="bottom" constant="8" id="apf-6x-W8b"/>
                             <constraint firstItem="QKj-bm-AcS" firstAttribute="leading" secondItem="uXS-Vy-4Qo" secondAttribute="leading" constant="50" id="i0d-9n-2Zw"/>
-                            <constraint firstAttribute="bottom" secondItem="QKj-bm-AcS" secondAttribute="bottom" constant="9" id="sOn-Jl-BeX"/>
                             <constraint firstAttribute="trailing" secondItem="5Cq-cb-ePk" secondAttribute="trailing" constant="45" id="u4t-bb-8F9"/>
                         </constraints>
                     </view>

@@ -98,7 +98,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row].rowType == .plot {
             let font = UIFont(name: "OpenSans-Light", size: 14.0)!
-            let maxWidth = view.bounds.width - 34 // TODO: Change to 20 once sizing issue is fixed
+            let maxWidth = view.bounds.width - 34
             
             return episode!.plot.sizeWithFont(font, width:maxWidth).height + 30
         }

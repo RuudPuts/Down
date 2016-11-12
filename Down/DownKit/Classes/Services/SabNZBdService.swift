@@ -372,8 +372,20 @@ open class SabNZBdService: Service {
             mode = "history"
         }
         
-        let url = "\(Preferences.sabNZBdHost)/api?mode=\(mode)&name=delete&value=\(item.identifier)&apikey=\(Preferences.sabNZBdApiKey)"
-        request(url)
+        let url = "\(Preferences.sabNZBdHost)/api?mode=\(mode)&name=delete&value=\(item.identifier!)&apikey=\(Preferences.sabNZBdApiKey)"
+        Alamofire.request(url).response { response in
+            if response.error == nil {
+                if let historyItem = item as? SABHistoryItem, let historyIndex = self.history.index(of: historyItem) {
+                    self.history.remove(at: historyIndex)
+                }
+                
+                if let queueItem = item as? SABQueueItem, let queueIndex = self.queue.index(of: queueItem) {
+                    self.queue.remove(at: queueIndex)
+                }
+                
+                self.notifyListeners(.willRemoveSabItem, withItem: item)
+            }
+        }
     }
     
     // MARK - IMDB

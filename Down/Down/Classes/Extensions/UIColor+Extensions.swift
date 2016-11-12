@@ -52,25 +52,3 @@ extension UIColor {
     }
     
 }
-
-extension DownApplication {
-    var color: UIColor {
-        switch self {
-        case .Down: return UIColor.downRedColor()
-            
-        case .SabNZBd: return .downSabNZBdColor()
-        case .Sickbeard: return .downSickbeardColor()
-        case .CouchPotato: return .downCouchPotatoColor()
-        }
-    }
-        
-    var darkColor: UIColor {
-        switch self {
-        case .Down: return UIColor.downRedColor()
-            
-        case .SabNZBd: return .downSabNZBdDarkColor()
-        case .Sickbeard: return .downSickbeardDarkColor()
-        case .CouchPotato: return .downCouchPotatoDarkColor()
-        }
-    }
-}

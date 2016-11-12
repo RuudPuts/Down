@@ -15,6 +15,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         case name
         case status
         case totalSize
+        case delete
         
         // Queue specifics
         case progress
@@ -119,20 +120,31 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         }
         tableData.append(detailSection)
         
+        var lastSection: [SabNZBdDetailDataSource]?
         if let episode = sabItem?.sickbeardEpisode {
-            var section = [SabNZBdDetailDataSource]()
-            
             if episode.status == .Snatched && sabItem?.status == .failed {
-                section.append(SabNZBdDetailDataSource(rowType: .sickbeardMarkWatched, title: "Mark as watched"))
+                lastSection = [SabNZBdDetailDataSource]()
+                lastSection!.append(SabNZBdDetailDataSource(rowType: .sickbeardMarkWatched, title: "Mark as watched"))
+                tableData.append(lastSection!)
             }
             
             if episode.plot.length > 0 {
-                section.append(SabNZBdDetailDataSource(rowType: .sickbeardPlot, title: ""))
+                lastSection! = [SabNZBdDetailDataSource]()
+                lastSection!.append(SabNZBdDetailDataSource(rowType: .sickbeardPlot, title: ""))
+                tableData.append(lastSection!)
             }
-            
-            if section.count > 0 {
-                tableData.append(section)
-            }
+        }
+        
+        let deleteRow = SabNZBdDetailDataSource(rowType: .delete, title: "Delete")
+        if lastSection?.last?.rowType == .sickbeardMarkWatched {
+            lastSection!.append(deleteRow)
+            tableData.removeLast()
+            tableData.append(lastSection!)
+        }
+        else {
+            var section = [SabNZBdDetailDataSource]()
+            section.append(deleteRow)
+            tableData.append(section)
         }
     }
     
@@ -154,11 +166,11 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch rowType(for: indexPath) {
-        case .sickbeardMarkWatched:
+        case .delete, .sickbeardMarkWatched:
             return 60
         case .sickbeardPlot:
             let font = UIFont(name: "OpenSans-Light", size: 14.0)!
-            let maxWidth = view.bounds.width - 34 // TODO: Change to 20 once sizing issue is fixed
+            let maxWidth = view.bounds.width - 34
             
             return sabItem!.sickbeardEpisode!.plot.sizeWithFont(font, width:maxWidth).height + 30
         default:
@@ -172,6 +184,13 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         var cell: DownTableViewCell
         
         switch rowType(for: indexPath) {
+        case .delete:
+            let buttonCell = tableView.dequeueReusableCell(withIdentifier: "DownButtonCell") as! DownButtonCell
+            buttonCell.setCellType(.SabNZBd)
+            buttonCell.label.text = cellData(for: indexPath).title
+            buttonCell.label.textColor = .downRedColor()
+            
+            cell = buttonCell
         case .sickbeardMarkWatched:
             let buttonCell = tableView.dequeueReusableCell(withIdentifier: "DownButtonCell") as! DownButtonCell
             buttonCell.setCellType(.Sickbeard)
@@ -295,6 +314,8 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch rowType(for: indexPath) {
+        case .delete:
+            SabNZBdService.shared.deleteItem(sabItem!)
         case .sickbeardShow:
             showDetailsForShow(sabItem!.sickbeardEpisode!.show!)
         case .sickbeardMarkWatched:
