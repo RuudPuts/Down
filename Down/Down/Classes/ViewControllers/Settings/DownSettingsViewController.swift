@@ -486,6 +486,8 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         self.actionButton.isHidden = false
     }
     
+    public func sickbeardShowAdded(_ show: SickbeardShow) { }
+    
 }
 
 protocol DownSettingsViewControllerDelegate {

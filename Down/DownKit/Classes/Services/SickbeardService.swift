@@ -28,6 +28,7 @@ open class SickbeardService: Service {
     
     fileprivate enum SickbeardNotifyType {
         case showCacheUpdated
+        case showAdded
     }
     
     override open func addListener(_ listener: ServiceListener) {
@@ -129,7 +130,7 @@ open class SickbeardService: Service {
         }
     }
 
-    // MARK: - Show cache
+    // MARK: - Shows
     
     open func refreshShowCache(force: Bool = false) {
         // Find shows to refresh, episodes aired since last update
@@ -210,8 +211,11 @@ open class SickbeardService: Service {
             let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
             Alamofire.request(url).responseJSON { handler in
                 if handler.validateResponse() {
-                    let show = self.parseShowData(JSON(handler.result.value!)["data"], forTvdbId: tvdbId)
-                    refreshedShows.append(show)
+                    let json = JSON(handler.result.value!)
+                    if json["result"].string != "failure" {
+                        let show = self.parseShowData(JSON(handler.result.value!)["data"], forTvdbId: tvdbId)
+                        refreshedShows.append(show)
+                    }
                 }
                 else {
                     print("Error while fetching Sickbeard showData: \(handler.result.error!)")
@@ -241,6 +245,77 @@ open class SickbeardService: Service {
                 completionHandler()
             }
         }
+    }
+    
+    // MARK: Adding shows
+    
+    open func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.SickbeardEpisodeStatus, completionHandler: @escaping (Bool, SickbeardShow?) -> Void) -> Void {
+        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.addnew&tvdbid=\(show.tvdbId)&status=\(state.rawValue.lowercased())"
+        Alamofire.request(url).responseJSON { handler in
+            let errorClosure: (String) -> (Void) = {
+                NSLog("Error while adding show: " + $0)
+                completionHandler(false, nil)
+            }
+            
+            if handler.validateResponse() {
+                let json = JSON(handler.result.value!)
+                guard json["result"].string != "failure" else {
+                    errorClosure(json["message"].string!)
+                    return
+                }
+
+                NSLog("Added show \(show.name)")
+                self.refreshShowAfterAdd(show) {
+                    completionHandler(true, $0)
+                }
+            }
+            else {
+                errorClosure(handler.result.error!.localizedDescription)
+            }
+        }
+    }
+    
+    // Don't like having to add this function, but recursive blocks result in a segfault 11
+    fileprivate func refreshShowAfterAdd(_ show: SickbeardShow, _ completionHandler: @escaping (SickbeardShow) -> Void) {
+        self.refreshShow(show) {
+            guard let addedShow = self.showWithId(show.tvdbId) else {
+                NSLog("Show still refreshing, retrying")
+                self.refreshShowAfterAdd(show, completionHandler)
+                return
+            }
+            
+            self.notifyListeners(.showAdded, withItem: addedShow)
+            completionHandler(addedShow)
+        }
+    }
+    
+    open func searchForShow(query: String, completionHandler: @escaping ([SickbeardShow]) -> Void) {
+        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=sb.searchtvdb&lang=en&name=" + query
+        Alamofire.request(url).responseJSON { handler in
+            if handler.validateResponse() {
+                let searchData = JSON(handler.result.value!)["data"]["results"]
+
+                let shows = self.parseSearchResults(searchData)
+                completionHandler(shows)
+            }
+            else {
+                print("Error while fetching Sickbeard showData: \(handler.result.error!)")
+            }
+        }
+    }
+    
+    fileprivate func parseSearchResults(_ json: JSON) -> [SickbeardShow] {
+        var shows = [SickbeardShow]()
+        
+        json.forEach { (_, data) in
+            let show = SickbeardShow()
+            show.tvdbId = data["tvdbid"].int!
+            show.name = data["name"].string!
+            
+            shows.append(show)
+        }
+        
+        return shows
     }
     
     fileprivate func parseShowData(_ json: JSON, forTvdbId tvdbId: Int) -> SickbeardShow {
@@ -382,7 +457,13 @@ open class SickbeardService: Service {
     
     // MARK: - Listeners
     
+//    fileprivate func notifyListeners(_ notifyType: SickbeardNotifyType) {
+    
     fileprivate func notifyListeners(_ notifyType: SickbeardNotifyType) {
+        notifyListeners(notifyType, withItem: nil)
+    }
+    
+    fileprivate func notifyListeners(_ notifyType: SickbeardNotifyType, withItem item: AnyObject?) {
         for listener in self.listeners {
             if listener is SickbeardListener {
                 let sickbeardListener = listener as! SickbeardListener
@@ -391,6 +472,10 @@ open class SickbeardService: Service {
                     NSLog("SickbeardService - Show cache refreshed")
                     sickbeardListener.sickbeardShowCacheUpdated()
                     break
+                case .showAdded:
+                    let show = item as! SickbeardShow
+                    NSLog("SickbeardService - Show added: \(show.name)")
+                    sickbeardListener.sickbeardShowAdded(show)
                 }
             }
         }
@@ -425,8 +510,6 @@ open class SickbeardService: Service {
         posterDownloadQueue.async(execute: {
             let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
             Alamofire.request(url).responseData { handler in
-                // TODO: Store small variant of poster
-                
                 if handler.validateResponse() {
                     ImageProvider.storePoster(handler.result.value!, forShow: show.tvdbId)
                 }

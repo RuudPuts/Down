@@ -188,8 +188,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     func showStateActionSheet(_ message: String, completion: @escaping (_ selectedStatus: SickbeardEpisode.SickbeardEpisodeStatus) -> (Void)) {
         let actionSheet = UIAlertController(title: "Set state for", message: message, preferredStyle: .actionSheet)
         
-        let states = [SickbeardEpisode.SickbeardEpisodeStatus.Wanted, SickbeardEpisode.SickbeardEpisodeStatus.Skipped,
-                      SickbeardEpisode.SickbeardEpisodeStatus.Archived, SickbeardEpisode.SickbeardEpisodeStatus.Ignored]
+        let states: [SickbeardEpisode.SickbeardEpisodeStatus] = [.Wanted, .Skipped, .Archived, .Ignored]
         for state in states {
             let action = UIAlertAction(title: state.rawValue, style: .default, handler: { (action) in
                 completion(state)
@@ -219,6 +218,8 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     func sickbeardShowCacheUpdated() {
         tableView?.reloadData()
     }
+    
+    public func sickbeardShowAdded(_ show: SickbeardShow) { }
 }
 
 extension SickbeardEpisode {

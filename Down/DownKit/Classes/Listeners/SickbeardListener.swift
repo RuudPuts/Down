@@ -11,5 +11,6 @@ import Foundation
 public protocol SickbeardListener: ServiceListener {
     
     func sickbeardShowCacheUpdated()
+    func sickbeardShowAdded(_ show: SickbeardShow)
     
 }

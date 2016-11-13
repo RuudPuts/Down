@@ -1,5 +1,5 @@
 //
-//  ShowsCollectionViewDataSource.swift
+//  ShowsCollectionViewModel.swift
 //  Down
 //
 //  Created by Ruud Puts on 12/11/16.
@@ -7,13 +7,10 @@
 //
 
 import UIKit
-import DownKit
 import Preheat
 import Nuke
 
-class ShowsCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    
-    var shows = [SickbeardShow]()
+class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     
     let preheater = Preheater()
     var preheatController: Controller<UICollectionView>!
@@ -22,10 +19,17 @@ class ShowsCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         preheatController = Controller(view: collectionView)
         super.init()
         
+        ["SickbeardShowCell"].forEach {
+            let nib = UINib(nibName: $0, bundle: Bundle.main)
+            collectionView.register(nib, forCellWithReuseIdentifier: $0)
+        }
+        
         preheatController.handler = { [weak self] in
             self?.preheatWindowChanged(addedIndexPaths: $0, removedIndexPaths: $1)
         }
     }
+    
+    // MARK: - Nuke
     
     func preheatWindowChanged(addedIndexPaths added: [IndexPath], removedIndexPaths removed: [IndexPath]) {
         func requestsForIndexPaths(_ indexPaths: [IndexPath]) -> [Request] {
@@ -42,6 +46,8 @@ class ShowsCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         preheater.startPreheating(with: requestsForIndexPaths(added))
         preheater.stopPreheating(with: requestsForIndexPaths(removed))
     }
+    
+    // MARK: - CollectionView datasource
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -63,14 +69,35 @@ class ShowsCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         return cell
     }
     
-}
-
-extension SickbeardShow {
+    // MARK: - CollectionView delegate
     
-    var posterThumbnailRequest: Request {
-        get {
-            let filePath = UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbId)_thumb.png"
-            return Request(url: URL(fileURLWithPath: filePath))
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let showsPerLine = 3
+        // Calculate the width
+        var cellWidth = (UIScreen.main.bounds.width - 20) / CGFloat(showsPerLine)
+        
+        let modulus = (indexPath as NSIndexPath).row % showsPerLine
+        if modulus == 0 {
+            // Floor the outer left column
+            cellWidth = floor(cellWidth)
         }
+        else if modulus == showsPerLine - 1 {
+            // Ceil the outer right column
+            cellWidth = ceil(cellWidth)
+        }
+        
+        // Calculate the height, aspect ration 66:100
+        let cellHeight = (cellWidth / 66 * 100)
+        
+        return CGSize(width: cellWidth, height: cellHeight)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return collectionView.parentViewController?.searchBar?.bounds.size ?? CGSize.zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.viewModel(self, didSelectShow: shows[indexPath.item])
+    }
+    
 }

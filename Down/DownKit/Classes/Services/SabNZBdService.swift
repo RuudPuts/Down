@@ -8,6 +8,7 @@
 //
 
 import Alamofire
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -415,6 +416,10 @@ open class SabNZBdService: Service {
     // MARK - Listeners
     
     fileprivate func notifyListeners(_ notifyType: SabNZBDNotifyType) {
+        notifyListeners(notifyType, withItem: nil)
+    }
+    
+    fileprivate func notifyListeners(_ notifyType: SabNZBDNotifyType, withItem sabItem: SABItem?) {
         for listener in self.listeners {
             if listener is SabNZBdListener {
                 let sabNZBdListener = listener as! SabNZBdListener
@@ -428,22 +433,9 @@ open class SabNZBdService: Service {
                 case .fullHistoryFetched:
                     sabNZBdListener.sabNZBDFullHistoryFetched()
                     break
-                default:
-                    break
-                }
-            }
-        }
-    }
-    
-    fileprivate func notifyListeners(_ notifyType: SabNZBDNotifyType, withItem sabItem: SABItem) {
-        for listener in self.listeners {
-            if listener is SabNZBdListener {
-                let sabNZBdListener = listener as! SabNZBdListener
-                switch notifyType {
+                    
                 case .willRemoveSabItem:
-                    sabNZBdListener.willRemoveSABItem(sabItem)
-                    break
-                default:
+                    sabNZBdListener.willRemoveSABItem(sabItem!)
                     break
                 }
             }

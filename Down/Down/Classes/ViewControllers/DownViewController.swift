@@ -58,7 +58,7 @@ class DownViewController: UIViewController {
 extension DownViewController: UISearchBarDelegate {
     
     func addSearchBar() {
-        guard let targetView = scrollView else {
+        guard scrollView != nil else {
             return
         }
         
@@ -72,7 +72,8 @@ extension DownViewController: UISearchBarDelegate {
         searchBar.sizeToFit()
         self.searchBar = searchBar
         
-        targetView.addSubview(searchBar)
+        collectionView?.addSubview(searchBar)
+        tableView?.tableHeaderView = searchBar
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -92,4 +93,14 @@ extension DownViewController: UISearchBarDelegate {
         tableView?.reloadData()
         adjustScrollView(true)
     }
+}
+
+extension UISearchBar {
+    
+    var textfield: UITextField? {
+        get {
+            return value(forKey: "searchField") as? UITextField
+        }
+    }
+    
 }

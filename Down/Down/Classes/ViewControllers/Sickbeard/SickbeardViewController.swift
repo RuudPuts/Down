@@ -252,6 +252,10 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         reloadTableView()
     }
     
+    public func sickbeardShowAdded(_ show: SickbeardShow) {
+        reloadTableView()
+    }
+    
 }
 
 extension SickbeardViewController: DownTabBarItem {

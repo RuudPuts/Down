@@ -349,6 +349,10 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     func sickbeardShowCacheUpdated() {
         tableView!.reloadData()
     }
+    
+    public func sickbeardShowAdded(_: SickbeardShow) {
+        tableView!.reloadData()
+    }
 
 }
 

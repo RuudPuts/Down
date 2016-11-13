@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DownKit
 
 extension UIImage {
     
