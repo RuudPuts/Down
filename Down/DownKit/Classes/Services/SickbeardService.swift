@@ -137,7 +137,14 @@ open class SickbeardService: Service {
         fetchShows { tvdbIds in
             if self.shows.count == 0 || force {
                 NSLog("SickbeardService - Refreshing full cache")
-                self.refreshShows(tvdbIds, completionHandler: {
+                let shows: [SickbeardShow] = tvdbIds.map {
+                    let show = SickbeardShow()
+                    show.tvdbId = $0
+                    
+                    return show
+                }
+                
+                self.refreshShows(shows, completionHandler: {
                     Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
                     self.notifyListeners(.showCacheUpdated)
                 })
@@ -160,22 +167,27 @@ open class SickbeardService: Service {
                 let newShowIds = tvdbIds.filter { !knownShowIds.contains($0) }
                 NSLog("SickbeadService - New shows: \(newShowIds)")
                 
-                var showsIdsToRefresh = [Int]()
-                showsIdsToRefresh += newShowIds
+                var showsIdsToRefresh = [SickbeardShow]()
+                showsIdsToRefresh += newShowIds.map {
+                    let show = SickbeardShow()
+                    show.tvdbId = $0
+                    
+                    return show
+                }
                 
                 // Find shows to refresh, episodes aired since last update
                 let showsToRefresh = DownDatabase.shared.fetchShowsWithEpisodesAiredSince(lastCacheRefresh)
                 for show in showsToRefresh {
                     NSLog("SickbeardService - Refreshing \(show.name)")
-                    showsIdsToRefresh.append(show.tvdbId)
+                    showsIdsToRefresh.append(show)
                 }
                 
                 NSLog("SickbeardService - Refreshing \(showsIdsToRefresh.count) shows")
                 
-                self.refreshShows(showsIdsToRefresh, completionHandler: {
+                self.refreshShows(showsIdsToRefresh) {
                     Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
                     self.notifyListeners(.showCacheUpdated)
-                })
+                }
             }
         }
     }
@@ -193,32 +205,35 @@ open class SickbeardService: Service {
         }
     }
 
-    public func refreshShow(_ show: SickbeardShow, completionHandler: @escaping () -> Void) {
-        refreshShows([show.tvdbId]) {
-            completionHandler()
-            
-            self.notifyListeners(.showCacheUpdated)
+    public func refreshShow(_ show: SickbeardShow, _ completionHandler: @escaping (SickbeardShow?) -> Void) {
+        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show&tvdbid=\(show.tvdbId)"
+        Alamofire.request(url).responseJSON { handler in
+            if handler.validateResponse() {
+                var refreshedShow: SickbeardShow?
+                
+                let json = JSON(handler.result.value!)
+                if json["result"].string != "failure" {
+                    refreshedShow = self.parseShowData(JSON(handler.result.value!)["data"], forTvdbId: show.tvdbId)
+                }
+                
+                completionHandler(refreshedShow)
+            }
+            else {
+                print("Error while fetching Sickbeard showData: \(handler.result.error!)")
+            }
         }
     }
     
-    fileprivate func refreshShows(_ tvdbIds: [Int], completionHandler: @escaping () -> Void) {
+    fileprivate func refreshShows(_ shows: [SickbeardShow], completionHandler: @escaping () -> Void) {
         let showMetaDataGroup = DispatchGroup();
         var refreshedShows = [SickbeardShow]()
         
-        tvdbIds.forEach { tvdbId in
+        shows.forEach {
             showMetaDataGroup.enter()
             
-            let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show&tvdbid=\(tvdbId)"
-            Alamofire.request(url).responseJSON { handler in
-                if handler.validateResponse() {
-                    let json = JSON(handler.result.value!)
-                    if json["result"].string != "failure" {
-                        let show = self.parseShowData(JSON(handler.result.value!)["data"], forTvdbId: tvdbId)
-                        refreshedShows.append(show)
-                    }
-                }
-                else {
-                    print("Error while fetching Sickbeard showData: \(handler.result.error!)")
+            refreshShow($0) {
+                if let refreshedShow = $0 {
+                    refreshedShows.append(refreshedShow)
                 }
                 showMetaDataGroup.leave()
             }
@@ -278,7 +293,7 @@ open class SickbeardService: Service {
     // Don't like having to add this function, but recursive blocks result in a segfault 11
     fileprivate func refreshShowAfterAdd(_ show: SickbeardShow, _ completionHandler: @escaping (SickbeardShow) -> Void) {
         self.refreshShow(show) {
-            guard let addedShow = self.showWithId(show.tvdbId) else {
+            guard let addedShow = $0 else {
                 NSLog("Show still refreshing, retrying")
                 self.refreshShowAfterAdd(show, completionHandler)
                 return

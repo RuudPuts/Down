@@ -207,11 +207,15 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
             return
         }
         
-        let showName = show.name
         SickbeardService.shared.refreshShow(show) {
-            NSLog("Refreshed \(showName), tvdbid \(self.tvdbId)")
-            self.show = SickbeardService.shared.showWithId(self.tvdbId)
-            self.refreshControl?.endRefreshing()
+            if let show = $0 {
+                NSLog("Refreshed \(show.name), tvdbid \(show.tvdbId)")
+                self.show = $0
+                self.refreshControl?.endRefreshing()
+            }
+            else {
+                _ = self.navigationController?.popViewController(animated: true)
+            }
         }
     }
     
