@@ -112,7 +112,6 @@ class DatabaseV1Adapter: DatabaseAdapter {
         
         write {
             episode.plot = plot
-            NSLog("Stored plot for (\(episode.show!.name) S\(episode.season!.id)E\(episode.id))")
         }
     }
     

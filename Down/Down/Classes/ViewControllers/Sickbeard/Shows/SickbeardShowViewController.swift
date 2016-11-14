@@ -196,7 +196,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
             actionSheet.addAction(action)
         }
         
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionSheet, animated: true, completion: nil)
     }
     

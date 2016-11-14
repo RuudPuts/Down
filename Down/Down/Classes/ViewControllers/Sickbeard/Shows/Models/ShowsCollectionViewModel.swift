@@ -66,6 +66,10 @@ class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayo
         
         Nuke.loadImage(with: show.posterThumbnailRequest, into: cell.posterView)
         
+        if show.poster == nil {
+            
+        }
+        
         return cell
     }
     

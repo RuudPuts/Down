@@ -54,7 +54,7 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
             actionSheet.addAction(action)
         }
         
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionSheet, animated: true, completion: nil)
     }
     
@@ -75,13 +75,8 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
 extension SicbkeardAddShowViewController { // UISearchBarDelegate
     
     override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        NSLog("Searching for '\(searchText)'")
         SickbeardService.shared.searchForShow(query: searchText) { foundShows in
-            NSLog("Found \(foundShows.count) shows")
-            foundShows.forEach {
-                NSLog("  \($0.tvdbId) - \($0.name)")
-            }
-            NSLog("")
+            NSLog("Found \(foundShows.count) shows for '\(searchText)'")
             self.tableViewModel!.shows = foundShows
             
             self.tableView?.reloadData()

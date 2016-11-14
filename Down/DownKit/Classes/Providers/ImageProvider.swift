@@ -10,6 +10,9 @@ import UIKit
 
 open class ImageProvider: DownCache {
     
+    fileprivate static var defaultPoster: Data?
+    fileprivate static var defaultBanner: Data?
+    
     fileprivate static let diskQueue: DispatchQueue = DispatchQueue(label: "com.ruudputs.down.ImageQueue", attributes: [])
     
     fileprivate class func fileExists(_ filepath: String) -> Bool {
@@ -35,7 +38,12 @@ open class ImageProvider: DownCache {
     fileprivate class func storeImage(_ image: Data, atPath filepath: String) {
         ensureFilepath(filepath)
         diskQueue.async(execute: {
-            try? image.write(to: URL(fileURLWithPath: filepath), options: [.atomic])
+            do {
+                try image.write(to: URL(fileURLWithPath: filepath), options: [.atomic])
+            }
+            catch let error as NSError {
+                print("Error while storing image: \(error.localizedDescription)")
+            }
         })
     }
     
@@ -64,12 +72,24 @@ open class ImageProvider: DownCache {
 
 // MARK: Sickbeard extension
 extension ImageProvider {
+    
     internal class func hasBannerForShow(_ tvdbid: Int) -> Bool {
         let bannerPath = bannerPathForShow(tvdbid)
         return fileExists(bannerPath)
     }
     
     internal class func storeBanner(_ banner: Data, forShow tvdbid: Int) {
+        guard tvdbid != 0 else {
+            NSLog("[ImageProvider] Storing default banner")
+            defaultBanner = banner
+            return
+        }
+        
+        guard banner != defaultBanner else {
+            NSLog("[ImageProvider] Trying to store placeholder banner for \(tvdbid)")
+            return
+        }
+        
         let bannerPath = bannerPathForShow(tvdbid)
         storeImage(banner, atPath:bannerPath)
     }
@@ -89,6 +109,17 @@ extension ImageProvider {
     }
     
     internal class func storePoster(_ poster: Data, forShow tvdbid: Int) {
+        guard tvdbid != 0 else {
+            NSLog("[ImageProvider] Storing default poster")
+            defaultPoster = poster
+            return
+        }
+        
+        guard poster != defaultPoster else {
+            NSLog("[ImageProvider] Trying to store placeholder poster for \(tvdbid)")
+            return
+        }
+        
         let posterPath = posterPathForShow(tvdbid)
         storeImage(poster, atPath:posterPath)
         

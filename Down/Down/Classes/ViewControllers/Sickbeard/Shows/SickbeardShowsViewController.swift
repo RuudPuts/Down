@@ -13,6 +13,7 @@ import RealmSwift
 class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDelegate, DownSectionIndexViewDelegate, SickbeardListener {
     
     var collectionViewModel: ShowsCollectionViewModel?
+    var longPressRecognizer: UILongPressGestureRecognizer?
     
     @IBOutlet weak var sectionIndexView: DownSectionIndexView!
     
@@ -35,13 +36,16 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         collectionView.dataSource = collectionViewModel!
         collectionView.delegate = collectionViewModel!
         
-        loadShows()
-        
         sectionIndexView.delegate = self
+        
+        longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler))
+        collectionView.addGestureRecognizer(longPressRecognizer!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        loadShows()
         
         SickbeardService.shared.addListener(self)
         collectionViewModel!.preheatController.enabled = true
@@ -66,6 +70,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     }
     
     func loadShows() {
+        NSLog("[SickbeardShowsViewController] Reloading shows")
         let symbolPrefixes = ["'", "\\", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         
         var sectionTitles = [String]()
@@ -117,6 +122,30 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         if let showIndex = collectionViewModel!.shows.index(of: show) {
             collectionView?.selectItem(at: IndexPath(item: showIndex, section: 0), animated: false, scrollPosition: .centeredVertically)
         }
+    }
+    
+    // MARK: Show delete
+    
+    func longPressHandler() {
+        guard let touch = longPressRecognizer?.location(in: collectionView),
+            let indexPath = collectionView?.indexPathForItem(at: touch) else {
+                return
+        }
+        
+        let show = collectionViewModel!.shows[indexPath.item]
+        showDeleteActionSheet(show)
+    }
+    
+    func showDeleteActionSheet(_ show: SickbeardShow) {
+        let actionSheet = UIAlertController(title: "Do you want to delete '\(show.name)'?", message: nil, preferredStyle: .actionSheet)
+        
+        let deleteAction = UIAlertAction(title: "Yes, delete it!", style: .destructive, handler: { _ in
+            SickbeardService.shared.deleteShow(show) { _ in } // Meh
+        })
+        actionSheet.addAction(deleteAction)
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(actionSheet, animated: true, completion: nil)
     }
     
 }

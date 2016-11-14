@@ -42,6 +42,11 @@ open class SickbeardService: Service {
         NSLog("SickbeardService - Last updated: \(Preferences.sickbeardLastCacheRefresh ?? Date.init(timeIntervalSince1970: 0))")
         NSLog("SickbeardService - Refreshing show cache")
         refreshShowCache()
+        
+        let defaultShow = SickbeardShow()
+        defaultShow.tvdbId = 0
+        downloadPoster(defaultShow, force: true)
+        downloadBanner(defaultShow, force: true)
     }
     
     // MARK: - Public methods
@@ -262,6 +267,25 @@ open class SickbeardService: Service {
         }
     }
     
+    public func deleteShow(_ show: SickbeardShow, _ completionHandler: @escaping (Bool) -> Void) {
+        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.delete&tvdbid=\(show.tvdbId)"
+        Alamofire.request(url).responseJSON { handler in
+            if handler.validateResponse() {
+                let json = JSON(handler.result.value!)
+                let success = json["result"].string != "failure"
+                
+                if success {
+                    DownDatabase.shared.deleteSickbeardShow(show)
+                    self.notifyListeners(.showCacheUpdated)
+                }
+                completionHandler(success)
+            }
+            else {
+                print("Error while deleting Sickbeard show: \(handler.result.error!)")
+            }
+        }
+    }
+    
     // MARK: Adding shows
     
     open func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.SickbeardEpisodeStatus, completionHandler: @escaping (Bool, SickbeardShow?) -> Void) -> Void {
@@ -295,9 +319,13 @@ open class SickbeardService: Service {
         self.refreshShow(show) {
             guard let addedShow = $0 else {
                 NSLog("Show still refreshing, retrying")
+                Thread.sleep(forTimeInterval: 0.5)
                 self.refreshShowAfterAdd(show, completionHandler)
                 return
             }
+            
+            self.downloadBanner(show, force: true)
+            self.downloadPoster(show, force: true)
             
             self.notifyListeners(.showAdded, withItem: addedShow)
             completionHandler(addedShow)
@@ -499,7 +527,15 @@ open class SickbeardService: Service {
     // MARK: - Banners & Posters
     
     fileprivate func downloadBanner(_ show: SickbeardShow) {
-        if show.hasBanner {
+        downloadBanner(show, force: false)
+    }
+    
+    fileprivate func downloadBanner(_ show: SickbeardShow, force: Bool) {
+        if show.tvdbId == 289882 {
+            
+        }
+        
+        if show.hasBanner && !force {
             return
         }
         
@@ -518,7 +554,15 @@ open class SickbeardService: Service {
     }
     
     fileprivate func downloadPoster(_ show: SickbeardShow) {
-        if show.hasPoster {
+        downloadPoster(show, force: false)
+    }
+    
+    fileprivate func downloadPoster(_ show: SickbeardShow, force: Bool) {
+        if show.tvdbId == 289882 {
+            
+        }
+        
+        if show.hasPoster && !force {
             return
         }
         

@@ -39,7 +39,7 @@ extension SickbeardShow {
     var posterThumbnailRequest: Request {
         get {
             let filePath = UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbId)_thumb.png"
-            NSLog("Requesting file \(filePath)")
+            
             return Request(url: URL(fileURLWithPath: filePath))
         }
     }
