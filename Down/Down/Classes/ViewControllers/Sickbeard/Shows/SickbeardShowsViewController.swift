@@ -119,7 +119,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         var indexPath = IndexPath(item: 0, section: 0)
         if (section != SymbolSectionTitle) {
             // Find first show with selected section title as first character
-            let firstShow = collectionViewModel!.shows.filter { $0.nameWithoutPrefix.substring(0..<1) == section }.first
+            let firstShow = collectionViewModel!.shows.filter { $0.nameWithoutPrefix.substring(0..<1).uppercased() == section }.first
             let showIndex = collectionViewModel!.shows.index(of: firstShow!)
             
             indexPath = IndexPath(item: Int(showIndex!), section: 0)

@@ -1,2 +1,3 @@
  - Added shortcut in SabNZBd detail view to mark failed episodes as wanted
  - Added delete button in SabNZBd detail view
+ - Fixed crash in section scroller when show name starts with lower case letter (ie. iZombie)
