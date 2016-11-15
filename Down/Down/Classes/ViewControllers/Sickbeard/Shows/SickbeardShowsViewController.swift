@@ -45,7 +45,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadShows()
+        reloadShows()
         
         SickbeardService.shared.addListener(self)
         collectionViewModel!.preheatController.enabled = true
@@ -69,7 +69,16 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         }
     }
     
-    func loadShows() {
+    func reloadShows() {
+        if let searchText = searchBar?.text?.trimmed, searchText.length > 0 {
+            filterShows(searchText)
+        }
+        else {
+            loadAllShows()
+        }
+    }
+    
+    func loadAllShows() {
         NSLog("[SickbeardShowsViewController] Reloading shows")
         let symbolPrefixes = ["'", "\\", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         
@@ -88,6 +97,14 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         
         collectionViewModel!.shows = Array(allShows).sorted(by: { $0.nameWithoutPrefix.uppercased() < $1.nameWithoutPrefix.uppercased() })
         sectionIndexView.datasource = sectionTitles
+    }
+    
+    func filterShows(_ searchText: String) {
+        var foundShows = DownDatabase.shared.fetchAllSickbeardShows()
+        if searchText.length > 0 {
+            foundShows = foundShows.filter("_simpleName contains[c] %@", searchText)
+        }
+        collectionViewModel!.shows = Array(foundShows)
     }
     
     // MARK: ShowsViewModelDelegate
@@ -114,7 +131,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     // MARK: SickbeardListener
     
     func sickbeardShowCacheUpdated() {
-        loadShows()
+        reloadShows()
         collectionView?.reloadData()
     }
     
@@ -153,19 +170,13 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
 extension SickbeardShowsViewController { // UISearchBarDelegate
     
     override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let trimmedText = searchText.trimmed
-        
-        var foundShows = DownDatabase.shared.fetchAllSickbeardShows()
-        if trimmedText.length > 0 {
-            foundShows = foundShows.filter("_simpleName contains[c] %@", trimmedText)
-        }
-        collectionViewModel!.shows = Array(foundShows)
+        filterShows(searchText.trimmed)
         
         super.searchBar(searchBar, textDidChange: searchText)
     }
     
     override func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        loadShows()
+        loadAllShows()
         
         super.searchBarCancelButtonClicked(searchBar)
     }

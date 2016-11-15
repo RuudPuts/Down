@@ -76,7 +76,6 @@ extension SicbkeardAddShowViewController { // UISearchBarDelegate
     
     override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         SickbeardService.shared.searchForShow(query: searchText) { foundShows in
-            NSLog("Found \(foundShows.count) shows for '\(searchText)'")
             self.tableViewModel!.shows = foundShows
             
             self.tableView?.reloadData()
