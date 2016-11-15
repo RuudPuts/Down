@@ -38,8 +38,10 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         
         sectionIndexView.delegate = self
         
-        longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler))
-        collectionView.addGestureRecognizer(longPressRecognizer!)
+        if (!registerFor3DTouch()) {
+            longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler))
+            collectionView.addGestureRecognizer(longPressRecognizer!)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -179,6 +181,49 @@ extension SickbeardShowsViewController { // UISearchBarDelegate
         loadAllShows()
         
         super.searchBarCancelButtonClicked(searchBar)
+    }
+    
+}
+
+extension SickbeardShowsViewController: UIViewControllerPreviewingDelegate { // 3D Touch
+    
+    func registerFor3DTouch() -> Bool {
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: view)
+            
+            return true
+        }
+        
+        return false
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        show(viewControllerToCommit, sender: self)
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = collectionView?.indexPathForItem(at: location) else {
+            return nil
+        }
+        
+        guard let cell = collectionView?.cellForItem(at: indexPath) else {
+            return nil
+        }
+        
+        guard let show = collectionViewModel?.shows[indexPath.item], !show.isInvalidated else {
+            return nil
+        }
+        
+        guard let showViewController = storyboard?.instantiateViewController(withIdentifier: "SickbeardShowDetail") as? SickbeardShowViewController else {
+            return nil
+        }
+        
+        showViewController.show = show
+        showViewController.preferredContentSize = CGSize(width: 0.0, height: 300)
+        
+        previewingContext.sourceRect = cell.frame
+        
+        return showViewController
     }
     
 }
