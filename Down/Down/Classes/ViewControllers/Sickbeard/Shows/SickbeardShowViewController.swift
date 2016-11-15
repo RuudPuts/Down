@@ -223,7 +223,6 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         tableView?.reloadData()
     }
     
-    public func sickbeardShowAdded(_ show: SickbeardShow) { }
 }
 
 extension SickbeardEpisode {

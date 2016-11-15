@@ -18,7 +18,7 @@
         <scene sceneID="IjA-OA-4ig">
             <objects>
                 <navigationController id="PaU-1y-4oi" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="imb-l6-wRG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="imb-l6-wRG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -123,7 +123,7 @@
                     <navigationItem key="navigationItem" title="Shows" id="dBE-X5-iMa">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Aej-sz-iNj">
                             <connections>
-                                <segue destination="PaU-1y-4oi" kind="presentation" id="P1L-ho-OGx"/>
+                                <segue destination="PaU-1y-4oi" kind="presentation" identifier="AddShow" id="P1L-ho-OGx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -426,7 +426,7 @@
         <scene sceneID="b4L-hf-RWO">
             <objects>
                 <navigationController navigationBarHidden="YES" id="Jat-8d-6n2" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="AkS-Rf-IJv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AkS-Rf-IJv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -508,7 +508,7 @@
         <image name="sickbeard-icon" width="161" height="72"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eZO-pi-lVi"/>
         <segue reference="uDI-eE-FoJ"/>
+        <segue reference="nfu-fe-JUV"/>
     </inferredMetricsTieBreakers>
 </document>

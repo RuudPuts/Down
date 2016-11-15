@@ -14,3 +14,15 @@ public protocol SickbeardListener: ServiceListener {
     func sickbeardShowAdded(_ show: SickbeardShow)
     
 }
+
+extension SickbeardListener {
+    
+    public func sickbeardShowCacheUpdated() {
+        
+    }
+    
+    public func sickbeardShowAdded(_ show: SickbeardShow) {
+        
+    }
+    
+}

@@ -67,6 +67,11 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
             let detailViewController = segue.destination as! SickbeardShowViewController
             detailViewController.show = show
         }
+        else if segue.identifier == "AddShow" {
+            let navigationController = segue.destination as! UINavigationController
+            let detailViewController = navigationController.topViewController as! SicbkeardAddShowViewController
+            detailViewController.delegate = self
+        }
     }
     
     func reloadShows() {
@@ -119,7 +124,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         var indexPath = IndexPath(item: 0, section: 0)
         if (section != SymbolSectionTitle) {
             // Find first show with selected section title as first character
-            let firstShow = collectionViewModel!.shows.filter { $0.nameWithoutPrefix.substring(0..<1).uppercased() == section }.first
+            let firstShow = collectionViewModel!.shows.filter { $0.sectionTitle == section }.first
             let showIndex = collectionViewModel!.shows.index(of: firstShow!)
             
             indexPath = IndexPath(item: Int(showIndex!), section: 0)
@@ -133,12 +138,6 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     func sickbeardShowCacheUpdated() {
         reloadShows()
         collectionView?.reloadData()
-    }
-    
-    public func sickbeardShowAdded(_ show: SickbeardShow) {
-        if let showIndex = collectionViewModel!.shows.index(of: show) {
-            collectionView?.selectItem(at: IndexPath(item: showIndex, section: 0), animated: false, scrollPosition: .centeredVertically)
-        }
     }
     
     // MARK: Show delete
@@ -183,6 +182,30 @@ extension SickbeardShowsViewController { // UISearchBarDelegate
     
 }
 
+extension SickbeardShowsViewController: SicbkeardAddShowViewControllerDelegate {
+    
+    func indexPathForShow(_ show: SickbeardShow) -> IndexPath? {
+        if let showIndex = collectionViewModel!.shows.index(of: show) {
+            return IndexPath(item: showIndex, section: 0)
+        }
+        
+        return nil
+    }
+    
+    func addShowViewController(viewController: SicbkeardAddShowViewController, didAddShow show: SickbeardShow) {
+        sickbeardShowCacheUpdated()
+        
+        guard let showIndexPath = indexPathForShow(show) else {
+            return
+        }
+        
+        collectionView?.scrollToItem(at: showIndexPath, at: .centeredVertically, animated: false)
+        viewController.dismiss(animated: true) { 
+            self.collectionView?.selectItem(at: showIndexPath, animated: true, scrollPosition: .centeredVertically)
+        }
+    }
+}
+
 extension SickbeardShow {
     
     var nameWithoutPrefix: String {
@@ -196,6 +219,10 @@ extension SickbeardShow {
         }
         
         return showName
+    }
+    
+    var sectionTitle: String {
+        return nameWithoutPrefix.substring(0..<1).uppercased()
     }
     
 }

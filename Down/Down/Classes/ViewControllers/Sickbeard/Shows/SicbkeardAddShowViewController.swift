@@ -11,6 +11,7 @@ import DownKit
 class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDelegate {
     
     var tableViewModel: ShowsTableViewModel?
+    var delegate: SicbkeardAddShowViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +61,9 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     
     func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.SickbeardEpisodeStatus) {
         SickbeardService.shared.addShow(show, initialState: state) { (success, addedShow) in
-            self.dismiss(animated: true, completion: nil)
+            if addedShow != nil {
+                self.delegate?.addShowViewController(viewController: self, didAddShow: addedShow!)
+            }
         }
     }
     
@@ -70,6 +73,10 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
         showAddShowActionSheet(for: show)
     }
     
+}
+
+protocol SicbkeardAddShowViewControllerDelegate {
+    func addShowViewController(viewController: SicbkeardAddShowViewController, didAddShow show: SickbeardShow);
 }
 
 extension SicbkeardAddShowViewController { // UISearchBarDelegate

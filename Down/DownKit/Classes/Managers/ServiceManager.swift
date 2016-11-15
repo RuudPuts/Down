@@ -49,8 +49,6 @@ open class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
         matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.history)
     }
     
-    public func sickbeardShowAdded(_ show: SickbeardShow) { }
-    
     // MARK: Private methods
     
     fileprivate func matchSabNZBdItemsWithSickbeardHistory(_ sabNZBdItems: [SABItem]) {
