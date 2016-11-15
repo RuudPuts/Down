@@ -64,10 +64,11 @@ class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayo
         cell.setCellType(.Sickbeard)
         cell.show = show
         
-        Nuke.loadImage(with: show.posterThumbnailRequest, into: cell.posterView)
-        
         if show.poster == nil {
-            
+            cell.posterView.image = UIImage(named: "SickbeardDefaultPoster")
+        }
+        else {
+            Nuke.loadImage(with: show.posterThumbnailRequest, into: cell.posterView)
         }
         
         return cell

@@ -76,7 +76,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         var sectionTitles = [String]()
         
         let allShows = DownDatabase.shared.fetchAllSickbeardShows()
-        allShows.forEach() { show in
+        allShows.forEach() { show in           
             var sectionTitle = show.nameWithoutPrefix.substring(0..<1).uppercased()
             if symbolPrefixes.contains(sectionTitle) {
                 sectionTitle = SymbolSectionTitle

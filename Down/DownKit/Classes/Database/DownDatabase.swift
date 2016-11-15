@@ -62,6 +62,10 @@ open class DownDatabase: DownCache {
     
     // MARK: Sickbeard
     
+    open func storeSickbeardShow(_ show: SickbeardShow) {
+        self.adapter.storeSickbeardShows([show])
+    }
+    
     open func storeSickbeardShows(_ shows: [SickbeardShow]) {
         self.adapter.storeSickbeardShows(shows)
     }

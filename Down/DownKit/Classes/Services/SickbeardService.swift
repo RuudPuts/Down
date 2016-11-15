@@ -118,7 +118,7 @@ open class SickbeardService: Service {
     open func showWithId(_ tvdbid: Int) -> SickbeardShow? {
         var showWithId: SickbeardShow? = nil
         for show in shows {
-            if show.tvdbId == tvdbid {
+            if show.tvdbId == tvdbid && !show.isInvalidated {
                 showWithId = show
                 break
             }
@@ -219,6 +219,17 @@ open class SickbeardService: Service {
                 let json = JSON(handler.result.value!)
                 if json["result"].string != "failure" {
                     refreshedShow = self.parseShowData(JSON(handler.result.value!)["data"], forTvdbId: show.tvdbId)
+                    
+                    self.downloadBanner(refreshedShow!)
+                    self.downloadPoster(refreshedShow!)
+                    self.refreshShowSeasons(refreshedShow!, completionHandler: {
+                        DownDatabase.shared.storeSickbeardShow(refreshedShow!)
+                        NSLog("SickbeardService - Refreshed \(refreshedShow!.name)")
+                        
+                        completionHandler(refreshedShow)
+                    })
+                    
+                    return
                 }
                 
                 completionHandler(refreshedShow)
@@ -230,40 +241,18 @@ open class SickbeardService: Service {
     }
     
     fileprivate func refreshShows(_ shows: [SickbeardShow], completionHandler: @escaping () -> Void) {
-        let showMetaDataGroup = DispatchGroup();
-        var refreshedShows = [SickbeardShow]()
+        let showRefreshGroup = DispatchGroup();
         
         shows.forEach {
-            showMetaDataGroup.enter()
+            showRefreshGroup.enter()
             
-            refreshShow($0) {
-                if let refreshedShow = $0 {
-                    refreshedShows.append(refreshedShow)
-                }
-                showMetaDataGroup.leave()
+            refreshShow($0) { _ in
+                showRefreshGroup.leave()
             }
         }
         
-        showMetaDataGroup.notify(queue: DispatchQueue.main) {
-            let showSeasonsGroup = DispatchGroup();
-            
-            NSLog("SickbeardService - Fetched data for shows to refresh")
-            
-            refreshedShows.forEach { show in
-                self.downloadBanner(show)
-                self.downloadPoster(show)
-                showSeasonsGroup.enter()
-                self.refreshShowSeasons(show, completionHandler: {
-                    NSLog("SickbeardService - Refreshed \(show.name)")
-                    showSeasonsGroup.leave()
-                })
-            }
-            
-            showSeasonsGroup.notify(queue: DispatchQueue.main) {
-                DownDatabase.shared.storeSickbeardShows(refreshedShows)
-                
-                completionHandler()
-            }
+        showRefreshGroup.notify(queue: DispatchQueue.main) {
+            completionHandler()
         }
     }
     
@@ -333,7 +322,11 @@ open class SickbeardService: Service {
     }
     
     open func searchForShow(query: String, completionHandler: @escaping ([SickbeardShow]) -> Void) {
-        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=sb.searchtvdb&lang=en&name=" + query
+        guard let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            return
+        }
+        
+        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=sb.searchtvdb&lang=en&name=" + escapedQuery
         Alamofire.request(url).responseJSON { handler in
             if handler.validateResponse() {
                 let searchData = JSON(handler.result.value!)["data"]["results"]

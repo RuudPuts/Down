@@ -36,10 +36,10 @@ class DatabaseV1Adapter: DatabaseAdapter {
         shows.forEach {
             deleteSickbeardShow($0)
         }
-        
+                
         write {
             shows.forEach {
-                self.defaultRealm.add($0, update: false)
+                self.defaultRealm.add($0, update: true)
             }
         }
     }
@@ -54,6 +54,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
             self.defaultRealm.delete(showToDelete.seasons)
             self.defaultRealm.delete(showToDelete)
         }
+        self.defaultRealm.refresh()
     }
     
     func allSickbeardShows() -> Results<SickbeardShow> {
