@@ -35,6 +35,7 @@ platform :ios do
   private_lane :upload_beta do
     crashlytics(notes_path: 'fastlane/release_notes.txt', api_token: 'fd7501efa3a9abb16103f351213d7b72ff764052', 
         build_secret: 'f2769c1a542364cb5281af857c1220006aa4a2d2d658d426988f0d0ba596dfa8')#, groups: 'DownBeta')
+    upload_symbols_to_crashlytics(dsym_path: output_folder + "/Down.app.dSYM.zip")
     sh "open https://fabric.io/_/beta"
   end
 
