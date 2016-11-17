@@ -92,7 +92,7 @@ class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayo
         }
         
         // Calculate the height, aspect ration 66:100
-        let cellHeight = (cellWidth / 66 * 100)
+        let cellHeight = (cellWidth / 66 * 100) + 20
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
