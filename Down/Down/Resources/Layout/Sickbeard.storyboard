@@ -18,7 +18,7 @@
         <scene sceneID="IjA-OA-4ig">
             <objects>
                 <navigationController id="PaU-1y-4oi" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="imb-l6-wRG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="imb-l6-wRG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -53,11 +53,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wvD-ya-8Bd" customClass="DownSectionIndexView" customModule="Down" customModuleProvider="target">
                                 <subviews>
                                     <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="egw-ga-6f6">
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="15" id="FZH-K2-Hnv"/>
-                                            <constraint firstAttribute="height" constant="100" id="Gkj-n7-G3i"/>
-                                        </constraints>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="55s-xK-A66">
                                             <size key="itemSize" width="15" height="15"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -73,13 +69,14 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBP-Jb-rfh">
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
+                                                            <color key="backgroundColor" red="1" green="0.075079381993501171" blue="0.13334190901913912" alpha="0.0" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="10"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </view>
-                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="SBP-Jb-rfh" firstAttribute="top" secondItem="PJW-Gq-XPK" secondAttribute="top" id="6YH-Fo-84R"/>
                                                     <constraint firstAttribute="bottom" secondItem="SBP-Jb-rfh" secondAttribute="bottom" id="7nw-Lc-gc3"/>
@@ -97,12 +94,13 @@
                                         </connections>
                                     </collectionView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="egw-ga-6f6" firstAttribute="leading" secondItem="wvD-ya-8Bd" secondAttribute="leading" id="6Pt-m4-sOM"/>
+                                    <constraint firstAttribute="trailing" secondItem="egw-ga-6f6" secondAttribute="trailing" id="6ZZ-Dl-Q4h"/>
+                                    <constraint firstAttribute="bottom" secondItem="egw-ga-6f6" secondAttribute="bottom" id="7yH-vs-slf"/>
                                     <constraint firstAttribute="width" constant="15" id="IZ3-Ho-frH"/>
-                                    <constraint firstAttribute="trailing" secondItem="egw-ga-6f6" secondAttribute="trailing" id="WuA-jI-QbN"/>
-                                    <constraint firstItem="egw-ga-6f6" firstAttribute="centerY" secondItem="wvD-ya-8Bd" secondAttribute="centerY" id="hpS-Ch-eCK"/>
+                                    <constraint firstItem="egw-ga-6f6" firstAttribute="top" secondItem="wvD-ya-8Bd" secondAttribute="top" id="dDF-eN-ZJk"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="indexView" destination="egw-ga-6f6" id="7zc-Re-sRO"/>
@@ -426,7 +424,7 @@
         <scene sceneID="b4L-hf-RWO">
             <objects>
                 <navigationController navigationBarHidden="YES" id="Jat-8d-6n2" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AkS-Rf-IJv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="AkS-Rf-IJv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

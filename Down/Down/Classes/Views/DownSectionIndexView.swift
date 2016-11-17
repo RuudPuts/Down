@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DownSectionIndexView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
+class DownSectionIndexView: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var indexView: UICollectionView!
     weak var tableView: UITableView?
@@ -65,6 +65,14 @@ class DownSectionIndexView: UIView, UICollectionViewDataSource, UICollectionView
         if let indexPath = indexView.indexPathForItem(at: touch) {
             collectionView(indexView, didSelectItemAt: indexPath)
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let viewWidth = collectionView.bounds.width
+        let viewHeight = collectionView.bounds.height
+        let cellsHeight = CGFloat(datasource.count) * collectionView.bounds.width
+        
+        return CGSize(width: viewWidth, height: viewHeight / 2 - cellsHeight / 2)
     }
     
 }
