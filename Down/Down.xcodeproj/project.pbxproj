@@ -106,6 +106,8 @@
 		42AE88D31B9F7D0A00E4F0CF /* SickbeardSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */; };
 		42B818691D295C1C003672C3 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B818681D295C1C003672C3 /* String+Extensions.swift */; };
 		42B8186B1D2969B3003672C3 /* DownRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8186A1D2969B3003672C3 /* DownRootViewController.swift */; };
+		42BE52C61DDE47410083CBBB /* DownRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BE52C51DDE47410083CBBB /* DownRequest.swift */; };
+		42BE52C81DDE4D090083CBBB /* SickbeardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BE52C71DDE4D090083CBBB /* SickbeardRequest.swift */; };
 		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
 		42C12E4A1D678C0B00D2A21C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C12E491D678C0B00D2A21C /* Main.storyboard */; };
 		42C2D6FF1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C2D6FE1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift */; };
@@ -490,6 +492,8 @@
 		42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardSeason.swift; sourceTree = "<group>"; };
 		42B818681D295C1C003672C3 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		42B8186A1D2969B3003672C3 /* DownRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownRootViewController.swift; sourceTree = "<group>"; };
+		42BE52C51DDE47410083CBBB /* DownRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownRequest.swift; sourceTree = "<group>"; };
+		42BE52C71DDE4D090083CBBB /* SickbeardRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardRequest.swift; sourceTree = "<group>"; };
 		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		42C12E491D678C0B00D2A21C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		42C2D6FE1D68EA63008E195E /* SickbeardRecentlyAiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardRecentlyAiredViewController.swift; sourceTree = "<group>"; };
@@ -743,6 +747,7 @@
 				4221ADBB1B7BC0B20027C3A0 /* Managers */,
 				4221ADBE1B7BC0B20027C3A0 /* Models */,
 				4269A91E1B850090005A06E3 /* Providers */,
+				42BE52B41DDE47360083CBBB /* Requests */,
 				4221ADC71B7BC0B20027C3A0 /* Services */,
 				42DEEB4D1BACCC6A0061723F /* Others */,
 			);
@@ -1123,6 +1128,15 @@
 				42A496EC1BAF332800F5395C /* SickbeardTodayCell.xib */,
 			);
 			path = Sickbeard;
+			sourceTree = "<group>";
+		};
+		42BE52B41DDE47360083CBBB /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				42BE52C51DDE47410083CBBB /* DownRequest.swift */,
+				42BE52C71DDE4D090083CBBB /* SickbeardRequest.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 		42C2D7471D6A31AA008E195E /* Products */ = {
@@ -1748,6 +1762,7 @@
 				4221ADD71B7BC0B20027C3A0 /* String+Extensions.swift in Sources */,
 				4216CF961D1B221700A89C4C /* Date+Extensions.swift in Sources */,
 				4299479B1C261A5600934B03 /* DateFormatter+Extensions.swift in Sources */,
+				42BE52C81DDE4D090083CBBB /* SickbeardRequest.swift in Sources */,
 				426E38571D64FBB9009FC287 /* NSURL+Extensions.swift in Sources */,
 				426F5FF11D2AE4880074C06B /* UIImage+Extensions.swift in Sources */,
 				42ADB24D1C31F86C00BDF078 /* SickbeardConnector.swift in Sources */,
@@ -1763,6 +1778,7 @@
 				4221ADDA1B7BC0B20027C3A0 /* ServiceListener.swift in Sources */,
 				4221ADDF1B7BC0B20027C3A0 /* SABItem.swift in Sources */,
 				42746BB91BB3358A00CD78BE /* DatabaseV1Adapter.swift in Sources */,
+				42BE52C61DDE47410083CBBB /* DownRequest.swift in Sources */,
 				4221ADE41B7BC0B20027C3A0 /* CouchPotatoService.swift in Sources */,
 				4221ADDD1B7BC0B20027C3A0 /* ServiceManager.swift in Sources */,
 				42AE88CE1B9F7CF200E4F0CF /* SickbeardEpisode.swift in Sources */,

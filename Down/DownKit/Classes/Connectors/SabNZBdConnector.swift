@@ -16,8 +16,8 @@ open class SabNZBdConnector: Connector {
     
     public init() {
         let sessionConfiguration = URLSessionConfiguration.default
-        sessionConfiguration.timeoutIntervalForRequest = 2
-        sessionConfiguration.timeoutIntervalForResource = 2
+        sessionConfiguration.timeoutIntervalForRequest = 3
+        sessionConfiguration.timeoutIntervalForResource = 3
         
         requestManager = SessionManager(configuration: sessionConfiguration)
     }
