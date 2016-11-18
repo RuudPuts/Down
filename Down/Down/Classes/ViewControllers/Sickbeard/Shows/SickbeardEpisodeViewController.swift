@@ -155,6 +155,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
             
             cell = plotCell
         }
+        cell.setCellType(.Sickbeard)
         return cell
     }
     

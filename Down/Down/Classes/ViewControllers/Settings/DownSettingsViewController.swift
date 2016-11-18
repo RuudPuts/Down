@@ -32,7 +32,6 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
     @IBOutlet weak var progressLabel: UILabel!
     
-    var application: DownApplication!
     var delegate: DownSettingsViewControllerDelegate?
     
     var connector: Connector?
