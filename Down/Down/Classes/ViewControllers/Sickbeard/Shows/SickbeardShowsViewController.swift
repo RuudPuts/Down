@@ -91,14 +91,13 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     }
     
     func loadAllShows() {
-        NSLog("[SickbeardShowsViewController] Reloading shows")
         let symbolPrefixes = ["'", "\\", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         
         var sectionTitles = [String]()
         
         let allShows = DownDatabase.shared.fetchAllSickbeardShows()
         allShows.forEach() { show in           
-            var sectionTitle = show.nameWithoutPrefix.substring(0..<1).uppercased()
+            var sectionTitle = show.nameWithoutPrefix.substring(0 ..< 1).uppercased()
             if symbolPrefixes.contains(sectionTitle) {
                 sectionTitle = SymbolSectionTitle
             }
@@ -228,7 +227,7 @@ extension SickbeardShow {
     }
     
     var sectionTitle: String {
-        return nameWithoutPrefix.substring(0..<1).uppercased()
+        return nameWithoutPrefix.substring(0 ..< 1).uppercased()
     }
     
 }

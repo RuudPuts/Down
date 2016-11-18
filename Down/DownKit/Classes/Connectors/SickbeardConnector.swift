@@ -89,7 +89,7 @@ open class SickbeardConnector: Connector {
             let apikeyIndexEnd = configHtml.index(apikeyInputRange.upperBound, offsetBy: substringLength)
             
             if configHtml.endIndex > apikeyIndexEnd {
-                let apiKeyRange = apikeyInputRange.upperBound..<apikeyIndexEnd
+                let apiKeyRange = apikeyInputRange.upperBound ..< apikeyIndexEnd
                 let usefullPart = configHtml.substring(with: apiKeyRange)
                 
                 return usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first
