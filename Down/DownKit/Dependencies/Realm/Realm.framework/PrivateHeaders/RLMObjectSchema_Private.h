@@ -28,10 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
     bool _isSwiftClass;
 }
 
-/// The object type name reported to the object store and core.
-@property (nonatomic, readonly) NSString *objectName;
-
-// writable redeclaration
+// writable redecleration
 @property (nonatomic, readwrite, copy) NSArray<RLMProperty *> *properties;
 @property (nonatomic, readwrite, assign) bool isSwiftClass;
 
