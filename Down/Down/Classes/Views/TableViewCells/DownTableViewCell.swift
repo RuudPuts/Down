@@ -57,7 +57,7 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
             containerView?.backgroundColor = highlighted ? highlightedBackgroundColor.withAlphaComponent(0.15) : .downLightGrayColor()
         }
         else {
-            containerView?.backgroundColor = .downLightGrayColor()
+            containerView?.backgroundColor = .downDarkGrayColor()
         }
     }
     

@@ -89,7 +89,7 @@ open class SickbeardService: Service {
         let episodes = DownDatabase.shared.episodesAiringOnDate(Date());
 
         for episode in episodes {
-            fetchEpisodeData(episode)
+            fetchEpisodePlot(episode)
         }
 
         return episodes
@@ -99,7 +99,7 @@ open class SickbeardService: Service {
         let episodes = DownDatabase.shared.episodesAiringAfter(Date.tomorrow(), max: 5);
         
         for episode in episodes {
-            fetchEpisodeData(episode)
+            fetchEpisodePlot(episode)
         }
         
         return episodes
@@ -109,7 +109,7 @@ open class SickbeardService: Service {
         let episodes = DownDatabase.shared.lastAiredEpisodes(maxDays: 4);
         
         for episode in episodes {
-            fetchEpisodeData(episode)
+            fetchEpisodePlot(episode)
         }
         
         return episodes
@@ -127,10 +127,10 @@ open class SickbeardService: Service {
         return showWithId
     }
     
-    open func refreshEpisodesForShow(_ show: SickbeardShow) {
+    open func refreshEpisodes(for show: SickbeardShow) {
         for season in show.seasons {
             for episode in season.episodes {
-                fetchEpisodeData(episode)
+                fetchEpisodePlot(episode)
             }
         }
     }
@@ -423,7 +423,7 @@ open class SickbeardService: Service {
     // MARK: - Episodes
     
     @discardableResult
-    fileprivate func fetchEpisodeData(_ episode: SickbeardEpisode) -> Bool {
+    public func fetchEpisodePlot(_ episode: SickbeardEpisode) -> Bool {
         guard episode.plot.length == 0 else {
             return false
         }
@@ -436,6 +436,7 @@ open class SickbeardService: Service {
                     DispatchQueue.main.async {
                         let plot = JSON(handler.result.value!)["data"]["description"].string ?? ""
                         DownDatabase.shared.setPlot(plot, forEpisode: episode)
+                        self.notifyListeners(.showCacheUpdated)
                     }
                 }
                 else {

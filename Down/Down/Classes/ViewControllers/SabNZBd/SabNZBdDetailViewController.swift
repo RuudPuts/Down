@@ -9,7 +9,7 @@
 import Foundation
 import DownKit
 
-class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener {
+class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener, SickbeardListener {
     
     fileprivate enum SabNZBdDetailRow {
         case name
@@ -63,6 +63,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         guard let episode = sabItem?.sickbeardEpisode else {
             return
         }
+        SickbeardService.shared.fetchEpisodePlot(episode)
         
         if let showBanner = episode.show?.banner {
             setTableViewHeaderImage(showBanner)
@@ -73,12 +74,14 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         super.viewWillAppear(animated)
         
         SabNZBdService.shared.addListener(self)
+        SickbeardService.shared.addListener(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         SabNZBdService.shared.removeListener(self)
+        SickbeardService.shared.removeListener(self)
     }
     
     override func headerImageTapped() {
@@ -129,7 +132,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             }
             
             if episode.plot.length > 0 {
-                lastSection! = [SabNZBdDetailDataSource]()
+                lastSection = [SabNZBdDetailDataSource]()
                 lastSection!.append(SabNZBdDetailDataSource(rowType: .sickbeardPlot, title: ""))
                 tableData.append(lastSection!)
             }
@@ -379,6 +382,13 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
                 _ = self.navigationController?.popViewController(animated: true)
             }
         }
+    }
+    
+    // MARK: SickbeardListener
+    
+    func sickbeardShowCacheUpdated() {
+        configureTableView()
+        tableView?.reloadData()
     }
     
 }

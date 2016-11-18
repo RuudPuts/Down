@@ -9,7 +9,7 @@
 import Foundation
 import DownKit
 
-class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate {
+class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
     fileprivate enum EpisodeDetailRowType {
         case name
@@ -49,6 +49,18 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         setTableViewHeaderImage(episode?.show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        SickbeardService.shared.addListener(self)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        SickbeardService.shared.removeListener(self)
+    }
+    
     override func headerImageTapped() {
         performSegue(withIdentifier: "SickbeardShow", sender: nil)
     }
@@ -65,9 +77,11 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     func configureTableView() {
         tableData.removeAll()
         
-        guard episode != nil else {
+        guard let episode = episode else {
             return
         }
+        
+        SickbeardService.shared.fetchEpisodePlot(episode)
         
         // Section 0
         var section0 = [EpisodeDetailDataSource]()
@@ -79,7 +93,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         section0.append(EpisodeDetailDataSource(rowType: .status, title: "Status"))
         tableData.append(section0)
         
-        if episode!.plot.length > 0 {
+        if episode.plot.length > 0 {
             // Section 1
             var section1 = [EpisodeDetailDataSource]()
             section1.append(EpisodeDetailDataSource(rowType: .plot, title: ""))
@@ -164,6 +178,14 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         if cellData.rowType == .show {
             performSegue(withIdentifier: "SickbeardShow", sender: nil)
         }
+    }
+    
+    // MARK: SickbeardListener
+    
+    func sickbeardShowCacheUpdated() {
+        episode?.realm?.refresh()
+        configureTableView()
+        tableView?.reloadData()
     }
     
 }
