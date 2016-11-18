@@ -12,6 +12,8 @@ public class SabNZBdConnector: Connector {
 
     public var host: String?
     public var apiKey: String?
+    
+    public init() { }
 
     public func validateHost(_ url: URL, completion:  @escaping(_ hostValid: Bool, _ apiKey: String?) -> (Void)) {
         guard url.absoluteString.length > 0 else {
@@ -29,7 +31,7 @@ public class SabNZBdConnector: Connector {
                 completion(true, $0)
             }
         }, error: { error in
-            print("[SabNZBdConnector] Error while fetching host: \(error.localizedDescription)")
+            NSLog("[SabNZBdConnector] Error while fetching host: \(error.localizedDescription)")
             
             self.host = nil
             self.apiKey = nil
@@ -39,7 +41,7 @@ public class SabNZBdConnector: Connector {
     
     public func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> (Void)) {
         guard let sabNZBdHost = host else {
-            print("[SabNZBdConnector] Please set host before fetching the api key")
+            NSLog("[SabNZBdConnector] Please set host before fetching the api key")
             completion(nil)
             return
         }
@@ -47,12 +49,11 @@ public class SabNZBdConnector: Connector {
         let loginUrl = sabNZBdHost + "/sabnzbd/login/"
         let configUrl = sabNZBdHost + "/config/general/"
         let credentials = ["username": username, "password": password]
-        
-        SabNZBdRequest.postString(loginUrl, parameters: credentials, succes: { loginResponse, headers in
+        SabNZBdRequest.requestString(loginUrl, method: .post, parameters: credentials, succes: { loginResponse, headers in
             self.apiKey = nil
             
             guard self.checkLoginSuccesfull(loginResponse) else {
-                print("[SabNZBdConnector] Login failed")
+                NSLog("[SabNZBdConnector] Login failed")
                 completion(nil)
                 return
             }
@@ -61,11 +62,11 @@ public class SabNZBdConnector: Connector {
                 self.apiKey = self.extractApiKey(configResponse)
                 completion(self.apiKey)
             }, error: { error in
-                print("[SabNZBdConnector] Error while fetching API key: \(error.localizedDescription)")
+                NSLog("[SabNZBdConnector] Error while fetching API key: \(error.localizedDescription)")
                 completion(self.apiKey)
             })
         }, error: { error in
-            print("[SabNZBdConnector] Error while logging in: \(error.localizedDescription)")
+            NSLog("[SabNZBdConnector] Error while logging in: \(error.localizedDescription)")
             completion(nil)
         })
     }

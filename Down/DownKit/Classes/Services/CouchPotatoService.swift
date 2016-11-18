@@ -27,7 +27,7 @@ public class CouchPotatoService: Service {
         DownRequest.requestJson(url, succes: { json in
             self.refreshCompleted()
         }, error: { error in
-            print("Error while fetching CouchPotato snachted and available: \(error.localizedDescription)")
+            NSLog("Error while fetching CouchPotato snachted and available: \(error.localizedDescription)")
         })
     }
     

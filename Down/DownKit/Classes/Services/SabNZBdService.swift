@@ -114,24 +114,18 @@ public class SabNZBdService: Service {
     @objc fileprivate func refreshQueue() {
         let url = "\(Preferences.sabNZBdHost)/api?mode=queue&output=json&apikey=\(Preferences.sabNZBdApiKey)"
         
-        Alamofire.request(url).responseJSON { handler in
-            if handler.validateResponse() {
-                let responseJson = JSON(handler.result.value!)
-                if responseJson["error"] == JSON.null {
-                    DispatchQueue.global().async {
-                        self.parseQueueJson(responseJson)
-                        self.refreshCompleted()
-
-                        DispatchQueue.main.async {
-                            self.notifyListeners(.queueUpdated)
-                        }
-                    }
-                }
-                else {
-                    print("Error while fetching SabNZBd queue: \(responseJson["error"].string!)")
+        SabNZBdRequest.requestJson(url, succes: { json, _ in
+            DispatchQueue.global().async {
+                self.parseQueueJson(json)
+                self.refreshCompleted()
+                
+                DispatchQueue.main.async {
+                    self.notifyListeners(.queueUpdated)
                 }
             }
-        }
+        }, error: { error in
+            NSLog("[SabNZBdService] Error while fetching queue: \(error.localizedDescription)")
+        })
     }
     
     fileprivate func parseQueueJson(_ json: JSON!) {
@@ -231,24 +225,18 @@ public class SabNZBdService: Service {
     
     @objc fileprivate func refreshHistory() {
         let url = "\(Preferences.sabNZBdHost)/api?mode=history&output=json&limit=20&apikey=\(Preferences.sabNZBdApiKey)"
-        Alamofire.request(url).responseJSON { handler in
-            if handler.validateResponse(), let responseData = handler.result.value {
-                let responseJson = JSON(responseData)
-                if responseJson["error"] == JSON.null {
-                    DispatchQueue.global().async {
-                        self.parseHistoryJson(responseJson)
-                        self.refreshCompleted()
-
-                        DispatchQueue.main.async {
-                            self.notifyListeners(.historyUpdated)
-                        }
-                    }
-                }
-                else {
-                    print("Error while fetching SabNZBd history: \(responseJson["error"].string!)")
+        SabNZBdRequest.requestJson(url, succes: { json, _ in
+            DispatchQueue.global().async {
+                self.parseHistoryJson(json)
+                self.refreshCompleted()
+                
+                DispatchQueue.main.async {
+                    self.notifyListeners(.historyUpdated)
                 }
             }
-        }
+        }, error: { error in
+            NSLog("[SabNZBdService] Error while refreshing history: \(error.localizedDescription)")
+        })
     }
     
     fileprivate var isFetchingHistory = false
@@ -262,39 +250,35 @@ public class SabNZBdService: Service {
         // Don't fetch if already fetching
         if isFetchingHistory || fullHistoryFetched {
             if fullHistoryFetched {
-                print("Full history fetched")
+                NSLog("Full history fetched")
             }
             else {
-                print("Already busy, skipping history fetch")
+                NSLog("Already busy, skipping history fetch")
             }
             return
         }
 
         let url = "\(Preferences.sabNZBdHost)/api?mode=history&output=json&start=\(history.count)&limit=20&apikey=\(Preferences.sabNZBdApiKey)"
         
-        print("Fetching history \(history.count) - \(history.count + 20)")
-        
-        Alamofire.request(url).responseJSON { handler in
-            if handler.validateResponse() {
-                DispatchQueue.global().async {
-                    print("Parsing history")
-                    self.parseHistoryJson(JSON(handler.result.value!))
-                    self.refreshCompleted()
+        NSLog("Fetching history \(history.count) - \(history.count + 20)")
+        SabNZBdRequest.requestJson(url, succes: { json, _ in
+            DispatchQueue.global().async {
+                self.parseHistoryJson(json)
+                self.refreshCompleted()
+                
+                DispatchQueue.main.async {
+                    self.notifyListeners(.historyUpdated)
                     
-                    DispatchQueue.main.async {
-                        self.notifyListeners(.historyUpdated)
-                        
-                        if self.fullHistoryFetched {
-                            self.notifyListeners(.fullHistoryFetched)
-                        }
+                    if self.fullHistoryFetched {
+                        self.notifyListeners(.fullHistoryFetched)
                     }
+                    self.isFetchingHistory = false
                 }
             }
-            else {
-                print("Error while fetching : \(handler.result.error!)")
-            }
+        }, error: { error in
+            NSLog("[SabNZBdService] Error while fetching history: \(error.localizedDescription)")
             self.isFetchingHistory = false
-        }
+        })
         isFetchingHistory = true
     }
     
@@ -374,19 +358,19 @@ public class SabNZBdService: Service {
         }
         
         let url = "\(Preferences.sabNZBdHost)/api?mode=\(mode)&name=delete&value=\(item.identifier!)&apikey=\(Preferences.sabNZBdApiKey)"
-        Alamofire.request(url).response { response in
-            if response.error == nil {
-                if let historyItem = item as? SABHistoryItem, let historyIndex = self.history.index(of: historyItem) {
-                    self.history.remove(at: historyIndex)
-                }
-                
-                if let queueItem = item as? SABQueueItem, let queueIndex = self.queue.index(of: queueItem) {
-                    self.queue.remove(at: queueIndex)
-                }
-                
-                self.notifyListeners(.willRemoveSabItem, withItem: item)
+        SabNZBdRequest.requestString(url, succes: { response, _ in
+            if let historyItem = item as? SABHistoryItem, let historyIndex = self.history.index(of: historyItem) {
+                self.history.remove(at: historyIndex)
             }
-        }
+            
+            if let queueItem = item as? SABQueueItem, let queueIndex = self.queue.index(of: queueItem) {
+                self.queue.remove(at: queueIndex)
+            }
+            
+            self.notifyListeners(.willRemoveSabItem, withItem: item)
+        }, error: { error in
+            NSLog("[SabNZBdService] Error while deleting item: \(error.localizedDescription)")
+        })
     }
     
     // MARK - IMDB
@@ -398,18 +382,15 @@ public class SabNZBdService: Service {
         }
         else {
             let url = "http://www.omdbapi.com/?i=\(imdbIdentifier)"
-            Alamofire.request(url).responseJSON { handler in
-                if handler.validateResponse() {
-                    DispatchQueue.global().async {
-                        let title = JSON(handler.result.value!)["Title"].string!
-                        self.imdbTitleCache[imdbIdentifier] = title
-                        completion(title)
-                    }
+            SabNZBdRequest.requestJson(url, succes: { json, _ in
+                DispatchQueue.global().async {
+                    let title = json["Title"].string!
+                    self.imdbTitleCache[imdbIdentifier] = title
+                    completion(title)
                 }
-                else {
-                    print("Error while fetching IMDB data: \(handler.result.error!)")
-                }
-            }
+            }, error: { error in
+                NSLog("[SabNZBdService] Error while fetching IMDB data: \(error.localizedDescription)")
+            })
         }
     }
     

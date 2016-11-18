@@ -10,18 +10,7 @@ import Foundation
 
 class SabNZBdRequest: DownRequest {
     
-    override class func requestString(_ url: String, succes: @escaping (String, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
-        super.requestString(url, succes: { response, headers in
-            guard validateResponseHeaders(headers) else {
-                error(downRequestError(message: "Host returned invalid headers"))
-                return
-            }
-            
-            succes(response, headers)
-        }, error: error)
-    }
-    
-    private class func validateResponseHeaders(_ headers: [AnyHashable: Any]) -> Bool {
+    override internal class func validateResponseHeaders(_ headers: [AnyHashable: Any]) -> Bool {
         let serverHeader = headers["Server"] as? String
         let serverHeaderValid = serverHeader?.hasPrefix("CherryPy") ?? false
         
@@ -31,4 +20,9 @@ class SabNZBdRequest: DownRequest {
         return serverHeaderValid || authenticateHeaderValid
     }
     
+    override internal class func validateJson(_ json: JSON) -> (Bool, String?) {
+        let error = json["error"]
+        
+        return (error == JSON.null, error.string)
+    }
 }

@@ -27,10 +27,10 @@ public class ImageProvider: DownCache {
         if !FileManager.default.fileExists(atPath: fileDirectory, isDirectory: &isDirectory) {
             do {
                 try FileManager.default.createDirectory(atPath: fileDirectory, withIntermediateDirectories: true, attributes: nil)
-                print("Created directory: \(fileDirectory)")
+                NSLog("Created directory: \(fileDirectory)")
             }
             catch let error as NSError {
-                print("Exception while creating directory: \(filepath) \nError: \(error.localizedDescription)")
+                NSLog("Exception while creating directory: \(filepath) \nError: \(error.localizedDescription)")
             }
         }
     }
@@ -42,7 +42,7 @@ public class ImageProvider: DownCache {
                 try image.write(to: URL(fileURLWithPath: filepath), options: [.atomic])
             }
             catch let error as NSError {
-                print("Error while storing image: \(error.localizedDescription)")
+                NSLog("Error while storing image: \(error.localizedDescription)")
             }
         })
     }
@@ -64,7 +64,7 @@ public class ImageProvider: DownCache {
             try FileManager.default.removeItem(atPath: sickbeardPosterPath)
         }
         catch let error as NSError {
-            print("Error while clearing ImageProvider: \(error)")
+            NSLog("Error while clearing ImageProvider: \(error)")
         }
     }
     

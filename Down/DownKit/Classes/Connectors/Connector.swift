@@ -17,14 +17,6 @@ public protocol Connector {
     func fetchApiKey(username: String, password: String, completion: @escaping (String?) -> (Void))
 }
 
-public extension Connector {
-    
-    init() {
-        self.init()
-    }
-    
-}
-
 extension DataResponse {
 
     func validateResponse() -> Bool {
