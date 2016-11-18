@@ -8,17 +8,17 @@
 
 import UIKit
 
-open class SABItem: NSObject {
+public class SABItem: NSObject {
     
-    open let identifier: String!
-    open var category: String!
-    open var nzbName: String!
+    public let identifier: String!
+    public var category: String!
+    public var nzbName: String!
     var progressDescription: String?
-    open var sickbeardEpisode: SickbeardEpisode?
+    public var sickbeardEpisode: SickbeardEpisode?
     
     var imdbTitle: String?
     
-    open var status: SabItemStatus {
+    public var status: SabItemStatus {
         get {
             let s = SabItemStatus(rawValue: statusString) ?? .unknown
             if s == .unknown {
@@ -58,7 +58,7 @@ open class SABItem: NSObject {
         self.statusString = statusString;
     }    
     
-    open var imdbIdentifier: String? {
+    public var imdbIdentifier: String? {
         var imdbIdentifier:String? = nil
         
         // Detect IMDB id
@@ -79,7 +79,7 @@ open class SABItem: NSObject {
         return imdbIdentifier
     }
     
-    open var displayName: String! {
+    public var displayName: String! {
         var displayName = nzbName as String
         if let imdbTitle = self.imdbTitle {
             displayName = imdbTitle
@@ -94,7 +94,7 @@ open class SABItem: NSObject {
         return displayName
     }
     
-    open func statusDescription() -> String? {
+    public func statusDescription() -> String? {
         return status == .runningScript ? "Running script" : status.rawValue
     }
    

@@ -8,17 +8,17 @@
 
 import UIKit
 
-open class Service {
+public class Service {
     
-    open var lastRefresh: Date?
+    public var lastRefresh: Date?
     var listeners = [ServiceListener]()
     internal var started = false
     
-    open func addListener(_ listener: ServiceListener) {
+    public func addListener(_ listener: ServiceListener) {
         listeners.append(listener)
     }
     
-    open func removeListener(_ listener: ServiceListener) {
+    public func removeListener(_ listener: ServiceListener) {
         for i in 0...listeners.count {
             if listeners[i].isEqualTo(listener) {
                 listeners.remove(at: i)
@@ -27,11 +27,11 @@ open class Service {
         }
     }
     
-    open func startService() {
+    public func startService() {
         started = true
     }
 
-    open func stopService() {
+    public func stopService() {
         started = false
     }
     

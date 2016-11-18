@@ -8,12 +8,12 @@
 
 import UIKit
 
-open class SABQueueItem: SABItem {
+public class SABQueueItem: SABItem {
     
     var totalMb: Float!
     var remainingMb: Float!
-    open var timeRemaining: TimeInterval!
-    open var progress: Float!
+    public var timeRemaining: TimeInterval!
+    public var progress: Float!
 
     
     init(_ identifier: String, _ category: String, _ nzbName: String, _ statusDescription: String, _ totalMb: Float, _ remainingMb: Float, _ progress: Float, _ timeRemaining: TimeInterval) {
@@ -34,11 +34,11 @@ open class SABQueueItem: SABItem {
         self.timeRemaining = timeRemaining
     }
     
-    open var downloadedMb: Float {
+    public var downloadedMb: Float {
         return max(0.0, self.totalMb - self.remainingMb)
     }
     
-    open var hasProgress: Bool {
+    public var hasProgress: Bool {
         var hasProgress = false
         if self.status == .downloading || (self.status == .queued && self.progress > 0) {
             hasProgress = true
@@ -46,7 +46,7 @@ open class SABQueueItem: SABItem {
         return hasProgress
     }
     
-    open var progressString: String! {
+    public var progressString: String! {
         var progressString: String!
         
         switch status {

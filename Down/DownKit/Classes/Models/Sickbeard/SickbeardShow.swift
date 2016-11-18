@@ -9,12 +9,12 @@
 import Foundation
 import RealmSwift
 
-open class SickbeardShow: Object {
-    open dynamic var tvdbId = 0
-    open dynamic var airs = ""
-    open dynamic var network = ""
+public class SickbeardShow: Object {
+    public dynamic var tvdbId = 0
+    public dynamic var airs = ""
+    public dynamic var network = ""
     
-    open var status: SickbeardShowStatus {
+    public var status: SickbeardShowStatus {
         get {
             return SickbeardShowStatus(rawValue: statusString) ?? .Ended
         }
@@ -24,7 +24,7 @@ open class SickbeardShow: Object {
     }
     fileprivate dynamic var statusString = ""
     
-    open var quality: SickbeardShowQuality {
+    public var quality: SickbeardShowQuality {
         get {
             return SickbeardShowQuality(rawValue: qualityString) ?? .Wildcard
         }
@@ -34,7 +34,7 @@ open class SickbeardShow: Object {
     }
     fileprivate dynamic var qualityString = ""
     
-    open dynamic var name = "" {
+    public dynamic var name = "" {
         didSet {
             _simpleName = name.simple
         }
@@ -59,13 +59,13 @@ open class SickbeardShow: Object {
     
     // Realm
     
-    open override static func primaryKey() -> String? {
+    public override static func primaryKey() -> String? {
         return "tvdbId"
     }
     
     // Properties
     
-    open var seasons: [SickbeardSeason] {
+    public var seasons: [SickbeardSeason] {
         let sortedSeasons = Array(_seasons).sorted {
             $0.id < $1.id
         }
@@ -73,7 +73,7 @@ open class SickbeardShow: Object {
         return Array(sortedSeasons)
     }
     
-    open var allEpisodes: [SickbeardEpisode] {
+    public var allEpisodes: [SickbeardEpisode] {
         var episodes = [SickbeardEpisode]()
         for season in seasons {
             episodes.append(contentsOf: season.episodes)
@@ -82,7 +82,7 @@ open class SickbeardShow: Object {
         return episodes
     }
     
-    open var downloadedEpisodes: [SickbeardEpisode] {
+    public var downloadedEpisodes: [SickbeardEpisode] {
         var episodes = [SickbeardEpisode]()
         for season in seasons {
             episodes.append(contentsOf: season.downloadedEpisodes)
@@ -91,7 +91,7 @@ open class SickbeardShow: Object {
         return episodes
     }
     
-    open var banner: UIImage? {
+    public var banner: UIImage? {
         return ImageProvider.bannerForShow(tvdbId)
     }
 
@@ -99,11 +99,11 @@ open class SickbeardShow: Object {
         return ImageProvider.hasBannerForShow(tvdbId)
     }
 
-    open var poster: UIImage? {
+    public var poster: UIImage? {
         return ImageProvider.posterForShow(tvdbId)
     }
     
-    open var posterThumbnail: UIImage? {
+    public var posterThumbnail: UIImage? {
         return ImageProvider.posterThumbnailForShow(tvdbId)
     }
 
@@ -113,7 +113,7 @@ open class SickbeardShow: Object {
 
     // Methods
 
-    open func getSeason(_ seasonId: Int) -> SickbeardSeason? {
+    public func getSeason(_ seasonId: Int) -> SickbeardSeason? {
         for season in _seasons {
             if season.id == seasonId {
                 return season
@@ -123,7 +123,7 @@ open class SickbeardShow: Object {
         return nil
     }
     
-    open func nextAiringEpisode() -> SickbeardEpisode? {
+    public func nextAiringEpisode() -> SickbeardEpisode? {
         let today = Date().withoutTime()
         
         for season in seasons {

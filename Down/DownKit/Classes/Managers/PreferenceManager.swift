@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class Preferences: DownCache {
+public class Preferences: DownCache {
     
     struct PreferenceKeys {
         static let sabNZBdHost = "SabNZBdHost"
@@ -25,7 +25,7 @@ open class Preferences: DownCache {
         static let downClearCache = "DownClearCache"
     }
     
-    open class var sabNZBdHost: String {
+    public class var sabNZBdHost: String {
         get {
             let host = getPreference(PreferenceKeys.sabNZBdHost) as! String?
             if host == nil || host == "http://ip:port" {
@@ -39,7 +39,7 @@ open class Preferences: DownCache {
         }
     }
     
-    open class var sabNZBdApiKey: String {
+    public class var sabNZBdApiKey: String {
         get {
             return getPreference(PreferenceKeys.sabNZBdApiKey) as! String? ?? ""
         }
@@ -48,7 +48,7 @@ open class Preferences: DownCache {
         }
     }
     
-    open class var sickbeardHost: String {
+    public class var sickbeardHost: String {
         get {
             let host = getPreference(PreferenceKeys.sickbeardHost) as! String?
             if host == nil || host == "ip:port" {
@@ -62,7 +62,7 @@ open class Preferences: DownCache {
         }
     }
     
-    open class var sickbeardApiKey: String {
+    public class var sickbeardApiKey: String {
         get {
             return getPreference(PreferenceKeys.sickbeardApiKey) as! String? ?? ""
         }
@@ -71,7 +71,7 @@ open class Preferences: DownCache {
         }
     }
     
-    open class var sickbeardLastCacheRefresh: Date? {
+    public class var sickbeardLastCacheRefresh: Date? {
         get {
             return getPreference(PreferenceKeys.sickbeardCacheRefreshKey) as! Date?
         }
@@ -80,7 +80,7 @@ open class Preferences: DownCache {
         }
     }
     
-    open class var couchPotatoHost: String {
+    public class var couchPotatoHost: String {
         get {
             let host = getPreference(PreferenceKeys.sabNZBdHost) as! String?
             if host == nil || host == "ip:port" {
@@ -94,7 +94,7 @@ open class Preferences: DownCache {
         }
     }
     
-    open class var couchPotatoApiKey: String {
+    public class var couchPotatoApiKey: String {
         get {
             return getPreference(PreferenceKeys.couchPotatoApiKey) as! String? ?? ""
         }
@@ -103,7 +103,7 @@ open class Preferences: DownCache {
         }
     }
     
-    open class var downRefreshSickbeardCache: Bool {
+    public class var downRefreshSickbeardCache: Bool {
         get {
             return getPreference(PreferenceKeys.downRefreshSickbeardCache) as! Bool? ?? false
         }
@@ -112,7 +112,7 @@ open class Preferences: DownCache {
         }
     }
     
-    open class var downClearCache: Bool {
+    public class var downClearCache: Bool {
         get {
             return getPreference(PreferenceKeys.downClearCache) as! Bool? ?? false
         }
@@ -123,7 +123,7 @@ open class Preferences: DownCache {
     
     // MARK: - DownCache
     
-    open static func clearCache() {
+    public static func clearCache() {
         deletePreference(PreferenceKeys.sabNZBdHost)
         deletePreference(PreferenceKeys.sabNZBdApiKey)
         
