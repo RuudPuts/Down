@@ -48,8 +48,8 @@ public class SabNZBdConnector: Connector {
         
         let loginUrl = sabNZBdHost + "/sabnzbd/login/"
         let configUrl = sabNZBdHost + "/config/general/"
-        let credentials = ["username": username, "password": password]
-        SabNZBdRequest.requestString(loginUrl, method: .post, parameters: credentials, succes: { loginResponse, headers in
+        let credentials = Credentials(username: username, password: password)
+        SabNZBdRequest.requestString(loginUrl, method: .post, credentials: credentials, succes: { loginResponse, headers in
             self.apiKey = nil
             
             guard self.checkLoginSuccesfull(loginResponse) else {

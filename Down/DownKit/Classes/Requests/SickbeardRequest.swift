@@ -10,12 +10,20 @@ import Foundation
 
 class SickbeardRequest: DownRequest {
     
-    override class func requestJson(_ url: String, method: DownRequestMethod = .get, parameters: [String: Any]? = nil,
+    override class func requestJson(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
                            succes: @escaping (JSON, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
-        super.requestJson(url, method: method, parameters: parameters, succes: { json, headers in
+        super.requestJson(url, method: method, credentials: credentials, parameters: parameters, succes: { json, headers in
             succes(json["data"], headers)
         }, error: error)
     }
+    
+    // MARK: Requests
+    
+    override internal class func authenticationMethod() -> AuthenticationMethod {
+        return .basic
+    }
+    
+    // MARK: Validation
     
     override internal class func validateResponseHeaders(_ headers: [AnyHashable: Any]) -> Bool {
         let serverHeader = headers["Server"] as? String

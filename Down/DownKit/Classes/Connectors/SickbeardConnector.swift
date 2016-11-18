@@ -46,8 +46,8 @@ public class SickbeardConnector: Connector {
         }
         
         let url = sickbeardHost + "/config/general/"
-
-        SickbeardRequest.requestString(url, succes: { configResponse, headers in //authenticate(user: username, password: password) // TODO: Fix authentication
+        let credentials = Credentials(username: username, password: password)
+        SickbeardRequest.requestString(url, credentials: credentials, succes: { configResponse, headers in
             self.apiKey = self.extractApiKey(configResponse)
             completion(self.apiKey)
         }, error: { error in

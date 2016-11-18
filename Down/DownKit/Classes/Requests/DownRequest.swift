@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-enum DownRequestError: Int {
+enum RequestError: Int {
     case requestFailed
     case emptyBody
     case invalidBody
@@ -19,7 +19,7 @@ enum DownRequestError: Int {
     case invalidHeaders
 }
 
-enum DownRequestMethod: String {
+enum Method: String {
     case options = "OPTIONS"
     case get     = "GET"
     case head    = "HEAD"
@@ -31,15 +31,39 @@ enum DownRequestMethod: String {
     case connect = "CONNECT"
 }
 
+enum AuthenticationMethod {
+    case basic
+    case form
+}
+
+struct Credentials {
+    var username: String
+    var password: String
+}
+
 private let DownRequestErrorDomain = "DownKit.DownRequest"
 
 class DownRequest {
     
     // MARK : GET
     
-    class func requestData(_ url: String, method: DownRequestMethod = .get, parameters: [String: Any]? = nil,
+    class func requestData(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
                            succes: @escaping (Data, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
-        Alamofire.request(url, method: mapMethod(method), parameters: parameters).responseData { handler in
+        var parameters = parameters
+        if let credentials = credentials, authenticationMethod() == .form {
+            var resolvedParameters = parameters ?? [String: Any]()
+            resolvedParameters["username"] = credentials.username
+            resolvedParameters["password"] = credentials.password
+            
+            parameters = resolvedParameters
+        }
+
+        var request = Alamofire.request(url, method: mapMethod(method), parameters: parameters)
+        if let credentials = credentials, authenticationMethod() == .basic {
+            request = request.authenticate(user: credentials.username, password: credentials.password)
+        }
+        
+        request.responseData { handler in
             guard handler.result.isSuccess, let response = handler.response else {
                 error(downRequestError(for: .requestFailed))
                 return
@@ -60,9 +84,9 @@ class DownRequest {
         }
     }
     
-    class func requestString(_ url: String, method: DownRequestMethod = .get, parameters: [String: Any]? = nil,
+    class func requestString(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
                              succes: @escaping (String, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
-        requestData(url, method: method, parameters: parameters, succes: { (data, headers) in
+        requestData(url, method: method, credentials: credentials, parameters: parameters, succes: { (data, headers) in
             guard let responseString = String(data: data, encoding: .utf8) else {
                 error(downRequestError(for: .invalidBody))
                 return
@@ -72,9 +96,9 @@ class DownRequest {
         }, error: error)
     }
     
-    class func requestJson(_ url: String, method: DownRequestMethod = .get, parameters: [String: Any]? = nil,
+    class func requestJson(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
                            succes: @escaping (JSON, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
-        requestData(url, method: method, parameters: parameters, succes: { data, headers in
+        requestData(url, method: method, credentials: credentials, parameters: parameters, succes: { data, headers in
             guard data.endIndex > 0 else {
                 error(downRequestError(for: .invalidBody))
                 return
@@ -93,8 +117,12 @@ class DownRequest {
     
     // MARK: Requests
     
-    fileprivate class func mapMethod(_ method: DownRequestMethod) -> HTTPMethod {
+    fileprivate class func mapMethod(_ method: Method) -> HTTPMethod {
         return HTTPMethod(rawValue: method.rawValue)!
+    }
+    
+    internal class func authenticationMethod() -> AuthenticationMethod {
+        return .form
     }
     
     // MARK: Validation
@@ -109,7 +137,7 @@ class DownRequest {
     
     // MARK: Error
     
-    internal class func downRequestError(for errorCode: DownRequestError, description: String = "") -> Error {
+    internal class func downRequestError(for errorCode: RequestError, description: String = "") -> Error {
         var message: String
         switch errorCode {
         case .requestFailed:
