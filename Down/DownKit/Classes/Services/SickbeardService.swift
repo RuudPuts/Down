@@ -337,8 +337,10 @@ open class SickbeardService: Service {
         
         SickbeardRequest.requestJson(url, succes: { json in
             self.parseShowSeasons(json, forShow: show)
+            completionHandler()
         }, error: { error in
             print("Error while fetching Sickbeard showData: \(error.localizedDescription)")
+            completionHandler()
         })
     }
     
