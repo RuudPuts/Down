@@ -45,10 +45,12 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        reloadShows()
-        
         SickbeardService.shared.addListener(self)
         collectionViewModel!.preheatController.enabled = true
+        
+        DispatchQueue.main.async {
+            self.reloadCollectionView()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -72,6 +74,11 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
             let detailViewController = navigationController.topViewController as! SicbkeardAddShowViewController
             detailViewController.delegate = self
         }
+    }
+    
+    func reloadCollectionView() {
+        reloadShows()
+        collectionView?.reloadData()
     }
     
     func reloadShows() {
@@ -136,8 +143,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     // MARK: SickbeardListener
     
     func sickbeardShowCacheUpdated() {
-        reloadShows()
-        collectionView?.reloadData()
+        reloadCollectionView()
     }
     
     // MARK: Show delete

@@ -75,7 +75,7 @@ class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let showsPerLine = 3
         // Calculate the width
-        var cellWidth = (UIScreen.main.bounds.width - 20) / CGFloat(showsPerLine)
+        var cellWidth = collectionView.bounds.width / CGFloat(showsPerLine)
         
         let modulus = (indexPath as NSIndexPath).row % showsPerLine
         if modulus == 0 {
