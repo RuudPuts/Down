@@ -45,10 +45,12 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        reloadShows()
-        
         SickbeardService.shared.addListener(self)
         collectionViewModel!.preheatController.enabled = true
+        
+        DispatchQueue.main.async {
+            self.reloadCollectionView()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -74,6 +76,11 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         }
     }
     
+    func reloadCollectionView() {
+        reloadShows()
+        collectionView?.reloadData()
+    }
+    
     func reloadShows() {
         if let searchText = searchBar?.text?.trimmed, searchText.length > 0 {
             filterShows(searchText)
@@ -84,14 +91,13 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     }
     
     func loadAllShows() {
-        NSLog("[SickbeardShowsViewController] Reloading shows")
         let symbolPrefixes = ["'", "\\", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         
         var sectionTitles = [String]()
         
         let allShows = DownDatabase.shared.fetchAllSickbeardShows()
         allShows.forEach() { show in           
-            var sectionTitle = show.nameWithoutPrefix.substring(0..<1).uppercased()
+            var sectionTitle = show.nameWithoutPrefix.substring(0 ..< 1).uppercased()
             if symbolPrefixes.contains(sectionTitle) {
                 sectionTitle = SymbolSectionTitle
             }
@@ -136,8 +142,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     // MARK: SickbeardListener
     
     func sickbeardShowCacheUpdated() {
-        reloadShows()
-        collectionView?.reloadData()
+        reloadCollectionView()
     }
     
     // MARK: Show delete
@@ -209,12 +214,10 @@ extension SickbeardShowsViewController: SicbkeardAddShowViewControllerDelegate {
 extension SickbeardShow {
     
     var nameWithoutPrefix: String {
-        let prefixes = ["The ", "A "]
-        
         var showName = name
-        prefixes.forEach { prefix in
-            if showName.hasPrefix(prefix) {
-                showName = showName.substring(0..<prefix.length)
+        ["The", "A"].forEach { prefix in
+            if showName.hasPrefix(prefix + " ") {
+                showName = showName.substring(from: prefix.length).trimmed
             }
         }
         
@@ -222,7 +225,7 @@ extension SickbeardShow {
     }
     
     var sectionTitle: String {
-        return nameWithoutPrefix.substring(0..<1).uppercased()
+        return nameWithoutPrefix.substring(0 ..< 1).uppercased()
     }
     
 }

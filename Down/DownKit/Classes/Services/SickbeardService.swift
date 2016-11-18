@@ -61,7 +61,7 @@ open class SickbeardService: Service {
         }
         
         // Take everything before season/episode identifiers
-        let cleanedName = nzbName.substring(0..<(seasonRange?.location)! - 1)
+        let cleanedName = nzbName.substring(0 ..< (seasonRange?.location)! - 1)
         
         // Get te components
         let nameComponents = cleanedName.components(separatedBy: ".")
@@ -70,7 +70,7 @@ open class SickbeardService: Service {
         if let show = DownDatabase.shared.showBestMatchingComponents(nameComponents) {
             let identifierStart = seasonRange!.location + 1
             let identifierEnd = seasonRange!.location + seasonRange!.length
-            let seasonEpisodeIdentifier = nzbName.substring(identifierStart..<identifierEnd).uppercased().replacingOccurrences(of: ".", with: "")
+            let seasonEpisodeIdentifier = nzbName.substring(identifierStart ..< identifierEnd).uppercased().replacingOccurrences(of: ".", with: "")
             let components = seasonEpisodeIdentifier.components(separatedBy: "E")
             
             let seasonId = Int(components.first!)!

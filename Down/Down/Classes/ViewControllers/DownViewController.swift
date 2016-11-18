@@ -22,6 +22,8 @@ class DownViewController: UIViewController {
     var searchBar: UISearchBar?
     var scrollViewAdjusted = false
     
+    var application = DownApplication.Down
+    
     var serviceManager: ServiceManager {
         get {
             return UIApplication.shared.downAppDelegate.serviceManager

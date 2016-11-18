@@ -189,7 +189,7 @@ static NSInteger const kIPSuffixMax = 254;
 - (void)portScanWorkerCompletedAllJobs:(RPPortScanWorker *)worker {
     if (self.progress == 100) {
         NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:self.startDate];
-        NSLog(@"\n\nPORTSCAN COMPLETED.\nSCANNED %ld PORTS ON %ld HOSTS USING %lu WORKERS (%ld JOBS IN TOTAL, %lu JOBS A WORKER).\n%ld OUT OF %ld JOBS SUCCEEDED\nTOOK %.0f SECONDS\n\n", (long)self.totalPorts, kIPSuffixMax - kIPSuffixMin, (unsigned long)self.workers.count, (long)self.totalJobs, self.totalJobs / self.workers.count, (unsigned long)self.succeededJobs.count, (long)self.totalJobs, interval);
+        NSLog(@"\n\nPORTSCAN COMPLETED.\nSCANNED %ld PORTS ON %ld HOSTS USING %ld WORKERS (%ld JOBS IN TOTAL, %ld JOBS A WORKER).\n%ld OUT OF %ld JOBS SUCCEEDED\nTOOK %.0f SECONDS\n\n", (long)self.totalPorts, (long)(kIPSuffixMax - kIPSuffixMin), (long)self.workers.count, (long)self.totalJobs, (long)(self.totalJobs / self.workers.count), (long)self.succeededJobs.count, (long)self.totalJobs, interval);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate portScannerDidFinish:self];

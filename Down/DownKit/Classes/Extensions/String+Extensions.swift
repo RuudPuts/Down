@@ -69,6 +69,15 @@ public extension String {
         
         return self[startIndex ..< endIndex]
     }
+    
+    func substring(from: Int) -> String {
+        guard from < length else {
+            return ""
+        }
+        
+        let startIndex = self.index(self.startIndex, offsetBy: from)
+        return self[startIndex ..< self.endIndex]
+    }
 }
 
 extension String {
