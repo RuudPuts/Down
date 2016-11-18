@@ -8,19 +8,13 @@
 
 import Alamofire
 
-open class CouchPotatoService: Service {
+public class CouchPotatoService: Service {
     
-    open static let shared = SabNZBdService()
+    public static let shared = SabNZBdService()
    
-    open static let defaultPort = 8081
+    public static let defaultPort = 8081
     
-//    override init() {
-//        super.init()
-//        
-//        refreshSnatchedAndAvailable()
-//    }
-    
-    override open func addListener(_ listener: ServiceListener) {
+    override public func addListener(_ listener: ServiceListener) {
         if listener is CouchPotatoListener {
             super.addListener(listener)
         }
@@ -29,23 +23,15 @@ open class CouchPotatoService: Service {
     // MARK: - Snatched & Available
     
     fileprivate func refreshSnatchedAndAvailable() {
-        let url = Preferences.couchPotatoHost + "/" + Preferences.couchPotatoApiKey + "/media.list?release_status=snatched,available&limit_offset=20"        
-        Alamofire.request(url).responseJSON { handler in
-            if handler.validateResponse() {
-                DispatchQueue.main.async {
-                    self.refreshCompleted()
-                }
-            }
-            else {
-                print("Error while fetching CouchPotato snachted and available: \(handler.result.error!)")
-            }
-        }
+        let url = Preferences.couchPotatoHost + "/" + Preferences.couchPotatoApiKey + "/media.list?release_status=snatched,available&limit_offset=20"
+        DownRequest.requestJson(url, succes: { json in
+            self.refreshCompleted()
+        }, error: { error in
+            print("Error while fetching CouchPotato snachted and available: \(error.localizedDescription)")
+        })
     }
     
     fileprivate func parseSnatchedAndAvailable(_ json: JSON!) {
-        for _: JSON in json["movies"].array! {
-            
-        }
     }
     
 }

@@ -8,12 +8,12 @@
 
 import UIKit
 
-open class SABHistoryItem: SABItem {
+public class SABHistoryItem: SABItem {
     
     let title: String!
-    open let size: String!
-    open var actionLine: String?
-    open var completionDate: Date?
+    public let size: String!
+    public var actionLine: String?
+    public var completionDate: Date?
     
     init(_ identifier: String, _ title: String, _ category: String, _ nzbName: String, _ size: String, _ statusString: String, _ actionLine: String, _ completionDate: Date) {
         self.size = size
@@ -31,7 +31,7 @@ open class SABHistoryItem: SABItem {
         self.completionDate = completionDate
     }
     
-    open var hasProgress: Bool {
+    public var hasProgress: Bool {
         var hasProgress = false
         if (self.status == .verifying || self.status == .repairing || self.status == .extracting) && self.progress > 0 {
             hasProgress = true
@@ -40,7 +40,7 @@ open class SABHistoryItem: SABItem {
         return hasProgress
     }
     
-    open var progress: Float {
+    public var progress: Float {
         var progress: Float = 0
         
         if status == .verifying || status == .extracting {
@@ -64,7 +64,7 @@ open class SABHistoryItem: SABItem {
         return progress
     }
     
-    open override func statusDescription() -> String? {
+    public override func statusDescription() -> String? {
         if status == .verifying || status == .extracting {
             return actionLine
         }

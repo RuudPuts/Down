@@ -10,14 +10,14 @@ import Foundation
 
 class SickbeardRequest: DownRequest {
     
-    override class func requestJson(_ url: String, succes: @escaping (JSON) -> (Void), error: @escaping (Error) -> (Void)) {
-        super.requestJson(url, succes: { json in
+    override class func requestJson(_ url: String, succes: @escaping (JSON, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
+        super.requestJson(url, succes: { json, headers in
             guard verifyJson(json) else {
                 error(downRequestError(message: json["message"].string ?? ""))
                 return
             }
             
-            succes(json["data"])
+            succes(json["data"], headers)
         }, error: error)
     }
     

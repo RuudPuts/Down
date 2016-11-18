@@ -307,7 +307,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     func reloadCell(_ cell: DownTableViewCell, forIndexPath indexPath: IndexPath) -> Void {
         let cellType = cellTypeForIndexPath(indexPath)
         
-        // If keyboard is open for cell, don't reload
+        // If keyboard is public for cell, don't reload
         if let textField = cell.textField , !textField.isFirstResponder {
             let data = tableData[(indexPath as NSIndexPath).row]
             cell.setCellType(application)

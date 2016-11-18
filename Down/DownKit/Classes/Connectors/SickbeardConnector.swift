@@ -8,9 +8,9 @@
 
 import Alamofire
 
-open class SickbeardConnector: Connector {
-    open var host: String?
-    open var apiKey: String?
+public class SickbeardConnector: Connector {
+    public var host: String?
+    public var apiKey: String?
     let requestManager: SessionManager
     
     public init() {

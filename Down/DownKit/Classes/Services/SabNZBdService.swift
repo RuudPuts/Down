@@ -30,11 +30,11 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-open class SabNZBdService: Service {
+public class SabNZBdService: Service {
     
-    open static let shared = SabNZBdService()
+    public static let shared = SabNZBdService()
     
-    open static let defaultPort = 8080
+    public static let defaultPort = 8080
     
     var queueRefreshRate: TimeInterval = 1 {
         didSet {
@@ -50,14 +50,14 @@ open class SabNZBdService: Service {
     var queueRefreshTimer: Timer?
     var historyRefreshTimer: Timer?
     
-    open var queue = [SABQueueItem]()
-    open var history = [SABHistoryItem]()
-    open var historySize: Int?
+    public var queue = [SABQueueItem]()
+    public var history = [SABHistoryItem]()
+    public var historySize: Int?
     
-    open var currentSpeed: Float?
-    open var timeRemaining: String?
-    open var mbLeft: Float?
-    open var paused: Bool = true
+    public var currentSpeed: Float?
+    public var timeRemaining: String?
+    public var mbLeft: Float?
+    public var paused: Bool = true
     
     var imdbTitleCache = [String: String]()
     
@@ -68,18 +68,18 @@ open class SabNZBdService: Service {
         case willRemoveSabItem
     }
     
-    override open func addListener(_ listener: ServiceListener) {
+    override public func addListener(_ listener: ServiceListener) {
         if listener is SabNZBdListener {
             super.addListener(listener)
         }
     }
     
-    override open func startService() {
+    override public func startService() {
         super.startService()
         startTimers()
     }
     
-    override open func stopService() {
+    override public func stopService() {
         super.startService()
         stopTimers()
     }
@@ -252,13 +252,13 @@ open class SabNZBdService: Service {
     }
     
     fileprivate var isFetchingHistory = false
-    open var fullHistoryFetched: Bool {
+    public var fullHistoryFetched: Bool {
         get {
             return self.historySize == self.history.count
         }
     }
     
-    open func fetchHistory() {
+    public func fetchHistory() {
         // Don't fetch if already fetching
         if isFetchingHistory || fullHistoryFetched {
             if fullHistoryFetched {
@@ -339,7 +339,7 @@ open class SabNZBdService: Service {
         }
     }
     
-    open func findHistoryItem(_ imdbIdentifier: String) -> SABHistoryItem? {
+    public func findHistoryItem(_ imdbIdentifier: String) -> SABHistoryItem? {
         var historyItem: SABHistoryItem?
         
         for item in history {
@@ -367,7 +367,7 @@ open class SabNZBdService: Service {
     
     // MARK - Delete items
     
-    open func deleteItem(_ item: SABItem) {
+    public func deleteItem(_ item: SABItem) {
         var mode = "queue"
         if item is SABHistoryItem {
             mode = "history"

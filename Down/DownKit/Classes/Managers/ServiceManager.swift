@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
+public class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     
     public override init() {
         super.init()
@@ -17,13 +17,13 @@ open class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
         SickbeardService.shared.addListener(self)
     }
     
-    open func startAllServices() {
+    public func startAllServices() {
         SabNZBdService.shared.startService()
         SickbeardService.shared.startService()
         CouchPotatoService.shared.startService()
     }
     
-    open func stopAllServices() {
+    public func stopAllServices() {
         SabNZBdService.shared.stopService()
         SickbeardService.shared.stopService()
         CouchPotatoService.shared.stopService()
@@ -31,20 +31,20 @@ open class ServiceManager: NSObject, SabNZBdListener, SickbeardListener {
     
     // MARK: SabNZBdListener
     
-    open func sabNZBdQueueUpdated() {
+    public func sabNZBdQueueUpdated() {
         matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.queue)
     }
     
-    open func sabNZBdHistoryUpdated() {
+    public func sabNZBdHistoryUpdated() {
         matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.history)
     }
     
-    open func sabNZBDFullHistoryFetched() { }
-    open func willRemoveSABItem(_ sabItem: SABItem) { }
+    public func sabNZBDFullHistoryFetched() { }
+    public func willRemoveSABItem(_ sabItem: SABItem) { }
 
     // MARK: SickbearListener
     
-    open func sickbeardShowCacheUpdated() {
+    public func sickbeardShowCacheUpdated() {
         matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.queue)
         matchSabNZBdItemsWithSickbeardHistory(SabNZBdService.shared.history)
     }

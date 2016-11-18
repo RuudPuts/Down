@@ -9,29 +9,29 @@
 import Foundation
 import RealmSwift
 
-open class SickbeardSeason: Object {
-    open dynamic var uniqueId = UUID().uuidString
-    open dynamic var id = 0
+public class SickbeardSeason: Object {
+    public dynamic var uniqueId = UUID().uuidString
+    public dynamic var id = 0
     internal var _episodes = List<SickbeardEpisode>()
     
-    open dynamic weak var show: SickbeardShow?
+    public dynamic weak var show: SickbeardShow?
     
     // Realm
     
-    open override static func primaryKey() -> String {
+    public override static func primaryKey() -> String {
         return "uniqueId"
     }
     
     // Properties
     
-    open var episodes: [SickbeardEpisode] {
+    public var episodes: [SickbeardEpisode] {
         let sortedEpisodes = Array(_episodes).sorted {
             $0.id < $1.id
         }
         return sortedEpisodes
     }
     
-    open var downloadedEpisodes: [SickbeardEpisode] {
+    public var downloadedEpisodes: [SickbeardEpisode] {
         let filteredEpisodes = Array(_episodes).filter {
             $0.status == .Downloaded
         }
@@ -39,7 +39,7 @@ open class SickbeardSeason: Object {
         return filteredEpisodes
     }
     
-    open var title: String {
+    public var title: String {
         var title = "Season \(id)"
         if id == 0 {
             title = "Specials"
@@ -50,7 +50,7 @@ open class SickbeardSeason: Object {
     
     // MARK: Functions
     
-    open func getEpisode(_ episodeId: Int) -> SickbeardEpisode? {
+    public func getEpisode(_ episodeId: Int) -> SickbeardEpisode? {
         for episode in _episodes {
             if episode.id == episodeId {
                 return episode
@@ -60,7 +60,7 @@ open class SickbeardSeason: Object {
         return nil
     }
     
-    open func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, completion:((Error?) -> (Void))?) {
+    public func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, completion:((Error?) -> (Void))?) {
         SickbeardService.shared.update(status, forSeason: self, completion: { error in
             if let error = error {
                 NSLog("Error while updating episode status: \(error)")

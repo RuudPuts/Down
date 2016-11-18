@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class ImageProvider: DownCache {
+public class ImageProvider: DownCache {
     
     fileprivate static var defaultPoster: Data?
     fileprivate static var defaultBanner: Data?
@@ -55,7 +55,7 @@ open class ImageProvider: DownCache {
         return image
     }
     
-    open static func clearCache() {
+    public static func clearCache() {
         do {
             let sickbeardBannerPath = UIApplication.documentsDirectory + "/sickbeard/banners"
             let sickbeardPosterPath = UIApplication.documentsDirectory + "/sickbeard/posters"

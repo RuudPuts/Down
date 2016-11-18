@@ -9,11 +9,11 @@
 import RealmSwift
 import Alamofire
 
-open class SickbeardService: Service {
+public class SickbeardService: Service {
     
-    open static let shared = SickbeardService()
+    public static let shared = SickbeardService()
     
-    open static let defaultPort = 8081
+    public static let defaultPort = 8081
     fileprivate var shows: Results<SickbeardShow> {
         return DownDatabase.shared.fetchAllSickbeardShows()
     }
@@ -31,13 +31,13 @@ open class SickbeardService: Service {
         case showAdded
     }
     
-    override open func addListener(_ listener: ServiceListener) {
+    override public func addListener(_ listener: ServiceListener) {
         if listener is SickbeardListener {
             super.addListener(listener)
         }
     }
     
-    override open func startService() {
+    override public func startService() {
         super.startService()
         NSLog("SickbeardService - Last updated: \(Preferences.sickbeardLastCacheRefresh ?? Date.init(timeIntervalSince1970: 0))")
         NSLog("SickbeardService - Refreshing show cache")
@@ -85,7 +85,7 @@ open class SickbeardService: Service {
         return nil
     }
     
-    open func getEpisodesAiringToday() -> Results<SickbeardEpisode> {
+    public func getEpisodesAiringToday() -> Results<SickbeardEpisode> {
         let episodes = DownDatabase.shared.episodesAiringOnDate(Date());
 
         for episode in episodes {
@@ -95,7 +95,7 @@ open class SickbeardService: Service {
         return episodes
     }
     
-    open func getEpisodesAiringSoon() -> Results<SickbeardEpisode> {
+    public func getEpisodesAiringSoon() -> Results<SickbeardEpisode> {
         let episodes = DownDatabase.shared.episodesAiringAfter(Date.tomorrow(), max: 5);
         
         for episode in episodes {
@@ -105,7 +105,7 @@ open class SickbeardService: Service {
         return episodes
     }
     
-    open func getRecentlyAiredEpisodes() -> Results<SickbeardEpisode> {
+    public func getRecentlyAiredEpisodes() -> Results<SickbeardEpisode> {
         let episodes = DownDatabase.shared.lastAiredEpisodes(maxDays: 4);
         
         for episode in episodes {
@@ -115,7 +115,7 @@ open class SickbeardService: Service {
         return episodes
     }
     
-    open func showWithId(_ tvdbid: Int) -> SickbeardShow? {
+    public func showWithId(_ tvdbid: Int) -> SickbeardShow? {
         var showWithId: SickbeardShow? = nil
         for show in shows {
             if show.tvdbId == tvdbid && !show.isInvalidated {
@@ -127,7 +127,7 @@ open class SickbeardService: Service {
         return showWithId
     }
     
-    open func refreshEpisodesForShow(_ show: SickbeardShow) {
+    public func refreshEpisodesForShow(_ show: SickbeardShow) {
         for season in show.seasons {
             for episode in season.episodes {
                 fetchEpisodeData(episode)
@@ -137,7 +137,7 @@ open class SickbeardService: Service {
 
     // MARK: - Shows
     
-    open func refreshShowCache(force: Bool = false) {
+    public func refreshShowCache(force: Bool = false) {
         // Find shows to refresh, episodes aired since last update
         fetchShows { tvdbIds in
             if self.shows.count == 0 || force {
@@ -199,7 +199,7 @@ open class SickbeardService: Service {
     
     private func fetchShows(completion: @escaping ([Int]) -> Void) {
         let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=shows"
-        SickbeardRequest.requestJson(url, succes: { json in
+        SickbeardRequest.requestJson(url, succes: { json, _ in
             let showData = json.rawValue as! [String: AnyObject]
             completion(Array(showData.keys).map { Int($0)! })
         }, error: { error in
@@ -209,7 +209,7 @@ open class SickbeardService: Service {
 
     public func refreshShow(_ show: SickbeardShow, _ completionHandler: @escaping (SickbeardShow?) -> Void) {
         let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show&tvdbid=\(show.tvdbId)"
-        SickbeardRequest.requestJson(url, succes: { json in
+        SickbeardRequest.requestJson(url, succes: { json, _ in
             let refreshedShow = self.parseShowData(json, forTvdbId: show.tvdbId)
             
             self.downloadBanner(refreshedShow)
@@ -255,7 +255,7 @@ open class SickbeardService: Service {
     
     // MARK: Adding shows
     
-    open func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.SickbeardEpisodeStatus, completionHandler: @escaping (Bool, SickbeardShow?) -> Void) -> Void {
+    public func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.SickbeardEpisodeStatus, completionHandler: @escaping (Bool, SickbeardShow?) -> Void) -> Void {
         let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.addnew&tvdbid=\(show.tvdbId)&status=\(state.rawValue.lowercased())"
         SickbeardRequest.requestJson(url, succes: { json in
             NSLog("Added show \(show.name)")
@@ -286,13 +286,13 @@ open class SickbeardService: Service {
         }
     }
     
-    open func searchForShow(query: String, completionHandler: @escaping ([SickbeardShow]) -> Void) {
+    public func searchForShow(query: String, completionHandler: @escaping ([SickbeardShow]) -> Void) {
         guard let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
             return
         }
         
         let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=sb.searchtvdb&lang=en&name=" + escapedQuery
-        SickbeardRequest.requestJson(url, succes: { json in
+        SickbeardRequest.requestJson(url, succes: { json, _ in
             let shows = self.parseSearchResults(json["results"])
             completionHandler(shows)
         }, error: { error in
@@ -335,7 +335,7 @@ open class SickbeardService: Service {
     fileprivate func refreshShowSeasons(_ show: SickbeardShow, completionHandler: @escaping () -> Void) {
         let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show.tvdbId)"
         
-        SickbeardRequest.requestJson(url, succes: { json in
+        SickbeardRequest.requestJson(url, succes: { json, _ in
             self.parseShowSeasons(json, forShow: show)
             completionHandler()
         }, error: { error in
@@ -391,7 +391,7 @@ open class SickbeardService: Service {
             let command = "episode&tvdbid=\(tvdbId)&season=\(seasonId)&episode=\(episode.id)"
             let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=\(command)"
             
-            SickbeardRequest.requestJson(url, succes: { json in
+            SickbeardRequest.requestJson(url, succes: { json, _ in
                 DispatchQueue.main.async {
                     let plot = json["description"].string ?? ""
                     DownDatabase.shared.setPlot(plot, forEpisode: episode)
@@ -406,7 +406,7 @@ open class SickbeardService: Service {
         return false
     }
     
-    open func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, forEpisode episode: SickbeardEpisode, completion: @escaping (Error?) -> (Void)) {
+    public func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, forEpisode episode: SickbeardEpisode, completion: @escaping (Error?) -> (Void)) {
         guard let tvdbId = episode.show?.tvdbId, let seasonId = episode.season?.id else {
             completion(NSError(domain: "Down.SickbeardService", code: ErrorType.guardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
             return
@@ -428,7 +428,7 @@ open class SickbeardService: Service {
         completion(nil)
     }
     
-    open func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, forSeason season: SickbeardSeason, completion: @escaping (Error?) -> (Void)) {
+    public func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, forSeason season: SickbeardSeason, completion: @escaping (Error?) -> (Void)) {
         guard let tvdbId = season.show?.tvdbId else {
             completion(NSError(domain: "Down.SickbeardService", code: ErrorType.guardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
             return
@@ -491,7 +491,7 @@ open class SickbeardService: Service {
             
             let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
             
-            SickbeardRequest.requestData(url, succes: { bannerData in
+            SickbeardRequest.requestData(url, succes: { bannerData, _ in
                 ImageProvider.storeBanner(bannerData, forShow: show.tvdbId)
             }, error: { error in
                 print("Error while fetching banner: \(error.localizedDescription)")
@@ -510,7 +510,7 @@ open class SickbeardService: Service {
         
         posterDownloadQueue.async(execute: {
             let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
-            SickbeardRequest.requestData(url, succes: { bannerData in
+            SickbeardRequest.requestData(url, succes: { bannerData, _ in
                 ImageProvider.storePoster(bannerData, forShow: show.tvdbId)
                 }, error: { error in
                     print("Error while fetching poster: \(error.localizedDescription)")

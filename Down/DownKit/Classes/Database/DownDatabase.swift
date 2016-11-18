@@ -9,9 +9,9 @@
 import UIKit
 import RealmSwift
 
-open class DownDatabase: DownCache {
+public class DownDatabase: DownCache {
     
-    open static let shared = DownDatabase()
+    public static let shared = DownDatabase()
     
     let adapter = DatabaseV1Adapter()
     
@@ -36,11 +36,11 @@ open class DownDatabase: DownCache {
         NSLog("DatabasePath: \(DownDatabase.databasePath)")
     }
     
-    open func write(_ commands: () -> (Void)) {
+    public func write(_ commands: () -> (Void)) {
         self.adapter.write(commands)
     }
     
-    open static func clearCache() {
+    public static func clearCache() {
         let storageDirectory = UIApplication.documentsDirectory
         
         do {
@@ -62,46 +62,46 @@ open class DownDatabase: DownCache {
     
     // MARK: Sickbeard
     
-    open func storeSickbeardShow(_ show: SickbeardShow) {
+    public func storeSickbeardShow(_ show: SickbeardShow) {
         self.adapter.storeSickbeardShows([show])
     }
     
-    open func storeSickbeardShows(_ shows: [SickbeardShow]) {
+    public func storeSickbeardShows(_ shows: [SickbeardShow]) {
         self.adapter.storeSickbeardShows(shows)
     }
     
-    open func deleteSickbeardShow(_ show: SickbeardShow) {
+    public func deleteSickbeardShow(_ show: SickbeardShow) {
         self.adapter.deleteSickbeardShow(show)
     }
     
-    open func fetchAllSickbeardShows() -> Results<SickbeardShow> {
+    public func fetchAllSickbeardShows() -> Results<SickbeardShow> {
         return self.adapter.allSickbeardShows()
     }
     
-    open func fetchShowsWithEpisodesAiredSince(_ airDate: Date) -> [SickbeardShow] {
+    public func fetchShowsWithEpisodesAiredSince(_ airDate: Date) -> [SickbeardShow] {
         return self.adapter.showsWithEpisodesAiredSince(airDate)
     }
     
-    open func setPlot(_ plot: String, forEpisode episode: SickbeardEpisode) {
+    public func setPlot(_ plot: String, forEpisode episode: SickbeardEpisode) {
         self.adapter.setPlot(plot, forEpisode: episode)
     }
     
-    open func episodesAiringOnDate(_ date: Date) -> Results<SickbeardEpisode> {
+    public func episodesAiringOnDate(_ date: Date) -> Results<SickbeardEpisode> {
         return self.adapter.episodesAiringOnDate(date)
     }
     
-    open func episodesAiringAfter(_ date: Date, max maxEpisodes: Int) -> Results<SickbeardEpisode> {
+    public func episodesAiringAfter(_ date: Date, max maxEpisodes: Int) -> Results<SickbeardEpisode> {
         return self.adapter.episodesAiringAfter(date, max: maxEpisodes)
     }
     
-    open func lastAiredEpisodes(maxDays: Int) -> Results<SickbeardEpisode> {
+    public func lastAiredEpisodes(maxDays: Int) -> Results<SickbeardEpisode> {
         let today = Date().withoutTime()
         let daysAgo = today.addingTimeInterval(-(86400 * Double(maxDays)))
         
         return self.adapter.episodesAiredSince(daysAgo)
     }
     
-    open func showBestMatchingComponents(_ components: [String]) -> SickbeardShow? {
+    public func showBestMatchingComponents(_ components: [String]) -> SickbeardShow? {
         return self.adapter.showBestMatchingComponents(components)
     }
     

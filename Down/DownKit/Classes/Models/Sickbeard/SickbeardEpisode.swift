@@ -9,15 +9,15 @@
 import Foundation
 import RealmSwift
 
-open class SickbeardEpisode: Object {
-    open dynamic var uniqueId = UUID().uuidString
-    open dynamic var id = 0
-    open dynamic var name = ""
-    open dynamic var airDate: Date? = nil
-    open dynamic var quality = ""
-    open dynamic var plot = ""
+public class SickbeardEpisode: Object {
+    public dynamic var uniqueId = UUID().uuidString
+    public dynamic var id = 0
+    public dynamic var name = ""
+    public dynamic var airDate: Date? = nil
+    public dynamic var quality = ""
+    public dynamic var plot = ""
     
-    open var status: SickbeardEpisodeStatus {
+    public var status: SickbeardEpisodeStatus {
         get {
             return SickbeardEpisodeStatus(rawValue: statusString) ?? .Unknown
         }
@@ -43,8 +43,8 @@ open class SickbeardEpisode: Object {
     fileprivate dynamic var statusString = ""
     
     // TODO: show and season should not be optional (or maybe only internal..?)
-    open dynamic weak var show: SickbeardShow?
-    open dynamic weak var season: SickbeardSeason?
+    public dynamic weak var show: SickbeardShow?
+    public dynamic weak var season: SickbeardSeason?
     
     public enum SickbeardEpisodeStatus: String {
         case Unknown
@@ -63,13 +63,13 @@ open class SickbeardEpisode: Object {
     
     // MARK: Realm
     
-    open override static func primaryKey() -> String {
+    public override static func primaryKey() -> String {
         return "uniqueId"
     }
     
     // MARK: Public getters
     
-    open var title: String {
+    public var title: String {
         var title = name
         if season != nil && show != nil {
             title = String(format: "%@ - S%02dE%02d - %@", show!.name, season!.id, id, name)
@@ -77,7 +77,7 @@ open class SickbeardEpisode: Object {
         return title
     }
     
-    open var daysUntilAiring: Int {
+    public var daysUntilAiring: Int {
         let today = Date().withoutTime()
         
         if let date = airDate , date >= today {
@@ -90,7 +90,7 @@ open class SickbeardEpisode: Object {
     
     // MARK: Functions
     
-    open func update(_ status: SickbeardEpisodeStatus, completion:((Error?) -> (Void))?) {
+    public func update(_ status: SickbeardEpisodeStatus, completion:((Error?) -> (Void))?) {
         SickbeardService.shared.update(status, forEpisode: self, completion: { error in
             if let error = error {
                 NSLog("Error while updating episode status: \(error)")

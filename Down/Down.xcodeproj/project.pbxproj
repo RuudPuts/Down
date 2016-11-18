@@ -124,6 +124,7 @@
 		42C4AE021D2AFB390096FF71 /* RPPortScanJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4ADFC1D2AFB390096FF71 /* RPPortScanJob.m */; };
 		42C4AE031D2AFB390096FF71 /* RPPortScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4ADFE1D2AFB390096FF71 /* RPPortScanner.m */; };
 		42C4AE041D2AFB390096FF71 /* RPPortScanWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C4AE001D2AFB390096FF71 /* RPPortScanWorker.m */; };
+		42C700501DDF8CE10038181E /* SabNZBdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C7004F1DDF8CE10038181E /* SabNZBdRequest.swift */; };
 		42CC1D981C289989000CC68C /* DownIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC1D971C289989000CC68C /* DownIntroViewController.swift */; };
 		42CC1D9A1C289A8B000CC68C /* DownWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42CC1D991C289A8B000CC68C /* DownWelcomeViewController.xib */; };
 		42CC1D9D1C28A2AC000CC68C /* DownSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC1D9C1C28A2AC000CC68C /* DownSettingsViewController.swift */; };
@@ -512,6 +513,7 @@
 		42C4ADFE1D2AFB390096FF71 /* RPPortScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPortScanner.m; sourceTree = "<group>"; };
 		42C4ADFF1D2AFB390096FF71 /* RPPortScanWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPPortScanWorker.h; sourceTree = "<group>"; };
 		42C4AE001D2AFB390096FF71 /* RPPortScanWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPPortScanWorker.m; sourceTree = "<group>"; };
+		42C7004F1DDF8CE10038181E /* SabNZBdRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdRequest.swift; sourceTree = "<group>"; };
 		42CC1D971C289989000CC68C /* DownIntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownIntroViewController.swift; sourceTree = "<group>"; };
 		42CC1D991C289A8B000CC68C /* DownWelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownWelcomeViewController.xib; sourceTree = "<group>"; };
 		42CC1D9C1C28A2AC000CC68C /* DownSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1134,6 +1136,7 @@
 			isa = PBXGroup;
 			children = (
 				42BE52C51DDE47410083CBBB /* DownRequest.swift */,
+				42C7004F1DDF8CE10038181E /* SabNZBdRequest.swift */,
 				42BE52C71DDE4D090083CBBB /* SickbeardRequest.swift */,
 			);
 			path = Requests;
@@ -1789,6 +1792,7 @@
 				4221ADDB1B7BC0B20027C3A0 /* SickbeardListener.swift in Sources */,
 				4221ADD91B7BC0B20027C3A0 /* SabNZBdListener.swift in Sources */,
 				4221ADD81B7BC0B20027C3A0 /* CouchPotatoListener.swift in Sources */,
+				42C700501DDF8CE10038181E /* SabNZBdRequest.swift in Sources */,
 				4269A9201B85009E005A06E3 /* ImageProvider.swift in Sources */,
 				4221ADDE1B7BC0B20027C3A0 /* SABHistoryItem.swift in Sources */,
 				42DEEB4F1BACCC860061723F /* Constants.swift in Sources */,
