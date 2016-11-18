@@ -27,8 +27,10 @@ class SickbeardRequest: DownRequest {
         return serverHeaderValid || authenticateHeaderValid
     }
     
-    private class func verifyJson(_ json: JSON) -> Bool {
-        return json["result"].string != "failure"
+    override internal class func validateJson(_ json: JSON) -> (Bool, String?) {
+        let (jsonValid, _) = super.validateJson(json)
+        
+        return (jsonValid && json["result"].string != "failure", json["message"].string)
     }
     
 }

@@ -19,9 +19,16 @@ enum DownRequestError: Int {
     case invalidHeaders
 }
 
-enum DownRequestMethod {
-    case get
-    case post
+enum DownRequestMethod: String {
+    case options = "OPTIONS"
+    case get     = "GET"
+    case head    = "HEAD"
+    case post    = "POST"
+    case put     = "PUT"
+    case patch   = "PATCH"
+    case delete  = "DELETE"
+    case trace   = "TRACE"
+    case connect = "CONNECT"
 }
 
 private let DownRequestErrorDomain = "DownKit.DownRequest"
@@ -32,8 +39,7 @@ class DownRequest {
     
     class func requestData(_ url: String, method: DownRequestMethod = .get, parameters: [String: Any]? = nil,
                            succes: @escaping (Data, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
-        NSLog("[DownRequest] requesting \(url)")
-        Alamofire.request(url).responseData { handler in
+        Alamofire.request(url, method: mapMethod(method), parameters: parameters).responseData { handler in
             guard handler.result.isSuccess, let response = handler.response else {
                 error(downRequestError(for: .requestFailed))
                 return
@@ -85,6 +91,12 @@ class DownRequest {
         }, error: error)
     }
     
+    // MARK: Requests
+    
+    fileprivate class func mapMethod(_ method: DownRequestMethod) -> HTTPMethod {
+        return HTTPMethod(rawValue: method.rawValue)!
+    }
+    
     // MARK: Validation
     
     internal class func validateResponseHeaders(_ headers: [AnyHashable: Any]) -> Bool {
@@ -92,7 +104,7 @@ class DownRequest {
     }
     
     internal class func validateJson(_ json: JSON) -> (Bool, String?) {
-        return (json == JSON.null, nil)
+        return (json != JSON.null, nil)
     }
     
     // MARK: Error
