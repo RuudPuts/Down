@@ -1,2 +1,5 @@
+ - Fixes shows overview glitch
  - Fixed shows section indexer not showing at first
+ - Fixed shows logical ordering
+ - Fixed application color on Sickbeard's Episode view
  - Made show posters a bit bigger

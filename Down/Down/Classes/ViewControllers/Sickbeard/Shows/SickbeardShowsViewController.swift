@@ -214,12 +214,10 @@ extension SickbeardShowsViewController: SicbkeardAddShowViewControllerDelegate {
 extension SickbeardShow {
     
     var nameWithoutPrefix: String {
-        let prefixes = ["The ", "A "]
-        
         var showName = name
-        prefixes.forEach { prefix in
-            if showName.hasPrefix(prefix) {
-                showName = showName.substring(0..<prefix.length)
+        ["The", "A"].forEach { prefix in
+            if showName.hasPrefix(prefix + " ") {
+                showName = showName.substring(from: prefix.length).trimmed
             }
         }
         
