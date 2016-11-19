@@ -12,6 +12,7 @@ public protocol SickbeardListener: ServiceListener {
     
     func sickbeardShowCacheUpdated()
     func sickbeardShowAdded(_ show: SickbeardShow)
+    func sickbeardEpisodeRefreshed(_ episode: SickbeardEpisode)
     
 }
 
@@ -25,4 +26,7 @@ extension SickbeardListener {
         
     }
     
+    public func sickbeardEpisodeRefreshed(_ episode: SickbeardEpisode) {
+        
+    }
 }

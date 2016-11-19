@@ -37,7 +37,7 @@ class SickbeardShowHeaderView: UIView {
     }
     
     func colorForQuality(_ quality: SickbeardShow.SickbeardShowQuality) -> UIColor {
-        switch quality { // WARN: Add colors for other qualities
+        switch quality { // TODO: Add colors for other qualities
         case .Wildcard: return .downLightGrayColor()
         case .Custom: return .clear
         case .HD: return .clear

@@ -29,6 +29,7 @@ public class SickbeardService: Service {
     fileprivate enum SickbeardNotifyType {
         case showCacheUpdated
         case showAdded
+        case episodeRefreshed
     }
     
     override public func addListener(_ listener: ServiceListener) {
@@ -395,7 +396,7 @@ public class SickbeardService: Service {
                 DispatchQueue.main.async {
                     let plot = json["description"].string ?? ""
                     DownDatabase.shared.setPlot(plot, forEpisode: episode)
-                    self.notifyListeners(.showCacheUpdated)
+                    self.notifyListeners(.episodeRefreshed, withItem: episode)
                 }
             }, error: { error in
                 NSLog("[SickbeardService] Error while fetching Sickbeard episode data: \(error.localizedDescription)")
@@ -453,8 +454,6 @@ public class SickbeardService: Service {
     
     // MARK: - Listeners
     
-//    fileprivate func notifyListeners(_ notifyType: SickbeardNotifyType) {
-    
     fileprivate func notifyListeners(_ notifyType: SickbeardNotifyType) {
         notifyListeners(notifyType, withItem: nil)
     }
@@ -472,6 +471,11 @@ public class SickbeardService: Service {
                     let show = item as! SickbeardShow
                     NSLog("[SickbeardService] Show added: \(show.name)")
                     sickbeardListener.sickbeardShowAdded(show)
+                    break
+                case .episodeRefreshed:
+                    let episode = item as! SickbeardEpisode
+                    NSLog("[SickbeardService] Episode refreshed: \(episode.show!.name) S\(episode.season!.id)E\(episode.id)")
+                    sickbeardListener.sickbeardEpisodeRefreshed(episode)
                 }
             }
         }

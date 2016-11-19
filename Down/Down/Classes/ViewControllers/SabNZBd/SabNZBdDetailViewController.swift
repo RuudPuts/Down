@@ -386,7 +386,11 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     
     // MARK: SickbeardListener
     
-    func sickbeardShowCacheUpdated() {
+    func sickbeardEpisodeRefreshed(_ episode: SickbeardEpisode) {
+        guard let thisEpisode = self.sabItem?.sickbeardEpisode, episode.isSame(thisEpisode) else {
+            return
+        }
+        
         configureTableView()
         tableView?.reloadData()
     }

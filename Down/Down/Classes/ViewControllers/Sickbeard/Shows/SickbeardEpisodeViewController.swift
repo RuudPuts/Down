@@ -182,8 +182,12 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     
     // MARK: SickbeardListener
     
-    func sickbeardShowCacheUpdated() {
-        episode?.realm?.refresh()
+    func sickbeardEpisodeRefreshed(_ episode: SickbeardEpisode) {
+        guard let thisEpisode = self.episode, episode.isSame(thisEpisode) else {
+            return
+        }
+        
+        self.episode = episode
         configureTableView()
         tableView?.reloadData()
     }

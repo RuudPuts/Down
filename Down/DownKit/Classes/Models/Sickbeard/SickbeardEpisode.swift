@@ -67,6 +67,10 @@ public class SickbeardEpisode: Object {
         return "uniqueId"
     }
     
+    public func isSame(_ episode: SickbeardEpisode) -> Bool {
+        return show?.tvdbId == episode.show?.tvdbId && season?.id == episode.season?.id && id == episode.id
+    }
+    
     // MARK: Public getters
     
     public var title: String {

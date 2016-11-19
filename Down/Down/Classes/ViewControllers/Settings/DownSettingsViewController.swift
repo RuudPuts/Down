@@ -289,6 +289,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! DownTableViewCell
         cell.delegate = self
         cell.setCellType(application)
+        cell.backgroundColor = .clear
         
         reloadCell(cell, forIndexPath: indexPath)
         
