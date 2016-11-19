@@ -125,9 +125,16 @@ class DownTabBarViewController: DownViewController {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         let tabCount = Float(viewControllers.count)
-        let width = Float(view.bounds.width) / tabCount
+        var width = Float(view.bounds.width) / tabCount
+        width = indexPath.item % 2 == 0 ? floor(width) : ceil(width)
         
         return CGSize(width: CGFloat(width), height: collectionView.bounds.height)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { _ in
+            self.collectionView?.reloadData()
+        }, completion: nil)
     }
     
     // MARK: CollectionView delegate
