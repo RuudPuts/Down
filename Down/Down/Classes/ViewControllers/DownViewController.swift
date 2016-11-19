@@ -55,6 +55,16 @@ class DownViewController: UIViewController {
         scrollView.setContentOffset(CGPoint(x: 0, y: searchBar.bounds.height),
                                     animated: animated)
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { _ in
+            guard let scrollView = self.scrollView, let searchBar = self.searchBar else {
+                return
+            }
+            
+            searchBar.frame = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: searchBar.bounds.height)
+        }, completion: nil)
+    }
 }
 
 extension DownViewController: UISearchBarDelegate {
