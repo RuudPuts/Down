@@ -27,7 +27,7 @@ class SickbeardRequest: DownRequest {
     
     override internal class func validateResponseHeaders(_ headers: [AnyHashable: Any]) -> Bool {
         let serverHeader = headers["Server"] as? String
-        let serverHeaderValid = serverHeader?.hasPrefix("CherryPy") ?? false
+        let serverHeaderValid = serverHeader?.hasPrefix("CherryPy") ?? false || serverHeader?.hasPrefix("TornadoServer") ?? false
         
         let authenticateHeader = headers["Www-Authenticate"] as? String
         let authenticateHeaderValid = authenticateHeader?.range(of: "Sickbeard") != nil
