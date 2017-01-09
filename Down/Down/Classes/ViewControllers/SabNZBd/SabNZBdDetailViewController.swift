@@ -127,7 +127,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         if let episode = sabItem?.sickbeardEpisode {
             if episode.status == .Snatched && sabItem?.status == .failed {
                 lastSection = [SabNZBdDetailDataSource]()
-                lastSection!.append(SabNZBdDetailDataSource(rowType: .sickbeardMarkWatched, title: "Mark as watched"))
+                lastSection!.append(SabNZBdDetailDataSource(rowType: .sickbeardMarkWatched, title: "Set status to wanted"))
                 tableData.append(lastSection!)
             }
             
