@@ -445,8 +445,8 @@ public class SickbeardService: Service {
         let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=\(command)"
         SickbeardRequest.requestJson(url, succes: { _ in
             completion(nil)
-            }, error: { error in
-                completion(error)
+        }, error: { error in
+            completion(error)
         })
         
         completion(nil)
