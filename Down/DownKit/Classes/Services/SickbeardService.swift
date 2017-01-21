@@ -256,7 +256,7 @@ public class SickbeardService: Service {
     
     // MARK: Adding shows
     
-    public func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.SickbeardEpisodeStatus, completionHandler: @escaping (Bool, SickbeardShow?) -> Void) -> Void {
+    public func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.Status, completionHandler: @escaping (Bool, SickbeardShow?) -> Void) -> Void {
         let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.addnew&tvdbid=\(show.tvdbId)&status=\(state.rawValue.lowercased())"
         SickbeardRequest.requestJson(url, succes: { json in
             NSLog("Added show \(show.name)")
@@ -368,7 +368,7 @@ public class SickbeardService: Service {
                 episode.airDate = dateFormatter.date(from: episodeJson["airdate"].string!)
                 episode.quality = episodeJson["quality"].string!
                 let status = episodeJson["status"].string!
-                episode.status = SickbeardEpisode.SickbeardEpisodeStatus(rawValue: status) ?? episode.status
+                episode.status = SickbeardEpisode.Status(rawValue: status) ?? episode.status
                 episode.season = season
                 episode.show = show
                 
@@ -408,13 +408,13 @@ public class SickbeardService: Service {
         return false
     }
     
-    public func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, forEpisode episode: SickbeardEpisode, completion: @escaping (Error?) -> (Void)) {
+    public func update(_ status: SickbeardEpisode.Status, forEpisode episode: SickbeardEpisode, completion: @escaping (Error?) -> (Void)) {
         guard let tvdbId = episode.show?.tvdbId, let seasonId = episode.season?.id else {
             completion(NSError(domain: "Down.SickbeardService", code: ErrorType.guardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
             return
         }
         
-        guard SickbeardEpisode.SickbeardEpisodeStatus.updatable.contains(status) else {
+        guard SickbeardEpisode.Status.updatable.contains(status) else {
             completion(NSError(domain: "Down.SickbeardService", code: ErrorType.invalidValue.rawValue, userInfo: [NSLocalizedDescriptionKey: "Invalid value for 'status'"]))
             return
         }
@@ -430,13 +430,13 @@ public class SickbeardService: Service {
         completion(nil)
     }
     
-    public func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, forSeason season: SickbeardSeason, completion: @escaping (Error?) -> (Void)) {
+    public func update(_ status: SickbeardEpisode.Status, forSeason season: SickbeardSeason, completion: @escaping (Error?) -> (Void)) {
         guard let tvdbId = season.show?.tvdbId else {
             completion(NSError(domain: "Down.SickbeardService", code: ErrorType.guardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
             return
         }
         
-        guard SickbeardEpisode.SickbeardEpisodeStatus.updatable.contains(status) else {
+        guard SickbeardEpisode.Status.updatable.contains(status) else {
             completion(NSError(domain: "Down.SickbeardService", code: ErrorType.invalidValue.rawValue, userInfo: [NSLocalizedDescriptionKey: "Invalid value for 'status'"]))
             return
         }

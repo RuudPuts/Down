@@ -60,7 +60,7 @@ public class SickbeardSeason: Object {
         return nil
     }
     
-    public func update(_ status: SickbeardEpisode.SickbeardEpisodeStatus, completion:((Error?) -> (Void))?) {
+    public func update(_ status: SickbeardEpisode.Status, completion:((Error?) -> (Void))?) {
         SickbeardService.shared.update(status, forSeason: self, completion: { error in
             if let error = error {
                 NSLog("Error while updating episode status: \(error)")

@@ -47,7 +47,7 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     func showAddShowActionSheet(for show: SickbeardShow) {
         let actionSheet = UIAlertController(title: "Add show '\(show.name)'?", message: "Select initial episode state", preferredStyle: .actionSheet)
         
-        let states: [SickbeardEpisode.SickbeardEpisodeStatus] = [.Wanted, .Skipped, .Archived, .Ignored]
+        let states: [SickbeardEpisode.Status] = [.Wanted, .Skipped, .Archived, .Ignored]
         for state in states {
             let action = UIAlertAction(title: state.rawValue, style: .default, handler: { (action) in
                 self.addShow(show, initialState: state)
@@ -59,7 +59,7 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
         present(actionSheet, animated: true, completion: nil)
     }
     
-    func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.SickbeardEpisodeStatus) {
+    func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.Status) {
         SickbeardService.shared.addShow(show, initialState: state) { (success, addedShow) in
             if addedShow != nil {
                 self.delegate?.addShowViewController(viewController: self, didAddShow: addedShow!)

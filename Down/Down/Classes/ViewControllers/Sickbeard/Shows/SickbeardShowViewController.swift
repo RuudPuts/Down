@@ -185,10 +185,10 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         }
     }
     
-    func showStateActionSheet(_ message: String, completion: @escaping (_ selectedStatus: SickbeardEpisode.SickbeardEpisodeStatus) -> (Void)) {
+    func showStateActionSheet(_ message: String, completion: @escaping (_ selectedStatus: SickbeardEpisode.Status) -> (Void)) {
         let actionSheet = UIAlertController(title: "Set state for", message: message, preferredStyle: .actionSheet)
         
-        let states: [SickbeardEpisode.SickbeardEpisodeStatus] = [.Wanted, .Skipped, .Archived, .Ignored]
+        let states: [SickbeardEpisode.Status] = [.Wanted, .Skipped, .Archived, .Ignored]
         for state in states {
             let action = UIAlertAction(title: state.rawValue, style: .default, handler: { (action) in
                 completion(state)

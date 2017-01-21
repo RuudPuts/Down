@@ -17,9 +17,9 @@ public class SickbeardEpisode: Object {
     public dynamic var quality = ""
     public dynamic var plot = ""
     
-    public var status: SickbeardEpisodeStatus {
+    public var status: Status {
         get {
-            return SickbeardEpisodeStatus(rawValue: statusString) ?? .Unknown
+            return Status(rawValue: statusString) ?? .Unknown
         }
         set {
 //            if statusString.length == 0 {
@@ -46,7 +46,7 @@ public class SickbeardEpisode: Object {
     public dynamic weak var show: SickbeardShow?
     public dynamic weak var season: SickbeardSeason?
     
-    public enum SickbeardEpisodeStatus: String {
+    public enum Status: String {
         case Unknown
         case Ignored
         case Archived
@@ -56,7 +56,7 @@ public class SickbeardEpisode: Object {
         case Snatched
         case Downloaded
         
-        static var updatable: [SickbeardEpisodeStatus] {
+        static var updatable: [Status] {
             return [.Wanted, .Skipped, .Archived, .Ignored]
         }
     }
@@ -94,7 +94,7 @@ public class SickbeardEpisode: Object {
     
     // MARK: Functions
     
-    public func update(_ status: SickbeardEpisodeStatus, completion:((Error?) -> (Void))?) {
+    public func update(_ status: Status, completion:((Error?) -> (Void))?) {
         SickbeardService.shared.update(status, forEpisode: self, completion: { error in
             if let error = error {
                 NSLog("Error while updating episode status: \(error)")
