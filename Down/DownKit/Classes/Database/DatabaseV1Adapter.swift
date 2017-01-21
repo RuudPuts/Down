@@ -59,7 +59,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
     
     func allSickbeardShows() -> Results<SickbeardShow> {
         let shows = defaultRealm.objects(SickbeardShow.self)
-        let sortedShows = shows.sorted(byProperty: "name")
+        let sortedShows = shows.sorted(byKeyPath: "name")
         
         return sortedShows
     }
