@@ -54,6 +54,7 @@ public class SickbeardService: Service {
     
     internal func parseNzbName(_ nzbName: String) -> SickbeardEpisode? {
         // Check if show contains season/episode identifiers
+        // TODO: Add support for '24x3' /  format. Something like ([0-9])[xX]([0-9])
         let regex = try! NSRegularExpression(pattern: "S\\d+(.)?E\\d+", options: .caseInsensitive)
         let seasonRange = regex.rangeOfFirstMatch(in: nzbName, options: [], range: nzbName.fullNSRange) as NSRange!
         
@@ -140,7 +141,8 @@ public class SickbeardService: Service {
     
     public func refreshShowCache(force: Bool = false) {
         // Find shows to refresh, episodes aired since last update
-        fetchShows { tvdbIds in
+        SickbeardRequest.run(.fetchShows) { result -> (Void) in
+            let tvdbIds = result as! [Int]
             if self.shows.count == 0 || force {
                 NSLog("[SickbeardService] Refreshing full cache")
                 let shows: [SickbeardShow] = tvdbIds.map {
@@ -196,16 +198,6 @@ public class SickbeardService: Service {
                 }
             }
         }
-    }
-    
-    private func fetchShows(completion: @escaping ([Int]) -> Void) {
-        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=shows"
-        SickbeardRequest.requestJson(url, succes: { json, _ in
-            let showData = json.rawValue as! [String: AnyObject]
-            completion(Array(showData.keys).map { Int($0)! })
-        }, error: { error in
-           NSLog("[SickbeardService] Error while fetching Sickbeard shows list: \(error.localizedDescription)")
-        })
     }
 
     public func refreshShow(_ show: SickbeardShow, _ completionHandler: @escaping (SickbeardShow?) -> Void) {
