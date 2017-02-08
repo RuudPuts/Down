@@ -10,6 +10,12 @@ import Foundation
 
 class SickbeardRequest: DownRequest {
     
+    override class func requestJson(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
+                           succes: @escaping (JSON, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
+        super.requestJson(url, method: method, credentials: credentials, parameters: parameters, succes: { json, headers in
+            succes(json["data"], headers)
+        }, error: error)
+    }
     
     // MARK: Requests
     
