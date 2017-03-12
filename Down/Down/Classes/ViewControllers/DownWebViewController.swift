@@ -26,7 +26,7 @@ class DownWebViewController: DownViewController {
     
     func loadWebview() {
         view = webView
-        webView.backgroundColor = .downDarkGrayColor()
+        webView.scrollView.backgroundColor = .downDarkGrayColor()
         webView.navigationDelegate = self
         
         if let url = url {
