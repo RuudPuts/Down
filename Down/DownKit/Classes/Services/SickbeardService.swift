@@ -8,6 +8,7 @@
 
 import RealmSwift
 import Alamofire
+import CoreSpotlight
 
 public class SickbeardService: Service {
     
@@ -217,6 +218,7 @@ public class SickbeardService: Service {
         }
         
         showRefreshGroup.notify(queue: DispatchQueue.main) {
+            self.reloadSpotlight()
             completionHandler()
         }
     }
@@ -289,6 +291,7 @@ public class SickbeardService: Service {
             
             self.downloadBanner(show, force: true)
             self.downloadPoster(show, force: true)
+            self.reloadSpotlight()
             
             self.notifyListeners(.showAdded, withItem: addedShow)
             completionHandler(addedShow)
@@ -529,6 +532,54 @@ public class SickbeardService: Service {
                     NSLog("[SickbeardService] Error while fetching poster: \(error.localizedDescription)")
             })
         })
+    }
+    
+}
+
+// MARK: CoreSpotlight extension
+
+extension SickbeardService { // CoreSpotlight
+ 
+    func reloadSpotlight() {
+        
+        var items = [CSSearchableItem]()
+        shows.forEach { show in
+            let attributeSet = CSSearchableItemAttributeSet(itemContentType: kCIAttributeTypeImage)
+            attributeSet.title = show.name
+            attributeSet.contentDescription = show.spotlightDescription
+            attributeSet.keywords = show.name.components(separatedBy: " ")
+            
+            if let poster = show.poster {
+                attributeSet.thumbnailData = UIImagePNGRepresentation(poster);
+            }
+            
+            items.append(CSSearchableItem(uniqueIdentifier: "com.ruudputs.down.show.\(show.tvdbId)",
+                domainIdentifier: "com.ruutputs.down", attributeSet: attributeSet))
+        }
+        
+        CSSearchableIndex.default().indexSearchableItems(items) {
+            guard $0 == nil else {
+                NSLog("Error while indexing Spotlight: \($0)")
+                return
+            }
+            
+            NSLog("Spotlight indexed");
+        };
+    }
+    
+}
+
+extension SickbeardShow { // Spotlight
+    
+    var spotlightDescription: String {
+        var description = "\(self.seasons.count) Seasons, \(self.percentageDownloaded)% downloaded"
+        
+        if let episode = self.nextAiringEpisode() {
+            let airDate = DateFormatter.downDateFormatter().string(from: episode.airDate!)
+            description = "\(airDate) - \(episode.title)"
+        }
+        
+        return description
     }
     
 }

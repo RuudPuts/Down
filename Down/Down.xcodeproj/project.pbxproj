@@ -61,7 +61,7 @@
 		4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4253E81B1AB4B8E300EF1254 /* Down.xcdatamodeld */; };
 		4253E8221AB4B8E300EF1254 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4253E81E1AB4B8E300EF1254 /* Images.xcassets */; };
 		42670EF91ADDAB5E006341EA /* DownTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* DownTextCell.xib */; };
-		426918D81E75DD8800C14D02 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426918D71E75DD8800C14D02 /* CoreSpotlight.framework */; };
+		426918E91E75DDF400C14D02 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426918D71E75DD8800C14D02 /* CoreSpotlight.framework */; };
 		4269A9201B85009E005A06E3 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4269A91F1B85009E005A06E3 /* ImageProvider.swift */; };
 		426E38571D64FBB9009FC287 /* NSURL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E38561D64FBB9009FC287 /* NSURL+Extensions.swift */; };
 		426E5D7E1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E5D7D1B52F88900BD7CD0 /* SabNZBdDetailViewController.swift */; };
@@ -562,6 +562,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				426918E91E75DDF400C14D02 /* CoreSpotlight.framework in Frameworks */,
 				426F5FE91D2AE4340074C06B /* UIKit.framework in Frameworks */,
 				42E97C291BBD9DB60040A979 /* Realm.framework in Frameworks */,
 				42E97C2A1BBD9DB60040A979 /* RealmSwift.framework in Frameworks */,
@@ -580,7 +581,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				426918D81E75DD8800C14D02 /* CoreSpotlight.framework in Frameworks */,
 				428CF72D1AE199B5007F3E54 /* AudioToolbox.framework in Frameworks */,
 				428CF72E1AE199B5007F3E54 /* CoreMotion.framework in Frameworks */,
 				42C2D74F1D6A31B1008E195E /* Preheat.framework in Frameworks */,

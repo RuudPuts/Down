@@ -110,6 +110,24 @@ public class SickbeardShow: Object {
     internal var hasPoster: Bool {
         return ImageProvider.hasPosterForShow(tvdbId)
     }
+    
+    internal var percentageDownloaded: Float {
+//        var episodes: Float
+//        _seasons.forEach { season in
+//            episodes += Float(season._episodes.count)
+//        }
+//
+//        var downloadedEpisodes: Float
+////        _seasons.forEach {
+////            downloadedEpisodes += Float($0._episodes.filter(NSPredicate(block: { episode, _ in
+////                return (episode as! SickbeardEpisode).status == .Downloaded
+////            })).count)
+////        }
+        
+//        return downloadedEpisodes / episodes
+        
+        return 0.0
+    }
 
     // Methods
 
