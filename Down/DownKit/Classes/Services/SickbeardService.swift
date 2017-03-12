@@ -142,9 +142,6 @@ public class SickbeardService: Service {
     public func refreshShowCache(force: Bool = false) {
         // Find shows to refresh, episodes aired since last update
         fetchShows { tvdbIds in
-            // Cleanup any deleted shows
-            self.removeDeletedShows(tvdbIds)
-            
             if self.shows.count == 0 || force {
                 NSLog("[SickbeardService] Refreshing full cache")
                 let shows: [SickbeardShow] = tvdbIds.map {
@@ -160,17 +157,41 @@ public class SickbeardService: Service {
                 })
             }
             else if let lastCacheRefresh = Preferences.sickbeardLastCacheRefresh {
-                // Find any newly added shows
-                var showsToRefresh = self.filterNewShows(tvdbIds)
+                var knownShowIds = Array(self.shows.map { $0.tvdbId })
                 
-                // Find shows to refresh, episodes aired since last update
-                DownDatabase.shared.fetchShowsWithEpisodesAiredSince(lastCacheRefresh).forEach {
-                    NSLog("[SickbeardService] Refreshing \($0.name)")
-                    showsToRefresh.append($0)
+                // Clean up deleted shows
+                let deletedShowIds = knownShowIds.filter { !tvdbIds.contains($0) }
+                NSLog("[SickbeardService] Deleted shows: \(deletedShowIds)")
+                deletedShowIds.forEach {
+                    if let show = self.showWithId($0) {
+                        NSLog("SickbeadService - Deleting show: \(show.name)")
+                        DownDatabase.shared.deleteSickbeardShow(show)
+                        knownShowIds.remove(at: deletedShowIds.index(of: $0)!)
+                    }
                 }
                 
-                NSLog("[SickbeardService] Refreshing \(showsToRefresh.count) shows")
-                self.refreshShows(showsToRefresh) {
+                // Find new shows
+                let newShowIds = tvdbIds.filter { !knownShowIds.contains($0) }
+                NSLog("[SickbeardService] New shows: \(newShowIds)")
+                
+                var showsIdsToRefresh = [SickbeardShow]()
+                showsIdsToRefresh += newShowIds.map {
+                    let show = SickbeardShow()
+                    show.tvdbId = $0
+                    
+                    return show
+                }
+                
+                // Find shows to refresh, episodes aired since last update
+                let showsToRefresh = DownDatabase.shared.fetchShowsWithEpisodesAiredSince(lastCacheRefresh)
+                for show in showsToRefresh {
+                    NSLog("[SickbeardService] Refreshing \(show.name)")
+                    showsIdsToRefresh.append(show)
+                }
+                
+                NSLog("[SickbeardService] Refreshing \(showsIdsToRefresh.count) shows")
+                
+                self.refreshShows(showsIdsToRefresh) {
                     Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
                     self.notifyListeners(.showCacheUpdated)
                 }
@@ -233,35 +254,6 @@ public class SickbeardService: Service {
         }, error: { _ in
             completionHandler(false)
         })
-    }
-    
-    private func removeDeletedShows(_ tvdbIds: [Int]) {
-        var knownShowIds = Array(self.shows.map { $0.tvdbId })
-        
-        // Clean up deleted shows
-        let deletedShowIds = knownShowIds.filter { !tvdbIds.contains($0) }
-        NSLog("[SickbeardService] Deleted shows: \(deletedShowIds)")
-        deletedShowIds.forEach {
-            if let show = self.showWithId($0) {
-                NSLog("SickbeadService - Deleting show: \(show.name)")
-                DownDatabase.shared.deleteSickbeardShow(show)
-                knownShowIds.remove(at: deletedShowIds.index(of: $0)!)
-            }
-        }
-        self.reloadSpotlight()
-    }
-    
-    private func filterNewShows(_ tvdbIds: [Int]) -> [SickbeardShow] {
-        let knownShowIds = self.shows.map { $0.tvdbId }
-        let newShowIds = tvdbIds.filter { !knownShowIds.contains($0) }
-        NSLog("[SickbeardService] New shows: \(newShowIds)")
-        
-        return newShowIds.map {
-            let show = SickbeardShow()
-            show.tvdbId = $0
-            
-            return show
-        }
     }
     
     // MARK: Adding shows
