@@ -1,9 +1,3 @@
- - Added iPad support
- - Added SickRage support (Will stil show as Sickbeard)
-
- - Fixes shows overview glitch
- - Fixed shows section indexer not showing at first
- - Fixed shows logical ordering
- - Fixed application color on Sickbeard's Episode view
-
- - Made show posters a bit bigger
+- Added web view when adding show to see more info
+- Fixed UI freeze when adding a show
+- Added spotlight integration, you can now search for shows in Spotlight! 🔍
