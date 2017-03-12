@@ -12,6 +12,7 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     
     var tableViewModel: ShowsTableViewModel?
     var delegate: SicbkeardAddShowViewControllerDelegate?
+    var webViewController: DownWebViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,8 +61,10 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     }
     
     func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.Status) {
+        webViewController?.setRightBarButton(spinning: true)
         SickbeardService.shared.addShow(show, initialState: state) { (success, addedShow) in
             if addedShow != nil {
+                self.webViewController?.setRightBarButton(spinning: false)
                 self.delegate?.addShowViewController(viewController: self, didAddShow: addedShow!)
             }
         }
@@ -70,7 +73,18 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     // MARK: ShowsViewModelDelegate
     
     func viewModel(_ model: ShowsViewModel, didSelectShow show: SickbeardShow) {
-        showAddShowActionSheet(for: show)
+        let showDetailUrl = URL(string: "https://thetvdb.com/?tab=series&id=\(show.tvdbId)")!
+        
+        let controller = DownWebViewController()
+        controller.url = showDetailUrl
+        controller.title = show.name
+        controller.rightBarButtonTitle = "Add"
+        controller.rightButtonTouchHandler = {
+            self.showAddShowActionSheet(for: show)
+        }
+        webViewController = controller
+        
+        navigationController?.pushViewController(webViewController!, animated: true)
     }
     
 }
