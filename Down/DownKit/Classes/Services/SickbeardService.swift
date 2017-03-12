@@ -568,7 +568,7 @@ extension SickbeardShow { // Spotlight
         
         if let episode = self.nextAiringEpisode() {
             let airDate = DateFormatter.downDateFormatter().string(from: episode.airDate!)
-            description = "\(airDate) - \(episode.title)"
+            description = "Next epsiode: \(airDate) - \(episode.title)"
         }
         
         return description
