@@ -223,6 +223,7 @@ public class SickbeardService: Service {
             })
         }, error: { error in
             NSLog("[SickbeardService] Error while fetching Sickbeard showData: \(error.localizedDescription)")
+            completionHandler(nil)
         })
     }
     
@@ -297,7 +298,7 @@ public class SickbeardService: Service {
             let shows = self.parseSearchResults(json["results"])
             completionHandler(shows)
         }, error: { error in
-           NSLog("[SickbeardService] Error while fetching Sickbeard showData: \(error.localizedDescription)")
+           NSLog("[SickbeardService] Error while searching Sickbeard shows: \(error.localizedDescription)")
         })
     }
     
@@ -340,7 +341,7 @@ public class SickbeardService: Service {
             self.parseShowSeasons(json, forShow: show)
             completionHandler()
         }, error: { error in
-            NSLog("[SickbeardService] Error while fetching Sickbeard showData: \(error.localizedDescription)")
+            NSLog("[SickbeardService] Error while fetching Sickbeard show seasonData: \(error.localizedDescription)")
             completionHandler()
         })
     }
