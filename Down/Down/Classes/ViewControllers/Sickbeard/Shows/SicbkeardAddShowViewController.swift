@@ -63,11 +63,23 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.Status) {
         webViewController?.setRightBarButton(spinning: true)
         SickbeardService.shared.addShow(show, initialState: state) { (success, addedShow) in
-            if addedShow != nil {
+            guard success else {
+                self.showError("There was an error while adding the show. It might already be added")
                 self.webViewController?.setRightBarButton(spinning: false)
-                self.delegate?.addShowViewController(viewController: self, didAddShow: addedShow!)
+                
+                return
             }
+            
+            self.delegate?.addShowViewController(viewController: self, didAddShow: addedShow!)
+            self.webViewController?.setRightBarButton(spinning: false)
         }
+    }
+    
+    func showError(_ message: String) {
+        let alert = UIAlertController(title: "Whoops..", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
     
     // MARK: ShowsViewModelDelegate

@@ -205,7 +205,7 @@ extension SickbeardShowsViewController: SicbkeardAddShowViewControllerDelegate {
         }
         
         collectionView?.scrollToItem(at: showIndexPath, at: .centeredVertically, animated: false)
-        viewController.dismiss(animated: true) { 
+        viewController.dismiss(animated: true) {
             self.collectionView?.selectItem(at: showIndexPath, animated: true, scrollPosition: .centeredVertically)
         }
     }
