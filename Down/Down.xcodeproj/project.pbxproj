@@ -70,6 +70,7 @@
 		42746BB71BB3353600CD78BE /* DatabaseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BB61BB3353600CD78BE /* DatabaseAdapter.swift */; };
 		42746BB91BB3358A00CD78BE /* DatabaseV1Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BB81BB3358A00CD78BE /* DatabaseV1Adapter.swift */; };
 		42746BBB1BB3392800CD78BE /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BBA1BB3392800CD78BE /* UIApplication+Extensions.swift */; };
+		42771BD21E4BA0590058BC84 /* DownWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42771BD11E4BA0590058BC84 /* DownWebViewController.swift */; };
 		428CF71F1AE1996B007F3E54 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF71E1AE1996B007F3E54 /* libc++.dylib */; };
 		428CF7211AE19973007F3E54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF7201AE19973007F3E54 /* Foundation.framework */; };
 		428CF7231AE1997A007F3E54 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF7221AE1997A007F3E54 /* CoreGraphics.framework */; };
@@ -456,6 +457,7 @@
 		42746BB61BB3353600CD78BE /* DatabaseAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseAdapter.swift; sourceTree = "<group>"; };
 		42746BB81BB3358A00CD78BE /* DatabaseV1Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseV1Adapter.swift; sourceTree = "<group>"; };
 		42746BBA1BB3392800CD78BE /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
+		42771BD11E4BA0590058BC84 /* DownWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownWebViewController.swift; sourceTree = "<group>"; };
 		428CF7041AE197DA007F3E54 /* Down-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Down-Bridging-Header.h"; sourceTree = "<group>"; };
 		428CF71E1AE1996B007F3E54 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		428CF7201AE19973007F3E54 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -939,6 +941,7 @@
 				4253E8031AB4B84C00EF1254 /* DownViewController.swift */,
 				42B8186A1D2969B3003672C3 /* DownRootViewController.swift */,
 				42E1CCCC1BA22BE600DFED2E /* DownDetailViewController.swift */,
+				42771BD11E4BA0590058BC84 /* DownWebViewController.swift */,
 				42D154F41AD4505400778713 /* TabBarController */,
 				42CC1D921C289976000CC68C /* Introduction */,
 				42078E181AD16E68009845CC /* SabNZBd */,
@@ -1838,6 +1841,7 @@
 				4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */,
 				42F035361AD45BC2001AE5B3 /* UIView+Extensions.swift in Sources */,
 				420998BE1DD90948005C1FA6 /* SickbeardShowsViewController.swift in Sources */,
+				42771BD21E4BA0590058BC84 /* DownWebViewController.swift in Sources */,
 				42A496E71BAF32FA00F5395C /* SickbeardTodayCell.swift in Sources */,
 				42E1CCCD1BA22BE600DFED2E /* DownDetailViewController.swift in Sources */,
 				42078E401AD1C702009845CC /* SickbeardViewController.swift in Sources */,
