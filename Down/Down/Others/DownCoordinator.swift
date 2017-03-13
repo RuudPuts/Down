@@ -15,6 +15,14 @@ class DownCoordinator {
             return false
         }
         
+        return processDeepLink(identifier: identifier)
+    }
+    
+    private class func processDeepLink(identifier: String?) -> Bool {
+        guard let identifier = identifier else {
+            return false
+        }
+        
         if identifier.hasPrefix("com.ruudputs.down.show") {
             guard let idString = identifier.components(separatedBy: ".").last, let showId = Int(idString) else {
                 return false
@@ -22,6 +30,7 @@ class DownCoordinator {
             
             if let show = SickbeardService.shared.showWithId(showId) {
                 deeplinkShowDetails(show)
+                return true
             }
         }
         
@@ -63,9 +72,12 @@ class DownCoordinator {
         let showDetailViewController = sickbeardStoryboard.instantiateViewController(withIdentifier: "SickbeardShowDetails") as! SickbeardShowViewController
         showDetailViewController.show = show
         
-        navigationController.viewControllers = [sickbeardViewController, showsViewController, showDetailViewController]
+        navigationController.setViewControllers([sickbeardViewController, showsViewController, showDetailViewController], animated: false)
         navigationController.setNavigationBarHidden(false, animated: false)
-        tabBarController.selectViewController(navigationController)
+        
+        if tabBarController.selectedViewController != navigationController {
+            tabBarController.selectViewController(navigationController)
+        }
     }
 
 }
