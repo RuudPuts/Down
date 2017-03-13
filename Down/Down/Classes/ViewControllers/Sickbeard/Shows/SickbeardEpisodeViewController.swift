@@ -37,9 +37,14 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     fileprivate var historyItemReplacement: String?
     fileprivate var historySwitchRefreshCount = 0
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        title = "Details"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Details"
         
         tableView!.rowHeight = UITableViewAutomaticDimension
         

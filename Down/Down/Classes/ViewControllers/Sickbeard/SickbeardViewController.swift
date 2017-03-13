@@ -14,10 +14,15 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     
     var todayData: Results<SickbeardEpisode>!
     var soonData: Results<SickbeardEpisode>!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        title = "Sickbeard"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Sickbeard"
         
         loadData()
         registerTableViewCells()

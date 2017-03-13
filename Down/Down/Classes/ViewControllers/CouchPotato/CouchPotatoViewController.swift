@@ -10,9 +10,10 @@ import UIKit
 import DownKit
 
 class CouchPotatoViewController: DownRootViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
         title = "CouchPotato"
     }
 }

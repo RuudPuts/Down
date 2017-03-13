@@ -91,6 +91,8 @@ class DownTabBarViewController: DownViewController {
             
             // Inform the view controller shit went down (get it? Down... I'll see myself out)
             viewController.didMove(toParentViewController: self)
+            
+            collectionView?.reloadData()
         }
     }
     

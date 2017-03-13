@@ -19,9 +19,14 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     
     let SymbolSectionTitle = "#"
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        title = "Shows"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Shows"
         
         guard let collectionView = collectionView else {
             return

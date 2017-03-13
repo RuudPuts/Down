@@ -49,9 +49,14 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         }
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        title = "Details"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Details"
         
         tableView!.rowHeight = UITableViewAutomaticDimension
         
@@ -333,7 +338,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
     
     func showDetailsForShow(_ show: SickbeardShow) {
         let sickbeardStoryboard = UIStoryboard(name: "Sickbeard", bundle: Bundle.main)
-        let showDetailViewcontroller = sickbeardStoryboard.instantiateViewController(withIdentifier: "SickbeardShowDetail") as! SickbeardShowViewController
+        let showDetailViewcontroller = sickbeardStoryboard.instantiateViewController(withIdentifier: "SickbeardShowDetails") as! SickbeardShowViewController
         showDetailViewcontroller.show = show
             
         navigationController?.pushViewController(showDetailViewcontroller, animated: true)

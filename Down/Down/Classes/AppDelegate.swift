@@ -71,13 +71,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setupTabBarController() {
-        let sabNZBdController = UIStoryboard(name: "SabNZBd", bundle: Bundle.main).instantiateInitialViewController()!
+        let sabNZBdController = DownCoordinator.sabNZBdStoryboard.instantiateInitialViewController()!
         (sabNZBdController as! UINavigationController).setupForApplication(.SabNZBd)
         
-        let sickbeardController = UIStoryboard(name: "Sickbeard", bundle: Bundle.main).instantiateInitialViewController()!
+        let sickbeardController = DownCoordinator.sickbeardStoryboard.instantiateInitialViewController()!
         (sickbeardController as! UINavigationController).setupForApplication(.Sickbeard)
         
-        let couchPotatoController = UIStoryboard(name: "CouchPotato", bundle: Bundle.main).instantiateInitialViewController()!
+        let couchPotatoController = DownCoordinator.couchPotatoStoryboard.instantiateInitialViewController()!
         (couchPotatoController as! UINavigationController).setupForApplication(.CouchPotato)
         
         let tabBarController = window?.rootViewController as! DownTabBarViewController
@@ -100,6 +100,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             checkRefreshSickbeardCache()
         }
+    }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        return DownCoordinator.deeplink(userActivity)
     }
 }
 
