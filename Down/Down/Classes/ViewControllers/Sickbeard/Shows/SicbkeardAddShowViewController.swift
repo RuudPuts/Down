@@ -13,11 +13,13 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     var tableViewModel: ShowsTableViewModel?
     var delegate: SicbkeardAddShowViewControllerDelegate?
     var webViewController: DownWebViewController?
+    var rightBarButton = DownBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.setupForApplication(.Sickbeard)
+        navigationItem.rightBarButtonItem = rightBarButton
         
         guard let tableView = tableView else {
             return
@@ -61,17 +63,17 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     }
     
     func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.Status) {
-        webViewController?.setRightBarButton(spinning: true)
+        webViewController?.rightBarButton.isSpinning = true
         SickbeardService.shared.addShow(show, initialState: state) { (success, addedShow) in
             guard success else {
                 self.showError("There was an error while adding the show. It might already be added")
-                self.webViewController?.setRightBarButton(spinning: false)
+                self.webViewController?.rightBarButton.isSpinning = false
                 
                 return
             }
             
             self.delegate?.addShowViewController(viewController: self, didAddShow: addedShow!)
-            self.webViewController?.setRightBarButton(spinning: false)
+            self.webViewController?.rightBarButton.isSpinning = false
         }
     }
     
@@ -90,8 +92,8 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
         let controller = DownWebViewController()
         controller.url = showDetailUrl
         controller.title = show.name
-        controller.rightBarButtonTitle = "Add"
-        controller.rightButtonTouchHandler = {
+        controller.rightBarButton.title = "Add"
+        controller.rightBarButton.touchClosure = {
             self.showAddShowActionSheet(for: show)
         }
         webViewController = controller
@@ -108,11 +110,13 @@ protocol SicbkeardAddShowViewControllerDelegate {
 extension SicbkeardAddShowViewController { // UISearchBarDelegate
     
     override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        rightBarButton.isSpinning = true
         SickbeardService.shared.searchForShow(query: searchText) { foundShows in
             self.tableViewModel!.shows = foundShows
             
             self.tableView?.reloadData()
             self.searchBar?.becomeFirstResponder()
+            self.rightBarButton.isSpinning = false
         }
         
         super.searchBar(searchBar, textDidChange: searchText)

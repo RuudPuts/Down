@@ -14,14 +14,14 @@ class DownWebViewController: DownViewController {
     var url: URL?
     var webView = WKWebView()
     
-    var rightBarButton: UIBarButtonItem = UIBarButtonItem()
-    var rightBarButtonTitle: String?
-    var rightButtonTouchHandler: ((Void) -> (Void))?
+    var rightBarButton = DownBarButtonItem()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadWebview()
-        setRightBarButton(spinning: webView.isLoading)
+        
+        rightBarButton.isSpinning = webView.isLoading
+        navigationItem.rightBarButtonItem = rightBarButton
     }
     
     func loadWebview() {
@@ -33,57 +33,28 @@ class DownWebViewController: DownViewController {
             webView.load(URLRequest(url: url))
         }
     }
-    
-    func loadBarButtonItem() {
-        navigationItem.rightBarButtonItem = rightBarButton
-        rightBarButton.title = rightBarButtonTitle
-        
-        rightBarButton.target = self
-        rightBarButton.action = #selector(rightBarButtonTapped)
-    }
-    
-    func rightBarButtonTapped() {
-        guard let touchHandler = rightButtonTouchHandler else {
-            return
-        }
-        
-        touchHandler()
-    }
-    
-    func setRightBarButton(spinning: Bool) {
-        if spinning {
-            let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-            spinner.startAnimating()
-            rightBarButton.customView = spinner
-        }
-        else {
-            rightBarButton = UIBarButtonItem()
-        }
-        rightBarButton.isEnabled = !spinning
-        loadBarButtonItem()
-    }
 }
 
 extension DownWebViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         NSLog("didStartProvisionalNavigation \(navigation)")
-        setRightBarButton(spinning: true)
+        rightBarButton.isSpinning = true
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         NSLog("didFinish \(navigation)")
-        setRightBarButton(spinning: false)
+        rightBarButton.isSpinning = false
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         NSLog("didFail \(navigation) - \(error)")
-        setRightBarButton(spinning: false)
+        rightBarButton.isSpinning = false
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         NSLog("didFailProvisionalNavigation \(navigation) - \(error)")
-        setRightBarButton(spinning: false)
+        rightBarButton.isSpinning = false
     }
     
 }

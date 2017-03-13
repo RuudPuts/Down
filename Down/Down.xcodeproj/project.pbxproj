@@ -110,6 +110,7 @@
 		42AE88D31B9F7D0A00E4F0CF /* SickbeardSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */; };
 		42B818691D295C1C003672C3 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B818681D295C1C003672C3 /* String+Extensions.swift */; };
 		42B8186B1D2969B3003672C3 /* DownRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8186A1D2969B3003672C3 /* DownRootViewController.swift */; };
+		42B8E7261E774DD300901D75 /* DownBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B8E7251E774DD300901D75 /* DownBarButtonItem.swift */; };
 		42BE52C61DDE47410083CBBB /* DownRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BE52C51DDE47410083CBBB /* DownRequest.swift */; };
 		42BE52C81DDE4D090083CBBB /* SickbeardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BE52C71DDE4D090083CBBB /* SickbeardRequest.swift */; };
 		42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42C091081AC1E68300E6DDC4 /* Settings.bundle */; };
@@ -501,6 +502,7 @@
 		42AE88D21B9F7D0A00E4F0CF /* SickbeardSeason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardSeason.swift; sourceTree = "<group>"; };
 		42B818681D295C1C003672C3 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		42B8186A1D2969B3003672C3 /* DownRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownRootViewController.swift; sourceTree = "<group>"; };
+		42B8E7251E774DD300901D75 /* DownBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownBarButtonItem.swift; sourceTree = "<group>"; };
 		42BE52C51DDE47410083CBBB /* DownRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownRequest.swift; sourceTree = "<group>"; };
 		42BE52C71DDE4D090083CBBB /* SickbeardRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardRequest.swift; sourceTree = "<group>"; };
 		42C091081AC1E68300E6DDC4 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -1291,6 +1293,7 @@
 				42CD255C1AB5BF93008E9717 /* TableViewCells */,
 				422063DD1B85126300DAFB46 /* DownImageView.swift */,
 				42FD7FF51D99AF430025CAB8 /* DownSectionIndexView.swift */,
+				42B8E7251E774DD300901D75 /* DownBarButtonItem.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1834,6 +1837,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42B8E7261E774DD300901D75 /* DownBarButtonItem.swift in Sources */,
 				420998BA1DD90948005C1FA6 /* ShowsTableViewModel.swift in Sources */,
 				42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */,
 				429E97E91B977CE200C3F58B /* DownEmptyCell.swift in Sources */,
