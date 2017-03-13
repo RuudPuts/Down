@@ -569,7 +569,7 @@ extension SickbeardService { // CoreSpotlight
 extension SickbeardShow { // Spotlight
     
     var spotlightDescription: String {
-        var description = "\(self.seasons.count) Seasons, \(self.percentageDownloaded)% downloaded"
+        var description = "\(self.seasons.count) Seasons, \(self.percentageDownloaded)% available"
         
         if let episode = self.nextAiringEpisode() {
             let airDate = DateFormatter.downDateFormatter().string(from: episode.airDate!)
