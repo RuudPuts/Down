@@ -91,7 +91,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         // Section 0
         var section0 = [EpisodeDetailDataSource]()
         section0.append(EpisodeDetailDataSource(rowType: .name, title: "Name"))
-        section0.append(EpisodeDetailDataSource(rowType: .airDate, title: "Aired on"))
+        section0.append(EpisodeDetailDataSource(rowType: .airDate, title: "Airdate"))
         section0.append(EpisodeDetailDataSource(rowType: .show, title: "Show"))
         section0.append(EpisodeDetailDataSource(rowType: .season, title: "Season"))
         section0.append(EpisodeDetailDataSource(rowType: .episode, title: "Episode"))
