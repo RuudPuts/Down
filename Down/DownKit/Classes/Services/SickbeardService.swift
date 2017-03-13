@@ -533,30 +533,33 @@ public class SickbeardService: Service {
 extension SickbeardService { // CoreSpotlight
  
     func reloadSpotlight() {
-        
-        var items = [CSSearchableItem]()
-        shows.forEach { show in
-            let attributeSet = CSSearchableItemAttributeSet(itemContentType: kCIAttributeTypeImage)
-            attributeSet.title = show.name
-            attributeSet.contentDescription = show.spotlightDescription
-            attributeSet.keywords = show.name.components(separatedBy: " ")
+        DispatchQueue.global().async {
+            NSLog("Indexing Spotlight \(Thread.current)");
             
-            if let poster = show.poster {
-                attributeSet.thumbnailData = UIImagePNGRepresentation(poster);
+            var items = [CSSearchableItem]()
+            self.shows.forEach { show in
+                let attributeSet = CSSearchableItemAttributeSet(itemContentType: kCIAttributeTypeImage)
+                attributeSet.title = show.name
+                attributeSet.contentDescription = show.spotlightDescription
+                attributeSet.keywords = show.name.components(separatedBy: " ")
+                
+                if let poster = show.poster {
+                    attributeSet.thumbnailData = UIImagePNGRepresentation(poster);
+                }
+                
+                items.append(CSSearchableItem(uniqueIdentifier: "com.ruudputs.down.show.\(show.tvdbId)",
+                    domainIdentifier: "com.ruutputs.down", attributeSet: attributeSet))
             }
             
-            items.append(CSSearchableItem(uniqueIdentifier: "com.ruudputs.down.show.\(show.tvdbId)",
-                domainIdentifier: "com.ruutputs.down", attributeSet: attributeSet))
+            CSSearchableIndex.default().indexSearchableItems(items) {
+                guard $0 == nil else {
+                    NSLog("Error while indexing Spotlight: \($0)")
+                    return
+                }
+                
+                NSLog("Spotlight indexed \(Thread.current)");
+            };
         }
-        
-        CSSearchableIndex.default().indexSearchableItems(items) {
-            guard $0 == nil else {
-                NSLog("Error while indexing Spotlight: \($0)")
-                return
-            }
-            
-            NSLog("Spotlight indexed");
-        };
     }
     
 }
