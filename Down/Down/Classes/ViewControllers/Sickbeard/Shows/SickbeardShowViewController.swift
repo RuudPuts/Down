@@ -17,6 +17,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         didSet {
             if let tvdbId = show?.tvdbId {
                 self.tvdbId = tvdbId
+                title = show?.name
             }
         }
     }
@@ -35,7 +36,6 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = show?.name
         refreshShow()
         
         sectionIndexView.datasource = seasons.map { String($0.id) }

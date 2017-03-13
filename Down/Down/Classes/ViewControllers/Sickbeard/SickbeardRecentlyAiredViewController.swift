@@ -13,10 +13,15 @@ import RealmSwift
 class SickbeardRecentlyAiredViewController: DownViewController, UITableViewDataSource, UITableViewDelegate {
     
     var episodes: Results<SickbeardEpisode>!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        title = "Recently aired"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Recently aired"
         
         episodes = SickbeardService.shared.getRecentlyAiredEpisodes()
         registerTableViewCells()

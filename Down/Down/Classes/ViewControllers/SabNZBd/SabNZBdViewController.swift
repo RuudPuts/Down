@@ -21,11 +21,15 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     @IBOutlet weak var mbRemainingLabel: UILabel!
     
     fileprivate let kMaxHistoryDisplayCount = 20
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        title = "SABnzbd"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = "SABnzbd"
         
         let loadingCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
         tableView!.register(loadingCellNib, forCellReuseIdentifier: "DownActivityCell")
