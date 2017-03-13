@@ -41,6 +41,7 @@ public class SickbeardService: Service {
     
     override public func startService() {
         super.startService()
+        reloadSpotlight()
         NSLog("[SickbeardService] Last updated: \(Preferences.sickbeardLastCacheRefresh ?? Date.init(timeIntervalSince1970: 0))")
         NSLog("[SickbeardService] Refreshing show cache")
         refreshShowCache()
@@ -549,7 +550,7 @@ extension SickbeardService { // CoreSpotlight
                 }
                 
                 items.append(CSSearchableItem(uniqueIdentifier: "com.ruudputs.down.show.\(show.tvdbId)",
-                    domainIdentifier: "com.ruutputs.down", attributeSet: attributeSet))
+                    domainIdentifier: "com.ruudputs.down", attributeSet: attributeSet))
             }
             
             CSSearchableIndex.default().indexSearchableItems(items) {
@@ -572,7 +573,7 @@ extension SickbeardShow { // Spotlight
         
         if let episode = self.nextAiringEpisode() {
             let airDate = DateFormatter.downDateFormatter().string(from: episode.airDate!)
-            description = "Next epsiode: \(airDate) - \(episode.title)"
+            description = "Next epsiode: \(airDate) - \(episode.name)"
         }
         
         return description
