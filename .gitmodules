@@ -10,3 +10,6 @@
 [submodule "Nuke"]
 	path = Nuke
 	url = https://github.com/kean/Nuke
+[submodule "MaterialCircularProgress"]
+	path = MaterialCircularProgress
+	url = https://github.com/RuudPuts/MaterialCircularProgress.git
