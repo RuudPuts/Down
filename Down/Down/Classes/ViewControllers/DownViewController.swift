@@ -22,6 +22,8 @@ class DownViewController: UIViewController {
     var searchBar: UISearchBar?
     var scrollViewAdjusted = false
     
+    fileprivate lazy var overlay = DownOverlay()
+    
     var application = DownApplication.Down
     
     var serviceManager: ServiceManager {
@@ -115,4 +117,24 @@ extension UISearchBar {
         }
     }
     
+}
+
+extension DownViewController { // Overlay
+    
+    func showOverlay() {
+        guard let window = UIApplication.shared.downAppDelegate.window else {
+            return
+        }
+        
+        overlay.frame = window.bounds
+        if overlay.superview != self {
+            window.addSubview(overlay)
+        }
+        
+        overlay.show()
+    }
+    
+    func hideOverlay() {
+        overlay.hide()
+    }
 }
