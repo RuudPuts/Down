@@ -562,7 +562,7 @@
 		42D154F51AD4505400778713 /* DownTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarViewController.swift; sourceTree = "<group>"; };
 		42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		42D2AE531C2B30F60089512D /* DownSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownSettingsTableViewCell.xib; sourceTree = "<group>"; };
-		42D7989E1E81D1160001A66D /* DownActivitySpinner.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DownActivitySpinner.playground; sourceTree = "<group>"; };
+		42D7989E1E81D1160001A66D /* DownSpinner.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DownSpinner.playground; sourceTree = "<group>"; };
 		42DEEB451BACCBC50061723F /* DownTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTableViewCell.swift; sourceTree = "<group>"; };
 		42DEEB4E1BACCC860061723F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownDetailViewController.xib; sourceTree = "<group>"; };
@@ -1335,7 +1335,7 @@
 		42D7989D1E81D1160001A66D /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				42D7989E1E81D1160001A66D /* DownActivitySpinner.playground */,
+				42D7989E1E81D1160001A66D /* DownSpinner.playground */,
 			);
 			name = Playgrounds;
 			path = Down/Playgrounds;

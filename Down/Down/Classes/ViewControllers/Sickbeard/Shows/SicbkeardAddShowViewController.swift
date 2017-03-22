@@ -63,17 +63,32 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     }
     
     func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.Status) {
-        webViewController?.rightBarButton.isSpinning = true
+//        webViewController?.rightBarButton.isSpinning = true
+        self.overlay.status = "Adding '\(show.name)'"
+        self.showOverlay()
+        
         SickbeardService.shared.addShow(show, initialState: state) { (success, addedShow) in
             guard success else {
+                self.hideOverlay()
+                // TODO: Add error result to overlay
                 self.showError("There was an error while adding the show. It might already be added")
                 self.webViewController?.rightBarButton.isSpinning = false
                 
                 return
             }
             
-            self.delegate?.addShowViewController(viewController: self, didAddShow: addedShow!)
-            self.webViewController?.rightBarButton.isSpinning = false
+            self.overlay.complete(withResult: .success)
+
+            // TODO: Cleanup, autohide in spinner
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.2, execute: {
+//                // TODO: Completion closure for hideOverlay
+                self.hideOverlay()
+            })
+            
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5, execute: {
+                self.delegate?.addShowViewController(viewController: self, didAddShow: addedShow!)
+            })
         }
     }
     
@@ -100,6 +115,24 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
         
         navigationController?.pushViewController(webViewController!, animated: true)
     }
+    
+    
+    
+    
+    
+    
+//    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//    self.overlay.status = "Testing overlay  🚀"
+//    self.showOverlay()
+//    
+//    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+//    self.overlay.complete(withResult: .success)
+//    
+//    DispatchQueue.main.asyncAfter(deadline: .now() + 4.5, execute: {
+//    self.hideOverlay()
+//    })
+//    }
+//    }
     
 }
 

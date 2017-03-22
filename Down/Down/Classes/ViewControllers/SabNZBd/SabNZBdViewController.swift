@@ -54,20 +54,6 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         
         tableView!.reloadData()
         updateHeader()
-        
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.overlay.status = "Testing overlay"
-            self.showOverlay()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                self.overlay.complete(withResult: .success)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4.5, execute: {
-                    self.hideOverlay()
-                })
-            }
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

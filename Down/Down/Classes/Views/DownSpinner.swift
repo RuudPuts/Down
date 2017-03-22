@@ -28,10 +28,10 @@ class DownSpinner: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        commonInit()
     }
     
     private func commonInit() {
-        layer.backgroundColor = UIColor.red.withAlphaComponent(0.2).cgColor
         setupProgressLayer()
     }
     
@@ -41,6 +41,7 @@ class DownSpinner: UIView {
     var resultColor = UIColor.white
     
     private func setupProgressLayer() {
+        let center = CGPoint(x: bounds.midX, y: bounds.midY)
         let radius = min(center.x, center.y) - progressLayer.lineWidth / 2
         let startAngle: CGFloat = CGFloat()
         let endAngle: CGFloat = CGFloat(M_PI * 2)
