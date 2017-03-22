@@ -10,3 +10,6 @@
 [submodule "Nuke"]
 	path = Nuke
 	url = https://github.com/kean/Nuke
+[submodule "Down/DownSpinner"]
+	path = Down/DownSpinner
+	url = https://github.com/RuudPuts/DownSpinner.git
