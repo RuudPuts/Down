@@ -562,7 +562,7 @@
 		42D154F51AD4505400778713 /* DownTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarViewController.swift; sourceTree = "<group>"; };
 		42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		42D2AE531C2B30F60089512D /* DownSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownSettingsTableViewCell.xib; sourceTree = "<group>"; };
-		42D7989E1E81D1160001A66D /* DownSpinner.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DownSpinner.playground; sourceTree = "<group>"; };
+		42D34ACC1E832255008672DF /* DownSpinner.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DownSpinner.playground; sourceTree = "<group>"; };
 		42DEEB451BACCBC50061723F /* DownTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTableViewCell.swift; sourceTree = "<group>"; };
 		42DEEB4E1BACCC860061723F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownDetailViewController.xib; sourceTree = "<group>"; };
@@ -903,9 +903,9 @@
 				4253E7F01AB4B7B900EF1254 /* DownTests */,
 				424595141B7933EB009DA699 /* DownKit */,
 				424595221B7933EB009DA699 /* DownKitTests */,
-				42D7989D1E81D1160001A66D /* Playgrounds */,
 				423D87931B700B3D00AFB7FF /* Frameworks */,
 				4253E7D61AB4B7B900EF1254 /* Products */,
+				42D34ACA1E832255008672DF /* DownSpinner */,
 				42C2D7461D6A31AA008E195E /* Preheat.xcodeproj */,
 				42C2D7531D6A3418008E195E /* Nuke.xcodeproj */,
 				420AF6371CFB392C00DC4DD4 /* Alamofire.xcodeproj */,
@@ -1332,13 +1332,12 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		42D7989D1E81D1160001A66D /* Playgrounds */ = {
+		42D34ACA1E832255008672DF /* DownSpinner */ = {
 			isa = PBXGroup;
 			children = (
-				42D7989E1E81D1160001A66D /* DownSpinner.playground */,
+				42D34ACC1E832255008672DF /* DownSpinner.playground */,
 			);
-			name = Playgrounds;
-			path = Down/Playgrounds;
+			path = DownSpinner;
 			sourceTree = "<group>";
 		};
 		42DEEB4D1BACCC6A0061723F /* Others */ = {
