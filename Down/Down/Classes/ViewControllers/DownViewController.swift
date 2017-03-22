@@ -22,7 +22,7 @@ class DownViewController: UIViewController {
     var searchBar: UISearchBar?
     var scrollViewAdjusted = false
     
-    fileprivate lazy var overlay = DownOverlay()
+    lazy var overlay = DownOverlay.overlay()
     
     var application = DownApplication.Down
     
@@ -128,6 +128,7 @@ extension DownViewController { // Overlay
         
         overlay.frame = window.bounds
         if overlay.superview != self {
+            overlay.frame = window.bounds
             window.addSubview(overlay)
         }
         

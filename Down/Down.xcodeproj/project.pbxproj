@@ -73,6 +73,8 @@
 		42746BB91BB3358A00CD78BE /* DatabaseV1Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BB81BB3358A00CD78BE /* DatabaseV1Adapter.swift */; };
 		42746BBB1BB3392800CD78BE /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42746BBA1BB3392800CD78BE /* UIApplication+Extensions.swift */; };
 		42771BD21E4BA0590058BC84 /* DownWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42771BD11E4BA0590058BC84 /* DownWebViewController.swift */; };
+		4277F99D1E81D3E20021D3B4 /* DownSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4277F99C1E81D3E20021D3B4 /* DownSpinner.swift */; };
+		4277F9AF1E81D4160021D3B4 /* DownOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4277F9AE1E81D4160021D3B4 /* DownOverlay.xib */; };
 		428CF71F1AE1996B007F3E54 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF71E1AE1996B007F3E54 /* libc++.dylib */; };
 		428CF7211AE19973007F3E54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF7201AE19973007F3E54 /* Foundation.framework */; };
 		428CF7231AE1997A007F3E54 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF7221AE1997A007F3E54 /* CoreGraphics.framework */; };
@@ -465,6 +467,8 @@
 		42746BB81BB3358A00CD78BE /* DatabaseV1Adapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseV1Adapter.swift; sourceTree = "<group>"; };
 		42746BBA1BB3392800CD78BE /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		42771BD11E4BA0590058BC84 /* DownWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownWebViewController.swift; sourceTree = "<group>"; };
+		4277F99C1E81D3E20021D3B4 /* DownSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownSpinner.swift; sourceTree = "<group>"; };
+		4277F9AE1E81D4160021D3B4 /* DownOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownOverlay.xib; sourceTree = "<group>"; };
 		428CF7041AE197DA007F3E54 /* Down-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Down-Bridging-Header.h"; sourceTree = "<group>"; };
 		428CF71E1AE1996B007F3E54 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		428CF7201AE19973007F3E54 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -558,6 +562,7 @@
 		42D154F51AD4505400778713 /* DownTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarViewController.swift; sourceTree = "<group>"; };
 		42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		42D2AE531C2B30F60089512D /* DownSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownSettingsTableViewCell.xib; sourceTree = "<group>"; };
+		42D7989E1E81D1160001A66D /* DownActivitySpinner.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DownActivitySpinner.playground; sourceTree = "<group>"; };
 		42DEEB451BACCBC50061723F /* DownTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTableViewCell.swift; sourceTree = "<group>"; };
 		42DEEB4E1BACCC860061723F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownDetailViewController.xib; sourceTree = "<group>"; };
@@ -898,6 +903,7 @@
 				4253E7F01AB4B7B900EF1254 /* DownTests */,
 				424595141B7933EB009DA699 /* DownKit */,
 				424595221B7933EB009DA699 /* DownKitTests */,
+				42D7989D1E81D1160001A66D /* Playgrounds */,
 				423D87931B700B3D00AFB7FF /* Frameworks */,
 				4253E7D61AB4B7B900EF1254 /* Products */,
 				42C2D7461D6A31AA008E195E /* Preheat.xcodeproj */,
@@ -1288,6 +1294,8 @@
 				42FD7FF51D99AF430025CAB8 /* DownSectionIndexView.swift */,
 				42B8E7251E774DD300901D75 /* DownBarButtonItem.swift */,
 				42B8E7371E7753CD00901D75 /* DownOverlay.swift */,
+				4277F9AE1E81D4160021D3B4 /* DownOverlay.xib */,
+				4277F99C1E81D3E20021D3B4 /* DownSpinner.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1322,6 +1330,15 @@
 				42D2AE531C2B30F60089512D /* DownSettingsTableViewCell.xib */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		42D7989D1E81D1160001A66D /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				42D7989E1E81D1160001A66D /* DownActivitySpinner.playground */,
+			);
+			name = Playgrounds;
+			path = Down/Playgrounds;
 			sourceTree = "<group>";
 		};
 		42DEEB4D1BACCC6A0061723F /* Others */ = {
@@ -1675,6 +1692,7 @@
 				42D2AE541C2B30F60089512D /* DownSettingsTableViewCell.xib in Resources */,
 				42C2D7431D6A1F90008E195E /* CouchPotato.storyboard in Resources */,
 				429E97FD1B97898200C3F58B /* SABHeaderView.xib in Resources */,
+				4277F9AF1E81D4160021D3B4 /* DownOverlay.xib in Resources */,
 				42CD25551AB5BD06008E9717 /* Roboto-Thin.ttf in Resources */,
 				42CD25451AB5BD06008E9717 /* OpenSans-Semibold.ttf in Resources */,
 				42CD25461AB5BD06008E9717 /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -1858,6 +1876,7 @@
 				42FD80051D99AF990025CAB8 /* DownSectionIndexView.swift in Sources */,
 				42B8E7381E7753CD00901D75 /* DownOverlay.swift in Sources */,
 				42360B191D6B77C1007D2723 /* SickbeardShowHeaderView.swift in Sources */,
+				4277F99D1E81D3E20021D3B4 /* DownSpinner.swift in Sources */,
 				4221ADEB1B7BC34D0027C3A0 /* DateFormatter+Extensions.swift in Sources */,
 				42C4AE011D2AFB390096FF71 /* FastSocket.m in Sources */,
 				42078E1A1AD16E68009845CC /* SabNZBdViewController.swift in Sources */,
