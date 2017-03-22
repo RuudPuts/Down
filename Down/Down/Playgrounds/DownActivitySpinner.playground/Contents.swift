@@ -1,10 +1,18 @@
 //: Playground - noun: a place where people can play
 
 import PlaygroundSupport
+//
+//  DownSpinner.swift
+//  Down
+//
+//  Created by Ruud Puts on 21/03/17.
+//  Copyright © 2017 Ruud Puts. All rights reserved.
+//
+
 import UIKit
 import QuartzCore
 
-class DownActivitySpinner: UIView {
+class DownSpinner: UIView {
     
     // MARK: Properties
     
@@ -22,14 +30,18 @@ class DownActivitySpinner: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     private func commonInit() {
+        layer.backgroundColor = UIColor.red.withAlphaComponent(0.2).cgColor
         setupProgressLayer()
     }
     
     // MARK: Layers
+    
+    var color = UIColor.white
+    var resultColor = UIColor.white
     
     private func setupProgressLayer() {
         let radius = min(center.x, center.y) - progressLayer.lineWidth / 2
@@ -52,7 +64,7 @@ class DownActivitySpinner: UIView {
     
     private func resetProgressLayer() {
         progressLayer.fillColor = UIColor.clear.cgColor
-        progressLayer.strokeColor = UIColor.white.cgColor
+        progressLayer.strokeColor = color.cgColor
         progressLayer.lineWidth = bounds.width / 40
         progressLayer.frame = bounds
         
@@ -63,9 +75,9 @@ class DownActivitySpinner: UIView {
     }
     
     private func resetResultLayer() {
-        resultLayer.strokeColor = UIColor.white.cgColor
-        resultLayer.lineWidth = bounds.width / 35
         resultLayer.fillColor = UIColor.clear.cgColor
+        resultLayer.strokeColor = resultColor.cgColor
+        resultLayer.lineWidth = bounds.width / 35
         resultLayer.strokeEnd = 0
         resultLayer.frame = bounds
         
@@ -132,7 +144,6 @@ class DownActivitySpinner: UIView {
         animation.duration = duration
         animation.fromValue = startAngle
         animation.toValue = endAngle
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
         
         progressLayer.strokeEnd = endAngle
         progressLayer.add(animation, forKey: .ProgressLayerEnd)
@@ -249,26 +260,30 @@ class DownActivitySpinner: UIView {
 
 extension CALayer {
     
-    fileprivate func add(_ animation: CAAnimation, forKey key: DownActivitySpinner.Animation) {
+    fileprivate func add(_ animation: CAAnimation, forKey key: DownSpinner.Animation) {
         add(animation, forKey: key.rawValue)
     }
     
-    fileprivate func animation(forKey key: DownActivitySpinner.Animation) -> CAAnimation? {
+    fileprivate func animation(forKey key: DownSpinner.Animation) -> CAAnimation? {
         return animation(forKey: key.rawValue)
     }
     
-    fileprivate func removeAnimation(forKey key: DownActivitySpinner.Animation) {
+    fileprivate func removeAnimation(forKey key: DownSpinner.Animation) {
         removeAnimation(forKey: key.rawValue)
     }
     
 }
 
+
 let view = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
 view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.2)
 
-let spinner = DownActivitySpinner()
+let spinner = DownSpinner()
 spinner.center = view.center
 view.addSubview(spinner)
+
+spinner.color = UIColor.blue
+spinner.resultColor = UIColor.orange
 
 PlaygroundPage.current.liveView = view
 NSLog("Reloaded on %@", NSDate())

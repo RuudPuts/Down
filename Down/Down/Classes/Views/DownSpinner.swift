@@ -37,6 +37,9 @@ class DownSpinner: UIView {
     
     // MARK: Layers
     
+    var color = UIColor.white
+    var resultColor = UIColor.white
+    
     private func setupProgressLayer() {
         let radius = min(center.x, center.y) - progressLayer.lineWidth / 2
         let startAngle: CGFloat = CGFloat()
@@ -58,7 +61,7 @@ class DownSpinner: UIView {
     
     private func resetProgressLayer() {
         progressLayer.fillColor = UIColor.clear.cgColor
-        progressLayer.strokeColor = UIColor.downRedColor().cgColor
+        progressLayer.strokeColor = color.cgColor
         progressLayer.lineWidth = bounds.width / 40
         progressLayer.frame = bounds
         
@@ -69,9 +72,9 @@ class DownSpinner: UIView {
     }
     
     private func resetResultLayer() {
-        resultLayer.strokeColor = UIColor.white.cgColor
-        resultLayer.lineWidth = bounds.width / 35
         resultLayer.fillColor = UIColor.clear.cgColor
+        resultLayer.strokeColor = resultColor.cgColor
+        resultLayer.lineWidth = bounds.width / 35
         resultLayer.strokeEnd = 0
         resultLayer.frame = bounds
         
