@@ -99,7 +99,20 @@ class DownSpinner: UIView {
         case ResultMark
     }
     
-    var duration = 0.8
+    private enum Duration: CFTimeInterval {
+        case duration = 0.8
+        case start = 0.533333333 //.ongoing / 0.75
+        case ongoing = 1.6 // .duration / 0.5
+        case end = 9.6 // .ongoing * 12
+        case actualEnd = 1.3
+        
+        // The multiplier doesn't make sense, but it works
+        // But I wanted to make a point 🦄
+        // It should be something like 1.3 (actualEnd)
+        
+        case resultColor = 0.6
+        case resultMark = 0.3
+    }
     
     func startAnimation() {
         resetLayers()
@@ -109,11 +122,11 @@ class DownSpinner: UIView {
     }
     
     func endAnimation(withResult result: Result, _ completion: (() -> Swift.Void)? = nil) {
+        self.result = result
         // Lot's of indendation here..
         performAnimation(animation: .ProgressLayerEnd) {
-            Thread.sleep(forTimeInterval: 1.3)
+            Thread.sleep(forTimeInterval: Duration.actualEnd.rawValue)
             self.performAnimation(animation: .ResultColor, {
-//                self.performResultMarkAnimation(result: result)
                 self.performAnimation(animation: .ResultMark, {
                     if let completion = completion {
                         completion()
@@ -139,11 +152,11 @@ class DownSpinner: UIView {
             performEndAnimation()
             break
             
-        case .ResultColor:
-            performResultColorAnimation(result: .success)
+        case .ResultColor where result != nil:
+            performResultColorAnimation(result: result!)
             break
-        case .ResultMark:
-            performResultMarkAnimation(result: .success)
+        case .ResultMark where result != nil:
+            performResultMarkAnimation(result: result!)
             break
             
         default:
@@ -157,11 +170,10 @@ class DownSpinner: UIView {
     private func performStartAnimation() {
         let startAngle = CGFloat(M_PI_2 / 40)
         let endAngle = CGFloat(M_PI_2 / 10)
-        let duration = self.duration / 1.5
         
         let animation = CABasicAnimation()
         animation.keyPath = "strokeEnd"
-        animation.duration = duration
+        animation.duration = Duration.start.rawValue
         animation.fromValue = startAngle
         animation.toValue = endAngle
         
@@ -173,7 +185,7 @@ class DownSpinner: UIView {
     private func performOngoingAnimation() {
         let animation = CABasicAnimation()
         animation.keyPath = "transform.rotation"
-        animation.duration = self.duration / 0.5
+        animation.duration = Duration.ongoing.rawValue
         animation.fromValue = 0.0
         animation.toValue = 2.0 * M_PI
         animation.repeatCount = Float.infinity
@@ -185,16 +197,10 @@ class DownSpinner: UIView {
     private func performEndAnimation() {
         let startAngle = progressLayer.strokeEnd
         let endAngle = CGFloat(M_PI * 2)
-
-        // The multiplier doesn't make sense, but it works
-        // But I wanted to make a point 🦄
-        let duration = self.duration * 12
-        // It should be something like this
-//        let actualDuration = 1.2
         
         let animation = CABasicAnimation()
         animation.keyPath = "strokeEnd"
-        animation.duration = duration
+        animation.duration = Duration.end.rawValue
         animation.fromValue = startAngle
         animation.toValue = endAngle
         
@@ -203,6 +209,8 @@ class DownSpinner: UIView {
     }
     
     // Results
+    
+    var result: Result?
     
     enum Result {
         case success
@@ -248,21 +256,17 @@ class DownSpinner: UIView {
     private func performResultColorAnimation(result: Result) {
         let cgColor = color(forResult: result).cgColor
         
-        let progressDuration = 0.6
-        
         let fillAnimation = CABasicAnimation()
         fillAnimation.keyPath = "fillColor"
         fillAnimation.fromValue = progressLayer.fillColor
         fillAnimation.toValue = cgColor
-        fillAnimation.duration = progressDuration
-//        fillAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        fillAnimation.duration = Duration.resultColor.rawValue
         
         let strokeAnimation = CABasicAnimation()
         strokeAnimation.keyPath = "strokeColor"
         strokeAnimation.fromValue = progressLayer.strokeColor
         strokeAnimation.toValue = cgColor
-        strokeAnimation.duration = progressDuration
-//        strokeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        strokeAnimation.duration = Duration.resultColor.rawValue
         
         progressLayer.fillColor = cgColor
         progressLayer.strokeColor = cgColor
@@ -293,7 +297,7 @@ class DownSpinner: UIView {
         markAnimation.toValue = 1.0
         markAnimation.fillMode = kCAFillModeForwards
         markAnimation.isRemovedOnCompletion = false
-        markAnimation.duration = 0.3
+        markAnimation.duration = Duration.resultMark.rawValue
         resultLayer.add(markAnimation, forKey: .ResultMark)
     }
     
@@ -337,7 +341,9 @@ DispatchQueue.global().asyncAfter(deadline: .now()) {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-            spinner.endAnimation(withResult: .success)
+            spinner.endAnimation(withResult: .success, {
+                NSLog("Animation done")
+            })
         }
         
         sleep(8)
