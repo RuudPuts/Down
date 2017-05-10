@@ -22,6 +22,8 @@ public class SickbeardService: Service {
     fileprivate let bannerDownloadQueue = DispatchQueue(label: "com.ruudputs.down.BannerDownloadQueue", attributes: [])
     fileprivate let posterDownloadQueue = DispatchQueue(label: "com.ruudputs.down.PosterDownloadQueue", attributes: [])
     
+    fileprivate var isIndexingSpotlight = false
+    
     public enum ErrorType: Int {
         case guardFailed = -1
         case invalidValue = -2
@@ -175,8 +177,8 @@ public class SickbeardService: Service {
                 let newShowIds = tvdbIds.filter { !knownShowIds.contains($0) }
                 NSLog("[SickbeardService] New shows: \(newShowIds)")
                 
-                var showsIdsToRefresh = [SickbeardShow]()
-                showsIdsToRefresh += newShowIds.map {
+                var showsToRefresh = [SickbeardShow]()
+                showsToRefresh += newShowIds.map {
                     let show = SickbeardShow()
                     show.tvdbId = $0
                     
@@ -184,15 +186,15 @@ public class SickbeardService: Service {
                 }
                 
                 // Find shows to refresh, episodes aired since last update
-                let showsToRefresh = DownDatabase.shared.fetchShowsWithEpisodesAiredSince(lastCacheRefresh)
-                for show in showsToRefresh {
+                let recentlyAired = DownDatabase.shared.fetchShowsWithEpisodesAiredSince(lastCacheRefresh)
+                for show in recentlyAired {
                     NSLog("[SickbeardService] Refreshing \(show.name)")
-                    showsIdsToRefresh.append(show)
+                    showsToRefresh.append(show)
                 }
                 
-                NSLog("[SickbeardService] Refreshing \(showsIdsToRefresh.count) shows")
+                NSLog("[SickbeardService] Refreshing \(showsToRefresh.count) shows")
                 
-                self.refreshShows(showsIdsToRefresh) {
+                self.refreshShows(showsToRefresh) {
                     Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
                     self.notifyListeners(.showCacheUpdated)
                 }
@@ -535,6 +537,11 @@ public class SickbeardService: Service {
 extension SickbeardService { // CoreSpotlight
  
     func reloadSpotlight() {
+        guard !isIndexingSpotlight else {
+            return
+        }
+        isIndexingSpotlight = true
+        
         DispatchQueue.global().async {
             NSLog("Indexing Spotlight \(Thread.current)");
             
@@ -560,6 +567,7 @@ extension SickbeardService { // CoreSpotlight
                 }
                 
                 NSLog("Spotlight indexed \(Thread.current)");
+                self.isIndexingSpotlight = false
             };
         }
     }
