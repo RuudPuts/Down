@@ -182,6 +182,10 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         // Nib registering
         let settingsNib = UINib(nibName: "DownSettingsTableViewCell", bundle: Bundle.main)
         tableView!.register(settingsNib, forCellReuseIdentifier: "settingsCell")
+        
+        if (hostForApplication.length > 0 && apiKeyForApplication == nil) {
+            validateHost(hostForApplication)
+        }
     }
     
     func applyTheming() {
@@ -235,7 +239,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         tableData = [SettingDataSource]()
         tableData.append(SettingDataSource(rowType: .host, title: "Host", detailText: "Your \(application.rawValue) host <ip:port>"))
         
-        if let host = connector?.host, host.length > 0, let apiKey = connector?.apiKey, apiKey.length == 0 {
+        if hostForApplication.length > 0, apiKeyForApplication == nil || apiKeyForApplication!.length == 0 {
             tableData.append(SettingDataSource(rowType: .username, title: "Username", detailText: "Your \(application.rawValue) username"))
             tableData.append(SettingDataSource(rowType: .password, title: "Password", detailText: "Your \(application.rawValue) password"))
         }
@@ -359,6 +363,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         case .password:
             fetchApiKey()
             break
+            // TODO: add case for apikey to verify it
             
         default:
             break
@@ -423,11 +428,11 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             }
             else {
                 self.reloadCell(.host)
-                
-                // Check if user changed input during validation
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.revalidateHost(host)
-                }
+            }
+            
+            // Check if user changed input during validation
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.revalidateHost(host)
             }
         })
         
@@ -448,13 +453,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     }
     
     func fetchApiKey() {
-        let usernameIndexPath = indexPathForCell(withType: .username)
-        let usernameCell = tableView?.cellForRow(at: usernameIndexPath) as? DownTableViewCell
-        let username = usernameCell?.textField?.text ?? ""
-        
-        let passwordIndexPath = indexPathForCell(withType: .password)
-        let passwordCell = tableView?.cellForRow(at: passwordIndexPath) as? DownTableViewCell
-        let password = passwordCell?.textField?.text ?? ""
+        let (username, password) = getCredentials()
         
         if !fetchingApiKey && connector?.host?.length ?? 0 > 0 && username.length > 0 && password.length > 0 {
             fetchingApiKey = true
@@ -467,10 +466,40 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
                     self.configureTableView()
                     self.tableView!.reloadSections(IndexSet([0]), with: .automatic)
                 }
+                else {
+                    self.reloadCell(.apiKey)
+                }
+                
+                // Check if user changed input during validation
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.revalidateCredentials(username, password)
+                }
             })
         }
         
         self.reloadCell(.apiKey)
+    }
+    
+    func revalidateCredentials(_ username: String, _ password: String) {
+        let (curUsername, curPassword) = getCredentials()
+        
+        if !(curUsername == username) || !(curPassword == password) {
+            self.fetchingApiKey = false
+            self.fetchApiKey()
+            return
+        }
+    }
+    
+    func getCredentials() -> (String, String) {
+        let usernameIndexPath = indexPathForCell(withType: .username)
+        let usernameCell = tableView?.cellForRow(at: usernameIndexPath) as? DownTableViewCell
+        let username = usernameCell?.textField?.text ?? ""
+        
+        let passwordIndexPath = indexPathForCell(withType: .password)
+        let passwordCell = tableView?.cellForRow(at: passwordIndexPath) as? DownTableViewCell
+        let password = passwordCell?.textField?.text ?? ""
+        
+        return (username, password)
     }
     
     // MARK: SickbeardService

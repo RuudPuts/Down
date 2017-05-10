@@ -1,7 +1,9 @@
+- Fixed settings screen when host wasn't automatically discovered
+
+Previously
 - Fixed deep link issue with Spotlight
 - Fixed descriptions in Spotlight
 
-Previously:
 - Added web view when adding show to see more info
 - Fixed UI freeze when adding a show
 - Added spotlight integration, you can now search for shows in Spotlight! 🔍
