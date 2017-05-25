@@ -207,7 +207,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
             let header = Bundle.main.loadNibNamed("SickbeardHeaderView", owner: self, options: nil)!.first as! SickbeardHeaderView
             header.textLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
             header.imageView.image = self.tableView(tableView, iconForHeaderInSection: section)
-            let detailText = section == 1 ? "\((Calendar.current as NSCalendar).components(.day, from: Date()).day)" : "?"
+            let detailText = section == 1 ? "\(String(describing: (Calendar.current as NSCalendar).components(.day, from: Date()).day))" : "?"
             header.detailLabel.text = detailText
             
             headerView = header

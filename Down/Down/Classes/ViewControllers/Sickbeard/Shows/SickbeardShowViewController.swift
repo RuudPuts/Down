@@ -123,7 +123,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat(FLT_EPSILON)
+        return CGFloat(Float.ulpOfOne)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

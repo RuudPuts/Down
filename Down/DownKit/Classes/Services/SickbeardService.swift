@@ -562,7 +562,7 @@ extension SickbeardService { // CoreSpotlight
             
             CSSearchableIndex.default().indexSearchableItems(items) {
                 guard $0 == nil else {
-                    NSLog("Error while indexing Spotlight: \($0)")
+                    NSLog("Error while indexing Spotlight: \(String(describing: $0))")
                     return
                 }
                 

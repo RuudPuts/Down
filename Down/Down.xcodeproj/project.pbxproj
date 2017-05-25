@@ -165,6 +165,7 @@
 		42D154F61AD4505400778713 /* DownTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D154F51AD4505400778713 /* DownTabBarViewController.swift */; };
 		42D154FD1AD456C600778713 /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */; };
 		42D2AE541C2B30F60089512D /* DownSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D2AE531C2B30F60089512D /* DownSettingsTableViewCell.xib */; };
+		42D9DC961ED78FCF00C8EE36 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D9DC951ED78FCF00C8EE36 /* Double+Extensions.swift */; };
 		42DEEB461BACCBC50061723F /* DownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEEB451BACCBC50061723F /* DownTableViewCell.swift */; };
 		42DEEB4F1BACCC860061723F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEEB4E1BACCC860061723F /* Constants.swift */; };
 		42E1CCCB1BA22B6200DFED2E /* DownDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */; };
@@ -563,6 +564,7 @@
 		42D154FC1AD456C600778713 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		42D2AE531C2B30F60089512D /* DownSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownSettingsTableViewCell.xib; sourceTree = "<group>"; };
 		42D34ACC1E832255008672DF /* DownSpinner.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DownSpinner.playground; sourceTree = "<group>"; };
+		42D9DC951ED78FCF00C8EE36 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		42DEEB451BACCBC50061723F /* DownTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTableViewCell.swift; sourceTree = "<group>"; };
 		42DEEB4E1BACCC860061723F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownDetailViewController.xib; sourceTree = "<group>"; };
@@ -784,6 +786,7 @@
 				4216CF951D1B221700A89C4C /* Date+Extensions.swift */,
 				426F5FF01D2AE4880074C06B /* UIImage+Extensions.swift */,
 				426E38561D64FBB9009FC287 /* NSURL+Extensions.swift */,
+				42D9DC951ED78FCF00C8EE36 /* Double+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1818,6 +1821,7 @@
 				429947771C249F7300934B03 /* Connector.swift in Sources */,
 				42746BB51BB3351900CD78BE /* DownDatabase.swift in Sources */,
 				42AE88D31B9F7D0A00E4F0CF /* SickbeardSeason.swift in Sources */,
+				42D9DC961ED78FCF00C8EE36 /* Double+Extensions.swift in Sources */,
 				42746BB71BB3353600CD78BE /* DatabaseAdapter.swift in Sources */,
 				4221ADE01B7BC0B20027C3A0 /* SABQueueItem.swift in Sources */,
 				4221ADE51B7BC0B20027C3A0 /* SabNZBdService.swift in Sources */,

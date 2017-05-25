@@ -44,7 +44,7 @@ class DownSpinner: UIView {
         let center = CGPoint(x: bounds.midX, y: bounds.midY)
         let radius = min(center.x, center.y) - progressLayer.lineWidth / 2
         let startAngle: CGFloat = CGFloat()
-        let endAngle: CGFloat = CGFloat(M_PI * 2)
+        let endAngle: CGFloat = CGFloat(Double.pi * 2)
         
         let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         progressLayer.path = path.cgPath
@@ -67,7 +67,7 @@ class DownSpinner: UIView {
         progressLayer.frame = bounds
         
         progressLayer.strokeStart = CGFloat()
-        progressLayer.strokeEnd = CGFloat(M_PI_4 / 80)
+        progressLayer.strokeEnd = CGFloat(Double.pi_4 / 80)
         
         progressLayer.removeAllAnimations()
     }
@@ -104,8 +104,8 @@ class DownSpinner: UIView {
     }
     
     private func performStartAnimation() {
-        let startAngle = CGFloat(M_PI_2 / 40)
-        let endAngle = CGFloat(M_PI_2 / 10)
+        let startAngle = CGFloat(Double.pi_2 / 40)
+        let endAngle = CGFloat(Double.pi_2 / 10)
         let duration = self.duration / 1.5
         
         let animation = CABasicAnimation()
@@ -135,7 +135,7 @@ class DownSpinner: UIView {
     
     private func performEndAnimation(_ duration: Double) {
         let startAngle = progressLayer.strokeEnd
-        let endAngle = CGFloat(M_PI * 2)
+        let endAngle = CGFloat(Double.pi * 2)
         
         let animation = CABasicAnimation()
         animation.keyPath = "strokeEnd"
@@ -154,7 +154,7 @@ class DownSpinner: UIView {
         animation.keyPath = "transform.rotation"
         animation.duration = self.duration / 0.5
         animation.fromValue = 0.0
-        animation.toValue = 2.0 * M_PI
+        animation.toValue = 2.0 * Double.pi
         animation.repeatCount = Float.infinity
         animation.isRemovedOnCompletion = false
         
