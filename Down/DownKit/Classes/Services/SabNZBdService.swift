@@ -60,13 +60,6 @@ public class SabNZBdService: Service {
     
     var imdbTitleCache = [String: String]()
     
-    fileprivate enum SabNZBDNotifyType {
-        case queueUpdated
-        case historyUpdated
-        case fullHistoryFetched
-        case willRemoveSabItem
-    }
-    
     override public func addListener(_ listener: ServiceListener) {
         if listener is SabNZBdListener {
             super.addListener(listener)
@@ -118,10 +111,7 @@ public class SabNZBdService: Service {
                 self.parseQueueJson(json)
                 self.refreshCompleted()
                 
-                DispatchQueue.main.async {
-                    // TODO: eachListener { $0.notify(.queueUpdated) }
-                    self.notifyListeners(.queueUpdated)
-                }
+                self.notifyListeners { $0.sabNZBdQueueUpdated() }
             }
         }, error: { error in
             NSLog("[SabNZBdService] Error while fetching queue: \(error.localizedDescription)")
@@ -201,7 +191,7 @@ public class SabNZBdService: Service {
     
     fileprivate func removeItemFromQueue(_ identifier: String) {
         if let queueItem = findQueueItem(identifier) {
-            notifyListeners(.willRemoveSabItem, withItem: queueItem)
+            notifyListeners{ $0.willRemoveSABItem(queueItem) }
             queue.remove(at: queue.index(of: queueItem)!)
         }
     }
@@ -221,9 +211,7 @@ public class SabNZBdService: Service {
                 self.parseHistoryJson(json)
                 self.refreshCompleted()
                 
-                DispatchQueue.main.async {
-                    self.notifyListeners(.historyUpdated)
-                }
+                self.notifyListeners { $0.sabNZBdHistoryUpdated() }
             }
         }, error: { error in
             NSLog("[SabNZBdService] Error while refreshing history: \(error.localizedDescription)")
@@ -257,14 +245,14 @@ public class SabNZBdService: Service {
                 self.parseHistoryJson(json)
                 self.refreshCompleted()
                 
-                DispatchQueue.main.async {
-                    self.notifyListeners(.historyUpdated)
-                    
+                self.notifyListeners {
+                    $0.sabNZBdHistoryUpdated()
                     if self.fullHistoryFetched {
-                        self.notifyListeners(.fullHistoryFetched)
+                        $0.sabNZBDFullHistoryFetched()
                     }
-                    self.isFetchingHistory = false
                 }
+                self.isFetchingHistory = false
+                
             }
         }, error: { error in
             NSLog("[SabNZBdService] Error while fetching history: \(error.localizedDescription)")
@@ -329,7 +317,7 @@ public class SabNZBdService: Service {
     
     fileprivate func removeItemFromHistory(_ identifier: String) {
         if let historyItem = findHistoryItem(identifier) {
-            notifyListeners(.willRemoveSabItem, withItem: historyItem)
+            notifyListeners{ $0.willRemoveSABItem(historyItem) }
             history.remove(at: history.index(of: historyItem)!)
         }
     }
@@ -358,7 +346,7 @@ public class SabNZBdService: Service {
                 self.queue.remove(at: queueIndex)
             }
             
-            self.notifyListeners(.willRemoveSabItem, withItem: item)
+            self.notifyListeners{ $0.willRemoveSABItem(item) }
         }, error: { error in
             NSLog("[SabNZBdService] Error while deleting item: \(error.localizedDescription)")
         })
@@ -388,31 +376,13 @@ public class SabNZBdService: Service {
     
     // MARK - Listeners
     
-    fileprivate func notifyListeners(_ notifyType: SabNZBDNotifyType) {
-        notifyListeners(notifyType, withItem: nil)
-    }
-    
-    fileprivate func notifyListeners(_ notifyType: SabNZBDNotifyType, withItem sabItem: SABItem?) {
-        for listener in self.listeners {
-            if listener is SabNZBdListener {
-                let sabNZBdListener = listener as! SabNZBdListener
-                switch notifyType {
-                case .queueUpdated:
-                    sabNZBdListener.sabNZBdQueueUpdated()
-                    break
-                case .historyUpdated:
-                    sabNZBdListener.sabNZBdHistoryUpdated()
-                    break
-                case .fullHistoryFetched:
-                    sabNZBdListener.sabNZBDFullHistoryFetched()
-                    break
-                    
-                case .willRemoveSabItem:
-                    sabNZBdListener.willRemoveSABItem(sabItem!)
-                    break
+    fileprivate func notifyListeners(_ task: @escaping ((_ listener: SabNZBdListener) -> ())) {
+        listeners.forEach { listener in
+            if let listener = listener as? SabNZBdListener {
+                DispatchQueue.main.async {
+                    task(listener)
                 }
             }
         }
     }
-    
 }
