@@ -7,6 +7,7 @@
 //
 
 import DownKit
+import Rswift
 
 extension DownApplication {
     var color: UIColor {
@@ -31,11 +32,11 @@ extension DownApplication {
     
     var icon: UIImage? {
         switch self {
-        case .Down: return UIImage(named: "down-icon")
+        case .Down: return nil
             
-        case .SabNZBd: return UIImage(named: "sabnzbd-icon")
-        case .Sickbeard: return UIImage(named: "sickbeard-icon")
-        case .CouchPotato: return UIImage(named: "couchpotato-icon")
+        case .SabNZBd: return R.image.sabnzbdIcon()
+        case .Sickbeard: return R.image.sickbeardIcon()
+        case .CouchPotato: return R.image.couchpotatoIcon()
         }
     }
 }

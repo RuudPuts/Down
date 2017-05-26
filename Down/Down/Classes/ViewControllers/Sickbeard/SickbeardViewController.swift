@@ -9,6 +9,7 @@
 import UIKit
 import DownKit
 import RealmSwift
+import Rswift
 
 class SickbeardViewController: DownRootViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
@@ -184,11 +185,11 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
             iconTextCell.setCellType(.Sickbeard)
             if (indexPath as NSIndexPath).row == 0 {
                 iconTextCell.label?.text = "All shows"
-                iconTextCell.iconView?.image = UIImage(named: "sickbeard-allshows")
+                iconTextCell.iconView?.image = R.image.sickbeardAllshows()
             }
             else {
                 iconTextCell.label?.text = "Recently aired"
-                iconTextCell.iconView?.image = UIImage(named: "sickbeard-history")
+                iconTextCell.iconView?.image = R.image.sickbeardHistory()
             }
             cell = iconTextCell
         }
@@ -234,7 +235,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     }
     
     private func tableView(_ tableView: UITableView, iconForHeaderInSection section: Int) -> UIImage? {
-        return UIImage(named: "sickbeard-airingtoday")
+        return R.image.sickbeardAiringtoday()
     }
     
     // MARK: - TableView Delegate
@@ -267,7 +268,7 @@ extension SickbeardViewController: DownTabBarItem {
     
     var tabIcon: UIImage {
         get {
-            return UIImage(named: "sickbeard-tabbar")!
+            return R.image.sickbeardTabbar()!
         }
     }
     

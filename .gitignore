@@ -22,3 +22,5 @@ DerivedData
 # Fastlane
 Down/fastlane/*.mobileprovision
 Down/fastlane/report.xml
+
+Down/R.generated.swift

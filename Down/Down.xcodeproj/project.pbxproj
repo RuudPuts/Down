@@ -60,6 +60,9 @@
 		4253E8181AB4B85800EF1254 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8151AB4B85800EF1254 /* DownTests.swift */; };
 		4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4253E81B1AB4B8E300EF1254 /* Down.xcdatamodeld */; };
 		4253E8221AB4B8E300EF1254 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4253E81E1AB4B8E300EF1254 /* Images.xcassets */; };
+		4257F7411ED8323D00FBF99A /* Rswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4257F73A1ED831F700FBF99A /* Rswift.framework */; };
+		4257F7421ED8323D00FBF99A /* Rswift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4257F73A1ED831F700FBF99A /* Rswift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4257F7501ED8343000FBF99A /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4257F74F1ED8342F00FBF99A /* R.generated.swift */; };
 		42670EF91ADDAB5E006341EA /* DownTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* DownTextCell.xib */; };
 		426918E91E75DDF400C14D02 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426918D71E75DD8800C14D02 /* CoreSpotlight.framework */; };
 		426918FA1E75EDD600C14D02 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426918F91E75EDD600C14D02 /* WebKit.framework */; };
@@ -273,6 +276,41 @@
 			remoteGlobalIDString = 4253E7D41AB4B7B900EF1254;
 			remoteInfo = Down;
 		};
+		4257F7391ED831F700FBF99A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4257F7221ED831F700FBF99A /* R.swift.Library.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D592464E1C117A55007F94C7;
+			remoteInfo = "Rswift-iOS";
+		};
+		4257F73B1ED831F700FBF99A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4257F7221ED831F700FBF99A /* R.swift.Library.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D59246581C117A55007F94C7;
+			remoteInfo = "RswiftTests-iOS";
+		};
+		4257F73D1ED831F700FBF99A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4257F7221ED831F700FBF99A /* R.swift.Library.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 806E69921C42BD9C00DE3A8B;
+			remoteInfo = "Rswift-tvOS";
+		};
+		4257F73F1ED831F700FBF99A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4257F7221ED831F700FBF99A /* R.swift.Library.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 806E699B1C42BD9C00DE3A8B;
+			remoteInfo = "RswiftTests-tvOS";
+		};
+		4257F7431ED8323D00FBF99A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4257F7221ED831F700FBF99A /* R.swift.Library.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D592464D1C117A55007F94C7;
+			remoteInfo = "Rswift-iOS";
+		};
 		42945EE01DAACD8D006E5176 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 42C2D7531D6A3418008E195E /* Nuke.xcodeproj */;
@@ -388,6 +426,7 @@
 				424595291B7933EB009DA699 /* DownKit.framework in Embed Frameworks */,
 				42C2D76C1D6A357E008E195E /* Nuke.framework in Embed Frameworks */,
 				42E97C2E1BBD9E130040A979 /* RealmSwift.framework in Embed Frameworks */,
+				4257F7421ED8323D00FBF99A /* Rswift.framework in Embed Frameworks */,
 				42354FD71D182BA80016B518 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -454,6 +493,8 @@
 		4253E8171AB4B85800EF1254 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4253E81C1AB4B8E300EF1254 /* Down.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Down.xcdatamodel; sourceTree = "<group>"; };
 		4253E81E1AB4B8E300EF1254 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4257F7221ED831F700FBF99A /* R.swift.Library.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = R.swift.Library.xcodeproj; path = ../R.swift/R.swift.Library.xcodeproj; sourceTree = "<group>"; };
+		4257F74F1ED8342F00FBF99A /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		4258D16B1BB9EA31000FE7C7 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		42670EF81ADDAB5E006341EA /* DownTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownTextCell.xib; sourceTree = "<group>"; };
@@ -603,6 +644,7 @@
 				428CF72E1AE199B5007F3E54 /* CoreMotion.framework in Frameworks */,
 				42C2D74F1D6A31B1008E195E /* Preheat.framework in Frameworks */,
 				42E97C2D1BBD9E130040A979 /* RealmSwift.framework in Frameworks */,
+				4257F7411ED8323D00FBF99A /* Rswift.framework in Frameworks */,
 				428CF72F1AE199B5007F3E54 /* CoreTelephony.framework in Frameworks */,
 				428CF7301AE199B5007F3E54 /* GLKit.framework in Frameworks */,
 				42A4FC211CFB68A60049C60A /* Fabric.framework in Frameworks */,
@@ -909,9 +951,10 @@
 				423D87931B700B3D00AFB7FF /* Frameworks */,
 				4253E7D61AB4B7B900EF1254 /* Products */,
 				42D34ACA1E832255008672DF /* DownSpinner */,
-				42C2D7461D6A31AA008E195E /* Preheat.xcodeproj */,
-				42C2D7531D6A3418008E195E /* Nuke.xcodeproj */,
 				420AF6371CFB392C00DC4DD4 /* Alamofire.xcodeproj */,
+				42C2D7531D6A3418008E195E /* Nuke.xcodeproj */,
+				42C2D7461D6A31AA008E195E /* Preheat.xcodeproj */,
+				4257F7221ED831F700FBF99A /* R.swift.Library.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -934,6 +977,7 @@
 				428CF6FE1AE19779007F3E54 /* Dependencies */,
 				428CF71D1AE1995E007F3E54 /* Frameworks */,
 				4253E8081AB4B84C00EF1254 /* Supporting Files */,
+				4257F74F1ED8342F00FBF99A /* R.generated.swift */,
 			);
 			path = Down;
 			sourceTree = "<group>";
@@ -1033,6 +1077,17 @@
 				42C2D7421D6A1F90008E195E /* CouchPotato.storyboard */,
 			);
 			path = Layout;
+			sourceTree = "<group>";
+		};
+		4257F7231ED831F700FBF99A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4257F73A1ED831F700FBF99A /* Rswift.framework */,
+				4257F73C1ED831F700FBF99A /* RswiftTests-iOS.xctest */,
+				4257F73E1ED831F700FBF99A /* Rswift.framework */,
+				4257F7401ED831F700FBF99A /* RswiftTests-tvOS.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		4258D16A1BB9EA31000FE7C7 /* Realm */ = {
@@ -1433,6 +1488,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4253E7F71AB4B7B900EF1254 /* Build configuration list for PBXNativeTarget "Down" */;
 			buildPhases = (
+				4257F7451ED8334700FBF99A /* ShellScript */,
 				4253E7D11AB4B7B900EF1254 /* Sources */,
 				4253E7D21AB4B7B900EF1254 /* Frameworks */,
 				4253E7D31AB4B7B900EF1254 /* Resources */,
@@ -1448,6 +1504,7 @@
 				42354FD91D182BA80016B518 /* PBXTargetDependency */,
 				42C2D7521D6A31B1008E195E /* PBXTargetDependency */,
 				42C2D76E1D6A357F008E195E /* PBXTargetDependency */,
+				4257F7441ED8323D00FBF99A /* PBXTargetDependency */,
 			);
 			name = Down;
 			productName = Down;
@@ -1529,6 +1586,10 @@
 					ProductGroup = 42C2D7471D6A31AA008E195E /* Products */;
 					ProjectRef = 42C2D7461D6A31AA008E195E /* Preheat.xcodeproj */;
 				},
+				{
+					ProductGroup = 4257F7231ED831F700FBF99A /* Products */;
+					ProjectRef = 4257F7221ED831F700FBF99A /* R.swift.Library.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1588,6 +1649,34 @@
 			fileType = wrapper.framework;
 			path = Alamofire.framework;
 			remoteRef = 420AF64D1CFB392C00DC4DD4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4257F73A1ED831F700FBF99A /* Rswift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Rswift.framework;
+			remoteRef = 4257F7391ED831F700FBF99A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4257F73C1ED831F700FBF99A /* RswiftTests-iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "RswiftTests-iOS.xctest";
+			remoteRef = 4257F73B1ED831F700FBF99A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4257F73E1ED831F700FBF99A /* Rswift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Rswift.framework;
+			remoteRef = 4257F73D1ED831F700FBF99A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4257F7401ED831F700FBF99A /* RswiftTests-tvOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "RswiftTests-tvOS.xctest";
+			remoteRef = 4257F73F1ED831F700FBF99A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		42945EE11DAACD8D006E5176 /* Nuke iOS Tests Host.app */ = {
@@ -1776,6 +1865,19 @@
 			shellPath = /bin/sh;
 			shellScript = "./Down/Dependencies/Fabric.framework/run fd7501efa3a9abb16103f351213d7b72ff764052 f2769c1a542364cb5281af857c1220006aa4a2d2d658d426988f0d0ba596dfa8";
 		};
+		4257F7451ED8334700FBF99A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/Down/Dependencies/Rswift/rswift\" \"$SRCROOT\"\n";
+		};
 		4258D1781BB9EA95000FE7C7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1892,6 +1994,7 @@
 				420998BE1DD90948005C1FA6 /* SickbeardShowsViewController.swift in Sources */,
 				42771BD21E4BA0590058BC84 /* DownWebViewController.swift in Sources */,
 				42A496E71BAF32FA00F5395C /* SickbeardTodayCell.swift in Sources */,
+				4257F7501ED8343000FBF99A /* R.generated.swift in Sources */,
 				42E1CCCD1BA22BE600DFED2E /* DownDetailViewController.swift in Sources */,
 				42078E401AD1C702009845CC /* SickbeardViewController.swift in Sources */,
 				42078E1F1AD1721F009845CC /* SABHeaderView.swift in Sources */,
@@ -1955,6 +2058,11 @@
 			isa = PBXTargetDependency;
 			target = 4253E7D41AB4B7B900EF1254 /* Down */;
 			targetProxy = 4253E7EE1AB4B7B900EF1254 /* PBXContainerItemProxy */;
+		};
+		4257F7441ED8323D00FBF99A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Rswift-iOS";
+			targetProxy = 4257F7431ED8323D00FBF99A /* PBXContainerItemProxy */;
 		};
 		42C2D7521D6A31B1008E195E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

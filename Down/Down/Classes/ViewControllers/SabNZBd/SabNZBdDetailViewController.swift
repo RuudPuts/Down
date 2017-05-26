@@ -8,6 +8,7 @@
 
 import Foundation
 import DownKit
+import Rswift
 
 class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener, SickbeardListener {
     
@@ -130,15 +131,15 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         
         var lastSection: [SabNZBdDetailDataSource]?
         if let episode = sabItem?.sickbeardEpisode {
-            if episode.status == .Snatched && sabItem?.status == .failed {
-                lastSection = [SabNZBdDetailDataSource]()
-                lastSection!.append(SabNZBdDetailDataSource(rowType: .sickbeardMarkWatched, title: "Set status to wanted"))
-                tableData.append(lastSection!)
-            }
-            
             if episode.plot.length > 0 {
                 lastSection = [SabNZBdDetailDataSource]()
                 lastSection!.append(SabNZBdDetailDataSource(rowType: .sickbeardPlot, title: ""))
+                tableData.append(lastSection!)
+            }
+            
+            if episode.status == .Snatched && sabItem?.status == .failed {
+                lastSection = [SabNZBdDetailDataSource]()
+                lastSection!.append(SabNZBdDetailDataSource(rowType: .sickbeardMarkWatched, title: "Set status to wanted"))
                 tableData.append(lastSection!)
             }
         }
@@ -177,7 +178,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         case .delete, .sickbeardMarkWatched:
             return 60
         case .sickbeardPlot:
-            let font = UIFont(name: "OpenSans-Light", size: 14.0)!
+            let font = R.font.openSansLight(size: 14)!
             let maxWidth = view.bounds.width - 34
             
             return sabItem!.sickbeardEpisode!.plot.sizeWithFont(font, width:maxWidth).height + 30
@@ -285,6 +286,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             default:
                 cell.detailTextLabel?.textColor = .white
             }
+            cell.accessoryView = UIImageView(image: R.image.sabnzbdCheveron())
             break
         case .totalSize:
             detailText = historyItem.size

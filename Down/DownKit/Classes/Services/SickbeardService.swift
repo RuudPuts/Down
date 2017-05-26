@@ -14,7 +14,7 @@ public class SickbeardService: Service {
     
     public static let shared = SickbeardService()
     
-    public static let defaultPort = 8081
+    public static let defaultPorts = [8081, 8083]
     fileprivate var shows: Results<SickbeardShow> {
         return DownDatabase.shared.fetchAllSickbeardShows()
     }

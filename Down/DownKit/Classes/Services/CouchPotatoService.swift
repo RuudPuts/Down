@@ -12,7 +12,7 @@ public class CouchPotatoService: Service {
     
     public static let shared = SabNZBdService()
    
-    public static let defaultPort = 8081
+    public static let defaultPorts = [5050]
     
     override public func addListener(_ listener: ServiceListener) {
         if listener is CouchPotatoListener {

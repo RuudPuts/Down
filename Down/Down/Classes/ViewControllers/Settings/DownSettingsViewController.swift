@@ -8,6 +8,7 @@
 
 import Foundation
 import DownKit
+import Rswift
 
 class DownSettingsViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, DownTableViewCellDegate, SickbeardListener {
     
@@ -192,19 +193,19 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         switch application as DownApplication {
         case .SabNZBd:
             headerView.backgroundColor = .downSabNZBdColor()
-            headerImageView.image = UIImage(named: "sabnzbd-icon")
+            headerImageView.image = R.image.sabnzbdIcon()
 //            window.statusBarBackgroundColor = .downSabNZBdDarkColor()
             actionButton.setTitleColor(.downSabNZBdColor(), for: .normal)
             break
         case .Sickbeard:
             headerView.backgroundColor = .downSickbeardColor()
-            headerImageView.image = UIImage(named: "sickbeard-icon")
+            headerImageView.image = R.image.sabnzbdIcon()
 //            window.statusBarBackgroundColor = .downSickbeardDarkColor()
             actionButton.setTitleColor(.downSickbeardColor(), for: .normal)
             break
         case .CouchPotato:
             headerView.backgroundColor = .downCouchPotatoColor()
-            headerImageView.image = UIImage(named: "couchpotato-icon")
+            headerImageView.image = R.image.couchpotatoIcon()
 //            window.statusBarBackgroundColor = .downCouchPotatoDarkColor()
             actionButton.setTitleColor(.downCouchPotatoColor(), for: .normal)
             break

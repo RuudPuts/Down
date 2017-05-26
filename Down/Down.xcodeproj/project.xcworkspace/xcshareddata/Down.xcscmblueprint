@@ -9,6 +9,7 @@
     "910A3B3A1D352F7A0B5C487506E17B8D6367FF66" : 0,
     "67620B5EFA902936DF04070AF595B76AB0333747" : 0,
     "9E4C3D1EA9BD93A413D6EB83081E083E64D2372C" : 0,
+    "E6D66735CE6FC1586FFE099FD28E4FCADA1AAB68" : 9223372036854775807,
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : 0,
     "CD1557C3AE966BEDF3490D85F9712687801B146C" : 0,
     "D639F405BD66823EE8A263437D33E9C581D47D5C" : 9223372036854775807,
@@ -22,6 +23,7 @@
     "910A3B3A1D352F7A0B5C487506E17B8D6367FF66" : "Down\/Squeal\/",
     "67620B5EFA902936DF04070AF595B76AB0333747" : "Down\/Alamofire\/",
     "9E4C3D1EA9BD93A413D6EB83081E083E64D2372C" : "Down\/Nuke\/",
+    "E6D66735CE6FC1586FFE099FD28E4FCADA1AAB68" : "Down\/R.swift\/",
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : "Down\/SwiftyJSON\/",
     "CD1557C3AE966BEDF3490D85F9712687801B146C" : "Down\/XCGLogger\/",
     "D639F405BD66823EE8A263437D33E9C581D47D5C" : "Down\/Down\/DownSpinner\/",
@@ -81,6 +83,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/RuudPuts\/DownSpinner.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D639F405BD66823EE8A263437D33E9C581D47D5C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mac-cain13\/R.swift.Library.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E6D66735CE6FC1586FFE099FD28E4FCADA1AAB68"
     }
   ]
 }

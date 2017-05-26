@@ -8,6 +8,7 @@
 
 import Foundation
 import DownKit
+import Rswift
 
 class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SickbeardListener {
     
@@ -51,7 +52,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
         let plotCellNib = UINib(nibName: "DownTextCell", bundle: Bundle.main)
         tableView!.register(plotCellNib, forCellReuseIdentifier: "DownTextCell")
         
-        setTableViewHeaderImage(episode?.show?.banner ?? UIImage(named: "SickbeardDefaultBanner"))
+        setTableViewHeaderImage(episode?.show?.banner ?? R.image.sickbeardDefaultBanner())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,7 +117,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableData[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row].rowType == .plot {
-            let font = UIFont(name: "OpenSans-Light", size: 14.0)!
+            let font = R.font.openSansLight(size: 14)!
             let maxWidth = view.bounds.width - 34
             
             return episode!.plot.sizeWithFont(font, width:maxWidth).height + 30

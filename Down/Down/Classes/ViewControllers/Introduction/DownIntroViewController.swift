@@ -38,7 +38,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
         
         let portScanner = RPPortScanner()
         portScanner.delegate = self
-        portScanner.scanPorts([SabNZBdService.defaultPort, SickbeardService.defaultPort, CouchPotatoService.defaultPort])
+        portScanner.scanPorts(SabNZBdService.defaultPorts + SickbeardService.defaultPorts + CouchPotatoService.defaultPorts)
     }
     
     // MARK - RPPortScannerDelegate
@@ -51,7 +51,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
         }
         
         switch port {
-        case SabNZBdService.defaultPort:
+        case _ where SabNZBdService.defaultPorts.contains(port):
             SabNZBdConnector().validateHost(host, completion: { hostValid, apiKey in
                 NSLog("Validated sabNZBd host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
                 
@@ -69,7 +69,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                 }
             })
             break
-        case SickbeardService.defaultPort:
+        case _ where SickbeardService.defaultPorts.contains(port):
             SickbeardConnector().validateHost(host, completion: { hostValid, apiKey in
                 NSLog("Validated Sickbeard host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
                 
@@ -87,7 +87,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                 }
             })
             break
-        case CouchPotatoService.defaultPort:
+        case _ where CouchPotatoService.defaultPorts.contains(port):
 //            CouchPotatoConnector().validateHost(host, completion: { hostValid, apiKey in
 //                NSLog("Validated CouchPotato host \(host) - \(hostValid) - \(apiKey)")
 //            })

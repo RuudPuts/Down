@@ -64,7 +64,7 @@ class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayo
         cell.setCellType(.Sickbeard)
         cell.show = show
         
-        cell.posterView.image = UIImage(named: "SickbeardDefaultPoster")
+        cell.posterView.image = R.image.sickbeardDefaultPoster()
         Nuke.loadImage(with: show.posterThumbnailRequest, into: cell.posterView)
         
         return cell

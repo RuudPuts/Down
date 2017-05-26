@@ -8,6 +8,7 @@
 
 import UIKit
 import DownKit
+import Rswift
 
 class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
     
@@ -27,9 +28,9 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
         
         backgroundColor = UIColor.clear
         textLabel?.textColor = UIColor.downSabNZBdColor()
-        textLabel?.font = UIFont(name: "OpenSans", size: 14)
+        textLabel?.font = R.font.openSans(size: 14)
         detailTextLabel?.textColor = UIColor.white
-        detailTextLabel?.font = UIFont(name: "OpenSans-Light", size: 14)
+        detailTextLabel?.font = R.font.openSansLight(size: 14)
         selectionStyle = .none
     }
     

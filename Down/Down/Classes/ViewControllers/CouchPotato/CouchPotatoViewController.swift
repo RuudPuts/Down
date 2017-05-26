@@ -8,6 +8,7 @@
 
 import UIKit
 import DownKit
+import Rswift
 
 class CouchPotatoViewController: DownRootViewController {
     
@@ -22,7 +23,7 @@ extension CouchPotatoViewController: DownTabBarItem {
     
     var tabIcon: UIImage {
         get {
-            return UIImage(named: "couchpotato-tabbar")!
+            return R.image.couchpotatoTabbar()!
         }
     }
     

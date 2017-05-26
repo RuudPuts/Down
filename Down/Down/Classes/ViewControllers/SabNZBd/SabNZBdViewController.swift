@@ -8,6 +8,7 @@
 
 import UIKit
 import DownKit
+import Rswift
 
 class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener, SickbeardListener {
     
@@ -122,6 +123,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     
     fileprivate func updateCurrentSpeedWidget() {
         var displaySpeed = SabNZBdService.shared.currentSpeed ?? 0
+        // TODO: Use Stefan's awesome number thingy
         var displayString = "KB/s"
         
         if displaySpeed > 1024 {
@@ -138,9 +140,8 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
             let speedString = String(format: "%.1f", displaySpeed)
             let dotIndex = (speedString as NSString).range(of: ".").location
             
-            let fontName = "Roboto-Light"
-            let largeFont = UIFont(name: fontName, size: 50)!
-            let smallFont = UIFont(name: fontName, size: 100 / 3)!
+            let largeFont = R.font.robotoLight(size: 50)!
+            let smallFont = R.font.robotoLight(size: 100 / 3)!
             let attributedSpeedString = NSMutableAttributedString(string: speedString)
             attributedSpeedString.addAttribute(NSFontAttributeName, value: largeFont, range: NSMakeRange(0, dotIndex - 1))
             attributedSpeedString.addAttribute(NSFontAttributeName, value: smallFont, range: NSMakeRange(dotIndex, speedString.length - dotIndex))
@@ -229,10 +230,10 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         let headerView = Bundle.main.loadNibNamed("SABHeaderView", owner: self, options: nil)!.first as! SABHeaderView
 
         if section == 0 {
-            headerView.imageView.image = UIImage(named: "queue-icon")
+            headerView.imageView.image = R.image.queueIcon()
         }
         else {
-            headerView.imageView.image = UIImage(named: "history-icon")
+            headerView.imageView.image = R.image.historyIcon()
         }
         headerView.textLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
         
@@ -345,17 +346,18 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         tableView!.reloadData()
     }
     
+    // TODO: Add protocol extension with default implementations
     func sabNZBDFullHistoryFetched() { }
     func willRemoveSABItem(_ sabItem: SABItem) { }
     
     // MARK: - SickbeardListener
     
     func sickbeardShowCacheUpdated() {
-        tableView!.reloadData()
+        tableView?.reloadData()
     }
     
     public func sickbeardShowAdded(_: SickbeardShow) {
-        tableView!.reloadData()
+        tableView?.reloadData()
     }
 
 }
@@ -364,7 +366,7 @@ extension SabNZBdViewController: DownTabBarItem {
     
     var tabIcon: UIImage {
         get {
-            return UIImage(named: "sabnzbd-tabbar")!
+            return R.image.sabnzbdTabbar()!
         }
     }
     

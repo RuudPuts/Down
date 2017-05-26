@@ -8,6 +8,7 @@
 
 import UIKit
 import DownKit
+import Rswift
 
 class DownTextCell: DownTableViewCell {
 
@@ -26,17 +27,18 @@ class DownTextCell: DownTableViewCell {
         
         switch type {
         case .SabNZBd:
-            cheveronView.image = UIImage(named: "sabnzbd-cheveron")
+            cheveronView.image = R.image.sabnzbdCheveron()
             break
         case .Sickbeard:
-            cheveronView.image = UIImage(named: "sickbeard-cheveron")
+            cheveronView.image = R.image.sickbeardCheveron()
             break
         case .CouchPotato:
-            cheveronView.image = UIImage(named: "couchpotato-cheveron")
+            // TODO: Create asset
+            cheveronView.image = nil;// R.image.couchpotatoCheveron()
             break
         case .Down:
             // TODO: Create asset
-            cheveronView.image = UIImage(named: "down-cheveron")
+            cheveronView.image = nil; // R.image.downCheveron()
             break
         }
     }

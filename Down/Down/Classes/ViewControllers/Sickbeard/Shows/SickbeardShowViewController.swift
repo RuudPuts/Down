@@ -43,7 +43,8 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         
         refreshControl = UIRefreshControl()
         // TODO: UIFont extension
-        let titleAttributes = [NSForegroundColorAttributeName: UIColor.downSickbeardColor(), NSFontAttributeName: UIFont(name: "OpenSans", size: 13)!]
+        let titleAttributes = [NSForegroundColorAttributeName: UIColor.downSickbeardColor(),
+                               NSFontAttributeName: R.font.openSans(size: 13)!]
         refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes:titleAttributes)
         refreshControl!.tintColor = .downSickbeardColor()
         refreshControl!.addTarget(self, action: #selector(refreshShow), for: UIControlEvents.valueChanged)

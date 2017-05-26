@@ -33,7 +33,7 @@ public class SabNZBdService: Service {
     
     public static let shared = SabNZBdService()
     
-    public static let defaultPort = 8080
+    public static let defaultPorts = [8080]
     
     var queueRefreshRate: TimeInterval = 1 {
         didSet {
@@ -119,6 +119,7 @@ public class SabNZBdService: Service {
                 self.refreshCompleted()
                 
                 DispatchQueue.main.async {
+                    // TODO: eachListener { $0.notify(.queueUpdated) }
                     self.notifyListeners(.queueUpdated)
                 }
             }

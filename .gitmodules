@@ -13,3 +13,6 @@
 [submodule "Down/DownSpinner"]
 	path = Down/DownSpinner
 	url = https://github.com/RuudPuts/DownSpinner.git
+[submodule "R.swift"]
+	path = R.swift
+	url = https://github.com/mac-cain13/R.swift.Library.git
