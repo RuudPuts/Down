@@ -77,6 +77,15 @@ public extension String {
         let startIndex = self.index(self.startIndex, offsetBy: from)
         return self[startIndex ..< self.endIndex]
     }
+    
+    func timeToSeconds() -> TimeInterval {
+        // TODO: DateFormatter?
+        let timeComponents = components(separatedBy: ":")
+        let hours = Int(timeComponents[0]) ?? 0
+        let minutes = Int(timeComponents[1]) ?? 0
+        let seconds = Int(timeComponents[2]) ?? 0
+        return TimeInterval(hours * 3600 + minutes * 60 + seconds)
+    }
 }
 
 extension String {

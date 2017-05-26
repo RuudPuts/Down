@@ -141,17 +141,8 @@ public class SabNZBdService: Service {
                 let statusDescription = jsonJob["status"].string!
                 let totalMb = Double(jsonJob["mb"].string!) ?? 0
                 let remainingMb = Double(jsonJob["mbleft"].string!) ?? 0
-                let timeRemainingString = jsonJob["timeleft"].string!
+                let timeRemaining = jsonJob["timeleft"].string?.timeToSeconds() ?? 0.0
                 let progress = Double(jsonJob["percentage"].string!) ?? 0
-                
-                // TODO: DateFormatter?
-                // Parse time remaining to actual seconds
-                // Format 00:00:00
-                let timeComponents = timeRemainingString.components(separatedBy: ":")
-                let hours = Int(timeComponents[0]) ?? 0
-                let minutes = Int(timeComponents[1]) ?? 0
-                let seconds = Int(timeComponents[2]) ?? 0
-                let timeRemaining = TimeInterval(hours * 3600 + minutes * 60 + seconds)
                 
                 var item = findQueueItem(identifier)
                 if item == nil {
