@@ -40,15 +40,15 @@ public class SABHistoryItem: SABItem {
         return hasProgress
     }
     
-    public var progress: Float {
-        var progress: Float = 0
+    public var progress: Double {
+        var progress: Double = 0
         
         if status == .verifying || status == .extracting {
             let progressString = actionLine!.components(separatedBy: " ").last as String!
             let progressComponents = progressString?.components(separatedBy: "/")
             
-            let part = Float((progressComponents?.first!)!) ?? 0
-            let total = Float((progressComponents?.last!)!) ?? 0
+            let part = Double((progressComponents?.first!)!) ?? 0
+            let total = Double((progressComponents?.last!)!) ?? 0
             
             progress = part / total * 100
         }
@@ -57,7 +57,7 @@ public class SABHistoryItem: SABItem {
             
             if let percentage = actionLine!.componentsMatchingRegex(regex).first {
                 let percentageNumber = percentage.replacingOccurrences(of: "%", with: "")
-                progress = Float(percentageNumber) ?? 0
+                progress = Double(percentageNumber) ?? 0
             }
         }
         

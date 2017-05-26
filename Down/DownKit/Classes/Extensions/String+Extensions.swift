@@ -14,25 +14,24 @@ public extension String {
         return self.utf16.count
     }
     
-    init(fromMB size: Float) {
-        // TODO: See if a number formatter can be used here
-        var sizeDisplay = "MB"
-        var adjustedSize = size
-        if adjustedSize < 0 {
-            adjustedSize = adjustedSize * 1024
-            sizeDisplay = "KB"
-        }
-        else if adjustedSize > 1024 {
-            adjustedSize = adjustedSize / 1024
-            sizeDisplay = "GB"
+    init(fromMB mb: Double) {
+        let divider: Double = 1024.0
+        let kb = mb * divider
+        guard kb > 0 else {
+            self = "0 KB"
+            return
         }
         
-        if adjustedSize > 0 {
-            self = String(format: "%.1f%@", adjustedSize, sizeDisplay)
-        }
-        else {
-            self = String(format: "%.0f%@", adjustedSize, sizeDisplay)
-        }
+        let suffixes = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+        let activeSize = floor(log(kb) / log(divider))
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = 1
+        numberFormatter.numberStyle = .decimal
+        
+        let numberString = numberFormatter.string(from: NSNumber(value: kb / pow(divider, activeSize))) ?? "Unknown"
+        let suffix = suffixes[Int(activeSize)]
+        self = "\(numberString)\(suffix)"
     }
     
     func insert(_ string: String, atIndex index: Int) -> String {

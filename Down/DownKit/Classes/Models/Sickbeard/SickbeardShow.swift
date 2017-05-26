@@ -112,14 +112,14 @@ public class SickbeardShow: Object {
     }
     
     internal var percentageDownloaded: Int {
-        var episodes: Float = 0.0
-        var downloadedEpisodes: Float = 0.0
+        var episodes: Double = 0.0
+        var downloadedEpisodes: Double = 0.0
         
         _seasons.forEach {
-            episodes += Float($0._episodes.count)
+            episodes += Double($0._episodes.count)
             
             let downloadedPredicate = "statusString = \"\(SickbeardEpisode.Status.Downloaded)\""
-            downloadedEpisodes += Float($0._episodes.filter(downloadedPredicate).count)
+            downloadedEpisodes += Double($0._episodes.filter(downloadedPredicate).count)
         }
         
         
