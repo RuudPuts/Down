@@ -9,4 +9,6 @@ pipelines:
   default:
     - step:
         script:
+          - pwd
+          - cd Down
           - fastlane build
