@@ -51,4 +51,8 @@ extension UIColor {
         return UIColor(red:0.1, green:0.1, blue:0.1, alpha:1)
     }
     
+    class func downExtraDarkGrayColor() -> UIColor {
+        return UIColor(red:0.07, green:0.07, blue:0.07, alpha:1)
+    }
+    
 }

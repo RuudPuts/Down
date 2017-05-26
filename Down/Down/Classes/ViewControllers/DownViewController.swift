@@ -36,7 +36,7 @@ class DownViewController: UIViewController {
         super.viewDidLoad()
         
         self.edgesForExtendedLayout = UIRectEdge()
-        self.view.backgroundColor = .downDarkGrayColor()
+        self.view.backgroundColor = .downExtraDarkGrayColor()
     }
     
     override func viewDidLayoutSubviews() {
