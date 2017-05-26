@@ -1,5 +1,4 @@
-
- //
+//
 //  SabNZBdService.swift
 //  Down
 //
@@ -381,12 +380,13 @@ public class SabNZBdService: Service {
             completion(title)
         }
         else {
-            let url = "http://www.omdbapi.com/?i=\(imdbIdentifier)"
-            SabNZBdRequest.requestJson(url, succes: { json, _ in
+            let url = "https://api.themoviedb.org/3/find/\(imdbIdentifier)?api_key=f1849f09c4fccb34a2e5fafc5decf31f&language=en-US&external_source=imdb_id"
+            DownRequest.requestJson(url, succes: { json, _ in
                 DispatchQueue.global().async {
-                    let title = json["Title"].string!
-                    self.imdbTitleCache[imdbIdentifier] = title
-                    completion(title)
+                    if let title = json["movie_results"].array?.first?["original_title"].string {
+                        self.imdbTitleCache[imdbIdentifier] = title
+                        completion(title)
+                    }
                 }
             }, error: { error in
                 NSLog("[SabNZBdService] Error while fetching IMDB data: \(error.localizedDescription)")
