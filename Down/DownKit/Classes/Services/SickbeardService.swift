@@ -29,12 +29,6 @@ public class SickbeardService: Service {
         case invalidValue = -2
     }
     
-    fileprivate enum SickbeardNotifyType {
-        case showCacheUpdated
-        case showAdded
-        case episodeRefreshed
-    }
-    
     override public func addListener(_ listener: ServiceListener) {
         if listener is SickbeardListener {
             super.addListener(listener)
@@ -156,7 +150,10 @@ public class SickbeardService: Service {
                 
                 self.refreshShows(shows, completionHandler: {
                     Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
-                    self.notifyListeners(.showCacheUpdated)
+                    self.notifyListeners {
+                        NSLog("[SickbeardService] Show cache refreshed")
+                        $0.sickbeardShowCacheUpdated()
+                    }
                 })
             }
             else if let lastCacheRefresh = Preferences.sickbeardLastCacheRefresh {
@@ -196,7 +193,10 @@ public class SickbeardService: Service {
                 
                 self.refreshShows(showsToRefresh) {
                     Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
-                    self.notifyListeners(.showCacheUpdated)
+                    self.notifyListeners {
+                        NSLog("[SickbeardService] Show cache refreshed")
+                        $0.sickbeardShowCacheUpdated()
+                    }
                 }
             }
         }
@@ -252,7 +252,10 @@ public class SickbeardService: Service {
         let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.delete&tvdbid=\(show.tvdbId)"
         SickbeardRequest.requestJson(url, succes: { _ in
             DownDatabase.shared.deleteSickbeardShow(show)
-            self.notifyListeners(.showCacheUpdated)
+            self.notifyListeners {
+                NSLog("[SickbeardService] Show cache refreshed")
+                $0.sickbeardShowCacheUpdated()
+            }
             
             completionHandler(true)
         }, error: { _ in
@@ -289,7 +292,10 @@ public class SickbeardService: Service {
             self.downloadPoster(show, force: true)
             self.reloadSpotlight()
             
-            self.notifyListeners(.showAdded, withItem: addedShow)
+            self.notifyListeners {
+                NSLog("[SickbeardService] Show added: \(show.name)")
+                $0.sickbeardShowAdded(show)
+            }
             completionHandler(addedShow)
         }
     }
@@ -403,7 +409,10 @@ public class SickbeardService: Service {
                 DispatchQueue.main.async {
                     let plot = json["description"].string ?? ""
                     DownDatabase.shared.setPlot(plot, forEpisode: episode)
-                    self.notifyListeners(.episodeRefreshed, withItem: episode)
+                    self.notifyListeners {
+                        NSLog("[SickbeardService] Episode refreshed: \(episode.show!.name) S\(episode.season!.id)E\(episode.id)")
+                        $0.sickbeardEpisodeRefreshed(episode)
+                    }
                 }
             }, error: { error in
                 NSLog("[SickbeardService] Error while fetching Sickbeard episode data: \(error.localizedDescription)")
@@ -461,28 +470,11 @@ public class SickbeardService: Service {
     
     // MARK: - Listeners
     
-    fileprivate func notifyListeners(_ notifyType: SickbeardNotifyType) {
-        notifyListeners(notifyType, withItem: nil)
-    }
-    
-    fileprivate func notifyListeners(_ notifyType: SickbeardNotifyType, withItem item: AnyObject?) {
-        for listener in self.listeners {
-            if listener is SickbeardListener {
-                let sickbeardListener = listener as! SickbeardListener
-                switch notifyType {
-                case .showCacheUpdated:
-                    NSLog("[SickbeardService] Show cache refreshed")
-                    sickbeardListener.sickbeardShowCacheUpdated()
-                    break
-                case .showAdded:
-                    let show = item as! SickbeardShow
-                    NSLog("[SickbeardService] Show added: \(show.name)")
-                    sickbeardListener.sickbeardShowAdded(show)
-                    break
-                case .episodeRefreshed:
-                    let episode = item as! SickbeardEpisode
-                    NSLog("[SickbeardService] Episode refreshed: \(episode.show!.name) S\(episode.season!.id)E\(episode.id)")
-                    sickbeardListener.sickbeardEpisodeRefreshed(episode)
+    fileprivate func notifyListeners(_ task: @escaping ((_ listener: SickbeardListener) -> ())) {
+        listeners.forEach { listener in
+            if let listener = listener as? SickbeardListener {
+                DispatchQueue.main.async {
+                    task(listener)
                 }
             }
         }
