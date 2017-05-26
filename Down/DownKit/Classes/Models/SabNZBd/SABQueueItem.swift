@@ -10,13 +10,13 @@ import UIKit
 
 public class SABQueueItem: SABItem {
     
-    var totalMb: Float!
-    var remainingMb: Float!
+    var totalMb: Double!
+    var remainingMb: Double!
     public var timeRemaining: TimeInterval!
-    public var progress: Float!
+    public var progress: Double!
 
     
-    init(_ identifier: String, _ category: String, _ nzbName: String, _ statusDescription: String, _ totalMb: Float, _ remainingMb: Float, _ progress: Float, _ timeRemaining: TimeInterval) {
+    init(_ identifier: String, _ category: String, _ nzbName: String, _ statusDescription: String, _ totalMb: Double, _ remainingMb: Double, _ progress: Double, _ timeRemaining: TimeInterval) {
         self.timeRemaining = timeRemaining
         self.totalMb = totalMb
         self.remainingMb = remainingMb
@@ -25,7 +25,7 @@ public class SABQueueItem: SABItem {
         super.init(identifier, category, nzbName, statusDescription)
     }
     
-    internal func update(_ nzbName: String, _ statusString: String, _ totalMb: Float, _ remainingMb: Float, _ progress: Float, _ timeRemaining: TimeInterval) {
+    internal func update(_ nzbName: String, _ statusString: String, _ totalMb: Double, _ remainingMb: Double, _ progress: Double, _ timeRemaining: TimeInterval) {
         self.nzbName = nzbName
         self.totalMb = totalMb
         self.remainingMb = remainingMb
@@ -34,7 +34,7 @@ public class SABQueueItem: SABItem {
         self.timeRemaining = timeRemaining
     }
     
-    public var downloadedMb: Float {
+    public var downloadedMb: Double {
         return max(0.0, self.totalMb - self.remainingMb)
     }
     

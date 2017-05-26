@@ -28,13 +28,13 @@ class SABItemCell: DownTableViewCell {
             titleLabel.text = _queueItem?.displayName
 
             var hideProgressBar = true
-            var progress = 0 as Float
+            var progress = 0.0
             if _queueItem != nil && _queueItem!.hasProgress {
                 progress = _queueItem!.progress / 100
                 hideProgressBar = false
             }
             progressBar.isHidden = hideProgressBar
-            progressBar.progress = progress
+            progressBar.progress = Float(progress)
             progressLabel.text = _queueItem?.progressString
             progressLabel.textColor = UIColor.white
             if SabNZBdService.shared.paused {
@@ -68,13 +68,13 @@ class SABItemCell: DownTableViewCell {
             titleLabel.text = _historyItem?.displayName
             
             var hideProgressBar = true
-            var progress = 0 as Float
+            var progress = 0.0
             if _historyItem?.hasProgress ?? false {
                 progress = _historyItem!.progress / 100
                 hideProgressBar = false
             }
             progressBar.isHidden = hideProgressBar
-            progressBar.progress = progress
+            progressBar.progress = Float(progress)
             
             progressLabel.text = _historyItem?.statusDescription()
             if let historyItem = _historyItem {

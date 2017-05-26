@@ -53,9 +53,9 @@ public class SabNZBdService: Service {
     public var history = [SABHistoryItem]()
     public var historySize: Int?
     
-    public var currentSpeed: Float?
+    public var currentSpeed: Double?
     public var timeRemaining: String?
-    public var mbLeft: Float?
+    public var mbLeft: Double?
     public var paused: Bool = true
     
     var imdbTitleCache = [String: String]()
@@ -139,10 +139,10 @@ public class SabNZBdService: Service {
                 let category = jsonJob["cat"].string!
                 let nzbName = jsonJob["filename"].string! + ".nzb"
                 let statusDescription = jsonJob["status"].string!
-                let totalMb = Float(jsonJob["mb"].string!) ?? 0
-                let remainingMb = Float(jsonJob["mbleft"].string!) ?? 0
+                let totalMb = Double(jsonJob["mb"].string!) ?? 0
+                let remainingMb = Double(jsonJob["mbleft"].string!) ?? 0
                 let timeRemainingString = jsonJob["timeleft"].string!
-                let progress = Float(jsonJob["percentage"].string!) ?? 0
+                let progress = Double(jsonJob["percentage"].string!) ?? 0
                 
                 // TODO: DateFormatter?
                 // Parse time remaining to actual seconds
@@ -182,9 +182,9 @@ public class SabNZBdService: Service {
             queue = unsortedQueue
             
             // Parse speed, timeleft and mbleft
-            currentSpeed = Float(json["queue"]["kbpersec"].string!) ?? 0
+            currentSpeed = Double(json["queue"]["kbpersec"].string!) ?? 0
             timeRemaining = json["queue"]["timeleft"].string!
-            mbLeft = Float(json["queue"]["mbleft"].string!) ?? 0
+            mbLeft = Double(json["queue"]["mbleft"].string!) ?? 0
             paused = json["queue"]["paused"].bool!
         }
         else {
