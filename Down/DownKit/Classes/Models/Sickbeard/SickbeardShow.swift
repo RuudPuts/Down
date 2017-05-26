@@ -112,6 +112,10 @@ public class SickbeardShow: Object {
     }
     
     internal var percentageDownloaded: Int {
+        guard _seasons.count > 0 else {
+            return 0
+        }
+        
         var episodes: Double = 0.0
         var downloadedEpisodes: Double = 0.0
         
@@ -123,7 +127,7 @@ public class SickbeardShow: Object {
         }
         
         
-        return Int(round(downloadedEpisodes / episodes * 100))
+        return Int(round(downloadedEpisodes / episodes * 100.0))
     }
 
     // Methods
