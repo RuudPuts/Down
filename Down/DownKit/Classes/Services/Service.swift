@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: Make a protocol
 public class Service {
     
     public var lastRefresh: Date?
