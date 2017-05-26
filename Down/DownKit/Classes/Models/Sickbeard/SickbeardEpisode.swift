@@ -22,27 +22,11 @@ public class SickbeardEpisode: Object {
             return Status(rawValue: statusString) ?? .Unknown
         }
         set {
-//            if statusString.length == 0 {
-//                DownDatabase.shared.write {
-//                    self.statusString = newValue.rawValue
-//                }
-//            }
-//            else {
-//                setStatus(newValue, completion: { error in
-//                    guard error != nil else {
-//                        return
-//                    }
-//                    
-//                    self.statusString = newValue.rawValue
-//                })
-//            }
-        
             statusString = newValue.rawValue
         }
     }
     fileprivate dynamic var statusString = ""
     
-    // TODO: show and season should not be optional (or maybe only internal..?)
     public dynamic weak var show: SickbeardShow?
     public dynamic weak var season: SickbeardSeason?
     
