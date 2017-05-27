@@ -22,7 +22,7 @@ public class SABItem: NSObject {
         get {
             let s = SabItemStatus(rawValue: statusString) ?? .unknown
             if s == .unknown {
-                NSLog("Unknown status string: \(statusString)")
+                Log.w("Unknown status string: \(statusString)")
             }
             return s
         }

@@ -30,7 +30,7 @@ public class SickbeardConnector: Connector {
                 completion(true, $0)
             }
         }, error: { error in
-            NSLog("[SickbeardConnector] Error while fetching host: \(error.localizedDescription)")
+            Log.e("[SickbeardConnector] Error while fetching host: \(error.localizedDescription)")
             
             self.host = nil
             self.apiKey = nil
@@ -40,7 +40,7 @@ public class SickbeardConnector: Connector {
     
     public func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> (Void)) {
         guard let sickbeardHost = host else {
-            NSLog("[SickbeardConnector] Please set host before fetching the api key")
+            Log.w("[SickbeardConnector] Please set host before fetching the api key")
             completion(nil)
             return
         }
@@ -51,7 +51,7 @@ public class SickbeardConnector: Connector {
             self.apiKey = self.extractApiKey(configResponse)
             completion(self.apiKey)
         }, error: { error in
-            NSLog("[SickbeardConnector] Error while fetching API key: \(error.localizedDescription)")
+            Log.e("[SickbeardConnector] Error while fetching API key: \(error.localizedDescription)")
             completion(self.apiKey)
         })
     }

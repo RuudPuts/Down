@@ -81,7 +81,7 @@ public class SickbeardEpisode: Object {
     public func update(_ status: Status, completion:((Error?) -> (Void))?) {
         SickbeardService.shared.update(status, forEpisode: self, completion: { error in
             if let error = error {
-                NSLog("Error while updating episode status: \(error)")
+                Log.e("Error while updating episode status: \(error)")
             }
             
             DownDatabase.shared.write {

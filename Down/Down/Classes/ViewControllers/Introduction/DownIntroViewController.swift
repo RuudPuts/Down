@@ -53,7 +53,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
         switch port {
         case _ where SabNZBdService.defaultPorts.contains(port):
             SabNZBdConnector().validateHost(host, completion: { hostValid, apiKey in
-                NSLog("Validated sabNZBd host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
+                Log.i("Validated sabNZBd host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
                 
                 if hostValid {
                     if Preferences.sabNZBdHost.length == 0 {
@@ -71,7 +71,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
             break
         case _ where SickbeardService.defaultPorts.contains(port):
             SickbeardConnector().validateHost(host, completion: { hostValid, apiKey in
-                NSLog("Validated Sickbeard host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
+                Log.i("Validated Sickbeard host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
                 
                 if hostValid {
                     if Preferences.sickbeardHost.length == 0 {
@@ -89,7 +89,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
             break
         case _ where CouchPotatoService.defaultPorts.contains(port):
 //            CouchPotatoConnector().validateHost(host, completion: { hostValid, apiKey in
-//                NSLog("Validated CouchPotato host \(host) - \(hostValid) - \(apiKey)")
+//                Log.i("Validated CouchPotato host \(host) - \(hostValid) - \(apiKey)")
 //            })
             break
             

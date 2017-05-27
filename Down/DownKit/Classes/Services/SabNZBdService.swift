@@ -114,7 +114,7 @@ public class SabNZBdService: Service {
                 self.notifyListeners { $0.sabNZBdQueueUpdated() }
             }
         }, error: { error in
-            NSLog("[SabNZBdService] Error while fetching queue: \(error.localizedDescription)")
+            Log.e("[SabNZBdService] Error while fetching queue: \(error.localizedDescription)")
         })
     }
     
@@ -214,7 +214,7 @@ public class SabNZBdService: Service {
                 self.notifyListeners { $0.sabNZBdHistoryUpdated() }
             }
         }, error: { error in
-            NSLog("[SabNZBdService] Error while refreshing history: \(error.localizedDescription)")
+            Log.e("[SabNZBdService] Error while refreshing history: \(error.localizedDescription)")
         })
     }
     
@@ -229,17 +229,17 @@ public class SabNZBdService: Service {
         // Don't fetch if already fetching
         if isFetchingHistory || fullHistoryFetched {
             if fullHistoryFetched {
-                NSLog("Full history fetched")
+                Log.i("Full history fetched")
             }
             else {
-                NSLog("Already busy, skipping history fetch")
+                Log.i("Already busy, skipping history fetch")
             }
             return
         }
 
         let url = "\(Preferences.sabNZBdHost)/api?mode=history&output=json&start=\(history.count)&limit=20&apikey=\(Preferences.sabNZBdApiKey)"
         
-        NSLog("Fetching history \(history.count) - \(history.count + 20)")
+        Log.i("Fetching history \(history.count) - \(history.count + 20)")
         SabNZBdRequest.requestJson(url, succes: { json, _ in
             DispatchQueue.global().async {
                 self.parseHistoryJson(json)
@@ -255,7 +255,7 @@ public class SabNZBdService: Service {
                 
             }
         }, error: { error in
-            NSLog("[SabNZBdService] Error while fetching history: \(error.localizedDescription)")
+            Log.e("[SabNZBdService] Error while fetching history: \(error.localizedDescription)")
             self.isFetchingHistory = false
         })
         isFetchingHistory = true
@@ -348,7 +348,7 @@ public class SabNZBdService: Service {
             
             self.notifyListeners{ $0.willRemoveSABItem(item) }
         }, error: { error in
-            NSLog("[SabNZBdService] Error while deleting item: \(error.localizedDescription)")
+            Log.e("[SabNZBdService] Error while deleting item: \(error.localizedDescription)")
         })
     }
     
@@ -369,7 +369,7 @@ public class SabNZBdService: Service {
                     }
                 }
             }, error: { error in
-                NSLog("[SabNZBdService] Error while fetching IMDB data: \(error.localizedDescription)")
+                Log.e("[SabNZBdService] Error while fetching IMDB data: \(error.localizedDescription)")
             })
         }
     }

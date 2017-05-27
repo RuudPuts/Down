@@ -25,7 +25,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
             try realm.write(commands)
         }
         catch let error as NSError {
-            NSLog("Error while writing to Realm: \(error)")
+            Log.e("Error while writing to Realm: \(error)")
         }
     }
 

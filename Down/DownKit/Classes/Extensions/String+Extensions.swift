@@ -47,7 +47,7 @@ public extension String {
             let results = regex.matches(in: self, options: [], range: NSMakeRange(0, text.length))
             matches = results.map { text.substring(with: $0.range)}
         } catch let error as NSError {
-            NSLog("invalid regex: \(error.localizedDescription)")
+            Log.d("invalid regex: \(error.localizedDescription)")
         }
         
         return matches

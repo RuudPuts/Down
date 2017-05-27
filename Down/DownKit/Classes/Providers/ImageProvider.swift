@@ -27,10 +27,10 @@ public class ImageProvider: DownCache {
         if !FileManager.default.fileExists(atPath: fileDirectory, isDirectory: &isDirectory) {
             do {
                 try FileManager.default.createDirectory(atPath: fileDirectory, withIntermediateDirectories: true, attributes: nil)
-                NSLog("Created directory: \(fileDirectory)")
+                Log.d("Created directory: \(fileDirectory)")
             }
             catch let error as NSError {
-                NSLog("Exception while creating directory: \(filepath) \nError: \(error.localizedDescription)")
+                Log.e("Exception while creating directory: \(filepath) \nError: \(error.localizedDescription)")
             }
         }
     }
@@ -42,7 +42,7 @@ public class ImageProvider: DownCache {
                 try image.write(to: URL(fileURLWithPath: filepath), options: [.atomic])
             }
             catch let error as NSError {
-                NSLog("Error while storing image: \(error.localizedDescription)")
+                Log.e("Error while storing image: \(error.localizedDescription)")
             }
         })
     }
@@ -64,7 +64,7 @@ public class ImageProvider: DownCache {
             try FileManager.default.removeItem(atPath: sickbeardPosterPath)
         }
         catch let error as NSError {
-            NSLog("Error while clearing ImageProvider: \(error)")
+            Log.e("Error while clearing ImageProvider: \(error)")
         }
     }
     
@@ -80,13 +80,13 @@ extension ImageProvider {
     
     internal class func storeBanner(_ banner: Data, forShow tvdbid: Int) {
         guard tvdbid != 0 else {
-            NSLog("[ImageProvider] Storing default banner")
+            Log.i("[ImageProvider] Storing default banner")
             defaultBanner = banner
             return
         }
         
         guard banner != defaultBanner else {
-            NSLog("[ImageProvider] Trying to store placeholder banner for \(tvdbid)")
+            Log.i("[ImageProvider] Trying to store placeholder banner for \(tvdbid)")
             return
         }
         
@@ -110,13 +110,13 @@ extension ImageProvider {
     
     internal class func storePoster(_ poster: Data, forShow tvdbid: Int) {
         guard tvdbid != 0 else {
-            NSLog("[ImageProvider] Storing default poster")
+            Log.i("[ImageProvider] Storing default poster")
             defaultPoster = poster
             return
         }
         
         guard poster != defaultPoster else {
-            NSLog("[ImageProvider] Trying to store placeholder poster for \(tvdbid)")
+            Log.i("[ImageProvider] Trying to store placeholder poster for \(tvdbid)")
             return
         }
         

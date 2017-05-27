@@ -38,22 +38,18 @@ class DownWebViewController: DownViewController {
 extension DownWebViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        NSLog("didStartProvisionalNavigation \(navigation)")
         rightBarButton.isSpinning = true
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        NSLog("didFinish \(navigation)")
         rightBarButton.isSpinning = false
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        NSLog("didFail \(navigation) - \(error)")
         rightBarButton.isSpinning = false
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        NSLog("didFailProvisionalNavigation \(navigation) - \(error)")
         rightBarButton.isSpinning = false
     }
     

@@ -23,7 +23,7 @@ public class DownDatabase: DownCache {
             try FileManager.default.createDirectory(atPath: storageDirectory, withIntermediateDirectories: true, attributes: nil)
         }
         catch let error as NSError {
-            NSLog("Error while creating databasePath: \(error)")
+            Log.e("Error while creating databasePath: \(error)")
         }
         return storageDirectory + "/" + DatabaseFile
     }
@@ -33,7 +33,7 @@ public class DownDatabase: DownCache {
     }
     
     public init() {
-        NSLog("DatabasePath: \(DownDatabase.databasePath)")
+        Log.d("DatabasePath: \(DownDatabase.databasePath)")
     }
     
     public func write(_ commands: () -> (Void)) {
@@ -56,7 +56,7 @@ public class DownDatabase: DownCache {
             }
         }
         catch let error as NSError {
-            NSLog("Error while clearing DownDatabase: \(error)")
+            Log.e("Error while clearing DownDatabase: \(error)")
         }
     }
     

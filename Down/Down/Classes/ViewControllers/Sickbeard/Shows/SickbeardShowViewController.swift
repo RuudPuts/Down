@@ -210,7 +210,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         
         SickbeardService.shared.refreshShow(show) {
             if let show = $0 {
-                NSLog("Refreshed \(show.name), tvdbid \(show.tvdbId)")
+                Log.d("Refreshed \(show.name), tvdbid \(show.tvdbId)")
                 self.show = $0
                 self.refreshControl?.endRefreshing()
             }
