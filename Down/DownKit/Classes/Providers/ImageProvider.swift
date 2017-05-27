@@ -80,13 +80,13 @@ extension ImageProvider {
     
     internal class func storeBanner(_ banner: Data, forShow tvdbid: Int) {
         guard tvdbid != 0 else {
-            Log.i("[ImageProvider] Storing default banner")
+            Log.i("Storing default banner")
             defaultBanner = banner
             return
         }
         
         guard banner != defaultBanner else {
-            Log.i("[ImageProvider] Trying to store placeholder banner for \(tvdbid)")
+            Log.i("Trying to store placeholder banner for \(tvdbid)")
             return
         }
         
@@ -110,13 +110,13 @@ extension ImageProvider {
     
     internal class func storePoster(_ poster: Data, forShow tvdbid: Int) {
         guard tvdbid != 0 else {
-            Log.i("[ImageProvider] Storing default poster")
+            Log.i("Storing default poster")
             defaultPoster = poster
             return
         }
         
         guard poster != defaultPoster else {
-            Log.i("[ImageProvider] Trying to store placeholder poster for \(tvdbid)")
+            Log.i("Trying to store placeholder poster for \(tvdbid)")
             return
         }
         

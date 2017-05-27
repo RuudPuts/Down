@@ -38,8 +38,8 @@ public class SickbeardService: Service {
     override public func startService() {
         super.startService()
         reloadSpotlight()
-        Log.i("[SickbeardService] Last updated: \(Preferences.sickbeardLastCacheRefresh ?? Date.init(timeIntervalSince1970: 0))")
-        Log.i("[SickbeardService] Refreshing show cache")
+        Log.i("Last updated: \(Preferences.sickbeardLastCacheRefresh ?? Date.init(timeIntervalSince1970: 0))")
+        Log.i("Refreshing show cache")
         refreshShowCache()
         
         let defaultShow = SickbeardShow()
@@ -78,7 +78,7 @@ public class SickbeardService: Service {
             return show.getSeason(seasonId)?.getEpisode(episodeId)
         }
         else {
-//            Log.e("[SickbeardService] Failed to parse nzb \(nzbName), with show name components \(nameComponents)")
+//            Log.e("Failed to parse nzb \(nzbName), with show name components \(nameComponents)")
         }
         
         return nil
@@ -140,7 +140,7 @@ public class SickbeardService: Service {
         // Find shows to refresh, episodes aired since last update
         fetchShows { tvdbIds in
             if self.shows.count == 0 || force {
-                Log.i("[SickbeardService] Refreshing full cache")
+                Log.i("Refreshing full cache")
                 let shows: [SickbeardShow] = tvdbIds.map {
                     let show = SickbeardShow()
                     show.tvdbId = $0
@@ -151,7 +151,7 @@ public class SickbeardService: Service {
                 self.refreshShows(shows, completionHandler: {
                     Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
                     self.notifyListeners {
-                        Log.i("[SickbeardService] Show cache refreshed")
+                        Log.i("Show cache refreshed")
                         $0.sickbeardShowCacheUpdated()
                     }
                 })
@@ -161,7 +161,7 @@ public class SickbeardService: Service {
                 
                 // Clean up deleted shows
                 let deletedShowIds = knownShowIds.filter { !tvdbIds.contains($0) }
-                Log.i("[SickbeardService] Deleted shows: \(deletedShowIds)")
+                Log.i("Deleted shows: \(deletedShowIds)")
                 deletedShowIds.forEach {
                     if let show = self.showWithId($0) {
                         Log.i("SickbeadService - Deleting show: \(show.name)")
@@ -172,7 +172,7 @@ public class SickbeardService: Service {
                 
                 // Find new shows
                 let newShowIds = tvdbIds.filter { !knownShowIds.contains($0) }
-                Log.i("[SickbeardService] New shows: \(newShowIds)")
+                Log.i("New shows: \(newShowIds)")
                 
                 var showsToRefresh = [SickbeardShow]()
                 showsToRefresh += newShowIds.map {
@@ -185,16 +185,16 @@ public class SickbeardService: Service {
                 // Find shows to refresh, episodes aired since last update
                 let recentlyAired = DownDatabase.shared.fetchShowsWithEpisodesAiredSince(lastCacheRefresh)
                 for show in recentlyAired {
-                    Log.i("[SickbeardService] Refreshing \(show.name)")
+                    Log.i("Refreshing \(show.name)")
                     showsToRefresh.append(show)
                 }
                 
-                Log.i("[SickbeardService] Refreshing \(showsToRefresh.count) shows")
+                Log.i("Refreshing \(showsToRefresh.count) shows")
                 
                 self.refreshShows(showsToRefresh) {
                     Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
                     self.notifyListeners {
-                        Log.i("[SickbeardService] Show cache refreshed")
+                        Log.i("Show cache refreshed")
                         $0.sickbeardShowCacheUpdated()
                     }
                 }
@@ -208,7 +208,7 @@ public class SickbeardService: Service {
             let showData = json.rawValue as! [String: AnyObject]
             completion(Array(showData.keys).map { Int($0)! })
         }, error: { error in
-           Log.e("[SickbeardService] Error while fetching Sickbeard shows list: \(error.localizedDescription)")
+           Log.e("Error while fetching Sickbeard shows list: \(error.localizedDescription)")
         })
     }
 
@@ -221,12 +221,12 @@ public class SickbeardService: Service {
             self.downloadPoster(refreshedShow)
             self.refreshShowSeasons(refreshedShow, completionHandler: {
                 DownDatabase.shared.storeSickbeardShow(refreshedShow)
-                Log.i("[SickbeardService] Refreshed \(refreshedShow.name) (\(refreshedShow.seasons.count) seasons, \(refreshedShow.allEpisodes.count) episodes)")
+                Log.i("Refreshed \(refreshedShow.name) (\(refreshedShow.seasons.count) seasons, \(refreshedShow.allEpisodes.count) episodes)")
                 
                 completionHandler(refreshedShow)
             })
         }, error: { error in
-            Log.e("[SickbeardService] Error while fetching Sickbeard showData: \(error.localizedDescription)")
+            Log.e("Error while fetching Sickbeard showData: \(error.localizedDescription)")
             completionHandler(nil)
         })
     }
@@ -253,7 +253,7 @@ public class SickbeardService: Service {
         SickbeardRequest.requestJson(url, succes: { _ in
             DownDatabase.shared.deleteSickbeardShow(show)
             self.notifyListeners {
-                Log.i("[SickbeardService] Show cache refreshed")
+                Log.i("Show cache refreshed")
                 $0.sickbeardShowCacheUpdated()
             }
             
@@ -293,7 +293,7 @@ public class SickbeardService: Service {
             self.reloadSpotlight()
             
             self.notifyListeners {
-                Log.i("[SickbeardService] Show added: \(show.name)")
+                Log.i("Show added: \(show.name)")
                 $0.sickbeardShowAdded(show)
             }
             completionHandler(addedShow)
@@ -310,7 +310,7 @@ public class SickbeardService: Service {
             let shows = self.parseSearchResults(json["results"])
             completionHandler(shows)
         }, error: { error in
-           Log.e("[SickbeardService] Error while searching Sickbeard shows: \(error.localizedDescription)")
+           Log.e("Error while searching Sickbeard shows: \(error.localizedDescription)")
         })
     }
     
@@ -353,7 +353,7 @@ public class SickbeardService: Service {
             self.parseShowSeasons(json, forShow: show)
             completionHandler()
         }, error: { error in
-            Log.e("[SickbeardService] Error while fetching Sickbeard show seasonData: \(error.localizedDescription)")
+            Log.e("Error while fetching Sickbeard show seasonData: \(error.localizedDescription)")
             completionHandler()
         })
     }
@@ -410,12 +410,12 @@ public class SickbeardService: Service {
                     let plot = json["description"].string ?? ""
                     DownDatabase.shared.setPlot(plot, forEpisode: episode)
                     self.notifyListeners {
-                        Log.i("[SickbeardService] Episode refreshed: \(episode.show!.name) S\(episode.season!.id)E\(episode.id)")
+                        Log.i("Episode refreshed: \(episode.show!.name) S\(episode.season!.id)E\(episode.id)")
                         $0.sickbeardEpisodeRefreshed(episode)
                     }
                 }
             }, error: { error in
-                Log.e("[SickbeardService] Error while fetching Sickbeard episode data: \(error.localizedDescription)")
+                Log.e("Error while fetching Sickbeard episode data: \(error.localizedDescription)")
             })
             
             return true
@@ -491,14 +491,14 @@ public class SickbeardService: Service {
             return
         }
         
+        Log.d("Downloading banner for '\(show.name)'")
         bannerDownloadQueue.async(execute: {
-            
             let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
             
             SickbeardRequest.requestData(url, succes: { bannerData, _ in
                 ImageProvider.storeBanner(bannerData, forShow: show.tvdbId)
             }, error: { error in
-                Log.e("[SickbeardService] Error while fetching banner: \(error.localizedDescription)")
+                Log.e("Error while fetching banner: \(error.localizedDescription)")
             })
         })
     }
@@ -512,12 +512,13 @@ public class SickbeardService: Service {
             return
         }
         
+        Log.d("Downloading poster for '\(show.name)'")
         posterDownloadQueue.async(execute: {
             let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
             SickbeardRequest.requestData(url, succes: { bannerData, _ in
                 ImageProvider.storePoster(bannerData, forShow: show.tvdbId)
                 }, error: { error in
-                    Log.e("[SickbeardService] Error while fetching poster: \(error.localizedDescription)")
+                    Log.e("Error while fetching poster: \(error.localizedDescription)")
             })
         })
     }

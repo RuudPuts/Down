@@ -31,7 +31,7 @@ public class SabNZBdConnector: Connector {
                 completion(true, $0)
             }
         }, error: { error in
-            Log.e("[SabNZBdConnector] Error while fetching host: \(error.localizedDescription)")
+            Log.e("Error while fetching host: \(error.localizedDescription)")
             
             self.host = nil
             self.apiKey = nil
@@ -41,7 +41,7 @@ public class SabNZBdConnector: Connector {
     
     public func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> (Void)) {
         guard let sabNZBdHost = host else {
-            Log.w("[SabNZBdConnector] Please set host before fetching the api key")
+            Log.w("Please set host before fetching the api key")
             completion(nil)
             return
         }
@@ -53,7 +53,7 @@ public class SabNZBdConnector: Connector {
             self.apiKey = nil
             
             guard self.checkLoginSuccesfull(loginResponse) else {
-                Log.e("[SabNZBdConnector] Login failed")
+                Log.e("Login failed")
                 completion(nil)
                 return
             }
@@ -62,11 +62,11 @@ public class SabNZBdConnector: Connector {
                 self.apiKey = self.extractApiKey(configResponse)
                 completion(self.apiKey)
             }, error: { error in
-                Log.e("[SabNZBdConnector] Error while fetching API key: \(error.localizedDescription)")
+                Log.e("Error while fetching API key: \(error.localizedDescription)")
                 completion(self.apiKey)
             })
         }, error: { error in
-            Log.e("[SabNZBdConnector] Error while logging in: \(error.localizedDescription)")
+            Log.e("Error while logging in: \(error.localizedDescription)")
             completion(nil)
         })
     }
