@@ -221,7 +221,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         }
         
         applicationService?.startService()
-        if let sickbeardService = applicationService as? SickbeardService , Preferences.sickbeardLastCacheRefresh == nil {
+        if let sickbeardService = applicationService as? SickbeardService {
             progressLabel.text = "Preparing show cache..."
             progressIndicator.startAnimating()
             progressView.isHidden = false
@@ -230,7 +230,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             sickbeardService.addListener(self)
         }
         else {
-            delegate?.settingsViewControllerDidTapActionButton(self)    
+            delegate?.settingsViewControllerDidTapActionButton(self)
         }
     }
     
@@ -510,10 +510,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             sickbeardService.removeListener(self)
         }
         
-        self.actionButton.setTitle("All done, let's go!", for: self.actionButton.state)
-        
-        self.progressView.isHidden = true
-        self.actionButton.isHidden = false
+        delegate?.settingsViewControllerDidTapActionButton(self)
     }
     
 }
