@@ -221,7 +221,7 @@ public class SickbeardService: Service {
             self.downloadPoster(refreshedShow)
             self.refreshShowSeasons(refreshedShow, completionHandler: {
                 DownDatabase.shared.storeSickbeardShow(refreshedShow)
-                NSLog("[SickbeardService] Refreshed \(refreshedShow.name)")
+                NSLog("[SickbeardService] Refreshed \(refreshedShow.name) (\(refreshedShow.seasons.count) seasons, \(refreshedShow.allEpisodes.count) episodes)")
                 
                 completionHandler(refreshedShow)
             })
