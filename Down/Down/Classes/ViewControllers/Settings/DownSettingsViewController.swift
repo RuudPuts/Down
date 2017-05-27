@@ -199,7 +199,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             break
         case .Sickbeard:
             headerView.backgroundColor = .downSickbeardColor()
-            headerImageView.image = R.image.sabnzbdIcon()
+            headerImageView.image = R.image.sickbeardIcon()
 //            window.statusBarBackgroundColor = .downSickbeardDarkColor()
             actionButton.setTitleColor(.downSickbeardColor(), for: .normal)
             break
