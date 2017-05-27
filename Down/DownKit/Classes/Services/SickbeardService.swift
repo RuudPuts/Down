@@ -491,7 +491,7 @@ public class SickbeardService: Service {
             return
         }
         
-        Log.d("Downloading banner for '\(show.name)'")
+        Log.d("Downloading banner for '\(show.name.length > 0 ? show.name : "Default")'")
         bannerDownloadQueue.async(execute: {
             let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
             
@@ -512,7 +512,7 @@ public class SickbeardService: Service {
             return
         }
         
-        Log.d("Downloading poster for '\(show.name)'")
+        Log.d("Downloading poster for '\(show.name.length > 0 ? show.name : "Default")'")
         posterDownloadQueue.async(execute: {
             let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
             SickbeardRequest.requestData(url, succes: { bannerData, _ in
