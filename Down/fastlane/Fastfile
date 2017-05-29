@@ -7,7 +7,7 @@ platform :ios do
 
   desc "Create new build"
   lane :build do |options|
-    gym(scheme: 'Down', configuration: options[:configuration], use_legacy_build_api: true, output_directory: output_folder)
+    gym(scheme: 'Down', configuration: options[:configuration], output_directory: output_folder)
   end
 
   desc "Test app and create coverage report"
@@ -33,8 +33,9 @@ platform :ios do
 
   desc "Uploads a new build to Crashlytics"
   private_lane :upload_beta do
-    crashlytics(notes_path: 'fastlane/release_notes.txt', api_token: 'fd7501efa3a9abb16103f351213d7b72ff764052', 
-        build_secret: 'f2769c1a542364cb5281af857c1220006aa4a2d2d658d426988f0d0ba596dfa8')#, groups: 'DownBeta')
+    crashlytics(ipa_path: 'Artifacts/Down.ipa', notes_path: 'fastlane/release_notes.txt', groups: 'DownBeta',
+    	api_token: 'fd7501efa3a9abb16103f351213d7b72ff764052', 
+        build_secret: 'f2769c1a542364cb5281af857c1220006aa4a2d2d658d426988f0d0ba596dfa8')#)
     upload_symbols_to_crashlytics(dsym_path: output_folder + "/Down.app.dSYM.zip")
     sh "open https://fabric.io/_/beta"
   end
