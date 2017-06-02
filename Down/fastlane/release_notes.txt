@@ -1,2 +1,4 @@
-What's new
- - Fixed lot of bugs, also code cleanup =D Thanks @Stefan
+- Fixed case where nzb name didn't get parsed correctly
+- Fixed SabNZBd loading when connection is established after app launch
+- Fixed missing poster / banner fetching
+- Made adding shows snappier
