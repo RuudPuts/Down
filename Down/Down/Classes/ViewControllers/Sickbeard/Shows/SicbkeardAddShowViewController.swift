@@ -116,24 +116,6 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
         navigationController?.pushViewController(webViewController!, animated: true)
     }
     
-    
-    
-    
-    
-    
-//    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//    self.overlay.status = "Testing overlay  🚀"
-//    self.showOverlay()
-//    
-//    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-//    self.overlay.complete(withResult: .success)
-//    
-//    DispatchQueue.main.asyncAfter(deadline: .now() + 4.5, execute: {
-//    self.hideOverlay()
-//    })
-//    }
-//    }
-    
 }
 
 protocol SicbkeardAddShowViewControllerDelegate {

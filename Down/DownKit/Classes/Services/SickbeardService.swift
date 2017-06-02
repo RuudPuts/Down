@@ -488,6 +488,7 @@ public class SickbeardService: Service {
     
     fileprivate func downloadBanner(_ show: SickbeardShow, force: Bool) {
         if show.hasBanner && !force {
+            Log.d("Skipping banner download for '\(show.name.length > 0 ? show.name : "Default")'")
             return
         }
         
@@ -509,6 +510,7 @@ public class SickbeardService: Service {
     
     fileprivate func downloadPoster(_ show: SickbeardShow, force: Bool) {
         if show.hasPoster && !force {
+            Log.d("Skipping poster download for '\(show.name.length > 0 ? show.name : "Default")'")
             return
         }
         

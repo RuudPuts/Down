@@ -58,9 +58,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler))
         tableView?.addGestureRecognizer(longPressRecognizer!)
         
-        if let headerView = tableView!.tableHeaderView as? SickbeardShowHeaderView {
-            headerView.show = show
-        }
+        reloadHeaderView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,6 +81,16 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
             let detailViewController = segue.destination as! SickbeardEpisodeViewController
             detailViewController.episode = episode
         }
+    }
+    
+    // MARK: - Header view
+    
+    func reloadHeaderView() {
+        guard let headerView = tableView!.tableHeaderView as? SickbeardShowHeaderView else {
+            return
+        }
+        
+        headerView.show = show
     }
     
     // MARK: - TableView DataSource
@@ -209,10 +217,12 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         }
         
         SickbeardService.shared.refreshShow(show) {
-            if let show = $0 {
-                Log.d("Refreshed \(show.name), tvdbid \(show.tvdbId)")
+            if $0 != nil {
                 self.show = $0
                 self.refreshControl?.endRefreshing()
+                
+                self.reloadHeaderView()
+                self.tableView?.reloadData()
             }
             else {
                 _ = self.navigationController?.popViewController(animated: true)
@@ -220,9 +230,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         }
     }
     
-    func sickbeardShowCacheUpdated() {
-        tableView?.reloadData()
-    }
+    func sickbeardShowCacheUpdated() { }
     
 }
 

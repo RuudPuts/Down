@@ -129,6 +129,12 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         performSegue(withIdentifier: "SickbeardShow", sender: nil)
     }
     
+    func viewModel(_ model: ShowsViewModel, showRequiresRefresh show: SickbeardShow) {
+        SickbeardService.shared.refreshShow(show) { _ in 
+            self.reloadCollectionView()
+        }
+    }
+    
     // MARK: SectionIndexView
     
     func sectionIndexView(_ sectionIndexView: DownSectionIndexView, didSelectSection section: String, atIndex index: Int) {
@@ -212,6 +218,10 @@ extension SickbeardShowsViewController: SicbkeardAddShowViewControllerDelegate {
         collectionView?.scrollToItem(at: showIndexPath, at: .centeredVertically, animated: false)
         viewController.dismiss(animated: true) {
             self.collectionView?.selectItem(at: showIndexPath, animated: true, scrollPosition: .centeredVertically)
+            
+            if let viewModel = self.collectionViewModel {
+                self.viewModel(viewModel, didSelectShow: show)
+            }
         }
     }
 }

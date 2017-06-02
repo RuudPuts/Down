@@ -95,7 +95,7 @@ public class SickbeardShow: Object {
         return ImageProvider.bannerForShow(tvdbId)
     }
 
-    internal var hasBanner: Bool {
+    public var hasBanner: Bool {
         return ImageProvider.hasBannerForShow(tvdbId)
     }
 
@@ -107,7 +107,7 @@ public class SickbeardShow: Object {
         return ImageProvider.posterThumbnailForShow(tvdbId)
     }
 
-    internal var hasPoster: Bool {
+    public var hasPoster: Bool {
         return ImageProvider.hasPosterForShow(tvdbId)
     }
     

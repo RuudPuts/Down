@@ -8,6 +8,7 @@
 
 import UIKit
 import DownKit
+import Rswift
 
 class SickbeardShowHeaderView: UIView {
     
@@ -21,7 +22,7 @@ class SickbeardShowHeaderView: UIView {
     
     var show: SickbeardShow? {
         didSet {
-            posterView.image = show!.posterThumbnail;
+            posterView.image = show!.posterThumbnail ?? R.image.sickbeardDefaultPoster()
             nameLabel.text = show!.name
             airsLabel.text = show!.airs.length > 0 ? "\(show!.airs) on \(show!.network)" : show!.network
             statusLabel.text = show!.status.rawValue

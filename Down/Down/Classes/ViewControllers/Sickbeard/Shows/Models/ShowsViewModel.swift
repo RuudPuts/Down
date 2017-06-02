@@ -17,6 +17,13 @@ class ShowsViewModel: NSObject {
 
 protocol ShowsViewModelDelegate {
     func viewModel(_ model: ShowsViewModel, didSelectShow show: SickbeardShow)
+    func viewModel(_ model: ShowsViewModel, showRequiresRefresh show: SickbeardShow)
+}
+
+extension ShowsViewModelDelegate {
+    
+    func viewModel(_ model: ShowsViewModel, showRequiresRefresh show: SickbeardShow) { }
+    
 }
 
 extension UIResponder {

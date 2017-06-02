@@ -9,6 +9,7 @@
 import UIKit
 import Preheat
 import Nuke
+import DownKit
 
 class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -36,8 +37,8 @@ class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayo
             var requests = [Request]()
             indexPaths.forEach {
                 if $0.item < shows.count {
-                    let request = shows[$0.item].posterThumbnailRequest
-                    requests.append(request)
+                    let show = shows[$0.item]
+                    requests.append(show.posterThumbnailRequest)
                 }
             }
             
@@ -66,6 +67,11 @@ class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayo
         
         cell.posterView.image = R.image.sickbeardDefaultPoster()
         Nuke.loadImage(with: show.posterThumbnailRequest, into: cell.posterView)
+        
+        if !show.hasPoster {
+            Log.i("Refreshing show '\(show.name)'")
+            delegate?.viewModel(self, showRequiresRefresh: show)
+        }
         
         return cell
     }

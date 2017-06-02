@@ -26,12 +26,6 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
         self.introType = introType
     }
     
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//        window.statusBarBackgroundColor = .downRedColor()
-//    }
-    
     @IBAction func actionButtonPressed(_ sender: AnyObject) {
         startButton.isHidden = true
         searchingContainer.isHidden = false
