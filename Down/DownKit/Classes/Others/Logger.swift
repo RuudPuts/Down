@@ -13,7 +13,7 @@ public let Log = Logger()
 public struct Logger {
     
     enum MessageType: String {
-        case debug = "🐞"
+        case debug = "🐔"
         case info = "🔍"
         case warning = "⚠️"
         case error = "❗️"
