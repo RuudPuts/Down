@@ -86,7 +86,7 @@ class DatabaseV1Adapter: DatabaseAdapter {
         var matchingShows: Results<SickbeardShow>?
         
         for component in components {
-            let componentFilter = "_simpleName contains '\(component)'"
+            let componentFilter = "_simpleName contains[c] '\(component)'"
             
             var shows: Results<SickbeardShow>?
             if matchingShows == nil {
