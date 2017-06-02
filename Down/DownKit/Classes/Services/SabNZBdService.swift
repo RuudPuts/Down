@@ -72,7 +72,7 @@ public class SabNZBdService: Service {
     }
     
     override public func stopService() {
-        super.startService()
+        super.stopService()
         stopTimers()
     }
     
