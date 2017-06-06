@@ -420,6 +420,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         connector?.validateHost(hostURL!, completion: { hostValid, apiKey in
             if hostValid {
                 self.validatingHost = false
+                UIDevice.hapticFeedback(.smallTick)
                 
                 self.hostForApplication = host.replacingOccurrences(of: "http://", with: "")
                 self.apiKeyForApplication = apiKey
@@ -462,6 +463,8 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             connector?.fetchApiKey(username: username, password: password, completion: { fetchedApiKey in
                 if let apiKey = fetchedApiKey , apiKey.length > 0 {
                     self.fetchingApiKey = false
+                    UIDevice.hapticFeedback(.smallTick)
+
                     
                     self.apiKeyForApplication = fetchedApiKey
                     self.configureTableView()
@@ -506,10 +509,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     // MARK: SickbeardService
     
     func sickbeardShowCacheUpdated() {
+        UIDevice.hapticFeedback(.doubleTick)
+        
         if let sickbeardService = applicationService as? SickbeardService {
             sickbeardService.removeListener(self)
         }
         
+        // Perform the original action
         delegate?.settingsViewControllerDidTapActionButton(self)
     }
     

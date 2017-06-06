@@ -159,7 +159,8 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     // MARK: Show delete
     
     func longPressHandler() {
-        guard let touch = longPressRecognizer?.location(in: collectionView),
+        guard longPressRecognizer?.state == .began,
+            let touch = longPressRecognizer?.location(in: collectionView),
             let indexPath = collectionView?.indexPathForItem(at: touch) else {
                 return
         }

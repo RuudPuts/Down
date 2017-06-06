@@ -46,6 +46,7 @@
 		4221ADE91B7BC0D50027C3A0 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADE81B7BC0D50027C3A0 /* SwiftyJSON.swift */; };
 		4221ADEB1B7BC34D0027C3A0 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221ADEA1B7BC34D0027C3A0 /* DateFormatter+Extensions.swift */; };
 		422D54931AE04AE200200EF0 /* DownTabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D54911AE04AE200200EF0 /* DownTabBarCell.swift */; };
+		423008B71EE478E00049B0FD /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423008B61EE478E00049B0FD /* UIDevice+Extensions.swift */; };
 		42354FD61D182BA80016B518 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; };
 		42354FD71D182BA80016B518 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 420AF6421CFB392C00DC4DD4 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42360B191D6B77C1007D2723 /* SickbeardShowHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42360B181D6B77C1007D2723 /* SickbeardShowHeaderView.swift */; };
@@ -137,7 +138,7 @@
 		42C700501DDF8CE10038181E /* SabNZBdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C7004F1DDF8CE10038181E /* SabNZBdRequest.swift */; };
 		42CA67B21EDA2173003F1802 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CA67B11EDA2173003F1802 /* Logger.swift */; };
 		42CC1D981C289989000CC68C /* DownIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC1D971C289989000CC68C /* DownIntroViewController.swift */; };
-		42CC1D9A1C289A8B000CC68C /* DownWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42CC1D991C289A8B000CC68C /* DownWelcomeViewController.xib */; };
+		42CC1D9A1C289A8B000CC68C /* DownIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42CC1D991C289A8B000CC68C /* DownIntroViewController.xib */; };
 		42CC1D9D1C28A2AC000CC68C /* DownSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC1D9C1C28A2AC000CC68C /* DownSettingsViewController.swift */; };
 		42CC1D9F1C28A2B8000CC68C /* DownSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42CC1D9E1C28A2B8000CC68C /* DownSettingsViewController.xib */; };
 		42CD253D1AB5BD06008E9717 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */; };
@@ -476,6 +477,7 @@
 		4221ADE81B7BC0D50027C3A0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../../../SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		4221ADEA1B7BC34D0027C3A0 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		422D54911AE04AE200200EF0 /* DownTabBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownTabBarCell.swift; sourceTree = "<group>"; };
+		423008B61EE478E00049B0FD /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		42360B181D6B77C1007D2723 /* SickbeardShowHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickbeardShowHeaderView.swift; sourceTree = "<group>"; };
 		423D87941B700B3D00AFB7FF /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		424595131B7933EA009DA699 /* DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -574,7 +576,7 @@
 		42C7004F1DDF8CE10038181E /* SabNZBdRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdRequest.swift; sourceTree = "<group>"; };
 		42CA67B11EDA2173003F1802 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		42CC1D971C289989000CC68C /* DownIntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownIntroViewController.swift; sourceTree = "<group>"; };
-		42CC1D991C289A8B000CC68C /* DownWelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownWelcomeViewController.xib; sourceTree = "<group>"; };
+		42CC1D991C289A8B000CC68C /* DownIntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownIntroViewController.xib; sourceTree = "<group>"; };
 		42CC1D9C1C28A2AC000CC68C /* DownSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownSettingsViewController.swift; sourceTree = "<group>"; };
 		42CC1D9E1C28A2B8000CC68C /* DownSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownSettingsViewController.xib; sourceTree = "<group>"; };
 		42CD25221AB5BD05008E9717 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -1278,7 +1280,7 @@
 			isa = PBXGroup;
 			children = (
 				42CC1D971C289989000CC68C /* DownIntroViewController.swift */,
-				42CC1D991C289A8B000CC68C /* DownWelcomeViewController.xib */,
+				42CC1D991C289A8B000CC68C /* DownIntroViewController.xib */,
 			);
 			name = Introduction;
 			path = Down/Classes/ViewControllers/Introduction;
@@ -1421,6 +1423,7 @@
 				42B818681D295C1C003672C3 /* String+Extensions.swift */,
 				42C2D7001D68EBE5008E195E /* Date+Extensions.swift */,
 				4249CA171DD690B5007D7A6C /* DownApplication+Extensions.swift */,
+				423008B61EE478E00049B0FD /* UIDevice+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1799,7 +1802,7 @@
 				42C2D7411D6A1F77008E195E /* Sickbeard.storyboard in Resources */,
 				42C091091AC1E68300E6DDC4 /* Settings.bundle in Resources */,
 				42CD25541AB5BD06008E9717 /* Roboto-Regular.ttf in Resources */,
-				42CC1D9A1C289A8B000CC68C /* DownWelcomeViewController.xib in Resources */,
+				42CC1D9A1C289A8B000CC68C /* DownIntroViewController.xib in Resources */,
 				42CD25521AB5BD06008E9717 /* Roboto-Medium.ttf in Resources */,
 				42CD25441AB5BD06008E9717 /* OpenSans-Regular.ttf in Resources */,
 				42670EF91ADDAB5E006341EA /* DownTextCell.xib in Resources */,
@@ -2007,6 +2010,7 @@
 				4216CF9F1D1B283000A89C4C /* DownCollectionViewCell.swift in Sources */,
 				42C4AE041D2AFB390096FF71 /* RPPortScanWorker.m in Sources */,
 				422D54931AE04AE200200EF0 /* DownTabBarCell.swift in Sources */,
+				423008B71EE478E00049B0FD /* UIDevice+Extensions.swift in Sources */,
 				421788B71DD678240038D657 /* DownButtonCell.swift in Sources */,
 				420998BF1DD90948005C1FA6 /* SickbeardShowViewController.swift in Sources */,
 				4249CA181DD690B5007D7A6C /* DownApplication+Extensions.swift in Sources */,

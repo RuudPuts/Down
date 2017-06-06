@@ -67,6 +67,14 @@ class DownViewController: UIViewController {
             searchBar.frame = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: searchBar.bounds.height)
         }, completion: nil)
     }
+    
+    override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+        if viewControllerToPresent is UIAlertController {
+            UIDevice.hapticFeedback(.tick)
+        }
+        
+        super.present(viewControllerToPresent, animated: flag, completion: completion)
+    }
 }
 
 extension DownViewController: UISearchBarDelegate {

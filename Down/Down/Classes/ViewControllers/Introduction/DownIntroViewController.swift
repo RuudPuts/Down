@@ -21,7 +21,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
     @IBOutlet weak var startButton: UIButton!
     
     convenience init(introType: IntroType) {
-        self.init(nibName: "DownWelcomeViewController", bundle: nil)
+        self.init()
         
         self.introType = introType
     }
@@ -93,6 +93,8 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
     }
     
     func portScannerDidFinish(_ portScanner: RPPortScanner!) {
+        UIDevice.hapticFeedback(.doubleTick)
+        
         let settingsViewController = DownSettingsViewController(application: .SabNZBd)
         settingsViewController.delegate = self
         navigationController?.pushViewController(settingsViewController, animated: true)
