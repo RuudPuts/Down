@@ -16,6 +16,7 @@ public class Preferences: DownCache {
         static let sabNZBdApiKey = "SabNZBdApiKey"
         
         static let sickbeardHost = "SickbeardHost"
+        static let sickbeardExternalHost = "SickbeardExternalHost"
         static let sickbeardApiKey = "SickbeardApiKey"
         static let sickbeardCacheRefreshKey = "SickbeardCacheRefreshKey"
         
@@ -54,12 +55,21 @@ public class Preferences: DownCache {
         }
     }
     
-    public class var sickbeardHost: String {
+    public class var sickbeardHost: String? {
         get {
-            return getHostPreference(PreferenceKeys.sickbeardHost) ?? ""
+            return getHostPreference(PreferenceKeys.sickbeardHost)
         }
         set {
             setHostPreference(newValue, forKey:PreferenceKeys.sickbeardHost)
+        }
+    }
+    
+    public class var sickbeardExternalHost: String? {
+        get {
+            return getHostPreference(PreferenceKeys.sickbeardExternalHost)
+        }
+        set {
+            setHostPreference(newValue, forKey:PreferenceKeys.sickbeardExternalHost)
         }
     }
     

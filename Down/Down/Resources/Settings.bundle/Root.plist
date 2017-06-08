@@ -88,6 +88,24 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
         </dict>
+        <dict>
+            <key>AutocapitalizationType</key>
+            <string>None</string>
+            <key>AutocorrectionType</key>
+            <string>No</string>
+            <key>DefaultValue</key>
+            <string>ip:port</string>
+            <key>IsSecure</key>
+            <false/>
+            <key>Key</key>
+            <string>SickbeardExternalHost</string>
+            <key>KeyboardType</key>
+            <string>Alphabet</string>
+            <key>Title</key>
+            <string>External Host</string>
+            <key>Type</key>
+            <string>PSTextFieldSpecifier</string>
+        </dict>
 		<dict>
 			<key>AutocapitalizationType</key>
 			<string>None</string>

@@ -20,10 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var serviceManager: ServiceManager!
     
     var isSetup: Bool {
-        let sabNZBdSetup = Preferences.sabNZBdHost == nil || (Preferences.sabNZBdHost!.length > 0 && Preferences.sabNZBdApiKey.length > 0)
-        let sickbeardSetup = Preferences.sickbeardHost.length > 0 && Preferences.sickbeardApiKey.length > 0
-        
-        return sabNZBdSetup && sickbeardSetup
+        let sabNZBdSetup = Preferences.sabNZBdHost == nil || Preferences.sabNZBdHost == "ip:port" || Preferences.sabNZBdHost!.length == 0
+        let sickbeardSetup = Preferences.sickbeardHost == nil || Preferences.sickbeardHost == "ip:port" || Preferences.sickbeardHost!.length == 0
+        return sabNZBdSetup || sickbeardSetup
     }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -86,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupOnboarding() {
         // Check if intro should be shown
-        if !isSetup {
+        if isSetup {
             let introViewController = DownIntroViewController(introType: .welcome)
             let introNavigationController = UINavigationController(rootViewController: introViewController)
             introNavigationController.isNavigationBarHidden = true

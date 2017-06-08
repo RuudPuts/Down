@@ -203,18 +203,16 @@ public class SickbeardService: Service {
     }
     
     private func fetchShows(completion: @escaping ([Int]) -> Void) {
-        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=shows"
-        SickbeardRequest.requestJson(url, succes: { json, _ in
+        SickbeardRequest.requestShows(succes: { (json, _) in
             let showData = json.rawValue as! [String: AnyObject]
             completion(Array(showData.keys).map { Int($0)! })
-        }, error: { error in
-           Log.e("Error while fetching Sickbeard shows list: \(error.localizedDescription)")
+        }, error: {
+            Log.e("Error while fetching Sickbeard shows list")
         })
     }
 
     public func refreshShow(_ show: SickbeardShow, _ completionHandler: @escaping (SickbeardShow?) -> Void) {
-        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show&tvdbid=\(show.tvdbId)"
-        SickbeardRequest.requestJson(url, succes: { json, _ in
+        SickbeardRequest.requestShow(show.tvdbId, succes: { json, _ in
             let refreshedShow = self.parseShowData(json, forTvdbId: show.tvdbId)
             
             self.downloadBanner(refreshedShow)
@@ -226,7 +224,7 @@ public class SickbeardService: Service {
                 completionHandler(refreshedShow)
             })
         }, error: { error in
-            Log.e("Error while fetching Sickbeard showData: \(error.localizedDescription)")
+            Log.e("Error while fetching Sickbeard showData")
             completionHandler(nil)
         })
     }
@@ -249,8 +247,7 @@ public class SickbeardService: Service {
     }
     
     public func deleteShow(_ show: SickbeardShow, _ completionHandler: @escaping (Bool) -> Void) {
-        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.delete&tvdbid=\(show.tvdbId)"
-        SickbeardRequest.requestJson(url, succes: { _ in
+        SickbeardRequest.deleteShow(show.tvdbId, succes: { _ in
             DownDatabase.shared.deleteSickbeardShow(show)
             self.notifyListeners {
                 Log.i("Show cache refreshed")
@@ -266,14 +263,13 @@ public class SickbeardService: Service {
     // MARK: Adding shows
     
     public func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.Status, completionHandler: @escaping (Bool, SickbeardShow?) -> Void) -> Void {
-        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.addnew&tvdbid=\(show.tvdbId)&status=\(state.rawValue.lowercased())"
-        SickbeardRequest.requestJson(url, succes: { json in
+        SickbeardRequest.addShow(show.tvdbId, state: state, succes: { json in
             Log.i("Added show \(show.name)")
             self.refreshShowAfterAdd(show) {
                 completionHandler(true, $0)
             }
         }, error: { error in
-            Log.e("Error while adding show: \(error.localizedDescription)")
+            Log.e("Error while adding show")
             completionHandler(false, nil)
         })
     }
@@ -301,16 +297,11 @@ public class SickbeardService: Service {
     }
     
     public func searchForShow(query: String, completionHandler: @escaping ([SickbeardShow]) -> Void) {
-        guard let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
-            return
-        }
-        
-        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=sb.searchtvdb&lang=en&name=" + escapedQuery
-        SickbeardRequest.requestJson(url, succes: { json, _ in
+        SickbeardRequest.searchTvdb(query: query, succes: { json, _ in
             let shows = self.parseSearchResults(json["results"])
             completionHandler(shows)
-        }, error: { error in
-           Log.e("Error while searching Sickbeard shows: \(error.localizedDescription)")
+        }, error: {
+           Log.e("Error while searching Sickbeard shows")
         })
     }
     
@@ -347,13 +338,11 @@ public class SickbeardService: Service {
     }
     
     fileprivate func refreshShowSeasons(_ show: SickbeardShow, completionHandler: @escaping () -> Void) {
-        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show.tvdbId)"
-        
-        SickbeardRequest.requestJson(url, succes: { json, _ in
+        SickbeardRequest.requestSeasons(show: show.tvdbId, succes: { json, _ in
             self.parseShowSeasons(json, forShow: show)
             completionHandler()
-        }, error: { error in
-            Log.e("Error while fetching Sickbeard show seasonData: \(error.localizedDescription)")
+        }, error: {
+            Log.e("Error while fetching Sickbeard show seasonData")
             completionHandler()
         })
     }
@@ -402,10 +391,7 @@ public class SickbeardService: Service {
         }
         
         if let tvdbId = episode.show?.tvdbId, let seasonId = episode.season?.id {
-            let command = "episode&tvdbid=\(tvdbId)&season=\(seasonId)&episode=\(episode.id)"
-            let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=\(command)"
-            
-            SickbeardRequest.requestJson(url, succes: { json, _ in
+            SickbeardRequest.requestEpisode(show: tvdbId, season: seasonId, episode: episode.id, succes: { json, _ in
                 DispatchQueue.main.async {
                     let plot = json["description"].string ?? ""
                     DownDatabase.shared.setPlot(plot, forEpisode: episode)
@@ -414,8 +400,8 @@ public class SickbeardService: Service {
                         $0.sickbeardEpisodeRefreshed(episode)
                     }
                 }
-            }, error: { error in
-                Log.e("Error while fetching Sickbeard episode data: \(error.localizedDescription)")
+            }, error: {
+                Log.e("Error while fetching Sickbeard episode data")
             })
             
             return true
@@ -435,13 +421,7 @@ public class SickbeardService: Service {
             return
         }
         
-        let command = "episode.setstatus&status=\(status.rawValue.lowercased())&tvdbid=\(tvdbId)&season=\(seasonId)&episode=\(episode.id)&force=1"
-        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=\(command)"
-        SickbeardRequest.requestJson(url, succes: { _ in
-            completion(nil)
-        }, error: { error in
-            completion(error)
-        })
+        SickbeardRequest.setState(show: tvdbId, season: seasonId, episode: episode.id, state: status)
         
         completion(nil)
     }
@@ -457,13 +437,7 @@ public class SickbeardService: Service {
             return
         }
         
-        let command = "episode.setstatus&status=\(status.rawValue.lowercased())&tvdbid=\(tvdbId)&season=\(season.id)&force=1"
-        let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=\(command)"
-        SickbeardRequest.requestJson(url, succes: { _ in
-            completion(nil)
-        }, error: { error in
-            completion(error)
-        })
+        SickbeardRequest.setState(show: tvdbId, season: season.id, state: status)
         
         completion(nil)
     }
@@ -494,12 +468,10 @@ public class SickbeardService: Service {
         
         Log.d("Downloading banner for '\(show.name.length > 0 ? show.name : "Default")'")
         bannerDownloadQueue.async(execute: {
-            let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show.tvdbId)"
-            
-            SickbeardRequest.requestData(url, succes: { bannerData, _ in
+            SickbeardRequest.requestBanner(show: show.tvdbId, succes: { bannerData, _ in
                 ImageProvider.storeBanner(bannerData, forShow: show.tvdbId)
-            }, error: { error in
-                Log.e("Error while fetching banner: \(error.localizedDescription)")
+            }, error: {
+                Log.e("Error while fetching banner")
             })
         })
     }
@@ -516,11 +488,10 @@ public class SickbeardService: Service {
         
         Log.d("Downloading poster for '\(show.name.length > 0 ? show.name : "Default")'")
         posterDownloadQueue.async(execute: {
-            let url = Preferences.sickbeardHost + "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show.tvdbId)"
-            SickbeardRequest.requestData(url, succes: { bannerData, _ in
+            SickbeardRequest.requestPoster(show: show.tvdbId, succes: { bannerData, _ in
                 ImageProvider.storePoster(bannerData, forShow: show.tvdbId)
-                }, error: { error in
-                    Log.e("Error while fetching poster: \(error.localizedDescription)")
+                }, error: {
+                    Log.e("Error while fetching poster")
             })
         })
     }

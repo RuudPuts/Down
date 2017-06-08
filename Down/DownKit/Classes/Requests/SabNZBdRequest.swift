@@ -49,7 +49,7 @@ public class SabNZBdRequest: DownRequest {
         SabNZBdRequest.requestJson(urls, succes: succes, error: error)
     }
     
-    class func urls(suffix: String? = nil) -> [String] {
+    private class func urls(suffix: String? = nil) -> [String] {
         var urls = [String]()
         if let sabNZBdLocalHost = Preferences.sabNZBdHost {
             urls += ["\(sabNZBdLocalHost)\(suffix ?? "")"]

@@ -54,7 +54,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
                 host = Preferences.sabNZBdHost ?? ""
                 break
             case .Sickbeard:
-                host = Preferences.sickbeardHost
+                host = Preferences.sickbeardHost ?? ""
                 break
             case .CouchPotato:
                 host = Preferences.couchPotatoHost
