@@ -51,7 +51,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             var host = ""
             switch application as DownApplication {
             case .SabNZBd:
-                host = Preferences.sabNZBdHost
+                host = Preferences.sabNZBdHost ?? ""
                 break
             case .Sickbeard:
                 host = Preferences.sickbeardHost

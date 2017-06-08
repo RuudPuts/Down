@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var serviceManager: ServiceManager!
     
     var isSetup: Bool {
-        let sabNZBdSetup = Preferences.sabNZBdHost.length > 0 && Preferences.sabNZBdApiKey.length > 0
+        let sabNZBdSetup = Preferences.sabNZBdHost == nil || (Preferences.sabNZBdHost!.length > 0 && Preferences.sabNZBdApiKey.length > 0)
         let sickbeardSetup = Preferences.sickbeardHost.length > 0 && Preferences.sickbeardApiKey.length > 0
         
         return sabNZBdSetup && sickbeardSetup

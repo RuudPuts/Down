@@ -12,6 +12,7 @@ public class Preferences: DownCache {
     
     struct PreferenceKeys {
         static let sabNZBdHost = "SabNZBdHost"
+        static let sabNZBdExternalHost = "SabNZBdExternalHost"
         static let sabNZBdApiKey = "SabNZBdApiKey"
         
         static let sickbeardHost = "SickbeardHost"
@@ -32,6 +33,15 @@ public class Preferences: DownCache {
         }
         set {
             setHostPreference(newValue, forKey:PreferenceKeys.sabNZBdHost)
+        }
+    }
+    
+    public class var sabNZBdExternalHost: String? {
+        get {
+            return getHostPreference(PreferenceKeys.sabNZBdExternalHost)
+        }
+        set {
+            setHostPreference(newValue, forKey:PreferenceKeys.sabNZBdExternalHost)
         }
     }
     
