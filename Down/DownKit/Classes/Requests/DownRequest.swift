@@ -43,9 +43,32 @@ struct Credentials {
 
 private let DownRequestErrorDomain = "DownKit.DownRequest"
 
-class DownRequest {
+public class DownRequest {
     
     // MARK : GET
+    
+    class func requestData(_ urls: [String], method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
+                             succes: @escaping (Data, [AnyHashable : Any]) -> (), error: @escaping () -> ()) {
+        
+        let group = DispatchGroup()
+        group.enter()
+        
+        urls.forEach { (url) in
+            group.enter()
+            requestData(url, method: method, credentials: credentials, parameters: parameters, succes: { string, headers in
+                succes(string, headers)
+                return
+            },  error: { error in
+                group.leave()
+            })
+        }
+        
+        group.leave()
+        group.notify(queue: .global()) {
+            error()
+        }
+        
+    }
     
     class func requestData(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
                            succes: @escaping (Data, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
@@ -84,6 +107,29 @@ class DownRequest {
         }
     }
     
+    class func requestString(_ urls: [String], method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
+                             succes: @escaping (String, [AnyHashable : Any]) -> (), error: @escaping () -> ()) {
+        
+        let group = DispatchGroup()
+        group.enter()
+        
+        urls.forEach { (url) in
+            group.enter()
+            requestString(url, method: method, credentials: credentials, parameters: parameters, succes: { string, headers in
+                succes(string, headers)
+                return
+            },  error: { error in
+                group.leave()
+            })
+        }
+        
+        group.leave()
+        group.notify(queue: .global()) {
+            error()
+        }
+        
+    }
+    
     class func requestString(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
                              succes: @escaping (String, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
         requestData(url, method: method, credentials: credentials, parameters: parameters, succes: { (data, headers) in
@@ -95,6 +141,31 @@ class DownRequest {
             succes(responseString, headers)
         }, error: error)
     }
+    
+    
+    class func requestJson(_ urls: [String], method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
+                           succes: @escaping (JSON, [AnyHashable : Any]) -> (), error: @escaping () -> ()) {
+     
+        let group = DispatchGroup()
+        group.enter()
+        
+        urls.forEach { (url) in
+            group.enter()
+            requestJson(url, method: method, credentials: credentials, parameters: parameters, succes: { json, headers in
+                succes(json, headers)
+                return
+            },  error: { error in
+                group.leave()
+            })
+        }
+        
+        group.leave()
+        group.notify(queue: .global()) {
+            error()
+        }
+        
+    }
+    
     
     class func requestJson(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
                            succes: @escaping (JSON, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {

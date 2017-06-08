@@ -12,9 +12,11 @@ public class Preferences: DownCache {
     
     struct PreferenceKeys {
         static let sabNZBdHost = "SabNZBdHost"
+        static let sabNZBdExternalHost = "SabNZBdExternalHost"
         static let sabNZBdApiKey = "SabNZBdApiKey"
         
         static let sickbeardHost = "SickbeardHost"
+        static let sickbeardExternalHost = "SickbeardExternalHost"
         static let sickbeardApiKey = "SickbeardApiKey"
         static let sickbeardCacheRefreshKey = "SickbeardCacheRefreshKey"
         
@@ -25,46 +27,55 @@ public class Preferences: DownCache {
         static let downClearCache = "DownClearCache"
     }
     
-    public class var sabNZBdHost: String {
+    
+    public class var sabNZBdHost: String? {
         get {
-            let host = getPreference(PreferenceKeys.sabNZBdHost) as! String?
-            if host == nil || host == "http://ip:port" {
-                return ""
-            }
-            
-            return cleanupHost(host!)
+            return getHostPreference(PreferenceKeys.sabNZBdHost)
         }
         set {
-            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sabNZBdHost)
+            setHostPreference(newValue, forKey:PreferenceKeys.sabNZBdHost)
+        }
+    }
+    
+    public class var sabNZBdExternalHost: String? {
+        get {
+            return getHostPreference(PreferenceKeys.sabNZBdExternalHost)
+        }
+        set {
+            setHostPreference(newValue, forKey:PreferenceKeys.sabNZBdExternalHost)
         }
     }
     
     public class var sabNZBdApiKey: String {
         get {
-            return getPreference(PreferenceKeys.sabNZBdApiKey) as! String? ?? ""
+            return getPreference(PreferenceKeys.sabNZBdApiKey) as? String ?? ""
         }
         set {
             setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sabNZBdApiKey)
         }
     }
     
-    public class var sickbeardHost: String {
+    public class var sickbeardHost: String? {
         get {
-            let host = getPreference(PreferenceKeys.sickbeardHost) as! String?
-            if host == nil || host == "ip:port" {
-                return ""
-            }
-            
-            return cleanupHost(host!)
+            return getHostPreference(PreferenceKeys.sickbeardHost)
         }
         set {
-            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sickbeardHost)
+            setHostPreference(newValue, forKey:PreferenceKeys.sickbeardHost)
+        }
+    }
+    
+    public class var sickbeardExternalHost: String? {
+        get {
+            return getHostPreference(PreferenceKeys.sickbeardExternalHost)
+        }
+        set {
+            setHostPreference(newValue, forKey:PreferenceKeys.sickbeardExternalHost)
         }
     }
     
     public class var sickbeardApiKey: String {
         get {
-            return getPreference(PreferenceKeys.sickbeardApiKey) as! String? ?? ""
+            return getPreference(PreferenceKeys.sickbeardApiKey)as? String ?? ""
         }
         set {
             setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sickbeardApiKey)
@@ -73,7 +84,7 @@ public class Preferences: DownCache {
     
     public class var sickbeardLastCacheRefresh: Date? {
         get {
-            return getPreference(PreferenceKeys.sickbeardCacheRefreshKey) as! Date?
+            return getPreference(PreferenceKeys.sickbeardCacheRefreshKey) as? Date
         }
         set {
             setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sickbeardCacheRefreshKey)
@@ -82,21 +93,16 @@ public class Preferences: DownCache {
     
     public class var couchPotatoHost: String {
         get {
-            let host = getPreference(PreferenceKeys.sabNZBdHost) as! String?
-            if host == nil || host == "ip:port" {
-                return ""
-            }
-            
-            return cleanupHost(host!)
+            return getHostPreference(PreferenceKeys.couchPotatoHost) ?? ""
         }
         set {
-            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.couchPotatoHost)
+            setHostPreference(newValue, forKey:PreferenceKeys.couchPotatoHost)
         }
     }
     
     public class var couchPotatoApiKey: String {
         get {
-            return getPreference(PreferenceKeys.couchPotatoApiKey) as! String? ?? ""
+            return getPreference(PreferenceKeys.couchPotatoApiKey) as? String ?? ""
         }
         set {
             setPreference(newValue as AnyObject?, forKey:PreferenceKeys.couchPotatoApiKey)
@@ -105,7 +111,7 @@ public class Preferences: DownCache {
     
     public class var downRefreshSickbeardCache: Bool {
         get {
-            return getPreference(PreferenceKeys.downRefreshSickbeardCache) as! Bool? ?? false
+            return getPreference(PreferenceKeys.downRefreshSickbeardCache) as? Bool ?? false
         }
         set {
             setPreference(newValue as AnyObject?, forKey:PreferenceKeys.downRefreshSickbeardCache)
@@ -114,7 +120,7 @@ public class Preferences: DownCache {
     
     public class var downClearCache: Bool {
         get {
-            return getPreference(PreferenceKeys.downClearCache) as! Bool? ?? false
+            return getPreference(PreferenceKeys.downClearCache) as? Bool ?? false
         }
         set {
             setPreference(newValue as AnyObject?, forKey:PreferenceKeys.downClearCache)
@@ -138,6 +144,22 @@ public class Preferences: DownCache {
     }
     
     // MARK: - Private functions
+    
+    fileprivate class func getHostPreference(_ key: String) -> String? {
+        guard let host = UserDefaults.standard.string(forKey: key), host != "http://ip:port", host != "ip:port" else {
+            return nil
+        }
+        return cleanupHost(host)
+    }
+    
+    fileprivate class func setHostPreference(_ host: String?, forKey key: String) {
+        var host = host
+        if host?.hasPrefix("http://") ?? false {
+            host = host?.replacingOccurrences(of: "http://", with: "")
+        }
+        setPreference(host as AnyObject, forKey: key)
+    }
+
     
     fileprivate class func getPreference(_ key: String) -> AnyObject? {
         return UserDefaults.standard.object(forKey: key) as AnyObject?

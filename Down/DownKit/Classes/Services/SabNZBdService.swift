@@ -104,17 +104,15 @@ public class SabNZBdService: Service {
     // MARK: - Queue
     
     @objc fileprivate func refreshQueue() {
-        let url = "\(Preferences.sabNZBdHost)/api?mode=queue&output=json&apikey=\(Preferences.sabNZBdApiKey)"
-        
-        SabNZBdRequest.requestJson(url, succes: { json, _ in
+        SabNZBdRequest.requestQueue(succes: { (json, _) in
             DispatchQueue.global().async {
                 self.parseQueueJson(json)
                 self.refreshCompleted()
                 
                 self.notifyListeners { $0.sabNZBdQueueUpdated() }
             }
-        }, error: { error in
-            Log.e("Error while fetching queue: \(error.localizedDescription)")
+        }, error: {
+            Log.e("Error while fetching queue")
         })
     }
     
@@ -205,16 +203,16 @@ public class SabNZBdService: Service {
     // MARK - History
     
     @objc fileprivate func refreshHistory() {
-        let url = "\(Preferences.sabNZBdHost)/api?mode=history&output=json&limit=20&apikey=\(Preferences.sabNZBdApiKey)"
-        SabNZBdRequest.requestJson(url, succes: { json, _ in
+        
+        SabNZBdRequest.requestHistory(succes: { (json, _) in
             DispatchQueue.global().async {
                 self.parseHistoryJson(json)
                 self.refreshCompleted()
                 
                 self.notifyListeners { $0.sabNZBdHistoryUpdated() }
             }
-        }, error: { error in
-            Log.e("Error while refreshing history: \(error.localizedDescription)")
+        }, error: {
+            Log.e("Error while refreshing history")
         })
     }
     
@@ -237,27 +235,27 @@ public class SabNZBdService: Service {
             return
         }
 
-        let url = "\(Preferences.sabNZBdHost)/api?mode=history&output=json&start=\(history.count)&limit=20&apikey=\(Preferences.sabNZBdApiKey)"
         
         Log.i("Fetching history \(history.count) - \(history.count + 20)")
-        SabNZBdRequest.requestJson(url, succes: { json, _ in
-            DispatchQueue.global().async {
-                self.parseHistoryJson(json)
-                self.refreshCompleted()
-                
-                self.notifyListeners {
-                    $0.sabNZBdHistoryUpdated()
-                    if self.fullHistoryFetched {
-                        $0.sabNZBDFullHistoryFetched()
+        SabNZBdRequest.requestHistory(start: history.count, succes: { (json, _) in
+                DispatchQueue.global().async {
+                    self.parseHistoryJson(json)
+                    self.refreshCompleted()
+                    
+                    self.notifyListeners {
+                        $0.sabNZBdHistoryUpdated()
+                        if self.fullHistoryFetched {
+                            $0.sabNZBDFullHistoryFetched()
+                        }
                     }
+                    self.isFetchingHistory = false
+                    
                 }
-                self.isFetchingHistory = false
-                
-            }
-        }, error: { error in
-            Log.e("Error while fetching history: \(error.localizedDescription)")
+        }, error: {
+            Log.e("Error while fetching history")
             self.isFetchingHistory = false
         })
+            
         isFetchingHistory = true
     }
     
@@ -331,13 +329,8 @@ public class SabNZBdService: Service {
     // MARK - Delete items
     
     public func deleteItem(_ item: SABItem) {
-        var mode = "queue"
-        if item is SABHistoryItem {
-            mode = "history"
-        }
         
-        let url = "\(Preferences.sabNZBdHost)/api?mode=\(mode)&name=delete&value=\(item.identifier!)&apikey=\(Preferences.sabNZBdApiKey)"
-        SabNZBdRequest.requestString(url, succes: { response, _ in
+        SabNZBdRequest.delete(item: item, succes: { (response, _) in
             if let historyItem = item as? SABHistoryItem, let historyIndex = self.history.index(of: historyItem) {
                 self.history.remove(at: historyIndex)
             }
@@ -347,9 +340,10 @@ public class SabNZBdService: Service {
             }
             
             self.notifyListeners{ $0.willRemoveSABItem(item) }
-        }, error: { error in
-            Log.e("Error while deleting item: \(error.localizedDescription)")
+        }, error: {
+            Log.e("Error while deleting item")
         })
+        
     }
     
     // MARK - IMDB

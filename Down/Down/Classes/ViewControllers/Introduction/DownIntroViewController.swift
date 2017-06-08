@@ -50,7 +50,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                 Log.i("Validated sabNZBd host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
                 
                 if hostValid {
-                    if Preferences.sabNZBdHost.length == 0 {
+                    if Preferences.sabNZBdHost == nil || Preferences.sabNZBdHost?.length == 0 {
                         // No host set yet, save it all
                         Preferences.sabNZBdHost = host.absoluteString
                         Preferences.sabNZBdApiKey = apiKey ?? ""
@@ -68,7 +68,7 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                 Log.i("Validated Sickbeard host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
                 
                 if hostValid {
-                    if Preferences.sickbeardHost.length == 0 {
+                    if Preferences.sickbeardHost == nil || Preferences.sickbeardHost?.length == 0 {
                         // No host set yet, save it all
                         Preferences.sickbeardHost = host.absoluteString
                         Preferences.sickbeardApiKey = apiKey ?? ""

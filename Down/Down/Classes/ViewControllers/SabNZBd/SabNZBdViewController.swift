@@ -268,16 +268,12 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
                 let loadingCell = tableView.dequeueReusableCell(withIdentifier: "DownActivityCell", for: indexPath) as! DownTableViewCell
                 loadingCell.setCellType(.SabNZBd)
                 
-                if let sabNZBdHost = URL(string: Preferences.sabNZBdHost) {
-                    SabNZBdConnector().validateHost(sabNZBdHost, completion: { (reachable, _) in
-                        if !reachable {
-                            // Host is not reachable
-                            loadingCell.label?.text = "Host seems down..."
-                        }
-                        else {
-                            loadingCell.label?.text = "Loading..."
-                        }
-                    })
+                
+                loadingCell.label?.text = "Loading..."
+                SabNZBdRequest.ping { reachable in
+                    if !reachable {
+                        loadingCell.label?.text = "Host seems down..."
+                    }   
                 }
                 
                 cell = loadingCell
