@@ -9,5 +9,5 @@ checkout:
 
 test:
   override:
-    - bundle exec fastlane build
+    - bundle exec fastlane build:
         pwd: Down
