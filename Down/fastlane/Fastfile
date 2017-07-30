@@ -7,7 +7,7 @@ platform :ios do
 
   desc "Create new build"
   lane :build do |options|
-    gym(scheme: 'Down', configuration: options[:configuration], output_directory: output_folder)
+    gym(scheme: 'Down', configuration: options[:configuration], export_method: 'ad-hoc' output_directory: output_folder)
   end
 
   desc "Test app and create coverage report"
