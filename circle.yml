@@ -9,4 +9,5 @@ checkout:
 
 test:
   override:
+    - cd Down
     - bundle exec fastlane build
