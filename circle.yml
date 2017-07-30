@@ -2,12 +2,13 @@ machine:
   xcode:
     version: 8.3
 
+checkout:
+  post:
+    - git submodule init 
+    - git submodule update
+
 deployment:
   staging:
     branch: develop
     commands:
       - bundle exec fastlane build
-  beta:
-    branch: develop
-    commands:
-      - bundle exec fastlane beta
