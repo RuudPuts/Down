@@ -6,8 +6,8 @@ deployment:
   staging:
     branch: develop
     commands:
-      - fastlane build
+      - bundle exec fastlane build
   beta:
     branch: develop
     commands:
-      - fastlane beta
+      - bundle exec fastlane beta
