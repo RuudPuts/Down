@@ -1,0 +1,17 @@
+machine:
+  xcode:
+    version: 8.3
+
+dependencies:
+  pre:
+    - gem install bundler
+
+deployment:
+  staging:
+    branch: develop
+    commands:
+      - fastlane build
+  beta:
+    branch: develop
+    commands:
+      - fastlane beta
