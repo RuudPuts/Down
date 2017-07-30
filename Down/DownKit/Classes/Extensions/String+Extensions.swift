@@ -53,6 +53,10 @@ public extension String {
         return matches
     }
     
+    var trimmed: String {
+        return self.trimmingCharacters(in: .whitespaces)
+    }
+    
     var simple: String {
         var simpleString = self
         [".", "'", ":", "(", ")", "&"].forEach {

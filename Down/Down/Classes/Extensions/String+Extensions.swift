@@ -16,8 +16,4 @@ extension String {
         
         return size
     }
-    
-    var trimmed: String {
-        return self.trimmingCharacters(in: .whitespaces)
-    }
 }
