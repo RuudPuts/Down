@@ -41,12 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupAppearance() {
         UINavigationBar.appearance().barStyle = .default
         UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.downLightGrayColor()]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.downLightGrayColor()]
         UINavigationBar.appearance().tintColor = UIColor.downDarkGrayColor()
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.downDarkGrayColor()], for: UIControlState())
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.downDarkGrayColor()], for: UIControlState())
         
-        let cancelButtonAttributes = [NSForegroundColorAttributeName: UIColor(red:0.51, green:0.51, blue:0.53, alpha:1.00),
-                                      NSFontAttributeName: UIFont.systemFont(ofSize: 14)]
+        let cancelButtonAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red:0.51, green:0.51, blue:0.53, alpha:1.00),
+                                      NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes, for: UIControlState())
     }
     

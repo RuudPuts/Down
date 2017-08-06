@@ -18,48 +18,46 @@ public class SickbeardRequest: DownRequest {
     }
     
     public class func requestShows(succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
-        let urls = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=shows")
-        SickbeardRequest.requestJson(urls, succes: succes, error: error)
+        let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=shows")
+        SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
     public class func requestShow(_ show: Int, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
-        let urls = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show&tvdbid=\(show)")
-        SickbeardRequest.requestJson(urls, succes: succes, error: error)
+        let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show&tvdbid=\(show)")
+        SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
     public class func requestSeasons(show: Int, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
-        let urls = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show)")
-        SickbeardRequest.requestJson(urls, succes: succes, error: error)
+        let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show)")
+        SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
     public class func requestEpisode(show: Int, season: Int, episode: Int, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
-        let urls = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=episode&tvdbid=\(show)&season=\(season)&episode=\(episode)")
-        SickbeardRequest.requestJson(urls, succes: succes, error: error)
+        let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=episode&tvdbid=\(show)&season=\(season)&episode=\(episode)")
+        SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
     public class func deleteShow(_ show: Int, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
-        let urls = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.delete&tvdbid=\(show)")
-        SickbeardRequest.requestJson(urls, succes: succes, error: error)
+        let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.delete&tvdbid=\(show)")
+        SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
     public class func addShow(_ show: Int, state: SickbeardEpisode.Status, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
-        let urls = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.addnew&tvdbid=\(show)&status=\(state.rawValue.lowercased())")
-        SickbeardRequest.requestJson(urls, succes: succes, error: error)
+        let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.addnew&tvdbid=\(show)&status=\(state.rawValue.lowercased())")
+        SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
     public class func setState(show: Int, season: Int? = nil, episode: Int? = nil, state: SickbeardEpisode.Status, succes: ((JSON, [AnyHashable : Any]) -> ())? = nil, error: (() -> ())? = nil) {
-        
         var cmd = "?cmd=episode.setstatus&status=" + state.rawValue.lowercased() + "&tvdbid=\(show)&force=1"
         if let season = season {
             cmd += "&season=\(season)"
             if let episode = episode {
-                
                 cmd += "&episode=\(episode)"
             }
         }
         
-        let urls = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + cmd)
-        SickbeardRequest.requestJson(urls, succes: { (json, headers) in
+        let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + cmd)
+        SickbeardRequest.requestJson(url, succes: { (json, headers) in
             succes?(json, headers)
         }, error: {
             error?()
@@ -67,21 +65,21 @@ public class SickbeardRequest: DownRequest {
     }
     
     public class func requestBanner(show: Int, succes: @escaping ((Data, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
-        let urls = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show)")
-        SickbeardRequest.requestData(urls, succes: succes, error: error)
+        let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show)")
+        SickbeardRequest.requestData(url, succes: succes, error: error)
     }
     
     public class func requestPoster(show: Int, succes: @escaping ((Data, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
-        let urls = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show)")
-        SickbeardRequest.requestData(urls, succes: succes, error: error)
+        let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show)")
+        SickbeardRequest.requestData(url, succes: succes, error: error)
     }
     
     public class func searchTvdb(query: String, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
         guard let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
             return
         }
-        let urls = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=sb.searchtvdb&lang=en&name=" + escapedQuery)
-        SickbeardRequest.requestJson(urls, succes: succes, error: error)
+        let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=sb.searchtvdb&lang=en&name=" + escapedQuery)
+        SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
     // MARK: Requests

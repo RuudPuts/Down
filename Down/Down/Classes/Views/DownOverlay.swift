@@ -66,7 +66,7 @@ class DownOverlay: UIView {
         }
     }
     
-    func transformAlpha(_ alpha: CGFloat, _ completion: ((Void) -> (Void))?) {
+    func transformAlpha(_ alpha: CGFloat, _ completion: (() -> ())?) {
         UIView.animate(withDuration: DefaultTranstionDuration, animations: { 
             self.alpha = alpha
         }) { completed in

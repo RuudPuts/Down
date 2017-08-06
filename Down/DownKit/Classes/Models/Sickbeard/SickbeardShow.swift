@@ -10,9 +10,9 @@ import Foundation
 import RealmSwift
 
 public class SickbeardShow: Object {
-    public dynamic var tvdbId = 0
-    public dynamic var airs = ""
-    public dynamic var network = ""
+    @objc public dynamic var tvdbId = 0
+    @objc public dynamic var airs = ""
+    @objc public dynamic var network = ""
     
     public var status: SickbeardShowStatus {
         get {
@@ -22,7 +22,7 @@ public class SickbeardShow: Object {
             statusString = newValue.rawValue
         }
     }
-    fileprivate dynamic var statusString = ""
+    @objc fileprivate dynamic var statusString = ""
     
     public var quality: SickbeardShowQuality {
         get {
@@ -32,15 +32,15 @@ public class SickbeardShow: Object {
             qualityString = newValue.rawValue
         }
     }
-    fileprivate dynamic var qualityString = ""
+    @objc fileprivate dynamic var qualityString = ""
     
-    public dynamic var name = "" {
+    @objc public dynamic var name = "" {
         didSet {
             _simpleName = name.simple
         }
     }
     
-    internal dynamic var _simpleName = ""
+    @objc internal dynamic var _simpleName = ""
     internal var _seasons = List<SickbeardSeason>()
     
     public enum SickbeardShowStatus: String {

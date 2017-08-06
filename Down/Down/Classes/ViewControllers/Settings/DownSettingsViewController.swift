@@ -381,7 +381,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
                                                                     userInfo: nil, repeats: true)
     }
     
-    func verifyActivities() {
+    @objc func verifyActivities() {
         let now = Date()
         
         tableData.forEach { row in

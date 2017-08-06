@@ -70,7 +70,7 @@ public extension String {
         let startIndex = self.index(self.startIndex, offsetBy: r.lowerBound)
         let endIndex = self.index(startIndex, offsetBy: r.upperBound - r.lowerBound)
         
-        return self[startIndex ..< endIndex]
+        return String(self[startIndex ..< endIndex])
     }
     
     func substring(from: Int) -> String {
@@ -79,7 +79,7 @@ public extension String {
         }
         
         let startIndex = self.index(self.startIndex, offsetBy: from)
-        return self[startIndex ..< self.endIndex]
+        return String(self[startIndex ..< self.endIndex])
     }
     
     func timeToSeconds() -> TimeInterval {

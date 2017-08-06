@@ -43,8 +43,8 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         
         refreshControl = UIRefreshControl()
         // TODO: UIFont extension
-        let titleAttributes = [NSForegroundColorAttributeName: UIColor.downSickbeardColor(),
-                               NSFontAttributeName: R.font.openSans(size: 13)!]
+        let titleAttributes = [NSAttributedStringKey.foregroundColor: UIColor.downSickbeardColor(),
+                               NSAttributedStringKey.font: R.font.openSans(size: 13)!]
         refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes:titleAttributes)
         refreshControl!.tintColor = .downSickbeardColor()
         refreshControl!.addTarget(self, action: #selector(refreshShow), for: UIControlEvents.valueChanged)
@@ -153,7 +153,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         return String(seasons[section].id)
     }
     
-    func handleHeaderTap(_ recogniger: UITapGestureRecognizer) {
+    @objc func handleHeaderTap(_ recogniger: UITapGestureRecognizer) {
         guard let section = recogniger.view?.tag else {
             return
         }
@@ -163,7 +163,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     
     // MARK: Season/Episode state
     
-    func longPressHandler() {
+    @objc func longPressHandler() {
         guard let touch = longPressRecognizer?.location(in: tableView),
             let indexPath = tableView?.indexPathForRow(at: touch) else {
             return
@@ -211,7 +211,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     
     // MARK: SickbeardService
     
-    func refreshShow() {
+    @objc func refreshShow() {
         guard let show = show else {
             return
         }

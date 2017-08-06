@@ -58,7 +58,7 @@ class DownSectionIndexView: UIView, UICollectionViewDataSource, UICollectionView
         }
     }
     
-    func collectionViewPanned(_ recognizer: UIPanGestureRecognizer) {
+    @objc func collectionViewPanned(_ recognizer: UIPanGestureRecognizer) {
         var touch = recognizer.location(in: indexView)
         touch.x = self.bounds.midX
         

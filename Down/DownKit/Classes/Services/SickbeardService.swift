@@ -223,7 +223,7 @@ public class SickbeardService: Service {
                 
                 completionHandler(refreshedShow)
             })
-        }, error: { error in
+        }, error: {
             Log.e("Error while fetching Sickbeard showData")
             completionHandler(nil)
         })
@@ -247,7 +247,7 @@ public class SickbeardService: Service {
     }
     
     public func deleteShow(_ show: SickbeardShow, _ completionHandler: @escaping (Bool) -> Void) {
-        SickbeardRequest.deleteShow(show.tvdbId, succes: { _ in
+        SickbeardRequest.deleteShow(show.tvdbId, succes: { (_, _) in
             DownDatabase.shared.deleteSickbeardShow(show)
             self.notifyListeners {
                 Log.i("Show cache refreshed")
@@ -255,7 +255,7 @@ public class SickbeardService: Service {
             }
             
             completionHandler(true)
-        }, error: { _ in
+        }, error: {
             completionHandler(false)
         })
     }
@@ -263,12 +263,12 @@ public class SickbeardService: Service {
     // MARK: Adding shows
     
     public func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.Status, completionHandler: @escaping (Bool, SickbeardShow?) -> Void) -> Void {
-        SickbeardRequest.addShow(show.tvdbId, state: state, succes: { json in
+        SickbeardRequest.addShow(show.tvdbId, state: state, succes: { (json, _) in
             Log.i("Added show \(show.name)")
             self.refreshShowAfterAdd(show) {
                 completionHandler(true, $0)
             }
-        }, error: { error in
+        }, error: {
             Log.e("Error while adding show")
             completionHandler(false, nil)
         })

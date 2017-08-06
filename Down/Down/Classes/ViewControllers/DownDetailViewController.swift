@@ -41,7 +41,7 @@ class DownDetailViewController: DownViewController {
         }
     }
     
-    func headerImageTapped() {
+    @objc func headerImageTapped() {
         
     }
     

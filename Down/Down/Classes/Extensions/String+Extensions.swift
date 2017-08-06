@@ -9,10 +9,9 @@
 import UIKit
 
 extension String {
-    
     func sizeWithFont(_ font: UIFont, width: CGFloat) -> CGSize {
         let size = self.boundingRect(with: CGSize(width: width, height: 2000), options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                                             attributes: [NSFontAttributeName: font], context: nil).size as CGSize
+                                             attributes: [NSAttributedStringKey.font: font], context: nil).size as CGSize
         
         return size
     }

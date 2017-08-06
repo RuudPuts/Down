@@ -42,7 +42,7 @@ class DownBarButtonItem: UIBarButtonItem {
     
     // MARK: Touch closure
     
-    var touchClosure: ((Void) -> (Void))? {
+    var touchClosure: (() -> ())? {
         didSet {
             if touchClosure == nil {
                 target = nil
@@ -55,7 +55,7 @@ class DownBarButtonItem: UIBarButtonItem {
         }
     }
     
-    func buttonTapped() {
+    @objc func buttonTapped() {
         guard let closure = touchClosure else {
             return
         }

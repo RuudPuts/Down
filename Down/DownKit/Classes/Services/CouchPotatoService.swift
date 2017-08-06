@@ -24,7 +24,7 @@ public class CouchPotatoService: Service {
     
     fileprivate func refreshSnatchedAndAvailable() {
         let url = Preferences.couchPotatoHost + "/" + Preferences.couchPotatoApiKey + "/media.list?release_status=snatched,available&limit_offset=20"
-        DownRequest.requestJson(url, succes: { json in
+        DownRequest.requestJson(url, succes: { (json, _) in
             self.refreshCompleted()
         }, error: { error in
             Log.e("Error while fetching CouchPotato snachted and available: \(error.localizedDescription)")

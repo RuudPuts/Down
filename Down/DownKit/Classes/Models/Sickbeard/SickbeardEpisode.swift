@@ -10,12 +10,12 @@ import Foundation
 import RealmSwift
 
 public class SickbeardEpisode: Object {
-    public dynamic var uniqueId = UUID().uuidString
-    public dynamic var id = 0
-    public dynamic var name = ""
-    public dynamic var airDate: Date? = nil
-    public dynamic var quality = ""
-    public dynamic var plot = ""
+    @objc public dynamic var uniqueId = UUID().uuidString
+    @objc public dynamic var id = 0
+    @objc public dynamic var name = ""
+    @objc public dynamic var airDate: Date? = nil
+    @objc public dynamic var quality = ""
+    @objc public dynamic var plot = ""
     
     public var status: Status {
         get {
@@ -25,10 +25,10 @@ public class SickbeardEpisode: Object {
             statusString = newValue.rawValue
         }
     }
-    fileprivate dynamic var statusString = ""
+    @objc fileprivate dynamic var statusString = ""
     
-    public dynamic weak var show: SickbeardShow?
-    public dynamic weak var season: SickbeardSeason?
+    @objc public dynamic weak var show: SickbeardShow?
+    @objc public dynamic weak var season: SickbeardSeason?
     
     public enum Status: String {
         case Unknown

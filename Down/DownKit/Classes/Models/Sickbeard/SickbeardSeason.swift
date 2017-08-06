@@ -10,11 +10,11 @@ import Foundation
 import RealmSwift
 
 public class SickbeardSeason: Object {
-    public dynamic var uniqueId = UUID().uuidString
-    public dynamic var id = 0
+    @objc public dynamic var uniqueId = UUID().uuidString
+    @objc public dynamic var id = 0
     internal var _episodes = List<SickbeardEpisode>()
     
-    public dynamic weak var show: SickbeardShow?
+    @objc public dynamic weak var show: SickbeardShow?
     
     // Realm
     

@@ -92,7 +92,7 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
         set {
             if let placeholder = newValue {
                 let color = UIColor.white.withAlphaComponent(0.5)
-                textField?.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: color])
+                textField?.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor: color])
             }
             else {
                 textField?.attributedPlaceholder = nil

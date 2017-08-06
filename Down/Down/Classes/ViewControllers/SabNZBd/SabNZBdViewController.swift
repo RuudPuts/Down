@@ -143,8 +143,8 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
             let largeFont = R.font.robotoLight(size: 50)!
             let smallFont = R.font.robotoLight(size: 100 / 3)!
             let attributedSpeedString = NSMutableAttributedString(string: speedString)
-            attributedSpeedString.addAttribute(NSFontAttributeName, value: largeFont, range: NSMakeRange(0, dotIndex - 1))
-            attributedSpeedString.addAttribute(NSFontAttributeName, value: smallFont, range: NSMakeRange(dotIndex, speedString.length - dotIndex))
+            attributedSpeedString.addAttribute(NSAttributedStringKey.font, value: largeFont, range: NSMakeRange(0, dotIndex - 1))
+            attributedSpeedString.addAttribute(NSAttributedStringKey.font, value: smallFont, range: NSMakeRange(dotIndex, speedString.length - dotIndex))
             
             self.speedLabel!.attributedText = attributedSpeedString
         }
