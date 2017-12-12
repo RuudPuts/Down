@@ -68,10 +68,10 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         if let indexPath = tableView!.indexPathForSelectedRow , segue.identifier == "SabNZBdDetail" {
             var selectedItem: SABItem
             if (indexPath as NSIndexPath).section == 0 {
-                selectedItem = SabNZBdService.shared.queue[indexPath.row];
+                selectedItem = SabNZBdService.shared.queue[indexPath.row]
             }
             else {
-                selectedItem = SabNZBdService.shared.history[indexPath.row];
+                selectedItem = SabNZBdService.shared.history[indexPath.row]
             }
             
             let detailViewController = segue.destination as! SabNZBdDetailViewController
@@ -206,13 +206,13 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         var rowHeight: Float = 60
         if !self.tableView(tableView, isSectionEmtpy: (indexPath as NSIndexPath).section) {
             if (indexPath as NSIndexPath).section == 0 {
-                let queueItem = SabNZBdService.shared.queue[indexPath.row];
+                let queueItem = SabNZBdService.shared.queue[indexPath.row]
                 if queueItem.hasProgress {
                     rowHeight = 66.0
                 }
             }
             else if indexPath.row < SabNZBdService.shared.history.count - 1 {
-                let historyItem = SabNZBdService.shared.history[indexPath.row];
+                let historyItem = SabNZBdService.shared.history[indexPath.row]
                 if historyItem.hasProgress {
                     rowHeight = 66.0
                 }
@@ -288,17 +288,17 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         else {
             let itemCell = tableView.dequeueReusableCell(withIdentifier: "SABItemCell", for: indexPath) as! SABItemCell
             if (indexPath as NSIndexPath).section == 0 {
-                let queueItem: SABQueueItem = SabNZBdService.shared.queue[indexPath.row];
+                let queueItem: SABQueueItem = SabNZBdService.shared.queue[indexPath.row]
                 itemCell.queueItem = queueItem
             }
             else {
-                let historyItem: SABHistoryItem = SabNZBdService.shared.history[indexPath.row];
+                let historyItem: SABHistoryItem = SabNZBdService.shared.history[indexPath.row]
                 itemCell.historyItem = historyItem
             }
             cell = itemCell
         }
         
-        return cell;
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

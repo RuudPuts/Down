@@ -8,6 +8,4 @@
 
 import UIKit
 
-public protocol CouchPotatoListener: ServiceListener {
-    
-}
+public protocol CouchPotatoListener: ServiceListener {} 

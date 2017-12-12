@@ -14,14 +14,14 @@ public class SickbeardConnector: Connector {
     
     public init() { }
     
-    public func validateHost(_ url: URL, completion: @escaping (Bool, String?) -> (Void)) {
+    public func validateHost(_ url: URL, completion: @escaping (Bool, String?) -> Void) {
         guard url.absoluteString.length > 0 else {
             completion(false, nil)
             return
         }
         
         let fixedUrl = url.prefixScheme().absoluteString
-        SickbeardRequest.requestString(fixedUrl, succes: { json, headers in
+        SickbeardRequest.requestString(fixedUrl, succes: { _, _ in
             // Host is valid
             self.host = fixedUrl
             
@@ -38,7 +38,7 @@ public class SickbeardConnector: Connector {
         })
     }
     
-    public func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> (Void)) {
+    public func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> Void) {
         guard let sickbeardHost = host else {
             Log.w("Please set host before fetching the api key")
             completion(nil)
@@ -47,7 +47,7 @@ public class SickbeardConnector: Connector {
         
         let url = sickbeardHost + "/config/general/"
         let credentials = Credentials(username: username, password: password)
-        SickbeardRequest.requestString(url, credentials: credentials, succes: { configResponse, headers in
+        SickbeardRequest.requestString(url, credentials: credentials, succes: { configResponse, _ in
             self.apiKey = self.extractApiKey(configResponse)
             completion(self.apiKey)
         }, error: { error in

@@ -13,7 +13,7 @@ public class ImageProvider: DownCache {
     fileprivate static var defaultPoster: Data?
     fileprivate static var defaultBanner: Data?
     
-    fileprivate static let diskQueue: DispatchQueue = DispatchQueue(label: "com.ruudputs.down.ImageQueue", attributes: [])
+    fileprivate static let diskQueue = DispatchQueue(label: "com.ruudputs.down.ImageQueue", attributes: [])
     
     fileprivate class func fileExists(_ filepath: String) -> Bool {
         return FileManager.default.fileExists(atPath: filepath)
@@ -26,10 +26,12 @@ public class ImageProvider: DownCache {
         var isDirectory: ObjCBool = false
         if !FileManager.default.fileExists(atPath: fileDirectory, isDirectory: &isDirectory) {
             do {
-                try FileManager.default.createDirectory(atPath: fileDirectory, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(atPath: fileDirectory,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: nil)
                 Log.d("Created directory: \(fileDirectory)")
             }
-            catch let error as NSError {
+            catch {
                 Log.e("Exception while creating directory: \(filepath) \nError: \(error.localizedDescription)")
             }
         }
@@ -41,7 +43,7 @@ public class ImageProvider: DownCache {
             do {
                 try image.write(to: URL(fileURLWithPath: filepath), options: [.atomic])
             }
-            catch let error as NSError {
+            catch {
                 Log.e("Error while storing image: \(error.localizedDescription)")
             }
         })
@@ -63,7 +65,7 @@ public class ImageProvider: DownCache {
             try FileManager.default.removeItem(atPath: sickbeardBannerPath)
             try FileManager.default.removeItem(atPath: sickbeardPosterPath)
         }
-        catch let error as NSError {
+        catch {
             Log.e("Error while clearing ImageProvider: \(error)")
         }
     }
@@ -91,7 +93,7 @@ extension ImageProvider {
         }
         
         let bannerPath = bannerPathForShow(tvdbid)
-        storeImage(banner, atPath:bannerPath)
+        storeImage(banner, atPath: bannerPath)
     }
     
     internal class func bannerForShow(_ tvdbid: Int) -> UIImage? {
@@ -121,16 +123,16 @@ extension ImageProvider {
         }
         
         let posterPath = posterPathForShow(tvdbid)
-        storeImage(poster, atPath:posterPath)
+        storeImage(poster, atPath: posterPath)
         
-        storePosterThumbnail(poster, forShow:tvdbid)
+        storePosterThumbnail(poster, forShow: tvdbid)
     }
     
     fileprivate class func storePosterThumbnail(_ posterData: Data, forShow tvdbid: Int) {
         let poster = UIImage(data: posterData)!.resize(scale: 0.25)
         
         let thumbnailPath = posterThumbnailPathForShow(tvdbid)
-        storeImage(UIImagePNGRepresentation(poster)!, atPath:thumbnailPath)
+        storeImage(UIImagePNGRepresentation(poster)!, atPath: thumbnailPath)
     }
     
     internal class func posterForShow(_ tvdbid: Int) -> UIImage? {

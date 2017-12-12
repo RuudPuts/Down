@@ -16,7 +16,7 @@ public class SickbeardShow: Object {
     
     public var status: SickbeardShowStatus {
         get {
-            return SickbeardShowStatus(rawValue: statusString) ?? .Ended
+            return SickbeardShowStatus(rawValue: statusString) ?? .ended
         }
         set {
             statusString = newValue.rawValue
@@ -26,7 +26,7 @@ public class SickbeardShow: Object {
     
     public var quality: SickbeardShowQuality {
         get {
-            return SickbeardShowQuality(rawValue: qualityString) ?? .Wildcard
+            return SickbeardShowQuality(rawValue: qualityString) ?? .wildcard
         }
         set {
             qualityString = newValue.rawValue
@@ -39,22 +39,24 @@ public class SickbeardShow: Object {
             _simpleName = name.simple
         }
     }
-    
+
+    // swiftlint:disable identifier_name
     @objc internal dynamic var _simpleName = ""
+    // swiftlint:disable identifier_name
     internal var _seasons = List<SickbeardSeason>()
     
     public enum SickbeardShowStatus: String {
-        case Continuing = "Continuing"
-        case Ended = "Ended"
+        case continuing = "Continuing"
+        case ended = "Ended"
     }
     
     public enum SickbeardShowQuality: String {
-        case Wildcard = "Any"
-        case Custom = "Custom"
-        case HD = "HD"
-        case HD1080p = "HD1080p"
-        case HD720p = "HD720p"
-        case SD = "SD"
+        case wildcard = "Any"
+        case custom = "Custom"
+        case hd = "HD"
+        case hd1080p = "HD1080p"
+        case hd720p = "HD720p"
+        case sd = "SD"
     }
     
     // Realm
@@ -67,7 +69,7 @@ public class SickbeardShow: Object {
     
     public var seasons: [SickbeardSeason] {
         let sortedSeasons = Array(_seasons).sorted {
-            $0.id < $1.id
+            $0.identifier < $1.identifier
         }
         
         return Array(sortedSeasons)
@@ -122,10 +124,9 @@ public class SickbeardShow: Object {
         _seasons.forEach {
             episodes += Double($0._episodes.count)
             
-            let downloadedPredicate = "statusString = \"\(SickbeardEpisode.Status.Downloaded)\""
+            let downloadedPredicate = "statusString = \"\(SickbeardEpisode.Status.downloaded)\""
             downloadedEpisodes += Double($0._episodes.filter(downloadedPredicate).count)
         }
-        
         
         return Int(round(downloadedEpisodes / episodes * 100.0))
     }
@@ -133,20 +134,14 @@ public class SickbeardShow: Object {
     // Methods
 
     public func getSeason(_ seasonId: Int) -> SickbeardSeason? {
-        for season in _seasons {
-            if season.id == seasonId {
-                return season
-            }
-        }
-
-        return nil
+        return _seasons.filter { $0.identifier == seasonId }.first
     }
     
     public func nextAiringEpisode() -> SickbeardEpisode? {
         let today = Date().withoutTime()
         
         for season in seasons {
-            guard season.id > 0 else {
+            guard season.identifier > 0 else {
                 continue
             }
             
@@ -158,7 +153,7 @@ public class SickbeardShow: Object {
             }
             
             for episode in season.episodes {
-                if let airDate = episode.airDate , airDate >= today {
+                if let airDate = episode.airDate, airDate >= today {
                     return episode
                 }
             }

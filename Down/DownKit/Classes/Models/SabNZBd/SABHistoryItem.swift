@@ -15,7 +15,8 @@ public class SABHistoryItem: SABItem {
     public var actionLine: String?
     public var completionDate: Date?
     
-    init(_ identifier: String, _ title: String, _ category: String, _ nzbName: String, _ size: String, _ statusString: String, _ actionLine: String, _ completionDate: Date) {
+    init(_ identifier: String, _ title: String, _ category: String, _ nzbName: String,
+         _ size: String, _ statusString: String, _ actionLine: String, _ completionDate: Date) {
         self.size = size
         self.title = title
         self.actionLine = actionLine

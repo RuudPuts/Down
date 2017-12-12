@@ -45,11 +45,10 @@ private let DownRequestErrorDomain = "DownKit.DownRequest"
 
 public class DownRequest {
     
-    // MARK : GET
+    // MARK: GET
     
     class func requestData(_ urls: [String], method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
-                             succes: @escaping (Data, [AnyHashable : Any]) -> (), error: @escaping () -> ()) {
-        
+                           succes: @escaping (Data, [AnyHashable: Any]) -> Void, error: @escaping () -> Void) {
         let group = DispatchGroup()
         group.enter()
         
@@ -58,7 +57,7 @@ public class DownRequest {
             requestData(url, method: method, credentials: credentials, parameters: parameters, succes: { string, headers in
                 succes(string, headers)
                 return
-            },  error: { error in
+            }, error: { _ in
                 group.leave()
             })
         }
@@ -71,7 +70,7 @@ public class DownRequest {
     }
     
     class func requestData(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
-                           succes: @escaping (Data, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
+                           succes: @escaping (Data, [AnyHashable: Any]) -> Void, error: @escaping (Error) -> Void) {
         var parameters = parameters
         if let credentials = credentials, authenticationMethod() == .form {
             var resolvedParameters = parameters ?? [String: Any]()
@@ -108,7 +107,7 @@ public class DownRequest {
     }
     
     class func requestString(_ urls: [String], method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
-                             succes: @escaping (String, [AnyHashable : Any]) -> (), error: @escaping () -> ()) {
+                             succes: @escaping (String, [AnyHashable: Any]) -> Void, error: @escaping () -> Void) {
         
         let group = DispatchGroup()
         group.enter()
@@ -118,7 +117,7 @@ public class DownRequest {
             requestString(url, method: method, credentials: credentials, parameters: parameters, succes: { string, headers in
                 succes(string, headers)
                 return
-            },  error: { error in
+            }, error: { _ in
                 group.leave()
             })
         }
@@ -131,7 +130,7 @@ public class DownRequest {
     }
     
     class func requestString(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
-                             succes: @escaping (String, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
+                             succes: @escaping (String, [AnyHashable: Any]) -> Void, error: @escaping (Error) -> Void) {
         requestData(url, method: method, credentials: credentials, parameters: parameters, succes: { (data, headers) in
             guard let responseString = String(data: data, encoding: .utf8) else {
                 error(downRequestError(for: .invalidBody))
@@ -141,10 +140,9 @@ public class DownRequest {
             succes(responseString, headers)
         }, error: error)
     }
-    
-    
+
     class func requestJson(_ urls: [String], method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
-                           succes: @escaping (JSON, [AnyHashable : Any]) -> (), error: @escaping () -> ()) {
+                           succes: @escaping (JSON, [AnyHashable: Any]) -> Void, error: @escaping () -> Void) {
      
         let group = DispatchGroup()
         group.enter()
@@ -154,7 +152,7 @@ public class DownRequest {
             requestJson(url, method: method, credentials: credentials, parameters: parameters, succes: { json, headers in
                 succes(json, headers)
                 return
-            },  error: { error in
+            }, error: { _ in
                 group.leave()
             })
         }
@@ -166,9 +164,8 @@ public class DownRequest {
         
     }
     
-    
     class func requestJson(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
-                           succes: @escaping (JSON, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
+                           succes: @escaping (JSON, [AnyHashable: Any]) -> Void, error: @escaping (Error) -> Void) {
         requestData(url, method: method, credentials: credentials, parameters: parameters, succes: { data, headers in
             guard data.endIndex > 0 else {
                 error(downRequestError(for: .invalidBody))

@@ -26,14 +26,13 @@ public class Preferences: DownCache {
         static let downRefreshSickbeardCache = "DownRefreshSickbeardCache"
         static let downClearCache = "DownClearCache"
     }
-    
-    
+
     public class var sabNZBdHost: String? {
         get {
             return getHostPreference(PreferenceKeys.sabNZBdHost)
         }
         set {
-            setHostPreference(newValue, forKey:PreferenceKeys.sabNZBdHost)
+            setHostPreference(newValue, forKey: PreferenceKeys.sabNZBdHost)
         }
     }
     
@@ -42,7 +41,7 @@ public class Preferences: DownCache {
             return getHostPreference(PreferenceKeys.sabNZBdExternalHost)
         }
         set {
-            setHostPreference(newValue, forKey:PreferenceKeys.sabNZBdExternalHost)
+            setHostPreference(newValue, forKey: PreferenceKeys.sabNZBdExternalHost)
         }
     }
     
@@ -51,7 +50,7 @@ public class Preferences: DownCache {
             return getPreference(PreferenceKeys.sabNZBdApiKey) as? String ?? ""
         }
         set {
-            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sabNZBdApiKey)
+            setPreference(newValue as AnyObject?, forKey: PreferenceKeys.sabNZBdApiKey)
         }
     }
     
@@ -60,7 +59,7 @@ public class Preferences: DownCache {
             return getHostPreference(PreferenceKeys.sickbeardHost)
         }
         set {
-            setHostPreference(newValue, forKey:PreferenceKeys.sickbeardHost)
+            setHostPreference(newValue, forKey: PreferenceKeys.sickbeardHost)
         }
     }
     
@@ -69,7 +68,7 @@ public class Preferences: DownCache {
             return getHostPreference(PreferenceKeys.sickbeardExternalHost)
         }
         set {
-            setHostPreference(newValue, forKey:PreferenceKeys.sickbeardExternalHost)
+            setHostPreference(newValue, forKey: PreferenceKeys.sickbeardExternalHost)
         }
     }
     
@@ -78,7 +77,7 @@ public class Preferences: DownCache {
             return getPreference(PreferenceKeys.sickbeardApiKey)as? String ?? ""
         }
         set {
-            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sickbeardApiKey)
+            setPreference(newValue as AnyObject?, forKey: PreferenceKeys.sickbeardApiKey)
         }
     }
     
@@ -87,7 +86,7 @@ public class Preferences: DownCache {
             return getPreference(PreferenceKeys.sickbeardCacheRefreshKey) as? Date
         }
         set {
-            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.sickbeardCacheRefreshKey)
+            setPreference(newValue as AnyObject?, forKey: PreferenceKeys.sickbeardCacheRefreshKey)
         }
     }
     
@@ -96,7 +95,7 @@ public class Preferences: DownCache {
             return getHostPreference(PreferenceKeys.couchPotatoHost) ?? ""
         }
         set {
-            setHostPreference(newValue, forKey:PreferenceKeys.couchPotatoHost)
+            setHostPreference(newValue, forKey: PreferenceKeys.couchPotatoHost)
         }
     }
     
@@ -105,7 +104,7 @@ public class Preferences: DownCache {
             return getPreference(PreferenceKeys.couchPotatoApiKey) as? String ?? ""
         }
         set {
-            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.couchPotatoApiKey)
+            setPreference(newValue as AnyObject?, forKey: PreferenceKeys.couchPotatoApiKey)
         }
     }
     
@@ -114,7 +113,7 @@ public class Preferences: DownCache {
             return getPreference(PreferenceKeys.downRefreshSickbeardCache) as? Bool ?? false
         }
         set {
-            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.downRefreshSickbeardCache)
+            setPreference(newValue as AnyObject?, forKey: PreferenceKeys.downRefreshSickbeardCache)
         }
     }
     
@@ -123,7 +122,7 @@ public class Preferences: DownCache {
             return getPreference(PreferenceKeys.downClearCache) as? Bool ?? false
         }
         set {
-            setPreference(newValue as AnyObject?, forKey:PreferenceKeys.downClearCache)
+            setPreference(newValue as AnyObject?, forKey: PreferenceKeys.downClearCache)
         }
     }
     
@@ -159,7 +158,6 @@ public class Preferences: DownCache {
         }
         setPreference(host as AnyObject, forKey: key)
     }
-
     
     fileprivate class func getPreference(_ key: String) -> AnyObject? {
         return UserDefaults.standard.object(forKey: key) as AnyObject?

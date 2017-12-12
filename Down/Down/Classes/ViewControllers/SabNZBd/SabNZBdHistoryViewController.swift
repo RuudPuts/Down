@@ -45,7 +45,7 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let indexPath = tableView!.indexPathForSelectedRow , segue.identifier == "SabNZBdDetail" {
-            let selectedItem = SabNZBdService.shared.history[indexPath.row];
+            let selectedItem = SabNZBdService.shared.history[indexPath.row]
             
             let detailViewController = segue.destination as! SabNZBdDetailViewController
             detailViewController.sabItem = selectedItem
@@ -74,7 +74,7 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
         var rowHeight: Float = 60
         if !self.tableView(tableView, isSectionEmtpy: indexPath.section) {
             if indexPath.row < SabNZBdService.shared.history.count {
-                let historyItem: SABHistoryItem = SabNZBdService.shared.history[indexPath.row];
+                let historyItem: SABHistoryItem = SabNZBdService.shared.history[indexPath.row]
                 if historyItem.hasProgress {
                     rowHeight = 66.0
                 }
@@ -106,13 +106,13 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
         }
         else {
             let itemCell = tableView.dequeueReusableCell(withIdentifier: "SABItemCell", for: indexPath) as! SABItemCell
-            let historyItem: SABHistoryItem = SabNZBdService.shared.history[indexPath.row];
+            let historyItem: SABHistoryItem = SabNZBdService.shared.history[indexPath.row]
             itemCell.historyItem = historyItem
             
             cell = itemCell
         }
         
-        return cell;
+        return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

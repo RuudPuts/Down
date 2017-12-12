@@ -55,11 +55,11 @@ public class SABItem: NSObject {
         self.identifier = identifier
         self.category = category
         self.nzbName = nzbName
-        self.statusString = statusString;
+        self.statusString = statusString
     }    
     
     public var imdbIdentifier: String? {
-        var imdbIdentifier:String? = nil
+        var imdbIdentifier: String? = nil
         
         // Detect IMDB id
         let regex = "tt[0-9]{7}"
@@ -67,9 +67,9 @@ public class SABItem: NSObject {
         do {
             try regularExpression = NSRegularExpression(pattern: regex, options: .caseInsensitive)
             
-            let range = regularExpression.rangeOfFirstMatch(in: nzbName, options: [], range: nzbName.fullNSRange) as NSRange!
-            if range?.location != NSNotFound {
-                imdbIdentifier = (nzbName as NSString).substring(with: range!)
+            let range = regularExpression.rangeOfFirstMatch(in: nzbName, options: [], range: nzbName.fullNSRange)
+            if range.location != NSNotFound {
+                imdbIdentifier = (nzbName as NSString).substring(with: range)
             }
         }
         catch _ {

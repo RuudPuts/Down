@@ -10,7 +10,7 @@ import Foundation
 
 public class SabNZBdRequest: DownRequest {
     
-    public class func ping(_ completion: @escaping ((_ reachable: Bool) -> ())) {
+    public class func ping(_ completion: @escaping ((_ reachable: Bool) -> Void)) {
         let group = DispatchGroup()
         group.enter()
         
@@ -33,18 +33,18 @@ public class SabNZBdRequest: DownRequest {
         group.leave()
     }
     
-    public class func delete(item: SABItem, succes: @escaping ((String, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func delete(item: SABItem, succes: @escaping ((String, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         let mode = (item is SABHistoryItem) ? "history" : "queue"
         let urls = SabNZBdRequest.urls(suffix: "/api?mode=\(mode)&name=delete&value=\(item.identifier!)&apikey=\(Preferences.sabNZBdApiKey)")
         SabNZBdRequest.requestString(urls, succes: succes, error: error)
     }
     
-    public class func requestHistory(start: Int = 0, limit: Int = 20, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func requestHistory(start: Int = 0, limit: Int = 20, succes: @escaping ((JSON, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         let urls = SabNZBdRequest.urls(suffix: "/api?mode=history&output=json&start=\(start)&limit=\(limit)&apikey=\(Preferences.sabNZBdApiKey)")
         SabNZBdRequest.requestJson(urls, succes: succes, error: error)
     }
     
-    public class func requestQueue(succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func requestQueue(succes: @escaping ((JSON, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         let urls = SabNZBdRequest.urls(suffix: "/api?mode=queue&output=json&apikey=\(Preferences.sabNZBdApiKey)")
         SabNZBdRequest.requestJson(urls, succes: succes, error: error)
     }

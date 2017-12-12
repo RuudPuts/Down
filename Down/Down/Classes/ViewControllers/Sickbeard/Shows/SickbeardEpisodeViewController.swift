@@ -123,7 +123,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
             return episode!.plot.sizeWithFont(font, width:maxWidth).height + 30
         }
         
-        return tableView.rowHeight;
+        return tableView.rowHeight
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -153,7 +153,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
                 detailText = episode!.show?.name ?? "-"
                 break
             case .season:
-                detailText = episode!.season == nil ? "-" : String(episode!.season!.id)
+                detailText = episode!.season == nil ? "-" : String(episode!.season!.identifier)
                 break
             case .episode:
                 detailText = String(episode!.id)

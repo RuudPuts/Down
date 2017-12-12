@@ -186,7 +186,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             break
         }
         
-        return tableView.rowHeight;
+        return tableView.rowHeight
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -216,10 +216,10 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             // TODO, some generic filler upper?
             // And a queue/history specific thingy for quuee/history
             if sabItem is SABQueueItem {
-                cell = self.tableView(tableView, queueCellForRowAtIndexPath: indexPath);
+                cell = self.tableView(tableView, queueCellForRowAtIndexPath: indexPath)
             }
             else {
-                cell = self.tableView(tableView, historyCellForRowAtIndexPath: indexPath);
+                cell = self.tableView(tableView, historyCellForRowAtIndexPath: indexPath)
             }
         }
         
@@ -249,13 +249,13 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             
         case .sickbeardShow:
             detailText = queueItem.sickbeardEpisode!.show?.name
-            break;
+            break
         case .sickbeardEpisode:
-            detailText = "S\(queueItem.sickbeardEpisode!.season!.id)E\(queueItem.sickbeardEpisode!.id)"
-            break;
+            detailText = "S\(queueItem.sickbeardEpisode!.season!.identifier)E\(queueItem.sickbeardEpisode!.id)"
+            break
         case .sickbeardEpisodeName:
             detailText = queueItem.sickbeardEpisode!.name
-            break;
+            break
         default:
             break
         }
@@ -299,7 +299,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             detailText = historyItem.sickbeardEpisode!.show?.name
             break
         case .sickbeardEpisode:
-            detailText = "S\(historyItem.sickbeardEpisode!.season!.id)E\(historyItem.sickbeardEpisode!.id)"
+            detailText = "S\(historyItem.sickbeardEpisode!.season!.identifier)E\(historyItem.sickbeardEpisode!.id)"
             break
         case .sickbeardEpisodeName:
             detailText = historyItem.sickbeardEpisode!.name

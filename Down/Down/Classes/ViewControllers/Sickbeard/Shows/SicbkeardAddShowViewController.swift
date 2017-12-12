@@ -119,7 +119,7 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
 }
 
 protocol SicbkeardAddShowViewControllerDelegate {
-    func addShowViewController(viewController: SicbkeardAddShowViewController, didAddShow show: SickbeardShow);
+    func addShowViewController(viewController: SicbkeardAddShowViewController, didAddShow show: SickbeardShow)
 }
 
 extension SicbkeardAddShowViewController { // UISearchBarDelegate

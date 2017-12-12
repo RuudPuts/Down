@@ -14,28 +14,33 @@ public extension String {
         return self.utf16.count
     }
     
-    init(fromMB mb: Double) {
+    init(fromMB megabytes: Double) {
         let divider: Double = 1024.0
-        let kb = mb * divider
-        guard kb > 0 else {
+        let kilobytes = megabytes * divider
+        guard kilobytes > 0 else {
             self = "0 KB"
             return
         }
         
         let suffixes = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
-        let activeSize = floor(log(kb) / log(divider))
+        let activeSize = floor(log(kilobytes) / log(divider))
         
         let numberFormatter = NumberFormatter()
         numberFormatter.maximumFractionDigits = 1
         numberFormatter.numberStyle = .decimal
-        
-        let numberString = numberFormatter.string(from: NSNumber(value: kb / pow(divider, activeSize))) ?? "Unknown"
+
+        let number = NSNumber(value: kilobytes / pow(divider, activeSize))
+        let numberString = numberFormatter.string(from: number) ?? "Unknown"
         let suffix = suffixes[Int(activeSize)]
+
         self = "\(numberString)\(suffix)"
     }
     
     func insert(_ string: String, atIndex index: Int) -> String {
-        return  String(self.characters.prefix(index)) + string + String(self.characters.suffix(self.characters.count - index))
+        let firstPart = String(describing: self.utf8.prefix(index))
+        let lastPart = String(describing: self.utf8.suffix(self.utf8.count - index))
+
+        return firstPart + string + lastPart
     }
     
     func componentsMatchingRegex(_ regex: String) -> [String] {
@@ -46,7 +51,8 @@ public extension String {
             let text = self as NSString
             let results = regex.matches(in: self, options: [], range: NSMakeRange(0, text.length))
             matches = results.map { text.substring(with: $0.range)}
-        } catch let error as NSError {
+        }
+        catch {
             Log.d("invalid regex: \(error.localizedDescription)")
         }
         
@@ -65,30 +71,30 @@ public extension String {
         
         return simpleString
     }
-    
-    func substring(_ r: Range<Int>) -> String {
-        let startIndex = self.index(self.startIndex, offsetBy: r.lowerBound)
-        let endIndex = self.index(startIndex, offsetBy: r.upperBound - r.lowerBound)
-        
-        return String(self[startIndex ..< endIndex])
-    }
-    
-    func substring(from: Int) -> String {
-        guard from < length else {
-            return ""
+
+    subscript (range: CountableRange<Int>) -> Substring {
+        get {
+            guard range.lowerBound >= 0,
+                let startIndex = self.index(self.startIndex, offsetBy: range.lowerBound, limitedBy: self.endIndex),
+                let endIndex = self.index(startIndex, offsetBy: range.upperBound - range.lowerBound, limitedBy: self.endIndex) else {
+                return Substring()
+            }
+
+            return self[startIndex...endIndex]
         }
-        
-        let startIndex = self.index(self.startIndex, offsetBy: from)
-        return String(self[startIndex ..< self.endIndex])
     }
-    
+
     func timeToSeconds() -> TimeInterval {
-        // TODO: DateFormatter?
-        let timeComponents = components(separatedBy: ":")
-        let hours = Int(timeComponents[0]) ?? 0
-        let minutes = Int(timeComponents[1]) ?? 0
-        let seconds = Int(timeComponents[2]) ?? 0
-        return TimeInterval(hours * 3600 + minutes * 60 + seconds)
+        guard let date = DateFormatter.downDateFormatter().date(from: self) else {
+            return 0
+        }
+
+        let components = NSCalendar.current.dateComponents([.hour, .minute, .second], from: date)
+        let hour = components.hour ?? 0
+        let minute = components.minute ?? 0
+        let second = components.second ?? 0
+
+        return TimeInterval(hour * 3600 + minute * 60 + second)
     }
 }
 

@@ -18,43 +18,29 @@ extension UIView {
     // MARK: - Constraints
     
     var leftConstraint: NSLayoutConstraint? {
-        get {
-            return findParentConstraint(.leading)
-        }
+        return findParentConstraint(.leading)
     }
-    
-    
+
     var rightConstraint: NSLayoutConstraint? {
-        get {
-            return findParentConstraint(.trailing)
-        }
+        return findParentConstraint(.trailing)
     }
-    
-    
+
     var topConstraint: NSLayoutConstraint? {
-        get {
-            return findParentConstraint(.top)
-        }
+        return findParentConstraint(.top)
     }
     
     var bottomConstraint: NSLayoutConstraint? {
-        get {
-            return findParentConstraint(.bottom)
-        }
+        return findParentConstraint(.bottom)
     }
     
     // MARK: - Constraints (Width/Height)
     
     var widthConstraint: NSLayoutConstraint? {
-        get {
-            return findConstraint(.width)
-        }
+        return findConstraint(.width)
     }
     
     var heightConstraint: NSLayoutConstraint? {
-        get {
-            return findConstraint(.height)
-        }
+        return findConstraint(.height)
     }
     
     fileprivate func findConstraint(_ attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
@@ -74,23 +60,19 @@ extension UIView {
     // MARK: - Constraints (Center)
     
     var horizontalCenterConstraint: NSLayoutConstraint? {
-        get {
-            return findParentConstraint(.centerX)
-        }
+        return findParentConstraint(.centerX)
     }
     
     var verticalCenterConstraint: NSLayoutConstraint? {
-        get {
-            return findParentConstraint(.centerY)
-        }
+        return findParentConstraint(.centerY)
     }
     
     fileprivate func findParentConstraint(_ attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
         var foundConstraint: NSLayoutConstraint?
         
         for constraint: NSLayoutConstraint in self.superview!.constraints {
-            if ((constraint.firstItem as! UIView == self && constraint.firstAttribute == attribute) ||
-                (constraint.secondItem as! UIView? == self && constraint.secondAttribute == attribute)) &&
+            if ((constraint.firstItem as? UIView == self && constraint.firstAttribute == attribute) ||
+                (constraint.secondItem as? UIView == self && constraint.secondAttribute == attribute)) &&
                 constraint.isMember(of: NSLayoutConstraint.self) {
                     foundConstraint = constraint
             }

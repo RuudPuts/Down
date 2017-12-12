@@ -53,23 +53,26 @@ public class SickbeardService: Service {
     internal func parseNzbName(_ nzbName: String) -> SickbeardEpisode? {
         // Check if show contains season/episode identifiers
         let regex = try! NSRegularExpression(pattern: "S\\d+(.)?E\\d+", options: .caseInsensitive)
-        let seasonRange = regex.rangeOfFirstMatch(in: nzbName, options: [], range: nzbName.fullNSRange) as NSRange!
+        let seasonRange = regex.rangeOfFirstMatch(in: nzbName, options: [], range: nzbName.fullNSRange)
         
-        guard seasonRange?.location != NSNotFound else {
+        guard seasonRange.location != NSNotFound else {
             return nil
         }
         
         // Take everything before season/episode identifiers
-        let cleanedName = nzbName.substring(0 ..< (seasonRange?.location)! - 1)
+        let nameEnd: Int = seasonRange.location - 1
+        let cleanedName = nzbName[0 ..< nameEnd]
         
         // Get te components
         let nameComponents = cleanedName.components(separatedBy: ".")
         
         // Let the DownDatabase.shared manager match te best show
         if let show = DownDatabase.shared.showBestMatchingComponents(nameComponents) {
-            let identifierStart = seasonRange!.location + 1
-            let identifierEnd = seasonRange!.location + seasonRange!.length
-            let seasonEpisodeIdentifier = nzbName.substring(identifierStart ..< identifierEnd).uppercased().replacingOccurrences(of: ".", with: "")
+            let identifierStart = seasonRange.location + 1
+            let identifierEnd = seasonRange.location + seasonRange.length
+            let seasonEpisodeIdentifier = nzbName[identifierStart ..< identifierEnd]
+                .uppercased()
+                .replacingOccurrences(of: ".", with: "")
             let components = seasonEpisodeIdentifier.components(separatedBy: "E")
             
             let seasonId = Int(components.first!)!
@@ -85,7 +88,7 @@ public class SickbeardService: Service {
     }
     
     public func getEpisodesAiringToday() -> Results<SickbeardEpisode> {
-        let episodes = DownDatabase.shared.episodesAiringOnDate(Date());
+        let episodes = DownDatabase.shared.episodesAiringOnDate(Date())
 
         for episode in episodes {
             fetchEpisodePlot(episode)
@@ -95,7 +98,7 @@ public class SickbeardService: Service {
     }
     
     public func getEpisodesAiringSoon() -> Results<SickbeardEpisode> {
-        let episodes = DownDatabase.shared.episodesAiringAfter(Date.tomorrow(), max: 5);
+        let episodes = DownDatabase.shared.episodesAiringAfter(Date.tomorrow(), max: 5)
         
         for episode in episodes {
             fetchEpisodePlot(episode)
@@ -105,7 +108,7 @@ public class SickbeardService: Service {
     }
     
     public func getRecentlyAiredEpisodes() -> Results<SickbeardEpisode> {
-        let episodes = DownDatabase.shared.lastAiredEpisodes(maxDays: 4);
+        let episodes = DownDatabase.shared.lastAiredEpisodes(maxDays: 4)
         
         for episode in episodes {
             fetchEpisodePlot(episode)
@@ -230,7 +233,7 @@ public class SickbeardService: Service {
     }
     
     fileprivate func refreshShows(_ shows: [SickbeardShow], completionHandler: @escaping () -> Void) {
-        let showRefreshGroup = DispatchGroup();
+        let showRefreshGroup = DispatchGroup()
         
         shows.forEach {
             showRefreshGroup.enter()
@@ -263,7 +266,7 @@ public class SickbeardService: Service {
     // MARK: Adding shows
     
     public func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.Status, completionHandler: @escaping (Bool, SickbeardShow?) -> Void) -> Void {
-        SickbeardRequest.addShow(show.tvdbId, state: state, succes: { (json, _) in
+        SickbeardRequest.addShow(show.tvdbId, state: state, succes: { (_, _) in
             Log.i("Added show \(show.name)")
             self.refreshShowAfterAdd(show) {
                 completionHandler(true, $0)
@@ -356,7 +359,7 @@ public class SickbeardService: Service {
             let seasonJson = json[seasonKey] as JSON
         
             let season = SickbeardSeason() //(id: seasonKey, show: show)
-            season.id = Int(seasonKey)!
+            season.identifier = Int(seasonKey)!
             season.show = show
             
             // Parse season episodes
@@ -365,7 +368,7 @@ public class SickbeardService: Service {
                 let episodeJson = seasonJson[episodeKey] as JSON
                 
                 let episode = SickbeardEpisode() //(id: episodeKey, season: season, show: show)
-                episode.id = Int(episodeKey)!
+                episode.identifier = Int(episodeKey)!
                 episode.name = episodeJson["name"].string!
                 episode.airDate = dateFormatter.date(from: episodeJson["airdate"].string!)
                 episode.quality = episodeJson["quality"].string!
@@ -390,13 +393,14 @@ public class SickbeardService: Service {
             return false
         }
         
-        if let tvdbId = episode.show?.tvdbId, let seasonId = episode.season?.id {
-            SickbeardRequest.requestEpisode(show: tvdbId, season: seasonId, episode: episode.id, succes: { json, _ in
+        if let tvdbId = episode.show?.tvdbId, let seasonId = episode.season?.identifier {
+            SickbeardRequest.requestEpisode(show: tvdbId, season: seasonId,
+                                            episode: episode.identifier, succes: { json, _ in
                 DispatchQueue.main.async {
                     let plot = json["description"].string ?? ""
                     DownDatabase.shared.setPlot(plot, forEpisode: episode)
                     self.notifyListeners {
-                        Log.i("Episode refreshed: \(episode.show!.name) S\(episode.season!.id)E\(episode.id)")
+                        Log.i("Episode refreshed: \(episode.show!.name) S\(episode.season!.identifier)E\(episode.identifier)")
                         $0.sickbeardEpisodeRefreshed(episode)
                     }
                 }
@@ -410,8 +414,8 @@ public class SickbeardService: Service {
         return false
     }
     
-    public func update(_ status: SickbeardEpisode.Status, forEpisode episode: SickbeardEpisode, completion: @escaping (Error?) -> (Void)) {
-        guard let tvdbId = episode.show?.tvdbId, let seasonId = episode.season?.id else {
+    public func update(_ status: SickbeardEpisode.Status, forEpisode episode: SickbeardEpisode, completion: @escaping (Error?) -> Void) {
+        guard let tvdbId = episode.show?.tvdbId, let seasonId = episode.season?.identifier else {
             completion(NSError(domain: "Down.SickbeardService", code: ErrorType.guardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
             return
         }
@@ -421,12 +425,12 @@ public class SickbeardService: Service {
             return
         }
         
-        SickbeardRequest.setState(show: tvdbId, season: seasonId, episode: episode.id, state: status)
+        SickbeardRequest.setState(show: tvdbId, season: seasonId, episode: episode.identifier, state: status)
         
         completion(nil)
     }
     
-    public func update(_ status: SickbeardEpisode.Status, forSeason season: SickbeardSeason, completion: @escaping (Error?) -> (Void)) {
+    public func update(_ status: SickbeardEpisode.Status, forSeason season: SickbeardSeason, completion: @escaping (Error?) -> Void) {
         guard let tvdbId = season.show?.tvdbId else {
             completion(NSError(domain: "Down.SickbeardService", code: ErrorType.guardFailed.rawValue, userInfo: [NSLocalizedDescriptionKey: "Guard failed"]))
             return
@@ -437,14 +441,14 @@ public class SickbeardService: Service {
             return
         }
         
-        SickbeardRequest.setState(show: tvdbId, season: season.id, state: status)
+        SickbeardRequest.setState(show: tvdbId, season: season.identifier, state: status)
         
         completion(nil)
     }
     
     // MARK: - Listeners
     
-    fileprivate func notifyListeners(_ task: @escaping ((_ listener: SickbeardListener) -> ())) {
+    fileprivate func notifyListeners(_ task: @escaping ((_ listener: SickbeardListener) -> Void)) {
         listeners.forEach { listener in
             if let listener = listener as? SickbeardListener {
                 DispatchQueue.main.async {
@@ -509,7 +513,7 @@ extension SickbeardService { // CoreSpotlight
         isIndexingSpotlight = true
         
         DispatchQueue.global().async {
-            Log.d("Indexing Spotlight \(Thread.current)");
+            Log.d("Indexing Spotlight \(Thread.current)")
             
             var items = [CSSearchableItem]()
             self.shows.forEach { show in
@@ -519,7 +523,7 @@ extension SickbeardService { // CoreSpotlight
                 attributeSet.keywords = show.name.components(separatedBy: " ")
                 
                 if let poster = show.poster {
-                    attributeSet.thumbnailData = UIImagePNGRepresentation(poster);
+                    attributeSet.thumbnailData = UIImagePNGRepresentation(poster)
                 }
                 
                 items.append(CSSearchableItem(uniqueIdentifier: "com.ruudputs.down.show.\(show.tvdbId)",
@@ -532,9 +536,9 @@ extension SickbeardService { // CoreSpotlight
                     return
                 }
                 
-                Log.d("Spotlight indexed \(Thread.current)");
+                Log.d("Spotlight indexed \(Thread.current)")
                 self.isIndexingSpotlight = false
-            };
+            }
         }
     }
     

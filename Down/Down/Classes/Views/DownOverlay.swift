@@ -27,7 +27,7 @@ class DownOverlay: UIView {
     }
     
     class func overlay() -> DownOverlay {
-        let nibView = Bundle.main.loadNibNamed("DownOverlay", owner: self, options: nil)?.first as? UIView;
+        let nibView = Bundle.main.loadNibNamed("DownOverlay", owner: self, options: nil)?.first as? UIView
         
         return nibView as? DownOverlay ?? DownOverlay()
     }
@@ -66,7 +66,7 @@ class DownOverlay: UIView {
         }
     }
     
-    func transformAlpha(_ alpha: CGFloat, _ completion: (() -> ())?) {
+    func transformAlpha(_ alpha: CGFloat, _ completion: (() -> Void)?) {
         UIView.animate(withDuration: DefaultTranstionDuration, animations: { 
             self.alpha = alpha
         }) { completed in

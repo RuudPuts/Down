@@ -7,9 +7,9 @@
 //
 
 public enum DownApplication: String {
-    case Down
+    case down
     
-    case SabNZBd
-    case Sickbeard
-    case CouchPotato
+    case sabNZBd
+    case sickbeard
+    case souchPotato
 }

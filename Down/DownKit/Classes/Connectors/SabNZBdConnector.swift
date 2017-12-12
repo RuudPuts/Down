@@ -15,14 +15,14 @@ public class SabNZBdConnector: Connector {
     
     public init() { }
 
-    public func validateHost(_ url: URL, completion:  @escaping(_ hostValid: Bool, _ apiKey: String?) -> (Void)) {
+    public func validateHost(_ url: URL, completion:  @escaping(_ hostValid: Bool, _ apiKey: String?) -> Void) {
         guard url.absoluteString.length > 0 else {
             completion(false, nil)
             return
         }
         
         let fixedUrl = url.prefixScheme().absoluteString
-        SabNZBdRequest.requestString(fixedUrl, succes: { json, headers in
+        SabNZBdRequest.requestString(fixedUrl, succes: { _, _ in
             // Host is valid
             self.host = fixedUrl
             
@@ -39,7 +39,7 @@ public class SabNZBdConnector: Connector {
         })
     }
     
-    public func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> (Void)) {
+    public func fetchApiKey(username: String = "", password: String = "", completion: @escaping (String?) -> Void) {
         guard let sabNZBdHost = host else {
             Log.w("Please set host before fetching the api key")
             completion(nil)
@@ -49,7 +49,7 @@ public class SabNZBdConnector: Connector {
         let loginUrl = sabNZBdHost + "/sabnzbd/login/"
         let configUrl = sabNZBdHost + "/config/general/"
         let credentials = Credentials(username: username, password: password)
-        SabNZBdRequest.requestString(loginUrl, method: .post, credentials: credentials, succes: { loginResponse, headers in
+        SabNZBdRequest.requestString(loginUrl, method: .post, credentials: credentials, succes: { loginResponse, _ in
             self.apiKey = nil
             
             guard self.checkLoginSuccesfull(loginResponse) else {
@@ -58,7 +58,7 @@ public class SabNZBdConnector: Connector {
                 return
             }
             
-            SabNZBdRequest.requestString(configUrl, succes: { configResponse, headers in
+            SabNZBdRequest.requestString(configUrl, succes: { configResponse, _ in
                 self.apiKey = self.extractApiKey(configResponse)
                 completion(self.apiKey)
             }, error: { error in

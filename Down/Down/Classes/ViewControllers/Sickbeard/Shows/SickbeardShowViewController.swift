@@ -38,7 +38,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         super.viewDidLoad()
         refreshShow()
         
-        sectionIndexView.datasource = seasons.map { String($0.id) }
+        sectionIndexView.datasource = seasons.map { String($0.identifier) }
         sectionIndexView.tableView = tableView
         
         refreshControl = UIRefreshControl()
@@ -150,7 +150,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     private func tableView(_ tableView: UITableView, detailForHeaderInSection section: Int) -> String? {
-        return String(seasons[section].id)
+        return String(seasons[section].identifier)
     }
     
     @objc func handleHeaderTap(_ recogniger: UITapGestureRecognizer) {
@@ -187,14 +187,14 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     func showStateActionSheet(season: SickbeardSeason) {
-        showStateActionSheet("Season \(season.id)") { selectedStatus in
+        showStateActionSheet("Season \(season.identifier)") { selectedStatus in
             season.update(selectedStatus, completion: { error in
                 self.tableView?.reloadData()
             })
         }
     }
     
-    func showStateActionSheet(_ message: String, completion: @escaping (_ selectedStatus: SickbeardEpisode.Status) -> (Void)) {
+    func showStateActionSheet(_ message: String, completion: @escaping (_ selectedStatus: SickbeardEpisode.Status) -> Void) {
         let actionSheet = UIAlertController(title: "Set state for", message: message, preferredStyle: .actionSheet)
         
         let states: [SickbeardEpisode.Status] = [.Wanted, .Skipped, .Archived, .Ignored]

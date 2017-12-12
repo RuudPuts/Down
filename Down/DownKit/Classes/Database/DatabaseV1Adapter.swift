@@ -14,17 +14,21 @@ class DatabaseV1Adapter: DatabaseAdapter {
     var version = 1
     
     var defaultRealm: Realm {
-        get {
-            return try! Realm(fileURL: NSURL(fileURLWithPath:DownDatabase.databasePath) as URL)
+        do {
+            return try Realm(fileURL: NSURL(fileURLWithPath: DownDatabase.databasePath) as URL)
+        }
+        catch {
+            Log.e("Could not initialize Realm \(error.localizedDescription)")
+            abort()
         }
     }
     
-    func write(_ commands: () -> (Void)) {
+    func write(_ commands: () -> Void) {
         let realm = defaultRealm
         do {
             try realm.write(commands)
         }
-        catch let error as NSError {
+        catch {
             Log.e("Error while writing to Realm: \(error)")
         }
     }
@@ -65,7 +69,8 @@ class DatabaseV1Adapter: DatabaseAdapter {
     }
     
     func sickbeardShowWithIdentifier(_ tvdbId: Int) -> SickbeardShow? {
-        return self.defaultRealm.objects(SickbeardShow.self).filter("tvdbId == \(tvdbId)").first
+        return self.defaultRealm.objects(SickbeardShow.self)
+            .filter("tvdbId == \(tvdbId)").first
     }
     
     // TODO: Also make this return a Results set
@@ -90,7 +95,8 @@ class DatabaseV1Adapter: DatabaseAdapter {
             
             var shows: Results<SickbeardShow>?
             if matchingShows == nil {
-                shows = defaultRealm.objects(SickbeardShow.self).filter(componentFilter)
+                shows = defaultRealm.objects(SickbeardShow.self)
+                    .filter(componentFilter)
             }
             else {
                 shows = matchingShows?.filter(componentFilter)
@@ -117,7 +123,8 @@ class DatabaseV1Adapter: DatabaseAdapter {
     }
     
     func episodesAiredSince(_ airDate: Date) -> Results<SickbeardEpisode> {
-        let episodes = defaultRealm.objects(SickbeardEpisode.self).filter("airDate >= %@ AND airDate < %@", airDate, Date())
+        let episodes = defaultRealm.objects(SickbeardEpisode.self)
+            .filter("airDate >= %@ AND airDate < %@", airDate, Date())
         
         return episodes.sortNewestFirst()
     }
@@ -131,7 +138,8 @@ class DatabaseV1Adapter: DatabaseAdapter {
     // TODO: This method might return more than maxEpisodes, since it'll give all shows of the last show's date
     func episodesAiringAfter(_ date: Date, max maxEpisodes: Int) -> Results<SickbeardEpisode> {
         let startDate = date.withoutTime()
-        let episodes = defaultRealm.objects(SickbeardEpisode.self).filter("airDate > %@", startDate)
+        let episodes = defaultRealm.objects(SickbeardEpisode.self)
+            .filter("airDate > %@", startDate)
         
         var lastAirDate = Date()
         if episodes.count > maxEpisodes {

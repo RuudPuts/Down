@@ -8,6 +8,7 @@
 
 import Foundation
 
+// swiftlint:disable identifier_name
 public let Log = Logger()
 
 public struct Logger {

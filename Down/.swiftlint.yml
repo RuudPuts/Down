@@ -1,7 +1,9 @@
-# disabled_rules:
-# - line_length
-# - type_name
-# - trailing_whitespace
+statement_position:
+  statement_mode: uncuddled_else
+disabled_rules:
+- trailing_whitespace
+- todo
+- line_length
 excluded:
 - Down/Dependencies
 - Down/R.generated.swift

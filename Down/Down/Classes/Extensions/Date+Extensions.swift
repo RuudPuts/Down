@@ -11,8 +11,6 @@ import Foundation
 extension Date {
     
     var dateString: String {
-        get {
-            return DateFormatter.downDateFormatter().string(from: self)
-        }
+        return DateFormatter.downDateFormatter().string(from: self)
     }
 }

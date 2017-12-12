@@ -11,43 +11,43 @@ import Foundation
 public class SickbeardRequest: DownRequest {
     
     override class func requestJson(_ url: String, method: Method = .get, credentials: Credentials? = nil, parameters: [String: Any]? = nil,
-                           succes: @escaping (JSON, [AnyHashable : Any]) -> (Void), error: @escaping (Error) -> (Void)) {
+                                    succes: @escaping (JSON, [AnyHashable: Any]) -> Void, error: @escaping (Error) -> Void) {
         super.requestJson(url, method: method, credentials: credentials, parameters: parameters, succes: { json, headers in
             succes(json["data"], headers)
         }, error: error)
     }
     
-    public class func requestShows(succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func requestShows(succes: @escaping ((JSON, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=shows")
         SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
-    public class func requestShow(_ show: Int, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func requestShow(_ show: Int, succes: @escaping ((JSON, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show&tvdbid=\(show)")
         SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
-    public class func requestSeasons(show: Int, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func requestSeasons(show: Int, succes: @escaping ((JSON, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.seasons&tvdbid=\(show)")
         SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
-    public class func requestEpisode(show: Int, season: Int, episode: Int, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func requestEpisode(show: Int, season: Int, episode: Int, succes: @escaping ((JSON, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=episode&tvdbid=\(show)&season=\(season)&episode=\(episode)")
         SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
-    public class func deleteShow(_ show: Int, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func deleteShow(_ show: Int, succes: @escaping ((JSON, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.delete&tvdbid=\(show)")
         SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
-    public class func addShow(_ show: Int, state: SickbeardEpisode.Status, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func addShow(_ show: Int, state: SickbeardEpisode.Status, succes: @escaping ((JSON, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.addnew&tvdbid=\(show)&status=\(state.rawValue.lowercased())")
         SickbeardRequest.requestJson(url, succes: succes, error: error)
     }
     
-    public class func setState(show: Int, season: Int? = nil, episode: Int? = nil, state: SickbeardEpisode.Status, succes: ((JSON, [AnyHashable : Any]) -> ())? = nil, error: (() -> ())? = nil) {
+    public class func setState(show: Int, season: Int? = nil, episode: Int? = nil, state: SickbeardEpisode.Status, succes: ((JSON, [AnyHashable: Any]) -> Void)? = nil, error: (() -> Void)? = nil) {
         var cmd = "?cmd=episode.setstatus&status=" + state.rawValue.lowercased() + "&tvdbid=\(show)&force=1"
         if let season = season {
             cmd += "&season=\(season)"
@@ -64,17 +64,17 @@ public class SickbeardRequest: DownRequest {
         })
     }
     
-    public class func requestBanner(show: Int, succes: @escaping ((Data, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func requestBanner(show: Int, succes: @escaping ((Data, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getbanner&tvdbid=\(show)")
         SickbeardRequest.requestData(url, succes: succes, error: error)
     }
     
-    public class func requestPoster(show: Int, succes: @escaping ((Data, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func requestPoster(show: Int, succes: @escaping ((Data, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         let url = SickbeardRequest.urls(suffix: "/api/" + Preferences.sickbeardApiKey + "?cmd=show.getposter&tvdbid=\(show)")
         SickbeardRequest.requestData(url, succes: succes, error: error)
     }
     
-    public class func searchTvdb(query: String, succes: @escaping ((JSON, [AnyHashable : Any]) -> ()), error: @escaping (() -> ())) {
+    public class func searchTvdb(query: String, succes: @escaping ((JSON, [AnyHashable: Any]) -> Void), error: @escaping (() -> Void)) {
         guard let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
             return
         }

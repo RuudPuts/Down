@@ -8,7 +8,8 @@
 
 import Alamofire
 
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+// TODO: Not sure what these do anymore
+private func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l < r
@@ -19,7 +20,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func > <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l > r
@@ -27,7 +28,6 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     return rhs < lhs
   }
 }
-
 
 public class SabNZBdService: Service {
     
@@ -95,13 +95,8 @@ public class SabNZBdService: Service {
         queueRefreshTimer?.invalidate()
         historyRefreshTimer?.invalidate()
     }
-    
-    func difference<S: Equatable>(_ a: [S], _ b: [S]) -> [S] {
-        return a.filter { !b.contains($0) }
-    }
 
-    
-    // MARK: - Queue
+    // MARK: Queue
     
     @objc fileprivate func refreshQueue() {
         SabNZBdRequest.requestQueue(succes: { (json, _) in
@@ -117,7 +112,7 @@ public class SabNZBdService: Service {
     }
     
     fileprivate func parseQueueJson(_ json: JSON!) {
-        let currentQueueIdentifiers = (queue as AnyObject).value(forKey: "identifier") as! [String]
+        let currentQueueIdentifiers = (queue as AnyObject).value(forKey: "identifier") as? [String] ?? []
         var newQueueIdentifiers = [String]()
         
         // Parse queue
@@ -150,7 +145,7 @@ public class SabNZBdService: Service {
             }
             
             // Cleanup items removed from queue
-            let removedQueueIdentifiers = difference(currentQueueIdentifiers, newQueueIdentifiers)
+            let removedQueueIdentifiers = currentQueueIdentifiers - newQueueIdentifiers
             removeItemsFromQueue(removedQueueIdentifiers)
             
             // Sort the queue
@@ -175,21 +170,12 @@ public class SabNZBdService: Service {
     }
     
     fileprivate func findQueueItem(_ identifier: String) -> SABQueueItem? {
-        var queueItem: SABQueueItem?
-        
-        for item in queue {
-            if item.identifier == identifier {
-                queueItem = item
-                break
-            }
-        }
-        
-        return queueItem
+        return queue.filter { $0.identifier == identifier }.first
     }
     
     fileprivate func removeItemFromQueue(_ identifier: String) {
         if let queueItem = findQueueItem(identifier) {
-            notifyListeners{ $0.willRemoveSABItem(queueItem) }
+            notifyListeners { $0.willRemoveSABItem(queueItem) }
             queue.remove(at: queue.index(of: queueItem)!)
         }
     }
@@ -200,7 +186,7 @@ public class SabNZBdService: Service {
         }
     }
     
-    // MARK - History
+    // MARK: History
     
     @objc fileprivate func refreshHistory() {
         
@@ -218,9 +204,7 @@ public class SabNZBdService: Service {
     
     fileprivate var isFetchingHistory = false
     public var fullHistoryFetched: Bool {
-        get {
-            return self.historySize == self.history.count
-        }
+        return self.historySize == self.history.count
     }
     
     public func fetchHistory() {
@@ -370,7 +354,7 @@ public class SabNZBdService: Service {
     
     // MARK - Listeners
     
-    fileprivate func notifyListeners(_ task: @escaping ((_ listener: SabNZBdListener) -> ())) {
+    fileprivate func notifyListeners(_ task: @escaping ((_ listener: SabNZBdListener) -> Void)) {
         listeners.forEach { listener in
             if let listener = listener as? SabNZBdListener {
                 DispatchQueue.main.async {

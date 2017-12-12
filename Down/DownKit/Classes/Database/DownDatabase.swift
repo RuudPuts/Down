@@ -20,9 +20,11 @@ public class DownDatabase: DownCache {
     class var databasePath: String {
         let storageDirectory = "\(UIApplication.documentsDirectory)"
         do {
-            try FileManager.default.createDirectory(atPath: storageDirectory, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: storageDirectory,
+                                                    withIntermediateDirectories: true,
+                                                    attributes: nil)
         }
-        catch let error as NSError {
+        catch {
             Log.e("Error while creating databasePath: \(error)")
         }
         return storageDirectory + "/" + DatabaseFile
@@ -36,7 +38,7 @@ public class DownDatabase: DownCache {
         Log.d("DatabasePath: \(DownDatabase.databasePath)")
     }
     
-    public func write(_ commands: () -> (Void)) {
+    public func write(_ commands: () -> Void) {
         self.adapter.write(commands)
     }
     
@@ -55,7 +57,7 @@ public class DownDatabase: DownCache {
                 try FileManager.default.removeItem(atPath: filePath)
             }
         }
-        catch let error as NSError {
+        catch {
             Log.e("Error while clearing DownDatabase: \(error)")
         }
     }

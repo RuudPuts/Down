@@ -11,15 +11,15 @@ import RealmSwift
 
 public class SickbeardEpisode: Object {
     @objc public dynamic var uniqueId = UUID().uuidString
-    @objc public dynamic var id = 0
+    @objc public dynamic var identifier = 0
     @objc public dynamic var name = ""
-    @objc public dynamic var airDate: Date? = nil
+    @objc public dynamic var airDate: Date?
     @objc public dynamic var quality = ""
     @objc public dynamic var plot = ""
     
     public var status: Status {
         get {
-            return Status(rawValue: statusString) ?? .Unknown
+            return Status(rawValue: statusString) ?? .unknown
         }
         set {
             statusString = newValue.rawValue
@@ -31,17 +31,17 @@ public class SickbeardEpisode: Object {
     @objc public dynamic weak var season: SickbeardSeason?
     
     public enum Status: String {
-        case Unknown
-        case Ignored
-        case Archived
-        case Unaired
-        case Skipped
-        case Wanted
-        case Snatched
-        case Downloaded
+        case unknown = "Unknown"
+        case ignored = "Ignored"
+        case archived = "Archived"
+        case unaired = "Unaired"
+        case skipped = "Skipped"
+        case wanted = "Wanted"
+        case snatched = "Snatched"
+        case downloaded = "Downloaded"
         
         static var updatable: [Status] {
-            return [.Wanted, .Skipped, .Archived, .Ignored]
+            return [.wanted, .skipped, .archived, .ignored]
         }
     }
     
@@ -50,9 +50,12 @@ public class SickbeardEpisode: Object {
     public override static func primaryKey() -> String {
         return "uniqueId"
     }
-    
+
+    // TODO: refactor to ==
     public func isSame(_ episode: SickbeardEpisode) -> Bool {
-        return show?.tvdbId == episode.show?.tvdbId && season?.id == episode.season?.id && id == episode.id
+        return show?.tvdbId == episode.show?.tvdbId &&
+            season?.identifier == episode.season?.identifier &&
+            identifier == episode.identifier
     }
     
     // MARK: Public getters
@@ -60,7 +63,7 @@ public class SickbeardEpisode: Object {
     public var title: String {
         var title = name
         if season != nil && show != nil {
-            title = String(format: "%@ - S%02dE%02d - %@", show!.name, season!.id, id, name)
+            title = String(format: "%@ - S%02dE%02d - %@", show!.name, season!.identifier, identifier, name)
         }
         return title
     }
@@ -68,7 +71,7 @@ public class SickbeardEpisode: Object {
     public var daysUntilAiring: Int {
         let today = Date().withoutTime()
         
-        if let date = airDate , date >= today {
+        if let date = airDate, date >= today {
             let calendar = Calendar.current
             return (calendar as NSCalendar).components(.day, from: today, to: date, options: []).day ?? -1
         }
@@ -78,7 +81,7 @@ public class SickbeardEpisode: Object {
     
     // MARK: Functions
     
-    public func update(_ status: Status, completion:((Error?) -> (Void))?) {
+    public func update(_ status: Status, completion: ((Error?) -> Void)?) {
         SickbeardService.shared.update(status, forEpisode: self, completion: { error in
             if let error = error {
                 Log.e("Error while updating episode status: \(error)")
@@ -99,11 +102,13 @@ public class SickbeardEpisode: Object {
 extension Results where Element: SickbeardEpisode {
     
     public func sortOldestFirst() -> RealmSwift.Results<Element> {
-        return self.sorted(by: [SortDescriptor(keyPath:"airDate", ascending: true), SortDescriptor(keyPath:"id", ascending: true)])
+        return self.sorted(by: [SortDescriptor(keyPath: "airDate", ascending: true),
+                                SortDescriptor(keyPath: "id", ascending: true)])
     }
     
     public func sortNewestFirst() -> RealmSwift.Results<Element> {
-        return self.sorted(by: [SortDescriptor(keyPath:"airDate", ascending: false), SortDescriptor(keyPath:"id", ascending: true)])
+        return self.sorted(by: [SortDescriptor(keyPath: "airDate", ascending: false),
+                                SortDescriptor(keyPath: "id", ascending: true)])
     }
     
 }

@@ -22,5 +22,9 @@ extension DateFormatter {
     class func downDateFormatter() -> DateFormatter {
         return DateFormatter(dateFormat: "yyyy-MM-dd")
     }
+
+    class func downTimeFormatter() -> DateFormatter {
+        return DateFormatter(dateFormat: "HH:mm:ss")
+    }
     
 }

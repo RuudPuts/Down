@@ -13,7 +13,7 @@ protocol DatabaseAdapter {
     
     var version: Int { get }
     
-    func write(_ commands: () -> (Void))
+    func write(_ commands: () -> Void)
     
     func storeSickbeardShows(_ shows: [SickbeardShow])
     func deleteSickbeardShow(_ show: SickbeardShow)

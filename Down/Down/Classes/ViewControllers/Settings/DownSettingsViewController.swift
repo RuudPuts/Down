@@ -161,11 +161,11 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         case .SabNZBd:
             connector = SabNZBdConnector()
             connector?.host = Preferences.sabNZBdHost
-            break;
+            break
         case .Sickbeard:
             connector = SickbeardConnector()
             connector?.host = Preferences.sickbeardHost
-            break;
+            break
             
         default:
             break

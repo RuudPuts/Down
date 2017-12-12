@@ -34,11 +34,11 @@ class DownTextCell: DownTableViewCell {
             break
         case .CouchPotato:
             // TODO: Create asset
-            cheveronView.image = nil;// R.image.couchpotatoCheveron()
+            cheveronView.image = nil// R.image.couchpotatoCheveron()
             break
         case .Down:
             // TODO: Create asset
-            cheveronView.image = nil; // R.image.downCheveron()
+            cheveronView.image = nil // R.image.downCheveron()
             break
         }
     }

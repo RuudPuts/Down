@@ -42,7 +42,7 @@ class DownBarButtonItem: UIBarButtonItem {
     
     // MARK: Touch closure
     
-    var touchClosure: (() -> ())? {
+    var touchClosure: (() -> Void)? {
         didSet {
             if touchClosure == nil {
                 target = nil
