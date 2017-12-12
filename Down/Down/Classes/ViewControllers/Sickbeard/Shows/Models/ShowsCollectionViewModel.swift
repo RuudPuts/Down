@@ -66,8 +66,8 @@ class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayo
         cell.show = show
         
         cell.posterView.image = R.image.sickbeardDefaultPoster()
-        Nuke.loadImage(with: show.posterThumbnailRequest, into: cell.posterView)
-        
+        Manager.shared.loadImage(with: show.posterThumbnailRequest, into: cell.posterView)
+
         if !show.hasPoster {
             Log.i("Refreshing show '\(show.name)'")
             delegate?.viewModel(self, showRequiresRefresh: show)

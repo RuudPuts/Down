@@ -174,15 +174,22 @@ public class DownRequest {
                 error(downRequestError(for: .invalidBody))
                 return
             }
-            
-            let json = JSON(data: data)
-            let (jsonValid, errorMessage) = validateJson(json)
-            guard jsonValid else {
-                error(downRequestError(for: .errorBody, description: errorMessage ?? ""))
+
+            do {
+                let json = try JSON(data: data)
+                let (jsonValid, errorMessage) = validateJson(json)
+                guard jsonValid else {
+                    error(downRequestError(for: .errorBody, description: errorMessage ?? ""))
+                    return
+                }
+
+                succes(json, headers)
+            }
+            catch {
+                // TODO error closure isn't reachable?
+//                error(downRequestError(for: .errorBody, description: error.localizedDescription))
                 return
             }
-            
-            succes(json, headers)
         }, error: error)
     }
     

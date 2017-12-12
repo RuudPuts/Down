@@ -57,20 +57,13 @@ public class SickbeardConnector: Connector {
     }
     
     func extractApiKey(_ configHtml: String) -> String? {
-        if let apikeyInputRange = configHtml.range(of: "id=\"api_key\"") {
-            // WARNING: Assumption; api key is within 200 characters from the input id
-            let substringLength = 200
-            let apikeyIndexEnd = configHtml.index(apikeyInputRange.upperBound, offsetBy: substringLength)
-            
-            if configHtml.endIndex > apikeyIndexEnd {
-                let apiKeyRange = apikeyInputRange.upperBound ..< apikeyIndexEnd
-                let usefullPart = configHtml.substring(with: apiKeyRange)
-                
-                return usefullPart.componentsMatchingRegex("[a-zA-Z0-9]{32}").first
-            }
+        guard let apikeyInputRange = configHtml.range(of: "id=\"api_key\"") else {
+            return nil
         }
-        
-        return nil
+
+        let apiKeySubstring = configHtml[apikeyInputRange.upperBound...]
+
+        return String(apiKeySubstring).componentsMatchingRegex("[a-zA-Z0-9]{32}").first
     }
     
 }

@@ -1,0 +1,9 @@
+# disabled_rules:
+# - line_length
+# - type_name
+# - trailing_whitespace
+excluded:
+- Down/Dependencies
+- Down/R.generated.swift
+- DownKit/Dependencies
+- fastlane
