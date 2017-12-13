@@ -32,13 +32,13 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let loadingCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
+        let loadingCellNib = UINib(nibName: "DownActivityCell", bundle: nil)
         tableView!.register(loadingCellNib, forCellReuseIdentifier: "DownActivityCell")
         
-        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
+        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle: nil)
         tableView!.register(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
         
-        let itemCellNib = UINib(nibName: "SABItemCell", bundle:nil)
+        let itemCellNib = UINib(nibName: "SABItemCell", bundle: nil)
         tableView!.register(itemCellNib, forCellReuseIdentifier: "SABItemCell")
         
         let moreHistoryCellNib = UINib(nibName: "DownTextCell", bundle: nil)
@@ -65,7 +65,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = tableView!.indexPathForSelectedRow , segue.identifier == "SabNZBdDetail" {
+        if let indexPath = tableView!.indexPathForSelectedRow, segue.identifier == "SabNZBdDetail" {
             var selectedItem: SABItem
             if (indexPath as NSIndexPath).section == 0 {
                 selectedItem = SabNZBdService.shared.queue[indexPath.row]
@@ -127,11 +127,11 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         var displayString = "KB/s"
         
         if displaySpeed > 1024 {
-            displaySpeed = displaySpeed / 1024
+            displaySpeed /= 1024
             displayString = "MB/s"
             
             if displaySpeed > 1024 {
-                displaySpeed = displaySpeed / 1024
+                displaySpeed /= 1024
                 displayString = "GB/s"
             }
         }
@@ -143,7 +143,9 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
             let largeFont = R.font.robotoLight(size: 50)!
             let smallFont = R.font.robotoLight(size: 100 / 3)!
             let attributedSpeedString = NSMutableAttributedString(string: speedString)
+            // swiftlint:disable legacy_constructor
             attributedSpeedString.addAttribute(NSAttributedStringKey.font, value: largeFont, range: NSMakeRange(0, dotIndex - 1))
+            // swiftlint:disable legacy_constructor
             attributedSpeedString.addAttribute(NSAttributedStringKey.font, value: smallFont, range: NSMakeRange(dotIndex, speedString.length - dotIndex))
             
             self.speedLabel!.attributedText = attributedSpeedString
@@ -267,8 +269,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
             else {
                 let loadingCell = tableView.dequeueReusableCell(withIdentifier: "DownActivityCell", for: indexPath) as! DownTableViewCell
                 loadingCell.setCellType(.SabNZBd)
-                
-                
+
                 loadingCell.label?.text = "Loading..."
                 SabNZBdRequest.ping { reachable in
                     if !reachable {
@@ -361,20 +362,14 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
 extension SabNZBdViewController: DownTabBarItem {
     
     var tabIcon: UIImage {
-        get {
-            return R.image.sabnzbdTabbar()!
-        }
+        return R.image.sabnzbdTabbar()!
     }
     
     var selectedTabBackground: UIColor {
-        get {
-            return DownApplication.SabNZBd.color
-        }
+        return DownApplication.SabNZBd.color
     }
     
     var deselectedTabBackground: UIColor {
-        get {
-            return DownApplication.SabNZBd.darkColor
-        }
+        return DownApplication.SabNZBd.darkColor
     }
 }

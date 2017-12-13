@@ -7,6 +7,6 @@ disabled_rules:
 - force_cast
 excluded:
 - Down/Dependencies
-- Down/R.generated.swift
+- R.generated.swift
 - DownKit/Dependencies
 - fastlane

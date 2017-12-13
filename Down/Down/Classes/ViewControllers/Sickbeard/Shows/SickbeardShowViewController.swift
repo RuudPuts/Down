@@ -24,9 +24,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     var isRefreshing = false
     
     var seasons: [SickbeardSeason] {
-        get {
-            return show?.seasons.reversed() ?? [SickbeardSeason]()
-        }
+        return show?.seasons.reversed() ?? [SickbeardSeason]()
     }
     
     @IBOutlet weak var sectionIndexView: DownSectionIndexView!
@@ -45,14 +43,14 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         // TODO: UIFont extension
         let titleAttributes = [NSAttributedStringKey.foregroundColor: UIColor.downSickbeardColor(),
                                NSAttributedStringKey.font: R.font.openSans(size: 13)!]
-        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes:titleAttributes)
+        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: titleAttributes)
         refreshControl!.tintColor = .downSickbeardColor()
         refreshControl!.addTarget(self, action: #selector(refreshShow), for: UIControlEvents.valueChanged)
         tableView!.addSubview(refreshControl!)
         
         tableView!.rowHeight = UITableViewAutomaticDimension
         
-        let cellNib = UINib(nibName: "DownTextCell", bundle:nil)
+        let cellNib = UINib(nibName: "DownTextCell", bundle: nil)
         tableView!.register(cellNib, forCellReuseIdentifier: "DownTextCell")
         
         longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler))
@@ -74,7 +72,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = tableView!.indexPathForSelectedRow , segue.identifier == "SickbeardEpisode" {
+        if let indexPath = tableView!.indexPathForSelectedRow, segue.identifier == "SickbeardEpisode" {
             let season = show?.seasons.reversed()[indexPath.section]
             let episode = season?.episodes.reversed()[indexPath.row]
             
@@ -180,7 +178,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
                 return
             }
             
-            episode.update(selectedStatus, completion: { error in
+            episode.update(selectedStatus, completion: { _ in
                 self.tableView?.reloadData()
             })
         }
@@ -188,7 +186,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     
     func showStateActionSheet(season: SickbeardSeason) {
         showStateActionSheet("Season \(season.identifier)") { selectedStatus in
-            season.update(selectedStatus, completion: { error in
+            season.update(selectedStatus, completion: { _ in
                 self.tableView?.reloadData()
             })
         }
@@ -199,7 +197,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         
         let states: [SickbeardEpisode.Status] = [.Wanted, .Skipped, .Archived, .Ignored]
         for state in states {
-            let action = UIAlertAction(title: state.rawValue, style: .default, handler: { (action) in
+            let action = UIAlertAction(title: state.rawValue, style: .default, handler: { _ in
                 completion(state)
             })
             actionSheet.addAction(action)
@@ -237,15 +235,12 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
 extension SickbeardEpisode {
     
     var statusColor: UIColor {
-        get {
-            switch status {
-            case .Skipped: return UIColor(red:0.38, green:0.53, blue:0.82, alpha:1.00)
-            case .Wanted: return UIColor(red:0.73, green:0.33, blue:0.20, alpha:1.00)
-            case .Snatched: return UIColor(red:0.55, green:0.38, blue:0.69, alpha:1.00)
-            case .Downloaded: return UIColor(red:0.38, green:0.63, blue:0.36, alpha:1.00)
-            default: return UIColor(red:0.87, green:0.78, blue:0.25, alpha:1.00)
-            }
-
+        switch status {
+        case .skipped: return UIColor(red: 0.38, green: 0.53, blue: 0.82, alpha: 1.00)
+        case .wanted: return UIColor(red: 0.73, green: 0.33, blue: 0.20, alpha: 1.00)
+        case .snatched: return UIColor(red: 0.55, green: 0.38, blue: 0.69, alpha: 1.00)
+        case .downloaded: return UIColor(red: 0.38, green: 0.63, blue: 0.36, alpha: 1.00)
+        default: return UIColor(red: 0.87, green: 0.78, blue: 0.25, alpha: 1.00)
         }
     }
 }

@@ -20,13 +20,10 @@ extension UIDevice {
         switch feedbackType {
         case .smallTick:
             UISelectionFeedbackGenerator().selectionChanged()
-            break
         case .tick:
             UINotificationFeedbackGenerator().notificationOccurred(.warning)
-            break
         case .doubleTick:
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            break
         }
     }
     

@@ -51,16 +51,12 @@ extension UINavigationController {
         switch application {
         case .SabNZBd:
             color = .downSabNZBdColor()
-            break
         case .Sickbeard:
             color = .downSickbeardColor()
-            break
         case .CouchPotato:
             color = .downCouchPotatoColor()
-            break
         case .Down:
             color = .downRedColor()
-            break
             
         }
         
@@ -73,32 +69,26 @@ extension UINavigationController {
 extension UINavigationController: DownTabBarItem {
     
     var tabIcon: UIImage {
-        get {
-            if let viewController = viewControllers.first as? DownTabBarItem {
-                return viewController.tabIcon
-            }
-            
-            return UIImage()
+        if let viewController = viewControllers.first as? DownTabBarItem {
+            return viewController.tabIcon
         }
+
+        return UIImage()
     }
     
     var selectedTabBackground: UIColor {
-        get {
-            if let viewController = viewControllers.first as? DownTabBarItem {
-                return viewController.selectedTabBackground
-            }
-            
-            return UIColor.clear
+        if let viewController = viewControllers.first as? DownTabBarItem {
+            return viewController.selectedTabBackground
         }
+
+        return UIColor.clear
     }
     
     var deselectedTabBackground: UIColor {
-        get {
-            if let viewController = viewControllers.first as? DownTabBarItem {
-                return viewController.deselectedTabBackground
-            }
-            
-            return UIColor.clear
+        if let viewController = viewControllers.first as? DownTabBarItem {
+            return viewController.deselectedTabBackground
         }
+        
+        return UIColor.clear
     }    
 }

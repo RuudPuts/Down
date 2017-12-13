@@ -11,5 +11,4 @@ import UIKit
 class DownIconTextCell: DownTextCell {
     
     @IBOutlet weak var iconView: UIImageView!
-        
 }

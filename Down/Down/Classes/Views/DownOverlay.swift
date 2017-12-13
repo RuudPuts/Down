@@ -9,7 +9,8 @@
 import UIKit
 
 class DownOverlay: UIView {
-    
+
+    // swiftlint:disable identifier_name
     private let DefaultTranstionDuration = 0.3
     private var isVisible = false
 
@@ -69,7 +70,7 @@ class DownOverlay: UIView {
     func transformAlpha(_ alpha: CGFloat, _ completion: (() -> Void)?) {
         UIView.animate(withDuration: DefaultTranstionDuration, animations: { 
             self.alpha = alpha
-        }) { completed in
+        }) completion: { _ in
             if let block = completion {
                 block()
             }

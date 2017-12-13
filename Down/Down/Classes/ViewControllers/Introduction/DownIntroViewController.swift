@@ -35,8 +35,9 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
         portScanner.scanPorts(SabNZBdService.defaultPorts + SickbeardService.defaultPorts + CouchPotatoService.defaultPorts)
     }
     
-    // MARK - RPPortScannerDelegate
-    
+    // MARK: - RPPortScannerDelegate
+
+    // swiftlint:disable cyclomatic_complexity
     func portScanner(_ portScanner: RPPortScanner, didFindPort port: Int, onIPAddress ipAddress: String) {
         let url = URL(string: "http://\(ipAddress):\(port)")
         
@@ -62,7 +63,6 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                     }
                 }
             })
-            break
         case _ where SickbeardService.defaultPorts.contains(port):
             SickbeardConnector().validateHost(host, completion: { hostValid, apiKey in
                 Log.i("Validated Sickbeard host \(host) - \(hostValid) - \(apiKey ?? "Api key not found")")
@@ -80,15 +80,12 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                     }
                 }
             })
-            break
         case _ where CouchPotatoService.defaultPorts.contains(port):
 //            CouchPotatoConnector().validateHost(host, completion: { hostValid, apiKey in
 //                Log.i("Validated CouchPotato host \(host) - \(hostValid) - \(apiKey)")
 //            })
-            break
             
         default:
-            break
         }
     }
     

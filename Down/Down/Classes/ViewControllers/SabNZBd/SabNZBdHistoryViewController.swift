@@ -20,13 +20,13 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
+        let activityCellNib = UINib(nibName: "DownActivityCell", bundle: nil)
         tableView!.register(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
         
-        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
+        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle: nil)
         tableView!.register(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
         
-        let itemCellNib = UINib(nibName: "SABItemCell", bundle:nil)
+        let itemCellNib = UINib(nibName: "SABItemCell", bundle: nil)
         tableView!.register(itemCellNib, forCellReuseIdentifier: "SABItemCell")
     }
     
@@ -44,7 +44,7 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let indexPath = tableView!.indexPathForSelectedRow , segue.identifier == "SabNZBdDetail" {
+        if let indexPath = tableView!.indexPathForSelectedRow, segue.identifier == "SabNZBdDetail" {
             let selectedItem = SabNZBdService.shared.history[indexPath.row]
             
             let detailViewController = segue.destination as! SabNZBdDetailViewController

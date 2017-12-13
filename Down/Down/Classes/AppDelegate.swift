@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.downDarkGrayColor()
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.downDarkGrayColor()], for: UIControlState())
         
-        let cancelButtonAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red:0.51, green:0.51, blue:0.53, alpha:1.00),
+        let cancelButtonAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red: 0.51, green: 0.51, blue: 0.53, alpha: 1.00),
                                       NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes, for: UIControlState())
     }

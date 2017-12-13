@@ -14,9 +14,7 @@ class DownViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var collectionView: UICollectionView?
     var scrollView: UIScrollView? {
-        get {
-            return tableView ?? collectionView
-        }
+        return tableView ?? collectionView
     }
     
     var searchBar: UISearchBar?
@@ -27,9 +25,7 @@ class DownViewController: UIViewController {
     var application = DownApplication.Down
     
     var serviceManager: ServiceManager {
-        get {
-            return UIApplication.shared.downAppDelegate.serviceManager
-        }
+        return UIApplication.shared.downAppDelegate.serviceManager
     }
     
     override func viewDidLoad() {
@@ -120,9 +116,7 @@ extension DownViewController: UISearchBarDelegate {
 extension UISearchBar {
     
     var textfield: UITextField? {
-        get {
-            return value(forKey: "searchField") as? UITextField
-        }
+        return value(forKey: "searchField") as? UITextField
     }
     
 }

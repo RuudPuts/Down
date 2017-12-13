@@ -50,7 +50,7 @@ class SABItemCell: DownTableViewCell {
                 let minutesRemaining = floor(secondsRemaining / 60)
                 secondsRemaining -= minutesRemaining * 60
                 
-                let timeRemainingString = String(format:"%01d:%02d:%02d", Int(hoursRemaining), Int(minutesRemaining), Int(secondsRemaining))
+                let timeRemainingString = String(format: "%01d:%02d:%02d", Int(hoursRemaining), Int(minutesRemaining), Int(secondsRemaining))
                 statusLabel!.text = timeRemainingString
             }
             categoryLabel!.text = _queueItem?.category
@@ -78,7 +78,7 @@ class SABItemCell: DownTableViewCell {
             
             progressLabel.text = _historyItem?.statusDescription()
             if let historyItem = _historyItem {
-                switch (historyItem.status) {
+                switch historyItem.status {
                 case .completed:
                     progressLabel.textColor = .downGreenColor()
                 case .failed:

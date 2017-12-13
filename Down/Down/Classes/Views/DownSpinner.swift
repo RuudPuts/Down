@@ -86,12 +86,12 @@ class DownSpinner: UIView {
     // MARK: Animation
     
     fileprivate enum Animation: String {
-        case ProgressLayerStart
-        case ProgressLayerOngoing
-        case ProgressLayerEnd
+        case progressLayerStart
+        case progressLayerOngoing
+        case progressLayerEnd
         
-        case ProgressEndFillColor
-        case ProgressEndStrokeColor
+        case progressEndFillColor
+        case progressEndStrokeColor
     }
     
     var duration = 0.8
@@ -116,7 +116,7 @@ class DownSpinner: UIView {
         
         progressLayer.strokeEnd = endAngle
         
-        progressLayer.add(animation, forKey: .ProgressLayerStart)
+        progressLayer.add(animation, forKey: .progressLayerStart)
     }
     
     func endAnimation(withResult result: Result) {
@@ -144,7 +144,7 @@ class DownSpinner: UIView {
         animation.toValue = endAngle
         
         progressLayer.strokeEnd = endAngle
-        progressLayer.add(animation, forKey: .ProgressLayerEnd)
+        progressLayer.add(animation, forKey: .progressLayerEnd)
     }
     
     // MARK: Animation (Private)
@@ -158,7 +158,7 @@ class DownSpinner: UIView {
         animation.repeatCount = Float.infinity
         animation.isRemovedOnCompletion = false
         
-        progressLayer.add(animation, forKey: .ProgressLayerOngoing)
+        progressLayer.add(animation, forKey: .progressLayerOngoing)
     }
     
     // Results
@@ -169,27 +169,26 @@ class DownSpinner: UIView {
     
     // All credit for the checkmark and it's animation goes out to @Tueno's MaterialCircularProgress
     // See https://github.com/Tueno/MaterialCircularProgress/blob/master/LICENSE
-    
+
+    // swiftlint:disable identifier_name
     private var CheckmarkPath: UIBezierPath {
-        get {
-            let scaleFactor = CGFloat(5.0)
-            let size  = CGSize(width: bounds.width / scaleFactor, height: bounds.height / scaleFactor)
-            let path = UIBezierPath()
-            
-            let startPoint = CGPoint(x: bounds.midX - size.width / 2,
-                                     y: bounds.midY)
-            path.move(to: startPoint)
-            
-            let firstLineEndPoint = CGPoint(x: startPoint.x + size.width * 0.36,
-                                            y: startPoint.y + size.height * 0.36)
-            path.addLine(to: firstLineEndPoint)
-            
-            let secondLineEndPoint = CGPoint(x: firstLineEndPoint.x + size.width * 0.64,
-                                             y: firstLineEndPoint.y - size.height)
-            path.addLine(to: secondLineEndPoint)
-            
-            return path
-        }
+        let scaleFactor = CGFloat(5.0)
+        let size  = CGSize(width: bounds.width / scaleFactor, height: bounds.height / scaleFactor)
+        let path = UIBezierPath()
+
+        let startPoint = CGPoint(x: bounds.midX - size.width / 2,
+                                 y: bounds.midY)
+        path.move(to: startPoint)
+
+        let firstLineEndPoint = CGPoint(x: startPoint.x + size.width * 0.36,
+                                        y: startPoint.y + size.height * 0.36)
+        path.addLine(to: firstLineEndPoint)
+
+        let secondLineEndPoint = CGPoint(x: firstLineEndPoint.x + size.width * 0.64,
+                                         y: firstLineEndPoint.y - size.height)
+        path.addLine(to: secondLineEndPoint)
+
+        return path
     }
     
     private let resultLayer = CAShapeLayer()
@@ -198,7 +197,7 @@ class DownSpinner: UIView {
         var color = UIColor.clear
         switch result {
         case .success:
-            color = UIColor(red:0.30, green:0.84, blue:0.13, alpha:1.00)
+            color = UIColor(red: 0.30, green: 0.84, blue: 0.13, alpha: 1.00)
         }
         let cgColor = color.cgColor
         
@@ -220,8 +219,8 @@ class DownSpinner: UIView {
         
         progressLayer.fillColor = cgColor
         progressLayer.strokeColor = cgColor
-        progressLayer.add(fillAnimation, forKey: .ProgressEndFillColor)
-        progressLayer.add(strokeAnimation, forKey: .ProgressEndStrokeColor)
+        progressLayer.add(fillAnimation, forKey: .progressEndFillColor)
+        progressLayer.add(strokeAnimation, forKey: .progressEndStrokeColor)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + progressDuration * 0.75) {
             self.performResultMarkAnimation(forResult: result)

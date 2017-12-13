@@ -21,7 +21,7 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
     var cellType: DownApplication = .SabNZBd
     var cellColor = UIColor.downSabNZBdColor()
     
-    var delegate: DownTableViewCellDegate?
+    weak var delegate: DownTableViewCellDegate?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -72,16 +72,12 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
         switch cellType {
         case .SabNZBd:
             cellColor = .downSabNZBdColor()
-            break
         case .Sickbeard:
             cellColor = .downSickbeardColor()
-            break
         case .CouchPotato:
             cellColor = .downCouchPotatoColor()
-            break
         case .Down:
             cellColor = .downRedColor()
-            break
         }
     }
     
@@ -118,8 +114,7 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
         // But for some reason things where being bitchy, and it didn't work.. So I made this 'other solution'
         activityIndicator?.leftConstraint?.constant = 8
         activityIndicator?.widthConstraint?.constant = 20
-        
-        
+
         activityIndicator?.isHidden = false
         layoutIfNeeded()
     }
@@ -136,7 +131,7 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
         layoutIfNeeded()
     }
     
-    // MARK - TextField
+    // MARK: - TextField
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -149,10 +144,8 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
 }
 
-protocol DownTableViewCellDegate {
-    
+protocol DownTableViewCellDegate: class {
     func downTableViewCell(_ cell: DownTableViewCell, didChangeText text: String)
-    
 }
 
 extension UIView {
@@ -167,5 +160,4 @@ extension UIView {
             layoutIfNeeded()
         }
     }
-    
 }

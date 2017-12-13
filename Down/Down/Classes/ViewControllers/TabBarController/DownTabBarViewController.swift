@@ -22,9 +22,7 @@ class DownTabBarViewController: DownViewController {
     }
     
     var selectedTabBarItem: DownTabBarItem? {
-        get {
-            return selectedViewController as? DownTabBarItem
-        }
+        return selectedViewController as? DownTabBarItem
     }
     
     override func viewDidLoad() {

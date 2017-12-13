@@ -12,10 +12,10 @@ import Preheat
 
 class ShowsViewModel: NSObject {
     var shows = [SickbeardShow]()
-    var delegate: ShowsViewModelDelegate?
+    weak var delegate: ShowsViewModelDelegate?
 }
 
-protocol ShowsViewModelDelegate {
+protocol ShowsViewModelDelegate: class {
     func viewModel(_ model: ShowsViewModel, didSelectShow show: SickbeardShow)
     func viewModel(_ model: ShowsViewModel, showRequiresRefresh show: SickbeardShow)
 }
@@ -44,10 +44,8 @@ extension UIResponder {
 extension SickbeardShow {
     
     var posterThumbnailRequest: Request {
-        get {
-            let filePath = UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbId)_thumb.png"
-            
-            return Request(url: URL(fileURLWithPath: filePath))
-        }
+        let filePath = UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbId)_thumb.png"
+
+        return Request(url: URL(fileURLWithPath: filePath))
     }
 }

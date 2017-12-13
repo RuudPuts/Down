@@ -72,7 +72,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let show = episode?.show , segue.identifier == "SickbeardShow" {
+        if let show = episode?.show, segue.identifier == "SickbeardShow" {
             let showViewController = segue.destination as! SickbeardShowViewController
             showViewController.show = show
         }
@@ -120,7 +120,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
             let font = R.font.openSansLight(size: 14)!
             let maxWidth = view.bounds.width - 34
             
-            return episode!.plot.sizeWithFont(font, width:maxWidth).height + 30
+            return episode!.plot.sizeWithFont(font, width: maxWidth).height + 30
         }
         
         return tableView.rowHeight
@@ -140,7 +140,6 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
             switch cellData.rowType {
             case .name:
                 detailText = episode!.name
-                break
             case .airDate:
                 if let date = episode!.airDate {
                     detailText = date.dateString
@@ -148,23 +147,17 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
                 else {
                     detailText = "-"
                 }
-                break
             case .show:
                 detailText = episode!.show?.name ?? "-"
-                break
             case .season:
                 detailText = episode!.season == nil ? "-" : String(episode!.season!.identifier)
-                break
             case .episode:
                 detailText = String(episode!.id)
-                break
             case .status:
                 detailText = episode!.status.rawValue
-                break
                 
             default:
                 detailText = ""
-                break
             }
             cell.detailTextLabel?.text = detailText
         }

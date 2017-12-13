@@ -23,7 +23,6 @@ public class Service {
         for i in 0...listeners.count {
             if listeners[i].isEqualTo(listener) {
                 listeners.remove(at: i)
-                break
             }
         }
     }

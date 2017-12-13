@@ -10,6 +10,7 @@ import Foundation
 import DownKit
 import Rswift
 
+// swiftlint:disable type_body_length
 class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSource, UITableViewDelegate, SabNZBdListener, SickbeardListener {
     
     fileprivate enum SabNZBdDetailRow {
@@ -181,9 +182,8 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             let font = R.font.openSansLight(size: 14)!
             let maxWidth = view.bounds.width - 34
             
-            return sabItem!.sickbeardEpisode!.plot.sizeWithFont(font, width:maxWidth).height + 30
+            return sabItem!.sickbeardEpisode!.plot.sizeWithFont(font, width: maxWidth).height + 30
         default:
-            break
         }
         
         return tableView.rowHeight
@@ -238,31 +238,25 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         switch cellData.rowType {
         case .name:
             detailText = queueItem.displayName
-            break
         case .status:
             detailText = queueItem.statusDescription()
             cell.detailTextLabel?.textColor = .white
-            break
         case .progress:
             detailText = queueItem.progressString
-            break
             
         case .sickbeardShow:
             detailText = queueItem.sickbeardEpisode!.show?.name
-            break
         case .sickbeardEpisode:
             detailText = "S\(queueItem.sickbeardEpisode!.season!.identifier)E\(queueItem.sickbeardEpisode!.id)"
-            break
         case .sickbeardEpisodeName:
             detailText = queueItem.sickbeardEpisode!.name
-            break
         default:
-            break
         }
         cell.detailTextLabel?.text = detailText
         return cell
     }
-    
+
+    // swiftlint:disable cyclomatic_complexity
     fileprivate func tableView(_ tableView: UITableView, historyCellForRowAtIndexPath indexPath: IndexPath) -> DownTableViewCell {
         let reuseIdentifier = "historyCell"
         let cell = DownTableViewCell(style: .value2, reuseIdentifier: reuseIdentifier)
@@ -275,10 +269,9 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         switch cellData.rowType {
         case .name:
             detailText = historyItem.displayName
-            break
         case .status:
             detailText = historyItem.statusDescription()
-            switch (historyItem.status) {
+            switch historyItem.status {
             case .completed:
                 cell.detailTextLabel?.textColor = .downGreenColor()
             case .failed:
@@ -287,23 +280,17 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
                 cell.detailTextLabel?.textColor = .white
             }
             cell.accessoryView = UIImageView(image: R.image.sabnzbdCheveron())
-            break
         case .totalSize:
             detailText = historyItem.size
-            break
         case .finishedAt:
             detailText = historyItem.completionDate!.dateString
-            break
             
         case .sickbeardShow:
             detailText = historyItem.sickbeardEpisode!.show?.name
-            break
         case .sickbeardEpisode:
             detailText = "S\(historyItem.sickbeardEpisode!.season!.identifier)E\(historyItem.sickbeardEpisode!.id)"
-            break
         case .sickbeardEpisodeName:
             detailText = historyItem.sickbeardEpisode!.name
-            break
         case .sickbeardAirDate:
             if let date = historyItem.sickbeardEpisode!.airDate {
                 detailText = date.dateString
@@ -311,9 +298,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             else {
                 detailText = "-"
             }
-            break
         default:
-            break
         }
         cell.detailTextLabel?.text = detailText
         
@@ -334,7 +319,6 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
                 self.tableView?.reloadData()
             })
         default:
-            break
         }
     }
     

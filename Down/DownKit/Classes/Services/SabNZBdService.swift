@@ -138,7 +138,7 @@ public class SabNZBdService: Service {
                 newQueueIdentifiers.append(identifier)
                 
                 if let imdbIdentifier = item!.imdbIdentifier as String! {
-                    fetchTitleFromIMDB(imdbIdentifier, completion: { (title) -> () in
+                    fetchTitleFromIMDB(imdbIdentifier, completion: { (title) -> Void in
                         item!.imdbTitle = title
                     })
                 }
@@ -218,7 +218,6 @@ public class SabNZBdService: Service {
             }
             return
         }
-
         
         Log.i("Fetching history \(history.count) - \(history.count + 20)")
         SabNZBdRequest.requestHistory(start: history.count, succes: { (json, _) in
@@ -262,7 +261,7 @@ public class SabNZBdService: Service {
                     history.append(historyItem)
                     
                     if let imdbIdentifier = historyItem.imdbIdentifier as String! {
-                        fetchTitleFromIMDB(imdbIdentifier, completion: { (title) -> () in
+                        fetchTitleFromIMDB(imdbIdentifier, completion: { (title) -> Void in
                             historyItem.imdbTitle = title
                         })
                     }
@@ -285,16 +284,7 @@ public class SabNZBdService: Service {
     }
     
     public func findHistoryItem(_ imdbIdentifier: String) -> SABHistoryItem? {
-        var historyItem: SABHistoryItem?
-        
-        for item in history {
-            if item.identifier == imdbIdentifier {
-                historyItem = item
-                break
-            }
-        }
-        
-        return historyItem
+        return history.filter { $0.identifier == imdbIdentifier }.first
     }
     
     fileprivate func removeItemFromHistory(_ identifier: String) {

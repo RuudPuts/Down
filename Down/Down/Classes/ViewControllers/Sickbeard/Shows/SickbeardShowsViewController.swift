@@ -16,7 +16,8 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     var longPressRecognizer: UILongPressGestureRecognizer?
     
     @IBOutlet weak var sectionIndexView: DownSectionIndexView!
-    
+
+    // swiftlint:disable identifier_name
     let SymbolSectionTitle = "#"
     
     override func awakeFromNib() {
@@ -68,7 +69,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = collectionView!.indexPathsForSelectedItems?.first , segue.identifier == "SickbeardShow" {
+        if let indexPath = collectionView!.indexPathsForSelectedItems?.first, segue.identifier == "SickbeardShow" {
             let show = collectionViewModel?.shows[indexPath.item]
             
             let detailViewController = segue.destination as! SickbeardShowViewController
@@ -101,7 +102,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         var sectionTitles = [String]()
         
         let allShows = DownDatabase.shared.fetchAllSickbeardShows()
-        allShows.forEach() { show in           
+        allShows.forEach { show in
             var sectionTitle = show.nameWithoutPrefix.substring(0 ..< 1).uppercased()
             if symbolPrefixes.contains(sectionTitle) {
                 sectionTitle = SymbolSectionTitle
@@ -139,7 +140,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
     
     func sectionIndexView(_ sectionIndexView: DownSectionIndexView, didSelectSection section: String, atIndex index: Int) {
         var indexPath = IndexPath(item: 0, section: 0)
-        if (section != SymbolSectionTitle) {
+        if section != SymbolSectionTitle {
             // Find first show with selected section title as first character
             let firstShow = collectionViewModel!.shows.filter { $0.sectionTitle == section }.first
             let showIndex = collectionViewModel!.shows.index(of: firstShow!)

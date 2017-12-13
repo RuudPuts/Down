@@ -8,8 +8,7 @@
 
 import UIKit
 
-class DownImageView : UIImageView {
-    
+class DownImageView: UIImageView {
     @IBInspectable
     var placeholderImage: UIImage? {
         didSet {
@@ -27,5 +26,4 @@ class DownImageView : UIImageView {
             }
         }
     }
-    
 }

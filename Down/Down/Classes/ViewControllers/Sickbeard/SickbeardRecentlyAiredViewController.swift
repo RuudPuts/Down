@@ -28,21 +28,21 @@ class SickbeardRecentlyAiredViewController: DownViewController, UITableViewDataS
     }
     
     func registerTableViewCells() {
-        let moreCellNib = UINib(nibName: "DownIconTextCell", bundle:nil)
+        let moreCellNib = UINib(nibName: "DownIconTextCell", bundle: nil)
         tableView!.register(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
         
-        let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
+        let activityCellNib = UINib(nibName: "DownActivityCell", bundle: nil)
         tableView!.register(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
         
-        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
+        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle: nil)
         tableView!.register(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
         
-        let itemCellNib = UINib(nibName: "SickbeardTodayCell", bundle:nil)
+        let itemCellNib = UINib(nibName: "SickbeardTodayCell", bundle: nil)
         tableView!.register(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = tableView!.indexPathForSelectedRow , segue.identifier == "SickbeardEpisode" {
+        if let indexPath = tableView!.indexPathForSelectedRow, segue.identifier == "SickbeardEpisode" {
             let detailViewController = segue.destination as! SickbeardEpisodeViewController
             detailViewController.episode = episodes[indexPath.row]
         }

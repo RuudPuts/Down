@@ -11,7 +11,7 @@ import DownKit
 class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDelegate {
     
     var tableViewModel: ShowsTableViewModel?
-    var delegate: SicbkeardAddShowViewControllerDelegate?
+    weak var delegate: SicbkeardAddShowViewControllerDelegate?
     var webViewController: DownWebViewController?
     var rightBarButton = DownBarButtonItem()
     
@@ -52,7 +52,7 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
         
         let states: [SickbeardEpisode.Status] = [.Wanted, .Skipped, .Archived, .Ignored]
         for state in states {
-            let action = UIAlertAction(title: state.rawValue, style: .default, handler: { (action) in
+            let action = UIAlertAction(title: state.rawValue, style: .default, handler: { _ in
                 self.addShow(show, initialState: state)
             })
             actionSheet.addAction(action)
@@ -84,8 +84,7 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
 //                // TODO: Completion closure for hideOverlay
                 self.hideOverlay()
             })
-            
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5, execute: {
                 self.delegate?.addShowViewController(viewController: self, didAddShow: addedShow!)
             })
@@ -118,7 +117,7 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     
 }
 
-protocol SicbkeardAddShowViewControllerDelegate {
+protocol SicbkeardAddShowViewControllerDelegate: class {
     func addShowViewController(viewController: SicbkeardAddShowViewController, didAddShow show: SickbeardShow)
 }
 

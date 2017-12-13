@@ -22,20 +22,14 @@ class CouchPotatoViewController: DownRootViewController {
 extension CouchPotatoViewController: DownTabBarItem {
     
     var tabIcon: UIImage {
-        get {
-            return R.image.couchpotatoTabbar()!
-        }
+        return R.image.couchpotatoTabbar()!
     }
     
     var selectedTabBackground: UIColor {
-        get {
-            return DownApplication.CouchPotato.color
-        }
+        return DownApplication.CouchPotato.color
     }
     
     var deselectedTabBackground: UIColor {
-        get {
-            return DownApplication.CouchPotato.darkColor
-        }
+        return DownApplication.CouchPotato.darkColor
     }
 }

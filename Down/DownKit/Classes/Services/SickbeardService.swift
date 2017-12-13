@@ -10,6 +10,7 @@ import RealmSwift
 import Alamofire
 import CoreSpotlight
 
+// swiftlint:disable type_body_length
 public class SickbeardService: Service {
     
     public static let shared = SickbeardService()
@@ -52,8 +53,14 @@ public class SickbeardService: Service {
     
     internal func parseNzbName(_ nzbName: String) -> SickbeardEpisode? {
         // Check if show contains season/episode identifiers
-        let regex = try! NSRegularExpression(pattern: "S\\d+(.)?E\\d+", options: .caseInsensitive)
-        let seasonRange = regex.rangeOfFirstMatch(in: nzbName, options: [], range: nzbName.fullNSRange)
+        let seasonRange: NSRange
+        do {
+            let regex = try NSRegularExpression(pattern: "S\\d+(.)?E\\d+", options: .caseInsensitive)
+            seasonRange = regex.rangeOfFirstMatch(in: nzbName, options: [], range: nzbName.fullNSRange)
+        }
+        catch {
+            return nil
+        }
         
         guard seasonRange.location != NSNotFound else {
             return nil
@@ -122,7 +129,6 @@ public class SickbeardService: Service {
         for show in shows {
             if show.tvdbId == tvdbid && !show.isInvalidated {
                 showWithId = show
-                break
             }
         }
         
@@ -556,5 +562,5 @@ extension SickbeardShow { // Spotlight
         
         return description
     }
-    
+// swiftlint:disable file_length
 }

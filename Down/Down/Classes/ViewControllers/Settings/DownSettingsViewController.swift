@@ -10,6 +10,7 @@ import Foundation
 import DownKit
 import Rswift
 
+// swiftlint:disable type_body_length
 class DownSettingsViewController: DownViewController, UITableViewDataSource, UITableViewDelegate, DownTableViewCellDegate, SickbeardListener {
     
     enum DownSettingsRow: Int {
@@ -33,7 +34,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
     @IBOutlet weak var progressLabel: UILabel!
     
-    var delegate: DownSettingsViewControllerDelegate?
+    weak var delegate: DownSettingsViewControllerDelegate?
     
     var connector: Connector?
     var tableData = [SettingDataSource]()
@@ -52,19 +53,12 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             switch application as DownApplication {
             case .SabNZBd:
                 host = Preferences.sabNZBdHost ?? ""
-                break
             case .Sickbeard:
                 host = Preferences.sickbeardHost ?? ""
-                break
             case .CouchPotato:
                 host = Preferences.couchPotatoHost
-                break
-                
-            default:
-                break
             }
-            
-            
+
             if host.hasPrefix("http://") {
                 host = host.replacingOccurrences(of: "http://", with: "")
             }
@@ -74,77 +68,39 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             switch application as DownApplication {
             case .SabNZBd:
                 Preferences.sabNZBdHost = newValue
-                break
             case .Sickbeard:
                 Preferences.sickbeardHost = newValue
-                break
             case .CouchPotato:
                 Preferences.couchPotatoHost = newValue
-                break
-                
-            default:
-                break
             }
         }
     }
     
     var apiKeyForApplication: String? {
         get {
-            var apiKey = ""
             switch application as DownApplication {
-            case .SabNZBd:
-                apiKey = Preferences.sabNZBdApiKey
-                break
-            case .Sickbeard:
-                apiKey = Preferences.sickbeardApiKey
-                break
-            case .CouchPotato:
-                apiKey = Preferences.couchPotatoApiKey
-                break
-                
-            default:
-                break
+            case .SabNZBd: return Preferences.sabNZBdApiKey
+            case .Sickbeard: return Preferences.sickbeardApiKey
+            case .CouchPotato: return Preferences.couchPotatoApiKey
             }
-            
-            return apiKey
         }
         set {
             switch application as DownApplication {
             case .SabNZBd:
                 Preferences.sabNZBdApiKey = newValue ?? ""
-                break
             case .Sickbeard:
                 Preferences.sickbeardApiKey = newValue ?? ""
-                break
             case .CouchPotato:
                 Preferences.couchPotatoApiKey = newValue ?? ""
-                break
-                
-            default:
-                break
             }
         }
     }
     
     var applicationService: Service? {
-        get {
-            var service: Service?
-            switch application as DownApplication {
-            case .SabNZBd:
-                service = SabNZBdService.shared
-                break
-            case .Sickbeard:
-                service = SickbeardService.shared
-                break
-            case .CouchPotato:
-                service = CouchPotatoService.shared
-                break
-                
-            default:
-                break
-            }
-            
-            return service
+        switch application as DownApplication {
+        case .sabNZBd: return SabNZBdService.shared
+        case .sickbeard: return SickbeardService.shared
+        case .couchPotato: return CouchPotatoService.shared
         }
     }
     
@@ -161,14 +117,11 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         case .SabNZBd:
             connector = SabNZBdConnector()
             connector?.host = Preferences.sabNZBdHost
-            break
         case .Sickbeard:
             connector = SickbeardConnector()
             connector?.host = Preferences.sickbeardHost
-            break
             
         default:
-            break
         }
         connector?.apiKey = apiKeyForApplication
     }
@@ -184,7 +137,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         let settingsNib = UINib(nibName: "DownSettingsTableViewCell", bundle: Bundle.main)
         tableView!.register(settingsNib, forCellReuseIdentifier: "settingsCell")
         
-        if (hostForApplication.length > 0 && apiKeyForApplication == nil) {
+        if hostForApplication.length > 0 && apiKeyForApplication == nil {
             validateHost(hostForApplication)
         }
     }
@@ -196,22 +149,18 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             headerImageView.image = R.image.sabnzbdIcon()
 //            window.statusBarBackgroundColor = .downSabNZBdDarkColor()
             actionButton.setTitleColor(.downSabNZBdColor(), for: .normal)
-            break
         case .Sickbeard:
             headerView.backgroundColor = .downSickbeardColor()
             headerImageView.image = R.image.sickbeardIcon()
 //            window.statusBarBackgroundColor = .downSickbeardDarkColor()
             actionButton.setTitleColor(.downSickbeardColor(), for: .normal)
-            break
         case .CouchPotato:
             headerView.backgroundColor = .downCouchPotatoColor()
             headerImageView.image = R.image.couchpotatoIcon()
 //            window.statusBarBackgroundColor = .downCouchPotatoDarkColor()
             actionButton.setTitleColor(.downCouchPotatoColor(), for: .normal)
-            break
             
         default:
-            break
         }
     }
     
@@ -255,7 +204,6 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         var rowIndex = 0
         for row in tableData {
             if row.rowType == cellType {
-                break
             }
             
             rowIndex += 1
@@ -279,12 +227,10 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         switch cellType {
         case .host:
             showIndicator = validatingHost
-            break
         case .apiKey:
             showIndicator = fetchingApiKey
             
         default:
-            break
         }
         
         return showIndicator
@@ -303,18 +249,18 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     
     func reloadCell(_ cellType: DownSettingsRow) {
         let indexPath = indexPathForCell(withType: cellType)
-        if let visibleRowIndexes = tableView?.indexPathsForVisibleRows , visibleRowIndexes.contains(indexPath) {
+        if let visibleRowIndexes = tableView?.indexPathsForVisibleRows, visibleRowIndexes.contains(indexPath) {
             if let cell = tableView?.visibleCells[visibleRowIndexes.index(of: indexPath)!] as? DownTableViewCell {
                 reloadCell(cell, forIndexPath: indexPath)
             }
         }
     }
     
-    func reloadCell(_ cell: DownTableViewCell, forIndexPath indexPath: IndexPath) -> Void {
+    func reloadCell(_ cell: DownTableViewCell, forIndexPath indexPath: IndexPath) {
         let cellType = cellTypeForIndexPath(indexPath)
         
         // If keyboard is public for cell, don't reload
-        if let textField = cell.textField , !textField.isFirstResponder {
+        if let textField = cell.textField, !textField.isFirstResponder {
             let data = tableData[(indexPath as NSIndexPath).row]
             cell.setCellType(application)
             cell.label.text = data.title
@@ -323,13 +269,10 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             switch cellType {
             case .host:
                 cell.textField?.text = hostForApplication
-                break
             case .apiKey:
                 cell.textField?.text = apiKeyForApplication
-                break
                 
             default:
-                break
             }
             
             cell.textField?.isSecureTextEntry = cellType == .password
@@ -349,7 +292,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         return 50
     }
     
-    // MARK - DownTableViewCellDelegate
+    // MARK: - DownTableViewCellDelegate
     
     func downTableViewCell(_ cell: DownTableViewCell, didChangeText text: String) {
         let indexPath = tableView!.indexPath(for: cell)!
@@ -357,17 +300,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         switch cellType {
         case .host:
             validateHost(text)
-            break
         case .username:
             fetchApiKey()
-            break
         case .password:
             fetchApiKey()
-            break
             // TODO: add case for apikey to verify it
             
         default:
-            break
         }
         
         reloadCell(cell, forIndexPath: indexPath)
@@ -385,19 +324,14 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         let now = Date()
         
         tableData.forEach { row in
-            if let date = activityStart[row.rowType] , now > date.addingTimeInterval(activityDurationTimeout) {
+            if let date = activityStart[row.rowType], now > date.addingTimeInterval(activityDurationTimeout) {
                 activityStart[row.rowType] = nil
                 
                 switch row.rowType {
                 case .host:
                     validatingHost = false
-                    break
                 case .apiKey:
                     fetchingApiKey = false
-                    break
-                    
-                default:
-                    break
                 }
                 
                 reloadCell(row.rowType)
@@ -461,11 +395,10 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             fetchingApiKey = true
             startActivityVerification(.apiKey)
             connector?.fetchApiKey(username: username, password: password, completion: { fetchedApiKey in
-                if let apiKey = fetchedApiKey , apiKey.length > 0 {
+                if let apiKey = fetchedApiKey, apiKey.length > 0 {
                     self.fetchingApiKey = false
                     UIDevice.hapticFeedback(.smallTick)
 
-                    
                     self.apiKeyForApplication = fetchedApiKey
                     self.configureTableView()
                     self.tableView!.reloadSections(IndexSet([0]), with: .automatic)
@@ -518,11 +451,9 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         // Perform the original action
         delegate?.settingsViewControllerDidTapActionButton(self)
     }
-    
 }
 
-protocol DownSettingsViewControllerDelegate {
-    
+protocol DownSettingsViewControllerDelegate: class {
     func settingsViewControllerDidTapActionButton(_ viewController: DownSettingsViewController)
-    
+// swiftlint:disable file_length
 }

@@ -14,8 +14,8 @@ class DownSectionIndexView: UIView, UICollectionViewDataSource, UICollectionView
     weak var tableView: UITableView?
     weak var collectionView: UICollectionView?
     
-    var delegate: DownSectionIndexViewDelegate?
-    
+    weak var delegate: DownSectionIndexViewDelegate?
+
     var datasource = [String]() {
         didSet {
             indexView.heightConstraint?.constant = CGFloat(datasource.count) * indexView.bounds.width
@@ -77,8 +77,6 @@ class DownSectionIndexView: UIView, UICollectionViewDataSource, UICollectionView
     
 }
 
-protocol DownSectionIndexViewDelegate {
-    
+protocol DownSectionIndexViewDelegate: class {
     func sectionIndexView(_ sectionIndexView: DownSectionIndexView, didSelectSection section: String, atIndex index: Int)
-    
 }

@@ -55,21 +55,21 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     }
     
     func registerTableViewCells() {
-        let moreCellNib = UINib(nibName: "DownIconTextCell", bundle:nil)
+        let moreCellNib = UINib(nibName: "DownIconTextCell", bundle: nil)
         tableView!.register(moreCellNib, forCellReuseIdentifier: "DownIconTextCell")
         
-        let activityCellNib = UINib(nibName: "DownActivityCell", bundle:nil)
+        let activityCellNib = UINib(nibName: "DownActivityCell", bundle: nil)
         tableView!.register(activityCellNib, forCellReuseIdentifier: "DownActivityCell")
         
-        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle:nil)
+        let emtpyCellNib = UINib(nibName: "DownEmptyCell", bundle: nil)
         tableView!.register(emtpyCellNib, forCellReuseIdentifier: "DownEmptyCell")
         
-        let itemCellNib = UINib(nibName: "SickbeardTodayCell", bundle:nil)
+        let itemCellNib = UINib(nibName: "SickbeardTodayCell", bundle: nil)
         tableView!.register(itemCellNib, forCellReuseIdentifier: "SickbeardTodayCell")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = tableView!.indexPathForSelectedRow , segue.identifier == "SickbeardEpisode" {
+        if let indexPath = tableView!.indexPathForSelectedRow, segue.identifier == "SickbeardEpisode" {
             var episode: SickbeardEpisode
             if (indexPath as NSIndexPath).section == 1 {
                 episode = todayData[indexPath.row]
@@ -218,20 +218,11 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        var sectionTitle: String?
-        
         switch section {
-        case 1:
-            sectionTitle = "Airing today"
-            break
-        case 2:
-            sectionTitle = "Airing soon"
-            break
-        default:
-            break
+        case 1: return "Airing today"
+        case 2: return "Airing soon"
+        default: return nil
         }
-        
-        return sectionTitle
     }
     
     private func tableView(_ tableView: UITableView, iconForHeaderInSection section: Int) -> UIImage? {
@@ -267,20 +258,14 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
 extension SickbeardViewController: DownTabBarItem {
     
     var tabIcon: UIImage {
-        get {
-            return R.image.sickbeardTabbar()!
-        }
+        return R.image.sickbeardTabbar()!
     }
     
     var selectedTabBackground: UIColor {
-        get {
-            return DownApplication.Sickbeard.color
-        }
+        return DownApplication.Sickbeard.color
     }
     
     var deselectedTabBackground: UIColor {
-        get {
-            return DownApplication.Sickbeard.darkColor
-        }
+        return DownApplication.Sickbeard.darkColor
     }
 }
