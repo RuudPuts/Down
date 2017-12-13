@@ -19,7 +19,7 @@ protocol DatabaseAdapter {
     func deleteSickbeardShow(_ show: SickbeardShow)
     
     func allSickbeardShows() -> Results<SickbeardShow>
-    func showsWithEpisodesAiredSince(_ airDate: Date) -> [SickbeardShow]
+    func fetchContinuingShows() -> Results<SickbeardShow>
     func showBestMatchingComponents(_ components: [String]) -> SickbeardShow?
     
     func setPlot(_ plot: String, forEpisode episode: SickbeardEpisode)

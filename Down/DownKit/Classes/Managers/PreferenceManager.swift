@@ -81,15 +81,6 @@ public class Preferences: DownCache {
         }
     }
     
-    public class var sickbeardLastCacheRefresh: Date? {
-        get {
-            return getPreference(PreferenceKeys.sickbeardCacheRefreshKey) as? Date
-        }
-        set {
-            setPreference(newValue as AnyObject?, forKey: PreferenceKeys.sickbeardCacheRefreshKey)
-        }
-    }
-    
     public class var couchPotatoHost: String {
         get {
             return getHostPreference(PreferenceKeys.couchPotatoHost) ?? ""

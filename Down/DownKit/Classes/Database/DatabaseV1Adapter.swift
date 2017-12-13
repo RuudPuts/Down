@@ -73,18 +73,9 @@ class DatabaseV1Adapter: DatabaseAdapter {
             .filter("tvdbId == \(tvdbId)").first
     }
     
-    // TODO: Also make this return a Results set
-    func showsWithEpisodesAiredSince(_ airDate: Date) -> [SickbeardShow] {
-        let episodes = episodesAiredSince(airDate)
-        
-        var shows = [SickbeardShow]()
-        for episode in episodes {
-            if !shows.contains(episode.show!) {
-                shows.append(episode.show!)
-            }
-        }
-        
-        return shows
+    func fetchContinuingShows() -> Results<SickbeardShow> {
+        return self.defaultRealm.objects(SickbeardShow.self)
+            .filter("status == continuing")
     }
     
     func showBestMatchingComponents(_ components: [String]) -> SickbeardShow? {

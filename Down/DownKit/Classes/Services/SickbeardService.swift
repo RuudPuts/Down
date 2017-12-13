@@ -39,7 +39,6 @@ public class SickbeardService: Service {
     override public func startService() {
         super.startService()
         reloadSpotlight()
-        Log.i("Last updated: \(Preferences.sickbeardLastCacheRefresh ?? Date.init(timeIntervalSince1970: 0))")
         Log.i("Refreshing show cache")
         refreshShowCache()
         
@@ -158,14 +157,13 @@ public class SickbeardService: Service {
                 }
                 
                 self.refreshShows(shows, completionHandler: {
-                    Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
                     self.notifyListeners {
                         Log.i("Show cache refreshed")
                         $0.sickbeardShowCacheUpdated()
                     }
                 })
             }
-            else if let lastCacheRefresh = Preferences.sickbeardLastCacheRefresh {
+            else {
                 var knownShowIds = Array(self.shows.map { $0.tvdbId })
                 
                 // Clean up deleted shows
@@ -190,10 +188,9 @@ public class SickbeardService: Service {
                     
                     return show
                 }
-                
-                // Find shows to refresh, episodes aired since last update
-                let recentlyAired = DownDatabase.shared.fetchShowsWithEpisodesAiredSince(lastCacheRefresh)
-                for show in recentlyAired {
+
+                let continuingShows = DownDatabase.shared.fetchContinuingShows()
+                for show in continuingShows {
                     Log.i("Refreshing \(show.name)")
                     showsToRefresh.append(show)
                 }
@@ -201,7 +198,6 @@ public class SickbeardService: Service {
                 Log.i("Refreshing \(showsToRefresh.count) shows")
                 
                 self.refreshShows(showsToRefresh) {
-                    Preferences.sickbeardLastCacheRefresh = Date().withoutTime()
                     self.notifyListeners {
                         Log.i("Show cache refreshed")
                         $0.sickbeardShowCacheUpdated()

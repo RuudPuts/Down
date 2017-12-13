@@ -13,7 +13,7 @@ public class DownDatabase: DownCache {
     
     public static let shared = DownDatabase()
     
-    let adapter = DatabaseV1Adapter()
+    let adapter: DatabaseAdapter = DatabaseV1Adapter()
     
     static let DatabaseFile = "down.realm"
     
@@ -80,8 +80,8 @@ public class DownDatabase: DownCache {
         return self.adapter.allSickbeardShows()
     }
     
-    public func fetchShowsWithEpisodesAiredSince(_ airDate: Date) -> [SickbeardShow] {
-        return self.adapter.showsWithEpisodesAiredSince(airDate)
+    public func fetchContinuingShows() -> Results<SickbeardShow> {
+        return self.adapter.fetchContinuingShows()
     }
     
     public func setPlot(_ plot: String, forEpisode episode: SickbeardEpisode) {
