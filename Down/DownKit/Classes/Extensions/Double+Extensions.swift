@@ -10,11 +10,11 @@ import Foundation
 
 public extension Double {
     
-    public static var pi_2: Double {
+    public static var pi2: Double {
         return .pi / 2
     }
     
-    public static var pi_4: Double {
+    public static var pi4: Double {
         return .pi / 4
     }
     

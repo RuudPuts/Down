@@ -24,7 +24,8 @@ public class SABQueueItem: SABItem {
         
         super.init(identifier, category, nzbName, statusDescription)
     }
-    
+
+    // swiftlint:disable function_parameter_count
     internal func update(_ nzbName: String, _ statusString: String, _ totalMb: Double,
                          _ remainingMb: Double, _ progress: Double, _ timeRemaining: TimeInterval) {
         self.nzbName = nzbName

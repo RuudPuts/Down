@@ -41,6 +41,7 @@ struct Credentials {
     var password: String
 }
 
+// swiftlint:disable identifier_name
 private let DownRequestErrorDomain = "DownKit.DownRequest"
 
 public class DownRequest {

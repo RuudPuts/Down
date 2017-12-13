@@ -145,7 +145,7 @@ public class SabNZBdService: Service {
             }
             
             // Cleanup items removed from queue
-            let removedQueueIdentifiers = currentQueueIdentifiers - newQueueIdentifiers
+            let removedQueueIdentifiers = currentQueueIdentifiers.subtracting(newQueueIdentifiers)
             removeItemsFromQueue(removedQueueIdentifiers)
             
             // Sort the queue
@@ -299,7 +299,7 @@ public class SabNZBdService: Service {
     
     fileprivate func removeItemFromHistory(_ identifier: String) {
         if let historyItem = findHistoryItem(identifier) {
-            notifyListeners{ $0.willRemoveSABItem(historyItem) }
+            notifyListeners { $0.willRemoveSABItem(historyItem) }
             history.remove(at: history.index(of: historyItem)!)
         }
     }
@@ -310,11 +310,11 @@ public class SabNZBdService: Service {
         }
     }
     
-    // MARK - Delete items
+    // MARK: - Delete items
     
     public func deleteItem(_ item: SABItem) {
         
-        SabNZBdRequest.delete(item: item, succes: { (response, _) in
+        SabNZBdRequest.delete(item: item, succes: { (_, _) in
             if let historyItem = item as? SABHistoryItem, let historyIndex = self.history.index(of: historyItem) {
                 self.history.remove(at: historyIndex)
             }
@@ -323,16 +323,15 @@ public class SabNZBdService: Service {
                 self.queue.remove(at: queueIndex)
             }
             
-            self.notifyListeners{ $0.willRemoveSABItem(item) }
+            self.notifyListeners { $0.willRemoveSABItem(item) }
         }, error: {
             Log.e("Error while deleting item")
         })
-        
     }
     
-    // MARK - IMDB
+    // MARK: - IMDB
     
-    fileprivate func fetchTitleFromIMDB(_ imdbIdentifier: String, completion: @escaping (_ title: String) ->()) {
+    fileprivate func fetchTitleFromIMDB(_ imdbIdentifier: String, completion: @escaping (_ title: String) -> Void) {
         // TODO: Cache data in database, match like sickbeard shows
         if let title = self.imdbTitleCache[imdbIdentifier] as String! {
             completion(title)
@@ -352,7 +351,7 @@ public class SabNZBdService: Service {
         }
     }
     
-    // MARK - Listeners
+    // MARK: - Listeners
     
     fileprivate func notifyListeners(_ task: @escaping ((_ listener: SabNZBdListener) -> Void)) {
         listeners.forEach { listener in

@@ -91,6 +91,7 @@
 		428CF7331AE199B5007F3E54 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF72A1AE199B5007F3E54 /* QuartzCore.framework */; };
 		428CF7341AE199B5007F3E54 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF72B1AE199B5007F3E54 /* SystemConfiguration.framework */; };
 		428CF7351AE199B5007F3E54 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428CF72C1AE199B5007F3E54 /* UIKit.framework */; };
+		428DAB7F1FE07A5700EEA8F6 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428DAB7E1FE07A5700EEA8F6 /* Array+Extensions.swift */; };
 		428F7E541AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F7E531AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift */; };
 		42967B5C1ABE0B98004AF4AF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */; };
 		429947771C249F7300934B03 /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429947761C249F7300934B03 /* Connector.swift */; };
@@ -527,6 +528,7 @@
 		428CF72A1AE199B5007F3E54 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		428CF72B1AE199B5007F3E54 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		428CF72C1AE199B5007F3E54 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		428DAB7E1FE07A5700EEA8F6 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		428F7E531AFFC3B1001B49D0 /* SabNZBdHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdHistoryViewController.swift; sourceTree = "<group>"; };
 		42967B5B1ABE0B98004AF4AF /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		429947761C249F7300934B03 /* Connector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connector.swift; sourceTree = "<group>"; };
@@ -833,6 +835,7 @@
 				426F5FF01D2AE4880074C06B /* UIImage+Extensions.swift */,
 				426E38561D64FBB9009FC287 /* NSURL+Extensions.swift */,
 				42D9DC951ED78FCF00C8EE36 /* Double+Extensions.swift */,
+				428DAB7E1FE07A5700EEA8F6 /* Array+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1969,6 +1972,7 @@
 				4221ADE01B7BC0B20027C3A0 /* SABQueueItem.swift in Sources */,
 				4221ADE51B7BC0B20027C3A0 /* SabNZBdService.swift in Sources */,
 				4221ADE71B7BC0B20027C3A0 /* SickbeardService.swift in Sources */,
+				428DAB7F1FE07A5700EEA8F6 /* Array+Extensions.swift in Sources */,
 				4221ADE91B7BC0D50027C3A0 /* SwiftyJSON.swift in Sources */,
 				4221ADDA1B7BC0B20027C3A0 /* ServiceListener.swift in Sources */,
 				4221ADDF1B7BC0B20027C3A0 /* SABItem.swift in Sources */,

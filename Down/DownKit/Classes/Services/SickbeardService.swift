@@ -265,7 +265,7 @@ public class SickbeardService: Service {
     
     // MARK: Adding shows
     
-    public func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.Status, completionHandler: @escaping (Bool, SickbeardShow?) -> Void) -> Void {
+    public func addShow(_ show: SickbeardShow, initialState state: SickbeardEpisode.Status, completionHandler: @escaping (Bool, SickbeardShow?) -> Void) {
         SickbeardRequest.addShow(show.tvdbId, state: state, succes: { (_, _) in
             Log.i("Added show \(show.name)")
             self.refreshShowAfterAdd(show) {

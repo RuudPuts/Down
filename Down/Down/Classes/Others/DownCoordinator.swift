@@ -63,13 +63,14 @@ class DownCoordinator {
     // MARK: Functions
     
     class func deeplinkShowDetails(_ show: SickbeardShow) {
-        guard let navigationController = sickbeardNavigationController, let tabBarController = tabBarController else {
+        guard let navigationController = sickbeardNavigationController, let tabBarController = tabBarController,
+            let sickbeardViewController = navigationController.viewControllers.first!,
+            // TODO: Router per storyboard
+            let showsViewController = sickbeardStoryboard.instantiateViewController(withIdentifier: "SickbeardShows") as? SickbeardShowsViewController,
+            let showDetailViewController = sickbeardStoryboard.instantiateViewController(withIdentifier: "SickbeardShowDetails") as? SickbeardShowViewControllerelse {
             return
         }
-        
-        let sickbeardViewController = navigationController.viewControllers.first!
-        let showsViewController = sickbeardStoryboard.instantiateViewController(withIdentifier: "SickbeardShows") as! SickbeardShowsViewController
-        let showDetailViewController = sickbeardStoryboard.instantiateViewController(withIdentifier: "SickbeardShowDetails") as! SickbeardShowViewController
+
         showDetailViewController.show = show
         
         navigationController.setViewControllers([sickbeardViewController, showsViewController, showDetailViewController], animated: false)

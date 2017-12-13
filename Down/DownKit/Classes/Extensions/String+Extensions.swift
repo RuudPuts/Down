@@ -49,6 +49,7 @@ public extension String {
         do {
             let regex = try NSRegularExpression(pattern: regex, options: [])
             let text = self as NSString
+            // swiftlint:disable legacy_constructor
             let results = regex.matches(in: self, options: [], range: NSMakeRange(0, text.length))
             matches = results.map { text.substring(with: $0.range)}
         }
