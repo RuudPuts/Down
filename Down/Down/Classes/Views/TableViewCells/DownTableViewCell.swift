@@ -18,7 +18,7 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
     @IBOutlet weak var textField: UITextField?
     
-    var cellType: DownApplication = .SabNZBd
+    var cellType: DownApplication = .sabNZBd
     var cellColor = UIColor.downSabNZBdColor()
     
     weak var delegate: DownTableViewCellDegate?
@@ -70,13 +70,13 @@ class DownTableViewCell: UITableViewCell, UITextFieldDelegate {
         cellType = type
         
         switch cellType {
-        case .SabNZBd:
+        case .sabNZBd:
             cellColor = .downSabNZBdColor()
-        case .Sickbeard:
+        case .sickbeard:
             cellColor = .downSickbeardColor()
-        case .CouchPotato:
+        case .couchPotato:
             cellColor = .downCouchPotatoColor()
-        case .Down:
+        case .down:
             cellColor = .downRedColor()
         }
     }

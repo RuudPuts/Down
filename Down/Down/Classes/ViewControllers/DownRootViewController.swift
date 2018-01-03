@@ -49,13 +49,13 @@ extension UINavigationController {
         let color: UIColor
         
         switch application {
-        case .SabNZBd:
+        case .sabNZBd:
             color = .downSabNZBdColor()
-        case .Sickbeard:
+        case .sickbeard:
             color = .downSickbeardColor()
-        case .CouchPotato:
+        case .couchPotato:
             color = .downCouchPotatoColor()
-        case .Down:
+        case .down:
             color = .downRedColor()
             
         }

@@ -31,7 +31,7 @@ class ShowsTableViewModel: ShowsViewModel, UITableViewDelegate, UITableViewDataS
         let show = shows[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DownTextCell", for: indexPath) as! DownTextCell
-        cell.setCellType(.Sickbeard)
+        cell.setCellType(.sickbeard)
         cell.label.text = show.name
         
         return cell

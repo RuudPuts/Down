@@ -103,7 +103,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         
         let allShows = DownDatabase.shared.fetchAllSickbeardShows()
         allShows.forEach { show in
-            var sectionTitle = show.nameWithoutPrefix.substring(0 ..< 1).uppercased()
+            var sectionTitle = show.nameWithoutPrefix[0 ..< 1].uppercased()
             if symbolPrefixes.contains(sectionTitle) {
                 sectionTitle = SymbolSectionTitle
             }
@@ -234,7 +234,8 @@ extension SickbeardShow {
         var showName = name
         ["The", "A"].forEach { prefix in
             if showName.hasPrefix(prefix + " ") {
-                showName = showName.substring(from: prefix.length).trimmed
+                let prefixIndex = showName.index(showName.startIndex, offsetBy: prefix.count)
+                showName = String(showName[prefixIndex...]).trimmed
             }
         }
         
@@ -242,7 +243,7 @@ extension SickbeardShow {
     }
     
     var sectionTitle: String {
-        return nameWithoutPrefix.substring(0 ..< 1).uppercased()
+        return nameWithoutPrefix[0 ..< 1].uppercased()
     }
     
 }

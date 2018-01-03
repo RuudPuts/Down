@@ -12,31 +12,31 @@ import Rswift
 extension DownApplication {
     var color: UIColor {
         switch self {
-        case .Down: return UIColor.downRedColor()
+        case .down: return UIColor.downRedColor()
             
-        case .SabNZBd: return .downSabNZBdColor()
-        case .Sickbeard: return .downSickbeardColor()
-        case .CouchPotato: return .downCouchPotatoColor()
+        case .sabNZBd: return .downSabNZBdColor()
+        case .sickbeard: return .downSickbeardColor()
+        case .couchPotato: return .downCouchPotatoColor()
         }
     }
     
     var darkColor: UIColor {
         switch self {
-        case .Down: return UIColor.downRedColor()
+        case .down: return UIColor.downRedColor()
             
-        case .SabNZBd: return .downSabNZBdDarkColor()
-        case .Sickbeard: return .downSickbeardDarkColor()
-        case .CouchPotato: return .downCouchPotatoDarkColor()
+        case .sabNZBd: return .downSabNZBdDarkColor()
+        case .sickbeard: return .downSickbeardDarkColor()
+        case .couchPotato: return .downCouchPotatoDarkColor()
         }
     }
     
     var icon: UIImage? {
         switch self {
-        case .Down: return nil
+        case .down: return nil
             
-        case .SabNZBd: return R.image.sabnzbdIcon()
-        case .Sickbeard: return R.image.sickbeardIcon()
-        case .CouchPotato: return R.image.couchpotatoIcon()
+        case .sabNZBd: return R.image.sabnzbdIcon()
+        case .sickbeard: return R.image.sickbeardIcon()
+        case .couchPotato: return R.image.couchpotatoIcon()
         }
     }
 }

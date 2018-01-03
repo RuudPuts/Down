@@ -71,13 +71,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupTabBarController() {
         let sabNZBdController = DownCoordinator.sabNZBdStoryboard.instantiateInitialViewController()!
-        (sabNZBdController as! UINavigationController).setupForApplication(.SabNZBd)
+        (sabNZBdController as! UINavigationController).setupForApplication(.sabNZBd)
         
         let sickbeardController = DownCoordinator.sickbeardStoryboard.instantiateInitialViewController()!
-        (sickbeardController as! UINavigationController).setupForApplication(.Sickbeard)
+        (sickbeardController as! UINavigationController).setupForApplication(.sickbeard)
         
         let couchPotatoController = DownCoordinator.couchPotatoStoryboard.instantiateInitialViewController()!
-        (couchPotatoController as! UINavigationController).setupForApplication(.CouchPotato)
+        (couchPotatoController as! UINavigationController).setupForApplication(.couchPotato)
         
         let tabBarController = window?.rootViewController as! DownTabBarViewController
         tabBarController.viewControllers = [sabNZBdController, sickbeardController, couchPotatoController]

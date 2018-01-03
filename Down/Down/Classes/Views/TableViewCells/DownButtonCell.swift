@@ -18,7 +18,7 @@ class DownButtonCell: DownIconTextCell {
         buttonView.backgroundColor = type.color
         iconView.image = type.icon
         
-        iconView.verticalCenterConstraint?.constant = type == .SabNZBd ? 2 : 0
+        iconView.verticalCenterConstraint?.constant = type == .sabNZBd ? 2 : 0
     }
     
 }

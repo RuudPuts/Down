@@ -26,14 +26,14 @@ class DownTextCell: DownTableViewCell {
         }
         
         switch type {
-        case .SabNZBd:
+        case .sabNZBd:
             cheveronView.image = R.image.sabnzbdCheveron()
-        case .Sickbeard:
+        case .sickbeard:
             cheveronView.image = R.image.sickbeardCheveron()
-        case .CouchPotato:
+        case .couchPotato:
             // TODO: Create asset
             cheveronView.image = nil// R.image.couchpotatoCheveron()
-        case .Down:
+        case .down:
             // TODO: Create asset
             cheveronView.image = nil // R.image.downCheveron()
         }

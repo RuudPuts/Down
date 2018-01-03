@@ -22,7 +22,7 @@ class DownViewController: UIViewController {
     
     lazy var overlay = DownOverlay.overlay()
     
-    var application = DownApplication.Down
+    var application = DownApplication.down
     
     var serviceManager: ServiceManager {
         return UIApplication.shared.downAppDelegate.serviceManager

@@ -62,7 +62,7 @@ class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayo
         let show = shows[indexPath.row]
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SickbeardShowCell", for: indexPath) as! SickbeardShowCell
-        cell.setCellType(.Sickbeard)
+        cell.setCellType(.sickbeard)
         cell.show = show
         
         cell.posterView.image = R.image.sickbeardDefaultPoster()

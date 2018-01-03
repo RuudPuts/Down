@@ -268,7 +268,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
             }
             else {
                 let loadingCell = tableView.dequeueReusableCell(withIdentifier: "DownActivityCell", for: indexPath) as! DownTableViewCell
-                loadingCell.setCellType(.SabNZBd)
+                loadingCell.setCellType(.sabNZBd)
 
                 loadingCell.label?.text = "Loading..."
                 SabNZBdRequest.ping { reachable in
@@ -282,7 +282,7 @@ class SabNZBdViewController: DownRootViewController, UITableViewDataSource, UITa
         }
         else if isFullHistoryIndexPath(indexPath) {
             let historyCell = tableView.dequeueReusableCell(withIdentifier: "DownTextCell", for: indexPath) as! DownTextCell
-            historyCell.setCellType(.SabNZBd)
+            historyCell.setCellType(.sabNZBd)
             historyCell.label?.text = "Full history"
             cell = historyCell
         }
@@ -366,10 +366,10 @@ extension SabNZBdViewController: DownTabBarItem {
     }
     
     var selectedTabBackground: UIColor {
-        return DownApplication.SabNZBd.color
+        return DownApplication.sabNZBd.color
     }
     
     var deselectedTabBackground: UIColor {
-        return DownApplication.SabNZBd.darkColor
+        return DownApplication.sabNZBd.darkColor
     }
 }

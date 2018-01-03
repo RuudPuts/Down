@@ -110,8 +110,8 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
         let episode = season.episodes.reversed()[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DownTextCell", for: indexPath) as! DownTextCell
-        cell.setCellType(.Sickbeard)
-        cell.label?.text = "\(episode.id). \(episode.name)"
+        cell.setCellType(.sickbeard)
+        cell.label?.text = "\(episode.identifier). \(episode.name)"
         
         cell.colorViewHidden = false
         cell.colorView.backgroundColor = episode.statusColor
@@ -195,7 +195,7 @@ class SickbeardShowViewController: DownDetailViewController, UITableViewDataSour
     func showStateActionSheet(_ message: String, completion: @escaping (_ selectedStatus: SickbeardEpisode.Status) -> Void) {
         let actionSheet = UIAlertController(title: "Set state for", message: message, preferredStyle: .actionSheet)
         
-        let states: [SickbeardEpisode.Status] = [.Wanted, .Skipped, .Archived, .Ignored]
+        let states: [SickbeardEpisode.Status] = [.wanted, .skipped, .archived, .ignored]
         for state in states {
             let action = UIAlertAction(title: state.rawValue, style: .default, handler: { _ in
                 completion(state)

@@ -11,5 +11,5 @@ public enum DownApplication: String {
     
     case sabNZBd
     case sickbeard
-    case souchPotato
+    case couchPotato
 }

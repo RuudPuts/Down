@@ -99,7 +99,7 @@ class SabNZBdHistoryViewController: DownDetailViewController, UITableViewDataSou
         }
         else if indexPath.row == SabNZBdService.shared.history.count && !SabNZBdService.shared.fullHistoryFetched {
             let activityCell = tableView.dequeueReusableCell(withIdentifier: "DownActivityCell", for: indexPath) as! DownTableViewCell
-            activityCell.setCellType(.SabNZBd)
+            activityCell.setCellType(.sabNZBd)
             activityCell.label?.text = "Loading..."
             
             cell = activityCell

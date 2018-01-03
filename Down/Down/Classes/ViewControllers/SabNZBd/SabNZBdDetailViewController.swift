@@ -138,7 +138,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
                 tableData.append(lastSection!)
             }
             
-            if episode.status == .Snatched && sabItem?.status == .failed {
+            if episode.status == .snatched && sabItem?.status == .failed {
                 lastSection = [SabNZBdDetailDataSource]()
                 lastSection!.append(SabNZBdDetailDataSource(rowType: .sickbeardMarkWatched, title: "Set status to wanted"))
                 tableData.append(lastSection!)
@@ -183,7 +183,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             let maxWidth = view.bounds.width - 34
             
             return sabItem!.sickbeardEpisode!.plot.sizeWithFont(font, width: maxWidth).height + 30
-        default:
+        default: break
         }
         
         return tableView.rowHeight
@@ -195,14 +195,14 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         switch rowType(for: indexPath) {
         case .delete:
             let buttonCell = tableView.dequeueReusableCell(withIdentifier: "DownButtonCell") as! DownButtonCell
-            buttonCell.setCellType(.SabNZBd)
+            buttonCell.setCellType(.sabNZBd)
             buttonCell.label.text = cellData(for: indexPath).title
             buttonCell.label.textColor = .downRedColor()
             
             cell = buttonCell
         case .sickbeardMarkWatched:
             let buttonCell = tableView.dequeueReusableCell(withIdentifier: "DownButtonCell") as! DownButtonCell
-            buttonCell.setCellType(.Sickbeard)
+            buttonCell.setCellType(.sickbeard)
             buttonCell.label.text = cellData(for: indexPath).title
             
             cell = buttonCell
@@ -247,10 +247,10 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         case .sickbeardShow:
             detailText = queueItem.sickbeardEpisode!.show?.name
         case .sickbeardEpisode:
-            detailText = "S\(queueItem.sickbeardEpisode!.season!.identifier)E\(queueItem.sickbeardEpisode!.id)"
+            detailText = "S\(queueItem.sickbeardEpisode!.season!.identifier)E\(queueItem.sickbeardEpisode!.identifier)"
         case .sickbeardEpisodeName:
             detailText = queueItem.sickbeardEpisode!.name
-        default:
+        default: break
         }
         cell.detailTextLabel?.text = detailText
         return cell
@@ -288,7 +288,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         case .sickbeardShow:
             detailText = historyItem.sickbeardEpisode!.show?.name
         case .sickbeardEpisode:
-            detailText = "S\(historyItem.sickbeardEpisode!.season!.identifier)E\(historyItem.sickbeardEpisode!.id)"
+            detailText = "S\(historyItem.sickbeardEpisode!.season!.identifier)E\(historyItem.sickbeardEpisode!.identifier)"
         case .sickbeardEpisodeName:
             detailText = historyItem.sickbeardEpisode!.name
         case .sickbeardAirDate:
@@ -298,7 +298,7 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
             else {
                 detailText = "-"
             }
-        default:
+        default: break
         }
         cell.detailTextLabel?.text = detailText
         
@@ -314,11 +314,11 @@ class SabNZBdDetailViewController: DownDetailViewController, UITableViewDataSour
         case .sickbeardShow:
             showDetailsForShow(sabItem!.sickbeardEpisode!.show!)
         case .sickbeardMarkWatched:
-            sabItem?.sickbeardEpisode?.update(.Wanted, completion: { _ in
+            sabItem?.sickbeardEpisode?.update(.wanted, completion: { _ in
                 self.configureTableView()
                 self.tableView?.reloadData()
             })
-        default:
+        default: break
         }
     }
     

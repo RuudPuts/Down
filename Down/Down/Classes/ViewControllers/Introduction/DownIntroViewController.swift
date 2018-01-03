@@ -37,7 +37,6 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
     
     // MARK: - RPPortScannerDelegate
 
-    // swiftlint:disable cyclomatic_complexity
     func portScanner(_ portScanner: RPPortScanner, didFindPort port: Int, onIPAddress ipAddress: String) {
         let url = URL(string: "http://\(ipAddress):\(port)")
         
@@ -80,19 +79,18 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
                     }
                 }
             })
-        case _ where CouchPotatoService.defaultPorts.contains(port):
-//            CouchPotatoConnector().validateHost(host, completion: { hostValid, apiKey in
-//                Log.i("Validated CouchPotato host \(host) - \(hostValid) - \(apiKey)")
-//            })
-            
-        default:
+//        case _ where CouchPotatoService.defaultPorts.contains(port):
+////            CouchPotatoConnector().validateHost(host, completion: { hostValid, apiKey in
+////                Log.i("Validated CouchPotato host \(host) - \(hostValid) - \(apiKey)")
+////            })
+        default: break
         }
     }
     
     func portScannerDidFinish(_ portScanner: RPPortScanner!) {
         UIDevice.hapticFeedback(.doubleTick)
         
-        let settingsViewController = DownSettingsViewController(application: .SabNZBd)
+        let settingsViewController = DownSettingsViewController(application: .sabNZBd)
         settingsViewController.delegate = self
         navigationController?.pushViewController(settingsViewController, animated: true)
     }
@@ -100,8 +98,8 @@ class DownIntroViewController: DownViewController, DownSettingsViewControllerDel
     // MARK: - DownSettingsViewController
     
     func settingsViewControllerDidTapActionButton(_ viewController: DownSettingsViewController) {
-        if viewController.application == .SabNZBd {
-            let settingsViewController = DownSettingsViewController(application: .Sickbeard)
+        if viewController.application == .sabNZBd {
+            let settingsViewController = DownSettingsViewController(application: .sickbeard)
             settingsViewController.delegate = self
             navigationController?.pushViewController(settingsViewController, animated: true)
         }

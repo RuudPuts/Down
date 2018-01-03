@@ -67,7 +67,7 @@ class DownSpinner: UIView {
         progressLayer.frame = bounds
         
         progressLayer.strokeStart = CGFloat()
-        progressLayer.strokeEnd = CGFloat(Double.pi_4 / 80)
+        progressLayer.strokeEnd = CGFloat(Double.pi4 / 80)
         
         progressLayer.removeAllAnimations()
     }
@@ -104,8 +104,8 @@ class DownSpinner: UIView {
     }
     
     private func performStartAnimation() {
-        let startAngle = CGFloat(Double.pi_2 / 40)
-        let endAngle = CGFloat(Double.pi_2 / 10)
+        let startAngle = CGFloat(Double.pi2 / 40)
+        let endAngle = CGFloat(Double.pi2 / 10)
         let duration = self.duration / 1.5
         
         let animation = CABasicAnimation()

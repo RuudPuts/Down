@@ -68,13 +68,13 @@ class DownOverlay: UIView {
     }
     
     func transformAlpha(_ alpha: CGFloat, _ completion: (() -> Void)?) {
-        UIView.animate(withDuration: DefaultTranstionDuration, animations: { 
+        UIView.animate(withDuration: DefaultTranstionDuration, animations: {
             self.alpha = alpha
-        }) completion: { _ in
+        }, completion: { _ in
             if let block = completion {
                 block()
             }
-        }
+        })
     }
 
 }

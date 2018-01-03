@@ -146,7 +146,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
 
             if !dataAvailable {
                 let activityCell = tableView.dequeueReusableCell(withIdentifier: "DownActivityCell", for: indexPath) as! DownTableViewCell
-                activityCell.setCellType(.Sickbeard)
+                activityCell.setCellType(.sickbeard)
                 cell = activityCell
             }
             else if self.tableView(tableView, isSectionEmtpy: (indexPath as NSIndexPath).section) {
@@ -182,7 +182,7 @@ class SickbeardViewController: DownRootViewController, UITableViewDataSource, UI
         }
         else {
             let iconTextCell = tableView.dequeueReusableCell(withIdentifier: "DownIconTextCell", for: indexPath) as! DownIconTextCell
-            iconTextCell.setCellType(.Sickbeard)
+            iconTextCell.setCellType(.sickbeard)
             if (indexPath as NSIndexPath).row == 0 {
                 iconTextCell.label?.text = "All shows"
                 iconTextCell.iconView?.image = R.image.sickbeardAllshows()
@@ -262,10 +262,10 @@ extension SickbeardViewController: DownTabBarItem {
     }
     
     var selectedTabBackground: UIColor {
-        return DownApplication.Sickbeard.color
+        return DownApplication.sickbeard.color
     }
     
     var deselectedTabBackground: UIColor {
-        return DownApplication.Sickbeard.darkColor
+        return DownApplication.sickbeard.darkColor
     }
 }

@@ -13,7 +13,7 @@ class DownCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var label: UILabel!
     
-    var cellType: DownApplication = .SabNZBd
+    var cellType: DownApplication = .sabNZBd
     var cellColor = UIColor.downSabNZBdColor()
     
     override func layoutSubviews() {

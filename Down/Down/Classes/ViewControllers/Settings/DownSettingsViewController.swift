@@ -51,12 +51,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         get {
             var host = ""
             switch application as DownApplication {
-            case .SabNZBd:
+            case .sabNZBd:
                 host = Preferences.sabNZBdHost ?? ""
-            case .Sickbeard:
+            case .sickbeard:
                 host = Preferences.sickbeardHost ?? ""
-            case .CouchPotato:
+            case .couchPotato:
                 host = Preferences.couchPotatoHost
+            default: break
             }
 
             if host.hasPrefix("http://") {
@@ -66,12 +67,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         }
         set {
             switch application as DownApplication {
-            case .SabNZBd:
+            case .sabNZBd:
                 Preferences.sabNZBdHost = newValue
-            case .Sickbeard:
+            case .sickbeard:
                 Preferences.sickbeardHost = newValue
-            case .CouchPotato:
+            case .couchPotato:
                 Preferences.couchPotatoHost = newValue
+            default: break
             }
         }
     }
@@ -79,19 +81,21 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     var apiKeyForApplication: String? {
         get {
             switch application as DownApplication {
-            case .SabNZBd: return Preferences.sabNZBdApiKey
-            case .Sickbeard: return Preferences.sickbeardApiKey
-            case .CouchPotato: return Preferences.couchPotatoApiKey
+            case .sabNZBd: return Preferences.sabNZBdApiKey
+            case .sickbeard: return Preferences.sickbeardApiKey
+            case .couchPotato: return Preferences.couchPotatoApiKey
+            default: return nil
             }
         }
         set {
             switch application as DownApplication {
-            case .SabNZBd:
+            case .sabNZBd:
                 Preferences.sabNZBdApiKey = newValue ?? ""
-            case .Sickbeard:
+            case .sickbeard:
                 Preferences.sickbeardApiKey = newValue ?? ""
-            case .CouchPotato:
+            case .couchPotato:
                 Preferences.couchPotatoApiKey = newValue ?? ""
+            default: break
             }
         }
     }
@@ -101,6 +105,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         case .sabNZBd: return SabNZBdService.shared
         case .sickbeard: return SickbeardService.shared
         case .couchPotato: return CouchPotatoService.shared
+        default: return nil
         }
     }
     
@@ -114,14 +119,13 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     func setupConnector() {
         connector = SabNZBdConnector()
         switch application as DownApplication {
-        case .SabNZBd:
+        case .sabNZBd:
             connector = SabNZBdConnector()
             connector?.host = Preferences.sabNZBdHost
-        case .Sickbeard:
+        case .sickbeard:
             connector = SickbeardConnector()
             connector?.host = Preferences.sickbeardHost
-            
-        default:
+        default: break
         }
         connector?.apiKey = apiKeyForApplication
     }
@@ -144,23 +148,22 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
     
     func applyTheming() {
         switch application as DownApplication {
-        case .SabNZBd:
+        case .sabNZBd:
             headerView.backgroundColor = .downSabNZBdColor()
             headerImageView.image = R.image.sabnzbdIcon()
 //            window.statusBarBackgroundColor = .downSabNZBdDarkColor()
             actionButton.setTitleColor(.downSabNZBdColor(), for: .normal)
-        case .Sickbeard:
+        case .sickbeard:
             headerView.backgroundColor = .downSickbeardColor()
             headerImageView.image = R.image.sickbeardIcon()
 //            window.statusBarBackgroundColor = .downSickbeardDarkColor()
             actionButton.setTitleColor(.downSickbeardColor(), for: .normal)
-        case .CouchPotato:
+        case .couchPotato:
             headerView.backgroundColor = .downCouchPotatoColor()
             headerImageView.image = R.image.couchpotatoIcon()
 //            window.statusBarBackgroundColor = .downCouchPotatoDarkColor()
             actionButton.setTitleColor(.downCouchPotatoColor(), for: .normal)
-            
-        default:
+        default: break
         }
     }
     
@@ -229,8 +232,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
             showIndicator = validatingHost
         case .apiKey:
             showIndicator = fetchingApiKey
-            
-        default:
+        default: break
         }
         
         return showIndicator
@@ -271,8 +273,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
                 cell.textField?.text = hostForApplication
             case .apiKey:
                 cell.textField?.text = apiKeyForApplication
-                
-            default:
+            default: break
             }
             
             cell.textField?.isSecureTextEntry = cellType == .password
@@ -305,8 +306,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
         case .password:
             fetchApiKey()
             // TODO: add case for apikey to verify it
-            
-        default:
+        default: break
         }
         
         reloadCell(cell, forIndexPath: indexPath)
@@ -332,6 +332,7 @@ class DownSettingsViewController: DownViewController, UITableViewDataSource, UIT
                     validatingHost = false
                 case .apiKey:
                     fetchingApiKey = false
+                default: break
                 }
                 
                 reloadCell(row.rowType)

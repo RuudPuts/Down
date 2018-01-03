@@ -152,7 +152,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
             case .season:
                 detailText = episode!.season == nil ? "-" : String(episode!.season!.identifier)
             case .episode:
-                detailText = String(episode!.id)
+                detailText = String(episode!.identifier)
             case .status:
                 detailText = episode!.status.rawValue
                 
@@ -168,7 +168,7 @@ class SickbeardEpisodeViewController: DownDetailViewController, UITableViewDataS
             
             cell = plotCell
         }
-        cell.setCellType(.Sickbeard)
+        cell.setCellType(.sickbeard)
         return cell
     }
     

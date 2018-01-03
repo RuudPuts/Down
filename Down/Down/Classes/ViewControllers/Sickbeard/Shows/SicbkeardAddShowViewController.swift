@@ -18,7 +18,7 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.setupForApplication(.Sickbeard)
+        navigationController?.setupForApplication(.sickbeard)
         navigationItem.rightBarButtonItem = rightBarButton
         
         guard let tableView = tableView else {
@@ -50,7 +50,7 @@ class SicbkeardAddShowViewController: DownDetailViewController, ShowsViewModelDe
     func showAddShowActionSheet(for show: SickbeardShow) {
         let actionSheet = UIAlertController(title: "Add show '\(show.name)'?", message: "Select initial episode state", preferredStyle: .actionSheet)
         
-        let states: [SickbeardEpisode.Status] = [.Wanted, .Skipped, .Archived, .Ignored]
+        let states: [SickbeardEpisode.Status] = [.wanted, .skipped, .archived, .ignored]
         for state in states {
             let action = UIAlertAction(title: state.rawValue, style: .default, handler: { _ in
                 self.addShow(show, initialState: state)
