@@ -16,3 +16,6 @@
 [submodule "R.swift"]
 	path = R.swift
 	url = https://github.com/mac-cain13/R.swift.Library.git
+[submodule "RxSwift"]
+	path = RxSwift
+	url = git@github.com:ReactiveX/RxSwift.git

@@ -8,11 +8,11 @@
 
 import Alamofire
 
-// TODO: Not sure what these do anymore
+// TODO: Not sure what these do anymore, something with date comparison?
 private func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
+  case let (lhs?, rhs?):
+    return lhs < rhs
   case (nil, _?):
     return true
   default:
@@ -22,8 +22,8 @@ private func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 private func > <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
+  case let (lhs?, rhs?):
+    return lhs > rhs
   default:
     return rhs < lhs
   }

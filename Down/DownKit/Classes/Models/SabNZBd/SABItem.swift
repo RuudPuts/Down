@@ -20,11 +20,11 @@ public class SABItem: NSObject {
     
     public var status: SabItemStatus {
         get {
-            let s = SabItemStatus(rawValue: statusString) ?? .unknown
-            if s == .unknown {
+            let status = SabItemStatus(rawValue: statusString) ?? .unknown
+            if status == .unknown {
                 Log.w("Unknown status string: \(statusString)")
             }
-            return s
+            return status
         }
         set {
             statusString = newValue.rawValue

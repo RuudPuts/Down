@@ -20,9 +20,9 @@ public class Service {
     }
     
     public func removeListener(_ listener: ServiceListener) {
-        for i in 0...listeners.count {
-            if listeners[i].isEqualTo(listener) {
-                listeners.remove(at: i)
+        for idx in 0...listeners.count {
+            if listeners[idx].isEqualTo(listener) {
+                listeners.remove(at: idx)
             }
         }
     }

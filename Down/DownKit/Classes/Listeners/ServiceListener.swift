@@ -14,7 +14,7 @@ public protocol ServiceListener {
 
 public extension ServiceListener where Self : Equatable {
     func isEqualTo(_ other: ServiceListener) -> Bool {
-        guard let o = other as? Self else { return false }
-        return self == o
+        guard let other = other as? Self else { return false }
+        return self == other
     }
 }
