@@ -21,7 +21,11 @@ DerivedData
 .DS_Store
 
 # Fastlane
-Down/fastlane/*.mobileprovision
-Down/fastlane/report.xml
+fastlane/*.mobileprovision
+fastlane/report.xml
 
-Down/R.generated.swift
+# Carthage
+Carthage
+
+# R.swift
+R.generated.swift

@@ -13,11 +13,11 @@ import DownKit
 
 class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    let preheater = Preheater()
-    var preheatController: Controller<UICollectionView>!
+//    let preheater = Preheater()
+//    var preheatController: Controller<UICollectionView>!
     
     init(_ collectionView: UICollectionView) {
-        preheatController = Controller(view: collectionView)
+//        preheatController = Controller(view: collectionView)
         super.init()
         
         ["SickbeardShowCell"].forEach {
@@ -25,28 +25,28 @@ class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayo
             collectionView.register(nib, forCellWithReuseIdentifier: $0)
         }
         
-        preheatController.handler = { [weak self] in
-            self?.preheatWindowChanged(addedIndexPaths: $0, removedIndexPaths: $1)
-        }
+//        preheatController.handler = { [weak self] in
+//            self?.preheatWindowChanged(addedIndexPaths: $0, removedIndexPaths: $1)
+//        }
     }
     
     // MARK: - Nuke
     
-    func preheatWindowChanged(addedIndexPaths added: [IndexPath], removedIndexPaths removed: [IndexPath]) {
-        func requestsForIndexPaths(_ indexPaths: [IndexPath]) -> [Request] {
-            var requests = [Request]()
-            indexPaths.forEach {
-                if $0.item < shows.count {
-                    let show = shows[$0.item]
-                    requests.append(show.posterThumbnailRequest)
-                }
-            }
-            
-            return requests
-        }
-        preheater.startPreheating(with: requestsForIndexPaths(added))
-        preheater.stopPreheating(with: requestsForIndexPaths(removed))
-    }
+//    func preheatWindowChanged(addedIndexPaths added: [IndexPath], removedIndexPaths removed: [IndexPath]) {
+//        func requestsForIndexPaths(_ indexPaths: [IndexPath]) -> [Request] {
+//            var requests = [Request]()
+//            indexPaths.forEach {
+//                if $0.item < shows.count {
+//                    let show = shows[$0.item]
+//                    requests.append(show.posterThumbnailRequest)
+//                }
+//            }
+//
+//            return requests
+//        }
+//        preheater.startPreheating(with: requestsForIndexPaths(added))
+//        preheater.stopPreheating(with: requestsForIndexPaths(removed))
+//    }
     
     // MARK: - CollectionView datasource
     
@@ -66,7 +66,7 @@ class ShowsCollectionViewModel: ShowsViewModel, UICollectionViewDelegateFlowLayo
         cell.show = show
         
         cell.posterView.image = R.image.sickbeardDefaultPoster()
-        Manager.shared.loadImage(with: show.posterThumbnailRequest, into: cell.posterView)
+//        Manager.shared.loadImage(with: show.posterThumbnailRequest, into: cell.posterView)
 
         if !show.hasPoster {
             Log.i("Refreshing show '\(show.name)'")

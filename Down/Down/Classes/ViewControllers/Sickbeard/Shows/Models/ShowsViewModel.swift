@@ -41,11 +41,10 @@ extension UIResponder {
     }
 }
 
-extension SickbeardShow {
-    
-    var posterThumbnailRequest: Request {
-        let filePath = UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbId)_thumb.png"
-
-        return Request(url: URL(fileURLWithPath: filePath))
-    }
+extension SickbeardShow {    
+//    var posterThumbnailRequest: Request {
+//        let filePath = UIApplication.documentsDirectory + "/sickbeard/posters/\(tvdbId)_thumb.png"
+//
+//        return Request(url: URL(fileURLWithPath: filePath))
+//    }
 }

@@ -52,7 +52,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         super.viewWillAppear(animated)
         
         SickbeardService.shared.addListener(self)
-        collectionViewModel!.preheatController.enabled = true
+//        collectionViewModel!.preheatController.enabled = true
         
         DispatchQueue.main.async {
             self.reloadCollectionView()
@@ -65,7 +65,7 @@ class SickbeardShowsViewController: DownDetailViewController, ShowsViewModelDele
         SickbeardService.shared.removeListener(self)
         // When you disable preheat controller it removes all preheating
         // index paths and calls its handler
-        collectionViewModel!.preheatController.enabled = false
+//        collectionViewModel!.preheatController.enabled = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

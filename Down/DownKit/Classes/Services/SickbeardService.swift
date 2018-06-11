@@ -8,6 +8,7 @@
 
 import RealmSwift
 import Alamofire
+import SwiftyJSON
 import CoreSpotlight
 
 // swiftlint:disable type_body_length

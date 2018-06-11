@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import SwiftyJSON
 
 public class CouchPotatoService: Service {
     

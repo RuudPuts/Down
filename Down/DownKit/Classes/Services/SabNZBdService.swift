@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import SwiftyJSON
 
 // TODO: Not sure what these do anymore, something with date comparison?
 private func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {

@@ -26,14 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Fabric.with([Crashlytics.self])
-        
-        checkClearCache()
-        serviceManager = ServiceManager()
-
-        setupAppearance()
-        setupTabBarController()
-        setupOnboarding()
+//        Fabric.with([Crashlytics.self])
+//        
+//        checkClearCache()
+//        serviceManager = ServiceManager()
+//
+//        setupAppearance()
+//        setupTabBarController()
+//        setupOnboarding()
         
         return true
     }

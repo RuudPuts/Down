@@ -6,8 +6,8 @@
 //  Copyright © 2016 Ruud Puts. All rights reserved.
 //
 
-import Foundation
 import Alamofire
+import SwiftyJSON
 
 enum RequestError: Int {
     case requestFailed

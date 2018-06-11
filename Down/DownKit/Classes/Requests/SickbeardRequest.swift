@@ -6,7 +6,7 @@
 //  Copyright © 2016 Ruud Puts. All rights reserved.
 //
 
-import Foundation
+import SwiftyJSON
 
 public class SickbeardRequest: DownRequest {
     
