@@ -61,8 +61,6 @@
 		4253E8181AB4B85800EF1254 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253E8151AB4B85800EF1254 /* DownTests.swift */; };
 		4253E8211AB4B8E300EF1254 /* Down.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4253E81B1AB4B8E300EF1254 /* Down.xcdatamodeld */; };
 		4253E8221AB4B8E300EF1254 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4253E81E1AB4B8E300EF1254 /* Images.xcassets */; };
-		4257F7411ED8323D00FBF99A /* Rswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4257F73A1ED831F700FBF99A /* Rswift.framework */; };
-		4257F7421ED8323D00FBF99A /* Rswift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4257F73A1ED831F700FBF99A /* Rswift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4257F7501ED8343000FBF99A /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4257F74F1ED8342F00FBF99A /* R.generated.swift */; };
 		42670EF91ADDAB5E006341EA /* DownTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42670EF81ADDAB5E006341EA /* DownTextCell.xib */; };
 		426918E91E75DDF400C14D02 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426918D71E75DD8800C14D02 /* CoreSpotlight.framework */; };
@@ -176,12 +174,6 @@
 		42DEEB4F1BACCC860061723F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEEB4E1BACCC860061723F /* Constants.swift */; };
 		42E1CCCB1BA22B6200DFED2E /* DownDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42E1CCCA1BA22B6200DFED2E /* DownDetailViewController.xib */; };
 		42E1CCCD1BA22BE600DFED2E /* DownDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E1CCCC1BA22BE600DFED2E /* DownDetailViewController.swift */; };
-		42E97C291BBD9DB60040A979 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16B1BB9EA31000FE7C7 /* Realm.framework */; };
-		42E97C2A1BBD9DB60040A979 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; };
-		42E97C2B1BBD9E130040A979 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16B1BB9EA31000FE7C7 /* Realm.framework */; };
-		42E97C2C1BBD9E130040A979 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16B1BB9EA31000FE7C7 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		42E97C2D1BBD9E130040A979 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; };
-		42E97C2E1BBD9E130040A979 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42F035361AD45BC2001AE5B3 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F035351AD45BC2001AE5B3 /* UIView+Extensions.swift */; };
 		42F79D811E78A78600590B71 /* DownCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F79D801E78A78600590B71 /* DownCoordinator.swift */; };
 		42FD80051D99AF990025CAB8 /* DownSectionIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD7FF51D99AF430025CAB8 /* DownSectionIndexView.swift */; };
@@ -578,11 +570,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				42E97C2C1BBD9E130040A979 /* Realm.framework in Embed Frameworks */,
-				42C2D7501D6A31B1008E195E /* Preheat.framework in Embed Frameworks */,
 				424595291B7933EB009DA699 /* DownKit.framework in Embed Frameworks */,
 				42C2D76C1D6A357E008E195E /* Nuke.framework in Embed Frameworks */,
-				42E97C2E1BBD9E130040A979 /* RealmSwift.framework in Embed Frameworks */,
 				4257F7421ED8323D00FBF99A /* Rswift.framework in Embed Frameworks */,
 				42354FD71D182BA80016B518 /* Alamofire.framework in Embed Frameworks */,
 			);
@@ -654,8 +643,6 @@
 		4253E81E1AB4B8E300EF1254 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4257F7221ED831F700FBF99A /* R.swift.Library.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = R.swift.Library.xcodeproj; path = ../R.swift/R.swift.Library.xcodeproj; sourceTree = "<group>"; };
 		4257F74F1ED8342F00FBF99A /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
-		4258D16B1BB9EA31000FE7C7 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
-		4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		42670EF81ADDAB5E006341EA /* DownTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownTextCell.xib; sourceTree = "<group>"; };
 		426918D71E75DD8800C14D02 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		426918F91E75EDD600C14D02 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -784,8 +771,6 @@
 			files = (
 				426918E91E75DDF400C14D02 /* CoreSpotlight.framework in Frameworks */,
 				426F5FE91D2AE4340074C06B /* UIKit.framework in Frameworks */,
-				42E97C291BBD9DB60040A979 /* Realm.framework in Frameworks */,
-				42E97C2A1BBD9DB60040A979 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,7 +790,6 @@
 				428CF72D1AE199B5007F3E54 /* AudioToolbox.framework in Frameworks */,
 				428CF72E1AE199B5007F3E54 /* CoreMotion.framework in Frameworks */,
 				42C2D74F1D6A31B1008E195E /* Preheat.framework in Frameworks */,
-				42E97C2D1BBD9E130040A979 /* RealmSwift.framework in Frameworks */,
 				4257F7411ED8323D00FBF99A /* Rswift.framework in Frameworks */,
 				428CF72F1AE199B5007F3E54 /* CoreTelephony.framework in Frameworks */,
 				428CF7301AE199B5007F3E54 /* GLKit.framework in Frameworks */,
@@ -819,7 +803,6 @@
 				428CF7351AE199B5007F3E54 /* UIKit.framework in Frameworks */,
 				428CF7231AE1997A007F3E54 /* CoreGraphics.framework in Frameworks */,
 				428CF7211AE19973007F3E54 /* Foundation.framework in Frameworks */,
-				42E97C2B1BBD9E130040A979 /* Realm.framework in Frameworks */,
 				42C2D76B1D6A357E008E195E /* Nuke.framework in Frameworks */,
 				424595281B7933EB009DA699 /* DownKit.framework in Frameworks */,
 				428CF71F1AE1996B007F3E54 /* libc++.dylib in Frameworks */,
@@ -1059,7 +1042,6 @@
 		4221ADD51B7BC0B20027C3A0 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				4258D16A1BB9EA31000FE7C7 /* Realm */,
 				4221ADE81B7BC0D50027C3A0 /* SwiftyJSON.swift */,
 			);
 			path = Dependencies;
@@ -1089,7 +1071,6 @@
 			children = (
 				420D4A011FFD7BD60097ACC9 /* RXSwift.playground */,
 				4221ADB21B7BC0B20027C3A0 /* Classes */,
-				4221ADD51B7BC0B20027C3A0 /* Dependencies */,
 				424595151B7933EB009DA699 /* DownKit.h */,
 				424595171B7933EB009DA699 /* Info.plist */,
 			);
@@ -1253,15 +1234,6 @@
 				4257F7401ED831F700FBF99A /* RswiftTests-tvOS.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		4258D16A1BB9EA31000FE7C7 /* Realm */ = {
-			isa = PBXGroup;
-			children = (
-				4258D16B1BB9EA31000FE7C7 /* Realm.framework */,
-				4258D16C1BB9EA31000FE7C7 /* RealmSwift.framework */,
-			);
-			path = Realm;
 			sourceTree = "<group>";
 		};
 		4269A91E1B850090005A06E3 /* Providers */ = {
