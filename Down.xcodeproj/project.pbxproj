@@ -68,6 +68,8 @@
 		426A799720D1810200797AE5 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A799620D1810200797AE5 /* DownTests.swift */; };
 		42BF4E8520D19CF20088AAF6 /* DvrRequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8420D19CF20088AAF6 /* DvrRequestBuilding.swift */; };
 		42BF4E8720D1A20D0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8620D1A20C0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift */; };
+		42BF4E8A20D1B5990088AAF6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8920D1B5990088AAF6 /* String.swift */; };
+		42BF4E8D20D1B5BC0088AAF6 /* StringSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +180,8 @@
 		426A799820D1810200797AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42BF4E8420D19CF20088AAF6 /* DvrRequestBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuilding.swift; sourceTree = "<group>"; };
 		42BF4E8620D1A20C0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsResponseMapperSpec.swift; sourceTree = "<group>"; };
+		42BF4E8920D1B5990088AAF6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +231,7 @@
 		4221DA2D20D1819F003950CF /* DownKit */ = {
 			isa = PBXGroup;
 			children = (
+				42BF4E8820D1B58E0088AAF6 /* Extensions */,
 				4221DA6720D18450003950CF /* Applications */,
 				4221DA7E20D18450003950CF /* DataStoring.swift */,
 				4221DA7720D18450003950CF /* Networking */,
@@ -239,6 +244,7 @@
 		4221DA3A20D1819F003950CF /* DownKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				42BF4E8B20D1B5B10088AAF6 /* Extensions */,
 				4221DAB320D1860E003950CF /* Applications */,
 				4221DAA320D1860D003950CF /* Mocks */,
 				4221DAAD20D1860D003950CF /* Networking */,
@@ -556,6 +562,22 @@
 			path = DownTests;
 			sourceTree = "<group>";
 		};
+		42BF4E8820D1B58E0088AAF6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				42BF4E8920D1B5990088AAF6 /* String.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		42BF4E8B20D1B5B10088AAF6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -817,6 +839,7 @@
 				4221DA9920D18450003950CF /* ResponseMapper.swift in Sources */,
 				4221DA8D20D18450003950CF /* Application.swift in Sources */,
 				4221DA8420D18450003950CF /* RequestGateway.swift in Sources */,
+				42BF4E8A20D1B5990088AAF6 /* String.swift in Sources */,
 				4221DAA220D184F9003950CF /* DvrGatewayConfigurationFactory.swift in Sources */,
 				4221DA9420D18450003950CF /* DvrResponseMapper.swift in Sources */,
 				4221DA8720D18450003950CF /* DvrRequestGateway.swift in Sources */,
@@ -857,6 +880,7 @@
 				4221DAC120D1860E003950CF /* DvrShowsResponseMapperSpec.swift in Sources */,
 				4221DABB20D1860E003950CF /* ResponseParserMock.swift in Sources */,
 				4221DABD20D1860E003950CF /* DataStoragingMock.swift in Sources */,
+				42BF4E8D20D1B5BC0088AAF6 /* StringSpec.swift in Sources */,
 				4221DABA20D1860E003950CF /* ResponseMapperMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
