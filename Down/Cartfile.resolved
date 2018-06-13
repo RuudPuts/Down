@@ -1,6 +1,0 @@
-github "Alamofire/Alamofire" "4.7.2"
-github "SwiftyJSON/SwiftyJSON" "4.1.0"
-github "kean/Nuke" "7.1"
-github "kean/Preheat" "4.0"
-github "mac-cain13/R.swift.Library" "v4.0.0"
-github "realm/realm-cocoa" "v3.7.1"
