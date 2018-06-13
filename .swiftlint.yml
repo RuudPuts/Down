@@ -1,0 +1,9 @@
+statement_position:
+  statement_mode: uncuddled_else
+disabled_rules:
+- identifier_name
+- line_length
+- trailing_whitespace
+- nesting
+excluded:
+- Carthage

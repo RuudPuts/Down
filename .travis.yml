@@ -1,0 +1,30 @@
+language: swift
+os: osx
+osx_image: xcode9.3
+cache:
+  directories:
+  - Carthage
+env:
+  global:
+  - LC_CTYPE=en_US.UTF-8
+  - LANG=en_US.UTF-8
+  - PROJECT=Down.xcodeproj
+  - SCHEME=Down
+  - CC_TEST_REPORTER_ID=04548beaf32a4196bf59e690b79b2d1f6e0ee997d867495b987e1b40ecb21887
+  matrix:
+    - DESTINATION="OS=11.3,name=iPhone X"
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+  - whoami
+before_install:
+  - gem install activesupport -N
+  - gem install slather --no-rdoc
+  - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
+script:
+  - set -o pipefail
+  - xcodebuild clean test -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" | xcpretty
+after_script:
+  - slather
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
