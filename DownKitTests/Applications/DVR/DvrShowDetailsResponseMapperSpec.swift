@@ -1,5 +1,5 @@
 //
-//  DvrShowDetailsResponseMapperSpec.swift
+//  DvrShowsResponseMapperSpec.swift
 //  DownKitTests
 //
 //  Created by Ruud Puts on 28/05/2018.
@@ -10,15 +10,15 @@
 import Quick
 import Nimble
 
-class DvrShowDetailsResponseMapperSpec: QuickSpec {
+class DvrShowsResponseMapperSpec: QuickSpec {
     override func spec() {
-        describe("DvrShowDetailsResponseMapper") {
-            var sut: DvrShowDetailsResponseMapper!
+        describe("DvrShowsResponseMapper") {
+            var sut: DvrShowsResponseMapper!
             var mockParser: DvrResponseParserMock!
             
             beforeEach {
                 mockParser = DvrResponseParserMock()
-                sut = DvrShowDetailsResponseMapper(parser: mockParser)
+                sut = DvrShowsResponseMapper(parser: mockParser)
             }
             
             afterEach {
@@ -39,7 +39,7 @@ class DvrShowDetailsResponseMapperSpec: QuickSpec {
                 }
                 
                 it("parses data storage") {
-                    expect(mockParser.captures.parseShow?.storage) === DataStoring
+                    expect(mockParser.captures.parseShows?.storage) === DataStoring
                 }
             }
         }

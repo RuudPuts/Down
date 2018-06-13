@@ -50,7 +50,7 @@
 		4221DABA20D1860E003950CF /* ResponseMapperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAA620D1860D003950CF /* ResponseMapperMock.swift */; };
 		4221DABB20D1860E003950CF /* ResponseParserMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAA720D1860D003950CF /* ResponseParserMock.swift */; };
 		4221DABC20D1860E003950CF /* DvrResponseParserMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAAB20D1860D003950CF /* DvrResponseParserMock.swift */; };
-		4221DABD20D1860E003950CF /* DataStoragingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAAC20D1860D003950CF /* DataStoragingSpec.swift */; };
+		4221DABD20D1860E003950CF /* DataStoragingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAAC20D1860D003950CF /* DataStoragingMock.swift */; };
 		4221DABF20D1860E003950CF /* RequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAB020D1860D003950CF /* RequestSpec.swift */; };
 		4221DAC020D1860E003950CF /* GatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAB220D1860D003950CF /* GatewaySpec.swift */; };
 		4221DAC120D1860E003950CF /* DvrShowsResponseMapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAB520D1860E003950CF /* DvrShowsResponseMapperSpec.swift */; };
@@ -67,6 +67,7 @@
 		426A798220D1810100797AE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A798120D1810100797AE5 /* AppDelegate.swift */; };
 		426A799720D1810200797AE5 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A799620D1810200797AE5 /* DownTests.swift */; };
 		42BF4E8520D19CF20088AAF6 /* DvrRequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8420D19CF20088AAF6 /* DvrRequestBuilding.swift */; };
+		42BF4E8720D1A20D0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8620D1A20C0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,7 +160,7 @@
 		4221DAA620D1860D003950CF /* ResponseMapperMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseMapperMock.swift; sourceTree = "<group>"; };
 		4221DAA720D1860D003950CF /* ResponseParserMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseParserMock.swift; sourceTree = "<group>"; };
 		4221DAAB20D1860D003950CF /* DvrResponseParserMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrResponseParserMock.swift; sourceTree = "<group>"; };
-		4221DAAC20D1860D003950CF /* DataStoragingSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStoragingSpec.swift; sourceTree = "<group>"; };
+		4221DAAC20D1860D003950CF /* DataStoragingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStoragingMock.swift; sourceTree = "<group>"; };
 		4221DAB020D1860D003950CF /* RequestSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestSpec.swift; sourceTree = "<group>"; };
 		4221DAB220D1860D003950CF /* GatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewaySpec.swift; sourceTree = "<group>"; };
 		4221DAB520D1860E003950CF /* DvrShowsResponseMapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrShowsResponseMapperSpec.swift; sourceTree = "<group>"; };
@@ -176,6 +177,7 @@
 		426A799620D1810200797AE5 /* DownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownTests.swift; sourceTree = "<group>"; };
 		426A799820D1810200797AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42BF4E8420D19CF20088AAF6 /* DvrRequestBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuilding.swift; sourceTree = "<group>"; };
+		42BF4E8620D1A20C0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsResponseMapperSpec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,7 +240,6 @@
 			isa = PBXGroup;
 			children = (
 				4221DAB320D1860E003950CF /* Applications */,
-				4221DAAC20D1860D003950CF /* DataStoragingSpec.swift */,
 				4221DAA320D1860D003950CF /* Mocks */,
 				4221DAAD20D1860D003950CF /* Networking */,
 				4221DA3D20D1819F003950CF /* Info.plist */,
@@ -390,8 +391,9 @@
 		4221DAA320D1860D003950CF /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				4221DAA420D1860D003950CF /* Networking */,
 				4221DAA820D1860D003950CF /* Applications */,
+				4221DAA420D1860D003950CF /* Networking */,
+				4221DAAC20D1860D003950CF /* DataStoragingMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -473,6 +475,7 @@
 		4221DAB420D1860E003950CF /* DVR */ = {
 			isa = PBXGroup;
 			children = (
+				42BF4E8620D1A20C0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift */,
 				4221DAB520D1860E003950CF /* DvrShowsResponseMapperSpec.swift */,
 				4221DAB620D1860E003950CF /* Implementations */,
 			);
@@ -850,9 +853,10 @@
 				4221DABC20D1860E003950CF /* DvrResponseParserMock.swift in Sources */,
 				4221DAC020D1860E003950CF /* GatewaySpec.swift in Sources */,
 				4221DABF20D1860E003950CF /* RequestSpec.swift in Sources */,
+				42BF4E8720D1A20D0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift in Sources */,
 				4221DAC120D1860E003950CF /* DvrShowsResponseMapperSpec.swift in Sources */,
 				4221DABB20D1860E003950CF /* ResponseParserMock.swift in Sources */,
-				4221DABD20D1860E003950CF /* DataStoragingSpec.swift in Sources */,
+				4221DABD20D1860E003950CF /* DataStoragingMock.swift in Sources */,
 				4221DABA20D1860E003950CF /* ResponseMapperMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
