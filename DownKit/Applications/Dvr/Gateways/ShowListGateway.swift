@@ -8,15 +8,15 @@
 
 import RxSwift
 
-class ShowListGateway: DvrRequestGateway, GetGateway {
-    typealias Config = DvrGatewayConfiguration<DvrShowsResponseMapper>
+public class ShowListGateway: DvrRequestGateway, GetGateway {
+    public typealias Config = DvrGatewayConfiguration<DvrShowsResponseMapper>
     
-    var config: Config
-    init(config: Config) {
+    public var config: Config
+    public required init(config: Config) {
         self.config = config
     }
     
-    func get() throws -> Observable<[DvrShow]> {
+    public func get() throws -> Observable<[DvrShow]> {
         guard let request = dvrRequestBuilder.make(for: DvrApplicationCall.showList) else {
             throw RequestPreparationError.notSupportedError("List call not supported by \(application.name)")
         }

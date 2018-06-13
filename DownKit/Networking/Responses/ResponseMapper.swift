@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-protocol ResponseMapper {
+public protocol ResponseMapper {
     associatedtype ResultType
     
     var parser: ResponseParser { get set }

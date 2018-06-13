@@ -8,21 +8,21 @@
 
 import Foundation
 
-struct Request {
+public struct Request {
     var method: Method
     var url: String
     var parameters: [String: String]?
 
-    enum Method: String {
+    public enum Method: String {
         case get
         case post
         case put
         case delete
     }
     
-    struct Response: DataStoring {
+    public struct Response: DataStoring {
+        public var data: Data?
         var statusCode: Int
-        var data: Data?
         var headers: [AnyHashable: Any]
     }
     

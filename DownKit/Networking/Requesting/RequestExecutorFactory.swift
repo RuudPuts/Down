@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-protocol RequestExecutorProducing {
+public protocol RequestExecutorProducing {
     func make(for: Request) -> RequestExecuting
 }
 

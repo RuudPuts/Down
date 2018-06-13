@@ -8,10 +8,10 @@
 
 import Foundation
 
-protocol DataStoring {
+public protocol DataStoring {
     var data: Data? { get }
 }
 
-protocol DataStoringDecoder {
+protocol DataStoringDecoding {
     func decode(storage: DataStoring)
 }

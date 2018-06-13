@@ -12,7 +12,7 @@ enum RequestPreparationError: Error {
     case notSupportedError(String)
 }
 
-protocol RequestGateway {
+public protocol RequestGateway {
     associatedtype Config: RequestGatewayConfigurating
     
     var config: Config { get }
@@ -36,19 +36,22 @@ extension RequestGateway {
     }
 }
 
-protocol GetGateway {
+public protocol GetGateway {
     associatedtype ResultType
     func get() throws -> Observable<ResultType>
 }
-protocol PostGateway {
+
+public protocol PostGateway {
     associatedtype ResultType
     func post() throws -> Observable<ResultType>
 }
-protocol PutGateway {
+
+public protocol PutGateway {
     associatedtype ResultType
     func put() throws -> Observable<ResultType>
 }
-protocol DeleteGateway {
+
+public protocol DeleteGateway {
     associatedtype ResultType
     func delete() throws -> Observable<ResultType>
 }

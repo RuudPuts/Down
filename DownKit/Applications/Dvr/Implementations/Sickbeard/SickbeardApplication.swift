@@ -6,24 +6,24 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-class SickbeardAplication: DvrApplication {
-    var name: String = "Sickbeard"
-    var host: String
-    var apiKey: String
+public class SickbeardAplication: DvrApplication {
+    public var name: String = "Sickbeard"
+    public var host: String
+    public var apiKey: String
     
-    var requestBuilder: RequestBuilding { return dvrRequestBuilder }
-    var responseParser: ResponseParser { return dvrResponseParser }
+    public var requestBuilder: RequestBuilding { return dvrRequestBuilder }
+    public var responseParser: ResponseParser { return dvrResponseParser }
     
-    required init(host: String, apiKey: String) {
+    public required init(host: String, apiKey: String) {
         self.host = host
         self.apiKey = apiKey
     }
     
-    var dvrRequestBuilder: DvrRequestBuilding {
+    public var dvrRequestBuilder: DvrRequestBuilding {
         return SickbeardRequestBuilder(application: self)
     }
     
-    var dvrResponseParser: DvrResponseParser {
+    public var dvrResponseParser: DvrResponseParser {
         return SickbeardResponseParser()
     }
 }

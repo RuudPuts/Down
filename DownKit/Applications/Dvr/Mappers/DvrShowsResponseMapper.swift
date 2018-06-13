@@ -6,16 +6,16 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-final class DvrShowsResponseMapper: DvrResponseMapper {
-    typealias ResultType = [DvrShow]
+public final class DvrShowsResponseMapper: DvrResponseMapper {
+    public typealias ResultType = [DvrShow]
     
-    var parser: ResponseParser
+    public var parser: ResponseParser
     
-    init(parser: ResponseParser) {
+    public init(parser: ResponseParser) {
         self.parser = parser
     }
     
-    func map(storage: DataStoring) -> ResultType {
+    public func map(storage: DataStoring) -> ResultType {
         return dvrParser.parseShows(from: storage)
     }
 }

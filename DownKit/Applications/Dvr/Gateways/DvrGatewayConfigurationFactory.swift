@@ -6,21 +6,21 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-protocol DvrGatewayProducing {
+public protocol DvrGatewayProducing {
     var application: DvrApplication { get }
     init(application: DvrApplication)
     
     func make<Mapper: DvrResponseMapper>() -> DvrGatewayConfiguration<Mapper>
 }
 
-class DvrGatewayConfigurationFactory: DvrGatewayProducing {
-    var application: DvrApplication
+public class DvrGatewayConfigurationFactory: DvrGatewayProducing {
+    public var application: DvrApplication
     
-    required init(application: DvrApplication) {
+    public required init(application: DvrApplication) {
         self.application = application
     }
     
-    func make<Mapper: DvrResponseMapper>() -> DvrGatewayConfiguration<Mapper> {
+    public func make<Mapper: DvrResponseMapper>() -> DvrGatewayConfiguration<Mapper> {
         return DvrGatewayConfiguration<Mapper>(
             application: application,
             responseMapper: Mapper(parser: application.responseParser)

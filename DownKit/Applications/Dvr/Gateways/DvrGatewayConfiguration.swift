@@ -6,10 +6,10 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-struct DvrGatewayConfiguration<Mapper: ResponseMapper>: RequestGatewayConfigurating {
-    var application: ApiApplication
-    var requestExecutorFactory: RequestExecutorProducing
-    var responseMapper: Mapper
+public struct DvrGatewayConfiguration<Mapper: ResponseMapper>: RequestGatewayConfigurating {
+    public var application: ApiApplication
+    public var requestExecutorFactory: RequestExecutorProducing
+    public var responseMapper: Mapper
     
     init(application: ApiApplication,
          responseMapper: Mapper,

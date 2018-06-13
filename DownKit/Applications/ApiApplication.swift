@@ -8,7 +8,7 @@
 
 protocol ApiCall { }
 
-protocol ApiApplication: Application {
+public protocol ApiApplication: Application {
     var host: String { get }
     var apiKey: String { get }
     

@@ -6,12 +6,12 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-protocol DvrApplication: ApiApplication {
-    var dvrRequestBuilder: DvrRequestBuilding { get }
+public protocol DvrApplication: ApiApplication {
     var dvrResponseParser: DvrResponseParser { get }
+    var dvrRequestBuilder: DvrRequestBuilding { get }
 }
 
-enum DvrApplicationCall: ApiCall {
+public enum DvrApplicationCall: ApiCall {
     case showList
     case showDetails(DvrShow)
 }

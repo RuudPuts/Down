@@ -6,4 +6,4 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-protocol ResponseParser { }
+public protocol ResponseParser { }

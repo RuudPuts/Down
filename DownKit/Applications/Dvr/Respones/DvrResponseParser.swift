@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-protocol DvrResponseParser: ResponseParser {
+public protocol DvrResponseParser: ResponseParser {
     func parseShows(from storage: DataStoring) -> [DvrShow]
     func parseShow(from storage: DataStoring) -> DvrShow
 }

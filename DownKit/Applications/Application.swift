@@ -6,6 +6,6 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-protocol Application {
+public protocol Application {
     var name: String { get }
 }

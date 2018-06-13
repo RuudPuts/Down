@@ -9,7 +9,7 @@
 import RxSwift
 import RxCocoa
 
-protocol RequestExecuting {
+public protocol RequestExecuting {
     var request: Request { get }
     
     func execute() -> Observable<Request.Response>
@@ -65,7 +65,7 @@ extension RequestExecutorInternals {
                 return
             }
             
-            observer.onNext(Request.Response(statusCode: httpResponse.statusCode, data: data, headers: httpResponse.allHeaderFields))
+            observer.onNext(Request.Response(data: data, statusCode: httpResponse.statusCode, headers: httpResponse.allHeaderFields))
             }.resume()
     }
 }

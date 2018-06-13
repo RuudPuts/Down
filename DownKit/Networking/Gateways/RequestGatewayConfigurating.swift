@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-protocol RequestGatewayConfigurating {
+public protocol RequestGatewayConfigurating {
     associatedtype Mapper: ResponseMapper
     
     var application: ApiApplication { get }

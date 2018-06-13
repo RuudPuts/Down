@@ -12,19 +12,19 @@ import RxCocoa
 import UIKit
 
 class ViewController: UITableViewController & Routing {
-//    let application: DvrApplication
-//    let configFactory: DvrGatewayConfigurationFactory
-//    let gateway: ShowListGateway
+    let application: DvrApplication
+    let configFactory: DvrGatewayConfigurationFactory
+    let gateway: ShowListGateway
     var router: Router?
     
     let disposeBag = DisposeBag()
     
-//    var shows = Variable<[DvrShow]>([])
+    var shows = Variable<[DvrShow]>([])
     
     required init?(coder aDecoder: NSCoder) {
-//        application = RXRequest.dvrApplication
-//        configFactory = DvrGatewayConfigurationFactory(application: application)
-//        gateway = ShowListGateway(config: configFactory.make())
+        application = RXRequest.dvrApplication
+        configFactory = DvrGatewayConfigurationFactory(application: application)
+        gateway = ShowListGateway(config: configFactory.make())
         
         super.init(style: .grouped)
         title = "Show list"
@@ -34,29 +34,29 @@ class ViewController: UITableViewController & Routing {
         super.viewDidLoad()
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-//        tableView.rx.modelSelected(DvrShow.self)
-//            .subscribe(onNext: {
-//                self.router?.showDetail(of: $0)
-//            })
-//            .disposed(by: disposeBag)
+        tableView.rx.modelSelected(DvrShow.self)
+            .subscribe(onNext: {
+                self.router?.showDetail(of: $0)
+            })
+            .disposed(by: disposeBag)
         
         loadData()
     }
     
     func loadData() {
-//        do {
-//            try gateway
-//                .get()
-//                .do(onError: { (error) in
-//                    print("ErrorVC: \(error)")
-//                })
-//                .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
-//                    cell.textLabel?.text = show.name
-//                }
-//                .disposed(by: disposeBag)
-//        }
-//        catch {
-//            NSLog("Error while executing ShowListGateway: \(error)")
-//        }
+        do {
+            try gateway
+                .get()
+                .do(onError: { (error) in
+                    print("ErrorVC: \(error)")
+                })
+                .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
+                    cell.textLabel?.text = show.name
+                }
+                .disposed(by: disposeBag)
+        }
+        catch {
+            NSLog("Error while executing ShowListGateway: \(error)")
+        }
     }
 }

@@ -47,12 +47,12 @@ class Router {
         return rxViewController
     }
     
-//    func showDetail(of show: DvrShow) {
-//        guard let viewController = makeViewController(.detail) as? DetailViewController else {
-//            return
-//        }
-//        
-//        viewController.show = show
-//        navigationController?.pushViewController(viewController, animated: true)
-//    }
+    func showDetail(of show: DvrShow) {
+        guard let viewController = makeViewController(.detail) as? DetailViewController else {
+            return
+        }
+        
+        viewController.show = show
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }

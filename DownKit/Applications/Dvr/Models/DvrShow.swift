@@ -6,25 +6,25 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-struct DvrShow {
-    let identifier: String
-    let name: String
-    var quality: String
-    var seasons: [DvrSeason]?
+public struct DvrShow {
+    public let identifier: String
+    public let name: String
+    public var quality: String
+    public var seasons: [DvrSeason]?
     
-    init(identifier: String, name: String, quality: String) {
+    public init(identifier: String, name: String, quality: String) {
         self.identifier = identifier
         self.name = name
         self.quality = quality
     }
 }
 
-struct DvrSeason {
+public struct DvrSeason {
     let identifier: String
     let episodes: [DvrEpisode]
 }
 
-struct DvrEpisode {
+public struct DvrEpisode {
     let identifier: String
     let name: String
     let airdate: String
