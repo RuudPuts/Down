@@ -8,8 +8,8 @@
 
 public struct DvrGatewayConfiguration<Mapper: ResponseMapper>: RequestGatewayConfigurating {
     public var application: ApiApplication
-    public var requestExecutorFactory: RequestExecutorProducing
     public var responseMapper: Mapper
+    public var requestExecutorFactory: RequestExecutorProducing
     
     init(application: ApiApplication,
          responseMapper: Mapper,

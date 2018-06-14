@@ -8,5 +8,5 @@
 
 public protocol DvrResponseParser: ResponseParser {
     func parseShows(from storage: DataStoring) -> [DvrShow]
-    func parseShow(from storage: DataStoring) -> DvrShow
+    func parseShowDetails(from storage: DataStoring) -> DvrShow
 }

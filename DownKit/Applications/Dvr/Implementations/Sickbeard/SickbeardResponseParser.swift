@@ -32,7 +32,7 @@ class SickbeardResponseParser: DvrResponseParser {
             ?? []
     }
     
-    func parseShow(from storage: DataStoring) -> DvrShow {
+    func parseShowDetails(from storage: DataStoring) -> DvrShow {
         let parsedStorage = parse(storage)
         
         guard var showData = parsedStorage.data?["show"]["data"],
@@ -55,16 +55,16 @@ class SickbeardResponseParser: DvrResponseParser {
     }
 }
 
-extension SickbeardResponseParser {
-    private func makeShow(from json: JSON) -> DvrShow {
+private extension SickbeardResponseParser {
+    func makeShow(from json: JSON) -> DvrShow {
         return DvrShow(
             identifier: json["id"].string ?? "",
             name: json["show_name"].string ?? "",
-            quality: json["show"]["data"]["quality"].string ?? ""
+            quality: json["quality"].string ?? ""
         )
     }
     
-    private func parseEpisodes(from json: JSON) -> [DvrEpisode] {
+    func parseEpisodes(from json: JSON) -> [DvrEpisode] {
         return json.dictionary?.map {
             DvrEpisode(
                 identifier: $0,
@@ -78,7 +78,7 @@ extension SickbeardResponseParser {
 }
 
 extension SickbeardResponseParser {
-    private func parse(_ storage: DataStoring) -> ParsedStorage<JSON> {
+    func parse(_ storage: DataStoring) -> ParsedStorage<JSON> {
         guard let data = storage.data else {
             return ParsedStorage.empty
         }

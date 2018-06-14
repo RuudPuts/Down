@@ -9,29 +9,26 @@
 import Foundation
 
 internal extension String {
-    func inject(parameters: [String: Any]) -> String {
-        guard let regex = try? NSRegularExpression(pattern: "\\{(\\w{1,})\\}") else {
-            return self
-        }
+    func inject(parameters: [String: Any]?) -> String {
+        var result = self
         
-        var string = self
-        let matches = regex.matches(in: string, range: NSRange(location: 0, length: string.count))
-        
-        matches.reversed().forEach { result in
-            let fullRange = Range(result.range, in: string)!
-            let fullMatch = String(string[fullRange])
+        try! NSRegularExpression(pattern: "\\{(\\w{1,})\\}")
+            .matches(in: result, range: NSRange(location: 0, length: result.count))
+            .reversed().forEach { match in
+            let fullRange = Range(match.range, in: result)!
+            let fullMatch = String(result[fullRange])
             
-            let keyRange = Range(result.range(at: 1), in: string)!
-            let key = String(string[keyRange])
+            let keyRange = Range(match.range(at: 1), in: result)!
+            let key = String(result[keyRange])
             
-            if let value = parameters[key] {
-                string = string.replacingOccurrences(of: fullMatch, with: "\(value)")
+            if let value = parameters?[key] {
+                result = result.replacingOccurrences(of: fullMatch, with: "\(value)")
             }
             else {
                 print("No value passed for '\(key)' parameter")
             }
         }
         
-        return string
+        return result
     }
 }

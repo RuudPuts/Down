@@ -33,6 +33,12 @@ class ResponseMapperMock<Type>: ResponseMapper {
     var stubs = Stubs()
     var captures = Captures()
     
+    convenience init() {
+        self.init(parser: ResponseParserMock())
+    }
+    
+    // ResponseMapper
+    
     typealias ResponseType = Type
     var parser: ResponseParser
     

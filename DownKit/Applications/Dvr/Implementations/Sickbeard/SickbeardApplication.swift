@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public class SickbeardAplication: DvrApplication {
+public class SickbeardApplication: DvrApplication {
     public var name: String = "Sickbeard"
     public var host: String
     public var apiKey: String

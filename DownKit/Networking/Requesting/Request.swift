@@ -11,7 +11,6 @@ import Foundation
 public struct Request {
     var method: Method
     var url: String
-    var parameters: [String: String]?
 
     public enum Method: String {
         case get
@@ -27,9 +26,8 @@ public struct Request {
     }
     
     init(url: String, method: Method, parameters: [String: String]?) {
-        self.url = url
+        self.url = url.inject(parameters: parameters)
         self.method = method
-        self.parameters = parameters
     }
     
     init(host: String, path: String, method: Method, defaultParameters: [String: String]?, parameters: [String: String]?) {
@@ -38,7 +36,6 @@ public struct Request {
         
         self.url = "\(host)/\(path)".inject(parameters: allParameters)
         self.method = method
-        self.parameters = allParameters.count > 0 ? allParameters : nil
     }
 }
 
@@ -52,5 +49,11 @@ extension Request {
         request.httpMethod = self.method.rawValue
 
         return request
+    }
+}
+
+extension Request: Equatable {
+    public static func == (lhs: Request, rhs: Request) -> Bool {
+        return lhs.url == rhs.url && lhs.method == rhs.method
     }
 }

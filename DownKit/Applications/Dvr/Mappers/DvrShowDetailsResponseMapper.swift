@@ -16,6 +16,6 @@ public final class DvrShowDetailsResponseMapper: DvrResponseMapper {
     }
     
     public func map(storage: DataStoring) -> ResultType {
-        return dvrParser.parseShow(from: storage)
+        return dvrParser.parseShowDetails(from: storage)
     }
 }
