@@ -27,5 +27,4 @@ script:
   - xcodebuild clean test -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" | xcpretty
 after_script:
   - slather
-  - echo $TRAVIS_TEST_RESULT
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
