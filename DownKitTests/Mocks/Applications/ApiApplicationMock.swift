@@ -31,6 +31,9 @@ class ApiApplicationMock: ApiApplication {
     
     convenience init() {
         self.init(host: "ApiHost", apiKey: "ApiKey")
+        
+        stubs.host = host
+        stubs.apiKey = apiKey
     }
     
     // ApiApplication

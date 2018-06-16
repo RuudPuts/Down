@@ -15,13 +15,13 @@ public protocol DvrRequestBuilding: RequestBuilding {
     func parameters(for apiCall: DvrApplicationCall) -> [String: String]?
     func method(for apiCall: DvrApplicationCall) -> Request.Method
     
-    func make(for apiCall: DvrApplicationCall) -> Request?
+    func make(for apiCall: DvrApplicationCall) throws -> Request
 }
 
 extension DvrRequestBuilding {
-    func make(for apiCall: DvrApplicationCall) -> Request? {
+    func make(for apiCall: DvrApplicationCall) throws -> Request {
         guard let path = path(for: apiCall) else {
-            return nil
+            throw RequestBuildingError.notSupportedError("\(apiCall) call not supported by \(application.name)")
         }
         
         return Request(host: application.host, path: path,

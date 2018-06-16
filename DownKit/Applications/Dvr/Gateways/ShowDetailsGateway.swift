@@ -20,16 +20,10 @@ public class ShowDetailsGateway: DvrRequestGateway, GetGateway {
     }
     
     public func get() throws -> Observable<DvrShow> {
-        guard let request = dvrRequestBuilder.make(for: DvrApplicationCall.showDetails(show)) else {
-            throw RequestPreparationError.notSupportedError("List call not supported by \(application.name)")
-        }
+        let request = try dvrRequestBuilder.make(for: .showDetails(show))
 
-        return config
-            .requestExecutorFactory.make(for: request)
+        return requestExecutorFactory.make(for: request)
             .execute()
-            .do(onError: { error in
-                print("Error: \(error)")
-            })
             .map { self.responseMapper.map(storage: $0) }
     }
 }

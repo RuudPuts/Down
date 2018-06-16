@@ -10,22 +10,18 @@
 
 class ResponseMapperMock<Type>: ResponseMapper {
     struct Stubs {
-        var mapStorage: MapStorage?
-        
-        struct MapStorage {
-            let returnValue: ResponseType
-        }
+        var map: ResponseType?
     }
     
     struct Captures {
         var `init`: Init?
-        var mapStorage: MapStorage?
+        var map: Map?
         
         struct Init {
             let parser: ResponseParser
         }
         
-        struct MapStorage {
+        struct Map {
             let storage: DataStoring
         }
     }
@@ -48,7 +44,7 @@ class ResponseMapperMock<Type>: ResponseMapper {
     }
     
     func map(storage: DataStoring) -> ResponseType {
-        captures.mapStorage = Captures.MapStorage(storage: storage)
-        return stubs.mapStorage!.returnValue
+        captures.map = Captures.Map(storage: storage)
+        return stubs.map!
     }
 }

@@ -60,9 +60,11 @@
 		4221DACF20D1866F003950CF /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DAC520D18666003950CF /* RxCocoa.framework */; };
 		4221DAD020D18672003950CF /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DAC620D18666003950CF /* RxSwift.framework */; };
 		4221DAD120D18673003950CF /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DAC620D18666003950CF /* RxSwift.framework */; };
-		4221DAD220D18675003950CF /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DAC820D18666003950CF /* RxTest.framework */; };
-		4221DAD320D18676003950CF /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DAC820D18666003950CF /* RxTest.framework */; };
 		4221DAD420D18678003950CF /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DACA20D18666003950CF /* SwiftyJSON.framework */; };
+		422CEE0A20D52B5800EF0A16 /* DataTaskExecuting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0920D52B5800EF0A16 /* DataTaskExecuting.swift */; };
+		422CEE0C20D52B8700EF0A16 /* RequestClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */; };
+		422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */; };
+		422CEE1120D55AD200EF0A16 /* RequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE1020D55AD200EF0A16 /* RequestClient.swift */; };
 		426A798220D1810100797AE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A798120D1810100797AE5 /* AppDelegate.swift */; };
 		426A799720D1810200797AE5 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A799620D1810200797AE5 /* DownTests.swift */; };
 		428340B320D26DB700CB2D7A /* DvrRequestBuildingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B220D26DB700CB2D7A /* DvrRequestBuildingSpec.swift */; };
@@ -185,9 +187,12 @@
 		4221DAC520D18666003950CF /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		4221DAC620D18666003950CF /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		4221DAC720D18666003950CF /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
-		4221DAC820D18666003950CF /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
 		4221DAC920D18666003950CF /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		4221DACA20D18666003950CF /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		422CEE0920D52B5800EF0A16 /* DataTaskExecuting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTaskExecuting.swift; sourceTree = "<group>"; };
+		422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClientMock.swift; sourceTree = "<group>"; };
+		422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterializedSequenceResult.swift; sourceTree = "<group>"; };
+		422CEE1020D55AD200EF0A16 /* RequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClient.swift; sourceTree = "<group>"; };
 		426A797E20D1810100797AE5 /* Down.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Down.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		426A798120D1810100797AE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		426A798D20D1810200797AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -234,7 +239,6 @@
 			files = (
 				4221DA3520D1819F003950CF /* DownKit.framework in Frameworks */,
 				4221DACD20D1866B003950CF /* Nimble.framework in Frameworks */,
-				4221DAD320D18676003950CF /* RxTest.framework in Frameworks */,
 				4221DACE20D1866B003950CF /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,7 +259,6 @@
 			files = (
 				4221DACC20D1866A003950CF /* Quick.framework in Frameworks */,
 				4221DACB20D1866A003950CF /* Nimble.framework in Frameworks */,
-				4221DAD220D18675003950CF /* RxTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,8 +416,10 @@
 			children = (
 				4221DA8220D18450003950CF /* Request.swift */,
 				4221DA8120D18450003950CF /* RequestBuilding.swift */,
+				422CEE1020D55AD200EF0A16 /* RequestClient.swift */,
 				4221DA8020D18450003950CF /* RequestExecutor.swift */,
 				4221DA8320D18450003950CF /* RequestExecutorFactory.swift */,
+				422CEE0920D52B5800EF0A16 /* DataTaskExecuting.swift */,
 			);
 			path = Requesting;
 			sourceTree = "<group>";
@@ -461,6 +466,7 @@
 			children = (
 				42BF4E9820D2520A0088AAF6 /* ApiApplicationMock.swift */,
 				4221DAA920D1860D003950CF /* Dvr */,
+				428340D020D313A800CB2D7A /* Mappers */,
 			);
 			path = Applications;
 			sourceTree = "<group>";
@@ -554,7 +560,6 @@
 				4221DAC920D18666003950CF /* Quick.framework */,
 				4221DAC520D18666003950CF /* RxCocoa.framework */,
 				4221DAC620D18666003950CF /* RxSwift.framework */,
-				4221DAC820D18666003950CF /* RxTest.framework */,
 				4221DACA20D18666003950CF /* SwiftyJSON.framework */,
 			);
 			name = Frameworks;
@@ -619,10 +624,18 @@
 			isa = PBXGroup;
 			children = (
 				428340C820D2FF9300CB2D7A /* RequestBuildingMock.swift */,
-				428340C620D2FD0A00CB2D7A /* RequestExecutingMock.swift */,
 				428340C420D2FC9100CB2D7A /* RequestExecutorProducingMock.swift */,
+				428340C620D2FD0A00CB2D7A /* RequestExecutingMock.swift */,
+				422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */,
 			);
 			path = Requesting;
+			sourceTree = "<group>";
+		};
+		428340D020D313A800CB2D7A /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mappers;
 			sourceTree = "<group>";
 		};
 		42BF4E8820D1B58E0088AAF6 /* Extensions */ = {
@@ -637,6 +650,7 @@
 			isa = PBXGroup;
 			children = (
 				42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */,
+				422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -881,13 +895,13 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Quick.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Nimble.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxTest.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -926,6 +940,7 @@
 				4221DAA220D184F9003950CF /* DvrGatewayConfigurationFactory.swift in Sources */,
 				4221DA9420D18450003950CF /* DvrResponseMapper.swift in Sources */,
 				4221DA8720D18450003950CF /* DvrRequestGateway.swift in Sources */,
+				422CEE0A20D52B5800EF0A16 /* DataTaskExecuting.swift in Sources */,
 				4221DA9B20D18450003950CF /* DataStoring.swift in Sources */,
 				4221DA8A20D18450003950CF /* DvrShowDetailsResponseMapper.swift in Sources */,
 				4221DA9C20D18450003950CF /* RequestExecutor.swift in Sources */,
@@ -939,6 +954,7 @@
 				4221DA9220D18450003950CF /* SickbeardRequestBuilder.swift in Sources */,
 				4221DA9820D18450003950CF /* Response.swift in Sources */,
 				4221DA9720D18450003950CF /* ResponseHandler.swift in Sources */,
+				422CEE1120D55AD200EF0A16 /* RequestClient.swift in Sources */,
 				4221DA8C20D18450003950CF /* ApiApplication.swift in Sources */,
 				4221DA8B20D18450003950CF /* DvrGatewayConfiguration.swift in Sources */,
 				4221DA8920D18450003950CF /* DvrShowsResponseMapper.swift in Sources */,
@@ -971,6 +987,7 @@
 				428340C720D2FD0A00CB2D7A /* RequestExecutingMock.swift in Sources */,
 				428340CD20D3011400CB2D7A /* RequestExecutorFactory.swift in Sources */,
 				4221DAC120D1860E003950CF /* DvrShowsResponseMapperSpec.swift in Sources */,
+				422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */,
 				4221DABB20D1860E003950CF /* ResponseParserMock.swift in Sources */,
 				428340C920D2FF9300CB2D7A /* RequestBuildingMock.swift in Sources */,
 				42BF4E9620D250530088AAF6 /* ShowDetailsGatewaySpec.swift in Sources */,
@@ -980,6 +997,7 @@
 				42BF4E8D20D1B5BC0088AAF6 /* StringSpec.swift in Sources */,
 				428340B520D2896700CB2D7A /* DvrApplicationMock.swift in Sources */,
 				428340BD20D298D100CB2D7A /* SickbeardResponseParserSpec.swift in Sources */,
+				422CEE0C20D52B8700EF0A16 /* RequestClientMock.swift in Sources */,
 				4221DABA20D1860E003950CF /* ResponseMapperMock.swift in Sources */,
 				42BF4E9420D2501A0088AAF6 /* ShowListGatewaySpec.swift in Sources */,
 			);

@@ -10,6 +10,7 @@
 
 class DvrRequestBuildingMock : DvrRequestBuilding {
     struct Stubs {
+        var make: Request?
         var defaultParameters: [String: String]?
         var path: String?
         var parameters: [String: String]?
@@ -17,9 +18,14 @@ class DvrRequestBuildingMock : DvrRequestBuilding {
     }
     
     struct Captures {
+        var make: Make?
         var path: CallCapture?
         var parameters: CallCapture?
         var method: CallCapture?
+        
+        struct Make {
+            var call: DvrApplicationCall
+        }
         
         struct CallCapture {
             let apiCall: DvrApplicationCall
@@ -35,6 +41,16 @@ class DvrRequestBuildingMock : DvrRequestBuilding {
     
     required init(application: DvrApplication) {
         self.application = application
+    }
+    
+    func make(for apiCall: DvrApplicationCall) throws -> Request {
+        captures.make = Captures.Make(call: apiCall)
+        
+        guard let stubbed = stubs.make else {
+            throw RequestBuildingError.notSupportedError("Stubs.make expected to be set")
+        }
+        
+        return stubbed
     }
     
     var defaultParameters: [String : String]? { return stubs.defaultParameters }

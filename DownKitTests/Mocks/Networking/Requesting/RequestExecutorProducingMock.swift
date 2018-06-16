@@ -13,11 +13,21 @@ class RequestExecutorProducingMock: RequestExecutorProducing {
         var make: RequestExecuting = RequestExecutingMock()
     }
     
+    struct Captures {
+        var make: Make?
+        
+        struct Make {
+            var request: Request
+        }
+    }
+    
     var stubs = Stubs()
+    var captures = Captures()
     
     // RequestExecutorProducing
     
-    func make(for: Request) -> RequestExecuting {
+    func make(for request: Request) -> RequestExecuting {
+        captures.make = Captures.Make(request: request)
         return stubs.make
     }
 }

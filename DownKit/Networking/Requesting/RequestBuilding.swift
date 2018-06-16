@@ -7,3 +7,20 @@
 //
 
 public protocol RequestBuilding { }
+
+enum RequestBuildingError: Error {
+    case notSupportedError(String)
+}
+
+extension RequestBuildingError: Hashable {
+    public var hashValue: Int {
+        switch self {
+        case .notSupportedError(let message):
+            return Int("1\(message.hashValue)") ?? 1
+        }
+    }
+    
+    public static func == (lhs: RequestBuildingError, rhs: RequestBuildingError) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+}

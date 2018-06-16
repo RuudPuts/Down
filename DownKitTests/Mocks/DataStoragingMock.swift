@@ -21,6 +21,8 @@ class DataStoringMock: DataStoring {
     var stubs = Stubs()
     var captures = Captures()
     
+    // DataStoring
+    
     var data: Data? {
         get { return stubs.data }
         set { captures.data = newValue }

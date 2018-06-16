@@ -39,7 +39,7 @@ class DvrShowDetailsResponseMapperSpec: QuickSpec {
                 }
                 
                 it("parses data storage") {
-                    expect(mockParser.captures.parseShow?.storage) === DataStoring
+                    expect(mockParser.captures.parseShowDetails?.storage) === DataStoring
                 }
             }
         }

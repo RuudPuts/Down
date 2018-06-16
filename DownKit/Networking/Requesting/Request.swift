@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Request {
+public class Request {
     var method: Method
     var url: String
 
@@ -19,10 +19,16 @@ public struct Request {
         case delete
     }
     
-    public struct Response: DataStoring {
+    public class Response: DataStoring {
         public var data: Data?
         var statusCode: Int
-        var headers: [AnyHashable: Any]
+        var headers: [String: String]?
+        
+        init(data: Data?, statusCode: Int, headers: [String: String]?) {
+            self.data = data
+            self.statusCode = statusCode
+            self.headers = headers
+        }
     }
     
     init(url: String, method: Method, parameters: [String: String]?) {
@@ -36,19 +42,6 @@ public struct Request {
         
         self.url = "\(host)/\(path)".inject(parameters: allParameters)
         self.method = method
-    }
-}
-
-extension Request {
-    func asUrlRequest() -> URLRequest? {
-        guard let url = URL(string: self.url) else {
-            return nil
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = self.method.rawValue
-
-        return request
     }
 }
 

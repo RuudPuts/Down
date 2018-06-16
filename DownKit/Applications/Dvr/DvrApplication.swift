@@ -11,7 +11,22 @@ public protocol DvrApplication: ApiApplication {
     var dvrRequestBuilder: DvrRequestBuilding { get }
 }
 
-public enum DvrApplicationCall: ApiCall {
+public enum DvrApplicationCall {
     case showList
     case showDetails(DvrShow)
+}
+
+extension DvrApplicationCall: Hashable {
+    public var hashValue: Int {
+        switch self {
+        case .showList:
+            return 0
+        case .showDetails(let show):
+            return Int("1\(show.name.hashValue)") ?? 1
+        }
+    }
+    
+    public static func == (lhs: DvrApplicationCall, rhs: DvrApplicationCall) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
 }

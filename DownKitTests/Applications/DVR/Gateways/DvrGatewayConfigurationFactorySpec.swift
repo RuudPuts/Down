@@ -55,7 +55,7 @@ class DvrGatewayConfigurationFactorySpec: QuickSpec {
     }
 }
 
-class AnyDvrResponseMapper: DvrResponseMapper {
+private class AnyDvrResponseMapper: DvrResponseMapper {
     typealias ResultType = Any
     var parser: ResponseParser
     

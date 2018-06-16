@@ -8,10 +8,6 @@
 
 import RxSwift
 
-enum RequestPreparationError: Error {
-    case notSupportedError(String)
-}
-
 public protocol RequestGateway {
     associatedtype Config: RequestGatewayConfigurating
     

@@ -10,15 +10,15 @@
 
 class DvrResponseParserMock: DvrResponseParser {
     struct Stubs {
-        var parseShow: DvrShow?
         var parseShows: [DvrShow]?
+        var parseShowDetails: DvrShow?
     }
     
     struct Captures {
-        var parseShow: ParseShow?
-        var parseShows: ParseShow?
+        var parseShows: Parse?
+        var parseShowDetails: Parse?
         
-        struct ParseShow {
+        struct Parse {
             let storage: DataStoring
         }
     }
@@ -29,12 +29,12 @@ class DvrResponseParserMock: DvrResponseParser {
     // DvrResponseParser
     
     func parseShows(from storage: DataStoring) -> [DvrShow] {
-        captures.parseShows = Captures.ParseShow(storage: storage)
+        captures.parseShows = Captures.Parse(storage: storage)
         return stubs.parseShows ?? []
     }
     
     func parseShowDetails(from storage: DataStoring) -> DvrShow {
-        captures.parseShow = Captures.ParseShow(storage: storage)
-        return stubs.parseShow ?? DvrShow(identifier: "0", name: "", quality: "")
+        captures.parseShowDetails = Captures.Parse(storage: storage)
+        return stubs.parseShowDetails ?? DvrShow(identifier: "0", name: "", quality: "")
     }
 }

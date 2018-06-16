@@ -17,55 +17,27 @@ public protocol RequestExecuting {
 
 class RequestExecutor: RequestExecuting {
     var request: Request
-    let bag = DisposeBag()
     
-    enum ExecutionError: Error {
-        case invalidRequest
-        case invalidResponse
-        case noData
-        case generic(message: String)
-    }
+    private let requestClient: RequestClient
+    private let disposeBag = DisposeBag()
     
-    init(request: Request) {
+    init(request: Request, requestClient: RequestClient = URLSession.shared) {
         self.request = request
+        self.requestClient = requestClient
     }
     
     func execute() -> Observable<Request.Response> {
-        print("Requesting: \(self.request.url)")
-        
-        return Observable<Request.Response>.create { observer -> Disposable in
-            guard let request = self.request.asUrlRequest() else {
-                observer.onError(ExecutionError.invalidRequest)
-                return Disposables.create()
+        return Observable<Request.Response>.create { observable in
+            self.requestClient.execute(self.request) {
+                guard let response = $0 else {
+                    observable.onError($1!)
+                    return
+                }
+                
+                observable.onNext(response)
             }
-            
-            self.execute(request, withObserver: observer)
             
             return Disposables.create()
         }
-    }
-}
-
-typealias RequestExecutorInternals = RequestExecutor
-extension RequestExecutorInternals {
-    private func execute(_ request: URLRequest, withObserver observer: AnyObserver<Request.Response>) {
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard error == nil else {
-                observer.onError(ExecutionError.generic(message: error!.localizedDescription))
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                observer.onError(ExecutionError.invalidResponse)
-                return
-            }
-            
-            guard let data = data else {
-                observer.onError(ExecutionError.noData)
-                return
-            }
-            
-            observer.onNext(Request.Response(data: data, statusCode: httpResponse.statusCode, headers: httpResponse.allHeaderFields))
-            }.resume()
     }
 }

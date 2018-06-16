@@ -6,12 +6,11 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-protocol ApiCall { }
-
 public protocol ApiApplication: Application {
     var host: String { get }
     var apiKey: String { get }
     
+    // ApiApplication should not store these. RequestBuilding also needs ApiApplication -> Reference cycle
     var requestBuilder: RequestBuilding { get }
     var responseParser: ResponseParser { get }
     
