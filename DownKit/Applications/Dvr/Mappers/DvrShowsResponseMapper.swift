@@ -9,9 +9,9 @@
 public final class DvrShowsResponseMapper: DvrResponseMapper {
     public typealias ResultType = [DvrShow]
     
-    public var parser: ResponseParser
+    public var parser: ResponseParsing
     
-    public init(parser: ResponseParser) {
+    public init(parser: ResponseParsing) {
         self.parser = parser
     }
     

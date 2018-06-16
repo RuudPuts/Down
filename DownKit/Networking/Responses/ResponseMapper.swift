@@ -9,8 +9,8 @@
 public protocol ResponseMapper {
     associatedtype ResultType
     
-    var parser: ResponseParser { get set }
+    var parser: ResponseParsing { get set }
     
-    init(parser: ResponseParser)
+    init(parser: ResponseParsing)
     func map(storage: DataStoring) -> ResultType
 }

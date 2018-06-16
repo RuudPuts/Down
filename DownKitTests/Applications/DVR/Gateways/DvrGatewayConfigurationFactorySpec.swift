@@ -16,10 +16,10 @@ class DvrGatewayConfigurationFactorySpec: QuickSpec {
             var sut: DvrGatewayConfigurationFactory!
             
             var application: DvrApplicationMock!
-            var responseParser: DvrResponseParser!
+            var responseParser: DvrResponseParsing!
             
             beforeEach {
-                responseParser = DvrResponseParserMock()
+                responseParser = DvrResponseParsingMock()
                 
                 application = DvrApplicationMock()
                 application.stubs.responseParser = responseParser
@@ -56,9 +56,9 @@ class DvrGatewayConfigurationFactorySpec: QuickSpec {
 
 private class AnyDvrResponseMapper: DvrResponseMapper {
     typealias ResultType = Any
-    var parser: ResponseParser
+    var parser: ResponseParsing
     
-    required init(parser: ResponseParser) {
+    required init(parser: ResponseParsing) {
         self.parser = parser
     }
     

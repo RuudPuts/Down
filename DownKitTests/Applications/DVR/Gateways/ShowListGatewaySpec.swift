@@ -22,7 +22,7 @@ class ShowListGatewaySpec: QuickSpec {
             var request: Request!
             var requestBuilder: DvrRequestBuildingMock!
             var application: DvrApplicationMock!
-            var responseParser: DvrResponseParserMock!
+            var responseParser: DvrResponseParsingMock!
             var responseMapper: DvrShowsResponseMapper!
             var requestExecutorFactory: RequestExecutorProducingMock!
             
@@ -35,7 +35,7 @@ class ShowListGatewaySpec: QuickSpec {
                 application.stubs.requestBuilder = requestBuilder
                 requestExecutorFactory = RequestExecutorProducingMock()
                 
-                responseParser = DvrResponseParserMock()
+                responseParser = DvrResponseParsingMock()
                 responseParser.stubs.parseShows = [DvrShow(identifier: "1", name: "TestShow", quality: "TestQuality")]
                 responseMapper = DvrShowsResponseMapper(parser: responseParser)
                 

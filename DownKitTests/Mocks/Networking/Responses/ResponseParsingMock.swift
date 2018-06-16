@@ -1,5 +1,5 @@
 //
-//  ResponseParserMock.swift
+//  ResponseParsingMock.swift
 //  DownKitTests
 //
 //  Created by Ruud Puts on 25/05/2018.
@@ -8,4 +8,4 @@
 
 @testable import DownKit
 
-class ResponseParserMock: ResponseParser { }
+class ResponseParsingMock: ResponseParsing { }

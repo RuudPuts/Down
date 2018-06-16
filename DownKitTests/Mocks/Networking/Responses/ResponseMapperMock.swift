@@ -18,7 +18,7 @@ class ResponseMapperMock<Type>: ResponseMapper {
         var map: Map?
         
         struct Init {
-            let parser: ResponseParser
+            let parser: ResponseParsing
         }
         
         struct Map {
@@ -30,15 +30,15 @@ class ResponseMapperMock<Type>: ResponseMapper {
     var captures = Captures()
     
     convenience init() {
-        self.init(parser: ResponseParserMock())
+        self.init(parser: ResponseParsingMock())
     }
     
     // ResponseMapper
     
     typealias ResponseType = Type
-    var parser: ResponseParser
+    var parser: ResponseParsing
     
-    required init(parser: ResponseParser) {
+    required init(parser: ResponseParsing) {
         captures.init = Captures.Init(parser: parser)
         self.parser = parser
     }

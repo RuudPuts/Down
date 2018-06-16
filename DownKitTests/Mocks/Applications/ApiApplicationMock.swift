@@ -14,7 +14,7 @@ class ApiApplicationMock: ApiApplication {
         var host = "ApiHost"
         var apiKey = "ApiKey"
         var requestBuilder: RequestBuilding = RequestBuildingMock()
-        var responseParser: ResponseParser = ResponseParserMock()
+        var responseParser: ResponseParsing = ResponseParsingMock()
     }
     
     struct Captures {
@@ -42,7 +42,7 @@ class ApiApplicationMock: ApiApplication {
     var host: String { return stubs.host }
     var apiKey: String { return stubs.host }
     var requestBuilder: RequestBuilding { return stubs.requestBuilder }
-    var responseParser: ResponseParser { return stubs.responseParser }
+    var responseParser: ResponseParsing { return stubs.responseParser }
     
     required init(host: String, apiKey: String) {
         captures.init = Captures.Init(host: host, apiKey: apiKey)

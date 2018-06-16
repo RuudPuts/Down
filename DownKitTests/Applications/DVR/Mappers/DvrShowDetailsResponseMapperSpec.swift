@@ -14,10 +14,10 @@ class DvrShowsResponseMapperSpec: QuickSpec {
     override func spec() {
         describe("DvrShowsResponseMapper") {
             var sut: DvrShowsResponseMapper!
-            var mockParser: DvrResponseParserMock!
+            var mockParser: DvrResponseParsingMock!
             
             beforeEach {
-                mockParser = DvrResponseParserMock()
+                mockParser = DvrResponseParsingMock()
                 sut = DvrShowsResponseMapper(parser: mockParser)
             }
             

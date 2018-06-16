@@ -7,7 +7,7 @@
 //
 
 public protocol DvrApplication: ApiApplication {
-    var dvrResponseParser: DvrResponseParser { get }
+    var dvrResponseParser: DvrResponseParsing { get }
     var dvrRequestBuilder: DvrRequestBuilding { get }
 }
 

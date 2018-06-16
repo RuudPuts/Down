@@ -8,7 +8,7 @@
 
 import SwiftyJSON
 
-class SickbeardResponseParser: DvrResponseParser {
+class SickbeardResponseParser: DvrResponseParsing {
     struct ParsedStorage<DataType> {
         let result: String
         let message: String

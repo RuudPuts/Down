@@ -1,5 +1,5 @@
 //
-//  DvrResponseParserMock.swift
+//  DvrResponseParsingMock.swift
 //  DownKitTests
 //
 //  Created by Ruud Puts on 18/05/2018.
@@ -8,7 +8,7 @@
 
 @testable import DownKit
 
-class DvrResponseParserMock: DvrResponseParser {
+class DvrResponseParsingMock: DvrResponseParsing {
     struct Stubs {
         var parseShows: [DvrShow]?
         var parseShowDetails: DvrShow?
@@ -26,7 +26,7 @@ class DvrResponseParserMock: DvrResponseParser {
     var stubs = Stubs()
     var captures = Captures()
     
-    // DvrResponseParser
+    // DvrResponseParsing
     
     func parseShows(from storage: DataStoring) -> [DvrShow] {
         captures.parseShows = Captures.Parse(storage: storage)

@@ -12,7 +12,7 @@ public class SickbeardApplication: DvrApplication {
     public var apiKey: String
     
     public var requestBuilder: RequestBuilding { return dvrRequestBuilder }
-    public var responseParser: ResponseParser { return dvrResponseParser }
+    public var responseParser: ResponseParsing { return dvrResponseParser }
     
     public required init(host: String, apiKey: String) {
         self.host = host
@@ -23,7 +23,7 @@ public class SickbeardApplication: DvrApplication {
         return SickbeardRequestBuilder(application: self)
     }
     
-    public var dvrResponseParser: DvrResponseParser {
+    public var dvrResponseParser: DvrResponseParsing {
         return SickbeardResponseParser()
     }
 }

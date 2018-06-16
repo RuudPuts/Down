@@ -9,12 +9,12 @@
 import Foundation
 
 public protocol DvrResponseMapper: ResponseMapper {
-    var dvrParser: DvrResponseParser { get }
+    var dvrParser: DvrResponseParsing { get }
 }
 
 public extension DvrResponseMapper {
     // swiftlint:disable force_cast
-    var dvrParser: DvrResponseParser {
-        return parser as! DvrResponseParser
+    var dvrParser: DvrResponseParsing {
+        return parser as! DvrResponseParsing
     }
 }
