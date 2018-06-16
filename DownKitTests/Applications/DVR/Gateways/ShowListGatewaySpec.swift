@@ -92,8 +92,8 @@ class ShowListGatewaySpec: QuickSpec {
                 }
                 
                 it("parses the result") {
-                    // The code actually calls the mapper, but currently it can't be mocked
-                    // As gateway defines a spefic implementation of DvrResponseMapper
+                    //! The code actually calls the mapper, but currently it can't be mocked
+                    //! As gateway defines a spefic implementation of DvrResponseMapper
                     expect(responseParser.captures.parseShows?.storage.data) == responseData
                 }
                 
