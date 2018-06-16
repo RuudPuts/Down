@@ -12,6 +12,7 @@ internal extension String {
     func inject(parameters: [String: Any]?) -> String {
         var result = self
         
+        // swiftlint:disable force_try
         try! NSRegularExpression(pattern: "\\{(\\w{1,})\\}")
             .matches(in: result, range: NSRange(location: 0, length: result.count))
             .reversed().forEach { match in

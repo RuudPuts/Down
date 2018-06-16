@@ -24,7 +24,6 @@ class DvrGatewayConfigurationFactorySpec: QuickSpec {
                 application = DvrApplicationMock()
                 application.stubs.responseParser = responseParser
                 
-                
                 sut = DvrGatewayConfigurationFactory(application: application)
             }
             

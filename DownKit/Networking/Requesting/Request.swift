@@ -19,6 +19,7 @@ public class Request {
         case delete
     }
     
+    //! Move to Response.swift
     public class Response: DataStoring {
         public var data: Data?
         var statusCode: Int

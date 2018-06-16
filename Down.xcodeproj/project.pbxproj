@@ -734,6 +734,7 @@
 				426A797C20D1810100797AE5 /* Resources */,
 				4221DA4620D1819F003950CF /* Embed Frameworks */,
 				4221DAD920D186FE003950CF /* Copy Carthage frameworks */,
+				42B16D4820D58A7C0027ED1C /* Run Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -921,6 +922,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		42B16D4820D58A7C0027ED1C /* Run Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftlint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -10,10 +10,12 @@
 
 class DvrApplicationMock: ApiApplicationMock, DvrApplication {
     var dvrRequestBuilder: DvrRequestBuilding {
+        // swiftlint:disable force_cast
         return stubs.requestBuilder as! DvrRequestBuilding
     }
     
     var dvrResponseParser: DvrResponseParser {
+        // swiftlint:disable force_cast
         return stubs.responseParser as! DvrResponseParser
     }
 }

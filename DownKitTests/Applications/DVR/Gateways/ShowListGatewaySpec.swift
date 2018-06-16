@@ -13,6 +13,7 @@ import Quick
 import Nimble
 
 class ShowListGatewaySpec: QuickSpec {
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("ShowListGateway") {
             var sut: ShowListGateway!
@@ -71,6 +72,7 @@ class ShowListGatewaySpec: QuickSpec {
                     )
                     requestExecutorFactory.stubs.make = requestExecutor
                     
+                    // swiftlint:disable force_try
                     result = try! sut
                         .get()
                         .toBlocking()

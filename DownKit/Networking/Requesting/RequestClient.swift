@@ -7,7 +7,7 @@
 //
 
 protocol RequestClient {
-    func execute(_ request: Request, completion: @escaping (Request.Response?, RequestClientError?) -> Void) -> Void
+    func execute(_ request: Request, completion: @escaping (Request.Response?, RequestClientError?) -> Void)
 }
 
 enum RequestClientError: Error, Hashable {
@@ -18,7 +18,7 @@ enum RequestClientError: Error, Hashable {
 }
 
 extension URLSession: RequestClient {
-    func execute(_ request: Request, completion: @escaping (Request.Response?, RequestClientError?) -> Void) -> Void {
+    func execute(_ request: Request, completion: @escaping (Request.Response?, RequestClientError?) -> Void) {
         guard let request = request.asUrlRequest() else {
             return completion(nil, RequestClientError.invalidRequest)
         }

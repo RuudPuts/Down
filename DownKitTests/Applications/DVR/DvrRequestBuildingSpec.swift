@@ -54,8 +54,13 @@ class DvrRequestBuildingSpec: QuickSpec {
                     var buildError: RequestBuildingError!
                     
                     beforeEach {
-                        do { result = try sut.make(for: .showList) }
-                        catch { buildError = error as! RequestBuildingError}
+                        do {
+                            result = try sut.make(for: .showList)
+                        }
+                        catch {
+                            // swiftlint:disable force_cast
+                            buildError = error as! RequestBuildingError
+                        }
                     }
                     
                     it("does not make the request") {
@@ -71,7 +76,7 @@ class DvrRequestBuildingSpec: QuickSpec {
     }
 }
 
-private class DvrRequestBuildingImp : DvrRequestBuilding {
+private class DvrRequestBuildingImp: DvrRequestBuilding {
     struct Stubs {
         var defaultParameters: [String: String]?
         var path: String?
@@ -89,13 +94,13 @@ private class DvrRequestBuildingImp : DvrRequestBuilding {
         self.application = application
     }
     
-    var defaultParameters: [String : String]? { return stubs.defaultParameters }
+    var defaultParameters: [String: String]? { return stubs.defaultParameters }
     
     func path(for apiCall: DvrApplicationCall) -> String? {
         return stubs.path
     }
     
-    func parameters(for apiCall: DvrApplicationCall) -> [String : String]? {
+    func parameters(for apiCall: DvrApplicationCall) -> [String: String]? {
         return stubs.parameters
     }
     

@@ -19,7 +19,5 @@ class RequestGatewayMock: RequestGateway {
     
     typealias Config = RequestGatewayConfiguratingMock
     
-    var config: RequestGatewayConfiguratingMock {
-        get { return stubs.config }
-    }
+    var config: RequestGatewayConfiguratingMock { return stubs.config }
 }

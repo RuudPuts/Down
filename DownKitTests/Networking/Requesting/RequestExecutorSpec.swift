@@ -13,6 +13,7 @@ import Quick
 import Nimble
 
 class RequestExecutorSpec: QuickSpec {
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("RequestExecutor") {
             var sut: RequestExecutor!
@@ -67,6 +68,7 @@ class RequestExecutorSpec: QuickSpec {
                         completionHandler(response, nil)
                     }
                     
+                    // swiftlint:disable force_try
                     result = try! sut.execute()
                         .toBlocking()
                         .first()

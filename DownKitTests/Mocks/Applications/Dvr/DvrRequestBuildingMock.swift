@@ -8,7 +8,7 @@
 
 @testable import DownKit
 
-class DvrRequestBuildingMock : DvrRequestBuilding {
+class DvrRequestBuildingMock: DvrRequestBuilding {
     struct Stubs {
         var make: Request?
         var defaultParameters: [String: String]?
@@ -53,14 +53,14 @@ class DvrRequestBuildingMock : DvrRequestBuilding {
         return stubbed
     }
     
-    var defaultParameters: [String : String]? { return stubs.defaultParameters }
+    var defaultParameters: [String: String]? { return stubs.defaultParameters }
     
     func path(for apiCall: DvrApplicationCall) -> String? {
         captures.path = Captures.CallCapture(apiCall: apiCall)
         return stubs.path
     }
     
-    func parameters(for apiCall: DvrApplicationCall) -> [String : String]? {
+    func parameters(for apiCall: DvrApplicationCall) -> [String: String]? {
         captures.parameters = Captures.CallCapture(apiCall: apiCall)
         return stubs.parameters
     }

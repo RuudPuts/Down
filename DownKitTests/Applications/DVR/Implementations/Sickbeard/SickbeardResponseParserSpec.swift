@@ -12,6 +12,7 @@ import Nimble
 import SwiftyJSON
 
 class SickbeardResponseParserSpec: QuickSpec {
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("SickbeardResponseParser") {
             var sut: SickbeardResponseParser!
@@ -205,8 +206,8 @@ class SickbeardResponseParserSpec: QuickSpec {
         }
     }
     
-    
     var successJson: Data {
+        // swiftlint:disable force_try
         return try! JSON([
             "result": "success",
             "message": "",
@@ -217,18 +218,21 @@ class SickbeardResponseParserSpec: QuickSpec {
     }
     
     var errorJson: Data {
+        // swiftlint:disable force_try
         return try! JSON([
             "data": "No such cmd: ''",
             "message": "",
-            "result": "error",
+            "result": "error"
             ]).rawData()
     }
     
     var incompleteJson: Data {
+        // swiftlint:disable force_try
         return try! JSON(["result": ""]).rawData()
     }
     
     var showsJson: Data {
+        // swiftlint:disable force_try
         return try! JSON([
             "data": [
                 "78804": [
@@ -255,6 +259,7 @@ class SickbeardResponseParserSpec: QuickSpec {
     }
     
     var showDetailsJson: Data {
+        // swiftlint:disable force_try
         return try! JSON([
             "data": [
                 "show": [
@@ -302,7 +307,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                                 "name": "Amy's Choice",
                                 "quality": "N/A",
                                 "status": "Ignored"
-                            ],
+                            ]
                         ]
                     ],
                     "message": "",
