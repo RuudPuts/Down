@@ -10,9 +10,13 @@ import DownKit
 import RxSwift
 import UIKit
 
-class DetailViewController: UIViewController & Routing {
-    let disposeBag = DisposeBag()
+class DetailViewController: UIViewController & Routing & DvrApplicationInteracting {
+    var application: DvrApplication!
+    var interactorFactory: DvrInteractorProducing!
     var router: Router?
+    
+    lazy var interactor = interactorFactory.makeShowDetailsInteractor(for: application, show: show!)
+    let disposeBag = DisposeBag()
     
     var show: DvrShow? {
         didSet { title = show?.name }
@@ -21,24 +25,11 @@ class DetailViewController: UIViewController & Routing {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        guard let show = show else {
-            return
-        }
-
-        let application = RXRequest.dvrApplication
-        let configFactory = DvrGatewayConfigurationFactory(application: application)
-        let gateway = ShowDetailsGateway(config: configFactory.make(), show: show)
-
-        do {
-            try gateway
-                .get()
-                .subscribe(onNext: { (show) in
-                    NSLog("Refreshed show: \(show.name)")
-                })
-                .disposed(by: disposeBag)
-        }
-        catch {
-            NSLog("Error while executing ShowListGateway: \(error)")
-        }
+        interactor
+            .execute()
+            .subscribe(onNext: { (show) in
+                NSLog("Refreshed show: \(show.name)")
+            })
+            .disposed(by: disposeBag)
     }
 }

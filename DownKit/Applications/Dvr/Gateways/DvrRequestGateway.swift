@@ -7,12 +7,9 @@
 //
 
 protocol DvrRequestGateway: RequestGateway {
-    var dvrRequestBuilder: DvrRequestBuilding { get }
-}
-
-extension DvrRequestGateway {
-    var dvrRequestBuilder: DvrRequestBuilding {
-        // swiftlint:disable force_cast
-        return requestBuilder as! DvrRequestBuilding
-    }
+    var builder: DvrRequestBuilding { get }
+    var executor: RequestExecuting { get }
+    var parser: DvrResponseParsing { get }
+    
+    init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting)
 }

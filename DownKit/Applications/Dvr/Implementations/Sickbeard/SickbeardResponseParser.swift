@@ -35,13 +35,10 @@ class SickbeardResponseParser: DvrResponseParsing {
     func parseShowDetails(from storage: DataStoring) -> DvrShow {
         let parsedStorage = parse(storage)
         
-        guard var showData = parsedStorage.data?["show"]["data"],
+        guard let showData = parsedStorage.data?["show"]["data"],
               let seasonsData = parsedStorage.data?["show.seasons"]["data"] else {
             fatalError("ohooh") //! Maybe a throw? lol
         }
-        showData["id"] = ""//! Where do I get the ID? It's in the url but the request & response aren't here
-        //! Maybe a parser should parse to a meta data object? That way partial parsing is supported easiers
-        //! And a gateway could decorate the show with it before returning the observer
         
         var show = makeShow(from: showData)
         show.seasons = seasonsData.dictionary?.map {
@@ -58,7 +55,7 @@ class SickbeardResponseParser: DvrResponseParsing {
 private extension SickbeardResponseParser {
     func makeShow(from json: JSON) -> DvrShow {
         return DvrShow(
-            identifier: json["id"].string ?? "",
+            identifier: json["id"].string ?? DvrShow.partialIdentifier,
             name: json["show_name"].string ?? "",
             quality: json["quality"].string ?? ""
         )

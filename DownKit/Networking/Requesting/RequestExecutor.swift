@@ -10,25 +10,20 @@ import RxSwift
 import RxCocoa
 
 public protocol RequestExecuting {
-    var request: Request { get }
-    
-    func execute() -> Observable<Request.Response>
+    func execute(_ request: Request) -> Observable<Request.Response>
 }
 
 class RequestExecutor: RequestExecuting {
-    var request: Request
-    
     private let requestClient: RequestClient
     private let disposeBag = DisposeBag()
     
-    init(request: Request, requestClient: RequestClient = URLSession.shared) {
-        self.request = request
+    init(requestClient: RequestClient = URLSession.shared) {
         self.requestClient = requestClient
     }
     
-    func execute() -> Observable<Request.Response> {
+    func execute(_ request: Request) -> Observable<Request.Response> {
         return Observable<Request.Response>.create { observable in
-            self.requestClient.execute(self.request) {
+            self.requestClient.execute(request) {
                 guard let response = $0 else {
                     observable.onError($1!)
                     return

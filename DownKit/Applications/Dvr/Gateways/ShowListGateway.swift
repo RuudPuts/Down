@@ -8,19 +8,21 @@
 
 import RxSwift
 
-public class ShowListGateway: DvrRequestGateway, GetGateway {
-    public typealias Config = DvrGatewayConfiguration<DvrShowsResponseMapper>
+public final class ShowListGateway: DvrRequestGateway {
+    var builder: DvrRequestBuilding
+    var executor: RequestExecuting
+    var parser: DvrResponseParsing
     
-    public var config: Config
-    public required init(config: Config) {
-        self.config = config
+    init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
+        self.builder = builder
+        self.executor = executor
+        self.parser = parser
     }
     
-    public func get() throws -> Observable<[DvrShow]> {
-        let request = try dvrRequestBuilder.make(for: .showList)
-
-        return requestExecutorFactory.make(for: request)
-            .execute()
-            .map { self.responseMapper.map(storage: $0) }
+    public func execute() throws -> Observable<[DvrShow]> {
+        let request = try builder.make(for: .showList)
+        
+        return executor.execute(request)
+            .map { self.parser.parseShows(from: $0) }
     }
 }

@@ -19,6 +19,16 @@ public struct DvrShow {
     }
 }
 
+extension DvrShow {
+    static var partialIdentifier: String {
+        return String(NSNotFound)
+    }
+    
+    var isPartial: Bool {
+        return identifier == String(NSNotFound)
+    }
+}
+
 public struct DvrSeason {
     let identifier: String
     let episodes: [DvrEpisode]

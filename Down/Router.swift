@@ -37,16 +37,6 @@ class Router {
         window.makeKeyAndVisible()
     }
     
-    private func makeViewController(_ identifier: Identifier) -> UIViewController & Routing {
-        let viewController = storyboard.instantiateViewController(withIdentifier: identifier.rawValue)
-        guard var rxViewController = viewController as? UIViewController & Routing else {
-            fatalError("bye")
-        }
-        rxViewController.router = self
-        
-        return rxViewController
-    }
-    
     func showDetail(of show: DvrShow) {
         guard let viewController = makeViewController(.detail) as? DetailViewController else {
             return
@@ -54,5 +44,27 @@ class Router {
         
         viewController.show = show
         navigationController?.pushViewController(viewController, animated: true)
+    }
+}
+
+private extension Router {
+    func makeViewController(_ identifier: Identifier) -> UIViewController & Routing {
+        let viewController = storyboard.instantiateViewController(withIdentifier: identifier.rawValue)
+        guard let routingViewController = viewController as? UIViewController & Routing else {
+            fatalError("bye")
+        }
+        decorate(routingViewController)
+        
+        return routingViewController
+    }
+    
+    func decorate(_ viewController: UIViewController & Routing) {
+        var controller = viewController
+        controller.router = self
+        
+        if var dvrInteracting = controller as? DvrApplicationInteracting {
+            dvrInteracting.application = Down.dvrApplication
+            dvrInteracting.interactorFactory = DvrInteractorFactory()
+        }
     }
 }

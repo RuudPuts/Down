@@ -77,7 +77,7 @@ class ShowDetailsGatewaySpec: QuickSpec {
                     
                     // swiftlint:disable force_try
                     result = try! sut
-                        .get()
+                        .execute()
                         .toBlocking()
                         .first()
                 }

@@ -6,8 +6,6 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-import Foundation
-
 @testable import DownKit
 import Quick
 import Nimble

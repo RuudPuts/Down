@@ -11,21 +11,17 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class ViewController: UITableViewController & Routing {
-    let application: DvrApplication
-    let configFactory: DvrGatewayConfigurationFactory
-    let gateway: ShowListGateway
+class ViewController: UITableViewController & Routing & DvrApplicationInteracting {
+    var application: DvrApplication!
+    var interactorFactory: DvrInteractorProducing!
     var router: Router?
     
+    lazy var interactor = interactorFactory.makeShowListInteractor(for: application)
     let disposeBag = DisposeBag()
-    
+
     var shows = Variable<[DvrShow]>([])
     
     required init?(coder aDecoder: NSCoder) {
-        application = RXRequest.dvrApplication
-        configFactory = DvrGatewayConfigurationFactory(application: application)
-        gateway = ShowListGateway(config: configFactory.make())
-        
         super.init(style: .grouped)
         title = "Show list"
     }
@@ -44,19 +40,11 @@ class ViewController: UITableViewController & Routing {
     }
     
     func loadData() {
-        do {
-            try gateway
-                .get()
-                .do(onError: { (error) in
-                    print("ErrorVC: \(error)")
-                })
-                .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
-                    cell.textLabel?.text = show.name
-                }
-                .disposed(by: disposeBag)
-        }
-        catch {
-            NSLog("Error while executing ShowListGateway: \(error)")
-        }
+        interactor
+            .execute()
+            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
+                cell.textLabel?.text = show.name
+            }
+            .disposed(by: disposeBag)
     }
 }

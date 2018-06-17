@@ -9,10 +9,4 @@
 public protocol ApiApplication: Application {
     var host: String { get }
     var apiKey: String { get }
-    
-    //! ApiApplication should not store these. RequestBuilding also needs ApiApplication -> Reference cycle
-    var requestBuilder: RequestBuilding { get }
-    var responseParser: ResponseParsing { get }
-    
-    init(host: String, apiKey: String)
 }
