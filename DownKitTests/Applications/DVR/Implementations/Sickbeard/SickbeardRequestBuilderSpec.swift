@@ -15,10 +15,10 @@ class SickbeardRequestBuilderSpec: QuickSpec {
     
     override func spec() {
         describe("SickbeardRequestBuilder") {
-            var application: DvrApplicationMock!
+            var application: DvrApplication!
             
             beforeEach {
-                application = DvrApplicationMock()
+                application = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
                 self.sut = SickbeardRequestBuilder(application: application)
             }
             

@@ -8,12 +8,12 @@
 
 import RxSwift
 
-public final class ShowListGateway: DvrRequestGateway {
+public class ShowListGateway: DvrRequestGateway {
     var builder: DvrRequestBuilding
     var executor: RequestExecuting
     var parser: DvrResponseParsing
     
-    init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
+    public required init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
         self.executor = executor
         self.parser = parser
@@ -23,6 +23,8 @@ public final class ShowListGateway: DvrRequestGateway {
         let request = try builder.make(for: .showList)
         
         return executor.execute(request)
-            .map { self.parser.parseShows(from: $0) }
+            .map {
+                self.parser.parseShows(from: $0)
+            }
     }
 }

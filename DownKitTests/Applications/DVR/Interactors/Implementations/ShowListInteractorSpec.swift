@@ -15,36 +15,26 @@ class ShowListInteractorSpec: QuickSpec {
     override func spec() {
         describe("ShowListInteractor") {
             var sut: ShowListInteractor!
-            var application: DvrApplicationMock!
+            var application: DvrApplication!
             var gateway: ShowListGatewayMock!
-            var gatewayConfig: ShowListGateway.Config!
             
             beforeEach {
-                application = DvrApplicationMock()
-                gatewayConfig = ShowListGateway.Config(application: application,
-                                                       responseMapper: DvrShowsResponseMapper(parser: ResponseParsingMock()),
-                                                       requestExecutorFactory: RequestExecutorProducingMock())
-                gateway = ShowListGatewayMock(config: gatewayConfig)
-                sut = ShowListInteractor(application: application,
-                                         gateway: gateway)
+                application = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
+                gateway = ShowListGatewayMock(builder: DvrRequestBuildingMock(application: application),
+                                              parser: DvrResponseParsingMock(),
+                                              executor: RequestExecutingMock())
+                sut = ShowListInteractor(gateway: gateway)
             }
             
             afterEach {
                 sut = nil
-                gatewayConfig = nil
                 application = nil
             }
             
-            context("observing") {
-//                var observer: Observable<[DvrShow]>!
-//                
-//                beforeEach {
-//                    observer = sut.asObservable()
-//                }
-//                
-//                afterEach {
-//                    observer = nil
-//                }
+            context("executing") {
+                beforeEach {
+                    _ = sut.execute()
+                }
             }
         }
     }

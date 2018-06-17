@@ -6,11 +6,11 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-protocol RequestClient {
+public protocol RequestClient {
     func execute(_ request: Request, completion: @escaping (Request.Response?, RequestClientError?) -> Void)
 }
 
-enum RequestClientError: Error, Hashable {
+public enum RequestClientError: Error, Hashable {
     case generic(message: String)
     case invalidRequest
     case invalidResponse
@@ -18,7 +18,7 @@ enum RequestClientError: Error, Hashable {
 }
 
 extension URLSession: RequestClient {
-    func execute(_ request: Request, completion: @escaping (Request.Response?, RequestClientError?) -> Void) {
+    public func execute(_ request: Request, completion: @escaping (Request.Response?, RequestClientError?) -> Void) {
         guard let request = request.asUrlRequest() else {
             return completion(nil, RequestClientError.invalidRequest)
         }

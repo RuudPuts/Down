@@ -34,13 +34,10 @@
 		4221DA9C20D18450003950CF /* RequestExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA8020D18450003950CF /* RequestExecutor.swift */; };
 		4221DA9D20D18450003950CF /* RequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA8120D18450003950CF /* RequestBuilding.swift */; };
 		4221DA9E20D18450003950CF /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA8220D18450003950CF /* Request.swift */; };
-		4221DABA20D1860E003950CF /* ResponseMapperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAA620D1860D003950CF /* ResponseMapperMock.swift */; };
 		4221DABB20D1860E003950CF /* ResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAA720D1860D003950CF /* ResponseParsingMock.swift */; };
 		4221DABC20D1860E003950CF /* DvrResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAAB20D1860D003950CF /* DvrResponseParsingMock.swift */; };
 		4221DABD20D1860E003950CF /* DataStoragingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAAC20D1860D003950CF /* DataStoragingMock.swift */; };
 		4221DABF20D1860E003950CF /* RequestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAB020D1860D003950CF /* RequestSpec.swift */; };
-		4221DAC020D1860E003950CF /* RequestGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAB220D1860D003950CF /* RequestGatewaySpec.swift */; };
-		4221DAC120D1860E003950CF /* DvrShowsResponseMapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAB520D1860E003950CF /* DvrShowsResponseMapperSpec.swift */; };
 		4221DACB20D1866A003950CF /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DAC720D18666003950CF /* Nimble.framework */; };
 		4221DACC20D1866A003950CF /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DAC920D18666003950CF /* Quick.framework */; };
 		4221DACD20D1866B003950CF /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DAC720D18666003950CF /* Nimble.framework */; };
@@ -61,32 +58,25 @@
 		422BE6D120D6E14200DDDF37 /* DvrApplicationInteracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BE6D020D6E14200DDDF37 /* DvrApplicationInteracting.swift */; };
 		422BE6D320D6E39100DDDF37 /* ShowDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BE6D220D6E39000DDDF37 /* ShowDetailsInteractor.swift */; };
 		422BE6D420D6E40900DDDF37 /* ShowDetailsGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA6220D18450003950CF /* ShowDetailsGateway.swift */; };
+		422BE6D620D6F51200DDDF37 /* DownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BE6D520D6F51200DDDF37 /* DownTests.swift */; };
 		422CEE0A20D52B5800EF0A16 /* DataTaskExecuting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0920D52B5800EF0A16 /* DataTaskExecuting.swift */; };
 		422CEE0C20D52B8700EF0A16 /* RequestClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */; };
 		422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */; };
 		422CEE1120D55AD200EF0A16 /* RequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE1020D55AD200EF0A16 /* RequestClient.swift */; };
 		426A798220D1810100797AE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A798120D1810100797AE5 /* AppDelegate.swift */; };
 		428340B320D26DB700CB2D7A /* DvrRequestBuildingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B220D26DB700CB2D7A /* DvrRequestBuildingSpec.swift */; };
-		428340B520D2896700CB2D7A /* DvrApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B420D2896700CB2D7A /* DvrApplicationMock.swift */; };
 		428340B720D28D7400CB2D7A /* DvrRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */; };
-		428340B920D2976600CB2D7A /* SickbeardApplicationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B820D2976600CB2D7A /* SickbeardApplicationSpec.swift */; };
 		428340BB20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340BA20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift */; };
 		428340BD20D298D100CB2D7A /* SickbeardResponseParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340BC20D298D100CB2D7A /* SickbeardResponseParserSpec.swift */; };
 		428340C020D2FB2500CB2D7A /* RequestGatewayMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340BF20D2FB2500CB2D7A /* RequestGatewayMock.swift */; };
-		428340C220D2FB6700CB2D7A /* RequestGatewayConfiguratingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340C120D2FB6700CB2D7A /* RequestGatewayConfiguratingMock.swift */; };
-		428340C520D2FC9100CB2D7A /* RequestExecutorProducingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340C420D2FC9100CB2D7A /* RequestExecutorProducingMock.swift */; };
 		428340C720D2FD0A00CB2D7A /* RequestExecutingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340C620D2FD0A00CB2D7A /* RequestExecutingMock.swift */; };
 		428340C920D2FF9300CB2D7A /* RequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340C820D2FF9300CB2D7A /* RequestBuildingMock.swift */; };
 		428340CB20D3000F00CB2D7A /* RequestExecutorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340CA20D3000F00CB2D7A /* RequestExecutorSpec.swift */; };
-		428340CD20D3011400CB2D7A /* RequestExecutorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340CC20D3011400CB2D7A /* RequestExecutorFactory.swift */; };
 		42B16D5720D5A2E90027ED1C /* DvrInteractorFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */; };
 		42B16D5920D5A2F50027ED1C /* ShowListInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5820D5A2F50027ED1C /* ShowListInteractorSpec.swift */; };
 		42BF4E8520D19CF20088AAF6 /* DvrRequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8420D19CF20088AAF6 /* DvrRequestBuilding.swift */; };
-		42BF4E8720D1A20D0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8620D1A20C0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift */; };
 		42BF4E8A20D1B5990088AAF6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8920D1B5990088AAF6 /* String.swift */; };
 		42BF4E8D20D1B5BC0088AAF6 /* StringSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */; };
-		42BF4E9020D250010088AAF6 /* DvrGatewayConfigurationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8F20D250010088AAF6 /* DvrGatewayConfigurationSpec.swift */; };
-		42BF4E9220D250110088AAF6 /* DvrGatewayConfigurationFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9120D250110088AAF6 /* DvrGatewayConfigurationFactorySpec.swift */; };
 		42BF4E9420D2501A0088AAF6 /* ShowListGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9320D2501A0088AAF6 /* ShowListGatewaySpec.swift */; };
 		42BF4E9620D250530088AAF6 /* ShowDetailsGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9520D250530088AAF6 /* ShowDetailsGatewaySpec.swift */; };
 		42BF4E9920D2520A0088AAF6 /* ApiApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9820D2520A0088AAF6 /* ApiApplicationMock.swift */; };
@@ -168,13 +158,10 @@
 		4221DA8020D18450003950CF /* RequestExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestExecutor.swift; sourceTree = "<group>"; };
 		4221DA8120D18450003950CF /* RequestBuilding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilding.swift; sourceTree = "<group>"; };
 		4221DA8220D18450003950CF /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		4221DAA620D1860D003950CF /* ResponseMapperMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseMapperMock.swift; sourceTree = "<group>"; };
 		4221DAA720D1860D003950CF /* ResponseParsingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseParsingMock.swift; sourceTree = "<group>"; };
 		4221DAAB20D1860D003950CF /* DvrResponseParsingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrResponseParsingMock.swift; sourceTree = "<group>"; };
 		4221DAAC20D1860D003950CF /* DataStoragingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStoragingMock.swift; sourceTree = "<group>"; };
 		4221DAB020D1860D003950CF /* RequestSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestSpec.swift; sourceTree = "<group>"; };
-		4221DAB220D1860D003950CF /* RequestGatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestGatewaySpec.swift; sourceTree = "<group>"; };
-		4221DAB520D1860E003950CF /* DvrShowsResponseMapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrShowsResponseMapperSpec.swift; sourceTree = "<group>"; };
 		4221DAC520D18666003950CF /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		4221DAC620D18666003950CF /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		4221DAC720D18666003950CF /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
@@ -190,6 +177,7 @@
 		422BE6CE20D6DF6100DDDF37 /* DvrGatewayFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrGatewayFactory.swift; sourceTree = "<group>"; };
 		422BE6D020D6E14200DDDF37 /* DvrApplicationInteracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrApplicationInteracting.swift; sourceTree = "<group>"; };
 		422BE6D220D6E39000DDDF37 /* ShowDetailsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowDetailsInteractor.swift; sourceTree = "<group>"; };
+		422BE6D520D6F51200DDDF37 /* DownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownTests.swift; sourceTree = "<group>"; };
 		422CEE0920D52B5800EF0A16 /* DataTaskExecuting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTaskExecuting.swift; sourceTree = "<group>"; };
 		422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClientMock.swift; sourceTree = "<group>"; };
 		422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterializedSequenceResult.swift; sourceTree = "<group>"; };
@@ -200,27 +188,19 @@
 		426A799220D1810200797AE5 /* DownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		426A799820D1810200797AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		428340B220D26DB700CB2D7A /* DvrRequestBuildingSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuildingSpec.swift; sourceTree = "<group>"; };
-		428340B420D2896700CB2D7A /* DvrApplicationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrApplicationMock.swift; sourceTree = "<group>"; };
 		428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuildingMock.swift; sourceTree = "<group>"; };
-		428340B820D2976600CB2D7A /* SickbeardApplicationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickbeardApplicationSpec.swift; sourceTree = "<group>"; };
 		428340BA20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickbeardRequestBuilderSpec.swift; sourceTree = "<group>"; };
 		428340BC20D298D100CB2D7A /* SickbeardResponseParserSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickbeardResponseParserSpec.swift; sourceTree = "<group>"; };
 		428340BF20D2FB2500CB2D7A /* RequestGatewayMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestGatewayMock.swift; sourceTree = "<group>"; };
-		428340C120D2FB6700CB2D7A /* RequestGatewayConfiguratingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestGatewayConfiguratingMock.swift; sourceTree = "<group>"; };
-		428340C420D2FC9100CB2D7A /* RequestExecutorProducingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutorProducingMock.swift; sourceTree = "<group>"; };
 		428340C620D2FD0A00CB2D7A /* RequestExecutingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutingMock.swift; sourceTree = "<group>"; };
 		428340C820D2FF9300CB2D7A /* RequestBuildingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuildingMock.swift; sourceTree = "<group>"; };
 		428340CA20D3000F00CB2D7A /* RequestExecutorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutorSpec.swift; sourceTree = "<group>"; };
-		428340CC20D3011400CB2D7A /* RequestExecutorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutorFactory.swift; sourceTree = "<group>"; };
 		42B16D4E20D58F960027ED1C /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrInteractorFactorySpec.swift; sourceTree = "<group>"; };
 		42B16D5820D5A2F50027ED1C /* ShowListInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListInteractorSpec.swift; sourceTree = "<group>"; };
 		42BF4E8420D19CF20088AAF6 /* DvrRequestBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuilding.swift; sourceTree = "<group>"; };
-		42BF4E8620D1A20C0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsResponseMapperSpec.swift; sourceTree = "<group>"; };
 		42BF4E8920D1B5990088AAF6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSpec.swift; sourceTree = "<group>"; };
-		42BF4E8F20D250010088AAF6 /* DvrGatewayConfigurationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrGatewayConfigurationSpec.swift; sourceTree = "<group>"; };
-		42BF4E9120D250110088AAF6 /* DvrGatewayConfigurationFactorySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrGatewayConfigurationFactorySpec.swift; sourceTree = "<group>"; };
 		42BF4E9320D2501A0088AAF6 /* ShowListGatewaySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListGatewaySpec.swift; sourceTree = "<group>"; };
 		42BF4E9520D250530088AAF6 /* ShowDetailsGatewaySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsGatewaySpec.swift; sourceTree = "<group>"; };
 		42BF4E9820D2520A0088AAF6 /* ApiApplicationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationMock.swift; sourceTree = "<group>"; };
@@ -447,7 +427,6 @@
 		4221DAA520D1860D003950CF /* Responses */ = {
 			isa = PBXGroup;
 			children = (
-				4221DAA620D1860D003950CF /* ResponseMapperMock.swift */,
 				4221DAA720D1860D003950CF /* ResponseParsingMock.swift */,
 			);
 			path = Responses;
@@ -465,7 +444,6 @@
 		4221DAA920D1860D003950CF /* Dvr */ = {
 			isa = PBXGroup;
 			children = (
-				428340B420D2896700CB2D7A /* DvrApplicationMock.swift */,
 				428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */,
 				42B16D5420D5A2B10027ED1C /* Interactors */,
 				42B16D5C20D5A85F0027ED1C /* Gateways */,
@@ -497,7 +475,6 @@
 			children = (
 				4221DAB020D1860D003950CF /* RequestSpec.swift */,
 				428340CA20D3000F00CB2D7A /* RequestExecutorSpec.swift */,
-				428340CC20D3011400CB2D7A /* RequestExecutorFactory.swift */,
 			);
 			path = Requesting;
 			sourceTree = "<group>";
@@ -505,7 +482,6 @@
 		4221DAB120D1860D003950CF /* Gateways */ = {
 			isa = PBXGroup;
 			children = (
-				4221DAB220D1860D003950CF /* RequestGatewaySpec.swift */,
 			);
 			path = Gateways;
 			sourceTree = "<group>";
@@ -524,7 +500,6 @@
 				428340B220D26DB700CB2D7A /* DvrRequestBuildingSpec.swift */,
 				42B16D5520D5A2C00027ED1C /* Interactors */,
 				42BF4E8E20D24FE50088AAF6 /* Gateways */,
-				42BF4E9720D2514F0088AAF6 /* Mappers */,
 				4221DAB620D1860E003950CF /* Implementations */,
 			);
 			path = DVR;
@@ -541,7 +516,6 @@
 		4221DAB720D1860E003950CF /* Sickbeard */ = {
 			isa = PBXGroup;
 			children = (
-				428340B820D2976600CB2D7A /* SickbeardApplicationSpec.swift */,
 				428340BA20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift */,
 				428340BC20D298D100CB2D7A /* SickbeardResponseParserSpec.swift */,
 			);
@@ -620,6 +594,7 @@
 		426A799520D1810200797AE5 /* DownTests */ = {
 			isa = PBXGroup;
 			children = (
+				422BE6D520D6F51200DDDF37 /* DownTests.swift */,
 				426A799820D1810200797AE5 /* Info.plist */,
 			);
 			path = DownTests;
@@ -629,7 +604,6 @@
 			isa = PBXGroup;
 			children = (
 				428340BF20D2FB2500CB2D7A /* RequestGatewayMock.swift */,
-				428340C120D2FB6700CB2D7A /* RequestGatewayConfiguratingMock.swift */,
 			);
 			path = Gateways;
 			sourceTree = "<group>";
@@ -638,7 +612,6 @@
 			isa = PBXGroup;
 			children = (
 				428340C820D2FF9300CB2D7A /* RequestBuildingMock.swift */,
-				428340C420D2FC9100CB2D7A /* RequestExecutorProducingMock.swift */,
 				428340C620D2FD0A00CB2D7A /* RequestExecutingMock.swift */,
 				422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */,
 			);
@@ -703,21 +676,10 @@
 		42BF4E8E20D24FE50088AAF6 /* Gateways */ = {
 			isa = PBXGroup;
 			children = (
-				42BF4E8F20D250010088AAF6 /* DvrGatewayConfigurationSpec.swift */,
-				42BF4E9120D250110088AAF6 /* DvrGatewayConfigurationFactorySpec.swift */,
 				42BF4E9320D2501A0088AAF6 /* ShowListGatewaySpec.swift */,
 				42BF4E9520D250530088AAF6 /* ShowDetailsGatewaySpec.swift */,
 			);
 			path = Gateways;
-			sourceTree = "<group>";
-		};
-		42BF4E9720D2514F0088AAF6 /* Mappers */ = {
-			isa = PBXGroup;
-			children = (
-				42BF4E8620D1A20C0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift */,
-				4221DAB520D1860E003950CF /* DvrShowsResponseMapperSpec.swift */,
-			);
-			path = Mappers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -835,6 +797,7 @@
 					};
 					426A799120D1810200797AE5 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 0940;
 						TestTargetID = 426A797D20D1810100797AE5;
 					};
 				};
@@ -1033,22 +996,13 @@
 			files = (
 				428340BB20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift in Sources */,
 				42B16D5720D5A2E90027ED1C /* DvrInteractorFactorySpec.swift in Sources */,
-				428340B920D2976600CB2D7A /* SickbeardApplicationSpec.swift in Sources */,
 				428340B320D26DB700CB2D7A /* DvrRequestBuildingSpec.swift in Sources */,
 				428340CB20D3000F00CB2D7A /* RequestExecutorSpec.swift in Sources */,
 				4221DABC20D1860E003950CF /* DvrResponseParsingMock.swift in Sources */,
-				4221DAC020D1860E003950CF /* RequestGatewaySpec.swift in Sources */,
-				42BF4E9220D250110088AAF6 /* DvrGatewayConfigurationFactorySpec.swift in Sources */,
-				428340C520D2FC9100CB2D7A /* RequestExecutorProducingMock.swift in Sources */,
 				428340B720D28D7400CB2D7A /* DvrRequestBuildingMock.swift in Sources */,
 				42B16D5920D5A2F50027ED1C /* ShowListInteractorSpec.swift in Sources */,
-				428340C220D2FB6700CB2D7A /* RequestGatewayConfiguratingMock.swift in Sources */,
 				4221DABF20D1860E003950CF /* RequestSpec.swift in Sources */,
-				42BF4E9020D250010088AAF6 /* DvrGatewayConfigurationSpec.swift in Sources */,
-				42BF4E8720D1A20D0088AAF6 /* DvrShowDetailsResponseMapperSpec.swift in Sources */,
 				428340C720D2FD0A00CB2D7A /* RequestExecutingMock.swift in Sources */,
-				428340CD20D3011400CB2D7A /* RequestExecutorFactory.swift in Sources */,
-				4221DAC120D1860E003950CF /* DvrShowsResponseMapperSpec.swift in Sources */,
 				422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */,
 				4221DABB20D1860E003950CF /* ResponseParsingMock.swift in Sources */,
 				428340C920D2FF9300CB2D7A /* RequestBuildingMock.swift in Sources */,
@@ -1057,10 +1011,8 @@
 				42BF4E9920D2520A0088AAF6 /* ApiApplicationMock.swift in Sources */,
 				4221DABD20D1860E003950CF /* DataStoragingMock.swift in Sources */,
 				42BF4E8D20D1B5BC0088AAF6 /* StringSpec.swift in Sources */,
-				428340B520D2896700CB2D7A /* DvrApplicationMock.swift in Sources */,
 				428340BD20D298D100CB2D7A /* SickbeardResponseParserSpec.swift in Sources */,
 				422CEE0C20D52B8700EF0A16 /* RequestClientMock.swift in Sources */,
-				4221DABA20D1860E003950CF /* ResponseMapperMock.swift in Sources */,
 				42BF4E9420D2501A0088AAF6 /* ShowListGatewaySpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1081,6 +1033,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				422BE6D620D6F51200DDDF37 /* DownTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1395,6 +1348,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1409,6 +1363,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.DownTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Down.app/Down";
@@ -1420,6 +1375,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

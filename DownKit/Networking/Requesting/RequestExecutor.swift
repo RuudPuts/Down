@@ -13,15 +13,15 @@ public protocol RequestExecuting {
     func execute(_ request: Request) -> Observable<Request.Response>
 }
 
-class RequestExecutor: RequestExecuting {
+public class RequestExecutor: RequestExecuting {
     private let requestClient: RequestClient
     private let disposeBag = DisposeBag()
     
-    init(requestClient: RequestClient = URLSession.shared) {
+    public init(requestClient: RequestClient = URLSession.shared) {
         self.requestClient = requestClient
     }
     
-    func execute(_ request: Request) -> Observable<Request.Response> {
+    public func execute(_ request: Request) -> Observable<Request.Response> {
         return Observable<Request.Response>.create { observable in
             self.requestClient.execute(request) {
                 guard let response = $0 else {

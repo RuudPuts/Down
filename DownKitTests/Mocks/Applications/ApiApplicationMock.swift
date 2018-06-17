@@ -10,6 +10,7 @@
 
 class ApiApplicationMock: ApiApplication {
     struct Stubs {
+        var type = ApplicationType.dvr
         var name = "ApiApplication"
         var host = "ApiHost"
         var apiKey = "ApiKey"
@@ -38,6 +39,7 @@ class ApiApplicationMock: ApiApplication {
     
     // ApiApplication
     
+    var type: ApplicationType { return stubs.type }
     var name: String { return stubs.name }
     var host: String { return stubs.host }
     var apiKey: String { return stubs.host }

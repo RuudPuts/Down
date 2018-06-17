@@ -159,8 +159,8 @@ class SickbeardResponseParserSpec: QuickSpec {
                     result = nil
                 }
                 
-                it("parses the show's id") {
-                    expect(result.identifier) == "" // 78804
+                it("sets partial show identifier") {
+                    expect(result.identifier) == DvrShow.partialIdentifier
                 }
                 
                 it("parses the show's name") {

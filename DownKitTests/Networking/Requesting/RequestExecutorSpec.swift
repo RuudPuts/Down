@@ -21,11 +21,8 @@ class RequestExecutorSpec: QuickSpec {
             var requestClient: RequestClientMock!
             
             beforeEach {
-                request = Request(url: "https://google.com",
-                                  method: .get,
-                                  parameters: nil)
                 requestClient = RequestClientMock()
-                sut = RequestExecutor(request: request, requestClient: requestClient)
+                sut = RequestExecutor(requestClient: requestClient)
             }
             
             afterEach {
@@ -41,10 +38,10 @@ class RequestExecutorSpec: QuickSpec {
                     request = Request(url: "some invalid url",
                                       method: .get,
                                       parameters: nil)
-                    sut = RequestExecutor(request: request)
+                    sut = RequestExecutor()
                     
                     result = sut
-                        .execute()
+                        .execute(request)
                         .toBlocking()
                         .materialize()
                 }
@@ -63,13 +60,17 @@ class RequestExecutorSpec: QuickSpec {
                 var result: Request.Response!
                 
                 beforeEach {
+                    request = Request(url: "https://google.com",
+                                      method: .get,
+                                      parameters: nil)
+                    
                     response = Request.Response(data: nil, statusCode: 418, headers: [:])
                     requestClient.stubs.execute.willDo = { _, completionHandler in
                         completionHandler(response, nil)
                     }
                     
                     // swiftlint:disable force_try
-                    result = try! sut.execute()
+                    result = try! sut.execute(request)
                         .toBlocking()
                         .first()
                 }
@@ -88,13 +89,17 @@ class RequestExecutorSpec: QuickSpec {
                 var failure: RequestClientError!
                 
                 beforeEach {
+                    request = Request(url: "https://google.com",
+                                      method: .get,
+                                      parameters: nil)
+                    
                     failure = .generic(message: "test failure")
                     requestClient.stubs.execute.willDo = { _, completionHandler in
                         completionHandler(nil, failure)
                     }
                     
                     result = sut
-                        .execute()
+                        .execute(request)
                         .toBlocking()
                         .materialize()
                 }

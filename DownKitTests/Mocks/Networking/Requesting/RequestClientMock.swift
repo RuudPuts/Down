@@ -22,7 +22,7 @@ class RequestClientMock: RequestClient {
     // RequestClient
     
     func execute(_ request: Request, completion: @escaping (Request.Response?, RequestClientError?) -> Void) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.global().async {
             NSLog("[RequestClientMock] Executing completion stub")
             self.stubs.execute.willDo(request, completion)
         }

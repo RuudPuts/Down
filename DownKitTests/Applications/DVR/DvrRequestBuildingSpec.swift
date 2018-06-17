@@ -14,10 +14,10 @@ class DvrRequestBuildingSpec: QuickSpec {
     override func spec() {
         describe("DvrRequestBuilding") {
             var sut: DvrRequestBuildingImp!
-            var application: DvrApplicationMock!
+            var application: DvrApplication!
             
             beforeEach {
-                application = DvrApplicationMock()
+                application = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
                 sut = DvrRequestBuildingImp(application: application)
             }
             

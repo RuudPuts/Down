@@ -17,63 +17,48 @@ class ShowDetailsGatewaySpec: QuickSpec {
     override func spec() {
         describe("ShowDetailsGateway") {
             var sut: ShowDetailsGateway!
-            var config: ShowDetailsGateway.Config!
             var show: DvrShow!
             
             var request: Request!
+            var application: DvrApplication!
             var requestBuilder: DvrRequestBuildingMock!
-            var application: DvrApplicationMock!
             var responseParser: DvrResponseParsingMock!
-            var responseMapper: DvrShowDetailsResponseMapper!
-            var requestExecutorFactory: RequestExecutorProducingMock!
+            var requestExecutor: RequestExecutingMock!
             
             beforeEach {
                 request = Request(url: "http://myapi/show/identifier",
                                   method: .get, parameters: nil)
-                application = DvrApplicationMock()
+                application = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
                 requestBuilder = DvrRequestBuildingMock(application: application)
                 requestBuilder.stubs.make = request
-                application.stubs.requestBuilder = requestBuilder
-                requestExecutorFactory = RequestExecutorProducingMock()
-                
+                requestExecutor = RequestExecutingMock()
                 responseParser = DvrResponseParsingMock()
                 responseParser.stubs.parseShowDetails = DvrShow(identifier: "1", name: "UpdatedShow", quality: "TestQuality")
-                responseMapper = DvrShowDetailsResponseMapper(parser: responseParser)
                 
-                config = ShowDetailsGateway.Config(application: application,
-                                                   responseMapper: responseMapper,
-                                                   requestExecutorFactory: requestExecutorFactory)
                 show = DvrShow(identifier: "1", name: "TestShow", quality: "TestQuality")
-                sut = ShowDetailsGateway(config: config, show: show)
+                sut = ShowDetailsGateway(show: show, builder: requestBuilder, parser: responseParser, executor: requestExecutor)
             }
             
             afterEach {
                 sut = nil
-                config = nil
                 show = nil
                 
-                responseMapper = nil
                 responseParser = nil
-                
-                requestExecutorFactory = nil
+                requestExecutor = nil
                 requestBuilder = nil
                 application = nil
                 request = nil
             }
             
             context("getting show details") {
-                var requestExecutor: RequestExecutingMock!
                 var responseData: Data!
                 var result: DvrShow!
                 
                 beforeEach {
                     responseData = "stubbed data".data(using: .utf8)
-                    
-                    requestExecutor = RequestExecutingMock()
                     requestExecutor.stubs.execute = Observable<Request.Response>.just(
                         Request.Response(data: responseData, statusCode: 200, headers: [:])
                     )
-                    requestExecutorFactory.stubs.make = requestExecutor
                     
                     // swiftlint:disable force_try
                     result = try! sut
@@ -84,7 +69,6 @@ class ShowDetailsGatewaySpec: QuickSpec {
                 
                 afterEach {
                     result = nil
-                    requestExecutor = nil
                     responseData = nil
                 }
                 
@@ -92,13 +76,11 @@ class ShowDetailsGatewaySpec: QuickSpec {
                     expect(requestBuilder.captures.make?.call) == DvrApplicationCall.showDetails(show)
                 }
                 
-                it("makes the request executor") {
-                    expect(requestExecutorFactory.captures.make?.request) == requestBuilder.stubs.make
+                it("executes the request") {
+                    expect(requestExecutor.captures.execute?.request) == request
                 }
                 
                 it("parses the result") {
-                    //! The code actually calls the mapper, but currently it can't be mocked
-                    //! As gateway defines a spefic implementation of DvrResponseMapper
                     expect(responseParser.captures.parseShowDetails?.storage.data) == responseData
                 }
                 

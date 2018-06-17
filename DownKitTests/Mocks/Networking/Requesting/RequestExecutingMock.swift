@@ -18,7 +18,11 @@ class RequestExecutingMock: RequestExecuting {
     }
     
     struct Captures {
-        var request: Request?
+        var execute: Execute?
+        
+        struct Execute {
+            let request: Request
+        }
     }
     
     var stubs = Stubs()
@@ -26,12 +30,8 @@ class RequestExecutingMock: RequestExecuting {
     
     // RequestExecuting
     
-    var request: Request {
-        get { return stubs.request }
-        set { captures.request = newValue }
-    }
-    
-    func execute() -> Observable<Request.Response> {
+    func execute(_ request: Request) -> Observable<Request.Response> {
+        captures.execute = Captures.Execute(request: request)
         return stubs.execute
     }
 }

@@ -11,17 +11,12 @@ import RxSwift
 
 class RequestGatewayMock: RequestGateway {    
     struct Stubs {
-        var config = RequestGatewayConfiguratingMock()
         var execute: Observable<Any> = Observable.just(0)
     }
     
     var stubs = Stubs()
     
     // RequestGateway
-    
-    typealias Config = RequestGatewayConfiguratingMock
-    
-    var config: RequestGatewayConfiguratingMock { return stubs.config }
     
     func execute() throws -> Observable<Any> {
         return stubs.execute
