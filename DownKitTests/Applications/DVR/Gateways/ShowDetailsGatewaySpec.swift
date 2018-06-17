@@ -17,7 +17,6 @@ class ShowDetailsGatewaySpec: QuickSpec {
     override func spec() {
         describe("ShowDetailsGateway") {
             var sut: ShowDetailsGateway!
-            var show: DvrShow!
             
             var request: Request!
             var application: DvrApplication!
@@ -34,14 +33,10 @@ class ShowDetailsGatewaySpec: QuickSpec {
                 requestExecutor = RequestExecutingMock()
                 responseParser = DvrResponseParsingMock()
                 responseParser.stubs.parseShowDetails = DvrShow(identifier: "1", name: "UpdatedShow", quality: "TestQuality")
-                
-                show = DvrShow(identifier: "1", name: "TestShow", quality: "TestQuality")
-                sut = ShowDetailsGateway(show: show, builder: requestBuilder, parser: responseParser, executor: requestExecutor)
             }
             
             afterEach {
                 sut = nil
-                show = nil
                 
                 responseParser = nil
                 requestExecutor = nil
@@ -50,42 +45,61 @@ class ShowDetailsGatewaySpec: QuickSpec {
                 request = nil
             }
             
-            context("getting show details") {
-                var responseData: Data!
-                var result: DvrShow!
+            context("without show") {
+                beforeEach {
+                    sut = ShowDetailsGateway(builder: requestBuilder, parser: responseParser, executor: requestExecutor)
+                }
+            }
+            
+            context("with show") {
+                var show: DvrShow!
                 
                 beforeEach {
-                    responseData = "stubbed data".data(using: .utf8)
-                    requestExecutor.stubs.execute = Observable<Request.Response>.just(
-                        Request.Response(data: responseData, statusCode: 200, headers: [:])
-                    )
-                    
-                    // swiftlint:disable force_try
-                    result = try! sut
-                        .execute()
-                        .toBlocking()
-                        .first()
+                    show = DvrShow(identifier: "1", name: "TestShow", quality: "TestQuality")
+                    sut = ShowDetailsGateway(show: show, builder: requestBuilder, parser: responseParser, executor: requestExecutor)
                 }
                 
                 afterEach {
-                    result = nil
-                    responseData = nil
+                    show = nil
                 }
                 
-                it("builds the show details request for show") {
-                    expect(requestBuilder.captures.make?.call) == DvrApplicationCall.showDetails(show)
-                }
-                
-                it("executes the request") {
-                    expect(requestExecutor.captures.execute?.request) == request
-                }
-                
-                it("parses the result") {
-                    expect(responseParser.captures.parseShowDetails?.storage.data) == responseData
-                }
-                
-                it("returns updated show") {
-                    expect(result.name) == "UpdatedShow"
+                context("getting details") {
+                    var responseData: Data!
+                    var result: DvrShow!
+                    
+                    beforeEach {
+                        responseData = "stubbed data".data(using: .utf8)
+                        requestExecutor.stubs.execute = Observable<Request.Response>.just(
+                            Request.Response(data: responseData, statusCode: 200, headers: [:])
+                        )
+                        
+                        // swiftlint:disable force_try
+                        result = try! sut
+                            .execute()
+                            .toBlocking()
+                            .first()
+                    }
+                    
+                    afterEach {
+                        result = nil
+                        responseData = nil
+                    }
+                    
+                    it("builds the show details request for show") {
+                        expect(requestBuilder.captures.make?.call) == DvrApplicationCall.showDetails(show)
+                    }
+                    
+                    it("executes the request") {
+                        expect(requestExecutor.captures.execute?.request) == request
+                    }
+                    
+                    it("parses the result") {
+                        expect(responseParser.captures.parseShowDetails?.storage.data) == responseData
+                    }
+                    
+                    it("returns updated show") {
+                        expect(result.name) == "UpdatedShow"
+                    }
                 }
             }
         }

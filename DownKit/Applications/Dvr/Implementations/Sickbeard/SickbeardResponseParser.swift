@@ -40,7 +40,7 @@ class SickbeardResponseParser: DvrResponseParsing {
             fatalError("ohooh") //! Maybe a throw? lol
         }
         
-        var show = makeShow(from: showData)
+        let show = makeShow(from: showData)
         show.seasons = seasonsData.dictionary?.map {
             return DvrSeason(
                 identifier: $0.key,

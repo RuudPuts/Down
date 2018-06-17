@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public struct DvrShow {
+public class DvrShow {
     public let identifier: String
     public let name: String
     public var quality: String
@@ -29,15 +29,28 @@ extension DvrShow {
     }
 }
 
-public struct DvrSeason {
+public class DvrSeason {
     let identifier: String
     let episodes: [DvrEpisode]
+    
+    public init(identifier: String, episodes: [DvrEpisode]) {
+        self.identifier = identifier
+        self.episodes = episodes
+    }
 }
 
-public struct DvrEpisode {
+public class DvrEpisode {
     let identifier: String
     let name: String
     let airdate: String
     let quality: String
     let status: String
+    
+    public init(identifier: String, name: String, airdate: String, quality: String, status: String) {
+        self.identifier = identifier
+        self.name = name
+        self.airdate = airdate
+        self.quality = quality
+        self.status = status
+    }
 }
