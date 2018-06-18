@@ -31,9 +31,9 @@ class ShowListInteractorSpec: QuickSpec {
                 application = nil
             }
             
-            context("executing") {
+            context("observing") {
                 beforeEach {
-                    _ = sut.execute()
+                    _ = sut.observe()
                 }
             }
         }

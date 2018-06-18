@@ -16,7 +16,7 @@ class ViewController: UITableViewController & Routing & DvrApplicationInteractin
     var interactorFactory: DvrInteractorProducing!
     var router: Router?
     
-    lazy var interactor = interactorFactory.makeShowListInteractor(for: application)
+    lazy var interactor = interactorFactory.makeShowCacheRefreshInteractor(for: application)
     let disposeBag = DisposeBag()
 
     var shows = Variable<[DvrShow]>([])
@@ -41,7 +41,7 @@ class ViewController: UITableViewController & Routing & DvrApplicationInteractin
     
     func loadData() {
         interactor
-            .execute()
+            .observe()
             .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
                 cell.textLabel?.text = show.name
             }

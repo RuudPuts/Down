@@ -7,8 +7,8 @@
 //
 
 public class DvrShow {
-    public let identifier: String
-    public let name: String
+    public var identifier: String
+    public var name: String
     public var quality: String
     public var seasons: [DvrSeason]?
     

@@ -26,7 +26,7 @@ class DetailViewController: UIViewController & Routing & DvrApplicationInteracti
         super.viewWillAppear(animated)
 
         interactor
-            .execute()
+            .observe()
             .subscribe(onNext: { (show) in
                 NSLog("Refreshed show: \(show.name)")
             })

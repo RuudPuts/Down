@@ -11,5 +11,5 @@ import RxSwift
 public protocol ObservableInteractor {
     associatedtype Element
     
-    func execute() -> Observable<Element>
+    func observe() -> Observable<Element>
 }

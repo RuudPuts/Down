@@ -8,11 +8,18 @@
 
 import RxSwift
 
-public final class ShowDetailsInteractor: RequestGatewayInteractor {
+public final class ShowDetailsInteractor: RequestGatewayInteracting {    
     public typealias Gateway = ShowDetailsGateway
+    public typealias Element = Gateway.ResultType
     public var gateway: Gateway
     
     public init(gateway: Gateway) {
         self.gateway = gateway
+    }
+    
+    func setShow(_ show: DvrShow) -> ShowDetailsInteractor {
+        gateway.show = show
+        
+        return self
     }
 }

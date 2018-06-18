@@ -12,5 +12,7 @@ public protocol Application {
 }
 
 public enum ApplicationType {
+    case download
     case dvr
+    case dmr
 }

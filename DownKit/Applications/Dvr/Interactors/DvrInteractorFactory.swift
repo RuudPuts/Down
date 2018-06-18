@@ -9,9 +9,14 @@
 public protocol DvrInteractorProducing {
     func makeShowListInteractor(for application: DvrApplication) -> ShowListInteractor
     func makeShowDetailsInteractor(for application: DvrApplication, show: DvrShow) -> ShowDetailsInteractor
+    func makeShowCacheRefreshInteractor(for application: DvrApplication) -> RefreshShowCacheInteractor
 }
 
-public class DvrInteractorFactory: DvrInteractorProducing {
+protocol _DvrInteractorProducing {
+    func makeShowCacheRefreshInteractor(for application: DvrApplication) -> RefreshShowCacheInteractor
+}
+
+public class DvrInteractorFactory: DvrInteractorProducing, _DvrInteractorProducing {
     var gatewayFactory: DvrGatewayProducing
     
     public init(gatewayFactory: DvrGatewayProducing = DvrGatewayFactory()) {
@@ -28,5 +33,12 @@ public class DvrInteractorFactory: DvrInteractorProducing {
         let gateway = gatewayFactory.makeShowDetailsGateway(for: application, show: show)
         
         return ShowDetailsInteractor(gateway: gateway)
+    }
+    
+    public func makeShowCacheRefreshInteractor(for application: DvrApplication) -> RefreshShowCacheInteractor {
+        let showListInteractor = makeShowListInteractor(for: application)
+        let showDetailsInteractor = makeShowDetailsInteractor(for: application, show: DvrShow(identifier: "", name: "", quality: ""))
+        
+        return RefreshShowCacheInteractor(interactors: (showList: showListInteractor, showDetails: showDetailsInteractor))
     }
 }
