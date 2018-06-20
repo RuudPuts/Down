@@ -41,12 +41,12 @@ class SickbeardResponseParser: DvrResponseParsing {
         }
         
         let show = makeShow(from: showData)
-        show.seasons = seasonsData.dictionary?.map {
+        let seasons = seasonsData.dictionary?.map {
             return DvrSeason(
                 identifier: $0.key,
                 episodes: parseEpisodes(from: $0.value)
-            )
-        }
+            )}
+        show.setSeasons(seasons ?? [])
         
         return show
     }

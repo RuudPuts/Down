@@ -9,18 +9,18 @@
 public protocol DvrInteractorProducing {
     func makeShowListInteractor(for application: DvrApplication) -> ShowListInteractor
     func makeShowDetailsInteractor(for application: DvrApplication, show: DvrShow) -> ShowDetailsInteractor
+    
+    // Compound interactors
     func makeShowCacheRefreshInteractor(for application: DvrApplication) -> RefreshShowCacheInteractor
 }
 
-protocol _DvrInteractorProducing {
-    func makeShowCacheRefreshInteractor(for application: DvrApplication) -> RefreshShowCacheInteractor
-}
-
-public class DvrInteractorFactory: DvrInteractorProducing, _DvrInteractorProducing {
+public class DvrInteractorFactory: DvrInteractorProducing {
+    var database: DvrDatabase
     var gatewayFactory: DvrGatewayProducing
     
-    public init(gatewayFactory: DvrGatewayProducing = DvrGatewayFactory()) {
+    public init(database: DvrDatabase, gatewayFactory: DvrGatewayProducing = DvrGatewayFactory()) {
         self.gatewayFactory = gatewayFactory
+        self.database = database
     }
     
     public func makeShowListInteractor(for application: DvrApplication) -> ShowListInteractor {
@@ -38,7 +38,8 @@ public class DvrInteractorFactory: DvrInteractorProducing, _DvrInteractorProduci
     public func makeShowCacheRefreshInteractor(for application: DvrApplication) -> RefreshShowCacheInteractor {
         let showListInteractor = makeShowListInteractor(for: application)
         let showDetailsInteractor = makeShowDetailsInteractor(for: application, show: DvrShow(identifier: "", name: "", quality: ""))
+        let interactors = (showList: showListInteractor, showDetails: showDetailsInteractor)
         
-        return RefreshShowCacheInteractor(interactors: (showList: showListInteractor, showDetails: showDetailsInteractor))
+        return RefreshShowCacheInteractor(interactors: interactors, database: database)
     }
 }

@@ -16,13 +16,16 @@ protocol Routing {
 class Router {    
     let window: UIWindow
     let storyboard: UIStoryboard
+    let database: DownDatabase
+    
     var navigationController: UINavigationController? {
         return window.rootViewController as? UINavigationController
     }
     
-    init(window: UIWindow, storyboard: UIStoryboard) {
+    init(window: UIWindow, storyboard: UIStoryboard, database: DownDatabase = RealmDatabase.default) {
         self.window = window
         self.storyboard = storyboard
+        self.database = database
     }
     
     enum Identifier: String {
@@ -47,10 +50,12 @@ class Router {
     }
 }
 
+typealias RouterViewController = UIViewController & Routing
+
 private extension Router {
     func makeViewController(_ identifier: Identifier) -> UIViewController & Routing {
         let viewController = storyboard.instantiateViewController(withIdentifier: identifier.rawValue)
-        guard let routingViewController = viewController as? UIViewController & Routing else {
+        guard let routingViewController = viewController as? RouterViewController else {
             fatalError("bye")
         }
         decorate(routingViewController)
@@ -58,13 +63,17 @@ private extension Router {
         return routingViewController
     }
     
-    func decorate(_ viewController: UIViewController & Routing) {
+    func decorate(_ viewController: RouterViewController) {
         var controller = viewController
         controller.router = self
         
+        if var databaseConuming = controller as? DatabaseConsuming {
+            databaseConuming.database = database
+        }
+        
         if var dvrInteracting = controller as? DvrApplicationInteracting {
             dvrInteracting.application = Down.dvrApplication
-            dvrInteracting.interactorFactory = DvrInteractorFactory()
+            dvrInteracting.interactorFactory = DvrInteractorFactory(database: database)
         }
     }
 }

@@ -6,16 +6,28 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public class DvrShow {
-    public var identifier: String
-    public var name: String
-    public var quality: String
-    public var seasons: [DvrSeason]?
+import RealmSwift
+
+public class DvrShow: Object {
+    @objc dynamic var key = UUID().uuidString
+    @objc public dynamic var identifier: String = String(NSNotFound)
+    @objc public dynamic var name = ""
+    @objc public dynamic var quality = ""
+    public var seasons = List<DvrSeason>()
     
-    public init(identifier: String, name: String, quality: String) {
+    public convenience init(identifier: String, name: String, quality: String) {
+        self.init()
         self.identifier = identifier
         self.name = name
         self.quality = quality
+    }
+    
+    public func setSeasons(_ seasons: [DvrSeason]) {
+        self.seasons = List<DvrSeason>(seasons)
+    }
+    
+    override public static func primaryKey() -> String? {
+        return "key"
     }
 }
 
@@ -29,28 +41,8 @@ extension DvrShow {
     }
 }
 
-public class DvrSeason {
-    let identifier: String
-    let episodes: [DvrEpisode]
-    
-    public init(identifier: String, episodes: [DvrEpisode]) {
-        self.identifier = identifier
-        self.episodes = episodes
-    }
-}
-
-public class DvrEpisode {
-    let identifier: String
-    let name: String
-    let airdate: String
-    let quality: String
-    let status: String
-    
-    public init(identifier: String, name: String, airdate: String, quality: String, status: String) {
-        self.identifier = identifier
-        self.name = name
-        self.airdate = airdate
-        self.quality = quality
-        self.status = status
+extension DvrShow: DvrDatabaseStoring {
+    func store(in database: DvrDatabase) {
+        database.store(show: self)
     }
 }

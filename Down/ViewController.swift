@@ -36,15 +36,23 @@ class ViewController: UITableViewController & Routing & DvrApplicationInteractin
             })
             .disposed(by: disposeBag)
         
+        loadDatabase()
         loadData()
+    }
+    
+    func loadDatabase() {
+        RealmDatabase.default
+            .fetchShows()
+            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
+                cell.textLabel?.text = show.name
+            }
+            .disposed(by: disposeBag)
     }
     
     func loadData() {
         interactor
             .observe()
-            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
-                cell.textLabel?.text = show.name
-            }
+            .subscribe()
             .disposed(by: disposeBag)
     }
 }

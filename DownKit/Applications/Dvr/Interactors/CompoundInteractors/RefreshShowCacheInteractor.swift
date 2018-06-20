@@ -15,13 +15,20 @@ public class RefreshShowCacheInteractor: CompoundInteractor, ObservableInteracto
     public typealias Element = ShowListInteractor.Element
     var subject: Variable<Element> = Variable([])
     
+    var database: DvrDatabase!
     let disposeBag = DisposeBag()
     
     public required init(interactors: Interactors) {
         self.interactors = interactors
     }
     
+    convenience init(interactors: Interactors, database: DvrDatabase) {
+        self.init(interactors: interactors)
+        self.database = database
+    }
+    
     public func observe() -> Observable<[DvrShow]> {
+        //! Merge (zip) the shows & details observales and return in an Observable.create? Subscribe is now useless for this interactor
         refreshShows()
         
         return subject.asObservable()
@@ -31,34 +38,27 @@ public class RefreshShowCacheInteractor: CompoundInteractor, ObservableInteracto
         interactors.showList
             .observe()
             .subscribe(onNext: {
-                self.subject.value = $0
-                self.refreshShowDetails()
+                self.refreshShowDetails(shows: $0)
             })
             .disposed(by: disposeBag)
     }
     
-    private func refreshShowDetails() {
-        self.subject.value.forEach { show in
+    private func refreshShowDetails(shows: [DvrShow]) {
+        shows.forEach { show in
             interactors.showDetails
                 .setShow(show)
                 .observe()
-                .subscribe(onNext: { self.updateSubject(with: $0) })
+                .map { show -> DvrShow in //! Though generic for shows, this map is sickbeard specific. Applications should have injection points in interactors?
+                    if let index = shows.index(where: { $0.name == show.name }) {
+                        show.identifier = shows[index].identifier
+                    }
+                    
+                    return show
+                }
+                .subscribe(onNext: {
+                    $0.store(in: self.database)
+                })
                 .disposed(by: disposeBag)
         }
-    }
-    
-    private func updateSubject(with show: DvrShow) {
-        var updatedShows = self.subject.value
-        guard let showIndex = updatedShows.index(where: { $0.name == show.name }) else {
-            return
-        }
-        
-        let existingShow = updatedShows[showIndex]
-        show.identifier = existingShow.identifier
-        
-        updatedShows.remove(at: showIndex)
-        updatedShows.insert(show, at: showIndex)
-        
-        self.subject.value = updatedShows
     }
 }

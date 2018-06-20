@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public final class ShowDetailsInteractor: RequestGatewayInteracting {    
+public final class ShowDetailsInteractor: RequestGatewayInteracting {
     public typealias Gateway = ShowDetailsGateway
     public typealias Element = Gateway.ResultType
     public var gateway: Gateway
