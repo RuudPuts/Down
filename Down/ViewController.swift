@@ -11,9 +11,10 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class ViewController: UITableViewController & Routing & DvrApplicationInteracting {
+class ViewController: UITableViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
     var application: DvrApplication!
     var interactorFactory: DvrInteractorProducing!
+    var database: DownDatabase!
     var router: Router?
     
     lazy var interactor = interactorFactory.makeShowCacheRefreshInteractor(for: application)
@@ -41,7 +42,7 @@ class ViewController: UITableViewController & Routing & DvrApplicationInteractin
     }
     
     func loadDatabase() {
-        RealmDatabase.default
+        database
             .fetchShows()
             .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
                 cell.textLabel?.text = show.name

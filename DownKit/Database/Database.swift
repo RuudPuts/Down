@@ -13,5 +13,5 @@ public protocol Database {
 }
 
 public protocol DatabaseConsuming {
-    var database: DownDatabase { get set }
+    var database: DownDatabase! { get set }
 }
