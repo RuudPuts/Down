@@ -43,6 +43,8 @@ extension DvrShow {
 
 extension DvrShow: DvrDatabaseStoring {
     func store(in database: DvrDatabase) {
+        guard !isPartial else { return }
+        
         database.store(show: self)
     }
 }

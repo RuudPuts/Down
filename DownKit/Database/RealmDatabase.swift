@@ -13,12 +13,12 @@ public class RealmDatabase: DownDatabase {
     public static let `default` = RealmDatabase()
     var realm: Realm!
     
-    private var fetchShowsToken: NotificationToken?
-    
-    public init() {
-        transact {
-            // swiftlint:disable force_try
-            self.realm = try! Realm()
+    public init(realm: Realm? = nil) {
+        if let realm = realm {
+            self.realm = realm
+        }
+        else {
+            createRealm()
         }
     }
     
@@ -37,6 +37,7 @@ public class RealmDatabase: DownDatabase {
         }
     }
     
+    private var fetchShowsToken: NotificationToken?
     public func fetchShows() -> Observable<[DvrShow]> {
         return Observable<[DvrShow]>.create { observer in
             self.transact {
@@ -52,6 +53,15 @@ public class RealmDatabase: DownDatabase {
                 observer.onNext(Array(shows))
             }
             return Disposables.create()
+        }
+    }
+}
+
+extension RealmDatabase {
+    func createRealm() {
+        transact {
+            // swiftlint:disable force_try
+            self.realm = try! Realm()
         }
     }
 }

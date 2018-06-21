@@ -15,6 +15,7 @@ import Quick
 import Nimble
 
 class DvrInteractorFactorySpec: QuickSpec {
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("DvrInteractorFactory") {
             var sut: DvrInteractorFactory!
@@ -41,7 +42,7 @@ class DvrInteractorFactorySpec: QuickSpec {
                 }
                 
                 afterEach {
-                    application = nil
+                    interactor = nil
                 }
                 
                 it("sets the gateway") {
@@ -60,11 +61,35 @@ class DvrInteractorFactorySpec: QuickSpec {
                 
                 afterEach {
                     show = nil
-                    application = nil
+                    interactor = nil
                 }
                 
                 it("sets the show on the gateway") {
                     expect(interactor.gateway.show) === show
+                }
+            }
+            
+            context("refresh show cache interactor") {
+                var interactor: RefreshShowCacheInteractor!
+                
+                beforeEach {
+                    interactor = sut.makeShowCacheRefreshInteractor(for: application)
+                }
+                
+                afterEach {
+                    interactor = nil
+                }
+                
+                it("sets the show list interactor") {
+                    expect(interactor.interactors.showList).to(beAKindOf(ShowListInteractor.self))
+                }
+                
+                it("sets the show details interactor") {
+                    expect(interactor.interactors.showDetails).to(beAKindOf(ShowDetailsInteractor.self))
+                }
+                
+                it("sets the database") {
+                    expect(interactor.database) === database
                 }
             }
         }

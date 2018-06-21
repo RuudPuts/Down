@@ -8,13 +8,13 @@
 
 import RxSwift
 
-public final class ShowDetailsGateway: DvrRequestGateway {
+public class ShowDetailsGateway: DvrRequestGateway {
     var builder: DvrRequestBuilding
     var executor: RequestExecuting
     var parser: DvrResponseParsing
     var show: DvrShow!
     
-    init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
+    public required init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
         self.executor = executor
         self.parser = parser
