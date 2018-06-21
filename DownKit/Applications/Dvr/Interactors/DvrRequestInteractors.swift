@@ -6,4 +6,4 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public typealias ShowListInteractor = RequestGatewayInteractor<ShowListGateway>
+public typealias DvrShowListInteractor = RequestGatewayInteractor<DvrShowListGateway>

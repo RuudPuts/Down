@@ -7,11 +7,11 @@
 //
 
 public protocol DvrInteractorProducing {
-    func makeShowListInteractor(for application: DvrApplication) -> ShowListInteractor
-    func makeShowDetailsInteractor(for application: DvrApplication, show: DvrShow) -> ShowDetailsInteractor
+    func makeShowListInteractor(for application: DvrApplication) -> DvrShowListInteractor
+    func makeShowDetailsInteractor(for application: DvrApplication, show: DvrShow) -> DvrShowDetailsInteractor
     
     // Compound interactors
-    func makeShowCacheRefreshInteractor(for application: DvrApplication) -> RefreshShowCacheInteractor
+    func makeShowCacheRefreshInteractor(for application: DvrApplication) -> DvrRefreshShowCacheInteractor
 }
 
 public class DvrInteractorFactory: DvrInteractorProducing {
@@ -23,23 +23,23 @@ public class DvrInteractorFactory: DvrInteractorProducing {
         self.database = database
     }
     
-    public func makeShowListInteractor(for application: DvrApplication) -> ShowListInteractor {
+    public func makeShowListInteractor(for application: DvrApplication) -> DvrShowListInteractor {
         let gateway = gatewayFactory.makeShowListGateway(for: application)
         
-        return ShowListInteractor(gateway: gateway)
+        return DvrShowListInteractor(gateway: gateway)
     }
     
-    public func makeShowDetailsInteractor(for application: DvrApplication, show: DvrShow) -> ShowDetailsInteractor {
+    public func makeShowDetailsInteractor(for application: DvrApplication, show: DvrShow) -> DvrShowDetailsInteractor {
         let gateway = gatewayFactory.makeShowDetailsGateway(for: application, show: show)
         
-        return ShowDetailsInteractor(gateway: gateway)
+        return DvrShowDetailsInteractor(gateway: gateway)
     }
     
-    public func makeShowCacheRefreshInteractor(for application: DvrApplication) -> RefreshShowCacheInteractor {
+    public func makeShowCacheRefreshInteractor(for application: DvrApplication) -> DvrRefreshShowCacheInteractor {
         let showListInteractor = makeShowListInteractor(for: application)
         let showDetailsInteractor = makeShowDetailsInteractor(for: application, show: DvrShow(identifier: "", name: "", quality: ""))
         let interactors = (showList: showListInteractor, showDetails: showDetailsInteractor)
         
-        return RefreshShowCacheInteractor(interactors: interactors, database: database)
+        return DvrRefreshShowCacheInteractor(interactors: interactors, database: database)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ShowDetailsInteractorSpec.swift
+//  DvrShowDetailsInteractorSpec.swift
 //  DownKitTests
 //
 //  Created by Ruud Puts on 21/06/2018.
@@ -13,11 +13,11 @@ import RxSwift
 import Quick
 import Nimble
 
-class ShowDetailsInteractorSpec: QuickSpec {
+class DvrShowDetailsInteractorSpec: QuickSpec {
     override func spec() {
-        describe("ShowDetailsInteractor") {
-            var sut: ShowDetailsInteractor!
-            var gateway: ShowDetailsGateway!
+        describe("DvrShowDetailsInteractor") {
+            var sut: DvrShowDetailsInteractor!
+            var gateway: DvrShowDetailsGateway!
             
             var application: DvrApplication!
             var builder: DvrRequestBuildingMock!
@@ -30,10 +30,10 @@ class ShowDetailsInteractorSpec: QuickSpec {
                 parser = DvrResponseParsingMock()
                 executor = RequestExecutingMock()
                 
-                gateway = ShowDetailsGateway(builder: builder,
+                gateway = DvrShowDetailsGateway(builder: builder,
                                              parser: parser,
                                              executor: executor)
-                sut = ShowDetailsInteractor(gateway: gateway)
+                sut = DvrShowDetailsInteractor(gateway: gateway)
             }
             
             afterEach {

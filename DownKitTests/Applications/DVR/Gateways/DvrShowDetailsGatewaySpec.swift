@@ -1,5 +1,5 @@
 //
-//  ShowDetailsGatewaySpec.swift
+//  DvrShowDetailsGatewaySpec.swift
 //  DownKitTests
 //
 //  Created by Ruud Puts on 14/06/2018.
@@ -12,11 +12,11 @@ import RxSwift
 import Quick
 import Nimble
 
-class ShowDetailsGatewaySpec: QuickSpec {
+class DvrShowDetailsGatewaySpec: QuickSpec {
     // swiftlint:disable function_body_length
     override func spec() {
-        describe("ShowDetailsGateway") {
-            var sut: ShowDetailsGateway!
+        describe("DvrShowDetailsGateway") {
+            var sut: DvrShowDetailsGateway!
             
             var request: Request!
             var application: DvrApplication!
@@ -47,7 +47,7 @@ class ShowDetailsGatewaySpec: QuickSpec {
             
             context("without show") {
                 beforeEach {
-                    sut = ShowDetailsGateway(builder: requestBuilder, parser: responseParser, executor: requestExecutor)
+                    sut = DvrShowDetailsGateway(builder: requestBuilder, parser: responseParser, executor: requestExecutor)
                 }
             }
             
@@ -56,7 +56,7 @@ class ShowDetailsGatewaySpec: QuickSpec {
                 
                 beforeEach {
                     show = DvrShow(identifier: "1", name: "TestShow", quality: "TestQuality")
-                    sut = ShowDetailsGateway(show: show, builder: requestBuilder, parser: responseParser, executor: requestExecutor)
+                    sut = DvrShowDetailsGateway(show: show, builder: requestBuilder, parser: responseParser, executor: requestExecutor)
                 }
                 
                 afterEach {

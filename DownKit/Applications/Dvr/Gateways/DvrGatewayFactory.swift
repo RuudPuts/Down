@@ -7,8 +7,8 @@
 //
 
 public protocol DvrGatewayProducing {
-    func makeShowListGateway(for application: DvrApplication) -> ShowListGateway
-    func makeShowDetailsGateway(for application: DvrApplication, show: DvrShow) -> ShowDetailsGateway
+    func makeShowListGateway(for application: DvrApplication) -> DvrShowListGateway
+    func makeShowDetailsGateway(for application: DvrApplication, show: DvrShow) -> DvrShowDetailsGateway
 }
 
 public class DvrGatewayFactory: DvrGatewayProducing {
@@ -18,13 +18,13 @@ public class DvrGatewayFactory: DvrGatewayProducing {
         self.additionsFactory = additionsFactory
     }
     
-    public func makeShowListGateway(for application: DvrApplication) -> ShowListGateway {
-        return ShowListGateway(builder: additionsFactory.makeDvrRequestBuilder(for: application),
+    public func makeShowListGateway(for application: DvrApplication) -> DvrShowListGateway {
+        return DvrShowListGateway(builder: additionsFactory.makeDvrRequestBuilder(for: application),
                                parser: additionsFactory.makeDvrResponseParser(for: application))
     }
     
-    public func makeShowDetailsGateway(for application: DvrApplication, show: DvrShow) -> ShowDetailsGateway {
-        let gateway = ShowDetailsGateway(show: show,
+    public func makeShowDetailsGateway(for application: DvrApplication, show: DvrShow) -> DvrShowDetailsGateway {
+        let gateway = DvrShowDetailsGateway(show: show,
                                          builder: additionsFactory.makeDvrRequestBuilder(for: application),
                                          parser: additionsFactory.makeDvrResponseParser(for: application))
         

@@ -35,7 +35,7 @@ class DvrInteractorFactorySpec: QuickSpec {
             }
             
             context("show list interactor") {
-                var interactor: ShowListInteractor!
+                var interactor: DvrShowListInteractor!
                 
                 beforeEach {
                     interactor = sut.makeShowListInteractor(for: application)
@@ -51,7 +51,7 @@ class DvrInteractorFactorySpec: QuickSpec {
             }
             
             context("show details interactor") {
-                var interactor: ShowDetailsInteractor!
+                var interactor: DvrShowDetailsInteractor!
                 var show: DvrShow!
                 
                 beforeEach {
@@ -70,7 +70,7 @@ class DvrInteractorFactorySpec: QuickSpec {
             }
             
             context("refresh show cache interactor") {
-                var interactor: RefreshShowCacheInteractor!
+                var interactor: DvrRefreshShowCacheInteractor!
                 
                 beforeEach {
                     interactor = sut.makeShowCacheRefreshInteractor(for: application)
@@ -81,11 +81,11 @@ class DvrInteractorFactorySpec: QuickSpec {
                 }
                 
                 it("sets the show list interactor") {
-                    expect(interactor.interactors.showList).to(beAKindOf(ShowListInteractor.self))
+                    expect(interactor.interactors.showList).to(beAKindOf(DvrShowListInteractor.self))
                 }
                 
                 it("sets the show details interactor") {
-                    expect(interactor.interactors.showDetails).to(beAKindOf(ShowDetailsInteractor.self))
+                    expect(interactor.interactors.showDetails).to(beAKindOf(DvrShowDetailsInteractor.self))
                 }
                 
                 it("sets the database") {

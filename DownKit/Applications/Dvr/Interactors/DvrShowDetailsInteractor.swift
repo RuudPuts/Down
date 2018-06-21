@@ -1,5 +1,5 @@
 //
-//  ShowDetailsInteractor.swift
+//  DvrShowDetailsInteractor.swift
 //  DownKit
 //
 //  Created by Ruud Puts on 16/06/2018.
@@ -8,8 +8,8 @@
 
 import RxSwift
 
-public final class ShowDetailsInteractor: RequestGatewayInteracting {
-    public typealias Gateway = ShowDetailsGateway
+public final class DvrShowDetailsInteractor: RequestGatewayInteracting {
+    public typealias Gateway = DvrShowDetailsGateway
     public typealias Element = Gateway.ResultType
     public var gateway: Gateway
     
@@ -17,7 +17,7 @@ public final class ShowDetailsInteractor: RequestGatewayInteracting {
         self.gateway = gateway
     }
     
-    func setShow(_ show: DvrShow) -> ShowDetailsInteractor {
+    func setShow(_ show: DvrShow) -> DvrShowDetailsInteractor {
         gateway.show = show
         
         return self

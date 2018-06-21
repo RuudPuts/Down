@@ -1,5 +1,5 @@
 //
-//  RefreshShowCacheInteractor.swift
+//  DvrRefreshShowCacheInteractor.swift
 //  DownKit
 //
 //  Created by Ruud Puts on 18/06/2018.
@@ -8,11 +8,11 @@
 
 import RxSwift
 
-public class RefreshShowCacheInteractor: CompoundInteractor, ObservableInteractor {
-    public typealias Interactors = (showList: ShowListInteractor, showDetails: ShowDetailsInteractor)
+public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableInteractor {
+    public typealias Interactors = (showList: DvrShowListInteractor, showDetails: DvrShowDetailsInteractor)
     public var interactors: Interactors
     
-    public typealias Element = ShowListInteractor.Element
+    public typealias Element = DvrShowListInteractor.Element
     var subject: Variable<Element> = Variable([])
     
     var database: DvrDatabase!

@@ -1,5 +1,5 @@
 //
-//  ShowListGatewaySpec.swift
+//  DvrShowListGatewaySpec.swift
 //  DownKitTests
 //
 //  Created by Ruud Puts on 14/06/2018.
@@ -12,11 +12,11 @@ import RxSwift
 import Quick
 import Nimble
 
-class ShowListGatewaySpec: QuickSpec {
+class DvrShowListGatewaySpec: QuickSpec {
     // swiftlint:disable function_body_length
     override func spec() {
-        describe("ShowListGateway") {
-            var sut: ShowListGateway!
+        describe("DvrShowListGateway") {
+            var sut: DvrShowListGateway!
             
             var request: Request!
             var application: DvrApplication!
@@ -34,7 +34,7 @@ class ShowListGatewaySpec: QuickSpec {
                 responseParser = DvrResponseParsingMock()
                 responseParser.stubs.parseShows = [DvrShow(identifier: "1", name: "UpdatedShow", quality: "TestQuality")]
                 
-                sut = ShowListGateway(builder: requestBuilder, parser: responseParser, executor: requestExecutor)
+                sut = DvrShowListGateway(builder: requestBuilder, parser: responseParser, executor: requestExecutor)
             }
             
             afterEach {

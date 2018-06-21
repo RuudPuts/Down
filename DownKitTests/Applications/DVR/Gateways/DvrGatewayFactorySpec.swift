@@ -29,7 +29,7 @@ class DvrGatewayFactorySpec: QuickSpec {
             }
             
             context("show list gateway") {
-                var gateway: ShowListGateway!
+                var gateway: DvrShowListGateway!
                 
                 beforeEach {
                     gateway = sut.makeShowListGateway(for: application)
@@ -53,7 +53,7 @@ class DvrGatewayFactorySpec: QuickSpec {
             }
             
             context("show details gateway") {
-                var gateway: ShowDetailsGateway!
+                var gateway: DvrShowDetailsGateway!
                 var show: DvrShow!
                 
                 beforeEach {

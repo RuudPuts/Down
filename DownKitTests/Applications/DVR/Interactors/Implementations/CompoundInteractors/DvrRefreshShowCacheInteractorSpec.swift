@@ -1,5 +1,5 @@
 //
-//  RefreshShowCacheInteractorSpec.swift
+//  DvrRefreshShowCacheInteractorSpec.swift
 //  DownKitTests
 //
 //  Created by Ruud Puts on 16/06/2018.
@@ -11,17 +11,17 @@ import RxSwift
 import Quick
 import Nimble
 
-class RefreshShowCacheInteractorSpec: QuickSpec {
+class DvrRefreshShowCacheInteractorSpec: QuickSpec {
     override func spec() {
-        describe("RefreshShowCacheInteractor") {
-            var sut: RefreshShowCacheInteractor!
+        describe("DvrRefreshShowCacheInteractor") {
+            var sut: DvrRefreshShowCacheInteractor!
             var database: DvrDatabaseMock!
             
-            var showListGateway: ShowListGateway!
-            var showListInteractor: ShowListInteractor!
+            var showListGateway: DvrShowListGateway!
+            var showListInteractor: DvrShowListInteractor!
             
-            var showDetailsGateway: ShowDetailsGateway!
-            var showDetailsInteractor: ShowDetailsInteractor!
+            var showDetailsGateway: DvrShowDetailsGateway!
+            var showDetailsInteractor: DvrShowDetailsInteractor!
             
             var application: DvrApplication!
             var builder: DvrRequestBuildingMock!
@@ -35,14 +35,14 @@ class RefreshShowCacheInteractorSpec: QuickSpec {
                 parser = DvrResponseParsingMock()
                 executor = RequestExecutingMock()
                 
-                showListGateway = ShowListGateway(builder: builder, parser: parser, executor: executor)
-                showListInteractor = ShowListInteractor(gateway: showListGateway)
+                showListGateway = DvrShowListGateway(builder: builder, parser: parser, executor: executor)
+                showListInteractor = DvrShowListInteractor(gateway: showListGateway)
                 
-                showDetailsGateway = ShowDetailsGateway(builder: builder, parser: parser, executor: executor)
-                showDetailsInteractor = ShowDetailsInteractor(gateway: showDetailsGateway)
+                showDetailsGateway = DvrShowDetailsGateway(builder: builder, parser: parser, executor: executor)
+                showDetailsInteractor = DvrShowDetailsInteractor(gateway: showDetailsGateway)
                 
                 let interactors = (showList: showListInteractor!, showDetails: showDetailsInteractor!)
-                sut = RefreshShowCacheInteractor(interactors: interactors, database: database)
+                sut = DvrRefreshShowCacheInteractor(interactors: interactors, database: database)
             }
             
             afterEach {
@@ -70,7 +70,7 @@ class RefreshShowCacheInteractorSpec: QuickSpec {
                     // ie. I could use the Sickbeard parser, builder and only stub the executor
                     // Still though..
                     
-                    // ShowDetailsInteractor can't be made generic, as RequestGatewayInteractor has a Self requirement
+                    // DvrShowDetailsInteractor can't be made generic, as RequestGatewayInteractor has a Self requirement
                     
                     // Can be tested with integration tests though
                 }

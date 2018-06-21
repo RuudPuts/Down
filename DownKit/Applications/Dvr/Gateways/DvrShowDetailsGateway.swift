@@ -1,5 +1,5 @@
 //
-//  ShowDetailsGateway.swift
+//  DvrShowDetailsGateway.swift
 //  Down
 //
 //  Created by Ruud Puts on 06/01/2018.
@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public class ShowDetailsGateway: DvrRequestGateway {
+public class DvrShowDetailsGateway: DvrRequestGateway {
     var builder: DvrRequestBuilding
     var executor: RequestExecuting
     var parser: DvrResponseParsing
