@@ -19,14 +19,17 @@ class DvrInteractorFactorySpec: QuickSpec {
         describe("DvrInteractorFactory") {
             var sut: DvrInteractorFactory!
             var application: DvrApplication!
+            var database: DvrDatabaseMock!
             
             beforeEach {
-                sut = DvrInteractorFactory()
+                database = DvrDatabaseMock()
+                sut = DvrInteractorFactory(database: database)
                 application = DvrApplication(type: .sickbeard, host: "host", apiKey: "apikey")
             }
             
             afterEach {
                 application = nil
+                database = nil
                 sut = nil
             }
             

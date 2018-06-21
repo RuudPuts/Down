@@ -9,6 +9,7 @@
 @testable import DownKit
 import Quick
 import Nimble
+import RealmSwift
 import SwiftyJSON
 
 class SickbeardResponseParserSpec: QuickSpec {
@@ -172,35 +173,35 @@ class SickbeardResponseParserSpec: QuickSpec {
                 }
                 
                 it("parses 1 season") {
-                    expect(result.seasons?.count) == 1
+                    expect(result.seasons.count) == 1
                 }
                 
                 it("parses the season's id") {
-                    expect(result.seasons?.first?.identifier) == "5"
+                    expect(result.seasons.first?.identifier) == "5"
                 }
                 
                 it("parses 1 episode") {
-                    expect(result.seasons?.first?.episodes.count) == 1
+                    expect(result.seasons.first?.episodes.count) == 1
                 }
                 
                 it("parses the episode's identifier") {
-                    expect(result.seasons?.first?.episodes.first?.identifier) == "7"
+                    expect(result.seasons.first?.episodes.first?.identifier) == "7"
                 }
                 
                 it("parses the episode's name") {
-                    expect(result.seasons?.first?.episodes.first?.name) == "Amy's Choice"
+                    expect(result.seasons.first?.episodes.first?.name) == "Amy's Choice"
                 }
                 
                 it("parses the episode's airdate") {
-                    expect(result.seasons?.first?.episodes.first?.airdate) == "2010-05-15"
+                    expect(result.seasons.first?.episodes.first?.airdate) == "2010-05-15"
                 }
                 
                 it("parses the episode's quality") {
-                    expect(result.seasons?.first?.episodes.first?.quality) == "N/A"
+                    expect(result.seasons.first?.episodes.first?.quality) == "N/A"
                 }
                 
                 it("parses the episode's status") {
-                    expect(result.seasons?.first?.episodes.first?.status) == "Ignored"
+                    expect(result.seasons.first?.episodes.first?.status) == "Ignored"
                 }
             }
         }

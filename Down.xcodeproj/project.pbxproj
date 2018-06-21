@@ -50,6 +50,7 @@
 		4227B76F20DB0B0000603528 /* DvrEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B76E20DB0B0000603528 /* DvrEpisode.swift */; };
 		4227B77720DB160500603528 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B77520DB160500603528 /* Database.swift */; };
 		4227B77820DB160500603528 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B77620DB160500603528 /* RealmDatabase.swift */; };
+		4227B77D20DC2CDC00603528 /* DvrDatabaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B77C20DC2CDC00603528 /* DvrDatabaseMock.swift */; };
 		422BE6B820D6C1DD00DDDF37 /* ApplicationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BE6B720D6C1DD00DDDF37 /* ApplicationFactory.swift */; };
 		422BE6BA20D6C41100DDDF37 /* ApplicationAddtionsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BE6B920D6C41100DDDF37 /* ApplicationAddtionsFactory.swift */; };
 		422BE6C020D6CC6500DDDF37 /* DvrRequestGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BE6BF20D6CC6500DDDF37 /* DvrRequestGateway.swift */; };
@@ -186,6 +187,7 @@
 		4227B76E20DB0B0000603528 /* DvrEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrEpisode.swift; sourceTree = "<group>"; };
 		4227B77520DB160500603528 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		4227B77620DB160500603528 /* RealmDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
+		4227B77C20DC2CDC00603528 /* DvrDatabaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrDatabaseMock.swift; sourceTree = "<group>"; };
 		422BE6B720D6C1DD00DDDF37 /* ApplicationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationFactory.swift; sourceTree = "<group>"; };
 		422BE6B920D6C41100DDDF37 /* ApplicationAddtionsFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationAddtionsFactory.swift; sourceTree = "<group>"; };
 		422BE6BF20D6CC6500DDDF37 /* DvrRequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrRequestGateway.swift; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */,
+				4227B77B20DC2CC500603528 /* Database */,
 				42B16D5420D5A2B10027ED1C /* Interactors */,
 				42B16D5C20D5A85F0027ED1C /* Gateways */,
 				42B16D5F20D5AA310027ED1C /* Mappers */,
@@ -577,6 +580,14 @@
 			children = (
 				4227B77520DB160500603528 /* Database.swift */,
 				4227B77620DB160500603528 /* RealmDatabase.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		4227B77B20DC2CC500603528 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				4227B77C20DC2CDC00603528 /* DvrDatabaseMock.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -1075,6 +1086,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4227B77D20DC2CDC00603528 /* DvrDatabaseMock.swift in Sources */,
 				428340BB20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift in Sources */,
 				42B16D5720D5A2E90027ED1C /* DvrInteractorFactorySpec.swift in Sources */,
 				422BE6DA20D6FE9200DDDF37 /* ApplicationAdditionsProducingMock.swift in Sources */,
