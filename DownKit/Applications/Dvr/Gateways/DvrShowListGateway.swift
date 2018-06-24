@@ -23,8 +23,6 @@ public class DvrShowListGateway: DvrRequestGateway {
         let request = try builder.make(for: .showList)
         
         return executor.execute(request)
-            .map {
-                self.parser.parseShows(from: $0)
-            }
+            .map { try self.parser.parseShows(from: $0) }
     }
 }

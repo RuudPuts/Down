@@ -37,8 +37,33 @@ class ViewController: UITableViewController & Routing & DatabaseConsuming & DvrA
             })
             .disposed(by: disposeBag)
         
-        loadDatabase()
-        loadData()
+        loadHistory()
+        
+//        loadDatabase()
+//        loadData()
+    }
+    
+    func loadHistory() {
+        let interactor = DownloadInteractorFactory(dvrDatabase: database).makeHistoryInteractor(for: ApplicationFactory().makeDownload(type: .sabnzbd))
+        
+        interactor
+            .observe()
+            .do(onNext: { items in
+                NSLog("Binding \(items.count) items")
+            })
+            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, item, cell) in
+                NSLog("Item \(item.name)")
+                
+                if let episode = item.dvrEpisode {
+                    cell.textLabel?.text = "\(episode.show.name) - S\(episode.season.identifier)E\(episode.identifier) - \(episode.name)"
+                }
+                else {
+                    cell.textLabel?.text = item.name
+                }
+                
+//                cell.textLabel?.text = item.dvrEpisode?.name ?? item.name
+            }
+            .disposed(by: disposeBag)
     }
     
     func loadDatabase() {

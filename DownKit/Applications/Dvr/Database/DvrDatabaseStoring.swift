@@ -11,8 +11,13 @@ import RxSwift
 public protocol DvrDatabase: Database {
     func store(show: DvrShow)
     func fetchShows() -> Observable<[DvrShow]>
+    func fetchShow(matching nameComponents: [String]) -> Observable<DvrShow>
 }
 
 protocol DvrDatabaseStoring {
     func store(in database: DvrDatabase)
+}
+
+protocol DvrDatabaseMatching {
+    func match(with database: DvrDatabase)
 }

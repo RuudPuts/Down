@@ -7,3 +7,15 @@
 //
 
 public protocol ResponseParsing { }
+
+enum ParseError: Error, Hashable {
+    case noData
+    case invalidJson
+    case api(message: String)
+    case missingData
+}
+
+struct ParsedResult<Type> {
+    let data: Type?
+    let error: String?
+}

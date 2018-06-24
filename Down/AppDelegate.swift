@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         router = Router(window: window!, storyboard: UIStoryboard(name: "Main", bundle: Bundle.main))
         router.start()
         
+        NSLog(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "")
+        
         return true
     }
 }

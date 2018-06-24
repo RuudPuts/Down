@@ -29,92 +29,86 @@ class SickbeardResponseParserSpec: QuickSpec {
                 sut = nil
             }
             
-            context("empty parsed storage") {
-                var storage: SickbeardResponseParser.ParsedStorage<Any>!
-                
-                beforeEach {
-                    storage = .empty
-                }
-                
-                afterEach {
-                    storage = nil
-                }
-                
-                it("sets empty result") {
-                    expect(storage.result) == ""
-                }
-                
-                it("sets empty message") {
-                    expect(storage.message) == ""
-                }
-            }
-            
             context("parse datastoring") {
-                var result: SickbeardResponseParser.ParsedStorage<JSON>!
+                var result: JSON!
                 
                 afterEach {
                     result = nil
                 }
                 
                 context("without data") {
+                    var parseError: ParseError!
+                    
                     beforeEach {
-                        result = sut.parse(storage)
+                        do {
+                            result = try sut.parse(storage)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
                     }
                     
-                    it("produces empty response") {
-                        expect(result.data).to(beNil())
+                    afterEach {
+                        parseError = nil
+                    }
+                    
+                    it("throws no data error") {
+                        expect(parseError) == ParseError.noData
                     }
                 }
                 
                 context("from succesful response") {
                     beforeEach {
                         storage.stubs.data = self.successJson
-                        result = sut.parse(storage)
+                        result = try? sut.parse(storage)
                     }
                     
-                    it("sets the result") {
-                        expect(result.result) == "success"
-                    }
-                    
-                    it("sets the data") {
-                        expect(result.data) == ["api_version": 4]
+                    it("parses the json's data") {
+                        expect(result) == ["api_version": 4]
                     }
                 }
                 
                 context("from failure response") {
+                    var parseError: ParseError!
+                    
                     beforeEach {
-                        storage.stubs.data = self.errorJson
-                        result = sut.parse(storage)
+                        do {
+                            storage.stubs.data = self.errorJson
+                            result = try sut.parse(storage)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
                     }
                     
-                    it("sets the result") {
-                        expect(result.result) == "error"
+                    afterEach {
+                        parseError = nil
                     }
                     
-                    it("sets the data") {
-                        expect(result.data) == "No such cmd: ''"
-                    }
-                }
-                
-                context("from incomplete response") {
-                    beforeEach {
-                        storage.stubs.data = self.incompleteJson
-                        result = sut.parse(storage)
-                    }
-                    
-                    it("produces empty response") {
-                        expect(result.data) == JSON.null
+                    it("throws api error") {
+                        expect(parseError) == ParseError.api(message: "No such cmd: ''")
                     }
                 }
                 
                 context("from invalid response") {
+                    var parseError: ParseError!
+                    
                     beforeEach {
-                        storage.stubs.data = "invalid response".data(using: .utf8)
-                        result = sut.parse(storage)
+                        do {
+                            storage.stubs.data = "invalid response".data(using: .utf8)
+                            result = try sut.parse(storage)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
                     }
                     
-                    it("produces empty response") {
-                        expect(result.data).to(beNil())
+                    afterEach {
+                        parseError = nil
+                    }
+                    
+                    it("throws invalid json error") {
+                        expect(parseError) == ParseError.invalidJson
                     }
                 }
             }
@@ -124,7 +118,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 
                 beforeEach {
                     storage.stubs.data = self.showsJson
-                    result = sut.parseShows(from: storage)
+                    result = try? sut.parseShows(from: storage)
                 }
                 
                 afterEach {
@@ -153,7 +147,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 
                 beforeEach {
                     storage.stubs.data = self.showDetailsJson
-                    result = sut.parseShowDetails(from: storage)
+                    result = try? sut.parseShowDetails(from: storage)
                 }
                 
                 afterEach {
@@ -215,7 +209,7 @@ class SickbeardResponseParserSpec: QuickSpec {
             "data": [
                 "api_version": 4
             ]
-            ]).rawData()
+        ]).rawData()
     }
     
     var errorJson: Data {
@@ -224,12 +218,7 @@ class SickbeardResponseParserSpec: QuickSpec {
             "data": "No such cmd: ''",
             "message": "",
             "result": "error"
-            ]).rawData()
-    }
-    
-    var incompleteJson: Data {
-        // swiftlint:disable force_try
-        return try! JSON(["result": ""]).rawData()
+        ]).rawData()
     }
     
     var showsJson: Data {
@@ -256,7 +245,7 @@ class SickbeardResponseParserSpec: QuickSpec {
             ],
             "message": "",
             "result": "success"
-            ]).rawData()
+        ]).rawData()
     }
     
     var showDetailsJson: Data {
@@ -317,6 +306,6 @@ class SickbeardResponseParserSpec: QuickSpec {
             ],
             "message": "",
             "result": "success"
-            ]).rawData()
+        ]).rawData()
     }
 }

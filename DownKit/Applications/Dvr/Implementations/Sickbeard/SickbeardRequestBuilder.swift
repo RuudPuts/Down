@@ -13,10 +13,6 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
         self.application = application
     }
     
-    var defaultParameters: [String: String]? {
-        return ["apikey": application.apiKey]
-    }
-    
     func path(for apiCall: DvrApplicationCall) -> String? {
         switch apiCall {
         case .showList:

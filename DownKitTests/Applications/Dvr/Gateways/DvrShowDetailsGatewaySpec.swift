@@ -93,7 +93,7 @@ class DvrShowDetailsGatewaySpec: QuickSpec {
                         expect(requestExecutor.captures.execute?.request) == request
                     }
                     
-                    it("parses the result") {
+                    it("parses the show details") {
                         expect(responseParser.captures.parseShowDetails?.storage.data) == responseData
                     }
                     

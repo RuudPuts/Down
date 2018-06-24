@@ -77,12 +77,12 @@ class DvrShowListGatewaySpec: QuickSpec {
                     expect(requestExecutor.captures.execute?.request) == request
                 }
                 
-                it("parses the result") {
+                it("parses the shows") {
                     expect(responseParser.captures.parseShows?.storage.data) == responseData
                 }
                 
-                it("returns 1 show") {
-                    expect(result.count) == 1
+                it("returns the shows") {
+                    expect(result).toNot(beNil())
                 }
             }
         }

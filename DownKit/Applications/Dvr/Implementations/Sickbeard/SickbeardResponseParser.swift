@@ -9,20 +9,9 @@
 import SwiftyJSON
 
 class SickbeardResponseParser: DvrResponseParsing {
-    struct ParsedStorage<DataType> {
-        let result: String
-        let message: String
-        let data: DataType?
-        
-        static var empty: ParsedStorage { // should throw exception on failure
-            return ParsedStorage(result: "", message: "", data: nil)
-        }
-    }
     
-    func parseShows(from storage: DataStoring) -> [DvrShow] {
-        let parsedStorage = parse(storage)
-        
-        return parsedStorage.data?
+    func parseShows(from storage: DataStoring) throws -> [DvrShow] {
+        return try parse(storage)
             .dictionary?.map {
                 var json = $0.value
                 json["id"].stringValue = $0.key
@@ -32,19 +21,21 @@ class SickbeardResponseParser: DvrResponseParsing {
             ?? []
     }
     
-    func parseShowDetails(from storage: DataStoring) -> DvrShow {
-        let parsedStorage = parse(storage)
+    func parseShowDetails(from storage: DataStoring) throws -> DvrShow {
+        let data = try parse(storage)
+        let showData = data["show"]["data"]
+        let seasonsData = data["show.seasons"]["data"]
         
-        guard let showData = parsedStorage.data?["show"]["data"],
-              let seasonsData = parsedStorage.data?["show.seasons"]["data"] else {
-            fatalError("ohooh") //! Maybe a throw? lol
+        guard showData != JSON.null && seasonsData != JSON.null else {
+            throw ParseError.missingData
         }
         
         let show = makeShow(from: showData)
         let seasons = seasonsData.dictionary?.map {
             return DvrSeason(
                 identifier: $0.key,
-                episodes: parseEpisodes(from: $0.value)
+                episodes: parseEpisodes(from: $0.value),
+                show: show
             )}
         show.setSeasons(seasons ?? [])
         
@@ -75,22 +66,24 @@ private extension SickbeardResponseParser {
 }
 
 extension SickbeardResponseParser {
-    func parse(_ storage: DataStoring) -> ParsedStorage<JSON> {
+    func parse(_ storage: DataStoring) throws -> JSON {
         guard let data = storage.data else {
-            return ParsedStorage.empty
+            throw ParseError.noData
         }
         
+        var json: JSON
         do {
-            let json = try JSON(data: data)
-            
-            return ParsedStorage( // Throw exception on failure
-                result: json["result"].string ?? "",
-                message: json["message"].string ?? "",
-                data: json["data"])
+            json = try JSON(data: data)
         }
         catch {
             print("Sickbeard parse error: \(error)")
-            return ParsedStorage.empty
+            throw ParseError.invalidJson
         }
+        
+        guard json["result"].string == "success" else {
+            throw ParseError.api(message: json["data"].string ?? "")
+        }
+        
+        return json["data"]
     }
 }

@@ -16,6 +16,9 @@ public class DvrEpisode: Object {
     @objc public dynamic var quality = ""
     @objc public dynamic var status = ""
     
+    @objc public dynamic var show: DvrShow!
+    @objc public dynamic var season: DvrSeason!
+    
     public convenience init(identifier: String, name: String, airdate: String, quality: String, status: String) {
         self.init()
         self.identifier = identifier

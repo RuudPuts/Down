@@ -10,11 +10,17 @@
 
 final class ApplicationProducingMock: ApplicationProducing {
     struct Stubs {
+        var makeDownload = DownloadApplication(type: .sabnzbd, host: "host", apiKey: "key")
         var makeDvr = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
     }
     
     struct Captures {
+        var makeDownload: MakeDownload?
         var makeDvr: MakeDvr?
+        
+        struct MakeDownload {
+            let type: DownloadApplicationType
+        }
         
         struct MakeDvr {
             let type: DvrApplicationType
@@ -25,6 +31,11 @@ final class ApplicationProducingMock: ApplicationProducing {
     var captures = Captures()
     
     // ApiApplication
+    
+    func makeDownload(type: DownloadApplicationType) -> DownloadApplication {
+        captures.makeDownload = Captures.MakeDownload(type: type)
+        return stubs.makeDownload
+    }
     
     func makeDvr(type: DvrApplicationType) -> DvrApplication {
         captures.makeDvr = Captures.MakeDvr(type: type)

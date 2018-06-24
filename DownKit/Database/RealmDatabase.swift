@@ -55,6 +55,39 @@ public class RealmDatabase: DownDatabase {
             return Disposables.create()
         }
     }
+    
+    public func fetchShow(matching nameComponents: [String]) -> Observable<DvrShow> {
+        return Observable<DvrShow>.create { observer in
+            self.transact {
+                var matches: Results<DvrShow>?
+                
+                for component in nameComponents {
+                    let componentFilter = "name contains[c] '\(component)'"
+                    
+                    var componentMatches = matches
+                    if componentMatches == nil {
+                        componentMatches = self.realm.objects(DvrShow.self)
+                            .filter(componentFilter)
+                    }
+                    else {
+                        componentMatches = matches?.filter(componentFilter)
+                    }
+                    
+                    if componentMatches?.count ?? 0 > 0 {
+                        matches = componentMatches
+                    }
+                    else if matches != nil {
+                        break
+                    }
+                }
+                
+                if let show = matches?.first {
+                    observer.onNext(show)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }
 
 extension RealmDatabase {

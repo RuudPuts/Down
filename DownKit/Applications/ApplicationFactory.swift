@@ -9,6 +9,7 @@
 import Foundation
 
 public protocol ApplicationProducing {
+    func makeDownload(type: DownloadApplicationType) -> DownloadApplication
     func makeDvr(type: DvrApplicationType) -> DvrApplication
     
     init()
@@ -16,6 +17,15 @@ public protocol ApplicationProducing {
 
 public final class ApplicationFactory: ApplicationProducing {
     public init() {}
+    
+    public func makeDownload(type: DownloadApplicationType) -> DownloadApplication {
+        switch type {
+        case .sabnzbd:
+            return DownloadApplication(type: .sabnzbd,
+                                       host: "http://192.168.2.100:8080",
+                                       apiKey: "005a4296d8472a6ac787f09f24f2b70c")
+        }
+    }
     
     public func makeDvr(type: DvrApplicationType) -> DvrApplication {
         switch type {

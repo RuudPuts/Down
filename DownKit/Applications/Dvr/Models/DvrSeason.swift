@@ -13,10 +13,18 @@ public class DvrSeason: Object {
     @objc public dynamic var identifier = ""
     public var episodes = List<DvrEpisode>()
     
-    public convenience init(identifier: String, episodes: [DvrEpisode]) {
+    @objc public dynamic var show: DvrShow!
+    
+    public convenience init(identifier: String, episodes: [DvrEpisode], show: DvrShow) {
         self.init()
         self.identifier = identifier
-        self.episodes = List<DvrEpisode>(episodes)
+        self.show = show
+        
+        self.episodes = List<DvrEpisode>(episodes.map {
+            $0.show = show
+            $0.season = self
+            return $0
+        })
     }
     
     override public static func primaryKey() -> String? {
