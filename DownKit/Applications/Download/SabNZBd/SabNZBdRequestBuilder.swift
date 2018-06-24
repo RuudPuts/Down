@@ -14,7 +14,7 @@ class SabNZBdRequestBuilder: DownloadRequestBuilding {
     }
     
     func path(for apiCall: DownloadApplicationCall) -> String? {
-        return "api?mode=\(apiCall.rawValue)&output=json&apikey={apikey}&limit=30"
+        return "api?mode=\(apiCall.rawValue)&output=json&apikey={apikey}"
     }
     
     func method(for apiCall: DownloadApplicationCall) -> Request.Method {
