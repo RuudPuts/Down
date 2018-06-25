@@ -65,7 +65,6 @@
 		4227B7AA20DC589500603528 /* SabNZBdResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79820DC589400603528 /* SabNZBdResponseParser.swift */; };
 		4227B7AB20DC589500603528 /* DownloadRequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79920DC589400603528 /* DownloadRequestBuilding.swift */; };
 		4227B7AC20DC589500603528 /* DownloadApplicationInteracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79B20DC589400603528 /* DownloadApplicationInteracting.swift */; };
-		4227B7AD20DC589500603528 /* DownloadRequestInteractors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79C20DC589400603528 /* DownloadRequestInteractors.swift */; };
 		4227B7AE20DC589500603528 /* DownloadInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79D20DC589400603528 /* DownloadInteractorFactory.swift */; };
 		4227B7AF20DC589500603528 /* DownloadResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79F20DC589400603528 /* DownloadResponseHandler.swift */; };
 		4227B7B020DC589500603528 /* DownloadResponseParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B7A020DC589400603528 /* DownloadResponseParsing.swift */; };
@@ -91,6 +90,7 @@
 		422CEE0C20D52B8700EF0A16 /* RequestClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */; };
 		422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */; };
 		422CEE1120D55AD200EF0A16 /* RequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE1020D55AD200EF0A16 /* RequestClient.swift */; };
+		42457CA020E1AB5900DBC6C7 /* DownloadQueueInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */; };
 		426A798220D1810100797AE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A798120D1810100797AE5 /* AppDelegate.swift */; };
 		42723A1B20D7FBFA000445C3 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42723A1A20D7FBFA000445C3 /* Observable.swift */; };
 		42723A4820D80E86000445C3 /* CompoundInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42723A4720D80E86000445C3 /* CompoundInteractor.swift */; };
@@ -114,6 +114,7 @@
 		427D606520E194AA0017AE42 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 427D606420E194AA0017AE42 /* RxDataSources.framework */; };
 		427D606720E197320017AE42 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 427D606620E197320017AE42 /* Differentiator.framework */; };
 		427D606920E19A660017AE42 /* DownloadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427D606820E19A660017AE42 /* DownloadViewModel.swift */; };
+		427D606B20E1A6BD0017AE42 /* DownloadItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427D606A20E1A6BD0017AE42 /* DownloadItemCell.swift */; };
 		428340B320D26DB700CB2D7A /* DvrRequestBuildingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B220D26DB700CB2D7A /* DvrRequestBuildingSpec.swift */; };
 		428340B720D28D7400CB2D7A /* DvrRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */; };
 		428340BB20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340BA20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift */; };
@@ -236,7 +237,6 @@
 		4227B79820DC589400603528 /* SabNZBdResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdResponseParser.swift; sourceTree = "<group>"; };
 		4227B79920DC589400603528 /* DownloadRequestBuilding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequestBuilding.swift; sourceTree = "<group>"; };
 		4227B79B20DC589400603528 /* DownloadApplicationInteracting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadApplicationInteracting.swift; sourceTree = "<group>"; };
-		4227B79C20DC589400603528 /* DownloadRequestInteractors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequestInteractors.swift; sourceTree = "<group>"; };
 		4227B79D20DC589400603528 /* DownloadInteractorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadInteractorFactory.swift; sourceTree = "<group>"; };
 		4227B79F20DC589400603528 /* DownloadResponseHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadResponseHandler.swift; sourceTree = "<group>"; };
 		4227B7A020DC589400603528 /* DownloadResponseParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadResponseParsing.swift; sourceTree = "<group>"; };
@@ -267,6 +267,7 @@
 		422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClientMock.swift; sourceTree = "<group>"; };
 		422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterializedSequenceResult.swift; sourceTree = "<group>"; };
 		422CEE1020D55AD200EF0A16 /* RequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClient.swift; sourceTree = "<group>"; };
+		42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueInteractor.swift; sourceTree = "<group>"; };
 		426A797E20D1810100797AE5 /* Down.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Down.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		426A798120D1810100797AE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		426A798D20D1810200797AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -287,6 +288,7 @@
 		427D606420E194AA0017AE42 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		427D606620E197320017AE42 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
 		427D606820E19A660017AE42 /* DownloadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewModel.swift; sourceTree = "<group>"; };
+		427D606A20E1A6BD0017AE42 /* DownloadItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItemCell.swift; sourceTree = "<group>"; };
 		428340B220D26DB700CB2D7A /* DvrRequestBuildingSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuildingSpec.swift; sourceTree = "<group>"; };
 		428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuildingMock.swift; sourceTree = "<group>"; };
 		428340BA20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickbeardRequestBuilderSpec.swift; sourceTree = "<group>"; };
@@ -725,9 +727,9 @@
 			isa = PBXGroup;
 			children = (
 				4227B79B20DC589400603528 /* DownloadApplicationInteracting.swift */,
-				4227B79C20DC589400603528 /* DownloadRequestInteractors.swift */,
 				4227B79D20DC589400603528 /* DownloadInteractorFactory.swift */,
 				427D605720DF00D50017AE42 /* DownloadHistoryInteractor.swift */,
+				42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -909,6 +911,7 @@
 				427D606020E0325C0017AE42 /* DownloadRouter.swift */,
 				427D605E20E0325C0017AE42 /* DownloadViewController.swift */,
 				427D606820E19A660017AE42 /* DownloadViewModel.swift */,
+				427D606A20E1A6BD0017AE42 /* DownloadItemCell.swift */,
 			);
 			path = Download;
 			sourceTree = "<group>";
@@ -1285,7 +1288,6 @@
 				422BE6D120D6E14200DDDF37 /* DvrApplicationInteracting.swift in Sources */,
 				4227B76F20DB0B0000603528 /* DvrEpisode.swift in Sources */,
 				4221DA9E20D18450003950CF /* Request.swift in Sources */,
-				4227B7AD20DC589500603528 /* DownloadRequestInteractors.swift in Sources */,
 				4221DA9220D18450003950CF /* SickbeardRequestBuilder.swift in Sources */,
 				422BE6CF20D6DF6100DDDF37 /* DvrGatewayFactory.swift in Sources */,
 				422BE6C120D6CC8300DDDF37 /* DvrRequestInteractors.swift in Sources */,
@@ -1297,6 +1299,7 @@
 				422CEE1120D55AD200EF0A16 /* RequestClient.swift in Sources */,
 				42723A1B20D7FBFA000445C3 /* Observable.swift in Sources */,
 				4227B7AC20DC589500603528 /* DownloadApplicationInteracting.swift in Sources */,
+				42457CA020E1AB5900DBC6C7 /* DownloadQueueInteractor.swift in Sources */,
 				4221DA8C20D18450003950CF /* ApiApplication.swift in Sources */,
 				4227B7A120DC589500603528 /* DownloadApplication.swift in Sources */,
 				4221DA9520D18450003950CF /* DvrResponseParsing.swift in Sources */,
@@ -1375,6 +1378,7 @@
 				427D606920E19A660017AE42 /* DownloadViewModel.swift in Sources */,
 				426A798220D1810100797AE5 /* AppDelegate.swift in Sources */,
 				427D606320E0325C0017AE42 /* DownloadRouter.swift in Sources */,
+				427D606B20E1A6BD0017AE42 /* DownloadItemCell.swift in Sources */,
 				427D605B20E02E2F0017AE42 /* DvrRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

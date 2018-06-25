@@ -7,6 +7,7 @@
 //
 
 public protocol DvrApplicationInteracting {
+    //! If view controllers where to be bulid in xibs these shouldn't hvae to be implicit unwrapped
     var application: DvrApplication! { get set }
     var interactorFactory: DvrInteractorProducing! { get set }
 }

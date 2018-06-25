@@ -7,6 +7,7 @@
 //
 
 public protocol DownloadApplicationInteracting {
+    //! If view controllers where to be bulid in xibs these shouldn't hvae to be implicit unwrapped
     var application: DownloadApplication! { get set }
     var interactorFactory: DownloadInteractorProducing! { get set }
 }

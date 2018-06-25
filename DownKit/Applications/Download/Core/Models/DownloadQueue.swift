@@ -9,14 +9,14 @@
 public class DownloadQueue {
     public let currentSpeed: String
     public let timeRemaining: String
-    public let dataRemaining: String
+    public let mbRemaining: String
     
     public let items: [DownloadItem]
     
-    init(currentSpeed: String = "", timeRemaining: String = "", dataRemaining: String = "", items: [DownloadItem] = []) {
+    init(currentSpeed: String = "", timeRemaining: String = "", mbRemaining: String = "", items: [DownloadItem] = []) {
         self.currentSpeed = currentSpeed
         self.timeRemaining = timeRemaining
-        self.dataRemaining = dataRemaining
+        self.mbRemaining = mbRemaining
         self.items = items
     }
 }

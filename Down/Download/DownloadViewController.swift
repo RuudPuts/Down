@@ -8,18 +8,60 @@
 
 import UIKit
 import DownKit
+import RxSwift
+import RxCocoa
+import RxDataSources
 
-class DownloadViewController: UITableViewController & DownloadRouting & DatabaseConsuming & DownloadApplicationInteracting {
+class DownloadViewController: UIViewController & DownloadRouting & DatabaseConsuming & DownloadApplicationInteracting {
     var application: DownloadApplication!
     var interactorFactory: DownloadInteractorProducing!
     var database: DownDatabase!
     var downloadRouter: DownloadRouter?
+    let disposeBag = DisposeBag()
     
-    lazy var viewModel = DownloadViewModel(tableView: tableView, application: application, interactorFactory: interactorFactory)
+    @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var timeRemainingLabel: UILabel!
+    @IBOutlet weak var mbRemainingLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    
+    lazy var viewModel = DownloadViewModel(queueInteractor: interactorFactory.makeQueueInteractor(for: application),
+                                           historyInteractor: interactorFactory.makeHistoryInteractor(for: application))
+    
+    let dataSource = RxTableViewSectionedReloadDataSource<DownloadSectionData>(configureCell: { (_, tableView, indexPath, item) -> UITableViewCell in
+        let cell = tableView.dequeueReusableCell(withIdentifier: DownloadItemCell.identifier, for: indexPath)
+        // Can't call any methods or variables from here for some reason.
+        // Error: Value of type '(DownloadViewController) -> () -> (DownloadViewController)' has no member '<called ref>'
+        // Code should move to view model
+        (cell as? DownloadItemCell)?.viewModel = DownloadItemCellModel(item: item)
+        
+        return cell
+    })
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = viewModel.title
+        configureTableView()
+        applyViewModel()
+    }
+    
+    func configureTableView() {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        dataSource.titleForHeaderInSection = { dataSource, index in
+            return dataSource.sectionModels[index].header
+        }
+    }
+    
+    func applyViewModel() {
+        title = viewModel.title
+        
+        viewModel.speed.asObservable().bind(to: speedLabel.rx.text).disposed(by: disposeBag)
+        viewModel.timeRemaining.asObservable().bind(to: timeRemainingLabel.rx.text).disposed(by: disposeBag)
+        viewModel.mbRemaining.asObservable().bind(to: mbRemainingLabel.rx.text).disposed(by: disposeBag)
+        
+        viewModel.sectionsData
+            .asObservable()
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
     }
 }

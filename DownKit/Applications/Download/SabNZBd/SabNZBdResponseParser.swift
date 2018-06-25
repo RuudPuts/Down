@@ -18,7 +18,7 @@ class SabNZBdResponseParser: DownloadResponseParsing {
         
         return DownloadQueue(currentSpeed: json["speed"].string!.strip(),
                              timeRemaining: json["timeleft"].string!,
-                             dataRemaining: json["mbleft"].string!,
+                             mbRemaining: json["mbleft"].string!,
                              items: items ?? [])
     }
     

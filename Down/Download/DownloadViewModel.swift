@@ -6,64 +6,41 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-import UIKit
 import DownKit
 import RxSwift
-import RxCocoa
 import RxDataSources
 
-class DownloadViewModel: DownloadApplicationInteracting {
+struct DownloadViewModel {
     var title: String = "Downloads"
     var refreshInterval: TimeInterval = 2
     
-    let tableView: UITableView
-    var application: DownloadApplication!
-    var interactorFactory: DownloadInteractorProducing!
-    
-    lazy var queueInteractor = interactorFactory.makeQueueInteractor(for: application)
-    lazy var historyInteractor = interactorFactory.makeHistoryInteractor(for: application)
+    let queueInteractor: DownloadQueueInteractor
+    let historyInteractor: DownloadHistoryInteractor
     let disposeBag = DisposeBag()
     
-    let sectionsData = Variable<[DownloadSectionData]>([DownloadSectionData(header: "Queue", items: []), DownloadSectionData(header: "History", items: [])])
-    let dataSource = RxTableViewSectionedReloadDataSource<DownloadSectionData>(configureCell: { (_, tableView, indexPath, item) -> UITableViewCell in
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
-        if let episode = item.dvrEpisode {
-            cell.textLabel?.text = "\(episode.show.name) - S\(episode.season.identifier)E\(episode.identifier) - \(episode.name)"
-        }
-        else {
-            cell.textLabel?.text = item.name
-        }
-        
-        return cell
-    })
+    let speed = Variable("")
+    let timeRemaining = Variable("")
+    let mbRemaining = Variable("")
+    let sectionsData = Variable([DownloadSectionData(header: "Queue", items: []), DownloadSectionData(header: "History", items: [])])
     
-    init(tableView: UITableView, application: DownloadApplication, interactorFactory: DownloadInteractorProducing) {
-        self.tableView = tableView
-        self.application = application
-        self.interactorFactory = interactorFactory
-        
-        configureTableView()
-        dataSource.titleForHeaderInSection = { dataSource, index in
-            return dataSource.sectionModels[index].header
-        }
-        sectionsData.asObservable()
-            .bind(to: tableView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBag)
+    init(queueInteractor: DownloadQueueInteractor, historyInteractor: DownloadHistoryInteractor) {
+        self.queueInteractor = queueInteractor
+        self.historyInteractor = historyInteractor
         
         loadQueue()
         loadHistory()
     }
-    
-    func configureTableView() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-    }
-    
+}
+
+private extension DownloadViewModel {
     func loadQueue() {
         queueInteractor
             .observe()
             .withInterval(interval: refreshInterval)
             .subscribe(onNext: { queue in
+                self.speed.value = queue.currentSpeed
+                self.timeRemaining.value = queue.timeRemaining
+                self.mbRemaining.value = queue.mbRemaining
                 self.updateSection(0, withItems: queue.items)
             })
             .disposed(by: disposeBag)
