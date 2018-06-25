@@ -30,8 +30,8 @@ class SabNZBdResponseParser: DownloadResponseParsing {
 
 extension SabNZBdResponseParser {
     func makeDownloadItem(from json: JSON) -> DownloadItem {
-        return DownloadItem(identifier: json["id"].int!,
-                            name: json["nzb_name"].string!)
+        return DownloadItem(identifier: json["id"].int ?? -1,
+                            name: json["filename"].string ?? json["nzb_name"].string!) //! Not good!
     }
 }
 

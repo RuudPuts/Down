@@ -190,8 +190,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 "mb": "0.00",
                 "slots": [
                     [
-                        "id": 4673,
-                        "nzb_name": "Marvels.Luke.Cage.S02E13.They.Reminisce.Over.You.720p.NF.WEB-DL.DDP5.1.x264-NTb.nzb"
+                        "filename": "Marvels.Luke.Cage.S02E13.They.Reminisce.Over.You.720p.NF.WEB-DL.DDP5.1.x264-NTb"
                     ]
                 ]
             ]

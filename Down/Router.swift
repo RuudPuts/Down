@@ -9,14 +9,13 @@
 import DownKit
 import UIKit
 
-protocol Routing {
-    var router: Router? { get set }
-}
-
 class Router {    
     let window: UIWindow
     let storyboard: UIStoryboard
     let database: DownDatabase
+    
+    var downloadRouter: DownloadRouter!
+    var dvrRouter: DvrRouter!
     
     var navigationController: UINavigationController? {
         return window.rootViewController as? UINavigationController
@@ -34,46 +33,35 @@ class Router {
     }
     
     func start() {
-        let rootViewController = makeViewController(.root)
-        let navigationController = UINavigationController(rootViewController: rootViewController)
-        window.rootViewController = navigationController
+        let tabBarController = UITabBarController()
+        
+        let downloadViewController = startDownloadRouter(tabBarController: tabBarController)
+        let dvrViewController = startDvrRouter(tabBarController: tabBarController)
+        tabBarController.viewControllers = [downloadViewController, dvrViewController]
+        
+        window.rootViewController = tabBarController
         window.makeKeyAndVisible()
     }
     
-    func showDetail(of show: DvrShow) {
-        guard let viewController = makeViewController(.detail) as? DetailViewController else {
-            return
-        }
+    private func startDownloadRouter(tabBarController: UITabBarController) -> UIViewController {
+        let navigationController = UINavigationController()
+        navigationController.tabBarItem = UITabBarItem(title: "Downloads", image: nil, tag: 0)
+        downloadRouter = DownloadRouter(storyboard: storyboard,
+                                        navigationController: navigationController,
+                                        database: database)
+        downloadRouter.start()
         
-        viewController.show = show
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-}
-
-typealias RouterViewController = UIViewController & Routing
-
-private extension Router {
-    func makeViewController(_ identifier: Identifier) -> UIViewController & Routing {
-        let viewController = storyboard.instantiateViewController(withIdentifier: identifier.rawValue)
-        guard let routingViewController = viewController as? RouterViewController else {
-            fatalError("bye")
-        }
-        decorate(routingViewController)
-        
-        return routingViewController
+        return navigationController
     }
     
-    func decorate(_ viewController: RouterViewController) {
-        var controller = viewController
-        controller.router = self
+    private func startDvrRouter(tabBarController: UITabBarController) -> UIViewController {
+        let navigationController = UINavigationController()
+        navigationController.tabBarItem = UITabBarItem(title: "Shows", image: nil, tag: 0)
+        dvrRouter = DvrRouter(storyboard: storyboard,
+                              navigationController: navigationController,
+                              database: database)
+        dvrRouter.start()
         
-        if var databaseConuming = controller as? DatabaseConsuming {
-            databaseConuming.database = database
-        }
-        
-        if var dvrInteracting = controller as? DvrApplicationInteracting {
-            dvrInteracting.application = Down.dvrApplication
-            dvrInteracting.interactorFactory = DvrInteractorFactory(database: database)
-        }
+        return navigationController
     }
 }

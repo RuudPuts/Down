@@ -14,9 +14,9 @@
 		4221DA4D20D181F2003950CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4221DA4B20D181F2003950CF /* LaunchScreen.storyboard */; };
 		4221DA4E20D181F2003950CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4221DA4C20D181F2003950CF /* Assets.xcassets */; };
 		4221DA5320D183B6003950CF /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA4F20D183B5003950CF /* Router.swift */; };
-		4221DA5420D183B6003950CF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA5020D183B6003950CF /* DetailViewController.swift */; };
+		4221DA5420D183B6003950CF /* DvrDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA5020D183B6003950CF /* DvrDetailViewController.swift */; };
 		4221DA5620D183B6003950CF /* Down.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA5220D183B6003950CF /* Down.swift */; };
-		4221DA5820D183EA003950CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA5720D183EA003950CF /* ViewController.swift */; };
+		4221DA5820D183EA003950CF /* DvrViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA5720D183EA003950CF /* DvrViewController.swift */; };
 		4221DA5A20D183FE003950CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4221DA5920D183FE003950CF /* Main.storyboard */; };
 		4221DA8420D18450003950CF /* RequestGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA5D20D18450003950CF /* RequestGateway.swift */; };
 		4221DA8C20D18450003950CF /* ApiApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA6820D18450003950CF /* ApiApplication.swift */; };
@@ -108,6 +108,12 @@
 		427D605420DED3E30017AE42 /* SabNZBdResponseParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B7C620DD8F7200603528 /* SabNZBdResponseParserSpec.swift */; };
 		427D605620DED6B30017AE42 /* DownloadQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427D605520DED6B30017AE42 /* DownloadQueue.swift */; };
 		427D605820DF00D50017AE42 /* DownloadHistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427D605720DF00D50017AE42 /* DownloadHistoryInteractor.swift */; };
+		427D605B20E02E2F0017AE42 /* DvrRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427D605A20E02E2F0017AE42 /* DvrRouter.swift */; };
+		427D606120E0325C0017AE42 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427D605E20E0325C0017AE42 /* DownloadViewController.swift */; };
+		427D606320E0325C0017AE42 /* DownloadRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427D606020E0325C0017AE42 /* DownloadRouter.swift */; };
+		427D606520E194AA0017AE42 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 427D606420E194AA0017AE42 /* RxDataSources.framework */; };
+		427D606720E197320017AE42 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 427D606620E197320017AE42 /* Differentiator.framework */; };
+		427D606920E19A660017AE42 /* DownloadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427D606820E19A660017AE42 /* DownloadViewModel.swift */; };
 		428340B320D26DB700CB2D7A /* DvrRequestBuildingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B220D26DB700CB2D7A /* DvrRequestBuildingSpec.swift */; };
 		428340B720D28D7400CB2D7A /* DvrRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */; };
 		428340BB20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340BA20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift */; };
@@ -180,9 +186,9 @@
 		4221DA4B20D181F2003950CF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4221DA4C20D181F2003950CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4221DA4F20D183B5003950CF /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		4221DA5020D183B6003950CF /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		4221DA5020D183B6003950CF /* DvrDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrDetailViewController.swift; sourceTree = "<group>"; };
 		4221DA5220D183B6003950CF /* Down.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Down.swift; sourceTree = "<group>"; };
-		4221DA5720D183EA003950CF /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4221DA5720D183EA003950CF /* DvrViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrViewController.swift; sourceTree = "<group>"; };
 		4221DA5920D183FE003950CF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4221DA5D20D18450003950CF /* RequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestGateway.swift; sourceTree = "<group>"; };
 		4221DA6020D18450003950CF /* DvrRequestInteractors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrRequestInteractors.swift; sourceTree = "<group>"; };
@@ -275,6 +281,12 @@
 		42723A5A20D82A6C000445C3 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		427D605520DED6B30017AE42 /* DownloadQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueue.swift; sourceTree = "<group>"; };
 		427D605720DF00D50017AE42 /* DownloadHistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadHistoryInteractor.swift; sourceTree = "<group>"; };
+		427D605A20E02E2F0017AE42 /* DvrRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRouter.swift; sourceTree = "<group>"; };
+		427D605E20E0325C0017AE42 /* DownloadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
+		427D606020E0325C0017AE42 /* DownloadRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRouter.swift; sourceTree = "<group>"; };
+		427D606420E194AA0017AE42 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
+		427D606620E197320017AE42 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
+		427D606820E19A660017AE42 /* DownloadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewModel.swift; sourceTree = "<group>"; };
 		428340B220D26DB700CB2D7A /* DvrRequestBuildingSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuildingSpec.swift; sourceTree = "<group>"; };
 		428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuildingMock.swift; sourceTree = "<group>"; };
 		428340BA20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickbeardRequestBuilderSpec.swift; sourceTree = "<group>"; };
@@ -319,8 +331,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4221DACF20D1866F003950CF /* RxCocoa.framework in Frameworks */,
+				427D606720E197320017AE42 /* Differentiator.framework in Frameworks */,
 				4221DA4120D1819F003950CF /* DownKit.framework in Frameworks */,
 				4221DAD120D18673003950CF /* RxSwift.framework in Frameworks */,
+				427D606520E194AA0017AE42 /* RxDataSources.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +630,8 @@
 		4221DAC420D18629003950CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				427D606620E197320017AE42 /* Differentiator.framework */,
+				427D606420E194AA0017AE42 /* RxDataSources.framework */,
 				4221DAC720D18666003950CF /* Nimble.framework */,
 				4221DAC920D18666003950CF /* Quick.framework */,
 				42723A5A20D82A6C000445C3 /* RealmSwift.framework */,
@@ -844,8 +860,8 @@
 				426A798120D1810100797AE5 /* AppDelegate.swift */,
 				4221DA5220D183B6003950CF /* Down.swift */,
 				4221DA4F20D183B5003950CF /* Router.swift */,
-				4221DA5720D183EA003950CF /* ViewController.swift */,
-				4221DA5020D183B6003950CF /* DetailViewController.swift */,
+				427D605D20E0325C0017AE42 /* Download */,
+				427D605920E02DD00017AE42 /* Dvr */,
 				4221DA4A20D181F2003950CF /* Resources */,
 				426A798D20D1810200797AE5 /* Info.plist */,
 			);
@@ -875,6 +891,26 @@
 				42723A5420D82652000445C3 /* DvrDatabaseStoring.swift */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		427D605920E02DD00017AE42 /* Dvr */ = {
+			isa = PBXGroup;
+			children = (
+				427D605A20E02E2F0017AE42 /* DvrRouter.swift */,
+				4221DA5720D183EA003950CF /* DvrViewController.swift */,
+				4221DA5020D183B6003950CF /* DvrDetailViewController.swift */,
+			);
+			path = Dvr;
+			sourceTree = "<group>";
+		};
+		427D605D20E0325C0017AE42 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				427D606020E0325C0017AE42 /* DownloadRouter.swift */,
+				427D605E20E0325C0017AE42 /* DownloadViewController.swift */,
+				427D606820E19A660017AE42 /* DownloadViewModel.swift */,
+			);
+			path = Download;
 			sourceTree = "<group>";
 		};
 		428340BE20D2FB1000CB2D7A /* Gateways */ = {
@@ -1187,11 +1223,15 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxDataSources.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Differentiator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1327,11 +1367,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4221DA5820D183EA003950CF /* ViewController.swift in Sources */,
-				4221DA5420D183B6003950CF /* DetailViewController.swift in Sources */,
+				4221DA5820D183EA003950CF /* DvrViewController.swift in Sources */,
+				4221DA5420D183B6003950CF /* DvrDetailViewController.swift in Sources */,
 				4221DA5620D183B6003950CF /* Down.swift in Sources */,
+				427D606120E0325C0017AE42 /* DownloadViewController.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
+				427D606920E19A660017AE42 /* DownloadViewModel.swift in Sources */,
 				426A798220D1810100797AE5 /* AppDelegate.swift in Sources */,
+				427D606320E0325C0017AE42 /* DownloadRouter.swift in Sources */,
+				427D605B20E02E2F0017AE42 /* DvrRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

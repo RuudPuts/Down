@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DvrViewController.swift
 //  Down
 //
 //  Created by Ruud Puts on 27/05/2018.
@@ -11,11 +11,11 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class ViewController: UITableViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
+class DvrViewController: UITableViewController & DvrRouting & DatabaseConsuming & DvrApplicationInteracting {
     var application: DvrApplication!
     var interactorFactory: DvrInteractorProducing!
     var database: DownDatabase!
-    var router: Router?
+    var dvrRouter: DvrRouter?
     
     lazy var interactor = interactorFactory.makeShowCacheRefreshInteractor(for: application)
     let disposeBag = DisposeBag()
@@ -33,37 +33,12 @@ class ViewController: UITableViewController & Routing & DatabaseConsuming & DvrA
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.rx.modelSelected(DvrShow.self)
             .subscribe(onNext: {
-                self.router?.showDetail(of: $0)
+                self.dvrRouter?.showDetail(of: $0)
             })
             .disposed(by: disposeBag)
         
-        loadHistory()
-        
-//        loadDatabase()
-//        loadData()
-    }
-    
-    func loadHistory() {
-        let interactor = DownloadInteractorFactory(dvrDatabase: database).makeHistoryInteractor(for: ApplicationFactory().makeDownload(type: .sabnzbd))
-        
-        interactor
-            .observe()
-            .do(onNext: { items in
-                NSLog("Binding \(items.count) items")
-            })
-            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, item, cell) in
-                NSLog("Item \(item.name)")
-                
-                if let episode = item.dvrEpisode {
-                    cell.textLabel?.text = "\(episode.show.name) - S\(episode.season.identifier)E\(episode.identifier) - \(episode.name)"
-                }
-                else {
-                    cell.textLabel?.text = item.name
-                }
-                
-//                cell.textLabel?.text = item.dvrEpisode?.name ?? item.name
-            }
-            .disposed(by: disposeBag)
+        loadDatabase()
+        loadData()
     }
     
     func loadDatabase() {

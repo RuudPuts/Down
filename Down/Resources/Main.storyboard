@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xKU-cQ-cHO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,7 +12,7 @@
         <!--Root View Controller-->
         <scene sceneID="LvV-F3-8pa">
             <objects>
-                <tableViewController storyboardIdentifier="root" id="qqQ-8f-fgT" customClass="ViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="dvrRoot" id="qqQ-8f-fgT" customClass="DvrViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="0ad-LT-GxH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -31,10 +31,10 @@
             </objects>
             <point key="canvasLocation" x="992" y="177"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Dvr Detail View Controller-->
         <scene sceneID="ZP5-0E-W2b">
             <objects>
-                <viewController storyboardIdentifier="detail" id="S0U-LI-9Q3" customClass="DetailViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="dvrDetail" id="S0U-LI-9Q3" customClass="DvrDetailViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uyZ-BS-7LY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -61,6 +61,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gQh-0s-80e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="39" y="177"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="ApB-pR-hu3">
+            <objects>
+                <tableViewController storyboardIdentifier="downloadRoot" id="HR7-9o-cVB" customClass="DownloadViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="KiD-Ir-7o6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="HR7-9o-cVB" id="tx9-zg-C2l"/>
+                            <outlet property="delegate" destination="HR7-9o-cVB" id="pXT-U9-QNI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="iQY-sj-yrS"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z32-hg-6re" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="991" y="869"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Yci-bx-7B4">
+            <objects>
+                <navigationController id="zl4-mU-MYE" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LQo-ga-UpA">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="HR7-9o-cVB" kind="relationship" relationship="rootViewController" id="v4Y-Eu-SDf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oIL-3W-9Wf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="38" y="869"/>
         </scene>
     </scenes>
 </document>
