@@ -21,7 +21,7 @@ before_script:
 before_install:
   - gem install activesupport -N
   - gem install slather --no-rdoc
-  - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
+  - carthage bootstrap --platform iOS --no-use-binaries --cache-builds --verbose
 script:
   - set -o pipefail
   - xcodebuild clean test -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" | xcpretty
