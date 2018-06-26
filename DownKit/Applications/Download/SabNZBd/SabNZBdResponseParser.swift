@@ -13,25 +13,21 @@ class SabNZBdResponseParser: DownloadResponseParsing {
         let json = try parse(storage, forCall: .queue)
         
         let items = json["slots"].array?.map {
-            makeDownloadItem(from: $0)
-            }
+            DownloadItem(identifier: $0["nzo_id"].stringValue,
+                         name: $0["filename"].stringValue)
+        }
         
-        return DownloadQueue(currentSpeed: json["speed"].string!.strip(),
-                             timeRemaining: json["timeleft"].string!,
-                             mbRemaining: json["mbleft"].string!,
+        return DownloadQueue(currentSpeed: json["speed"].stringValue.strip(),
+                             timeRemaining: json["timeleft"].stringValue,
+                             mbRemaining: json["mbleft"].stringValue,
                              items: items ?? [])
     }
     
     func parseHistory(from storage: DataStoring) throws -> [DownloadItem] {
-        return try parse(storage, forCall: .history)["slots"]
-            .array?.map { makeDownloadItem(from: $0) } ?? []
-    }
-}
-
-extension SabNZBdResponseParser {
-    func makeDownloadItem(from json: JSON) -> DownloadItem {
-        return DownloadItem(identifier: json["id"].int ?? -1,
-                            name: json["filename"].string ?? json["nzb_name"].string!) //! Not good!
+        return try parse(storage, forCall: .history)["slots"].array?.map {
+            DownloadItem(identifier: $0["id"].stringValue,
+                         name: $0["nzb_name"].stringValue)
+        } ?? []
     }
 }
 

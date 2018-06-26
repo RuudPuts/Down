@@ -8,11 +8,4 @@
 
 public protocol Application {
     var name: String { get }
-    var type: ApplicationType { get }
-}
-
-public enum ApplicationType {
-    case download
-    case dvr
-    case dmr
 }

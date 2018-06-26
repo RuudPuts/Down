@@ -7,9 +7,10 @@
 //
 
 import DownKit
-import UIKit
 
-class Down {
+class Down: Application {
+    var name = "Down"
+    
     static var applicationFactory: ApplicationProducing = ApplicationFactory()
     static var downloadApplication: DownloadApplication = applicationFactory.makeDownload(type: .sabnzbd)
     static var dvrApplication: DvrApplication = applicationFactory.makeDvr(type: .sickbeard)

@@ -9,13 +9,13 @@
 import RxSwift
 
 public class DownloadItem {
-    public let identifier: Int
+    public let identifier: String
     public let name: String
     public var dvrEpisode: DvrEpisode?
     
     let disposeBag = DisposeBag()
     
-    public init(identifier: Int, name: String) {
+    public init(identifier: String, name: String) {
         self.identifier = identifier
         self.name = name
     }

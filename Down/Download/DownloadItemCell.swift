@@ -15,6 +15,7 @@ class DownloadItemCell: UITableViewCell {
     var viewModel: DownloadItemCellModel! {
         didSet {
             textLabel?.text = viewModel.text
+            detailTextLabel?.text = viewModel.detailText
         }
     }
     
@@ -26,6 +27,7 @@ class DownloadItemCell: UITableViewCell {
 
 struct DownloadItemCellModel {
     let text: String
+    let detailText: String
 
     //! Not too happy about this, but is nessecary for DownloadViewController to make a Model
     // Also starts the DownKit dependency
@@ -36,5 +38,6 @@ struct DownloadItemCellModel {
         else {
             text = item.name
         }
+        detailText = item.identifier
     }
 }

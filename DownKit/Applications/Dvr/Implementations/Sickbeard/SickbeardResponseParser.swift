@@ -16,7 +16,7 @@ class SickbeardResponseParser: DvrResponseParsing {
                 var json = $0.value
                 json["id"].stringValue = $0.key
                 
-                return makeShow(from: json)
+                return parseShow(from: json)
             }
             ?? []
     }
@@ -30,7 +30,7 @@ class SickbeardResponseParser: DvrResponseParsing {
             throw ParseError.missingData
         }
         
-        let show = makeShow(from: showData)
+        let show = parseShow(from: showData)
         let seasons = seasonsData.dictionary?.map {
             return DvrSeason(
                 identifier: $0.key,
@@ -44,11 +44,11 @@ class SickbeardResponseParser: DvrResponseParsing {
 }
 
 private extension SickbeardResponseParser {
-    func makeShow(from json: JSON) -> DvrShow {
+    func parseShow(from json: JSON) -> DvrShow {
         return DvrShow(
             identifier: json["id"].string ?? DvrShow.partialIdentifier,
-            name: json["show_name"].string ?? "",
-            quality: json["quality"].string ?? ""
+            name: json["show_name"].stringValue,
+            quality: json["quality"].stringValue
         )
     }
     
@@ -56,12 +56,12 @@ private extension SickbeardResponseParser {
         return json.dictionary?.map {
             DvrEpisode(
                 identifier: $0,
-                name: $1["name"].string ?? "",
-                airdate: $1["airdate"].string ?? "",
-                quality: $1["quality"].string ?? "",
-                status: $1["status"].string ?? ""
+                name: $1["name"].stringValue,
+                airdate: $1["airdate"].stringValue,
+                quality: $1["quality"].stringValue,
+                status: $1["status"].stringValue
             )
-            } ?? []
+        } ?? []
     }
 }
 
@@ -81,7 +81,7 @@ extension SickbeardResponseParser {
         }
         
         guard json["result"].string == "success" else {
-            throw ParseError.api(message: json["data"].string ?? "")
+            throw ParseError.api(message: json["data"].stringValue)
         }
         
         return json["data"]
