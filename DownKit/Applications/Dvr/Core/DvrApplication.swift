@@ -8,7 +8,7 @@
 
 public class DvrApplication: ApiApplication {
     public var name = "DvrApplication"
-    public var type = ApplicationType.dvr
+    public var type = ApiApplicationType.dvr
     public var dvrType: DvrApplicationType
     
     public var host: String

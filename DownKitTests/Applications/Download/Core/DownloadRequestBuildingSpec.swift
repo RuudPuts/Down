@@ -92,7 +92,7 @@ private class DownloadRequestBuildingImp: DownloadRequestBuilding {
         self.application = application
     }
     
-    var defaultParameters: [String: String]? { return stubs.defaultParameters }
+    var defaultParameters: [String: String] { return stubs.defaultParameters }
     
     func path(for apiCall: DownloadApplicationCall) -> String? {
         return stubs.path

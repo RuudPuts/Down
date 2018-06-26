@@ -11,7 +11,7 @@
 class DownloadRequestBuildingMock: DownloadRequestBuilding {
     struct Stubs {
         var make: Request?
-        var defaultParameters: [String: String]?
+        var defaultParameters: [String: String] = [:]
         var path: String?
         var parameters: [String: String]?
         var method: Request.Method = .get
@@ -53,7 +53,7 @@ class DownloadRequestBuildingMock: DownloadRequestBuilding {
         return stubbed
     }
     
-    var defaultParameters: [String: String]? { return stubs.defaultParameters }
+    var defaultParameters: [String: String] { return stubs.defaultParameters }
     
     func path(for apiCall: DownloadApplicationCall) -> String? {
         captures.path = Captures.CallCapture(apiCall: apiCall)

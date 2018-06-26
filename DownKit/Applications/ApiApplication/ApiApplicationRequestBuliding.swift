@@ -1,26 +1,28 @@
 //
-//  DvrRequestBuilding.swift
+//  ApiApplicationRequestBuliding.swift
 //  DownKit
 //
-//  Created by Ruud Puts on 13/06/2018.
+//  Created by Ruud Puts on 26/06/2018.
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public protocol DvrRequestBuilding: RequestBuilding {
+import Foundation
+
+public protocol ApiApplicationRequestBuliding: RequestBuilding {
     var application: DvrApplication { get }
     init(application: DvrApplication)
     
-    var defaultParameters: [String: String]? { get }
-    func path(for apiCall: DvrApplicationCall) -> String?
-    func parameters(for apiCall: DvrApplicationCall) -> [String: String]?
-    func method(for apiCall: DvrApplicationCall) -> Request.Method
+    var defaultParameters: [String: String] { get }
+    func path(for apiCall: ApiApplicationCall) -> String?
+    func parameters(for apiCall: ApiApplicationCall) -> [String: String]?
+    func method(for apiCall: ApiApplicationCall) -> Request.Method
     
-    func make(for apiCall: DvrApplicationCall) throws -> Request
+    func make(for apiCall: ApiApplicationCall) throws -> Request
 }
 
-extension DvrRequestBuilding {
-    var defaultParameters: [String: String]? {
-        return ["apikey": application.apiKey]
+extension ApiApplicationRequestBuliding {
+    var defaultParameters: [String: String] {
+        return [:]
     }
     
     func path(for apiCall: DownloadApplicationCall) -> String? {
@@ -31,7 +33,7 @@ extension DvrRequestBuilding {
         return nil
     }
     
-    func make(for apiCall: DvrApplicationCall) throws -> Request {
+    func make(for apiCall: ApiApplicationCall) throws -> Request {
         guard let path = path(for: apiCall) else {
             throw RequestBuildingError.notSupportedError("\(apiCall) call not supported by \(application.name)")
         }

@@ -53,7 +53,7 @@ class DvrRequestBuildingMock: DvrRequestBuilding {
         return stubbed
     }
     
-    var defaultParameters: [String: String]? { return stubs.defaultParameters }
+    var defaultParameters: [String: String] { return stubs.defaultParameters }
     
     func path(for apiCall: DvrApplicationCall) -> String? {
         captures.path = Captures.CallCapture(apiCall: apiCall)

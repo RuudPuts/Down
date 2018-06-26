@@ -92,7 +92,7 @@ private class DvrRequestBuildingImp: DvrRequestBuilding {
         self.application = application
     }
     
-    var defaultParameters: [String: String]? { return stubs.defaultParameters }
+    var defaultParameters: [String: String] { return stubs.defaultParameters }
     
     func path(for apiCall: DvrApplicationCall) -> String? {
         return stubs.path

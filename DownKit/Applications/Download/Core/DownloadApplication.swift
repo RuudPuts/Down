@@ -8,7 +8,7 @@
 
 public class DownloadApplication: ApiApplication {
     public var name = "DownloadApplication"
-    public var type = ApplicationType.download
+    public var type = ApiApplicationType.download
     public var downloadType: DownloadApplicationType
     
     public var host: String

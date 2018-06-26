@@ -9,11 +9,16 @@
 public protocol ApiApplication: Application {
     var host: String { get }
     var apiKey: String { get }
-    var type: ApplicationType { get }
+    var type: ApiApplicationType { get }
 }
 
-public enum ApplicationType {
+public enum ApiApplicationType {
     case download
     case dvr
     case dmr
+}
+
+public enum ApiApplicationCall {
+    case login
+    case apiKey
 }
