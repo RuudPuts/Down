@@ -32,7 +32,7 @@ class DownloadHistoryGatewaySpec: QuickSpec {
                 requestBuilder.stubs.make = request
                 requestExecutor = RequestExecutingMock()
                 responseParser = DownloadResponseParsingMock()
-                responseParser.stubs.parseHistory = [DownloadItem(identifier: 1, name: "QueueItem")]
+                responseParser.stubs.parseHistory = [DownloadItem(identifier: "1", name: "QueueItem")]
                 
                 sut = DownloadHistoryGateway(builder: requestBuilder, parser: responseParser, executor: requestExecutor)
             }

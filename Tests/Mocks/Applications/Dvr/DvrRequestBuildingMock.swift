@@ -11,7 +11,7 @@
 class DvrRequestBuildingMock: DvrRequestBuilding {
     struct Stubs {
         var make: Request?
-        var defaultParameters: [String: String]?
+        var defaultParameters: [String: String] = [:]
         var path: String?
         var parameters: [String: String]?
         var method: Request.Method = .get

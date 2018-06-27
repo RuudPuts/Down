@@ -134,7 +134,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 }
                 
                 it("parses current data remaining") {
-                    expect(result.dataRemaining) == "0.00"
+                    expect(result.mbRemaining) == "0.00"
                 }
                 
                 it("parses 1 item") {
