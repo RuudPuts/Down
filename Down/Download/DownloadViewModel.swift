@@ -53,7 +53,8 @@ private extension DownloadViewModel {
             })
             .disposed(by: disposeBag)
     }
-    
+
+    //! This method causes a UI glitch since it is mutating sectonsData and both Queue and History will call it at the same time
     func updateSection(_ index: Int, withItems items: [DownloadSectionData.Item]) {
         let section = DownloadSectionData(original: sectionsData.value[index], items: items)
         sectionsData.value.remove(at: index)
