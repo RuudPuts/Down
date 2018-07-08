@@ -88,6 +88,7 @@
 		422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */; };
 		422CEE1120D55AD200EF0A16 /* RequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE1020D55AD200EF0A16 /* RequestClient.swift */; };
 		42457CA020E1AB5900DBC6C7 /* DownloadQueueInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */; };
+		425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */; };
 		4263A18120E1B72A008F7E40 /* ApiApplicationLoginGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18020E1B72A008F7E40 /* ApiApplicationLoginGateway.swift */; };
 		4263A18320E1B739008F7E40 /* ApiApplicationLoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18220E1B739008F7E40 /* ApiApplicationLoginInteractor.swift */; };
 		4263A18520E1B745008F7E40 /* ApiApplicationApiKeyGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18420E1B745008F7E40 /* ApiApplicationApiKeyGateway.swift */; };
@@ -281,6 +282,7 @@
 		422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterializedSequenceResult.swift; sourceTree = "<group>"; };
 		422CEE1020D55AD200EF0A16 /* RequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClient.swift; sourceTree = "<group>"; };
 		42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueInteractor.swift; sourceTree = "<group>"; };
+		425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueueStatusView.swift; sourceTree = "<group>"; };
 		425357C620F2B10E005BC238 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4263A18020E1B72A008F7E40 /* ApiApplicationLoginGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGateway.swift; sourceTree = "<group>"; };
 		4263A18220E1B739008F7E40 /* ApiApplicationLoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginInteractor.swift; sourceTree = "<group>"; };
@@ -956,6 +958,7 @@
 				427D605E20E0325C0017AE42 /* DownloadViewController.swift */,
 				427D606820E19A660017AE42 /* DownloadViewModel.swift */,
 				427D606A20E1A6BD0017AE42 /* DownloadItemCell.swift */,
+				425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */,
 			);
 			path = Download;
 			sourceTree = "<group>";
@@ -1306,7 +1309,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nfi";
+			shellScript = "exit 0\n\nif which swiftlint >/dev/null; then\n    swiftlint\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1429,6 +1432,7 @@
 				4221DA5820D183EA003950CF /* DvrViewController.swift in Sources */,
 				4221DA5420D183B6003950CF /* DvrDetailViewController.swift in Sources */,
 				4221DA5620D183B6003950CF /* Down.swift in Sources */,
+				425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */,
 				427D606120E0325C0017AE42 /* DownloadViewController.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
 				427D606920E19A660017AE42 /* DownloadViewModel.swift in Sources */,

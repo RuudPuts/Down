@@ -18,29 +18,27 @@ struct DownloadViewModel {
     let historyInteractor: DownloadHistoryInteractor
     let disposeBag = DisposeBag()
     
-    let speed = Variable("")
-    let timeRemaining = Variable("")
-    let mbRemaining = Variable("")
+    let queueData = Variable(DownloadQueue())
     let sectionsData = Variable([DownloadSectionData(header: "Queue", items: []), DownloadSectionData(header: "History", items: [])])
     
     init(queueInteractor: DownloadQueueInteractor, historyInteractor: DownloadHistoryInteractor) {
         self.queueInteractor = queueInteractor
         self.historyInteractor = historyInteractor
-        
+
         loadQueue()
         loadHistory()
     }
 }
 
 private extension DownloadViewModel {
+    //! Should this just be a driver instead?
+    // Note queue & history shoudl still be running together
     func loadQueue() {
         queueInteractor
             .observe()
             .withInterval(interval: refreshInterval)
             .subscribe(onNext: { queue in
-                self.speed.value = queue.currentSpeed
-                self.timeRemaining.value = queue.timeRemaining
-                self.mbRemaining.value = queue.mbRemaining
+                self.queueData.value = queue
                 self.updateSection(0, withItems: queue.items)
             })
             .disposed(by: disposeBag)

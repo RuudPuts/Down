@@ -13,10 +13,14 @@ public class DownloadQueue {
     
     public let items: [DownloadItem]
     
-    init(currentSpeed: String = "", timeRemaining: String = "", mbRemaining: String = "", items: [DownloadItem] = []) {
+    public init(currentSpeed: String = "", timeRemaining: String = "", mbRemaining: String = "", items: [DownloadItem] = []) {
         self.currentSpeed = currentSpeed
         self.timeRemaining = timeRemaining
         self.mbRemaining = mbRemaining
         self.items = items
+    }
+
+    convenience init() { //! meh
+        self.init(currentSpeed: "", timeRemaining: "", mbRemaining: "", items: [])
     }
 }

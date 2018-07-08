@@ -19,23 +19,11 @@ class DownloadViewController: UIViewController & DownloadRouting & DatabaseConsu
     var downloadRouter: DownloadRouter?
     let disposeBag = DisposeBag()
     
-    @IBOutlet weak var speedLabel: UILabel!
-    @IBOutlet weak var timeRemainingLabel: UILabel!
-    @IBOutlet weak var mbRemainingLabel: UILabel!
+    @IBOutlet weak var headerView: DownloadQueueStatusView!
     @IBOutlet weak var tableView: UITableView!
     
     lazy var viewModel = DownloadViewModel(queueInteractor: interactorFactory.makeQueueInteractor(for: application),
                                            historyInteractor: interactorFactory.makeHistoryInteractor(for: application))
-    
-    let dataSource = RxTableViewSectionedReloadDataSource<DownloadSectionData>(configureCell: { (_, tableView, indexPath, item) -> UITableViewCell in
-        let cell = tableView.dequeueReusableCell(withIdentifier: DownloadItemCell.identifier, for: indexPath)
-        // Can't call any methods or variables from here for some reason.
-        // Error: Value of type '(DownloadViewController) -> () -> (DownloadViewController)' has no member '<called ref>'
-        // Code should move to view model
-        (cell as? DownloadItemCell)?.viewModel = DownloadItemCellModel(item: item)
-        
-        return cell
-    })
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,14 +42,21 @@ class DownloadViewController: UIViewController & DownloadRouting & DatabaseConsu
     
     func applyViewModel() {
         title = viewModel.title
-        
-        viewModel.speed.asObservable().bind(to: speedLabel.rx.text).disposed(by: disposeBag)
-        viewModel.timeRemaining.asObservable().bind(to: timeRemainingLabel.rx.text).disposed(by: disposeBag)
-        viewModel.mbRemaining.asObservable().bind(to: mbRemainingLabel.rx.text).disposed(by: disposeBag)
-        
+
+        viewModel.queueData.asDriver().drive(headerView.rx.queue).disposed(by: disposeBag)
         viewModel.sectionsData
-            .asObservable()
-            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .asDriver()
+            .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
     }
+
+    let dataSource = RxTableViewSectionedReloadDataSource<DownloadSectionData>(configureCell: { (_, tableView, indexPath, item) -> UITableViewCell in
+        let cell = tableView.dequeueReusableCell(withIdentifier: DownloadItemCell.identifier, for: indexPath)
+        // Can't call any methods or variables from here for some reason.
+        // Error: Value of type '(DownloadViewController) -> () -> (DownloadViewController)' has no member '<called ref>'
+        // Code should move to view model
+        (cell as? DownloadItemCell)?.viewModel = DownloadItemCellModel(item: item)
+
+        return cell
+    })
 }
