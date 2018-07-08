@@ -281,6 +281,7 @@
 		422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterializedSequenceResult.swift; sourceTree = "<group>"; };
 		422CEE1020D55AD200EF0A16 /* RequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClient.swift; sourceTree = "<group>"; };
 		42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueInteractor.swift; sourceTree = "<group>"; };
+		425357C620F2B10E005BC238 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4263A18020E1B72A008F7E40 /* ApiApplicationLoginGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGateway.swift; sourceTree = "<group>"; };
 		4263A18220E1B739008F7E40 /* ApiApplicationLoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginInteractor.swift; sourceTree = "<group>"; };
 		4263A18420E1B745008F7E40 /* ApiApplicationApiKeyGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationApiKeyGateway.swift; sourceTree = "<group>"; };
@@ -832,6 +833,23 @@
 			path = Interactors;
 			sourceTree = "<group>";
 		};
+		425357C320F2B0CE005BC238 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				425357C420F2B0FC005BC238 /* Configs */,
+				426A798D20D1810200797AE5 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		425357C420F2B0FC005BC238 /* Configs */ = {
+			isa = PBXGroup;
+			children = (
+				425357C620F2B10E005BC238 /* Debug.xcconfig */,
+			);
+			path = Configs;
+			sourceTree = "<group>";
+		};
 		4263A17E20E1B6D9008F7E40 /* Gateways */ = {
 			isa = PBXGroup;
 			children = (
@@ -891,7 +909,7 @@
 				427D605D20E0325C0017AE42 /* Download */,
 				427D605920E02DD00017AE42 /* Dvr */,
 				4221DA4A20D181F2003950CF /* Resources */,
-				426A798D20D1810200797AE5 /* Info.plist */,
+				425357C320F2B0CE005BC238 /* Supporting Files */,
 			);
 			path = Down;
 			sourceTree = "<group>";
@@ -1636,7 +1654,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1690,7 +1708,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1701,16 +1719,16 @@
 		};
 		426A799C20D1810200797AE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 425357C620F2B10E005BC238 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = Down/Info.plist;
+				INFOPLIST_FILE = "Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1718,7 +1736,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1730,12 +1747,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = Down/Info.plist;
+				INFOPLIST_FILE = "Down/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1743,7 +1759,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
