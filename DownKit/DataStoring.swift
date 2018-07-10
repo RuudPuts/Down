@@ -8,6 +8,8 @@
 
 import Foundation
 
+//! This whole protocol is bullshit.
+
 public protocol DataStoring {
     var data: Data? { get }
 }

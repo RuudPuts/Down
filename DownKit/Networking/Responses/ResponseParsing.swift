@@ -19,3 +19,13 @@ struct ParsedResult<Type> {
     let data: Type?
     let error: String?
 }
+
+extension ResponseParsing {
+    func parse(_ storage: DataStoring) throws -> String {
+        guard let data = storage.data else {
+            throw ParseError.noData
+        }
+
+        return String(data: data, encoding: .utf8) ?? ""
+    }
+}

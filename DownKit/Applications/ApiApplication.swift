@@ -15,7 +15,7 @@ public protocol ApiApplication: Application {
 public enum ApiApplicationType {
     case download
     case dvr
-    case dmr
+//    case dmr
 }
 
 public enum ApiApplicationCall {

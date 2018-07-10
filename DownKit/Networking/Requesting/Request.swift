@@ -11,6 +11,7 @@ import Foundation
 public class Request {
     var method: Method
     var url: String
+    var authenticationMethod: AuthenticationMethod
 
     public enum Method: String {
         case get
@@ -32,17 +33,25 @@ public class Request {
         }
     }
     
-    init(url: String, method: Method, parameters: [String: String]?) {
+    init(url: String, method: Method,
+         parameters: [String: String]?,
+         authenticationMethod: AuthenticationMethod = .none) {
         self.url = url.inject(parameters: parameters)
         self.method = method
+        self.authenticationMethod = authenticationMethod
     }
     
-    init(host: String, path: String, method: Method, defaultParameters: [String: String]?, parameters: [String: String]?) {
+    init(host: String, path: String,
+         method: Method,
+         defaultParameters: [String: String]?,
+         parameters: [String: String]?,
+         authenticationMethod: AuthenticationMethod = .none) {
         var allParameters = defaultParameters ?? [:]
         allParameters.merge(parameters ?? [:]) { (_, new) in new }
         
         self.url = "\(host)/\(path)".inject(parameters: allParameters)
         self.method = method
+        self.authenticationMethod = authenticationMethod
     }
 }
 

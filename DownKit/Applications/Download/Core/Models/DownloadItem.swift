@@ -23,7 +23,7 @@ public class DownloadItem {
 
 extension DownloadItem: DvrDatabaseMatching {
     func match(with database: DvrDatabase) {
-        guard let (season, episode, string) = seasonEpisode(in: name) else {
+        guard let (season, episode, string) = seasonAndEpisode(in: name) else {
             return
         }
         
@@ -44,7 +44,7 @@ extension DownloadItem: DvrDatabaseMatching {
     }
     
     // swiftlint:disable large_tuple
-    func seasonEpisode(in string: String) -> (Int, Int, String)? {
+    func seasonAndEpisode(in string: String) -> (Int, Int, String)? {
         let (range, matches) = string.match("S(\\d+).?E(\\d+)")
         guard range.location != NSNotFound && matches.count == 3 else {
             return nil

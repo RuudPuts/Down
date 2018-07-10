@@ -49,9 +49,8 @@
         <!--Navigation Controller-->
         <scene sceneID="u9d-e3-4tX">
             <objects>
-                <navigationController id="xKU-cQ-cHO" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="xKU-cQ-cHO" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8hZ-6E-oFa">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -71,7 +70,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Sd-6o-mhJ" customClass="DownloadQueueStatusView" customModule="Down" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="90" width="375" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="x6B-PQ-2kA">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -112,7 +111,7 @@
                                 </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="usd-wU-8qN">
-                                <rect key="frame" x="0.0" y="114" width="375" height="553"/>
+                                <rect key="frame" x="0.0" y="140" width="375" height="527"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DownloadItemCell" textLabel="HRR-eh-NfM" detailTextLabel="PRk-7N-Eqh" style="IBUITableViewCellStyleSubtitle" id="XQG-E3-UDN" customClass="DownloadItemCell" customModule="Down" customModuleProvider="target">
@@ -141,16 +140,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sabnzbd-icon" translatesAutoresizingMaskIntoConstraints="NO" id="s7X-sl-fTj">
+                                <rect key="frame" x="0.0" y="20" width="375" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="0v9-Ve-fbS"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Sd-6o-mhJ" firstAttribute="leading" secondItem="pe3-u4-u5M" secondAttribute="leading" id="6aa-4O-wsC"/>
+                            <constraint firstItem="s7X-sl-fTj" firstAttribute="top" secondItem="pe3-u4-u5M" secondAttribute="top" id="98a-eX-JxN"/>
+                            <constraint firstItem="6Sd-6o-mhJ" firstAttribute="top" secondItem="s7X-sl-fTj" secondAttribute="bottom" id="Ada-zL-bOg"/>
+                            <constraint firstItem="s7X-sl-fTj" firstAttribute="trailing" secondItem="pe3-u4-u5M" secondAttribute="trailing" id="ENB-Un-nHB"/>
                             <constraint firstItem="pe3-u4-u5M" firstAttribute="trailing" secondItem="usd-wU-8qN" secondAttribute="trailing" id="Qdh-0L-Y2a"/>
                             <constraint firstItem="6Sd-6o-mhJ" firstAttribute="trailing" secondItem="pe3-u4-u5M" secondAttribute="trailing" id="Yma-9d-ZQu"/>
                             <constraint firstItem="usd-wU-8qN" firstAttribute="leading" secondItem="pe3-u4-u5M" secondAttribute="leading" id="acF-fm-6YV"/>
                             <constraint firstItem="usd-wU-8qN" firstAttribute="top" secondItem="6Sd-6o-mhJ" secondAttribute="bottom" id="dm9-r7-Zdg"/>
-                            <constraint firstItem="6Sd-6o-mhJ" firstAttribute="top" secondItem="pe3-u4-u5M" secondAttribute="top" id="lnQ-ZG-f7T"/>
                             <constraint firstItem="pe3-u4-u5M" firstAttribute="bottom" secondItem="usd-wU-8qN" secondAttribute="bottom" id="n9V-kS-uDJ"/>
+                            <constraint firstItem="s7X-sl-fTj" firstAttribute="leading" secondItem="pe3-u4-u5M" secondAttribute="leading" id="zzn-0T-pt9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pe3-u4-u5M"/>
                     </view>
@@ -167,9 +175,8 @@
         <!--Navigation Controller-->
         <scene sceneID="Yci-bx-7B4">
             <objects>
-                <navigationController id="zl4-mU-MYE" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="zl4-mU-MYE" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LQo-ga-UpA">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -180,5 +187,22 @@
             </objects>
             <point key="canvasLocation" x="38" y="-513"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="elQ-5W-b5p">
+            <objects>
+                <viewController id="aYG-xq-Jw2" sceneMemberID="viewController">
+                    <stackView key="view" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" id="yDL-tj-8iB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <viewLayoutGuide key="safeArea" id="ozT-AU-sXP"/>
+                    </stackView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NmT-9q-3Rt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2452" y="-513"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="sabnzbd-icon" width="168" height="45"/>
+    </resources>
 </document>

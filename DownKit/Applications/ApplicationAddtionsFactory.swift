@@ -9,6 +9,9 @@
 import Foundation
 
 public protocol ApplicationAdditionsProducing {
+    func makeApiApplicationRequestBuilder(for application: ApiApplication) -> ApiApplicationRequestBuilding
+    func makeApiApplicationResponseParser(for application: ApiApplication) -> ApiApplicationResponseParsing
+
     func makeDownloadRequestBuilder(for application: DownloadApplication) -> DownloadRequestBuilding
     func makeDownloadResponseParser(for application: DownloadApplication) -> DownloadResponseParsing
     
@@ -18,6 +21,36 @@ public protocol ApplicationAdditionsProducing {
 
 public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
     public init() {}
+
+    public func makeApiApplicationRequestBuilder(for application: ApiApplication) -> ApiApplicationRequestBuilding {
+        switch application.type {
+        case .download:
+            let downloadApplication = (application as! DownloadApplication)
+            switch(downloadApplication.downloadType) {
+            case .sabnzbd: return SabNZBdRequestBuilder(application: downloadApplication)
+            }
+        case .dvr:
+            let dvrApplication = (application as! DvrApplication)
+            switch(dvrApplication.dvrType) {
+            case .sickbeard: return SickbeardRequestBuilder(application: dvrApplication)
+            }
+        }
+    }
+
+    public func makeApiApplicationResponseParser(for application: ApiApplication) -> ApiApplicationResponseParsing {
+        switch application.type {
+        case .download:
+            let downloadApplication = (application as! DownloadApplication)
+            switch(downloadApplication.downloadType) {
+            case .sabnzbd: return SabNZBdResponseParser()
+            }
+        case .dvr:
+            let dvrApplication = (application as! DvrApplication)
+            switch(dvrApplication.dvrType) {
+            case .sickbeard: return SickbeardResponseParser()
+            }
+        }
+    }
     
     public func makeDownloadRequestBuilder(for application: DownloadApplication) -> DownloadRequestBuilding {
         switch application.downloadType {

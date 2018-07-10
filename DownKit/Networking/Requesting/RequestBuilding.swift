@@ -6,7 +6,20 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public protocol RequestBuilding { }
+public protocol RequestBuilding {
+    func basicAuthenticationData(username: String, password: String) -> BasicAuthenticationData?
+    func formAuthenticationData(username: String, password: String) -> FormAuthenticationData?
+}
+
+extension RequestBuilding {
+    func basicAuthenticationData(username: String, password: String) -> BasicAuthenticationData? {
+        return nil
+    }
+
+    func formAuthenticationData(username: String, password: String) -> FormAuthenticationData? {
+        return nil
+    }
+}
 
 enum RequestBuildingError: Error {
     case notSupportedError(String)

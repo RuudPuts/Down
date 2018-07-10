@@ -65,6 +65,23 @@ private extension SickbeardResponseParser {
     }
 }
 
+extension SickbeardResponseParser: ApiApplicationResponseParsing {
+    func parseLoggedIn(from storage: DataStoring) throws -> Bool {
+        //! Might want to check http response code 😅
+        return try parse(storage).count > 0
+    }
+
+    func parseApiKey(from storage: DataStoring) throws -> String? {
+        //! Might want to check http response code 😅
+        let result: String = try parse(storage)
+        guard let keyRange = result.range(of: "id=\"api_key\"") else {
+            return nil
+        }
+
+        return result[keyRange.upperBound...].components(matching: "[a-zA-Z0-9]{32}")?.first
+    }
+}
+
 extension SickbeardResponseParser {
     func parse(_ storage: DataStoring) throws -> JSON {
         guard let data = storage.data else {

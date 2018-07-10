@@ -34,4 +34,32 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
     func method(for apiCall: DvrApplicationCall) -> Request.Method {
         return .get
     }
+
+    func basicAuthenticationData(username: String, password: String) -> BasicAuthenticationData? {
+        return BasicAuthenticationData(username: username, password: password)
+    }
+}
+
+extension SickbeardRequestBuilder: ApiApplicationRequestBuilding {
+    var host: String {
+        return application.host
+    }
+
+    func path(for apiCall: ApiApplicationCall) -> String? {
+        switch apiCall {
+        case .apiKey:
+            return "config/general"
+        default:
+            return nil
+        }
+    }
+
+    func authenticationMethod(for apiCall: ApiApplicationCall) -> AuthenticationMethod {
+        switch apiCall {
+        case .login:
+            return .basic
+        default:
+            return .none
+        }
+    }
 }
