@@ -6,4 +6,4 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-import Foundation
+public typealias ApiApplicationApiKeyInteractor = RequestGatewayInteractor<ApiApplicationApiKeyGateway>

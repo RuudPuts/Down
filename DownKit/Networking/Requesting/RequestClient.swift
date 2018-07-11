@@ -53,7 +53,41 @@ extension Request {
         
         var request = URLRequest(url: url)
         request.httpMethod = self.method.rawValue
+
+        switch authenticationMethod {
+        case .none:
+            break
+        case .basic:
+            configureBasicAuthentication(for: &request)
+            break
+        case .form:
+            configureFormAuthentication(for: &request)
+            break
+        }
         
         return request
+    }
+
+    func configureBasicAuthentication(for request: inout URLRequest) {
+        guard let username = basicAuthenticationData?.username, let password = basicAuthenticationData?.password,
+              let authString = "\(username):\(password)".data(using: .utf8)?.base64EncodedString() else {
+            return
+        }
+
+        request.httpMethod = Method.post.rawValue
+        request.setValue("Basic \(authString)", forHTTPHeaderField: "Authorization")
+    }
+
+    func configureFormAuthentication(for request: inout URLRequest) {
+        guard let fieldName = formAuthenticationData?.fieldName,
+            let fieldValue = formAuthenticationData?.fieldValue,
+              let authData = ("\(fieldName.username)=\(fieldValue.username)&"
+                             + "\(fieldName.password)=\(fieldValue.password)").data(using: .utf8) else {
+            return
+        }
+
+        request.httpMethod = Method.post.rawValue
+        request.httpBody = authData
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
     }
 }
