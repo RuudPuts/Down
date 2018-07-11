@@ -95,6 +95,7 @@
 		4263A18720E1B74F008F7E40 /* ApiApplicationApiKeyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18620E1B74F008F7E40 /* ApiApplicationApiKeyInteractor.swift */; };
 		4263A18920E1C3BA008F7E40 /* ApiApplicationRequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18820E1C3BA008F7E40 /* ApiApplicationRequestBuilding.swift */; };
 		426A798220D1810100797AE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A798120D1810100797AE5 /* AppDelegate.swift */; };
+		426BF73C20F688CA000C3A4A /* RequestSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BF73B20F688CA000C3A4A /* RequestSpecification.swift */; };
 		42723A1B20D7FBFA000445C3 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42723A1A20D7FBFA000445C3 /* Observable.swift */; };
 		42723A4820D80E86000445C3 /* CompoundInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42723A4720D80E86000445C3 /* CompoundInteractor.swift */; };
 		42723A4A20D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42723A4920D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift */; };
@@ -298,6 +299,7 @@
 		426A798D20D1810200797AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		426A799220D1810200797AE5 /* DownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		426A799820D1810200797AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		426BF73B20F688CA000C3A4A /* RequestSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSpecification.swift; sourceTree = "<group>"; };
 		42723A1A20D7FBFA000445C3 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		42723A4720D80E86000445C3 /* CompoundInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundInteractor.swift; sourceTree = "<group>"; };
 		42723A4920D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRefreshShowCacheInteractor.swift; sourceTree = "<group>"; };
@@ -512,6 +514,7 @@
 			children = (
 				429B01D420F53DBC00BCDA0F /* Authentication.swift */,
 				4221DA8220D18450003950CF /* Request.swift */,
+				426BF73B20F688CA000C3A4A /* RequestSpecification.swift */,
 				4221DA8120D18450003950CF /* RequestBuilding.swift */,
 				422CEE1020D55AD200EF0A16 /* RequestClient.swift */,
 				4221DA8020D18450003950CF /* RequestExecutor.swift */,
@@ -1380,6 +1383,7 @@
 				4227B7AC20DC589500603528 /* DownloadApplicationInteracting.swift in Sources */,
 				429B01D220F5324E00BCDA0F /* ApiApplicationGatewayFactory.swift in Sources */,
 				42457CA020E1AB5900DBC6C7 /* DownloadQueueInteractor.swift in Sources */,
+				426BF73C20F688CA000C3A4A /* RequestSpecification.swift in Sources */,
 				4221DA8C20D18450003950CF /* ApiApplication.swift in Sources */,
 				429B01D320F5324E00BCDA0F /* ApiApplicationRequestGateway.swift in Sources */,
 				4227B7A120DC589500603528 /* DownloadApplication.swift in Sources */,

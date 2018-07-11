@@ -7,38 +7,23 @@
 //
 
 public protocol DownloadRequestBuilding: RequestBuilding {
-    var application: DownloadApplication { get }
-    init(application: DownloadApplication)
-    
-    var defaultParameters: [String: String] { get }
-    func path(for apiCall: DownloadApplicationCall) -> String?
-    func parameters(for apiCall: DownloadApplicationCall) -> [String: String]?
-    func method(for apiCall: DownloadApplicationCall) -> Request.Method
-    
+    //! So all RequestBuilding protocols will define these two methods.
+    // Preferably this would be generic with an ApiCall associated type in RequestBuilding
+    // But this will give RequestBuilding a Self requestrment
+    // And currently RequestBuilding is used throughout DownKit
+    //
+    // typealias ApiCall = DownloadApplicationCall
+
+    func specification(for apiCall: DownloadApplicationCall) -> RequestSpecification?
     func make(for apiCall: DownloadApplicationCall) throws -> Request
 }
 
 extension DownloadRequestBuilding {
-    var defaultParameters: [String: String] {
-        return ["apikey": application.apiKey]
-    }
-    
-    func path(for apiCall: DownloadApplicationCall) -> String? {
-        return nil
-    }
-    
-    func parameters(for apiCall: DownloadApplicationCall) -> [String: String]? {
-        return nil
-    }    
-    
     func make(for apiCall: DownloadApplicationCall) throws -> Request {
-        guard let path = path(for: apiCall) else {
+        guard let spec = specification(for: apiCall) else {
             throw RequestBuildingError.notSupportedError("\(apiCall) call not supported by \(application.name)")
         }
         
-        return Request(host: application.host, path: path,
-                       method: method(for: apiCall),
-                       defaultParameters: defaultParameters,
-                       parameters: parameters(for: apiCall))
+        return make(from: spec)
     }
 }

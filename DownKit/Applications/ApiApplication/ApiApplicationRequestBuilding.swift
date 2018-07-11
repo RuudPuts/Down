@@ -9,33 +9,16 @@
 import Foundation
 
 public protocol ApiApplicationRequestBuilding: RequestBuilding {
-    var host: String { get }
-
-    func path(for apiCall: ApiApplicationCall) -> String?
-    func parameters(for apiCall: ApiApplicationCall) -> [String: String]?
-    func authenticationMethod(for apiCall: ApiApplicationCall) -> AuthenticationMethod
-    
-    func make(for apiCall: ApiApplicationCall) throws -> Request
+    func specification(for apiCall: ApiApplicationCall, credentials: UsernamePassword?) -> RequestSpecification?
+    func make(for apiCall: ApiApplicationCall, credentials: UsernamePassword?) throws -> Request
 }
 
 extension ApiApplicationRequestBuilding {
-    func parameters(for apiCall: ApiApplicationCall) -> [String: String]? {
-        return nil
-    }
-
-    func authenticationMethod(for apiCall: ApiApplicationCall) -> AuthenticationMethod {
-        return .none
-    }
-    
-    func make(for apiCall: ApiApplicationCall) throws -> Request {
-        guard let path = path(for: apiCall) else {
-            throw RequestBuildingError.notSupportedError("\(apiCall) call not supported by \(host)")
+    func make(for apiCall: ApiApplicationCall, credentials: UsernamePassword? = nil) throws -> Request {
+        guard let spec = specification(for: apiCall, credentials: credentials) else {
+            throw RequestBuildingError.notSupportedError("\(apiCall) call not supported by \(application.name)")
         }
 
-        return Request(host: host,
-                       path: path,
-                       method: .get,
-                       defaultParameters: nil,
-                       parameters: parameters(for: apiCall))
+        return make(from: spec)
     }
 }

@@ -12,12 +12,10 @@ public enum AuthenticationMethod {
     case form
 }
 
-public struct BasicAuthenticationData {
-    let username: String
-    let password: String
-}
+public typealias UsernamePassword = (username: String, password: String)
+public typealias BasicAuthenticationData = UsernamePassword
 
 public struct FormAuthenticationData {
-    let fieldName: (username: String, password: String)
-    let fieldValue: (username: String, password: String)
+    let fieldName: UsernamePassword
+    let fieldValue: UsernamePassword
 }

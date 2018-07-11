@@ -7,59 +7,44 @@
 //
 
 class SickbeardRequestBuilder: DvrRequestBuilding {
-    var application: DvrApplication
+    var application: ApiApplication
+
+    lazy var defaultParameters = ["apikey": application.apiKey]
     
-    required init(application: DvrApplication) {
+    required init(application: ApiApplication) {
         self.application = application
     }
-    
-    func path(for apiCall: DvrApplicationCall) -> String? {
-        switch apiCall {
-        case .showList:
-            return "api/{apikey}?cmd=shows"
-        case .showDetails:
-            return "api/{apikey}?cmd=show.seasons%7Cshow&tvdbid={id}"
-        }
-    }
 
-    func parameters(for apiCall: DvrApplicationCall) -> [String: String]? {
+    func specification(for apiCall: DvrApplicationCall) -> RequestSpecification? {
         switch apiCall {
-        case .showList:
-            return nil
-        case .showDetails(let show):
-            return ["id": show.identifier]
-        }
-    }
-    
-    func method(for apiCall: DvrApplicationCall) -> Request.Method {
-        return .get
-    }
-
-    func basicAuthenticationData(username: String, password: String) -> BasicAuthenticationData? {
-        return BasicAuthenticationData(username: username, password: password)
+        case .showList: return RequestSpecification(
+            host: application.host,
+            path: "api/{apikey}?cmd=shows",
+            parameters: defaultParameters
+        )
+        case .showDetails(let show): return RequestSpecification(
+            host: application.host,
+            path: "api/{apikey}?cmd=show.seasons%7Cshow&tvdbid={id}",
+            parameters: defaultParameters.merging(["id": show.identifier], uniquingKeysWith: { $1 })
+        )}
     }
 }
 
 extension SickbeardRequestBuilder: ApiApplicationRequestBuilding {
-    var host: String {
-        return application.host
+    func specification(for apiCall: ApiApplicationCall, credentials: UsernamePassword? = nil) -> RequestSpecification? {
+        switch apiCall {
+        case .login: return RequestSpecification(
+            host: application.host
+        )
+        case .apiKey: return RequestSpecification(
+            host: application.host,
+            path: "config/general",
+            authenticationMethod: .basic,
+            basicAuthenticationData: makeAuthenticationData(with: credentials!)
+        )}
     }
 
-    func path(for apiCall: ApiApplicationCall) -> String? {
-        switch apiCall {
-        case .apiKey:
-            return "config/general"
-        default:
-            return nil
-        }
-    }
-
-    func authenticationMethod(for apiCall: ApiApplicationCall) -> AuthenticationMethod {
-        switch apiCall {
-        case .login:
-            return .basic
-        default:
-            return .none
-        }
+    private func makeAuthenticationData(with credentials: UsernamePassword) -> BasicAuthenticationData {
+        return BasicAuthenticationData(credentials)
     }
 }

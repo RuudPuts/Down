@@ -12,6 +12,8 @@ public class Request {
     var method: Method
     var url: String
     var authenticationMethod: AuthenticationMethod
+    var basicAuthenticationData: BasicAuthenticationData?
+    var formAuthenticationData: FormAuthenticationData?
 
     public enum Method: String {
         case get
@@ -33,19 +35,25 @@ public class Request {
         }
     }
     
-    init(url: String, method: Method,
+    init(url: String,
          parameters: [String: String]?,
-         authenticationMethod: AuthenticationMethod = .none) {
+         method: Method,
+         authenticationMethod: AuthenticationMethod = .none,
+         basicAuthenticationData: BasicAuthenticationData? = nil,
+         formAuthenticationData: FormAuthenticationData? = nil) {
         self.url = url.inject(parameters: parameters)
         self.method = method
         self.authenticationMethod = authenticationMethod
     }
-    
+
+    //! Remove after request specification refactor
     init(host: String, path: String,
          method: Method,
          defaultParameters: [String: String]?,
          parameters: [String: String]?,
-         authenticationMethod: AuthenticationMethod = .none) {
+         authenticationMethod: AuthenticationMethod = .none,
+         basicAuthenticationData: BasicAuthenticationData? = nil,
+         formAuthenticationData: FormAuthenticationData? = nil) {
         var allParameters = defaultParameters ?? [:]
         allParameters.merge(parameters ?? [:]) { (_, new) in new }
         

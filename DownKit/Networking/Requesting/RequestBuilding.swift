@@ -7,17 +7,22 @@
 //
 
 public protocol RequestBuilding {
-    func basicAuthenticationData(username: String, password: String) -> BasicAuthenticationData?
-    func formAuthenticationData(username: String, password: String) -> FormAuthenticationData?
+    var application: ApiApplication { get }
+    init(application: ApiApplication)
+
+    func make(from spec: RequestSpecification) -> Request
 }
 
 extension RequestBuilding {
-    func basicAuthenticationData(username: String, password: String) -> BasicAuthenticationData? {
-        return nil
-    }
-
-    func formAuthenticationData(username: String, password: String) -> FormAuthenticationData? {
-        return nil
+    func make(from spec: RequestSpecification) -> Request {
+        return Request(
+            url: "\(spec.host)/\(spec.path)",
+            parameters: spec.parameters,
+            method: spec.method,
+            authenticationMethod: spec.authenticationMethod,
+            basicAuthenticationData: spec.basicAuthenticationData,
+            formAuthenticationData: spec.formAuthenticationData
+        )
     }
 }
 

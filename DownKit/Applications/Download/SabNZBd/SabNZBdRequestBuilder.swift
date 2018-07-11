@@ -7,46 +7,42 @@
 //
 
 class SabNZBdRequestBuilder: DownloadRequestBuilding {
-    var application: DownloadApplication
+    var application: ApiApplication
 
-    required init(application: DownloadApplication) {
+    lazy var defaultParameters = ["apikey": application.apiKey]
+
+    required init(application: ApiApplication) {
         self.application = application
     }
-    
-    func path(for apiCall: DownloadApplicationCall) -> String? {
-        return "api?mode=\(apiCall.rawValue)&output=json&apikey={apikey}"
-    }
-    
-    func method(for apiCall: DownloadApplicationCall) -> Request.Method {
-        return .get
-    }
 
-    func formAuthenticationData(username: String, password: String) -> FormAuthenticationData? {
-        return FormAuthenticationData(fieldName: (username: "username", password: "password"),
-                                      fieldValue: (username, password))
+    func specification(for apiCall: DownloadApplicationCall) -> RequestSpecification? {
+        return RequestSpecification(
+            host: application.host,
+            path: "api?mode=\(apiCall.rawValue)&output=json&apikey={apikey}",
+            parameters: defaultParameters
+        )
     }
 }
 
 extension SabNZBdRequestBuilder: ApiApplicationRequestBuilding {
-    var host: String {
-        return application.host
+    func specification(for apiCall: ApiApplicationCall, credentials: UsernamePassword? = nil) -> RequestSpecification? {
+        switch apiCall {
+        case .login: return RequestSpecification(
+            host: application.host,
+            path: "sabnzbd/login",
+            authenticationMethod: .form,
+            formAuthenticationData: makeAuthenticationData(with: credentials!)
+        )
+        case .apiKey: return RequestSpecification(
+            host: application.host,
+            path: "config/general"
+        )}
     }
 
-    func authenticationMethod(for apiCall: ApiApplicationCall) -> AuthenticationMethod {
-        switch apiCall {
-        case .login:
-            return .form
-        default:
-            return .none
-        }
-    }
-
-    func path(for apiCall: ApiApplicationCall) -> String? {
-        switch apiCall {
-        case .login:
-            return "sabnzbd/login"
-        case .apiKey:
-            return "config/general"
-        }
+    private func makeAuthenticationData(with credentials: UsernamePassword) -> FormAuthenticationData {
+        return FormAuthenticationData(
+            fieldName: (username: "username", password: "password"),
+            fieldValue: credentials
+        )
     }
 }
