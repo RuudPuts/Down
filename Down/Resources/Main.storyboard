@@ -9,27 +9,101 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Shows-->
-        <scene sceneID="LvV-F3-8pa">
+        <!--Dvr View Controller-->
+        <scene sceneID="Ykx-er-c4i">
             <objects>
-                <tableViewController storyboardIdentifier="dvrRoot" id="qqQ-8f-fgT" customClass="DvrViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="0ad-LT-GxH">
+                <viewController storyboardIdentifier="dvrRoot" id="066-B0-OQh" userLabel="Dvr View Controller" customClass="DvrViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ThK-yu-RES">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MtB-kf-6hC" userLabel="Header View" customClass="ApplicationHeaderView" customModule="Down" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="70"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sickbeard_icon" translatesAutoresizingMaskIntoConstraints="NO" id="OUM-oc-gVD" userLabel="Application Logo ImageView">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="dZZ-RD-TF3"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vmb-ks-iov">
+                                        <rect key="frame" x="325" y="10" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="LnG-vp-utg"/>
+                                            <constraint firstAttribute="width" constant="40" id="TgT-ul-8BK"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="gear"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="OUM-oc-gVD" secondAttribute="bottom" id="H2K-Gf-1b2"/>
+                                    <constraint firstAttribute="trailing" secondItem="vmb-ks-iov" secondAttribute="trailing" constant="10" id="HGQ-vq-OWZ"/>
+                                    <constraint firstItem="OUM-oc-gVD" firstAttribute="top" secondItem="MtB-kf-6hC" secondAttribute="top" id="PRR-gA-hxh"/>
+                                    <constraint firstAttribute="trailing" secondItem="OUM-oc-gVD" secondAttribute="trailing" id="Saf-f9-GHw"/>
+                                    <constraint firstItem="vmb-ks-iov" firstAttribute="top" secondItem="MtB-kf-6hC" secondAttribute="top" constant="10" id="g9I-Ep-sEU"/>
+                                    <constraint firstItem="OUM-oc-gVD" firstAttribute="leading" secondItem="MtB-kf-6hC" secondAttribute="leading" id="j92-Cp-tVX"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="button" destination="vmb-ks-iov" id="OZh-ZJ-pCn"/>
+                                    <outlet property="imageView" destination="OUM-oc-gVD" id="CSf-6K-ao9"/>
+                                </connections>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pjp-WP-tUy">
+                                <rect key="frame" x="0.0" y="90" width="375" height="577"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DownloadItemCell" textLabel="wSd-Y8-ey6" detailTextLabel="Lb9-oa-fCm" style="IBUITableViewCellStyleSubtitle" id="vh3-69-wht" customClass="DownloadItemCell" customModule="Down" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vh3-69-wht" id="psg-cs-csj">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wSd-Y8-ey6">
+                                                    <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Lb9-oa-fCm">
+                                                    <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="qqQ-8f-fgT" id="Csj-EI-LSk"/>
-                            <outlet property="delegate" destination="qqQ-8f-fgT" id="yDQ-15-cFz"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Shows" id="LTA-dA-Lsq"/>
+                        <constraints>
+                            <constraint firstItem="pjp-WP-tUy" firstAttribute="leading" secondItem="SgP-vo-CfK" secondAttribute="leading" id="2C3-bx-wih"/>
+                            <constraint firstItem="MtB-kf-6hC" firstAttribute="leading" secondItem="SgP-vo-CfK" secondAttribute="leading" id="7NA-xd-mPm"/>
+                            <constraint firstItem="pjp-WP-tUy" firstAttribute="top" secondItem="MtB-kf-6hC" secondAttribute="bottom" id="GCA-39-hZz"/>
+                            <constraint firstItem="pjp-WP-tUy" firstAttribute="trailing" secondItem="SgP-vo-CfK" secondAttribute="trailing" id="IFd-UB-pS4"/>
+                            <constraint firstItem="MtB-kf-6hC" firstAttribute="trailing" secondItem="SgP-vo-CfK" secondAttribute="trailing" id="dcL-96-gWL"/>
+                            <constraint firstItem="pjp-WP-tUy" firstAttribute="bottom" secondItem="SgP-vo-CfK" secondAttribute="bottom" id="eSA-S8-lk6"/>
+                            <constraint firstItem="pjp-WP-tUy" firstAttribute="top" secondItem="MtB-kf-6hC" secondAttribute="bottom" id="pSa-Xq-twL"/>
+                            <constraint firstItem="MtB-kf-6hC" firstAttribute="top" secondItem="SgP-vo-CfK" secondAttribute="top" id="rjJ-rf-Cq4"/>
+                            <constraint firstItem="pjp-WP-tUy" firstAttribute="top" secondItem="MtB-kf-6hC" secondAttribute="bottom" id="x0w-EL-wbh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="SgP-vo-CfK"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="gUH-tC-cH8"/>
                     <connections>
-                        <segue destination="S0U-LI-9Q3" kind="show" identifier="showDetail" id="N6D-Fp-ppb"/>
+                        <outlet property="headerView" destination="MtB-kf-6hC" id="93C-97-jAa"/>
+                        <outlet property="tableView" destination="pjp-WP-tUy" id="hfA-5x-9Cz"/>
+                        <segue destination="S0U-LI-9Q3" kind="show" identifier="detail" id="RcN-Wj-HER"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ca-GP-Fht" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4im-s8-axF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="992" y="177"/>
+            <point key="canvasLocation" x="990" y="177"/>
         </scene>
         <!--Dvr Detail View Controller-->
         <scene sceneID="ZP5-0E-W2b">
@@ -54,22 +128,54 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="qqQ-8f-fgT" kind="relationship" relationship="rootViewController" id="C2f-j3-YK7"/>
+                        <segue destination="066-B0-OQh" kind="relationship" relationship="rootViewController" id="wr2-GP-AUV"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gQh-0s-80e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="39" y="177"/>
         </scene>
-        <!--Download-->
+        <!--Download View Controller-->
         <scene sceneID="rNa-UM-WuT">
             <objects>
-                <viewController storyboardIdentifier="downloadRoot" id="vGt-7u-8ce" customClass="DownloadViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="downloadRoot" id="vGt-7u-8ce" userLabel="Download View Controller" customClass="DownloadViewController" customModule="Down" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3mb-hd-XP8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Sd-6o-mhJ" customClass="DownloadQueueStatusView" customModule="Down" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UAo-Ty-q9x" userLabel="Header View" customClass="ApplicationHeaderView" customModule="Down" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="70"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sabnzbd_icon" translatesAutoresizingMaskIntoConstraints="NO" id="s7X-sl-fTj" userLabel="Application Logo ImageView">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="0v9-Ve-fbS"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSU-BA-hm0">
+                                        <rect key="frame" x="325" y="10" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="TTq-9e-FfP"/>
+                                            <constraint firstAttribute="width" constant="40" id="uAv-mg-UIJ"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="gear"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="PSU-BA-hm0" firstAttribute="top" secondItem="UAo-Ty-q9x" secondAttribute="top" constant="10" id="7ut-lB-pBp"/>
+                                    <constraint firstAttribute="trailing" secondItem="PSU-BA-hm0" secondAttribute="trailing" constant="10" id="Ddv-XU-xj5"/>
+                                    <constraint firstAttribute="trailing" secondItem="s7X-sl-fTj" secondAttribute="trailing" id="Epw-y9-Sb1"/>
+                                    <constraint firstItem="s7X-sl-fTj" firstAttribute="top" secondItem="UAo-Ty-q9x" secondAttribute="top" id="MSW-uv-f12"/>
+                                    <constraint firstAttribute="bottom" secondItem="s7X-sl-fTj" secondAttribute="bottom" id="bCx-Al-Y7d"/>
+                                    <constraint firstItem="s7X-sl-fTj" firstAttribute="leading" secondItem="UAo-Ty-q9x" secondAttribute="leading" id="dp2-hR-i5L"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="button" destination="PSU-BA-hm0" id="Atk-RM-2ze"/>
+                                    <outlet property="imageView" destination="s7X-sl-fTj" id="a02-bz-qRe"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Sd-6o-mhJ" userLabel="Queue Status View" customClass="DownloadQueueStatusView" customModule="Down" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="90" width="375" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="x6B-PQ-2kA">
@@ -140,31 +246,26 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sabnzbd-icon" translatesAutoresizingMaskIntoConstraints="NO" id="s7X-sl-fTj">
-                                <rect key="frame" x="0.0" y="20" width="375" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="0v9-Ve-fbS"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Sd-6o-mhJ" firstAttribute="leading" secondItem="pe3-u4-u5M" secondAttribute="leading" id="6aa-4O-wsC"/>
-                            <constraint firstItem="s7X-sl-fTj" firstAttribute="top" secondItem="pe3-u4-u5M" secondAttribute="top" id="98a-eX-JxN"/>
-                            <constraint firstItem="6Sd-6o-mhJ" firstAttribute="top" secondItem="s7X-sl-fTj" secondAttribute="bottom" id="Ada-zL-bOg"/>
-                            <constraint firstItem="s7X-sl-fTj" firstAttribute="trailing" secondItem="pe3-u4-u5M" secondAttribute="trailing" id="ENB-Un-nHB"/>
                             <constraint firstItem="pe3-u4-u5M" firstAttribute="trailing" secondItem="usd-wU-8qN" secondAttribute="trailing" id="Qdh-0L-Y2a"/>
+                            <constraint firstItem="UAo-Ty-q9x" firstAttribute="leading" secondItem="pe3-u4-u5M" secondAttribute="leading" id="Rde-bT-nib"/>
+                            <constraint firstItem="UAo-Ty-q9x" firstAttribute="top" secondItem="pe3-u4-u5M" secondAttribute="top" id="TgU-aX-fiw"/>
                             <constraint firstItem="6Sd-6o-mhJ" firstAttribute="trailing" secondItem="pe3-u4-u5M" secondAttribute="trailing" id="Yma-9d-ZQu"/>
+                            <constraint firstItem="6Sd-6o-mhJ" firstAttribute="top" secondItem="UAo-Ty-q9x" secondAttribute="bottom" id="aFN-6w-5Uk"/>
                             <constraint firstItem="usd-wU-8qN" firstAttribute="leading" secondItem="pe3-u4-u5M" secondAttribute="leading" id="acF-fm-6YV"/>
                             <constraint firstItem="usd-wU-8qN" firstAttribute="top" secondItem="6Sd-6o-mhJ" secondAttribute="bottom" id="dm9-r7-Zdg"/>
                             <constraint firstItem="pe3-u4-u5M" firstAttribute="bottom" secondItem="usd-wU-8qN" secondAttribute="bottom" id="n9V-kS-uDJ"/>
-                            <constraint firstItem="s7X-sl-fTj" firstAttribute="leading" secondItem="pe3-u4-u5M" secondAttribute="leading" id="zzn-0T-pt9"/>
+                            <constraint firstItem="UAo-Ty-q9x" firstAttribute="trailing" secondItem="pe3-u4-u5M" secondAttribute="trailing" id="qac-8g-tm7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pe3-u4-u5M"/>
                     </view>
                     <navigationItem key="navigationItem" title="Download" id="mWY-Vf-dtN"/>
                     <connections>
-                        <outlet property="headerView" destination="6Sd-6o-mhJ" id="eho-1M-zRm"/>
+                        <outlet property="headerView" destination="UAo-Ty-q9x" id="2V0-t6-6PV"/>
+                        <outlet property="statusView" destination="6Sd-6o-mhJ" id="eho-1M-zRm"/>
                         <outlet property="tableView" destination="usd-wU-8qN" id="ajm-Ki-Mfu"/>
                     </connections>
                 </viewController>
@@ -187,22 +288,10 @@
             </objects>
             <point key="canvasLocation" x="38" y="-513"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="elQ-5W-b5p">
-            <objects>
-                <viewController id="aYG-xq-Jw2" sceneMemberID="viewController">
-                    <stackView key="view" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" id="yDL-tj-8iB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <viewLayoutGuide key="safeArea" id="ozT-AU-sXP"/>
-                    </stackView>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NmT-9q-3Rt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2452" y="-513"/>
-        </scene>
     </scenes>
     <resources>
-        <image name="sabnzbd-icon" width="168" height="45"/>
+        <image name="gear" width="512" height="512"/>
+        <image name="sabnzbd_icon" width="168" height="45"/>
+        <image name="sickbeard_icon" width="161" height="72"/>
     </resources>
 </document>

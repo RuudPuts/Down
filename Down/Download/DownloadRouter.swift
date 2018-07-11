@@ -13,7 +13,7 @@ protocol DownloadRouting {
     var downloadRouter: DownloadRouter? { get set }
 }
 
-class DownloadRouter {
+class DownloadRouter: ApplicationRouter {
     let storyboard: UIStoryboard
     var navigationController: UINavigationController
     let database: DownDatabase

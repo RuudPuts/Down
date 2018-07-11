@@ -65,3 +65,12 @@ class Router {
         return navigationController
     }
 }
+
+protocol ApplicationRouter {
+    func showSettings()
+}
+
+extension ApplicationRouter {
+    func showSettings() {
+    }
+}

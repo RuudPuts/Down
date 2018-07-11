@@ -13,7 +13,7 @@ protocol DvrRouting {
     var dvrRouter: DvrRouter? { get set }
 }
 
-class DvrRouter {
+class DvrRouter: ApplicationRouter {
     let storyboard: UIStoryboard
     var navigationController: UINavigationController
     let database: DownDatabase

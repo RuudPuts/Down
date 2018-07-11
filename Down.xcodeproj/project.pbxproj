@@ -96,6 +96,9 @@
 		4263A18920E1C3BA008F7E40 /* ApiApplicationRequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18820E1C3BA008F7E40 /* ApiApplicationRequestBuilding.swift */; };
 		426A798220D1810100797AE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A798120D1810100797AE5 /* AppDelegate.swift */; };
 		426BF73C20F688CA000C3A4A /* RequestSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BF73B20F688CA000C3A4A /* RequestSpecification.swift */; };
+		426BF73F20F6A19D000C3A4A /* ApplicationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BF73E20F6A19D000C3A4A /* ApplicationHeaderView.swift */; };
+		426BF74120F6A2CB000C3A4A /* AssetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BF74020F6A2CB000C3A4A /* AssetProvider.swift */; };
+		426BF74320F6A527000C3A4A /* DownApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BF74220F6A527000C3A4A /* DownApplication.swift */; };
 		42723A1B20D7FBFA000445C3 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42723A1A20D7FBFA000445C3 /* Observable.swift */; };
 		42723A4820D80E86000445C3 /* CompoundInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42723A4720D80E86000445C3 /* CompoundInteractor.swift */; };
 		42723A4A20D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42723A4920D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift */; };
@@ -300,6 +303,9 @@
 		426A799220D1810200797AE5 /* DownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		426A799820D1810200797AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		426BF73B20F688CA000C3A4A /* RequestSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSpecification.swift; sourceTree = "<group>"; };
+		426BF73E20F6A19D000C3A4A /* ApplicationHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationHeaderView.swift; sourceTree = "<group>"; };
+		426BF74020F6A2CB000C3A4A /* AssetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetProvider.swift; sourceTree = "<group>"; };
+		426BF74220F6A527000C3A4A /* DownApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownApplication.swift; sourceTree = "<group>"; };
 		42723A1A20D7FBFA000445C3 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		42723A4720D80E86000445C3 /* CompoundInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundInteractor.swift; sourceTree = "<group>"; };
 		42723A4920D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRefreshShowCacheInteractor.swift; sourceTree = "<group>"; };
@@ -922,7 +928,9 @@
 			children = (
 				426A798120D1810100797AE5 /* AppDelegate.swift */,
 				4221DA5220D183B6003950CF /* Down.swift */,
+				426BF74220F6A527000C3A4A /* DownApplication.swift */,
 				4221DA4F20D183B5003950CF /* Router.swift */,
+				426BF73D20F6A18D000C3A4A /* Shared */,
 				427D605D20E0325C0017AE42 /* Download */,
 				427D605920E02DD00017AE42 /* Dvr */,
 				4221DA4A20D181F2003950CF /* Resources */,
@@ -938,6 +946,15 @@
 				426A799820D1810200797AE5 /* Info.plist */,
 			);
 			path = DownTests;
+			sourceTree = "<group>";
+		};
+		426BF73D20F6A18D000C3A4A /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				426BF73E20F6A19D000C3A4A /* ApplicationHeaderView.swift */,
+				426BF74020F6A2CB000C3A4A /* AssetProvider.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		42723A4420D7FF80000445C3 /* CompoundInteractors */ = {
@@ -1458,11 +1475,14 @@
 				4221DA5820D183EA003950CF /* DvrViewController.swift in Sources */,
 				4221DA5420D183B6003950CF /* DvrDetailViewController.swift in Sources */,
 				4221DA5620D183B6003950CF /* Down.swift in Sources */,
+				426BF74120F6A2CB000C3A4A /* AssetProvider.swift in Sources */,
 				425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */,
 				427D606120E0325C0017AE42 /* DownloadViewController.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
+				426BF73F20F6A19D000C3A4A /* ApplicationHeaderView.swift in Sources */,
 				427D606920E19A660017AE42 /* DownloadViewModel.swift in Sources */,
 				426A798220D1810100797AE5 /* AppDelegate.swift in Sources */,
+				426BF74320F6A527000C3A4A /* DownApplication.swift in Sources */,
 				427D606320E0325C0017AE42 /* DownloadRouter.swift in Sources */,
 				427D606B20E1A6BD0017AE42 /* DownloadItemCell.swift in Sources */,
 				427D605B20E02E2F0017AE42 /* DvrRouter.swift in Sources */,

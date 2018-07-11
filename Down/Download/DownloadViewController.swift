@@ -18,8 +18,9 @@ class DownloadViewController: UIViewController & DownloadRouting & DatabaseConsu
     var database: DownDatabase!
     var downloadRouter: DownloadRouter?
     let disposeBag = DisposeBag()
-    
-    @IBOutlet weak var headerView: DownloadQueueStatusView!
+
+    @IBOutlet weak var headerView: ApplicationHeaderView!
+    @IBOutlet weak var statusView: DownloadQueueStatusView!
     @IBOutlet weak var tableView: UITableView!
     
     lazy var viewModel = DownloadViewModel(queueInteractor: interactorFactory.makeQueueInteractor(for: application),
@@ -28,8 +29,18 @@ class DownloadViewController: UIViewController & DownloadRouting & DatabaseConsu
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureHeaderView()
         configureTableView()
         applyViewModel()
+    }
+
+    func configureHeaderView() {
+        headerView.set(application: application)
+        headerView.button?.rx.tap
+            .subscribe(onNext: { _ in
+                self.downloadRouter?.showSettings()
+            })
+            .disposed(by: disposeBag)
     }
     
     func configureTableView() {
@@ -43,7 +54,7 @@ class DownloadViewController: UIViewController & DownloadRouting & DatabaseConsu
     func applyViewModel() {
         title = viewModel.title
 
-        viewModel.queueData.asDriver().drive(headerView.rx.queue).disposed(by: disposeBag)
+        viewModel.queueData.asDriver().drive(statusView.rx.queue).disposed(by: disposeBag)
         viewModel.sectionsData
             .asDriver()
             .drive(tableView.rx.items(dataSource: dataSource))

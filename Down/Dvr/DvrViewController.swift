@@ -11,11 +11,14 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class DvrViewController: UITableViewController & DvrRouting & DatabaseConsuming & DvrApplicationInteracting {
+class DvrViewController: UIViewController & DvrRouting & DatabaseConsuming & DvrApplicationInteracting {
     var application: DvrApplication!
     var interactorFactory: DvrInteractorProducing!
     var database: DownDatabase!
     var dvrRouter: DvrRouter?
+
+    @IBOutlet weak var headerView: ApplicationHeaderView!
+    @IBOutlet weak var tableView: UITableView!
     
     lazy var interactor = interactorFactory.makeShowCacheRefreshInteractor(for: application)
     let disposeBag = DisposeBag()
@@ -23,22 +26,36 @@ class DvrViewController: UITableViewController & DvrRouting & DatabaseConsuming 
     var shows = Variable<[DvrShow]>([])
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(style: .grouped)
+        super.init(coder: aDecoder)
         title = "Show list"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        configureHeaderView()
+        configureTableView()
         
+        loadDatabase()
+        loadData()
+    }
+
+    func configureHeaderView() {
+        headerView.set(application: application)
+        headerView.button?.rx.tap
+            .subscribe(onNext: { _ in
+                self.dvrRouter?.showSettings()
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func configureTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.rx.modelSelected(DvrShow.self)
             .subscribe(onNext: {
                 self.dvrRouter?.showDetail(of: $0)
             })
             .disposed(by: disposeBag)
-        
-        loadDatabase()
-        loadData()
     }
     
     func loadDatabase() {
