@@ -13,50 +13,31 @@ protocol DownloadRouting {
     var downloadRouter: DownloadRouter? { get set }
 }
 
-class DownloadRouter: ApplicationRouter {
-    let storyboard: UIStoryboard
+class DownloadRouter: ApplicationRouting {
+    var parent: Router
+    var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController
-    let database: DownDatabase
-    
-    init(storyboard: UIStoryboard, navigationController: UINavigationController, database: DownDatabase) {
-        self.storyboard = storyboard
+    var database: DownDatabase
+
+    init(parent: Router, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
+        self.parent = parent
+        self.viewControllerFactory = viewControllerFactory
         self.navigationController = navigationController
         self.database = database
     }
     
-    enum Identifier: String {
-        case root = "downloadRoot"
-    }
-    
     func start() {
-        navigationController.viewControllers = [makeViewController(.root)]
+        navigationController.viewControllers = [decorate(viewController: viewControllerFactory.makeDownloadRoot())]
     }
-}
 
-typealias DownloadRouterViewController = UIViewController & DownloadRouting
+    func decorate(viewController vc: UIViewController) -> UIViewController {
+        let viewController = parent.decorate(viewController: vc)
 
-private extension DownloadRouter {
-    func makeViewController(_ identifier: Identifier) -> DownloadRouterViewController {
-        let viewController = storyboard.instantiateViewController(withIdentifier: identifier.rawValue)
-        guard let routingViewController = viewController as? DownloadRouterViewController else {
-            fatalError("bye")
-        }
-        decorate(routingViewController)
-        
-        return routingViewController
-    }
-    
-    func decorate(_ viewController: DownloadRouterViewController) {
-        var controller = viewController
-        controller.downloadRouter = self
-        
-        if var databaseConuming = controller as? DatabaseConsuming {
-            databaseConuming.database = database
-        }
-        
-        if var downloadInteracting = controller as? DownloadApplicationInteracting {
+        if var downloadInteracting = viewController as? DownloadApplicationInteracting {
             downloadInteracting.application = Down.downloadApplication
-            downloadInteracting.interactorFactory = DownloadInteractorFactory(dvrDatabase: database)
+            downloadInteracting.interactorFactory = DownloadInteractorFactory(dvrDatabase: parent.database)
         }
+
+        return viewController
     }
 }

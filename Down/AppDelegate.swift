@@ -16,7 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
-        router = Router(window: window!, storyboard: UIStoryboard(name: "Main", bundle: Bundle.main))
+
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let factory = ViewControllerFactory(storyboard: storyboard)
+        router = Router(window: window!, viewControllerFactory: factory)
         router.start()
         
         NSLog(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "")

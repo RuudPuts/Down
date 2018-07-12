@@ -13,60 +13,41 @@ protocol DvrRouting {
     var dvrRouter: DvrRouter? { get set }
 }
 
-class DvrRouter: ApplicationRouter {
-    let storyboard: UIStoryboard
+class DvrRouter: ApplicationRouting {
+    var parent: Router
+    var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController
-    let database: DownDatabase
-    
-    init(storyboard: UIStoryboard, navigationController: UINavigationController, database: DownDatabase) {
-        self.storyboard = storyboard
+    var database: DownDatabase
+
+    init(parent: Router, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
+        self.parent = parent
+        self.viewControllerFactory = viewControllerFactory
         self.navigationController = navigationController
         self.database = database
     }
     
-    enum Identifier: String {
-        case root = "dvrRoot"
-        case detail = "dvrDetail"
-    }
-    
     func start() {
-        navigationController.viewControllers = [makeViewController(.root)]
+        navigationController.viewControllers = [decorate(viewController: viewControllerFactory.makeDvrRoot())]
     }
     
     func showDetail(of show: DvrShow) {
-        guard let viewController = makeViewController(.detail) as? DvrDetailViewController else {
+        let vc = decorate(viewController: viewControllerFactory.makeDvrDetail())
+        guard let viewController = vc as? DvrDetailViewController else {
             return
         }
         
         viewController.show = show
         navigationController.pushViewController(viewController, animated: true)
     }
-}
 
-typealias DvrRouterViewController = UIViewController & DvrRouting
+    func decorate(viewController vc: UIViewController) -> UIViewController {
+        let viewController = parent.decorate(viewController: vc)
 
-private extension DvrRouter {
-    func makeViewController(_ identifier: Identifier) -> DvrRouterViewController {
-        let viewController = storyboard.instantiateViewController(withIdentifier: identifier.rawValue)
-        guard let routingViewController = viewController as? DvrRouterViewController else {
-            fatalError("bye")
-        }
-        decorate(routingViewController)
-        
-        return routingViewController
-    }
-    
-    func decorate(_ viewController: DvrRouterViewController) {
-        var controller = viewController
-        controller.dvrRouter = self
-        
-        if var databaseConuming = controller as? DatabaseConsuming {
-            databaseConuming.database = database
-        }
-        
-        if var dvrInteracting = controller as? DvrApplicationInteracting {
+        if var dvrInteracting = viewController as? DvrApplicationInteracting {
             dvrInteracting.application = Down.dvrApplication
             dvrInteracting.interactorFactory = DvrInteractorFactory(database: database)
         }
+
+        return viewController
     }
 }

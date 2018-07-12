@@ -10,8 +10,8 @@ import DownKit
 import RxSwift
 import UIKit
 
-class DvrDetailViewController: DvrRouterViewController {
-    var dvrRouter: DvrRouter?
+class DvrDetailViewController: UIViewController & Routing {
+    var router: Router?
     
     var show: DvrShow? {
         didSet { title = show?.name }

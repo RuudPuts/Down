@@ -12,11 +12,11 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class DownloadViewController: UIViewController & DownloadRouting & DatabaseConsuming & DownloadApplicationInteracting {
+class DownloadViewController: UIViewController & Routing & DatabaseConsuming & DownloadApplicationInteracting {
     var application: DownloadApplication!
     var interactorFactory: DownloadInteractorProducing!
     var database: DownDatabase!
-    var downloadRouter: DownloadRouter?
+    var router: Router?
     let disposeBag = DisposeBag()
 
     @IBOutlet weak var headerView: ApplicationHeaderView!
@@ -38,7 +38,7 @@ class DownloadViewController: UIViewController & DownloadRouting & DatabaseConsu
         headerView.set(application: application)
         headerView.button?.rx.tap
             .subscribe(onNext: { _ in
-                self.downloadRouter?.showSettings()
+                self.router?.showSettings(application: self.application)
             })
             .disposed(by: disposeBag)
     }
