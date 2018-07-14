@@ -34,8 +34,19 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
         applyViewModel()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
     func configureHeaderView() {
-        headerView.set(application: application)
+        headerView.application = application
         headerView.button?.rx.tap
             .subscribe(onNext: { _ in
                 self.router?.showSettings(application: self.application)
@@ -44,7 +55,7 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     }
     
     func configureTableView() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(cellNib: DownloadItemCell.identifier)
         
         dataSource.titleForHeaderInSection = { dataSource, index in
             return dataSource.sectionModels[index].header
@@ -70,4 +81,10 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
 
         return cell
     })
+}
+
+extension UITableView {
+    func register(cellNib nib: String) {
+        register(UINib(nibName: nib, bundle: Bundle.main), forCellReuseIdentifier: nib)
+    }
 }

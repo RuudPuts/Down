@@ -17,7 +17,6 @@
 		4221DA5420D183B6003950CF /* DvrDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA5020D183B6003950CF /* DvrDetailViewController.swift */; };
 		4221DA5620D183B6003950CF /* Down.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA5220D183B6003950CF /* Down.swift */; };
 		4221DA5820D183EA003950CF /* DvrViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA5720D183EA003950CF /* DvrViewController.swift */; };
-		4221DA5A20D183FE003950CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4221DA5920D183FE003950CF /* Main.storyboard */; };
 		4221DA8420D18450003950CF /* RequestGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA5D20D18450003950CF /* RequestGateway.swift */; };
 		4221DA8C20D18450003950CF /* ApiApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA6820D18450003950CF /* ApiApplication.swift */; };
 		4221DA8D20D18450003950CF /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA6920D18450003950CF /* Application.swift */; };
@@ -87,6 +86,16 @@
 		422CEE0C20D52B8700EF0A16 /* RequestClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */; };
 		422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */; };
 		422CEE1120D55AD200EF0A16 /* RequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE1020D55AD200EF0A16 /* RequestClient.swift */; };
+		4243527A20FA8FB800A729E1 /* DvrDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527920FA8FB800A729E1 /* DvrDetailViewController.xib */; };
+		4243527C20FA8FE700A729E1 /* DownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527B20FA8FE700A729E1 /* DownloadViewController.xib */; };
+		4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527F20FA936C00A729E1 /* DownloadItemCell.xib */; };
+		4243528620FA9D0C00A729E1 /* ApplicationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243528420FA9D0C00A729E1 /* ApplicationSettingsViewController.swift */; };
+		4243528720FA9D0C00A729E1 /* ApplicationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243528520FA9D0C00A729E1 /* ApplicationSettingsViewController.xib */; };
+		4243528920FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243528820FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift */; };
+		4243528B20FAA87D00A729E1 /* Rswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4243528A20FAA87D00A729E1 /* Rswift.framework */; };
+		4243529120FAAF7900A729E1 /* UITextField+fixCaretPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243528E20FAAF7800A729E1 /* UITextField+fixCaretPosition.swift */; };
+		4243529220FAAF7900A729E1 /* SkyFloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243528F20FAAF7800A729E1 /* SkyFloatingLabelTextField.swift */; };
+		4243529320FAAF7900A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243529020FAAF7800A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift */; };
 		42457CA020E1AB5900DBC6C7 /* DownloadQueueInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */; };
 		425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */; };
 		4263A18120E1B72A008F7E40 /* ApiApplicationLoginGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18020E1B72A008F7E40 /* ApiApplicationLoginGateway.swift */; };
@@ -134,9 +143,12 @@
 		429B01D220F5324E00BCDA0F /* ApiApplicationGatewayFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D020F5324D00BCDA0F /* ApiApplicationGatewayFactory.swift */; };
 		429B01D320F5324E00BCDA0F /* ApiApplicationRequestGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */; };
 		429B01D520F53DBC00BCDA0F /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D420F53DBC00BCDA0F /* Authentication.swift */; };
+		429FE7D520FA7D40005F3A4F /* ApplicationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */; };
 		42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */; };
 		42B16D5720D5A2E90027ED1C /* DvrInteractorFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */; };
 		42B16D5920D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5820D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift */; };
+		42B4AAF420FA8CF9008B7C3B /* DvrViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42B4AAF320FA8CF9008B7C3B /* DvrViewController.xib */; };
+		42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */; };
 		42BF4E8520D19CF20088AAF6 /* DvrRequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8420D19CF20088AAF6 /* DvrRequestBuilding.swift */; };
 		42BF4E8A20D1B5990088AAF6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8920D1B5990088AAF6 /* String.swift */; };
 		42BF4E8D20D1B5BC0088AAF6 /* StringSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */; };
@@ -216,7 +228,6 @@
 		4221DA5020D183B6003950CF /* DvrDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrDetailViewController.swift; sourceTree = "<group>"; };
 		4221DA5220D183B6003950CF /* Down.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Down.swift; sourceTree = "<group>"; };
 		4221DA5720D183EA003950CF /* DvrViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrViewController.swift; sourceTree = "<group>"; };
-		4221DA5920D183FE003950CF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4221DA5D20D18450003950CF /* RequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestGateway.swift; sourceTree = "<group>"; };
 		4221DA6020D18450003950CF /* DvrRequestInteractors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrRequestInteractors.swift; sourceTree = "<group>"; };
 		4221DA6220D18450003950CF /* DvrShowDetailsGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsGateway.swift; sourceTree = "<group>"; };
@@ -290,6 +301,17 @@
 		422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClientMock.swift; sourceTree = "<group>"; };
 		422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterializedSequenceResult.swift; sourceTree = "<group>"; };
 		422CEE1020D55AD200EF0A16 /* RequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClient.swift; sourceTree = "<group>"; };
+		4243527920FA8FB800A729E1 /* DvrDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrDetailViewController.xib; sourceTree = "<group>"; };
+		4243527B20FA8FE700A729E1 /* DownloadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadViewController.xib; sourceTree = "<group>"; };
+		4243527F20FA936C00A729E1 /* DownloadItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadItemCell.xib; sourceTree = "<group>"; };
+		4243528420FA9D0C00A729E1 /* ApplicationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsViewController.swift; sourceTree = "<group>"; };
+		4243528520FA9D0C00A729E1 /* ApplicationSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplicationSettingsViewController.xib; sourceTree = "<group>"; };
+		4243528820FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsViewModel.swift; sourceTree = "<group>"; };
+		4243528A20FAA87D00A729E1 /* Rswift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rswift.framework; path = Carthage/Build/iOS/Rswift.framework; sourceTree = "<group>"; };
+		4243528C20FAA89000A729E1 /* SkyFloatingLabelTextField.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyFloatingLabelTextField.framework; path = Carthage/Build/iOS/SkyFloatingLabelTextField.framework; sourceTree = "<group>"; };
+		4243528E20FAAF7800A729E1 /* UITextField+fixCaretPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITextField+fixCaretPosition.swift"; path = "Carthage/Checkouts/SkyFloatingLabelTextField/Sources/UITextField+fixCaretPosition.swift"; sourceTree = SOURCE_ROOT; };
+		4243528F20FAAF7800A729E1 /* SkyFloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkyFloatingLabelTextField.swift; path = Carthage/Checkouts/SkyFloatingLabelTextField/Sources/SkyFloatingLabelTextField.swift; sourceTree = SOURCE_ROOT; };
+		4243529020FAAF7800A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkyFloatingLabelTextFieldWithIcon.swift; path = Carthage/Checkouts/SkyFloatingLabelTextField/Sources/SkyFloatingLabelTextFieldWithIcon.swift; sourceTree = SOURCE_ROOT; };
 		42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueInteractor.swift; sourceTree = "<group>"; };
 		425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueueStatusView.swift; sourceTree = "<group>"; };
 		425357C620F2B10E005BC238 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -335,9 +357,12 @@
 		429B01D020F5324D00BCDA0F /* ApiApplicationGatewayFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactory.swift; sourceTree = "<group>"; };
 		429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationRequestGateway.swift; sourceTree = "<group>"; };
 		429B01D420F53DBC00BCDA0F /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplicationHeaderView.xib; sourceTree = "<group>"; };
 		42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrInteractorFactorySpec.swift; sourceTree = "<group>"; };
 		42B16D5820D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRefreshShowCacheInteractorSpec.swift; sourceTree = "<group>"; };
+		42B4AAF320FA8CF9008B7C3B /* DvrViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrViewController.xib; sourceTree = "<group>"; };
+		42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		42BF4E8420D19CF20088AAF6 /* DvrRequestBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuilding.swift; sourceTree = "<group>"; };
 		42BF4E8920D1B5990088AAF6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSpec.swift; sourceTree = "<group>"; };
@@ -372,6 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4221DACF20D1866F003950CF /* RxCocoa.framework in Frameworks */,
+				4243528B20FAA87D00A729E1 /* Rswift.framework in Frameworks */,
 				427D606720E197320017AE42 /* Differentiator.framework in Frameworks */,
 				4221DA4120D1819F003950CF /* DownKit.framework in Frameworks */,
 				4221DAD120D18673003950CF /* RxSwift.framework in Frameworks */,
@@ -424,7 +450,6 @@
 			children = (
 				4221DA4C20D181F2003950CF /* Assets.xcassets */,
 				4221DA4B20D181F2003950CF /* LaunchScreen.storyboard */,
-				4221DA5920D183FE003950CF /* Main.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -663,6 +688,8 @@
 		4221DAC420D18629003950CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4243528C20FAA89000A729E1 /* SkyFloatingLabelTextField.framework */,
+				4243528A20FAA87D00A729E1 /* Rswift.framework */,
 				427D606620E197320017AE42 /* Differentiator.framework */,
 				427D606420E194AA0017AE42 /* RxDataSources.framework */,
 				4221DAC720D18666003950CF /* Nimble.framework */,
@@ -855,6 +882,19 @@
 			path = Interactors;
 			sourceTree = "<group>";
 		};
+		4243528120FA9CE200A729E1 /* ApplicationSettings */ = {
+			isa = PBXGroup;
+			children = (
+				4243528420FA9D0C00A729E1 /* ApplicationSettingsViewController.swift */,
+				4243528520FA9D0C00A729E1 /* ApplicationSettingsViewController.xib */,
+				4243528820FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift */,
+				4243528F20FAAF7800A729E1 /* SkyFloatingLabelTextField.swift */,
+				4243529020FAAF7800A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift */,
+				4243528E20FAAF7800A729E1 /* UITextField+fixCaretPosition.swift */,
+			);
+			path = ApplicationSettings;
+			sourceTree = "<group>";
+		};
 		425357C320F2B0CE005BC238 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -931,8 +971,6 @@
 				426A798120D1810100797AE5 /* AppDelegate.swift */,
 				4221DA5220D183B6003950CF /* Down.swift */,
 				426BF74220F6A527000C3A4A /* DownApplication.swift */,
-				4221DA4F20D183B5003950CF /* Router.swift */,
-				42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */,
 				426BF73D20F6A18D000C3A4A /* Shared */,
 				427D605D20E0325C0017AE42 /* Download */,
 				427D605920E02DD00017AE42 /* Dvr */,
@@ -954,8 +992,13 @@
 		426BF73D20F6A18D000C3A4A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				4221DA4F20D183B5003950CF /* Router.swift */,
+				42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */,
+				42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */,
 				426BF73E20F6A19D000C3A4A /* ApplicationHeaderView.swift */,
+				429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */,
 				426BF74020F6A2CB000C3A4A /* AssetProvider.swift */,
+				4243528120FA9CE200A729E1 /* ApplicationSettings */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -981,7 +1024,9 @@
 			children = (
 				427D605A20E02E2F0017AE42 /* DvrRouter.swift */,
 				4221DA5720D183EA003950CF /* DvrViewController.swift */,
+				42B4AAF320FA8CF9008B7C3B /* DvrViewController.xib */,
 				4221DA5020D183B6003950CF /* DvrDetailViewController.swift */,
+				4243527920FA8FB800A729E1 /* DvrDetailViewController.xib */,
 			);
 			path = Dvr;
 			sourceTree = "<group>";
@@ -991,8 +1036,10 @@
 			children = (
 				427D606020E0325C0017AE42 /* DownloadRouter.swift */,
 				427D605E20E0325C0017AE42 /* DownloadViewController.swift */,
+				4243527B20FA8FE700A729E1 /* DownloadViewController.xib */,
 				427D606820E19A660017AE42 /* DownloadViewModel.swift */,
 				427D606A20E1A6BD0017AE42 /* DownloadItemCell.swift */,
+				4243527F20FA936C00A729E1 /* DownloadItemCell.xib */,
 				425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */,
 			);
 			path = Download;
@@ -1232,8 +1279,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4221DA5A20D183FE003950CF /* Main.storyboard in Resources */,
+				4243527A20FA8FB800A729E1 /* DvrDetailViewController.xib in Resources */,
+				429FE7D520FA7D40005F3A4F /* ApplicationHeaderView.xib in Resources */,
+				4243528720FA9D0C00A729E1 /* ApplicationSettingsViewController.xib in Resources */,
+				42B4AAF420FA8CF9008B7C3B /* DvrViewController.xib in Resources */,
+				4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */,
 				4221DA4E20D181F2003950CF /* Assets.xcassets in Resources */,
+				4243527C20FA8FE700A729E1 /* DownloadViewController.xib in Resources */,
 				4221DA4D20D181F2003950CF /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1323,6 +1375,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SkyFloatingLabelTextField.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Rswift.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -1333,6 +1387,8 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Realm.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RealmSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftyJSON.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SkyFloatingLabelTextField.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Rswift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1477,15 +1533,21 @@
 			files = (
 				4221DA5820D183EA003950CF /* DvrViewController.swift in Sources */,
 				4221DA5420D183B6003950CF /* DvrDetailViewController.swift in Sources */,
+				4243528620FA9D0C00A729E1 /* ApplicationSettingsViewController.swift in Sources */,
 				4221DA5620D183B6003950CF /* Down.swift in Sources */,
+				4243528920FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift in Sources */,
 				426BF74120F6A2CB000C3A4A /* AssetProvider.swift in Sources */,
 				425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */,
 				427D606120E0325C0017AE42 /* DownloadViewController.swift in Sources */,
 				42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
+				42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */,
 				426BF73F20F6A19D000C3A4A /* ApplicationHeaderView.swift in Sources */,
+				4243529120FAAF7900A729E1 /* UITextField+fixCaretPosition.swift in Sources */,
 				427D606920E19A660017AE42 /* DownloadViewModel.swift in Sources */,
+				4243529220FAAF7900A729E1 /* SkyFloatingLabelTextField.swift in Sources */,
 				426A798220D1810100797AE5 /* AppDelegate.swift in Sources */,
+				4243529320FAAF7900A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift in Sources */,
 				426BF74320F6A527000C3A4A /* DownApplication.swift in Sources */,
 				427D606320E0325C0017AE42 /* DownloadRouter.swift in Sources */,
 				427D606B20E1A6BD0017AE42 /* DownloadItemCell.swift in Sources */,

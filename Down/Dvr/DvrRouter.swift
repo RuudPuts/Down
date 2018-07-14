@@ -13,7 +13,7 @@ protocol DvrRouting {
     var dvrRouter: DvrRouter? { get set }
 }
 
-class DvrRouter: ApplicationRouting {
+class DvrRouter: ChildRouter {
     var parent: Router
     var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController

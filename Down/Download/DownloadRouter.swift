@@ -13,7 +13,7 @@ protocol DownloadRouting {
     var downloadRouter: DownloadRouter? { get set }
 }
 
-class DownloadRouter: ApplicationRouting {
+class DownloadRouter: ChildRouter {
     var parent: Router
     var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController

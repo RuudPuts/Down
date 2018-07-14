@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ApplicationHeaderView" customModule="Down" customModuleProvider="target">
+            <connections>
+                <outlet property="button" destination="pka-Fb-jox" id="LOv-Yx-1Lv"/>
+                <outlet property="imageView" destination="fEh-Un-XmG" id="WzS-ta-oYm"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="3Lh-jy-umn">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sabnzbd_icon" translatesAutoresizingMaskIntoConstraints="NO" id="fEh-Un-XmG">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pka-Fb-jox">
+                    <rect key="frame" x="325" y="10" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="BW7-Js-UU6"/>
+                        <constraint firstAttribute="height" constant="40" id="qrW-3j-xeA"/>
+                    </constraints>
+                    <state key="normal" image="gear"/>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="fEh-Un-XmG" secondAttribute="trailing" id="Jcd-lp-WLw"/>
+                <constraint firstItem="fEh-Un-XmG" firstAttribute="top" secondItem="3Lh-jy-umn" secondAttribute="top" id="QKC-N1-4Vq"/>
+                <constraint firstItem="fEh-Un-XmG" firstAttribute="leading" secondItem="Ktv-Yg-qKW" secondAttribute="leading" id="hk1-nM-e3D"/>
+                <constraint firstItem="Ktv-Yg-qKW" firstAttribute="trailing" secondItem="pka-Fb-jox" secondAttribute="trailing" constant="10" id="mPY-fC-mEb"/>
+                <constraint firstAttribute="bottom" secondItem="fEh-Un-XmG" secondAttribute="bottom" id="ouH-vd-iGw"/>
+                <constraint firstItem="pka-Fb-jox" firstAttribute="top" secondItem="Ktv-Yg-qKW" secondAttribute="top" constant="10" id="trb-H8-Wy0"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Ktv-Yg-qKW"/>
+            <point key="canvasLocation" x="160" y="-491"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="gear" width="512" height="512"/>
+        <image name="sabnzbd_icon" width="168" height="45"/>
+    </resources>
+</document>

@@ -9,11 +9,19 @@
 import UIKit
 import DownKit
 
-class ApplicationHeaderView: UIView {
+@IBDesignable
+class ApplicationHeaderView: DesignableView {
     @IBOutlet weak var imageView: UIImageView?
     @IBOutlet weak var button: UIButton?
 
-    func set(application: DownApplication) {
-        imageView?.image = AssetProvider.icon(for: application.type)
+    var application: DownApplication? {
+        didSet {
+            guard let applicationType = application?.type else {
+                imageView?.image = nil
+                return
+            }
+
+            imageView?.image = AssetProvider.icons.for(applicationType)
+        }
     }
 }

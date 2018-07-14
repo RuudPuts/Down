@@ -17,19 +17,14 @@ class Router {
     var downloadRouter: DownloadRouter!
     var dvrRouter: DvrRouter!
     
-    var navigationController: UINavigationController? {
-        return window.rootViewController as? UINavigationController
+    var rootViewController: UIViewController? {
+        return window.rootViewController
     }
     
     init(window: UIWindow, viewControllerFactory: ViewControllerProducing, database: DownDatabase = RealmDatabase.default) {
         self.window = window
         self.viewControllerFactory = viewControllerFactory
         self.database = database
-    }
-    
-    enum Identifier: String {
-        case root
-        case detail
     }
     
     func start() {
@@ -43,9 +38,15 @@ class Router {
         window.makeKeyAndVisible()
     }
 
-    func showSettings(application: Application) {
-        let viewController = decorate(viewController: viewControllerFactory.makeDvrRoot())
-        navigationController?.present(viewController, animated: true, completion: nil)
+    func showSettings(application: ApiApplication) {
+        let viewController = decorate(viewController: viewControllerFactory.makeApplicationSettings(for: application))
+        rootViewController?.present(viewController, animated: true, completion: nil)
+    }
+
+    func close(viewController: UIViewController) {
+        if let presenter = viewController.presentingViewController {
+            presenter.dismiss(animated: true, completion: nil)
+        }
     }
 
     func decorate(viewController: UIViewController) -> UIViewController {
@@ -96,13 +97,4 @@ protocol Routing {
 protocol ChildRouter {
     var parent: Router { get set }
     var viewControllerFactory: ViewControllerProducing { get set }
-}
-
-protocol ApplicationRouting: ChildRouter {
-    func showSettings()
-}
-
-extension ApplicationRouting {
-    func showSettings() {
-    }
 }
