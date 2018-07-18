@@ -30,23 +30,51 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureHeaderView()
+        configureTextFields()
+    }
+
+    func configureHeaderView() {
         headerView.application = application as? DownApplication
-        
+
         headerView.button?.setImage(AssetProvider.icons.close, for: .normal)
         headerView.button?.rx.tap
             .subscribe(onNext: { _ in
                 self.router?.close(viewController: self)
             })
             .disposed(by: disposeBag)
+    }
 
-        hostTextField.text = viewModel.host
-        apiKeyTextField.text = viewModel.apiKey
+    func configureTextFields() {
+        let hideFieldsDriver = viewModel.authenticationRequired
+            .asDriver()
+            .map { !$0 }
+
+        hideFieldsDriver
+            .drive(usernameTextField.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        hideFieldsDriver
+            .drive(passwordTextField.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        viewModel.host.asDriver()
+            .drive(hostTextField.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.apiKey.asDriver()
+            .drive(apiKeyTextField.rx.text)
+            .disposed(by: disposeBag)
 
         [hostTextField, usernameTextField, passwordTextField].forEach {
             $0.rx.text
                 .skip(2)
                 .debounce(0.3, scheduler: MainScheduler.instance)
                 .subscribe(onNext: { _ in
+                    // Text needs to be subscribed to the view model as well..
+                    // Should the text directly bind to the view model's variables?
+                    // And make it do the perform login below?
+
                     self.performLogin()
                 })
                 .disposed(by: disposeBag)
@@ -65,31 +93,13 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
         }
 
         viewModel.login(host: host, credentials: credentials)
-            .subscribe(
-                onNext: { result in
-                    NSLog("Login result: \(result)")
-                    if result == .success {
-                        self.fetchApiKey()
-                    }
-                },
-                onError: { error in
-                    NSLog("Login error: \(error)")
-                })
+            .subscribe()
             .disposed(by: disposeBag)
     }
 
     func fetchApiKey() {
         viewModel.fetchApiKey()
-            .subscribe(
-                onNext: {
-                    if let key = $0 {
-                        NSLog("Api key: \(key)")
-                        self.apiKeyTextField.text = key
-                    }
-                },
-                onError: { error in
-                    NSLog("Login error: \(error)")
-                })
+            .subscribe()
             .disposed(by: disposeBag)
     }
 }
