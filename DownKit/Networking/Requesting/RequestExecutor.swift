@@ -17,7 +17,7 @@ public class RequestExecutor: RequestExecuting {
     private let requestClient: RequestClient
     private let disposeBag = DisposeBag()
     
-    public init(requestClient: RequestClient = URLSession.shared) {
+    public init(requestClient: RequestClient = AlamofireRequestClient()) {
         self.requestClient = requestClient
     }
     

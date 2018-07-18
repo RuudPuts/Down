@@ -150,6 +150,9 @@
 		42B16D5920D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5820D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift */; };
 		42B4AAF420FA8CF9008B7C3B /* DvrViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42B4AAF320FA8CF9008B7C3B /* DvrViewController.xib */; };
 		42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */; };
+		42BA6F2720FFC2C4001CA926 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42BA6F2520FFC2BF001CA926 /* Alamofire.framework */; };
+		42BA6F2A20FFC2F5001CA926 /* URLSessionRequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BA6F2920FFC2F5001CA926 /* URLSessionRequestClient.swift */; };
+		42BA6F2C20FFC31E001CA926 /* AlamofireRequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BA6F2B20FFC31E001CA926 /* AlamofireRequestClient.swift */; };
 		42BF4E8520D19CF20088AAF6 /* DvrRequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8420D19CF20088AAF6 /* DvrRequestBuilding.swift */; };
 		42BF4E8A20D1B5990088AAF6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8920D1B5990088AAF6 /* String.swift */; };
 		42BF4E8D20D1B5BC0088AAF6 /* StringSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */; };
@@ -365,6 +368,9 @@
 		42B16D5820D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRefreshShowCacheInteractorSpec.swift; sourceTree = "<group>"; };
 		42B4AAF320FA8CF9008B7C3B /* DvrViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrViewController.xib; sourceTree = "<group>"; };
 		42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
+		42BA6F2520FFC2BF001CA926 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		42BA6F2920FFC2F5001CA926 /* URLSessionRequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionRequestClient.swift; sourceTree = "<group>"; };
+		42BA6F2B20FFC31E001CA926 /* AlamofireRequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireRequestClient.swift; sourceTree = "<group>"; };
 		42BF4E8420D19CF20088AAF6 /* DvrRequestBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuilding.swift; sourceTree = "<group>"; };
 		42BF4E8920D1B5990088AAF6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSpec.swift; sourceTree = "<group>"; };
@@ -381,6 +387,7 @@
 				4221DAD420D18678003950CF /* SwiftyJSON.framework in Frameworks */,
 				4221DAD020D18672003950CF /* RxSwift.framework in Frameworks */,
 				42723A5B20D82A6D000445C3 /* RealmSwift.framework in Frameworks */,
+				42BA6F2720FFC2C4001CA926 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,7 +549,7 @@
 				4221DA8220D18450003950CF /* Request.swift */,
 				426BF73B20F688CA000C3A4A /* RequestSpecification.swift */,
 				4221DA8120D18450003950CF /* RequestBuilding.swift */,
-				422CEE1020D55AD200EF0A16 /* RequestClient.swift */,
+				42BA6F2820FFC2E0001CA926 /* RequestClient */,
 				4221DA8020D18450003950CF /* RequestExecutor.swift */,
 				422CEE0920D52B5800EF0A16 /* DataTaskExecuting.swift */,
 			);
@@ -681,6 +688,7 @@
 		4221DAC420D18629003950CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42BA6F2520FFC2BF001CA926 /* Alamofire.framework */,
 				4243528C20FAA89000A729E1 /* SkyFloatingLabelTextField.framework */,
 				4243528A20FAA87D00A729E1 /* Rswift.framework */,
 				427D606620E197320017AE42 /* Differentiator.framework */,
@@ -1076,6 +1084,16 @@
 			path = Implementations;
 			sourceTree = "<group>";
 		};
+		42BA6F2820FFC2E0001CA926 /* RequestClient */ = {
+			isa = PBXGroup;
+			children = (
+				422CEE1020D55AD200EF0A16 /* RequestClient.swift */,
+				42BA6F2920FFC2F5001CA926 /* URLSessionRequestClient.swift */,
+				42BA6F2B20FFC31E001CA926 /* AlamofireRequestClient.swift */,
+			);
+			path = RequestClient;
+			sourceTree = "<group>";
+		};
 		42BF4E8820D1B58E0088AAF6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1305,6 +1323,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -1312,6 +1331,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftyJSON.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Realm.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RealmSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1373,6 +1393,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SkyFloatingLabelTextField.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Rswift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwiftExt.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -1386,6 +1407,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SkyFloatingLabelTextField.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Rswift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwiftExt.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1415,6 +1437,7 @@
 				4243529520FABDD000A729E1 /* ApiApplicationInteracting.swift in Sources */,
 				4221DA8E20D18450003950CF /* DvrShow.swift in Sources */,
 				422BE6B820D6C1DD00DDDF37 /* ApplicationFactory.swift in Sources */,
+				42BA6F2C20FFC31E001CA926 /* AlamofireRequestClient.swift in Sources */,
 				4221DA8D20D18450003950CF /* Application.swift in Sources */,
 				4227B7A720DC589500603528 /* DownloadHistoryGateway.swift in Sources */,
 				4221DA8420D18450003950CF /* RequestGateway.swift in Sources */,
@@ -1442,6 +1465,7 @@
 				4227B76F20DB0B0000603528 /* DvrEpisode.swift in Sources */,
 				4263A18720E1B74F008F7E40 /* ApiApplicationApiKeyInteractor.swift in Sources */,
 				4221DA9E20D18450003950CF /* Request.swift in Sources */,
+				42BA6F2A20FFC2F5001CA926 /* URLSessionRequestClient.swift in Sources */,
 				4221DA9220D18450003950CF /* SickbeardRequestBuilder.swift in Sources */,
 				422BE6CF20D6DF6100DDDF37 /* DvrGatewayFactory.swift in Sources */,
 				422BE6C120D6CC8300DDDF37 /* DvrRequestInteractors.swift in Sources */,
