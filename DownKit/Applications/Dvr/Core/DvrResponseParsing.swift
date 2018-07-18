@@ -7,6 +7,6 @@
 //
 
 public protocol DvrResponseParsing: ResponseParsing {
-    func parseShows(from storage: DataStoring) throws -> [DvrShow]
-    func parseShowDetails(from storage: DataStoring) throws -> DvrShow
+    func parseShows(from response: Response) throws -> [DvrShow]
+    func parseShowDetails(from response: Response) throws -> DvrShow
 }

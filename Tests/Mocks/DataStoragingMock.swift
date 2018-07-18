@@ -1,5 +1,5 @@
 //
-//  DataStoringSpec.swift
+//  ResponseSpec.swift
 //  DownKitTests
 //
 //  Created by Ruud Puts on 18/05/2018.
@@ -9,7 +9,7 @@
 @testable import DownKit
 import Foundation
 
-class DataStoringMock: DataStoring {
+class ResponseMock: Response {
     struct Stubs {
         var data: Data?
     }
@@ -21,7 +21,7 @@ class DataStoringMock: DataStoring {
     var stubs = Stubs()
     var captures = Captures()
     
-    // DataStoring
+    // Response
     
     var data: Data? {
         get { return stubs.data }

@@ -19,7 +19,7 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
         var parseHistory: Parse?
         
         struct Parse {
-            let storage: DataStoring
+            let response: Response
         }
     }
     
@@ -28,13 +28,13 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
     
     // DownloadResponseParsing
     
-    func parseQueue(from storage: DataStoring) -> DownloadQueue {
-        captures.parseQueue = Captures.Parse(storage: storage)
+    func parseQueue(from response: Response) -> DownloadQueue {
+        captures.parseQueue = Captures.Parse(response: storage)
         return stubs.parseQueue
     }
     
-    func parseHistory(from storage: DataStoring) -> [DownloadItem] {
-        captures.parseHistory = Captures.Parse(storage: storage)
+    func parseHistory(from response: Response) -> [DownloadItem] {
+        captures.parseHistory = Captures.Parse(response: storage)
         return stubs.parseHistory ?? []
     }
 }

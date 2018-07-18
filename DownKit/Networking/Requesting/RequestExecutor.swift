@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 public protocol RequestExecuting {
-    func execute(_ request: Request) -> Observable<Request.Response>
+    func execute(_ request: Request) -> Observable<Response>
 }
 
 public class RequestExecutor: RequestExecuting {
@@ -21,8 +21,12 @@ public class RequestExecutor: RequestExecuting {
         self.requestClient = requestClient
     }
     
-    public func execute(_ request: Request) -> Observable<Request.Response> {
-        return Observable<Request.Response>.create { observable in
+    public func execute(_ request: Request) -> Observable<Response> {
+        return Observable<Response>.create { observable in
+            NSLog("Requesting \(request.url)")
+            NSLog("Basic \(request.basicAuthenticationData)")
+            NSLog("Form  \(request.formAuthenticationData)")
+
             self.requestClient.execute(request) {
                 guard let response = $0 else {
                     observable.onError($1!)

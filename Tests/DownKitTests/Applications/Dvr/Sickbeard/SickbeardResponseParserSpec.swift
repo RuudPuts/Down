@@ -17,11 +17,11 @@ class SickbeardResponseParserSpec: QuickSpec {
     override func spec() {
         describe("SickbeardResponseParser") {
             var sut: SickbeardResponseParser!
-            var storage: DataStoringMock!
+            var response: ResponseMock!
             
             beforeEach {
                 sut = SickbeardResponseParser()
-                storage = DataStoringMock()
+                storage = ResponseMock()
             }
             
             afterEach {
@@ -29,7 +29,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 sut = nil
             }
             
-            context("parse datastoring") {
+            context("parse Response") {
                 var result: JSON!
                 
                 afterEach {
@@ -41,7 +41,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     
                     beforeEach {
                         do {
-                            result = try sut.parse(storage)
+                            result = try sut.parse(response)
                         }
                         catch {
                             parseError = error as? ParseError
@@ -60,7 +60,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 context("from succesful response") {
                     beforeEach {
                         storage.stubs.data = self.successJson
-                        result = try? sut.parse(storage)
+                        result = try? sut.parse(response)
                     }
                     
                     it("parses the json's data") {
@@ -74,7 +74,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     beforeEach {
                         do {
                             storage.stubs.data = self.errorJson
-                            result = try sut.parse(storage)
+                            result = try sut.parse(response)
                         }
                         catch {
                             parseError = error as? ParseError
@@ -96,7 +96,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     beforeEach {
                         do {
                             storage.stubs.data = "invalid response".data(using: .utf8)
-                            result = try sut.parse(storage)
+                            result = try sut.parse(response)
                         }
                         catch {
                             parseError = error as? ParseError
@@ -113,7 +113,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 }
             }
             
-            context("parse datastoring to shows") {
+            context("parse Response to shows") {
                 var result: [DvrShow]!
                 
                 beforeEach {
@@ -142,7 +142,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 }
             }
             
-            context("parse datastoring to show with details") {
+            context("parse Response to show with details") {
                 var result: DvrShow!
                 
                 beforeEach {

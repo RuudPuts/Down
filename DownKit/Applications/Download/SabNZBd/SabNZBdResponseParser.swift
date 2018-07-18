@@ -9,8 +9,8 @@
 import SwiftyJSON
 
 class SabNZBdResponseParser: DownloadResponseParsing {    
-    func parseQueue(from storage: DataStoring) throws -> DownloadQueue {
-        let json = try parse(storage, forCall: .queue)
+    func parseQueue(from response: Response) throws -> DownloadQueue {
+        let json = try parse(response, forCall: .queue)
         
         let items = json["slots"].array?.map {
             DownloadItem(identifier: $0["nzo_id"].stringValue,
@@ -23,8 +23,8 @@ class SabNZBdResponseParser: DownloadResponseParsing {
                              items: items ?? [])
     }
     
-    func parseHistory(from storage: DataStoring) throws -> [DownloadItem] {
-        return try parse(storage, forCall: .history)["slots"].array?.map {
+    func parseHistory(from response: Response) throws -> [DownloadItem] {
+        return try parse(response, forCall: .history)["slots"].array?.map {
             DownloadItem(identifier: $0["id"].stringValue,
                          name: $0["nzb_name"].stringValue)
         } ?? []
@@ -32,15 +32,15 @@ class SabNZBdResponseParser: DownloadResponseParsing {
 }
 
 extension SabNZBdResponseParser: ApiApplicationResponseParsing {
-    func parseLoggedIn(from storage: DataStoring) throws -> Bool {
+    func parseLoggedIn(from response: Response) throws -> LoginResult {
         //! Might want to check http response code 😅
-        return try parse(storage)
-            .range(of: "<form class=\"form-signin\" action=\"./\" method=\"post\">") == nil
+        return try parse(response)
+            .range(of: "<form class=\"form-signin\" action=\"./\" method=\"post\">") == nil ? .success : .authenticationRequired
     }
 
-    func parseApiKey(from storage: DataStoring) throws -> String? {
+    func parseApiKey(from response: Response) throws -> String? {
         //! Might want to check http response code 😅
-        let result = try parse(storage)
+        let result = try parse(response)
         guard let keyRange = result.range(of: "id=\"apikey\"") else {
             return nil
         }
@@ -68,8 +68,8 @@ extension StringProtocol {
 }
 
 extension SabNZBdResponseParser {
-    func parse(_ storage: DataStoring, forCall call: DownloadApplicationCall) throws -> JSON {
-        guard let data = storage.data else {
+    func parse(_ response: Response, forCall call: DownloadApplicationCall) throws -> JSON {
+        guard let data = response.data else {
             throw ParseError.noData
         }
         

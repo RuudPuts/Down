@@ -22,44 +22,34 @@ public class Request {
         case delete
     }
     
-    //! Move to Response.swift
-    public class Response: DataStoring {
-        public var data: Data?
-        var statusCode: Int
-        var headers: [String: String]?
-        
-        init(data: Data?, statusCode: Int, headers: [String: String]?) {
-            self.data = data
-            self.statusCode = statusCode
-            self.headers = headers
-        }
-    }
-    
     init(url: String,
-         parameters: [String: String]?,
          method: Method,
          authenticationMethod: AuthenticationMethod = .none,
          basicAuthenticationData: BasicAuthenticationData? = nil,
          formAuthenticationData: FormAuthenticationData? = nil) {
-        self.url = url.inject(parameters: parameters)
+
+        self.url = url
         self.method = method
         self.authenticationMethod = authenticationMethod
+        self.basicAuthenticationData = basicAuthenticationData
+        self.formAuthenticationData = formAuthenticationData
     }
 
-    //! Remove after request specification refactor
-    init(host: String, path: String,
-         method: Method,
-         defaultParameters: [String: String]?,
-         parameters: [String: String]?,
-         authenticationMethod: AuthenticationMethod = .none,
-         basicAuthenticationData: BasicAuthenticationData? = nil,
-         formAuthenticationData: FormAuthenticationData? = nil) {
-        var allParameters = defaultParameters ?? [:]
-        allParameters.merge(parameters ?? [:]) { (_, new) in new }
-        
-        self.url = "\(host)/\(path)".inject(parameters: allParameters)
-        self.method = method
-        self.authenticationMethod = authenticationMethod
+    convenience init(host: String,
+                     path: String,
+                     method: Method,
+                     parameters: [String: String]?,
+                     authenticationMethod: AuthenticationMethod = .none,
+                     basicAuthenticationData: BasicAuthenticationData? = nil,
+                     formAuthenticationData: FormAuthenticationData? = nil) {
+
+        let url = "\(host)/\(path)".inject(parameters: parameters ?? [:])
+
+        self.init(url: url,
+                  method: method,
+                  authenticationMethod: authenticationMethod,
+                  basicAuthenticationData: basicAuthenticationData,
+                  formAuthenticationData: formAuthenticationData)
     }
 }
 

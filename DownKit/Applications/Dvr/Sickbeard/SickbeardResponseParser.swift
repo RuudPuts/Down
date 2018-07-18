@@ -9,9 +9,8 @@
 import SwiftyJSON
 
 class SickbeardResponseParser: DvrResponseParsing {
-    
-    func parseShows(from storage: DataStoring) throws -> [DvrShow] {
-        return try parse(storage)
+    func parseShows(from response: Response) throws -> [DvrShow] {
+        return try parse(response)
             .dictionary?.map {
                 var json = $0.value
                 json["id"].stringValue = $0.key
@@ -21,8 +20,8 @@ class SickbeardResponseParser: DvrResponseParsing {
             ?? []
     }
     
-    func parseShowDetails(from storage: DataStoring) throws -> DvrShow {
-        let data = try parse(storage)
+    func parseShowDetails(from response: Response) throws -> DvrShow {
+        let data = try parse(response)
         let showData = data["show"]["data"]
         let seasonsData = data["show.seasons"]["data"]
         
@@ -66,14 +65,24 @@ private extension SickbeardResponseParser {
 }
 
 extension SickbeardResponseParser: ApiApplicationResponseParsing {
-    func parseLoggedIn(from storage: DataStoring) throws -> Bool {
-        //! Might want to check http response code 😅
-        return try parse(storage).count > 0
+    func parseLoggedIn(from response: Response) throws -> LoginResult {
+        if response.statusCode >= 400 && response.statusCode < 500 {
+            return .authenticationRequired
+        }
+
+        if response.statusCode >= 200 && response.statusCode < 400 {
+            return .success
+        }
+
+        return .failed
     }
 
-    func parseApiKey(from storage: DataStoring) throws -> String? {
-        //! Might want to check http response code 😅
-        let result: String = try parse(storage)
+    func parseApiKey(from response: Response) throws -> String? {
+        guard response.statusCode == StatusCodes.success.rawValue else {
+            return nil
+        }
+
+        let result: String = try parse(response)
         guard let keyRange = result.range(of: "id=\"api_key\"") else {
             return nil
         }
@@ -83,8 +92,8 @@ extension SickbeardResponseParser: ApiApplicationResponseParsing {
 }
 
 extension SickbeardResponseParser {
-    func parse(_ storage: DataStoring) throws -> JSON {
-        guard let data = storage.data else {
+    func parse(_ response: Response) throws -> JSON {
+        guard let data = response.data else {
             throw ParseError.noData
         }
         

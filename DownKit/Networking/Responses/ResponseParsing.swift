@@ -21,8 +21,8 @@ struct ParsedResult<Type> {
 }
 
 extension ResponseParsing {
-    func parse(_ storage: DataStoring) throws -> String {
-        guard let data = storage.data else {
+    func parse(_ response: Response) throws -> String {
+        guard let data = response.data else {
             throw ParseError.noData
         }
 

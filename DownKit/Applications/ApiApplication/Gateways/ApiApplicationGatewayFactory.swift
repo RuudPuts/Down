@@ -7,7 +7,7 @@
 //
 
 public protocol ApiApplicationGatewayProducing {
-    func makeLoginGateway(for application: ApiApplication) -> ApiApplicationLoginGateway
+    func makeLoginGateway(for application: ApiApplication, credentials: UsernamePassword?) -> ApiApplicationLoginGateway
     func makeApiKeyGateway(for application: ApiApplication) -> ApiApplicationApiKeyGateway
 }
 
@@ -18,9 +18,10 @@ public class ApiApplicationGatewayFactory: ApiApplicationGatewayProducing {
         self.additionsFactory = additionsFactory
     }
     
-    public func makeLoginGateway(for application: ApiApplication) -> ApiApplicationLoginGateway {
+    public func makeLoginGateway(for application: ApiApplication, credentials: UsernamePassword?) -> ApiApplicationLoginGateway {
         return ApiApplicationLoginGateway(builder: additionsFactory.makeApiApplicationRequestBuilder(for: application),
-                                          parser: additionsFactory.makeApiApplicationResponseParser(for: application))
+                                          parser: additionsFactory.makeApiApplicationResponseParser(for: application),
+                                          credentials: credentials)
     }
     
     public func makeApiKeyGateway(for application: ApiApplication) -> ApiApplicationApiKeyGateway {

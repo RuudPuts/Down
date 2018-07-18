@@ -31,7 +31,7 @@ extension SabNZBdRequestBuilder: ApiApplicationRequestBuilding {
             host: application.host,
             path: "sabnzbd/login",
             authenticationMethod: .form,
-            formAuthenticationData: makeAuthenticationData(with: credentials!)
+            formAuthenticationData: makeAuthenticationData(with: credentials)
         )
         case .apiKey: return RequestSpecification(
             host: application.host,
@@ -39,7 +39,11 @@ extension SabNZBdRequestBuilder: ApiApplicationRequestBuilding {
         )}
     }
 
-    private func makeAuthenticationData(with credentials: UsernamePassword) -> FormAuthenticationData {
+    private func makeAuthenticationData(with credentials: UsernamePassword?) -> FormAuthenticationData? {
+        guard let credentials = credentials else {
+            return nil
+        }
+
         return FormAuthenticationData(
             fieldName: (username: "username", password: "password"),
             fieldValue: credentials

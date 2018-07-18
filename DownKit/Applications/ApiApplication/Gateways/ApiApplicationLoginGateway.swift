@@ -12,17 +12,41 @@ public class ApiApplicationLoginGateway: ApiApplicationRequestGateway {
     var builder: ApiApplicationRequestBuilding
     var executor: RequestExecuting
     var parser: ApiApplicationResponseParsing
+    var credentials: UsernamePassword?
 
-    public required init(builder: ApiApplicationRequestBuilding, parser: ApiApplicationResponseParsing, executor: RequestExecuting = RequestExecutor()) {
+    public required init(builder: ApiApplicationRequestBuilding,
+                         parser: ApiApplicationResponseParsing,
+                         executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
         self.executor = executor
         self.parser = parser
     }
 
-    public func execute() throws -> Observable<Bool> {
-        let request = try builder.make(for: .login)
+    public convenience init(builder: ApiApplicationRequestBuilding,
+                            parser: ApiApplicationResponseParsing,
+                            executor: RequestExecuting = RequestExecutor(),
+                            credentials: UsernamePassword? = nil) {
+        self.init(builder: builder, parser: parser, executor: executor)
+        self.credentials = credentials
+    }
+
+    public func execute() throws -> Observable<LoginResult> {
+        let request = try builder.make(for: .login, credentials: credentials)
 
         return executor.execute(request)
-            .map { try self.parser.parseLoggedIn(from: $0) }
+            .map {
+                do {
+                    return try self.parser.parseLoggedIn(from: $0)
+                }
+                catch {
+                    return .failed
+                }
+            }
     }
+}
+
+public enum LoginResult {
+    case failed
+    case authenticationRequired
+    case success
 }

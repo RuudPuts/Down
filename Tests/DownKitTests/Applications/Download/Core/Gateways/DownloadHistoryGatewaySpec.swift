@@ -53,8 +53,8 @@ class DownloadHistoryGatewaySpec: QuickSpec {
                 
                 beforeEach {
                     responseData = "stubbed data".data(using: .utf8)
-                    requestExecutor.stubs.execute = Observable<Request.Response>.just(
-                        Request.Response(data: responseData, statusCode: 200, headers: [:])
+                    requestExecutor.stubs.execute = Observable<Response>.just(
+                        Response(data: responseData, statusCode: 200, headers: [:])
                     )
                     
                     // swiftlint:disable force_try

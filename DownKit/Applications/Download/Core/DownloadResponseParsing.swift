@@ -7,6 +7,6 @@
 //
 
 public protocol DownloadResponseParsing: ResponseParsing {
-    func parseQueue(from storage: DataStoring) throws -> DownloadQueue
-    func parseHistory(from storage: DataStoring) throws -> [DownloadItem]
+    func parseQueue(from response: Response) throws -> DownloadQueue
+    func parseHistory(from response: Response) throws -> [DownloadItem]
 }

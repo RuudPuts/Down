@@ -7,7 +7,7 @@
 //
 
 public protocol RequestClient {
-    func execute(_ request: Request, completion: @escaping (Request.Response?, RequestClientError?) -> Void)
+    func execute(_ request: Request, completion: @escaping (Response?, RequestClientError?) -> Void)
 }
 
 public enum RequestClientError: Error, Hashable {
@@ -18,10 +18,12 @@ public enum RequestClientError: Error, Hashable {
 }
 
 extension URLSession: RequestClient {
-    public func execute(_ request: Request, completion: @escaping (Request.Response?, RequestClientError?) -> Void) {
+    public func execute(_ request: Request, completion: @escaping (Response?, RequestClientError?) -> Void) {
         guard let request = request.asUrlRequest() else {
             return completion(nil, RequestClientError.invalidRequest)
         }
+
+        NSLog("Request: \(request.debugDescription)")
         
         dataTask(with: request) { (data, response, error) in
             guard error == nil else {
@@ -36,7 +38,7 @@ extension URLSession: RequestClient {
                 return completion(nil, RequestClientError.noData)
             }
 
-            completion(Request.Response(
+            completion(Response(
                 data: data, statusCode:
                 httpResponse.statusCode,
                 headers: httpResponse.allHeaderFields as? [String: String]
@@ -73,8 +75,7 @@ extension Request {
               let authString = "\(username):\(password)".data(using: .utf8)?.base64EncodedString() else {
             return
         }
-
-        request.httpMethod = Method.post.rawValue
+        
         request.setValue("Basic \(authString)", forHTTPHeaderField: "Authorization")
     }
 

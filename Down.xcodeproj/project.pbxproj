@@ -27,7 +27,6 @@
 		4221DA9520D18450003950CF /* DvrResponseParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA7520D18450003950CF /* DvrResponseParsing.swift */; };
 		4221DA9820D18450003950CF /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA7A20D18450003950CF /* Response.swift */; };
 		4221DA9A20D18450003950CF /* ResponseParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA7C20D18450003950CF /* ResponseParsing.swift */; };
-		4221DA9B20D18450003950CF /* DataStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA7E20D18450003950CF /* DataStoring.swift */; };
 		4221DA9C20D18450003950CF /* RequestExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA8020D18450003950CF /* RequestExecutor.swift */; };
 		4221DA9D20D18450003950CF /* RequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA8120D18450003950CF /* RequestBuilding.swift */; };
 		4221DA9E20D18450003950CF /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DA8220D18450003950CF /* Request.swift */; };
@@ -96,6 +95,8 @@
 		4243529120FAAF7900A729E1 /* UITextField+fixCaretPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243528E20FAAF7800A729E1 /* UITextField+fixCaretPosition.swift */; };
 		4243529220FAAF7900A729E1 /* SkyFloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243528F20FAAF7800A729E1 /* SkyFloatingLabelTextField.swift */; };
 		4243529320FAAF7900A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243529020FAAF7800A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift */; };
+		4243529520FABDD000A729E1 /* ApiApplicationInteracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243529420FABDD000A729E1 /* ApiApplicationInteracting.swift */; };
+		4243529720FABE1000A729E1 /* ApiApplicationInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243529620FABE1000A729E1 /* ApiApplicationInteractorFactory.swift */; };
 		42457CA020E1AB5900DBC6C7 /* DownloadQueueInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */; };
 		425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */; };
 		4263A18120E1B72A008F7E40 /* ApiApplicationLoginGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18020E1B72A008F7E40 /* ApiApplicationLoginGateway.swift */; };
@@ -240,7 +241,6 @@
 		4221DA7520D18450003950CF /* DvrResponseParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrResponseParsing.swift; sourceTree = "<group>"; };
 		4221DA7A20D18450003950CF /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		4221DA7C20D18450003950CF /* ResponseParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseParsing.swift; sourceTree = "<group>"; };
-		4221DA7E20D18450003950CF /* DataStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStoring.swift; sourceTree = "<group>"; };
 		4221DA8020D18450003950CF /* RequestExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestExecutor.swift; sourceTree = "<group>"; };
 		4221DA8120D18450003950CF /* RequestBuilding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilding.swift; sourceTree = "<group>"; };
 		4221DA8220D18450003950CF /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
@@ -312,6 +312,8 @@
 		4243528E20FAAF7800A729E1 /* UITextField+fixCaretPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITextField+fixCaretPosition.swift"; path = "Carthage/Checkouts/SkyFloatingLabelTextField/Sources/UITextField+fixCaretPosition.swift"; sourceTree = SOURCE_ROOT; };
 		4243528F20FAAF7800A729E1 /* SkyFloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkyFloatingLabelTextField.swift; path = Carthage/Checkouts/SkyFloatingLabelTextField/Sources/SkyFloatingLabelTextField.swift; sourceTree = SOURCE_ROOT; };
 		4243529020FAAF7800A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkyFloatingLabelTextFieldWithIcon.swift; path = Carthage/Checkouts/SkyFloatingLabelTextField/Sources/SkyFloatingLabelTextFieldWithIcon.swift; sourceTree = SOURCE_ROOT; };
+		4243529420FABDD000A729E1 /* ApiApplicationInteracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteracting.swift; sourceTree = "<group>"; };
+		4243529620FABE1000A729E1 /* ApiApplicationInteractorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteractorFactory.swift; sourceTree = "<group>"; };
 		42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueInteractor.swift; sourceTree = "<group>"; };
 		425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueueStatusView.swift; sourceTree = "<group>"; };
 		425357C620F2B10E005BC238 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -422,7 +424,6 @@
 			children = (
 				42BF4E8820D1B58E0088AAF6 /* Extensions */,
 				4221DA6720D18450003950CF /* Applications */,
-				4221DA7E20D18450003950CF /* DataStoring.swift */,
 				422BE6C320D6D4CE00DDDF37 /* Interactors */,
 				4221DA7720D18450003950CF /* Networking */,
 				4227B77420DB160500603528 /* Database */,
@@ -530,16 +531,8 @@
 			children = (
 				4221DA7A20D18450003950CF /* Response.swift */,
 				4221DA7C20D18450003950CF /* ResponseParsing.swift */,
-				4221DA7D20D18450003950CF /* DVR */,
 			);
 			path = Responses;
-			sourceTree = "<group>";
-		};
-		4221DA7D20D18450003950CF /* DVR */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DVR;
 			sourceTree = "<group>";
 		};
 		4221DA7F20D18450003950CF /* Requesting */ = {
@@ -926,6 +919,8 @@
 		4263A17F20E1B6E2008F7E40 /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
+				4243529420FABDD000A729E1 /* ApiApplicationInteracting.swift */,
+				4243529620FABE1000A729E1 /* ApiApplicationInteractorFactory.swift */,
 				4263A18220E1B739008F7E40 /* ApiApplicationLoginInteractor.swift */,
 				4263A18620E1B74F008F7E40 /* ApiApplicationApiKeyInteractor.swift */,
 			);
@@ -1377,10 +1372,11 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SkyFloatingLabelTextField.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Rswift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwiftExt.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
+				I,
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxDataSources.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Differentiator.framework",
@@ -1389,6 +1385,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftyJSON.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SkyFloatingLabelTextField.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Rswift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwiftExt.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1415,6 +1412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4243529520FABDD000A729E1 /* ApiApplicationInteracting.swift in Sources */,
 				4221DA8E20D18450003950CF /* DvrShow.swift in Sources */,
 				422BE6B820D6C1DD00DDDF37 /* ApplicationFactory.swift in Sources */,
 				4221DA8D20D18450003950CF /* Application.swift in Sources */,
@@ -1430,7 +1428,6 @@
 				427D605820DF00D50017AE42 /* DownloadHistoryInteractor.swift in Sources */,
 				4227B7AB20DC589500603528 /* DownloadRequestBuilding.swift in Sources */,
 				422CEE0A20D52B5800EF0A16 /* DataTaskExecuting.swift in Sources */,
-				4221DA9B20D18450003950CF /* DataStoring.swift in Sources */,
 				4227B7A220DC589500603528 /* DownloadItem.swift in Sources */,
 				4221DA9C20D18450003950CF /* RequestExecutor.swift in Sources */,
 				4227B7AE20DC589500603528 /* DownloadInteractorFactory.swift in Sources */,
@@ -1467,6 +1464,7 @@
 				422BE6CD20D6DE9400DDDF37 /* DvrInteractorFactory.swift in Sources */,
 				422BE6C720D6D4FB00DDDF37 /* ObservableInteractor.swift in Sources */,
 				4227B76D20DB0AF200603528 /* DvrSeason.swift in Sources */,
+				4243529720FABE1000A729E1 /* ApiApplicationInteractorFactory.swift in Sources */,
 				422BE6C520D6D4E600DDDF37 /* RequestGatewayInteractor.swift in Sources */,
 				422BE6C020D6CC6500DDDF37 /* DvrRequestGateway.swift in Sources */,
 				4227B7AA20DC589500603528 /* SabNZBdResponseParser.swift in Sources */,

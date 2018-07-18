@@ -58,6 +58,11 @@ class Router {
             databaseConuming.database = database
         }
 
+        if var apiApplicationInteractor = viewController as? ApiApplicationInteracting {
+            //! UGH
+            apiApplicationInteractor.interactorFactory = ApiApplicationInteractorFactory()
+        }
+
         return viewController
     }
 }

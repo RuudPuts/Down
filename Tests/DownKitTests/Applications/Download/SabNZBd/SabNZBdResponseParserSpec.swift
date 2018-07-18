@@ -17,11 +17,11 @@ class SabNZBdResponseParserSpec: QuickSpec {
     override func spec() {
         describe("SabNZBdResponseParser") {
             var sut: SabNZBdResponseParser!
-            var storage: DataStoringMock!
+            var response: ResponseMock!
             
             beforeEach {
                 sut = SabNZBdResponseParser()
-                storage = DataStoringMock()
+                storage = ResponseMock()
             }
             
             afterEach {
@@ -29,7 +29,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 sut = nil
             }
             
-            context("parse datastoring") {
+            context("parse Response") {
                 var result: JSON!
                 
                 afterEach {
@@ -41,7 +41,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     
                     beforeEach {
                         do {
-                            result = try sut.parse(storage, forCall: .queue)
+                            result = try sut.parse(response, forCall: .queue)
                         }
                         catch {
                             parseError = error as? ParseError
@@ -60,7 +60,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 context("from succesful response") {
                     beforeEach {
                         storage.stubs.data = self.successJson
-                        result = try? sut.parse(storage, forCall: .queue)
+                        result = try? sut.parse(response, forCall: .queue)
                     }
                     
                     it("parses the json's data") {
@@ -74,7 +74,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     beforeEach {
                         do {
                             storage.stubs.data = self.errorJson
-                            result = try sut.parse(storage, forCall: .queue)
+                            result = try sut.parse(response, forCall: .queue)
                         }
                         catch {
                             parseError = error as? ParseError
@@ -96,7 +96,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     beforeEach {
                         do {
                             storage.stubs.data = "invalid response".data(using: .utf8)
-                            result = try sut.parse(storage, forCall: .queue)
+                            result = try sut.parse(response, forCall: .queue)
                         }
                         catch {
                             parseError = error as? ParseError
@@ -113,7 +113,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 }
             }
             
-            context("parse queue datastoring") {
+            context("parse queue Response") {
                 var result: DownloadQueue!
                 
                 beforeEach {
@@ -142,7 +142,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 }
             }
             
-            context("parse history datastoring") {
+            context("parse history Response") {
                 var result: [DownloadItem]!
                 
                 beforeEach {

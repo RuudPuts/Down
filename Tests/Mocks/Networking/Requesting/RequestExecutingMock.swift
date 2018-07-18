@@ -12,8 +12,8 @@ import RxSwift
 class RequestExecutingMock: RequestExecuting {
     struct Stubs {
         var request = Request(url: "", method: .get, parameters: nil)
-        var execute = Observable<Request.Response>.just(
-            Request.Response(data: nil, statusCode: 0, headers: [:])
+        var execute = Observable<Response>.just(
+            Response(data: nil, statusCode: 0, headers: [:])
         )
     }
     
@@ -30,7 +30,7 @@ class RequestExecutingMock: RequestExecuting {
     
     // RequestExecuting
     
-    func execute(_ request: Request) -> Observable<Request.Response> {
+    func execute(_ request: Request) -> Observable<Response> {
         captures.execute = Captures.Execute(request: request)
         return stubs.execute
     }

@@ -16,9 +16,10 @@ public protocol RequestBuilding {
 extension RequestBuilding {
     func make(from spec: RequestSpecification) -> Request {
         return Request(
-            url: "\(spec.host)/\(spec.path)",
-            parameters: spec.parameters,
+            host: spec.host,
+            path: spec.path,
             method: spec.method,
+            parameters: spec.parameters,
             authenticationMethod: spec.authenticationMethod,
             basicAuthenticationData: spec.basicAuthenticationData,
             formAuthenticationData: spec.formAuthenticationData

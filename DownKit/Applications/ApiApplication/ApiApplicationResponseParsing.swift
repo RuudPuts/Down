@@ -7,6 +7,6 @@
 //
 
 public protocol ApiApplicationResponseParsing: ResponseParsing {
-    func parseLoggedIn(from storage: DataStoring) throws -> Bool
-    func parseApiKey(from storage: DataStoring) throws -> String?
+    func parseLoggedIn(from response: Response) throws -> LoginResult
+    func parseApiKey(from response: Response) throws -> String?
 }

@@ -14,6 +14,8 @@
                 <outlet property="apiKeyTextField" destination="THG-t6-wE5" id="Wsn-WD-qj5"/>
                 <outlet property="headerView" destination="mmK-Ap-zoX" id="AP0-eG-7yg"/>
                 <outlet property="hostTextField" destination="bxy-ky-JOP" id="UnE-Zb-qA3"/>
+                <outlet property="passwordTextField" destination="0cd-4J-uq6" id="BL1-pf-l3M"/>
+                <outlet property="usernameTextField" destination="EFV-4s-Cg3" id="AKg-cf-Jvk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -29,38 +31,59 @@
                         <constraint firstAttribute="height" constant="70" id="Hge-Ku-sT7"/>
                     </constraints>
                 </view>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bxy-ky-JOP" customClass="SkyFloatingLabelTextField" customModule="Down" customModuleProvider="target">
-                    <rect key="frame" x="20" y="110" width="335" height="30"/>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Host"/>
-                    </userDefinedRuntimeAttributes>
-                </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="THG-t6-wE5" customClass="SkyFloatingLabelTextField" customModule="Down" customModuleProvider="target">
-                    <rect key="frame" x="20" y="160" width="335" height="30"/>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Api key"/>
-                    </userDefinedRuntimeAttributes>
-                </textField>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="sBZ-JH-rcU">
+                    <rect key="frame" x="20" y="110" width="335" height="180"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bxy-ky-JOP" customClass="SkyFloatingLabelTextField" customModule="Down" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Host"/>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EFV-4s-Cg3" customClass="SkyFloatingLabelTextField" customModule="Down" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="50" width="335" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Username"/>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0cd-4J-uq6" customClass="SkyFloatingLabelTextField" customModule="Down" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="100" width="335" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Password"/>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="THG-t6-wE5" customClass="SkyFloatingLabelTextField" customModule="Down" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="150" width="335" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Api key"/>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                    </subviews>
+                </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="sBZ-JH-rcU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="2sP-ca-zOU"/>
                 <constraint firstItem="mmK-Ap-zoX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="43q-b3-Xb8"/>
-                <constraint firstItem="THG-t6-wE5" firstAttribute="top" secondItem="bxy-ky-JOP" secondAttribute="bottom" constant="20" id="6up-JU-u6j"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bxy-ky-JOP" secondAttribute="trailing" constant="20" id="A8o-x6-Jua"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mmK-Ap-zoX" secondAttribute="trailing" id="GmO-km-LrK"/>
-                <constraint firstItem="THG-t6-wE5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Hn5-Bg-xu6"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="THG-t6-wE5" secondAttribute="trailing" constant="20" id="IcU-0z-oWh"/>
-                <constraint firstItem="bxy-ky-JOP" firstAttribute="top" secondItem="mmK-Ap-zoX" secondAttribute="bottom" constant="20" id="WCW-Ow-jDB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sBZ-JH-rcU" secondAttribute="trailing" constant="20" id="TWW-u2-9z2"/>
                 <constraint firstItem="mmK-Ap-zoX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="hNf-HH-cvt"/>
-                <constraint firstItem="bxy-ky-JOP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="wxt-dq-nhF"/>
+                <constraint firstItem="sBZ-JH-rcU" firstAttribute="top" secondItem="mmK-Ap-zoX" secondAttribute="bottom" constant="20" id="kZJ-1P-FAF"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="33.5" y="67.5"/>
         </view>
     </objects>
 </document>

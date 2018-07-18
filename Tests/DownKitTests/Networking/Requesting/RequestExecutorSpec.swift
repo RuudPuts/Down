@@ -32,7 +32,7 @@ class RequestExecutorSpec: QuickSpec {
             }
             
             context("execute invalid request") {
-                var result: MaterializedSequenceResult<Request.Response>!
+                var result: MaterializedSequenceResult<Response>!
                 
                 beforeEach {
                     request = Request(url: "some invalid url",
@@ -56,15 +56,15 @@ class RequestExecutorSpec: QuickSpec {
             }
             
             context("succesfull client execution") {
-                var response: Request.Response!
-                var result: Request.Response!
+                var response: Response!
+                var result: Response!
                 
                 beforeEach {
                     request = Request(url: "https://google.com",
                                       method: .get,
                                       parameters: nil)
                     
-                    response = Request.Response(data: nil, statusCode: 418, headers: [:])
+                    response = Response(data: nil, statusCode: 418, headers: [:])
                     requestClient.stubs.execute.willDo = { _, completionHandler in
                         completionHandler(response, nil)
                     }
@@ -85,7 +85,7 @@ class RequestExecutorSpec: QuickSpec {
             }
             
             context("failed client execution") {
-                var result: MaterializedSequenceResult<Request.Response>!
+                var result: MaterializedSequenceResult<Response>!
                 var failure: RequestClientError!
                 
                 beforeEach {
@@ -118,7 +118,7 @@ class RequestExecutorSpec: QuickSpec {
 }
 
 extension HTTPURLResponse {
-    static func from(_ request: Request, and response: Request.Response) -> HTTPURLResponse {
+    static func from(_ request: Request, and response: Response) -> HTTPURLResponse {
         return HTTPURLResponse(
             url: URL(string: request.url)!,
             statusCode: response.statusCode,

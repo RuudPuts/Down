@@ -7,8 +7,8 @@
 //
 
 public protocol ApiApplication: Application {
-    var host: String { get }
-    var apiKey: String { get }
+    var host: String { get set }
+    var apiKey: String { get set }
     var type: ApiApplicationType { get }
 }
 

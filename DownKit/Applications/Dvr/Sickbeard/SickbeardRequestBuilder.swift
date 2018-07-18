@@ -34,17 +34,20 @@ extension SickbeardRequestBuilder: ApiApplicationRequestBuilding {
     func specification(for apiCall: ApiApplicationCall, credentials: UsernamePassword? = nil) -> RequestSpecification? {
         switch apiCall {
         case .login: return RequestSpecification(
-            host: application.host
+            host: application.host,
+            authenticationMethod: .basic,
+            basicAuthenticationData: makeAuthenticationData(with: credentials)
         )
         case .apiKey: return RequestSpecification(
             host: application.host,
-            path: "config/general",
-            authenticationMethod: .basic,
-            basicAuthenticationData: makeAuthenticationData(with: credentials!)
+            path: "config/general"
         )}
     }
 
-    private func makeAuthenticationData(with credentials: UsernamePassword) -> BasicAuthenticationData {
+    private func makeAuthenticationData(with credentials: UsernamePassword?) -> BasicAuthenticationData? {
+        guard let credentials = credentials else {
+            return nil
+        }
         return BasicAuthenticationData(credentials)
     }
 }

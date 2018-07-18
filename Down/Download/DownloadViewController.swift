@@ -65,9 +65,11 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     func applyViewModel() {
         title = viewModel.title
 
-        viewModel.queueData.asDriver().drive(statusView.rx.queue).disposed(by: disposeBag)
-        viewModel.sectionsData
-            .asDriver()
+        viewModel.queueData.asDriver()
+            .drive(statusView.rx.queue)
+            .disposed(by: disposeBag)
+        
+        viewModel.sectionsData.asDriver()
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
     }
