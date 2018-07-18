@@ -10,9 +10,10 @@ import DownKit
 import RxSwift
 
 class ApplicationSettingsViewModel {
-    var application: ApiApplication
-    var interactorFactory: ApiApplicationInteractorProducing
+    private var application: ApiApplication
+    private var interactorFactory: ApiApplicationInteractorProducing
 
+    // Make these observable
     var host: String?
     var username: String?
     var password: String?
@@ -32,12 +33,19 @@ class ApplicationSettingsViewModel {
         self.username = credentials?.username
         self.password = credentials?.password
 
-        NSLog("Requesting \(host)")
-        NSLog("Username \(username)")
-        NSLog("Password  \(password)")
-
         return interactorFactory
             .makeLoginInteractor(for: application, credentials: credentials)
             .observe()
+    }
+
+    func fetchApiKey() -> Observable<String?> {
+        return interactorFactory
+            .makeApiKeyInteractor(for: application)
+            .observe()
+            .do(onNext: {
+                if let apiKey = $0 {
+                    self.apiKey = apiKey
+                }
+            })
     }
 }

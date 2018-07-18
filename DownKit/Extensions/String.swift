@@ -32,4 +32,16 @@ internal extension String {
         
         return result
     }
+
+    func components(matching regex: String) -> [String]? {
+        do {
+            return try NSRegularExpression(pattern: regex, options: [])
+                .matches(in: self, options: [], range: NSRange(location: 0, length: self.count))
+                .map { String(self[Range($0.range, in: self)!]) }
+        }
+        catch {
+            NSLog("Error while matching '\(regex)' to \(self):\n\t\(error.localizedDescription)")
+            return nil
+        }
+    }
 }

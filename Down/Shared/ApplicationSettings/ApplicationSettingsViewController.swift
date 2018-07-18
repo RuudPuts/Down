@@ -30,7 +30,6 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        Driver.just(application).drive
         headerView.application = application as? DownApplication
         
         headerView.button?.setImage(AssetProvider.icons.close, for: .normal)
@@ -40,8 +39,8 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
             })
             .disposed(by: disposeBag)
 
-        hostTextField.text = application.host
-        apiKeyTextField.text = application.apiKey
+        hostTextField.text = viewModel.host
+        apiKeyTextField.text = viewModel.apiKey
 
         [hostTextField, usernameTextField, passwordTextField].forEach {
             $0.rx.text
@@ -69,6 +68,24 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
             .subscribe(
                 onNext: { result in
                     NSLog("Login result: \(result)")
+                    if result == .success {
+                        self.fetchApiKey()
+                    }
+                },
+                onError: { error in
+                    NSLog("Login error: \(error)")
+                })
+            .disposed(by: disposeBag)
+    }
+
+    func fetchApiKey() {
+        viewModel.fetchApiKey()
+            .subscribe(
+                onNext: {
+                    if let key = $0 {
+                        NSLog("Api key: \(key)")
+                        self.apiKeyTextField.text = key
+                    }
                 },
                 onError: { error in
                     NSLog("Login error: \(error)")

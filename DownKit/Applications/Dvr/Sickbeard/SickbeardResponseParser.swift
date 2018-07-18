@@ -87,7 +87,7 @@ extension SickbeardResponseParser: ApiApplicationResponseParsing {
             return nil
         }
 
-        return result[keyRange.upperBound...].components(matching: "[a-zA-Z0-9]{32}")?.first
+        return String(result[keyRange.upperBound...]).components(matching: "[a-zA-Z0-9]{32}")?.first
     }
 }
 

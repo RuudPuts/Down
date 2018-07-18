@@ -45,25 +45,7 @@ extension SabNZBdResponseParser: ApiApplicationResponseParsing {
             return nil
         }
 
-        return result[keyRange.upperBound...].components(matching: "[a-zA-Z0-9]{32}")?.first
-    }
-}
-
-extension StringProtocol {
-    func components(matching regex: String) -> [String]? {
-        guard let value = self as? String else {
-            return nil
-        }
-
-        do {
-            return try NSRegularExpression(pattern: regex, options: [])
-                .matches(in: value, options: [], range: NSRange(location: 0, length: value.count))
-                .map { String(value[Range($0.range, in: value)!]) }
-        }
-        catch {
-            NSLog("Error while matching '\(regex)' to \(self):\n\t\(error.localizedDescription)")
-            return nil
-        }
+        return String(result[keyRange.upperBound...]).components(matching: "[a-zA-Z0-9]{32}")?.first
     }
 }
 
