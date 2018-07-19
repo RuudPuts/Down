@@ -14,10 +14,14 @@ public class DvrApplication: ApiApplication {
     public var host: String
     public var apiKey: String
     
-    init(type: DvrApplicationType, host: String, apiKey: String) {
+    public init(type: DvrApplicationType, host: String, apiKey: String) {
         self.dvrType = type
         self.host = host
         self.apiKey = apiKey
+    }
+
+    public func copy() -> Any {
+        return DvrApplication(type: dvrType, host: host, apiKey: apiKey)
     }
 }
 

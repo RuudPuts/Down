@@ -36,13 +36,17 @@ class ApplicationSettingsViewModel {
         self.username.accept(credentials?.username)
         self.password.accept(credentials?.password)
 
+        var applicationCopy = application.copy() as! ApiApplication
+        applicationCopy.host = host
+
         return interactorFactory
-            .makeLoginInteractor(for: application, credentials: credentials)
+            .makeLoginInteractor(for: applicationCopy, credentials: credentials)
             .observe()
             .do(onNext: { result in
                     NSLog("Login result: \(result)")
                     switch result {
                     case .success:
+                        self.host.accept(host)
                         self.fetchApiKey()
                             .subscribe()
                             .disposed(by: self.disposeBag)
@@ -50,8 +54,8 @@ class ApplicationSettingsViewModel {
                     case .authenticationRequired:
                         let authenticationRequired = self.apiKey.value != nil
                         self.authenticationRequired.accept(authenticationRequired)
-                    default:
                         break
+                    default: break
                     }
                 },
                 onError: { error in
@@ -61,21 +65,34 @@ class ApplicationSettingsViewModel {
     }
 
     func fetchApiKey() -> Observable<String?> {
+        var applicationCopy = application.copy() as! ApiApplication
+        applicationCopy.host = host.value!
+
         return interactorFactory
-            .makeApiKeyInteractor(for: application)
+            .makeApiKeyInteractor(for: applicationCopy)
             .observe()
             .do(onNext: {
-                    if let apiKey = $0 {
-                        NSLog("Api key: \(apiKey)")
-                        self.apiKey.accept(apiKey)
-                        self.authenticationRequired.accept(true)
-                    }
-                    else {
+                    guard let apiKey = $0 else {
                         NSLog("⚠️ Api key fetch was succesful, but no data was returend!")
+                        return
                     }
+
+                    NSLog("Api key: \(apiKey)")
+                    self.apiKey.accept(apiKey)
+                    self.authenticationRequired.accept(false)
                 },
                  onError: { error in
                     NSLog("ApiKey error: \(error)")
                 })
+    }
+
+    func save() {
+        guard let host = self.host.value, let apiKey = self.apiKey.value else {
+            return
+        }
+
+        application.host = host
+        application.apiKey = apiKey
+        UserDefaults.standard.store(application)
     }
 }

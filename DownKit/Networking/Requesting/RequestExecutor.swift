@@ -23,10 +23,6 @@ public class RequestExecutor: RequestExecuting {
     
     public func execute(_ request: Request) -> Observable<Response> {
         return Observable<Response>.create { observable in
-            NSLog("Requesting \(request.url)")
-            NSLog("Basic \(request.basicAuthenticationData)")
-            NSLog("Form  \(request.formAuthenticationData)")
-
             self.requestClient.execute(request) {
                 guard let response = $0 else {
                     observable.onError($1!)

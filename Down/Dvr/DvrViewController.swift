@@ -22,8 +22,6 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
     
     lazy var interactor = interactorFactory.makeShowCacheRefreshInteractor(for: application)
     let disposeBag = DisposeBag()
-
-    var shows = Variable<[DvrShow]>([])
     
     override func viewDidLoad() {
         super.viewDidLoad()

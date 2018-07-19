@@ -40,7 +40,7 @@ public class AlamofireRequestClient: RequestClient {
 
 extension Request {
     func asAlamofireRequest() -> DataRequest? {
-        guard URL(string: url) != nil else {
+        guard let url = URL.fromHost(host: self.url) else {
             return nil
         }
 
@@ -51,7 +51,8 @@ extension Request {
         }
 
         let method = HTTPMethod(rawValue: self.method.rawValue.uppercased())!
-        var request = Alamofire.request(url, method: method, parameters: parameters)
+        var request = Alamofire.request(url.absoluteString, method: method, parameters: parameters)
+
         if let authData = basicAuthenticationData, authenticationMethod == .basic {
             request = request.authenticate(user: authData.username, password: authData.password)
         }

@@ -102,4 +102,9 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
             .subscribe()
             .disposed(by: disposeBag)
     }
+
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        viewModel.save()
+        router?.close(viewController: self)
+    }
 }

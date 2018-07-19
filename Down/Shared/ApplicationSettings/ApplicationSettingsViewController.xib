@@ -32,7 +32,7 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="sBZ-JH-rcU">
-                    <rect key="frame" x="20" y="110" width="335" height="180"/>
+                    <rect key="frame" x="20" y="110" width="335" height="230"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bxy-ky-JOP" customClass="SkyFloatingLabelTextField" customModule="Down" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -70,6 +70,13 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Api key"/>
                             </userDefinedRuntimeAttributes>
                         </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k99-e0-T0T">
+                            <rect key="frame" x="0.0" y="200" width="335" height="30"/>
+                            <state key="normal" title="Save"/>
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="-1" eventType="touchUpInside" id="kG3-Hy-Yhd"/>
+                            </connections>
+                        </button>
                     </subviews>
                 </stackView>
             </subviews>

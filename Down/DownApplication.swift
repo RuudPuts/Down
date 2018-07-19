@@ -19,6 +19,12 @@ enum DownApplicationType: String {
 
 // Note on the extensions below. Yes they look odd, but I have to map the types them.
 
+extension ApiApplication {
+    var downType: DownApplicationType {
+        return (self as! DownApplication).type
+    }
+}
+
 extension DownloadApplication: DownApplication {
     var type: DownApplicationType {
         switch downloadType {

@@ -9,3 +9,7 @@
 public protocol Application {
     var name: String { get }
 }
+
+extension Application {
+    func storeSettings(in storage: UserDefaults) { }
+}

@@ -38,7 +38,7 @@ extension URLSession: RequestClient {
 
 extension Request {
     func asUrlRequest() -> URLRequest? {
-        guard let url = URL(string: self.url) else {
+        guard let url = URL.fromHost(host: self.url) else {
             return nil
         }
 
@@ -79,5 +79,15 @@ extension Request {
         request.httpMethod = Method.post.rawValue
         request.httpBody = authData
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    }
+}
+
+extension URL {
+    static func fromHost(host: String) -> URL? {
+        if !host.hasPrefix("http://") && !host.hasPrefix("https://") {
+            return URL(string: "http://\(host)")
+        }
+
+        return URL(string: host)
     }
 }
