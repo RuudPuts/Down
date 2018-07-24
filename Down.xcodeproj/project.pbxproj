@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		421D839F21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D839E21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift */; };
+		421D83A221079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D83A121079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift */; };
+		421D83A421079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D83A321079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift */; };
 		4221DA3520D1819F003950CF /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DA2C20D1819F003950CF /* DownKit.framework */; };
 		4221DA3E20D1819F003950CF /* DownKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4221DA2E20D1819F003950CF /* DownKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4221DA4120D1819F003950CF /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DA2C20D1819F003950CF /* DownKit.framework */; };
@@ -221,6 +224,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		421D839E21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsChangedAction.swift; sourceTree = "<group>"; };
+		421D83A121079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrApplicationRefreshCacheAction.swift; sourceTree = "<group>"; };
+		421D83A321079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsChangedActionFactory.swift; sourceTree = "<group>"; };
 		4221DA2C20D1819F003950CF /* DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4221DA2E20D1819F003950CF /* DownKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownKit.h; sourceTree = "<group>"; };
 		4221DA2F20D1819F003950CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -426,6 +432,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		421D83A021079DAD008BEB2F /* ApplicationSettingChangeAction */ = {
+			isa = PBXGroup;
+			children = (
+				421D839E21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift */,
+				421D83A321079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift */,
+				421D83A121079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift */,
+			);
+			path = ApplicationSettingChangeAction;
+			sourceTree = "<group>";
+		};
 		4221DA2D20D1819F003950CF /* DownKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -889,6 +905,7 @@
 				4243528520FA9D0C00A729E1 /* ApplicationSettingsViewController.xib */,
 				4243528820FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift */,
 				4243528E20FAAF7800A729E1 /* UITextField+fixCaretPosition.swift */,
+				421D83A021079DAD008BEB2F /* ApplicationSettingChangeAction */,
 			);
 			path = ApplicationSettings;
 			sourceTree = "<group>";
@@ -1554,6 +1571,9 @@
 			files = (
 				4221DA5820D183EA003950CF /* DvrViewController.swift in Sources */,
 				4221DA5420D183B6003950CF /* DvrDetailViewController.swift in Sources */,
+				421D83A421079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift in Sources */,
+				421D83A221079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift in Sources */,
+				421D839F21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift in Sources */,
 				4243528620FA9D0C00A729E1 /* ApplicationSettingsViewController.swift in Sources */,
 				4221DA5620D183B6003950CF /* Down.swift in Sources */,
 				4243528920FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift in Sources */,

@@ -16,6 +16,7 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
     var application: ApiApplication!
     var interactorFactory: ApiApplicationInteractorProducing!
     var router: Router?
+//    var settingsChangeActions: [ApplicationSettingsChangedAction]?
     let disposeBag = DisposeBag()
 
     lazy var viewModel = ApplicationSettingsViewModel(application: application,
