@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  Down
+
+  Created by Ruud Puts on 24/07/2018.
+  Copyright © 2018 Mobile Sorcery. All rights reserved.
+*/
+
+"screen_download_root_title" = "Download";
+"screen_dvr_root_title" = "Shows";
+
+"settings_dvr_cacherefresh_description" = "Refreshing show cache...";

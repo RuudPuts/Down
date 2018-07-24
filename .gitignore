@@ -22,3 +22,5 @@ DerivedData
 *.gcda
 
 Carthage
+
+*.generated.swift

@@ -10,6 +10,8 @@
 		421D839F21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D839E21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift */; };
 		421D83A221079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D83A121079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift */; };
 		421D83A421079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D83A321079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift */; };
+		421D83A72107A2BC008BEB2F /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D83A62107A2BC008BEB2F /* R.generated.swift */; };
+		421D83AF2107A4A6008BEB2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 421D83B12107A4A6008BEB2F /* Localizable.strings */; };
 		4221DA3520D1819F003950CF /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DA2C20D1819F003950CF /* DownKit.framework */; };
 		4221DA3E20D1819F003950CF /* DownKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4221DA2E20D1819F003950CF /* DownKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4221DA4120D1819F003950CF /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DA2C20D1819F003950CF /* DownKit.framework */; };
@@ -227,6 +229,8 @@
 		421D839E21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsChangedAction.swift; sourceTree = "<group>"; };
 		421D83A121079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrApplicationRefreshCacheAction.swift; sourceTree = "<group>"; };
 		421D83A321079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsChangedActionFactory.swift; sourceTree = "<group>"; };
+		421D83A62107A2BC008BEB2F /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		421D83B02107A4A6008BEB2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4221DA2C20D1819F003950CF /* DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4221DA2E20D1819F003950CF /* DownKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownKit.h; sourceTree = "<group>"; };
 		4221DA2F20D1819F003950CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -913,6 +917,8 @@
 		425357C320F2B0CE005BC238 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				421D83B12107A4A6008BEB2F /* Localizable.strings */,
+				421D83A62107A2BC008BEB2F /* R.generated.swift */,
 				4243528F20FAAF7800A729E1 /* SkyFloatingLabelTextField.swift */,
 				4243529020FAAF7800A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift */,
 				425357C420F2B0FC005BC238 /* Configs */,
@@ -1206,6 +1212,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 426A799B20D1810200797AE5 /* Build configuration list for PBXNativeTarget "Down" */;
 			buildPhases = (
+				421D83A52107A210008BEB2F /* Run R.swift */,
 				426A797A20D1810100797AE5 /* Sources */,
 				426A797B20D1810100797AE5 /* Frameworks */,
 				426A797C20D1810100797AE5 /* Resources */,
@@ -1313,6 +1320,7 @@
 				429FE7D520FA7D40005F3A4F /* ApplicationHeaderView.xib in Resources */,
 				4243528720FA9D0C00A729E1 /* ApplicationSettingsViewController.xib in Resources */,
 				42B4AAF420FA8CF9008B7C3B /* DvrViewController.xib in Resources */,
+				421D83AF2107A4A6008BEB2F /* Localizable.strings in Resources */,
 				4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */,
 				4221DA4E20D181F2003950CF /* Assets.xcassets in Resources */,
 				4243527C20FA8FE700A729E1 /* DownloadViewController.xib in Resources */,
@@ -1330,6 +1338,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		421D83A52107A210008BEB2F /* Run R.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run R.swift";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo $SRCROOT\n\"$SRCROOT/Scripts/rswift\" generate \"$SRCROOT\"";
+		};
 		4221DAD520D18690003950CF /* Copy Carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1588,6 +1610,7 @@
 				4243529120FAAF7900A729E1 /* UITextField+fixCaretPosition.swift in Sources */,
 				427D606920E19A660017AE42 /* DownloadViewModel.swift in Sources */,
 				4243529220FAAF7900A729E1 /* SkyFloatingLabelTextField.swift in Sources */,
+				421D83A72107A2BC008BEB2F /* R.generated.swift in Sources */,
 				426A798220D1810100797AE5 /* AppDelegate.swift in Sources */,
 				4243529320FAAF7900A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift in Sources */,
 				426BF74320F6A527000C3A4A /* DownApplication.swift in Sources */,
@@ -1643,6 +1666,17 @@
 			targetProxy = 426A799320D1810200797AE5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		421D83B12107A4A6008BEB2F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				421D83B02107A4A6008BEB2F /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		4221DA4420D1819F003950CF /* Debug */ = {

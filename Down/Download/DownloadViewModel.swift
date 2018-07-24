@@ -11,7 +11,7 @@ import RxSwift
 import RxDataSources
 
 struct DownloadViewModel {
-    var title: String = "Downloads"
+    var title = R.string.localizable.screen_download_root_title()
     var refreshInterval: TimeInterval = 2
     
     let queueInteractor: DownloadQueueInteractor

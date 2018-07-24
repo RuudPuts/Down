@@ -70,7 +70,8 @@ class Router {
 private extension Router {
     func startDownloadRouter(tabBarController: UITabBarController) -> UIViewController {
         let navigationController = UINavigationController()
-        navigationController.tabBarItem = UITabBarItem(title: "Downloads", image: nil, tag: 0)
+        let title = R.string.localizable.screen_download_root_title()
+        navigationController.tabBarItem = UITabBarItem(title: title, image: nil, tag: 0)
 
         downloadRouter = DownloadRouter(parent: self,
                                         viewControllerFactory: viewControllerFactory,
@@ -83,7 +84,8 @@ private extension Router {
 
     func startDvrRouter(tabBarController: UITabBarController) -> UIViewController {
         let navigationController = UINavigationController()
-        navigationController.tabBarItem = UITabBarItem(title: "Shows", image: nil, tag: 0)
+        let title = R.string.localizable.screen_dvr_root_title()
+        navigationController.tabBarItem = UITabBarItem(title: title, image: nil, tag: 0)
 
         dvrRouter = DvrRouter(parent: self,
                               viewControllerFactory: viewControllerFactory,

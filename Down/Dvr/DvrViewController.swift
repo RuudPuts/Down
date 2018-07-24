@@ -25,6 +25,7 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = R.string.localizable.screen_dvr_root_title()
 
         configureHeaderView()
         configureTableView()
