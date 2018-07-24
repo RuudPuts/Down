@@ -14,12 +14,14 @@ class ApiApplicationMock: ApiApplication {
         var name = "ApiApplication"
         var host = "ApiHost"
         var apiKey = "ApiKey"
-        var requestBuilder: RequestBuilding = RequestBuildingMock()
+        var requestBuilder: RequestBuilding = RequestBuildingMock(application: ApiApplicationMock())
         var responseParser: ResponseParsing = ResponseParsingMock()
     }
     
     struct Captures {
         var `init`: Init?
+        var host: String?
+        var apiKey: String?
         
         struct Init {
             var host: String
@@ -38,15 +40,24 @@ class ApiApplicationMock: ApiApplication {
     }
     
     // ApiApplication
-    
     var type: ApiApplicationType { return stubs.type }
     var name: String { return stubs.name }
-    var host: String { return stubs.host }
-    var apiKey: String { return stubs.host }
+    var host: String {
+        get { return stubs.host }
+        set { captures.host = host }
+    }
+    var apiKey: String {
+        get { return stubs.apiKey }
+        set { captures.host = host }
+    }
     var requestBuilder: RequestBuilding { return stubs.requestBuilder }
     var responseParser: ResponseParsing { return stubs.responseParser }
     
     required init(host: String, apiKey: String) {
         captures.init = Captures.Init(host: host, apiKey: apiKey)
+    }
+
+    func copy() -> Any {
+        return self
     }
 }

@@ -9,4 +9,10 @@
 @testable import DownKit
 import RxSwift
 
-class RequestBuildingMock: RequestBuilding { }
+class RequestBuildingMock: RequestBuilding {
+    var application: ApiApplication
+
+    required init(application: ApiApplication) {
+        self.application = application
+    }
+}

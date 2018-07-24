@@ -16,6 +16,10 @@ public class Response {
         self.statusCode = statusCode
         self.headers = headers
     }
+
+    convenience init() {
+        self.init(data: nil, statusCode: 0, headers: nil)
+    }
 }
 
 enum StatusCodes: Int {

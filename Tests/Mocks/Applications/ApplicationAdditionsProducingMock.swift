@@ -38,6 +38,14 @@ final class ApplicationAdditionsProducingMock: ApplicationAdditionsProducing {
     var captures = Captures()
     
     // ApiApplication
+    func makeApiApplicationRequestBuilder(for application: ApiApplication) -> ApiApplicationRequestBuilding {
+        fatalError()
+    }
+
+    func makeApiApplicationResponseParser(for application: ApiApplication) -> ApiApplicationResponseParsing {
+        fatalError()
+    }
+
     func makeDownloadRequestBuilder(for application: DownloadApplication) -> DownloadRequestBuilding {
         captures.makeDownloadRequestBuilder = Captures.MakeDownload(application: application)
         return stubs.makeDownloadRequestBuilder

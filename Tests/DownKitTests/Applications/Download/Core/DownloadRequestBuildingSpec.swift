@@ -86,23 +86,13 @@ private class DownloadRequestBuildingImp: DownloadRequestBuilding {
     
     // DvrRequestBuilding
     
-    var application: DownloadApplication
+    var application: ApiApplication
     
-    required init(application: DownloadApplication) {
+    required init(application: ApiApplication) {
         self.application = application
     }
-    
-    var defaultParameters: [String: String] { return stubs.defaultParameters }
-    
-    func path(for apiCall: DownloadApplicationCall) -> String? {
-        return stubs.path
-    }
-    
-    func parameters(for apiCall: DownloadApplicationCall) -> [String: String]? {
-        return stubs.parameters
-    }
-    
-    func method(for apiCall: DownloadApplicationCall) -> Request.Method {
-        return stubs.method
+
+    func specification(for apiCall: DownloadApplicationCall) -> RequestSpecification? {
+        return nil
     }
 }

@@ -86,23 +86,13 @@ private class DvrRequestBuildingImp: DvrRequestBuilding {
     
     // DvrRequestBuilding
     
-    var application: DvrApplication
+    var application: ApiApplication
     
-    required init(application: DvrApplication) {
+    required init(application: ApiApplication) {
         self.application = application
     }
     
-    var defaultParameters: [String: String] { return stubs.defaultParameters }
-    
-    func path(for apiCall: DvrApplicationCall) -> String? {
-        return stubs.path
-    }
-    
-    func parameters(for apiCall: DvrApplicationCall) -> [String: String]? {
-        return stubs.parameters
-    }
-    
-    func method(for apiCall: DvrApplicationCall) -> Request.Method {
-        return stubs.method
+    func specification(for apiCall: DvrApplicationCall) -> RequestSpecification? {
+        return nil
     }
 }

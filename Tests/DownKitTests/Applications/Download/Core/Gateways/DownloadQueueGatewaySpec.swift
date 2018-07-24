@@ -26,7 +26,7 @@ class DownloadQueueGatewaySpec: QuickSpec {
             
             beforeEach {
                 request = Request(url: "http://myapi/show",
-                                  method: .get, parameters: nil)
+                                  method: .get)
                 application = DownloadApplication(type: .sabnzbd, host: "host", apiKey: "key")
                 requestBuilder = DownloadRequestBuildingMock(application: application)
                 requestBuilder.stubs.make = request
@@ -77,7 +77,7 @@ class DownloadQueueGatewaySpec: QuickSpec {
                 }
                 
                 it("parses the queue") {
-                    expect(responseParser.captures.parseQueue?.storage.data) == responseData
+                    expect(responseParser.captures.parseQueue?.response.data) == responseData
                 }
                 
                 it("returns the queue") {

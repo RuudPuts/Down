@@ -25,8 +25,7 @@ class DownloadHistoryGatewaySpec: QuickSpec {
             var requestExecutor: RequestExecutingMock!
             
             beforeEach {
-                request = Request(url: "http://myapi/show",
-                                  method: .get, parameters: nil)
+                request = Request(url: "http://myapi/show", method: .get)
                 application = DownloadApplication(type: .sabnzbd, host: "host", apiKey: "key")
                 requestBuilder = DownloadRequestBuildingMock(application: application)
                 requestBuilder.stubs.make = request
@@ -78,7 +77,7 @@ class DownloadHistoryGatewaySpec: QuickSpec {
                 }
                 
                 it("parses the history") {
-                    expect(responseParser.captures.parseHistory?.storage.data) == responseData
+                    expect(responseParser.captures.parseHistory?.response.data) == responseData
                 }
                 
                 it("returns the items") {

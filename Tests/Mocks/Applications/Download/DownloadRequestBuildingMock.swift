@@ -36,37 +36,14 @@ class DownloadRequestBuildingMock: DownloadRequestBuilding {
     var captures = Captures()
     
     // DownloadRequestBuilding
-    
-    var application: DownloadApplication
-    
-    required init(application: DownloadApplication) {
+
+    var application: ApiApplication
+
+    required init(application: ApiApplication) {
         self.application = application
     }
-    
-    func make(for apiCall: DownloadApplicationCall) throws -> Request {
-        captures.make = Captures.Make(call: apiCall)
-        
-        guard let stubbed = stubs.make else {
-            throw RequestBuildingError.notSupportedError("Stubs.make expected to be set")
-        }
-        
-        return stubbed
-    }
-    
-    var defaultParameters: [String: String] { return stubs.defaultParameters }
-    
-    func path(for apiCall: DownloadApplicationCall) -> String? {
-        captures.path = Captures.CallCapture(apiCall: apiCall)
-        return stubs.path
-    }
-    
-    func parameters(for apiCall: DownloadApplicationCall) -> [String: String]? {
-        captures.parameters = Captures.CallCapture(apiCall: apiCall)
-        return stubs.parameters
-    }
-    
-    func method(for apiCall: DownloadApplicationCall) -> Request.Method {
-        captures.method = Captures.CallCapture(apiCall: apiCall)
-        return stubs.method
+
+    func specification(for apiCall: DownloadApplicationCall) -> RequestSpecification? {
+        return nil
     }
 }

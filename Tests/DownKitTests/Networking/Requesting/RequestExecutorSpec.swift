@@ -35,9 +35,7 @@ class RequestExecutorSpec: QuickSpec {
                 var result: MaterializedSequenceResult<Response>!
                 
                 beforeEach {
-                    request = Request(url: "some invalid url",
-                                      method: .get,
-                                      parameters: nil)
+                    request = Request(url: "some invalid url", method: .get)
                     sut = RequestExecutor()
                     
                     result = sut
@@ -60,9 +58,7 @@ class RequestExecutorSpec: QuickSpec {
                 var result: Response!
                 
                 beforeEach {
-                    request = Request(url: "https://google.com",
-                                      method: .get,
-                                      parameters: nil)
+                    request = Request(url: "https://google.com", method: .get)
                     
                     response = Response(data: nil, statusCode: 418, headers: [:])
                     requestClient.stubs.execute.willDo = { _, completionHandler in
@@ -89,9 +85,7 @@ class RequestExecutorSpec: QuickSpec {
                 var failure: RequestClientError!
                 
                 beforeEach {
-                    request = Request(url: "https://google.com",
-                                      method: .get,
-                                      parameters: nil)
+                    request = Request(url: "https://google.com", method: .get)
                     
                     failure = .generic(message: "test failure")
                     requestClient.stubs.execute.willDo = { _, completionHandler in

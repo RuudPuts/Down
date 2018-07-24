@@ -29,12 +29,12 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
     // DownloadResponseParsing
     
     func parseQueue(from response: Response) -> DownloadQueue {
-        captures.parseQueue = Captures.Parse(response: storage)
+        captures.parseQueue = Captures.Parse(response: response)
         return stubs.parseQueue
     }
     
     func parseHistory(from response: Response) -> [DownloadItem] {
-        captures.parseHistory = Captures.Parse(response: storage)
+        captures.parseHistory = Captures.Parse(response: response)
         return stubs.parseHistory ?? []
     }
 }

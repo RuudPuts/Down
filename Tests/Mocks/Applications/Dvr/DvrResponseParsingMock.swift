@@ -29,12 +29,12 @@ class DvrResponseParsingMock: DvrResponseParsing {
     // DvrResponseParsing
     
     func parseShows(from response: Response) -> [DvrShow] {
-        captures.parseShows = Captures.Parse(response: storage)
+        captures.parseShows = Captures.Parse(response: response)
         return stubs.parseShows ?? []
     }
     
     func parseShowDetails(from response: Response) -> DvrShow {
-        captures.parseShowDetails = Captures.Parse(response: storage)
+        captures.parseShowDetails = Captures.Parse(response: response)
         return stubs.parseShowDetails ?? DvrShow(identifier: "0", name: "", quality: "")
     }
 }

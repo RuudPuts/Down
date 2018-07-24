@@ -26,7 +26,7 @@ class DvrShowListGatewaySpec: QuickSpec {
             
             beforeEach {
                 request = Request(url: "http://myapi/show",
-                                  method: .get, parameters: nil)
+                                  method: .get)
                 application = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
                 requestBuilder = DvrRequestBuildingMock(application: application)
                 requestBuilder.stubs.make = request
@@ -78,7 +78,7 @@ class DvrShowListGatewaySpec: QuickSpec {
                 }
                 
                 it("parses the shows") {
-                    expect(responseParser.captures.parseShows?.storage.data) == responseData
+                    expect(responseParser.captures.parseShows?.response.data) == responseData
                 }
                 
                 it("returns the shows") {

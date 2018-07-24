@@ -24,8 +24,7 @@ class RequestSpec: QuickSpec {
                     sut = Request(host: "http://myapi.com",
                                   path: "{command}?apikey={apikey}",
                                   method: .get,
-                                  defaultParameters: ["apikey": "testkey"],
-                                  parameters: ["command": "testcommand"])
+                                  parameters: ["apikey": "testkey", "command": "testcommand"])
                 }
                 
                 it("stores the url") {
@@ -37,7 +36,7 @@ class RequestSpec: QuickSpec {
                 var urlRequest: URLRequest?
                 
                 beforeEach {
-                    sut = Request(url: "https://google.com", method: .get, parameters: nil)
+                    sut = Request(url: "https://google.com", method: .get)
                     urlRequest = sut.asUrlRequest()
                 }
                 
@@ -59,7 +58,7 @@ class RequestSpec: QuickSpec {
                 
                 context("request with invalid parameters") {
                     beforeEach {
-                        sut = Request(url: "invalid url", method: .get, parameters: nil)
+                        sut = Request(url: "invalid url", method: .get)
                         urlRequest = sut.asUrlRequest()
                     }
                     

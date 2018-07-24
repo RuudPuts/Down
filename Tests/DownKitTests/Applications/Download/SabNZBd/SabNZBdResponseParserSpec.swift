@@ -17,15 +17,15 @@ class SabNZBdResponseParserSpec: QuickSpec {
     override func spec() {
         describe("SabNZBdResponseParser") {
             var sut: SabNZBdResponseParser!
-            var response: ResponseMock!
+            var response: Response!
             
             beforeEach {
                 sut = SabNZBdResponseParser()
-                storage = ResponseMock()
+                response = Response()
             }
             
             afterEach {
-                storage = nil
+                response = nil
                 sut = nil
             }
             
@@ -59,7 +59,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 
                 context("from succesful response") {
                     beforeEach {
-                        storage.stubs.data = self.successJson
+                        response.data = self.successJson
                         result = try? sut.parse(response, forCall: .queue)
                     }
                     
@@ -73,7 +73,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     
                     beforeEach {
                         do {
-                            storage.stubs.data = self.errorJson
+                            response.data = self.errorJson
                             result = try sut.parse(response, forCall: .queue)
                         }
                         catch {
@@ -95,7 +95,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     
                     beforeEach {
                         do {
-                            storage.stubs.data = "invalid response".data(using: .utf8)
+                            response.data = "invalid response".data(using: .utf8)
                             result = try sut.parse(response, forCall: .queue)
                         }
                         catch {
@@ -117,8 +117,8 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 var result: DownloadQueue!
                 
                 beforeEach {
-                    storage.stubs.data = self.queueJson
-                    result = try? sut.parseQueue(from: storage)
+                    response.data = self.queueJson
+                    result = try? sut.parseQueue(from: response)
                 }
                 
                 afterEach {
@@ -146,8 +146,8 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 var result: [DownloadItem]!
                 
                 beforeEach {
-                    storage.stubs.data = self.historyJson
-                    result = try? sut.parseHistory(from: storage)
+                    response.data = self.historyJson
+                    result = try? sut.parseHistory(from: response)
                 }
                 
                 afterEach {

@@ -17,15 +17,15 @@ class SickbeardResponseParserSpec: QuickSpec {
     override func spec() {
         describe("SickbeardResponseParser") {
             var sut: SickbeardResponseParser!
-            var response: ResponseMock!
+            var response: Response!
             
             beforeEach {
                 sut = SickbeardResponseParser()
-                storage = ResponseMock()
+                response = Response()
             }
             
             afterEach {
-                storage = nil
+                response = nil
                 sut = nil
             }
             
@@ -59,7 +59,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 
                 context("from succesful response") {
                     beforeEach {
-                        storage.stubs.data = self.successJson
+                        response.data = self.successJson
                         result = try? sut.parse(response)
                     }
                     
@@ -73,7 +73,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     
                     beforeEach {
                         do {
-                            storage.stubs.data = self.errorJson
+                            response.data = self.errorJson
                             result = try sut.parse(response)
                         }
                         catch {
@@ -95,7 +95,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     
                     beforeEach {
                         do {
-                            storage.stubs.data = "invalid response".data(using: .utf8)
+                            response.data = "invalid response".data(using: .utf8)
                             result = try sut.parse(response)
                         }
                         catch {
@@ -117,8 +117,8 @@ class SickbeardResponseParserSpec: QuickSpec {
                 var result: [DvrShow]!
                 
                 beforeEach {
-                    storage.stubs.data = self.showsJson
-                    result = try? sut.parseShows(from: storage)
+                    response.data = self.showsJson
+                    result = try? sut.parseShows(from: response)
                 }
                 
                 afterEach {
@@ -146,8 +146,8 @@ class SickbeardResponseParserSpec: QuickSpec {
                 var result: DvrShow!
                 
                 beforeEach {
-                    storage.stubs.data = self.showDetailsJson
-                    result = try? sut.parseShowDetails(from: storage)
+                    response.data = self.showDetailsJson
+                    result = try? sut.parseShowDetails(from: response)
                 }
                 
                 afterEach {
