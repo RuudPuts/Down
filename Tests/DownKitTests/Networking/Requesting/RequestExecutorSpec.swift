@@ -65,10 +65,15 @@ class RequestExecutorSpec: QuickSpec {
                         completionHandler(response, nil)
                     }
                     
-                    // swiftlint:disable force_try
-                    result = try! sut.execute(request)
-                        .toBlocking()
-                        .first()
+                    do {
+                        result = try sut
+                            .execute(request)
+                            .toBlocking()
+                            .first()
+                    }
+                    catch {
+                        fail("Failed to execute: \(error.localizedDescription)")
+                    }
                 }
                 
                 afterEach {

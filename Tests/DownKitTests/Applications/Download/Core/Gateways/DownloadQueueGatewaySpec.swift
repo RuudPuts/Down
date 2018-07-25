@@ -56,11 +56,15 @@ class DownloadQueueGatewaySpec: QuickSpec {
                         Response(data: responseData, statusCode: 200, headers: [:])
                     )
                     
-                    // swiftlint:disable force_try
-                    result = try! sut
-                        .execute()
-                        .toBlocking()
-                        .first()
+                    do {
+                        result = try sut
+                            .execute()
+                            .toBlocking()
+                            .first()
+                    }
+                    catch {
+                        fail("Failed to execute gateway: \(error.localizedDescription)")
+                    }
                 }
                 
                 afterEach {

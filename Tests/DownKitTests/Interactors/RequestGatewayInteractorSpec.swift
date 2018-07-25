@@ -32,10 +32,15 @@ class RequestGatewayInteractorSpec: QuickSpec {
                 var result: Any!
                 
                 beforeEach {
-                    // swiftlint:disable force_try
-                    result = try! sut.observe()
-                        .toBlocking()
-                        .first()
+                    do {
+                        result = try sut
+                            .observe()
+                            .toBlocking()
+                            .first()
+                    }
+                    catch {
+                        fail("Failed to execute gateway: \(error.localizedDescription)")
+                    }
                 }
                 
                 afterEach {
