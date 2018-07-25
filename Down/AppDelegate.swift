@@ -15,14 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var router: Router!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        guard NSClassFromString("XCTest") == nil else {
+            return true
+        }
+
         window = UIWindow()
 
         let factory = ViewControllerFactory()
         router = Router(window: window!, viewControllerFactory: factory)
         router.start()
-        
+
         NSLog(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "")
-        
+
         return true
     }
 }
