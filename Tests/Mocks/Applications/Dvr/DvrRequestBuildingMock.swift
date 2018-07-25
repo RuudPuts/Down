@@ -11,39 +11,40 @@
 class DvrRequestBuildingMock: DvrRequestBuilding {
     struct Stubs {
         var make: Request?
-        var defaultParameters: [String: String] = [:]
-        var path: String?
-        var parameters: [String: String]?
-        var method: Request.Method = .get
+        var specification: RequestSpecification?
     }
-    
+
     struct Captures {
         var make: Make?
-        var path: CallCapture?
-        var parameters: CallCapture?
-        var method: CallCapture?
-        
+        var specification: Specification?
+
         struct Make {
             var call: DvrApplicationCall
         }
-        
-        struct CallCapture {
-            let apiCall: DvrApplicationCall
+
+        struct Specification {
+            var call: DvrApplicationCall
         }
     }
-    
+
     var stubs = Stubs()
     var captures = Captures()
-    
+
     // DvrRequestBuilding
-    
+
     var application: ApiApplication
-    
+
     required init(application: ApiApplication) {
         self.application = application
     }
-    
+
+    func make(for apiCall: DvrApplicationCall) throws -> Request {
+        captures.make = Captures.Make(call: apiCall)
+
+        return stubs.make!
+    }
+
     func specification(for apiCall: DvrApplicationCall) -> RequestSpecification? {
-        return nil
+        return stubs.specification
     }
 }

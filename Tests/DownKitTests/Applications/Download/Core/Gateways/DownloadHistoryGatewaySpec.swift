@@ -46,7 +46,7 @@ class DownloadHistoryGatewaySpec: QuickSpec {
                 request = nil
             }
             
-            context("getting history") {
+            context("fetching history") {
                 var responseData: Data!
                 var result: [DownloadItem]!
                 

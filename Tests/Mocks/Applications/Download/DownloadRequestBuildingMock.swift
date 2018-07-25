@@ -11,24 +11,19 @@
 class DownloadRequestBuildingMock: DownloadRequestBuilding {
     struct Stubs {
         var make: Request?
-        var defaultParameters: [String: String] = [:]
-        var path: String?
-        var parameters: [String: String]?
-        var method: Request.Method = .get
+        var specification: RequestSpecification?
     }
     
     struct Captures {
         var make: Make?
-        var path: CallCapture?
-        var parameters: CallCapture?
-        var method: CallCapture?
-        
+        var specification: Specification?
+
         struct Make {
             var call: DownloadApplicationCall
         }
-        
-        struct CallCapture {
-            let apiCall: DownloadApplicationCall
+
+        struct Specification {
+            var call: DownloadApplicationCall
         }
     }
     
@@ -43,7 +38,13 @@ class DownloadRequestBuildingMock: DownloadRequestBuilding {
         self.application = application
     }
 
+    func make(for apiCall: DownloadApplicationCall) throws -> Request {
+        captures.make = Captures.Make(call: apiCall)
+
+        return stubs.make!
+    }
+    
     func specification(for apiCall: DownloadApplicationCall) -> RequestSpecification? {
-        return nil
+        return stubs.specification
     }
 }

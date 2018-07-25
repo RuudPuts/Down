@@ -47,7 +47,7 @@ class DvrShowListGatewaySpec: QuickSpec {
                 request = nil
             }
             
-            context("getting shows") {
+            context("fetching shows") {
                 var responseData: Data!
                 var result: [DvrShow]!
                 

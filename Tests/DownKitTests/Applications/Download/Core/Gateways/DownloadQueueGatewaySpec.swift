@@ -46,7 +46,7 @@ class DownloadQueueGatewaySpec: QuickSpec {
                 request = nil
             }
             
-            context("getting queue") {
+            context("fetching queue") {
                 var responseData: Data!
                 var result: DownloadQueue!
                 
