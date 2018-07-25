@@ -27,3 +27,18 @@ public struct RequestSpecification {
         self.formAuthenticationData = formAuthenticationData
     }
 }
+
+extension RequestSpecification: Equatable {
+    public static func == (lhs: RequestSpecification, rhs: RequestSpecification) -> Bool {
+        let defaultUsernamePassword = ("","")
+        let defaultFormData = FormAuthenticationData(fieldName: defaultUsernamePassword, fieldValue: defaultUsernamePassword)
+
+        return lhs.host == rhs.host
+            && lhs.path == rhs.path
+            && lhs.method == rhs.method
+            && lhs.parameters == rhs.parameters
+            && lhs.authenticationMethod == rhs.authenticationMethod
+            && lhs.basicAuthenticationData ?? defaultUsernamePassword == rhs.basicAuthenticationData ?? defaultUsernamePassword
+            && lhs.formAuthenticationData ?? defaultFormData == rhs.formAuthenticationData ?? defaultFormData
+    }
+}

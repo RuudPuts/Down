@@ -11,55 +11,94 @@ import Quick
 import Nimble
 
 class SickbeardRequestBuilderSpec: QuickSpec {
-    var sut: SickbeardRequestBuilder!
-    
     override func spec() {
         describe("SickbeardRequestBuilder") {
+            var sut: SickbeardRequestBuilder!
+            var result: RequestSpecification?
+
             var application: DvrApplication!
-            
+            var expectedParamters: [String: String]!
+
             beforeEach {
                 application = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
-                self.sut = SickbeardRequestBuilder(application: application)
+                expectedParamters = ["apikey": application.apiKey]
+
+                sut = SickbeardRequestBuilder(application: application)
             }
-            
+
             afterEach {
-                self.sut = nil
+                result = nil
+                sut = nil
+                expectedParamters = nil
+                application = nil
             }
-            
-            it("build default paramters") {
-                expect(self.sut.defaultParameters) == ["apikey": application.apiKey]
+
+            context("dvr request builder") {
+                context("build show list call") {
+                    beforeEach {
+                        result = sut.specification(for: .showList)
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "api/{apikey}?cmd=shows",
+                                                               parameters: expectedParamters)
+                    }
+                }
+
+                context("build show details call") {
+                    var show: DvrShow!
+
+                    beforeEach {
+                        show = DvrShow(identifier: "0", name: "TestShow", quality: "TestQuality")
+                        expectedParamters.merge(["id": show.identifier], uniquingKeysWith: { lhs, _ in return lhs })
+
+                        result = sut.specification(for: .showDetails(show))
+                    }
+
+                    afterEach {
+                        show = nil
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "api/{apikey}?cmd=show.seasons%7Cshow&tvdbid={id}",
+                                                               parameters: expectedParamters)
+                    }
+                }
             }
-            
-            context("build showList call") {
-                test(call: .showList, toBuildPath: "api/{apikey}?cmd=shows", parameters: nil, method: .get)
-            }
-            
-            context("build showDetails call") {
-                var show: DvrShow! = DvrShow(identifier: "0", name: "TestShow", quality: "TestQuality")
-                test(call: .showDetails(show),
-                     toBuildPath: "api/{apikey}?cmd=show.seasons%7Cshow&tvdbid={id}",
-                     parameters: ["id": show.identifier], method: .get)
-                show = nil
+
+            context("api application request builder") {
+                context("build login call") {
+                    var credentials: UsernamePassword!
+
+                    beforeEach {
+                        credentials = ("username", "password")
+                        result = sut.specification(for: .login, credentials: credentials)
+                    }
+
+                    afterEach {
+                        credentials = nil
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               authenticationMethod: .basic,
+                                                               basicAuthenticationData: credentials)
+                    }
+                }
+
+                context("build api key call") {
+                    beforeEach {
+                        result = sut.specification(for: .apiKey)
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "config/general")
+                    }
+                }
             }
         }
-    }
-    
-    func test(call: DvrApplicationCall, toBuildPath expectedPath: String, parameters expectedParameters: [String: String]?, method expectedMethod: Request.Method) {
-//        it("returns the expected path") {
-//            expect(self.sut.path(for: call)) == expectedPath
-//        }
-//        
-//        it("returns the expected parameters") {
-//            if let params = expectedParameters {
-//                expect(self.sut.parameters(for: call)) == params
-//            }
-//            else {
-//                expect(self.sut.parameters(for: call)).to(beNil())
-//            }
-//        }
-//        
-//        it("returns the expected method") {
-//            expect(self.sut.method(for: call)) == expectedMethod
-//        }
     }
 }

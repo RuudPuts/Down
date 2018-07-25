@@ -11,51 +11,91 @@ import Quick
 import Nimble
 
 class SabNZBdRequestBuilderSpec: QuickSpec {
-    var sut: SabNZBdRequestBuilder!
-    
     override func spec() {
         describe("SabNZBdRequestBuilder") {
+            var sut: SabNZBdRequestBuilder!
+            var result: RequestSpecification?
+
             var application: DownloadApplication!
+            var expectedDefaultParamters: [String: String]!
             
             beforeEach {
                 application = DownloadApplication(type: .sabnzbd, host: "host", apiKey: "key")
-                self.sut = SabNZBdRequestBuilder(application: application)
+                expectedDefaultParamters = ["apikey": application.apiKey]
+                
+                sut = SabNZBdRequestBuilder(application: application)
             }
             
             afterEach {
-                self.sut = nil
+                result = nil
+                sut = nil
+                expectedDefaultParamters = nil
+                application = nil
             }
-            
-            it("build default paramters") {
-                expect(self.sut.defaultParameters) == ["apikey": application.apiKey]
+
+            context("download request builder") {
+                context("build queue call") {
+                    beforeEach {
+                        result = sut.specification(for: .queue)
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "api?mode=queue&output=json&apikey={apikey}",
+                                                               parameters: expectedDefaultParamters)
+                    }
+                }
+
+                context("build history call") {
+                    beforeEach {
+                        result = sut.specification(for: .history)
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "api?mode=history&output=json&apikey={apikey}",
+                                                               parameters: expectedDefaultParamters)
+                    }
+                }
             }
-            
-            context("build queue call") {
-                test(call: .queue, toBuildPath: "api?mode=queue&output=json&apikey={apikey}", parameters: nil, method: .get)
-            }
-            
-            context("build history call") {
-                test(call: .history, toBuildPath: "api?mode=history&output=json&apikey={apikey}", parameters: nil, method: .get)
+
+            context("api application request builder") {
+                context("build login call") {
+                    var credentials: UsernamePassword!
+                    var expectedFormData: FormAuthenticationData!
+
+                    beforeEach {
+                        credentials = ("username", "password")
+                        expectedFormData = FormAuthenticationData(fieldName: ("username", "password"),
+                                                                  fieldValue: credentials)
+
+                        result = sut.specification(for: .login, credentials: credentials)
+                    }
+
+                    afterEach {
+                        expectedFormData = nil
+                        credentials = nil
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "sabnzbd/login",
+                                                               authenticationMethod: .form,
+                                                               formAuthenticationData: expectedFormData)
+                    }
+                }
+
+                context("build api key call") {
+                    beforeEach {
+                        result = sut.specification(for: .apiKey)
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "config/general")
+                    }
+                }
             }
         }
-    }
-    
-    func test(call: DownloadApplicationCall, toBuildPath expectedPath: String, parameters expectedParameters: [String: String]?, method expectedMethod: Request.Method) {
-//        it("returns the expected path") {
-//            expect(self.sut.path(for: call)) == expectedPath
-//        }
-//        
-//        it("returns the expected parameters") {
-//            if let params = expectedParameters {
-//                expect(self.sut.parameters(for: call)) == params
-//            }
-//            else {
-//                expect(self.sut.parameters(for: call)).to(beNil())
-//            }
-//        }
-//        
-//        it("returns the expected method") {
-//            expect(self.sut.method(for: call)) == expectedMethod
-//        }
     }
 }

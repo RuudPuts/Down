@@ -19,3 +19,10 @@ public struct FormAuthenticationData {
     let fieldName: UsernamePassword
     let fieldValue: UsernamePassword
 }
+
+extension FormAuthenticationData: Equatable {
+    public static func == (lhs: FormAuthenticationData, rhs: FormAuthenticationData) -> Bool {
+        return lhs.fieldName == rhs.fieldName
+            && rhs.fieldValue == rhs.fieldValue
+    }
+}
