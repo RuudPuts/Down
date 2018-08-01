@@ -10,7 +10,7 @@
 
 class DownloadRequestBuildingMock: DownloadRequestBuilding {
     struct Stubs {
-        var make: Request?
+        var make = Request(url: "", method: .get)
         var specification: RequestSpecification?
     }
     
@@ -41,7 +41,7 @@ class DownloadRequestBuildingMock: DownloadRequestBuilding {
     func make(for apiCall: DownloadApplicationCall) throws -> Request {
         captures.make = Captures.Make(call: apiCall)
 
-        return stubs.make!
+        return stubs.make
     }
     
     func specification(for apiCall: DownloadApplicationCall) -> RequestSpecification? {

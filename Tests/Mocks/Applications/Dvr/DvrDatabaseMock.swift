@@ -17,9 +17,15 @@ class DvrDatabaseMock: DvrDatabase {
     
     struct Captures {
         var storeShow: StoreShow?
+        var fetchShows: Bool?
+        var fetchShowsMatching: FetchShowsMatching?
         
         struct StoreShow {
             var show: DvrShow
+        }
+
+        struct FetchShowsMatching {
+            var nameComponents: [String]
         }
     }
     
@@ -33,10 +39,12 @@ class DvrDatabaseMock: DvrDatabase {
     }
     
     func fetchShows() -> Observable<[DvrShow]> {
+        captures.fetchShows = true
         return stubs.fetchShows
     }
     
     func fetchShow(matching nameComponents: [String]) -> Observable<DvrShow> {
+        captures.fetchShowsMatching = Captures.FetchShowsMatching(nameComponents: nameComponents)
         return stubs.fetchShowsMatchingNameComponents
     }
     

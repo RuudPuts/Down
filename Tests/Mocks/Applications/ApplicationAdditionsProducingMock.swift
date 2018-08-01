@@ -10,6 +10,10 @@
 
 final class ApplicationAdditionsProducingMock: ApplicationAdditionsProducing {
     struct Stubs {
+        var makeApiApplicationRequestBuilder = ApiApplicationRequestBuildingMock(application:
+            ApiApplicationMock())
+        var makeApiApplicationResponseParser = ApiApplicationResponseParsingMock()
+
         var makeDownloadRequestBuilder = DownloadRequestBuildingMock(application:
             DownloadApplication(type: .sabnzbd, host: "host", apiKey: "key"))
         var makeDownloadResponseParser = DownloadResponseParsingMock()
@@ -20,17 +24,23 @@ final class ApplicationAdditionsProducingMock: ApplicationAdditionsProducing {
     }
     
     struct Captures {
+        var makeApiApplicationRequestBuilder: MakeApiApplication?
+        var makeApiApplicationResponseParser: MakeApiApplication?
         var makeDownloadRequestBuilder: MakeDownload?
         var makeDownloadResponseParser: MakeDownload?
         var makeDvrRequestBuilder: MakeDvr?
         var makeDvrResponseParser: MakeDvr?
-        
-        struct MakeDvr {
-            let application: DvrApplication
+
+        struct MakeApiApplication {
+            let application: ApiApplication
         }
-        
+
         struct MakeDownload {
             let application: DownloadApplication
+        }
+
+        struct MakeDvr {
+            let application: DvrApplication
         }
     }
     
@@ -39,11 +49,13 @@ final class ApplicationAdditionsProducingMock: ApplicationAdditionsProducing {
     
     // ApiApplication
     func makeApiApplicationRequestBuilder(for application: ApiApplication) -> ApiApplicationRequestBuilding {
-        fatalError()
+        captures.makeApiApplicationRequestBuilder = Captures.MakeApiApplication(application: application)
+        return stubs.makeApiApplicationRequestBuilder
     }
 
     func makeApiApplicationResponseParser(for application: ApiApplication) -> ApiApplicationResponseParsing {
-        fatalError()
+        captures.makeApiApplicationResponseParser = Captures.MakeApiApplication(application: application)
+        return stubs.makeApiApplicationResponseParser
     }
 
     func makeDownloadRequestBuilder(for application: DownloadApplication) -> DownloadRequestBuilding {

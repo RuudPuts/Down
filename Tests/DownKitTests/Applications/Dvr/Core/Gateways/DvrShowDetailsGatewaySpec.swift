@@ -101,9 +101,9 @@ class DvrShowDetailsGatewaySpec: QuickSpec {
                         expect(responseParser.captures.parseShowDetails?.response.data) == responseData
                     }
                     
-//                    it("returns updated show") {
-//                        expect(result.name) == "UpdatedShow"
-//                    }
+                    it("returns updated show") {
+                        expect(result.name) == "UpdatedShow"
+                    }
                 }
             }
         }

@@ -14,7 +14,7 @@ class ApiApplicationMock: ApiApplication {
         var name = "ApiApplication"
         var host = "ApiHost"
         var apiKey = "ApiKey"
-        var requestBuilder: RequestBuilding = RequestBuildingMock(application: ApiApplicationMock())
+        var requestBuilder: RequestBuilding = RequestBuildingMock(application: DownloadApplication(type: .sabnzbd, host: "", apiKey: ""))
         var responseParser: ResponseParsing = ResponseParsingMock()
     }
     

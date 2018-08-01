@@ -36,7 +36,7 @@ private extension DownloadViewModel {
     func loadQueue() {
         queueInteractor
             .observe()
-//            .withInterval(interval: refreshInterval)
+            .withInterval(interval: refreshInterval)
             .subscribe(onNext: { queue in
                 self.queueData.value = queue
                 self.updateSection(0, withItems: queue.items)
@@ -47,7 +47,7 @@ private extension DownloadViewModel {
     func loadHistory() {
         historyInteractor
             .observe()
-//            .withInterval(interval: refreshInterval)
+            .withInterval(interval: refreshInterval)
             .subscribe(onNext: { items in
                 self.updateSection(1, withItems: items)
             })

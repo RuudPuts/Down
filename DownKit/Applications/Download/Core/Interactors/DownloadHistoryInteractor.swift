@@ -8,13 +8,21 @@
 
 import RxSwift
 
-public final class DownloadHistoryInteractor: RequestGatewayInteracting {
+public final class DownloadHistoryInteractor: RequestGatewayInteracting, DatabaseConsuming {
     public typealias Gateway = DownloadHistoryGateway
     public typealias Element = Gateway.ResultType
     
     public var gateway: Gateway
+    public var database: DownDatabase!
+
     public init(gateway: Gateway) {
         self.gateway = gateway
+    }
+
+    convenience init(gateway: Gateway, database: DownDatabase) {
+        self.init(gateway: gateway)
+
+        self.database = database
     }
     
     public func observe() -> Observable<[DownloadItem]> {
@@ -22,7 +30,7 @@ public final class DownloadHistoryInteractor: RequestGatewayInteracting {
         return try! self.gateway
             .execute()
             .do(onNext: { items in
-                items.forEach { $0.match(with: RealmDatabase.default) }
+                items.forEach { $0.match(with: self.database) }
             })
     }
 }

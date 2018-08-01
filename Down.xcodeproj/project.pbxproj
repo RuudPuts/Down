@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		421D06CF21123C5D005DC78D /* ApiApplicationResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */; };
+		421D06D121123D5B005DC78D /* ApiApplicationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */; };
+		421D06D42112401A005DC78D /* DownloadHistoryInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D32112401A005DC78D /* DownloadHistoryInteractorSpec.swift */; };
 		421D839F21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D839E21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift */; };
 		421D83A221079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D83A121079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift */; };
 		421D83A421079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D83A321079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift */; };
@@ -99,6 +102,12 @@
 		4243529520FABDD000A729E1 /* ApiApplicationInteracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243529420FABDD000A729E1 /* ApiApplicationInteracting.swift */; };
 		4243529720FABE1000A729E1 /* ApiApplicationInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243529620FABE1000A729E1 /* ApiApplicationInteractorFactory.swift */; };
 		42457CA020E1AB5900DBC6C7 /* DownloadQueueInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */; };
+		424FBD3B210F927600885D8B /* ApiApplicationGatewayFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */; };
+		424FBD3C210F927600885D8B /* ApiApplicationLoginGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */; };
+		424FBD3D210F927600885D8B /* ApiApplicationApiKeyGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD36210F90D800885D8B /* ApiApplicationApiKeyGatewaySpec.swift */; };
+		424FBD3E210F927600885D8B /* ApiApplicationInteractorFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD32210F90D100885D8B /* ApiApplicationInteractorFactorySpec.swift */; };
+		424FBD44210F937B00885D8B /* ApiApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD41210F937B00885D8B /* ApiApplicationMock.swift */; };
+		424FBD45210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD42210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift */; };
 		425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */; };
 		4263A18120E1B72A008F7E40 /* ApiApplicationLoginGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18020E1B72A008F7E40 /* ApiApplicationLoginGateway.swift */; };
 		4263A18320E1B739008F7E40 /* ApiApplicationLoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18220E1B739008F7E40 /* ApiApplicationLoginInteractor.swift */; };
@@ -157,11 +166,6 @@
 		42BF4E8D20D1B5BC0088AAF6 /* StringSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */; };
 		42BF4E9420D2501A0088AAF6 /* DvrShowListGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9320D2501A0088AAF6 /* DvrShowListGatewaySpec.swift */; };
 		42BF4E9620D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9520D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift */; };
-		42BF4E9920D2520A0088AAF6 /* ApiApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9820D2520A0088AAF6 /* ApiApplicationMock.swift */; };
-		42D77BC120E456EB00FA1ACA /* ApiApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9820D2520A0088AAF6 /* ApiApplicationMock.swift */; };
-		42D77BC320E456EB00FA1ACA /* ApplicationAdditionsProducingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BE6D920D6FE9200DDDF37 /* ApplicationAdditionsProducingMock.swift */; };
-		42D77BC420E456EB00FA1ACA /* DownloadRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B7B320DD8EDC00603528 /* DownloadRequestBuildingMock.swift */; };
-		42D77BC520E456EB00FA1ACA /* DownloadResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B7B420DD8EDC00603528 /* DownloadResponseParsingMock.swift */; };
 		42D77BC620E456EB00FA1ACA /* DvrDatabaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B77C20DC2CDC00603528 /* DvrDatabaseMock.swift */; };
 		42D77BC720E456EB00FA1ACA /* DvrRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */; };
 		42D77BC820E456EB00FA1ACA /* DvrResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAAB20D1860D003950CF /* DvrResponseParsingMock.swift */; };
@@ -219,6 +223,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationResponseParsingMock.swift; sourceTree = "<group>"; };
+		421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationSpec.swift; sourceTree = "<group>"; };
+		421D06D32112401A005DC78D /* DownloadHistoryInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadHistoryInteractorSpec.swift; sourceTree = "<group>"; };
 		421D839E21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsChangedAction.swift; sourceTree = "<group>"; };
 		421D83A121079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrApplicationRefreshCacheAction.swift; sourceTree = "<group>"; };
 		421D83A321079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsChangedActionFactory.swift; sourceTree = "<group>"; };
@@ -316,6 +323,12 @@
 		4243529420FABDD000A729E1 /* ApiApplicationInteracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteracting.swift; sourceTree = "<group>"; };
 		4243529620FABE1000A729E1 /* ApiApplicationInteractorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteractorFactory.swift; sourceTree = "<group>"; };
 		42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueInteractor.swift; sourceTree = "<group>"; };
+		424FBD32210F90D100885D8B /* ApiApplicationInteractorFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteractorFactorySpec.swift; sourceTree = "<group>"; };
+		424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactorySpec.swift; sourceTree = "<group>"; };
+		424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGatewaySpec.swift; sourceTree = "<group>"; };
+		424FBD36210F90D800885D8B /* ApiApplicationApiKeyGatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationApiKeyGatewaySpec.swift; sourceTree = "<group>"; };
+		424FBD41210F937B00885D8B /* ApiApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationMock.swift; sourceTree = "<group>"; };
+		424FBD42210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationRequestBuildingMock.swift; sourceTree = "<group>"; };
 		425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueueStatusView.swift; sourceTree = "<group>"; };
 		425357C620F2B10E005BC238 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4263A18020E1B72A008F7E40 /* ApiApplicationLoginGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGateway.swift; sourceTree = "<group>"; };
@@ -373,7 +386,6 @@
 		42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSpec.swift; sourceTree = "<group>"; };
 		42BF4E9320D2501A0088AAF6 /* DvrShowListGatewaySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowListGatewaySpec.swift; sourceTree = "<group>"; };
 		42BF4E9520D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsGatewaySpec.swift; sourceTree = "<group>"; };
-		42BF4E9820D2520A0088AAF6 /* ApiApplicationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationMock.swift; sourceTree = "<group>"; };
 		42FB9037210114DA007B01DB /* ApplicationPersisting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPersisting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -607,8 +619,8 @@
 		4221DAA820D1860D003950CF /* Applications */ = {
 			isa = PBXGroup;
 			children = (
-				42BF4E9820D2520A0088AAF6 /* ApiApplicationMock.swift */,
 				422BE6D920D6FE9200DDDF37 /* ApplicationAdditionsProducingMock.swift */,
+				424FBD3F210F937B00885D8B /* ApiApplication */,
 				4227B7B220DD8EDC00603528 /* Download */,
 				4221DAA920D1860D003950CF /* Dvr */,
 			);
@@ -654,6 +666,7 @@
 			isa = PBXGroup;
 			children = (
 				422BE6DF20D7016B00DDDF37 /* ApplicationAdditionsFactorySpec.swift */,
+				424FBD31210F909000885D8B /* ApiApplication */,
 				4227B7B720DD8F7200603528 /* Download */,
 				4221DAB420D1860E003950CF /* Dvr */,
 			);
@@ -850,6 +863,7 @@
 			isa = PBXGroup;
 			children = (
 				4227B7BF20DD8F7200603528 /* DownloadInteractorFactorySpec.swift */,
+				421D06D32112401A005DC78D /* DownloadHistoryInteractorSpec.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -895,6 +909,44 @@
 				421D83A021079DAD008BEB2F /* ApplicationSettingChangeAction */,
 			);
 			path = ApplicationSettings;
+			sourceTree = "<group>";
+		};
+		424FBD2F210F907F00885D8B /* Gateways */ = {
+			isa = PBXGroup;
+			children = (
+				424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */,
+				424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */,
+				424FBD36210F90D800885D8B /* ApiApplicationApiKeyGatewaySpec.swift */,
+			);
+			path = Gateways;
+			sourceTree = "<group>";
+		};
+		424FBD30210F908900885D8B /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				424FBD32210F90D100885D8B /* ApiApplicationInteractorFactorySpec.swift */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
+		424FBD31210F909000885D8B /* ApiApplication */ = {
+			isa = PBXGroup;
+			children = (
+				421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */,
+				424FBD2F210F907F00885D8B /* Gateways */,
+				424FBD30210F908900885D8B /* Interactors */,
+			);
+			path = ApiApplication;
+			sourceTree = "<group>";
+		};
+		424FBD3F210F937B00885D8B /* ApiApplication */ = {
+			isa = PBXGroup;
+			children = (
+				424FBD41210F937B00885D8B /* ApiApplicationMock.swift */,
+				424FBD42210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift */,
+				421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */,
+			);
+			path = ApiApplication;
 			sourceTree = "<group>";
 		};
 		425357C320F2B0CE005BC238 /* Supporting Files */ = {
@@ -1533,6 +1585,7 @@
 				42B16D5720D5A2E90027ED1C /* DvrInteractorFactorySpec.swift in Sources */,
 				427D605420DED3E30017AE42 /* SabNZBdResponseParserSpec.swift in Sources */,
 				4227B7B620DD8EDC00603528 /* DownloadResponseParsingMock.swift in Sources */,
+				421D06CF21123C5D005DC78D /* ApiApplicationResponseParsingMock.swift in Sources */,
 				422BE6DA20D6FE9200DDDF37 /* ApplicationAdditionsProducingMock.swift in Sources */,
 				428340CB20D3000F00CB2D7A /* RequestExecutorSpec.swift in Sources */,
 				422BE6E020D7016B00DDDF37 /* ApplicationAdditionsFactorySpec.swift in Sources */,
@@ -1542,6 +1595,7 @@
 				42B16D5920D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift in Sources */,
 				4227B7B520DD8EDC00603528 /* DownloadRequestBuildingMock.swift in Sources */,
 				4227B78220DC33CB00603528 /* DvrShowDetailsInteractorSpec.swift in Sources */,
+				424FBD3E210F927600885D8B /* ApiApplicationInteractorFactorySpec.swift in Sources */,
 				4221DABF20D1860E003950CF /* RequestSpec.swift in Sources */,
 				428340C720D2FD0A00CB2D7A /* RequestExecutingMock.swift in Sources */,
 				427D605120DED3E30017AE42 /* DownloadHistoryGatewaySpec.swift in Sources */,
@@ -1551,15 +1605,21 @@
 				4227B78520DC3BB200603528 /* RealmDatabaseSpec.swift in Sources */,
 				428340C920D2FF9300CB2D7A /* RequestBuildingMock.swift in Sources */,
 				42BF4E9620D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift in Sources */,
+				424FBD45210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift in Sources */,
 				4227B78820DC423300603528 /* RequestGatewayInteractorSpec.swift in Sources */,
 				428340C020D2FB2500CB2D7A /* RequestGatewayMock.swift in Sources */,
-				42BF4E9920D2520A0088AAF6 /* ApiApplicationMock.swift in Sources */,
+				421D06D121123D5B005DC78D /* ApiApplicationSpec.swift in Sources */,
 				4227B78020DC305600603528 /* DvrShowSpec.swift in Sources */,
 				422BE6E220D7038100DDDF37 /* DvrGatewayFactorySpec.swift in Sources */,
 				427D605020DED3E30017AE42 /* DownloadQueueGatewaySpec.swift in Sources */,
 				42BF4E8D20D1B5BC0088AAF6 /* StringSpec.swift in Sources */,
+				424FBD3D210F927600885D8B /* ApiApplicationApiKeyGatewaySpec.swift in Sources */,
+				424FBD3C210F927600885D8B /* ApiApplicationLoginGatewaySpec.swift in Sources */,
 				428340BD20D298D100CB2D7A /* SickbeardResponseParserSpec.swift in Sources */,
 				427D605220DED3E30017AE42 /* DownloadInteractorFactorySpec.swift in Sources */,
+				424FBD44210F937B00885D8B /* ApiApplicationMock.swift in Sources */,
+				421D06D42112401A005DC78D /* DownloadHistoryInteractorSpec.swift in Sources */,
+				424FBD3B210F927600885D8B /* ApiApplicationGatewayFactorySpec.swift in Sources */,
 				422CEE0C20D52B8700EF0A16 /* RequestClientMock.swift in Sources */,
 				42BF4E9420D2501A0088AAF6 /* DvrShowListGatewaySpec.swift in Sources */,
 			);
@@ -1603,18 +1663,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				42D77BC620E456EB00FA1ACA /* DvrDatabaseMock.swift in Sources */,
-				42D77BC520E456EB00FA1ACA /* DownloadResponseParsingMock.swift in Sources */,
 				42D77BCC20E456EB00FA1ACA /* ResponseParsingMock.swift in Sources */,
 				42D77BCA20E456EB00FA1ACA /* RequestExecutingMock.swift in Sources */,
 				422BE6D620D6F51200DDDF37 /* DownTests.swift in Sources */,
 				42D77BCD20E456EB00FA1ACA /* RequestGatewayMock.swift in Sources */,
 				42D77BC720E456EB00FA1ACA /* DvrRequestBuildingMock.swift in Sources */,
 				42D77BC920E456EB00FA1ACA /* RequestBuildingMock.swift in Sources */,
-				42D77BC320E456EB00FA1ACA /* ApplicationAdditionsProducingMock.swift in Sources */,
 				42D77BCB20E456EB00FA1ACA /* RequestClientMock.swift in Sources */,
-				42D77BC420E456EB00FA1ACA /* DownloadRequestBuildingMock.swift in Sources */,
 				42D77BC820E456EB00FA1ACA /* DvrResponseParsingMock.swift in Sources */,
-				42D77BC120E456EB00FA1ACA /* ApiApplicationMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

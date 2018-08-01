@@ -18,7 +18,7 @@ public protocol ApiApplication: Application, Copying {
 
 extension ApiApplication {
     var isConfigured: Bool {
-        return URL(string: host) != nil && apiKey.count > 0
+        return host.count > 0 && apiKey.count > 0
     }
 }
 

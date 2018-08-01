@@ -31,7 +31,7 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
         configureTableView()
         
         loadDatabase()
-//        loadData()
+        loadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
