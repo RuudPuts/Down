@@ -30,7 +30,7 @@ public class ApiApplicationLoginGateway: ApiApplicationRequestGateway {
         self.credentials = credentials
     }
 
-    public func execute() throws -> Observable<LoginResult> {
+    public func observe() throws -> Observable<LoginResult> {
         let request = try builder.make(for: .login, credentials: credentials)
 
         return executor.execute(request)

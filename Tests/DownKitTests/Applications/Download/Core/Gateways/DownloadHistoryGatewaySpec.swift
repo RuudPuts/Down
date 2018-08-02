@@ -58,7 +58,7 @@ class DownloadHistoryGatewaySpec: QuickSpec {
 
                     do {
                         result = try sut
-                            .execute()
+                            .observe()
                             .toBlocking()
                             .first()
                     }

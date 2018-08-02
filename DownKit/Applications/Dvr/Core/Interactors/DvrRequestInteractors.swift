@@ -7,3 +7,4 @@
 //
 
 public typealias DvrShowListInteractor = RequestGatewayInteractor<DvrShowListGateway>
+public typealias DvrSearchShowsInteractor = RequestGatewayInteractor<DvrShowListGateway>

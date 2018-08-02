@@ -18,7 +18,7 @@ public protocol RequestGatewayInteracting: ObservableInteractor where Element ==
 extension RequestGatewayInteracting {
     public func observe() -> Observable<Gateway.ResultType> {
         // swiftlint:disable force_try
-        return try! gateway.execute()
+        return try! gateway.observe()
     }
 }
 

@@ -6,6 +6,8 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+//! Should use onError of RX
+
 public protocol RequestClient {
     func execute(_ request: Request, completion: @escaping (Response?, RequestClientError?) -> Void)
 }

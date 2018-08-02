@@ -75,7 +75,7 @@ class DvrShowDetailsGatewaySpec: QuickSpec {
                         
                         do {
                             result = try sut
-                                .execute()
+                                .observe()
                                 .toBlocking()
                                 .first()
                         }

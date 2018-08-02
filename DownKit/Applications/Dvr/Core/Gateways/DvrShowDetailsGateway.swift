@@ -25,7 +25,7 @@ public class DvrShowDetailsGateway: DvrRequestGateway {
         self.show = show
     }
     
-    public func execute() throws -> Observable<DvrShow> {
+    public func observe() throws -> Observable<DvrShow> {
         let request = try builder.make(for: .showDetails(show))
         
         return executor.execute(request)

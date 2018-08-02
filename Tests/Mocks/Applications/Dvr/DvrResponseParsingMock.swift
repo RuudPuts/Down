@@ -12,11 +12,13 @@ class DvrResponseParsingMock: DvrResponseParsing {
     struct Stubs {
         var parseShows: [DvrShow]?
         var parseShowDetails: DvrShow?
+        var parseAddShow = false
     }
     
     struct Captures {
         var parseShows: Parse?
         var parseShowDetails: Parse?
+        var parseAddShow: Parse?
         
         struct Parse {
             let response: Response
@@ -36,5 +38,10 @@ class DvrResponseParsingMock: DvrResponseParsing {
     func parseShowDetails(from response: Response) -> DvrShow {
         captures.parseShowDetails = Captures.Parse(response: response)
         return stubs.parseShowDetails ?? DvrShow(identifier: "0", name: "", quality: "")
+    }
+
+    func parseAddShow(from response: Response) throws -> Bool {
+        captures.parseAddShow = Captures.Parse(response: response)
+        return stubs.parseAddShow
     }
 }

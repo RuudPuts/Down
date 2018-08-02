@@ -19,7 +19,7 @@ public class ApiApplicationApiKeyGateway: ApiApplicationRequestGateway {
         self.parser = parser
     }
 
-    public func execute() throws -> Observable<String?> {
+    public func observe() throws -> Observable<String?> {
         let request = try builder.make(for: .apiKey, credentials: nil)
 
         return executor.execute(request)

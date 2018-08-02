@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public protocol CompoundInteractor {
+public protocol CompoundInteractor: ObservableInteractor {
     associatedtype Interactors
     var interactors: Interactors { get }
     

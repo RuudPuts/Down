@@ -26,7 +26,21 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
             host: application.host,
             path: "api/{apikey}?cmd=show.seasons%7Cshow&tvdbid={id}",
             parameters: defaultParameters.merging(["id": show.identifier], uniquingKeysWith: { $1 })
-        )}
+        )
+        case .searchShows(let query): return RequestSpecification(
+            host: application.host,
+            path: "api/{apikey}?cmd=searchtvdb&name={query}",
+            parameters: defaultParameters.merging(["query": query], uniquingKeysWith: { $1 })
+        )
+        case .addShow(let show, let status): return RequestSpecification(
+            host: application.host,
+            path: "api/{apikey}?cmd=show.addnew&tvdbid={id}&status={status}",
+            parameters: defaultParameters.merging([
+                    "id": show.identifier,
+                    "status": status.rawValue
+                ], uniquingKeysWith: { $1 })
+        )
+        }
     }
 }
 

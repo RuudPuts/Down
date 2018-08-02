@@ -19,7 +19,7 @@ public class DownloadHistoryGateway: DownloadRequestGateway {
         self.parser = parser
     }
     
-    public func execute() throws -> Observable<[DownloadItem]> {
+    public func observe() throws -> Observable<[DownloadItem]> {
         let request = try builder.make(for: .history)
         
         return executor.execute(request)

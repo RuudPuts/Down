@@ -18,7 +18,7 @@ class RequestGatewayMock: RequestGateway {
     
     // RequestGateway
     
-    func execute() throws -> Observable<Any> {
+    func observe() throws -> Observable<Any> {
         return stubs.execute
     }
 }

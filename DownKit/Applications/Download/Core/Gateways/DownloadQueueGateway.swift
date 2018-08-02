@@ -19,7 +19,7 @@ public class DownloadQueueGateway: DownloadRequestGateway {
         self.parser = parser
     }
     
-    public func execute() throws -> Observable<DownloadQueue> {
+    public func observe() throws -> Observable<DownloadQueue> {
         let request = try builder.make(for: .queue)
         
         return executor.execute(request)

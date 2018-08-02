@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4202D5A72113905D00ED1859 /* DvrAddShowGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */; };
+		4202D5A92113920E00ED1859 /* DvrAddShowCacheInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5A82113920E00ED1859 /* DvrAddShowCacheInteractor.swift */; };
+		4202D5AB211398EB00ED1859 /* DvrSearchShowsGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */; };
 		421D06CF21123C5D005DC78D /* ApiApplicationResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */; };
 		421D06D121123D5B005DC78D /* ApiApplicationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */; };
 		421D06D42112401A005DC78D /* DownloadHistoryInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D32112401A005DC78D /* DownloadHistoryInteractorSpec.swift */; };
@@ -155,7 +158,6 @@
 		429FE7D520FA7D40005F3A4F /* ApplicationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */; };
 		42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */; };
 		42B16D5720D5A2E90027ED1C /* DvrInteractorFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */; };
-		42B16D5920D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5820D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift */; };
 		42B4AAF420FA8CF9008B7C3B /* DvrViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42B4AAF320FA8CF9008B7C3B /* DvrViewController.xib */; };
 		42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */; };
 		42BA6F2720FFC2C4001CA926 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42BA6F2520FFC2BF001CA926 /* Alamofire.framework */; };
@@ -223,6 +225,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAddShowGateway.swift; sourceTree = "<group>"; };
+		4202D5A82113920E00ED1859 /* DvrAddShowCacheInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrAddShowCacheInteractor.swift; sourceTree = "<group>"; };
+		4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrSearchShowsGateway.swift; sourceTree = "<group>"; };
 		421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationResponseParsingMock.swift; sourceTree = "<group>"; };
 		421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationSpec.swift; sourceTree = "<group>"; };
 		421D06D32112401A005DC78D /* DownloadHistoryInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadHistoryInteractorSpec.swift; sourceTree = "<group>"; };
@@ -495,8 +500,10 @@
 			children = (
 				422BE6BF20D6CC6500DDDF37 /* DvrRequestGateway.swift */,
 				422BE6CE20D6DF6100DDDF37 /* DvrGatewayFactory.swift */,
-				4221DA6220D18450003950CF /* DvrShowDetailsGateway.swift */,
 				42723A4D20D81C3A000445C3 /* DvrShowListGateway.swift */,
+				4221DA6220D18450003950CF /* DvrShowDetailsGateway.swift */,
+				4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */,
+				4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */,
 			);
 			path = Gateways;
 			sourceTree = "<group>";
@@ -1067,6 +1074,7 @@
 		42723A4420D7FF80000445C3 /* CompoundInteractors */ = {
 			isa = PBXGroup;
 			children = (
+				4202D5A82113920E00ED1859 /* DvrAddShowCacheInteractor.swift */,
 				42723A4920D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift */,
 			);
 			path = CompoundInteractors;
@@ -1516,6 +1524,7 @@
 				4221DA8420D18450003950CF /* RequestGateway.swift in Sources */,
 				429B01D520F53DBC00BCDA0F /* Authentication.swift in Sources */,
 				4227B7A520DC589500603528 /* DownloadRequestGateway.swift in Sources */,
+				4202D5A92113920E00ED1859 /* DvrAddShowCacheInteractor.swift in Sources */,
 				4263A18120E1B72A008F7E40 /* ApiApplicationLoginGateway.swift in Sources */,
 				4227B7A620DC589500603528 /* DownloadQueueGateway.swift in Sources */,
 				4263A18920E1C3BA008F7E40 /* ApiApplicationRequestBuilding.swift in Sources */,
@@ -1530,8 +1539,10 @@
 				42723A4820D80E86000445C3 /* CompoundInteractor.swift in Sources */,
 				4221DA9A20D18450003950CF /* ResponseParsing.swift in Sources */,
 				4221DA8F20D18450003950CF /* DvrApplication.swift in Sources */,
+				4202D5A72113905D00ED1859 /* DvrAddShowGateway.swift in Sources */,
 				4227B7A920DC589500603528 /* SabNZBdRequestBuilder.swift in Sources */,
 				42723A5520D82652000445C3 /* DvrDatabaseStoring.swift in Sources */,
+				4202D5AB211398EB00ED1859 /* DvrSearchShowsGateway.swift in Sources */,
 				427D605620DED6B30017AE42 /* DownloadQueue.swift in Sources */,
 				422BE6D420D6E40900DDDF37 /* DvrShowDetailsGateway.swift in Sources */,
 				422BE6D120D6E14200DDDF37 /* DvrApplicationInteracting.swift in Sources */,
@@ -1592,7 +1603,6 @@
 				4221DABC20D1860E003950CF /* DvrResponseParsingMock.swift in Sources */,
 				428340B720D28D7400CB2D7A /* DvrRequestBuildingMock.swift in Sources */,
 				427D605320DED3E30017AE42 /* SabNZBdRequestBuilderSpec.swift in Sources */,
-				42B16D5920D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift in Sources */,
 				4227B7B520DD8EDC00603528 /* DownloadRequestBuildingMock.swift in Sources */,
 				4227B78220DC33CB00603528 /* DvrShowDetailsInteractorSpec.swift in Sources */,
 				424FBD3E210F927600885D8B /* ApiApplicationInteractorFactorySpec.swift in Sources */,

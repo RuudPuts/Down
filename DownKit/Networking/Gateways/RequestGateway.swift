@@ -11,5 +11,5 @@ import RxSwift
 public protocol RequestGateway {
     associatedtype ResultType
     
-    func execute() throws -> Observable<ResultType>
+    func observe() throws -> Observable<ResultType>
 }

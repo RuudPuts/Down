@@ -51,7 +51,7 @@ class SickbeardRequestBuilderSpec: QuickSpec {
 
                     beforeEach {
                         show = DvrShow(identifier: "0", name: "TestShow", quality: "TestQuality")
-                        expectedParamters.merge(["id": show.identifier], uniquingKeysWith: { lhs, _ in return lhs })
+                        expectedParamters.merge(["id": show.identifier], uniquingKeysWith: { $1 })
 
                         result = sut.specification(for: .showDetails(show))
                     }
@@ -63,6 +63,34 @@ class SickbeardRequestBuilderSpec: QuickSpec {
                     it("builds the specification") {
                         expect(result) == RequestSpecification(host: application.host,
                                                                path: "api/{apikey}?cmd=show.seasons%7Cshow&tvdbid={id}",
+                                                               parameters: expectedParamters)
+                    }
+                }
+
+                context("build add show call") {
+                    var show: DvrShow!
+                    var status: DvrEpisode.Status!
+
+                    beforeEach {
+                        show = DvrShow(identifier: "128", name: "TestShow", quality: "TestQuality")
+                        status = .wanted
+
+                        expectedParamters.merge([
+                                "id": show.identifier,
+                                "status": status.rawValue
+                            ], uniquingKeysWith: { $1 })
+
+                        result = sut.specification(for: .addShow(show, status))
+                    }
+
+                    afterEach {
+                        status = nil
+                        show = nil
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "api/{apikey}?cmd=show.addnew&tvdbid={id}&status={status}",
                                                                parameters: expectedParamters)
                     }
                 }

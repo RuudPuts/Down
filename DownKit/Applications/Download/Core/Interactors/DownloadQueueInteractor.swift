@@ -20,7 +20,7 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting {
     public func observe() -> Observable<DownloadQueue> {
         // swiftlint:disable force_try
         return try! self.gateway
-            .execute()
+            .observe()
             .do(onNext: { queue in
                 queue.items.forEach { $0.match(with: RealmDatabase.default) }
             })

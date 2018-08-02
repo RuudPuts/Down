@@ -40,6 +40,17 @@ class SickbeardResponseParser: DvrResponseParsing {
         
         return show
     }
+
+    func parseSearchShows(from response: Response) throws -> [DvrShow] {
+        return try parse(response)["results"]
+            .array?.map { parseShow(from: $0) } ?? []
+    }
+
+    func parseAddShow(from response: Response) throws -> Bool {
+        _ = try parse(response)
+
+        return true
+    }
 }
 
 private extension SickbeardResponseParser {

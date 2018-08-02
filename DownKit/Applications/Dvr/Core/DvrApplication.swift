@@ -32,6 +32,8 @@ public enum DvrApplicationType: String {
 public enum DvrApplicationCall {
     case showList
     case showDetails(DvrShow)
+    case searchShows(String)
+    case addShow(DvrShow, DvrEpisode.Status)
 }
 
 extension DvrApplicationCall: Hashable {
@@ -41,6 +43,10 @@ extension DvrApplicationCall: Hashable {
             return 0
         case .showDetails(let show):
             return Int("1\(show.name.hashValue)") ?? 1
+        case .searchShows(let query):
+            return Int("2\(query.hashValue)") ?? 2
+        case .addShow:
+            return 3
         }
     }
     

@@ -18,6 +18,16 @@ public class DvrEpisode: Object {
     
     @objc public dynamic var show: DvrShow!
     @objc public dynamic var season: DvrSeason!
+
+    public enum Status: String {
+        case unknown
+        case wanted
+        case skipped
+        case archived
+        case ignored
+        case snatched
+        case downloaded
+    }
     
     public convenience init(identifier: String, name: String, airdate: String, quality: String, status: String) {
         self.init()

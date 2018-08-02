@@ -1,28 +1,31 @@
 //
-//  DvrShowListGateway.swift
-//  Down
+//  DvrAddShowGateway.swift
+//  DownKit
 //
-//  Created by Ruud Puts on 06/01/2018.
+//  Created by Ruud Puts on 02/08/2018.
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
 import RxSwift
 
-public class DvrShowListGateway: DvrRequestGateway {
+public class DvrAddShowGateway: DvrRequestGateway {
     var builder: DvrRequestBuilding
     var executor: RequestExecuting
     var parser: DvrResponseParsing
-    
+
+    var show: DvrShow!
+    var status: DvrEpisode.Status!
+
     public required init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
         self.executor = executor
         self.parser = parser
     }
-    
-    public func observe() throws -> Observable<[DvrShow]> {
-        let request = try builder.make(for: .showList)
-        
+
+    public func observe() throws -> Observable<Bool> {
+        let request = try builder.make(for: .addShow(show, status))
+
         return executor.execute(request)
-            .map { try self.parser.parseShows(from: $0) }
+            .map { try self.parser.parseAddShow(from: $0) }
     }
 }
