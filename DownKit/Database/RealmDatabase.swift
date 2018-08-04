@@ -36,6 +36,15 @@ public class RealmDatabase: DownDatabase {
             }
         }
     }
+
+    public func delete(show: DvrShow) {
+        transact {
+            // swiftlint:disable force_try
+            try! self.realm.write {
+                self.realm.delete(show)
+            }
+        }
+    }
     
     private var fetchShowsToken: NotificationToken?
     public func fetchShows() -> Observable<[DvrShow]> {

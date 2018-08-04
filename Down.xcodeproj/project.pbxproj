@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4202D5A72113905D00ED1859 /* DvrAddShowGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */; };
-		4202D5A92113920E00ED1859 /* DvrAddShowCacheInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5A82113920E00ED1859 /* DvrAddShowCacheInteractor.swift */; };
+		4202D5A92113920E00ED1859 /* DvrAddShowInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5A82113920E00ED1859 /* DvrAddShowInteractor.swift */; };
 		4202D5AB211398EB00ED1859 /* DvrSearchShowsGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */; };
 		421D06CF21123C5D005DC78D /* ApiApplicationResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */; };
 		421D06D121123D5B005DC78D /* ApiApplicationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */; };
@@ -161,6 +161,13 @@
 		429F0A502115F654005582B6 /* sickbeard_showdetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A3E2115F408005582B6 /* sickbeard_showdetails.json */; };
 		429F0A512115F654005582B6 /* sickbeard_showlist.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A412115F409005582B6 /* sickbeard_showlist.json */; };
 		429F0A522115F654005582B6 /* sickbeard_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A3B2115F115005582B6 /* sickbeard_success.json */; };
+		429F0A562116254B005582B6 /* DvrSetSeasonStatusGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429F0A532116254A005582B6 /* DvrSetSeasonStatusGateway.swift */; };
+		429F0A572116254B005582B6 /* DvrSetEpisodeStatusGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429F0A542116254A005582B6 /* DvrSetEpisodeStatusGateway.swift */; };
+		429F0A582116254B005582B6 /* DvrDeleteShowGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429F0A552116254B005582B6 /* DvrDeleteShowGateway.swift */; };
+		429F0A5A211627B5005582B6 /* DvrDeleteShowInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429F0A59211627B4005582B6 /* DvrDeleteShowInteractor.swift */; };
+		429F0A5D211629C3005582B6 /* DvrSetEpisodeStatusInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429F0A5B211629C3005582B6 /* DvrSetEpisodeStatusInteractor.swift */; };
+		429F0A5E211629C3005582B6 /* DvrSetSeasonStatusInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429F0A5C211629C3005582B6 /* DvrSetSeasonStatusInteractor.swift */; };
+		429F0A602116371E005582B6 /* DvrViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429F0A5F2116371E005582B6 /* DvrViewModel.swift */; };
 		429FE7D520FA7D40005F3A4F /* ApplicationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */; };
 		42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */; };
 		42B16D5720D5A2E90027ED1C /* DvrInteractorFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */; };
@@ -232,7 +239,7 @@
 
 /* Begin PBXFileReference section */
 		4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAddShowGateway.swift; sourceTree = "<group>"; };
-		4202D5A82113920E00ED1859 /* DvrAddShowCacheInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrAddShowCacheInteractor.swift; sourceTree = "<group>"; };
+		4202D5A82113920E00ED1859 /* DvrAddShowInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrAddShowInteractor.swift; sourceTree = "<group>"; };
 		4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrSearchShowsGateway.swift; sourceTree = "<group>"; };
 		421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationResponseParsingMock.swift; sourceTree = "<group>"; };
 		421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationSpec.swift; sourceTree = "<group>"; };
@@ -389,6 +396,13 @@
 		429F0A3F2115F408005582B6 /* sickbeard_addshow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_addshow.json; sourceTree = "<group>"; };
 		429F0A402115F409005582B6 /* sickbeard_searchshows.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_searchshows.json; sourceTree = "<group>"; };
 		429F0A412115F409005582B6 /* sickbeard_showlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_showlist.json; sourceTree = "<group>"; };
+		429F0A532116254A005582B6 /* DvrSetSeasonStatusGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrSetSeasonStatusGateway.swift; sourceTree = "<group>"; };
+		429F0A542116254A005582B6 /* DvrSetEpisodeStatusGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrSetEpisodeStatusGateway.swift; sourceTree = "<group>"; };
+		429F0A552116254B005582B6 /* DvrDeleteShowGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrDeleteShowGateway.swift; sourceTree = "<group>"; };
+		429F0A59211627B4005582B6 /* DvrDeleteShowInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrDeleteShowInteractor.swift; sourceTree = "<group>"; };
+		429F0A5B211629C3005582B6 /* DvrSetEpisodeStatusInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrSetEpisodeStatusInteractor.swift; sourceTree = "<group>"; };
+		429F0A5C211629C3005582B6 /* DvrSetSeasonStatusInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrSetSeasonStatusInteractor.swift; sourceTree = "<group>"; };
+		429F0A5F2116371E005582B6 /* DvrViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrViewModel.swift; sourceTree = "<group>"; };
 		429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplicationHeaderView.xib; sourceTree = "<group>"; };
 		42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrInteractorFactorySpec.swift; sourceTree = "<group>"; };
@@ -516,6 +530,9 @@
 				4221DA6220D18450003950CF /* DvrShowDetailsGateway.swift */,
 				4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */,
 				4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */,
+				429F0A552116254B005582B6 /* DvrDeleteShowGateway.swift */,
+				429F0A542116254A005582B6 /* DvrSetEpisodeStatusGateway.swift */,
+				429F0A532116254A005582B6 /* DvrSetSeasonStatusGateway.swift */,
 			);
 			path = Gateways;
 			sourceTree = "<group>";
@@ -913,8 +930,12 @@
 				4221DA6020D18450003950CF /* DvrRequestInteractors.swift */,
 				422BE6D020D6E14200DDDF37 /* DvrApplicationInteracting.swift */,
 				422BE6CC20D6DE9400DDDF37 /* DvrInteractorFactory.swift */,
+				42723A4920D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift */,
 				42723A4F20D81C8D000445C3 /* DvrShowDetailsInteractor.swift */,
-				42723A4420D7FF80000445C3 /* CompoundInteractors */,
+				4202D5A82113920E00ED1859 /* DvrAddShowInteractor.swift */,
+				429F0A59211627B4005582B6 /* DvrDeleteShowInteractor.swift */,
+				429F0A5B211629C3005582B6 /* DvrSetEpisodeStatusInteractor.swift */,
+				429F0A5C211629C3005582B6 /* DvrSetSeasonStatusInteractor.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -1084,15 +1105,6 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		42723A4420D7FF80000445C3 /* CompoundInteractors */ = {
-			isa = PBXGroup;
-			children = (
-				4202D5A82113920E00ED1859 /* DvrAddShowCacheInteractor.swift */,
-				42723A4920D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift */,
-			);
-			path = CompoundInteractors;
-			sourceTree = "<group>";
-		};
 		42723A6020D84432000445C3 /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -1107,6 +1119,7 @@
 				427D605A20E02E2F0017AE42 /* DvrRouter.swift */,
 				4221DA5720D183EA003950CF /* DvrViewController.swift */,
 				42B4AAF320FA8CF9008B7C3B /* DvrViewController.xib */,
+				429F0A5F2116371E005582B6 /* DvrViewModel.swift */,
 				4221DA5020D183B6003950CF /* DvrDetailViewController.swift */,
 				4243527920FA8FB800A729E1 /* DvrDetailViewController.xib */,
 			);
@@ -1548,15 +1561,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				429F0A572116254B005582B6 /* DvrSetEpisodeStatusGateway.swift in Sources */,
 				4243529520FABDD000A729E1 /* ApiApplicationInteracting.swift in Sources */,
 				4221DA8E20D18450003950CF /* DvrShow.swift in Sources */,
+				429F0A5D211629C3005582B6 /* DvrSetEpisodeStatusInteractor.swift in Sources */,
 				42BA6F2C20FFC31E001CA926 /* AlamofireRequestClient.swift in Sources */,
 				4221DA8D20D18450003950CF /* Application.swift in Sources */,
 				4227B7A720DC589500603528 /* DownloadHistoryGateway.swift in Sources */,
 				4221DA8420D18450003950CF /* RequestGateway.swift in Sources */,
 				429B01D520F53DBC00BCDA0F /* Authentication.swift in Sources */,
 				4227B7A520DC589500603528 /* DownloadRequestGateway.swift in Sources */,
-				4202D5A92113920E00ED1859 /* DvrAddShowCacheInteractor.swift in Sources */,
+				4202D5A92113920E00ED1859 /* DvrAddShowInteractor.swift in Sources */,
 				4263A18120E1B72A008F7E40 /* ApiApplicationLoginGateway.swift in Sources */,
 				4227B7A620DC589500603528 /* DownloadQueueGateway.swift in Sources */,
 				4263A18920E1C3BA008F7E40 /* ApiApplicationRequestBuilding.swift in Sources */,
@@ -1582,9 +1597,12 @@
 				4263A18720E1B74F008F7E40 /* ApiApplicationApiKeyInteractor.swift in Sources */,
 				4221DA9E20D18450003950CF /* Request.swift in Sources */,
 				42BA6F2A20FFC2F5001CA926 /* URLSessionRequestClient.swift in Sources */,
+				429F0A5A211627B5005582B6 /* DvrDeleteShowInteractor.swift in Sources */,
 				4221DA9220D18450003950CF /* SickbeardRequestBuilder.swift in Sources */,
 				422BE6CF20D6DF6100DDDF37 /* DvrGatewayFactory.swift in Sources */,
+				429F0A582116254B005582B6 /* DvrDeleteShowGateway.swift in Sources */,
 				422BE6C120D6CC8300DDDF37 /* DvrRequestInteractors.swift in Sources */,
+				429F0A562116254B005582B6 /* DvrSetSeasonStatusGateway.swift in Sources */,
 				429B01CF20F52B7400BCDA0F /* ApiApplicationResponseParsing.swift in Sources */,
 				42723A4A20D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift in Sources */,
 				4263A18320E1B739008F7E40 /* ApiApplicationLoginInteractor.swift in Sources */,
@@ -1608,6 +1626,7 @@
 				422BE6C520D6D4E600DDDF37 /* RequestGatewayInteractor.swift in Sources */,
 				422BE6C020D6CC6500DDDF37 /* DvrRequestGateway.swift in Sources */,
 				4227B7AA20DC589500603528 /* SabNZBdResponseParser.swift in Sources */,
+				429F0A5E211629C3005582B6 /* DvrSetSeasonStatusInteractor.swift in Sources */,
 				4227B7A820DC589500603528 /* DownloadGatewayFactory.swift in Sources */,
 				4221DA9020D18450003950CF /* SickbeardResponseParser.swift in Sources */,
 				4227B7B020DC589500603528 /* DownloadResponseParsing.swift in Sources */,
@@ -1677,6 +1696,7 @@
 				421D83A221079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift in Sources */,
 				421D839F21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift in Sources */,
 				4243528620FA9D0C00A729E1 /* ApplicationSettingsViewController.swift in Sources */,
+				429F0A602116371E005582B6 /* DvrViewModel.swift in Sources */,
 				4221DA5620D183B6003950CF /* Down.swift in Sources */,
 				4243528920FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift in Sources */,
 				426BF74120F6A2CB000C3A4A /* AssetProvider.swift in Sources */,

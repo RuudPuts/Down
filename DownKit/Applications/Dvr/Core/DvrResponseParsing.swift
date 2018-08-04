@@ -11,4 +11,7 @@ public protocol DvrResponseParsing: ResponseParsing {
     func parseShowDetails(from response: Response) throws -> DvrShow
     func parseSearchShows(from response: Response) throws -> [DvrShow]
     func parseAddShow(from response: Response) throws -> Bool
+    func parseDeleteShow(from response: Response) throws -> Bool
+    func parseSetEpisodeStatus(from response: Response) throws -> Bool
+    func parseSetSeasonStatus(from response: Response) throws -> Bool
 }

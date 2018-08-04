@@ -12,16 +12,18 @@ import RxCocoa
 import UIKit
 
 class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
-    var router: Router?
     var application: DvrApplication!
     var interactorFactory: DvrInteractorProducing!
     var database: DownDatabase!
+    var router: Router?
 
     @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var tableView: UITableView!
-    
-    lazy var interactor = interactorFactory.makeShowCacheRefreshInteractor(for: application)
+
     let disposeBag = DisposeBag()
+
+    lazy var viewModel = DvrViewModel(database: database,
+                                      refreshCacheInteractor: interactorFactory.makeShowCacheRefreshInteractor(for: application))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +31,7 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
 
         configureHeaderView()
         configureTableView()
-        
-        loadDatabase()
-        loadData()
+        applyViewModel()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -61,20 +61,14 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
             })
             .disposed(by: disposeBag)
     }
-    
-    func loadDatabase() {
-        database
-            .fetchShows()
+
+    func applyViewModel() {
+        title = viewModel.title
+
+        viewModel.shows
             .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
                 cell.textLabel?.text = show.name
             }
-            .disposed(by: disposeBag)
-    }
-    
-    func loadData() {
-        interactor
-            .observe()
-            .subscribe()
             .disposed(by: disposeBag)
     }
 }

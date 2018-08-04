@@ -13,8 +13,15 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting {
     public typealias Element = Gateway.ResultType
     
     public var gateway: Gateway
+    public var database: DownDatabase!
+
     public init(gateway: Gateway) {
         self.gateway = gateway
+    }
+
+    convenience init(gateway: Gateway, database: DownDatabase) {
+        self.init(gateway: gateway)
+        self.database = database
     }
     
     public func observe() -> Observable<DownloadQueue> {
@@ -22,7 +29,7 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting {
         return try! self.gateway
             .observe()
             .do(onNext: { queue in
-                queue.items.forEach { $0.match(with: RealmDatabase.default) }
+                queue.items.forEach { $0.match(with: self.database) }
             })
     }
 }

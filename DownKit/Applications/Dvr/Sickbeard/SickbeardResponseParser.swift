@@ -53,6 +53,24 @@ class SickbeardResponseParser: DvrResponseParsing {
 
         return true
     }
+
+    func parseDeleteShow(from response: Response) throws -> Bool {
+        _ = try parse(response)
+
+        return true
+    }
+
+    func parseSetEpisodeStatus(from response: Response) throws -> Bool {
+        _ = try parse(response)
+
+        return true
+    }
+
+    func parseSetSeasonStatus(from response: Response) throws -> Bool {
+        _ = try parse(response)
+
+        return true
+    }
 }
 
 private extension SickbeardResponseParser {

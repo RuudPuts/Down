@@ -29,6 +29,6 @@ public class DownloadInteractorFactory: DownloadInteractorProducing {
     public func makeHistoryInteractor(for application: DownloadApplication) -> DownloadHistoryInteractor {
         let gateway = gatewayFactory.makeHistoryGateway(for: application)
         
-        return DownloadHistoryInteractor(gateway: gateway)
+        return DownloadHistoryInteractor(gateway: gateway, database: dvrDatabase)
     }
 }

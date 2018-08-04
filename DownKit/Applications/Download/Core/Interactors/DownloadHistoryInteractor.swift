@@ -21,7 +21,6 @@ public final class DownloadHistoryInteractor: RequestGatewayInteracting, Databas
 
     convenience init(gateway: Gateway, database: DownDatabase) {
         self.init(gateway: gateway)
-
         self.database = database
     }
     
