@@ -155,6 +155,12 @@
 		429B01D220F5324E00BCDA0F /* ApiApplicationGatewayFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D020F5324D00BCDA0F /* ApiApplicationGatewayFactory.swift */; };
 		429B01D320F5324E00BCDA0F /* ApiApplicationRequestGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */; };
 		429B01D520F53DBC00BCDA0F /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D420F53DBC00BCDA0F /* Authentication.swift */; };
+		429F0A4D2115F654005582B6 /* sickbeard_addshow.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A3F2115F408005582B6 /* sickbeard_addshow.json */; };
+		429F0A4E2115F654005582B6 /* sickbeard_error.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A3D2115F408005582B6 /* sickbeard_error.json */; };
+		429F0A4F2115F654005582B6 /* sickbeard_searchshows.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A402115F409005582B6 /* sickbeard_searchshows.json */; };
+		429F0A502115F654005582B6 /* sickbeard_showdetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A3E2115F408005582B6 /* sickbeard_showdetails.json */; };
+		429F0A512115F654005582B6 /* sickbeard_showlist.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A412115F409005582B6 /* sickbeard_showlist.json */; };
+		429F0A522115F654005582B6 /* sickbeard_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A3B2115F115005582B6 /* sickbeard_success.json */; };
 		429FE7D520FA7D40005F3A4F /* ApplicationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */; };
 		42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */; };
 		42B16D5720D5A2E90027ED1C /* DvrInteractorFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */; };
@@ -377,6 +383,12 @@
 		429B01D020F5324D00BCDA0F /* ApiApplicationGatewayFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactory.swift; sourceTree = "<group>"; };
 		429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationRequestGateway.swift; sourceTree = "<group>"; };
 		429B01D420F53DBC00BCDA0F /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		429F0A3B2115F115005582B6 /* sickbeard_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sickbeard_success.json; sourceTree = "<group>"; };
+		429F0A3D2115F408005582B6 /* sickbeard_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_error.json; sourceTree = "<group>"; };
+		429F0A3E2115F408005582B6 /* sickbeard_showdetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_showdetails.json; sourceTree = "<group>"; };
+		429F0A3F2115F408005582B6 /* sickbeard_addshow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_addshow.json; sourceTree = "<group>"; };
+		429F0A402115F409005582B6 /* sickbeard_searchshows.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_searchshows.json; sourceTree = "<group>"; };
+		429F0A412115F409005582B6 /* sickbeard_showlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_showlist.json; sourceTree = "<group>"; };
 		429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplicationHeaderView.xib; sourceTree = "<group>"; };
 		42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrInteractorFactorySpec.swift; sourceTree = "<group>"; };
@@ -704,6 +716,7 @@
 			children = (
 				428340BA20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift */,
 				428340BC20D298D100CB2D7A /* SickbeardResponseParserSpec.swift */,
+				429F0A3A2115F0F2005582B6 /* Mock data */,
 			);
 			path = Sickbeard;
 			sourceTree = "<group>";
@@ -1132,6 +1145,19 @@
 			path = Requesting;
 			sourceTree = "<group>";
 		};
+		429F0A3A2115F0F2005582B6 /* Mock data */ = {
+			isa = PBXGroup;
+			children = (
+				429F0A3F2115F408005582B6 /* sickbeard_addshow.json */,
+				429F0A3D2115F408005582B6 /* sickbeard_error.json */,
+				429F0A402115F409005582B6 /* sickbeard_searchshows.json */,
+				429F0A3E2115F408005582B6 /* sickbeard_showdetails.json */,
+				429F0A412115F409005582B6 /* sickbeard_showlist.json */,
+				429F0A3B2115F115005582B6 /* sickbeard_success.json */,
+			);
+			path = "Mock data";
+			sourceTree = "<group>";
+		};
 		42B16D5520D5A2C00027ED1C /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
@@ -1352,6 +1378,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				429F0A502115F654005582B6 /* sickbeard_showdetails.json in Resources */,
+				429F0A4D2115F654005582B6 /* sickbeard_addshow.json in Resources */,
+				429F0A522115F654005582B6 /* sickbeard_success.json in Resources */,
+				429F0A512115F654005582B6 /* sickbeard_showlist.json in Resources */,
+				429F0A4E2115F654005582B6 /* sickbeard_error.json in Resources */,
+				429F0A4F2115F654005582B6 /* sickbeard_searchshows.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

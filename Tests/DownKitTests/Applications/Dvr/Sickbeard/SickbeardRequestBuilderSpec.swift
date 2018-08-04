@@ -50,7 +50,7 @@ class SickbeardRequestBuilderSpec: QuickSpec {
                     var show: DvrShow!
 
                     beforeEach {
-                        show = DvrShow(identifier: "0", name: "TestShow", quality: "TestQuality")
+                        show = DvrShow(identifier: "0", name: "TestShow")
                         expectedParamters.merge(["id": show.identifier], uniquingKeysWith: { $1 })
 
                         result = sut.specification(for: .showDetails(show))
@@ -72,7 +72,7 @@ class SickbeardRequestBuilderSpec: QuickSpec {
                     var status: DvrEpisode.Status!
 
                     beforeEach {
-                        show = DvrShow(identifier: "128", name: "TestShow", quality: "TestQuality")
+                        show = DvrShow(identifier: "128", name: "TestShow")
                         status = .wanted
 
                         expectedParamters.merge([

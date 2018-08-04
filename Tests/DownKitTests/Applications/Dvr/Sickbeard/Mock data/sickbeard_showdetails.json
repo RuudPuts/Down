@@ -1,0 +1,57 @@
+{
+    "data": {
+        "show": {
+            "data": {
+                "air_by_date": 0,
+                "airs": "Saturday 6:45 PM",
+                "cache": {
+                    "banner": 1,
+                    "poster": 1
+                },
+                "flatten_folders": 0,
+                "genre": [
+                    "Adventure",
+                    "Drama",
+                    "Science-Fiction"
+                ],
+                "language": "en",
+                "location": "/Volumes/TV Shows/Doctor Who (2005)",
+                "network": "BBC One",
+                "next_ep_airdate": "",
+                "paused": 0,
+                "quality": "HD720p",
+                "quality_details": {
+                    "archive": [],
+                    "initial": [
+                        "hdtv",
+                        "hdwebdl",
+                        "hdbluray"
+                    ]
+                },
+                "season_list": [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
+                "show_name": "Doctor Who (2005)",
+                "status": "Continuing",
+                "tvrage_id": 3332,
+                "tvrage_name": "Doctor Who (2005)"
+            },
+            "message": "",
+            "result": "success"
+        },
+        "show.seasons": {
+            "data": {
+                "5": {
+                    "7": {
+                        "airdate": "2010-05-15",
+                        "name": "Amy's Choice",
+                        "quality": "N/A",
+                        "status": "Ignored"
+                    }
+                }
+            },
+            "message": "",
+            "result": "success"
+        }
+    },
+    "message": "",
+    "result": "success"
+}

@@ -57,7 +57,7 @@ class DvrGatewayFactorySpec: QuickSpec {
                 var show: DvrShow!
                 
                 beforeEach {
-                    show = DvrShow(identifier: "1", name: "show", quality: "qwality")
+                    show = DvrShow(identifier: "1", name: "show")
                     gateway = sut.makeShowDetailsGateway(for: application, show: show)
                 }
                 

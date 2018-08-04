@@ -55,7 +55,7 @@ class DvrInteractorFactorySpec: QuickSpec {
                 var show: DvrShow!
                 
                 beforeEach {
-                    show = DvrShow(identifier: "1", name: "show", quality: "quality")
+                    show = DvrShow(identifier: "1", name: "show")
                     interactor = sut.makeShowDetailsInteractor(for: application, show: show)
                 }
                 

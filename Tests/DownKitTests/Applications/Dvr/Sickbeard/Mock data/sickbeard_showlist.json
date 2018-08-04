@@ -1,0 +1,23 @@
+{
+    "data": {
+        "78804": {
+            "air_by_date": 0,
+            "cache": {
+                "banner": 1,
+                "poster": 1
+            },
+            "language": "en",
+            "network": "BBC One",
+            "next_ep_airdate": "",
+            "paused": 0,
+            "quality": "HD720p",
+            "show_name": "Doctor Who (2005)",
+            "status": "Continuing",
+            "tvdbid": 78804,
+            "tvrage_id": 3332,
+            "tvrage_name": "Doctor Who (2005)"
+        }
+    },
+    "message": "",
+    "result": "success"
+}

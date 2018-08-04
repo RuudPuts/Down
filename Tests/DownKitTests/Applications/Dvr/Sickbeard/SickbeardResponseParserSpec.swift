@@ -59,7 +59,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 
                 context("from succesful response") {
                     beforeEach {
-                        response.data = self.successJson
+                        response.data = Data(fromJsonFile: "sickbeard_success")
                         result = try? sut.parse(response)
                     }
                     
@@ -73,7 +73,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     
                     beforeEach {
                         do {
-                            response.data = self.errorJson
+                            response.data = Data(fromJsonFile: "sickbeard_error")
                             result = try sut.parse(response)
                         }
                         catch {
@@ -113,11 +113,11 @@ class SickbeardResponseParserSpec: QuickSpec {
                 }
             }
             
-            context("parse Response to shows") {
+            context("parse show list response") {
                 var result: [DvrShow]!
                 
                 beforeEach {
-                    response.data = self.showsJson
+                    response.data = Data(fromJsonFile: "sickbeard_showlist")
                     result = try? sut.parseShows(from: response)
                 }
                 
@@ -142,11 +142,11 @@ class SickbeardResponseParserSpec: QuickSpec {
                 }
             }
             
-            context("parse Response to show with details") {
+            context("parse show details response") {
                 var result: DvrShow!
                 
                 beforeEach {
-                    response.data = self.showDetailsJson
+                    response.data = Data(fromJsonFile: "sickbeard_showdetails")
                     result = try? sut.parseShowDetails(from: response)
                 }
                 
@@ -198,114 +198,66 @@ class SickbeardResponseParserSpec: QuickSpec {
                     expect(result.seasons.first?.episodes.first?.status) == "Ignored"
                 }
             }
+
+            context("parse search shows response") {
+                var result: [DvrShow]!
+
+                beforeEach {
+                    response.data = Data(fromJsonFile: "sickbeard_searchshows")
+                    result = try? sut.parseSearchShows(from: response)
+                }
+
+                afterEach {
+                    result = nil
+                }
+
+                it("parses 2 shows") {
+                    expect(result.count) == 2
+                }
+
+                it("parses the first show's id") {
+                    expect(result.first?.identifier) == "70336"
+                }
+
+                it("parses the first show's name") {
+                    expect(result.first?.name) == "The Tonight Show with Jay Leno"
+                }
+
+                it("parses the second show's id") {
+                    expect(result.last?.identifier) == "113921"
+                }
+
+                it("parses the second show's name") {
+                    expect(result.last?.name) == "The Jay Leno Show"
+                }
+            }
+
+            context("parse add show response") {
+                var result: Bool!
+
+                beforeEach {
+                    response.data = Data(fromJsonFile: "sickbeard_addshow")
+                    result = try? sut.parseAddShow(from: response)
+                }
+
+                afterEach {
+                    result = nil
+                }
+
+                it("adds the show succesfully") {
+                    expect(result) == true
+                }
+            }
         }
     }
-    
-    var successJson: Data {
+}
+
+extension Data {
+    init(fromJsonFile filename: String) {
+        let bundle = Bundle(for: SickbeardResponseParserSpec.self)
+        let filePath = bundle.path(forResource: filename, ofType: "json")!
+
         // swiftlint:disable force_try
-        return try! JSON([
-            "result": "success",
-            "message": "",
-            "data": [
-                "api_version": 4
-            ]
-        ]).rawData()
-    }
-    
-    var errorJson: Data {
-        // swiftlint:disable force_try
-        return try! JSON([
-            "data": "No such cmd: ''",
-            "message": "",
-            "result": "error"
-        ]).rawData()
-    }
-    
-    var showsJson: Data {
-        // swiftlint:disable force_try
-        return try! JSON([
-            "data": [
-                "78804": [
-                    "air_by_date": 0,
-                    "cache": [
-                        "banner": 1,
-                        "poster": 1
-                    ],
-                    "language": "en",
-                    "network": "BBC One",
-                    "next_ep_airdate": "",
-                    "paused": 0,
-                    "quality": "HD720p",
-                    "show_name": "Doctor Who (2005)",
-                    "status": "Continuing",
-                    "tvdbid": 78804,
-                    "tvrage_id": 3332,
-                    "tvrage_name": "Doctor Who (2005)"
-                ]
-            ],
-            "message": "",
-            "result": "success"
-        ]).rawData()
-    }
-    
-    var showDetailsJson: Data {
-        // swiftlint:disable force_try
-        return try! JSON([
-            "data": [
-                "show": [
-                    "data": [
-                        "air_by_date": 0,
-                        "airs": "Saturday 6:45 PM",
-                        "cache": [
-                            "banner": 1,
-                            "poster": 1
-                        ],
-                        "flatten_folders": 0,
-                        "genre": [
-                            "Adventure",
-                            "Drama",
-                            "Science-Fiction"
-                        ],
-                        "language": "en",
-                        "location": "/Volumes/TV Shows/Doctor Who (2005)",
-                        "network": "BBC One",
-                        "next_ep_airdate": "",
-                        "paused": 0,
-                        "quality": "HD720p",
-                        "quality_details": [
-                            "archive": [],
-                            "initial": [
-                                "hdtv",
-                                "hdwebdl",
-                                "hdbluray"
-                            ]
-                        ],
-                        "season_list": [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
-                        "show_name": "Doctor Who (2005)",
-                        "status": "Continuing",
-                        "tvrage_id": 3332,
-                        "tvrage_name": "Doctor Who (2005)"
-                    ],
-                    "message": "",
-                    "result": "success"
-                ],
-                "show.seasons": [
-                    "data": [
-                        "5": [
-                            "7": [
-                                "airdate": "2010-05-15",
-                                "name": "Amy's Choice",
-                                "quality": "N/A",
-                                "status": "Ignored"
-                            ]
-                        ]
-                    ],
-                    "message": "",
-                    "result": "success"
-                ]
-            ],
-            "message": "",
-            "result": "success"
-        ]).rawData()
+        try! self.init(contentsOf: URL(fileURLWithPath: filePath))
     }
 }

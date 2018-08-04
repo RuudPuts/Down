@@ -50,7 +50,7 @@ class DvrShowDetailsInteractorSpec: QuickSpec {
                 var show: DvrShow!
                 
                 beforeEach {
-                    show = DvrShow(identifier: "1234", name: "TextShow", quality: "Awesome")
+                    show = DvrShow(identifier: "1234", name: "TextShow")
                     _ = sut.setShow(show)
                 }
                 

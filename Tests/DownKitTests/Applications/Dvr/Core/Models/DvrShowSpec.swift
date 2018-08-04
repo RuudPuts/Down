@@ -24,8 +24,7 @@ class DvrShowSpec: QuickSpec {
             context("complete show") {
                 beforeEach {
                     sut = DvrShow(identifier: "78804",
-                                  name: "Doctor Who (2005)",
-                                  quality: "HD720p")
+                                  name: "Doctor Who (2005)")
                 }
                 
                 it("is not partial") {
@@ -48,8 +47,7 @@ class DvrShowSpec: QuickSpec {
             context("incomplete show") {
                 beforeEach {
                     sut = DvrShow(identifier: DvrShow.partialIdentifier,
-                                  name: "Doctor Who (2005)",
-                                  quality: "HD720p")
+                                  name: "Doctor Who (2005)")
                 }
                 
                 it("is partial") {

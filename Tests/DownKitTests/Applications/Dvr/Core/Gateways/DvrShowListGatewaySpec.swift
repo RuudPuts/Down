@@ -32,7 +32,7 @@ class DvrShowListGatewaySpec: QuickSpec {
                 requestBuilder.stubs.make = request
                 requestExecutor = RequestExecutingMock()
                 responseParser = DvrResponseParsingMock()
-                responseParser.stubs.parseShows = [DvrShow(identifier: "1", name: "UpdatedShow", quality: "TestQuality")]
+                responseParser.stubs.parseShows = [DvrShow(identifier: "1", name: "UpdatedShow")]
                 
                 sut = DvrShowListGateway(builder: requestBuilder, parser: responseParser, executor: requestExecutor)
             }

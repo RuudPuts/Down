@@ -15,11 +15,10 @@ public class DvrShow: Object {
     @objc public dynamic var quality = ""
     public var seasons = List<DvrSeason>()
     
-    public convenience init(identifier: String, name: String, quality: String) {
+    public convenience init(identifier: String, name: String) {
         self.init()
         self.identifier = identifier
         self.name = name
-        self.quality = quality
     }
     
     public func setSeasons(_ seasons: [DvrSeason]) {

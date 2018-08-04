@@ -15,7 +15,7 @@ class SickbeardResponseParser: DvrResponseParsing {
                 var json = $0.value
                 json["id"].stringValue = $0.key
                 
-                return parseShow(from: json)
+                return parseShow(from: json, keymap: ParseShowListKeyMapping.self)
             }
             ?? []
     }
@@ -29,7 +29,7 @@ class SickbeardResponseParser: DvrResponseParsing {
             throw ParseError.missingData
         }
         
-        let show = parseShow(from: showData)
+        let show = parseShow(from: showData, keymap: ParseShowListKeyMapping.self)
         let seasons = seasonsData.dictionary?.map {
             return DvrSeason(
                 identifier: $0.key,
@@ -43,7 +43,9 @@ class SickbeardResponseParser: DvrResponseParsing {
 
     func parseSearchShows(from response: Response) throws -> [DvrShow] {
         return try parse(response)["results"]
-            .array?.map { parseShow(from: $0) } ?? []
+            .array?.map { data in
+                parseShow(from: data, keymap: ParseSearchShowsKeyMapping.self)
+            } ?? []
     }
 
     func parseAddShow(from response: Response) throws -> Bool {
@@ -54,12 +56,19 @@ class SickbeardResponseParser: DvrResponseParsing {
 }
 
 private extension SickbeardResponseParser {
-    func parseShow(from json: JSON) -> DvrShow {
-        return DvrShow(
-            identifier: json["id"].string ?? DvrShow.partialIdentifier,
-            name: json["show_name"].stringValue,
-            quality: json["quality"].stringValue
+    func parseShow(from json: JSON, keymap: ParseShowsKeyMaping.Type) -> DvrShow {
+        var identifier = json[keymap.id].stringValue
+        if identifier.count == 0 {
+            identifier = DvrShow.partialIdentifier
+        }
+
+        let show = DvrShow(
+            identifier: identifier,
+            name: json[keymap.name].stringValue
         )
+        show.quality = json["quality"].stringValue
+
+        return show
     }
     
     func parseEpisodes(from json: JSON) -> [DvrEpisode] {
@@ -123,4 +132,19 @@ extension SickbeardResponseParser {
         
         return json["data"]
     }
+}
+
+protocol ParseShowsKeyMaping {
+    static var id: String { get }
+    static var name: String { get }
+}
+
+struct ParseShowListKeyMapping: ParseShowsKeyMaping {
+    static var id = "id"
+    static var name = "show_name"
+}
+
+struct ParseSearchShowsKeyMapping: ParseShowsKeyMaping {
+    static var id = "tvdbid"
+    static var name = "name"
 }

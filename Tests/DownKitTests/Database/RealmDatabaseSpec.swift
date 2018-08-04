@@ -75,7 +75,7 @@ class RealmDatabaseSpec: QuickSpec {
                     var show: DvrShow!
                     
                     beforeEach {
-                        show = DvrShow(identifier: "1234", name: "TestShow", quality: "Awesome")
+                        show = DvrShow(identifier: "1234", name: "TestShow")
                         sut.store(show: show)
                         storedShows = realm.objects(DvrShow.self)
                     }
