@@ -14,6 +14,9 @@ class DvrResponseParsingMock: DvrResponseParsing {
         var parseShowDetails: DvrShow?
         var parseSearchShows: [DvrShow]?
         var parseAddShow = false
+        var parseDeleteShow = false
+        var parseSetEpisodeStatus = false
+        var parseSetSeasonStatus = false
     }
     
     struct Captures {
@@ -21,6 +24,9 @@ class DvrResponseParsingMock: DvrResponseParsing {
         var parseShowDetails: Parse?
         var parseSearchShows: Parse?
         var parseAddShow: Parse?
+        var parseDeleteShow: Parse?
+        var parseSetEpisodeStatus: Parse?
+        var parseSetSeasonStatus: Parse?
         
         struct Parse {
             let response: Response
@@ -50,5 +56,20 @@ class DvrResponseParsingMock: DvrResponseParsing {
     func parseAddShow(from response: Response) throws -> Bool {
         captures.parseAddShow = Captures.Parse(response: response)
         return stubs.parseAddShow
+    }
+
+    func parseDeleteShow(from response: Response) throws -> Bool {
+        captures.parseDeleteShow = Captures.Parse(response: response)
+        return stubs.parseDeleteShow
+    }
+
+    func parseSetEpisodeStatus(from response: Response) throws -> Bool {
+        captures.parseSetEpisodeStatus = Captures.Parse(response: response)
+        return stubs.parseSetEpisodeStatus
+    }
+
+    func parseSetSeasonStatus(from response: Response) throws -> Bool {
+        captures.parseSetSeasonStatus = Captures.Parse(response: response)
+        return stubs.parseSetSeasonStatus
     }
 }

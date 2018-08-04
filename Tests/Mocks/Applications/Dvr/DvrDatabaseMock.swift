@@ -16,11 +16,12 @@ class DvrDatabaseMock: DvrDatabase {
     }
     
     struct Captures {
-        var storeShow: StoreShow?
+        var storeShow: Show?
+        var deleteShow: Show?
         var fetchShows: Bool?
         var fetchShowsMatching: FetchShowsMatching?
         
-        struct StoreShow {
+        struct Show {
             var show: DvrShow
         }
 
@@ -35,7 +36,11 @@ class DvrDatabaseMock: DvrDatabase {
     // DvrDatabase
     
     func store(show: DvrShow) {
-        captures.storeShow = Captures.StoreShow(show: show)
+        captures.storeShow = Captures.Show(show: show)
+    }
+
+    func delete(show: DvrShow) {
+        captures.deleteShow = Captures.Show(show: show)
     }
     
     func fetchShows() -> Observable<[DvrShow]> {
