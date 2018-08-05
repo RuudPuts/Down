@@ -14,6 +14,8 @@ public class ApiApplicationLoginGateway: ApiApplicationRequestGateway {
     var parser: ApiApplicationResponseParsing
     var credentials: UsernamePassword?
 
+    var disposeBag = DisposeBag()
+
     public required init(builder: ApiApplicationRequestBuilding,
                          parser: ApiApplicationResponseParsing,
                          executor: RequestExecuting = RequestExecutor()) {
@@ -30,18 +32,32 @@ public class ApiApplicationLoginGateway: ApiApplicationRequestGateway {
         self.credentials = credentials
     }
 
-    public func observe() throws -> Observable<LoginResult> {
-        let request = try builder.make(for: .login, credentials: credentials)
-
-        return executor.execute(request)
-            .map {
-                do {
-                    return try self.parser.parseLoggedIn(from: $0)
-                }
-                catch {
-                    return .failed
-                }
+    public func observe() -> Observable<LoginResult> {
+        return Observable.create { observer in
+            let request: Request
+            do {
+                request = try self.builder.make(for: .login, credentials: self.credentials)
             }
+            catch {
+                observer.onError(error)
+                return Disposables.create()
+            }
+
+            self.executor
+                .execute(request)
+                .subscribe(onNext: {
+                    do {
+                        observer.onNext(try self.parser.parseLoggedIn(from: $0))
+                    }
+                    catch {
+                        observer.onNext(.failed)
+                        observer.onError(error)
+                    }
+                })
+                .disposed(by: self.disposeBag)
+
+            return Disposables.create()
+        }
     }
 }
 

@@ -10,7 +10,7 @@ import RxSwift
 
 extension URLSession: RequestClient {
     public func execute(_ request: Request) -> Observable<Response> {
-        return Observable<Response>.create { observable in
+        return Observable.create { observable in
             guard let request = request.asUrlRequest() else {
                 observable.onError(RequestClientError.invalidRequest)
                 return Disposables.create()

@@ -12,7 +12,10 @@ public class DvrShowDetailsGateway: DvrRequestGateway {
     var builder: DvrRequestBuilding
     var executor: RequestExecuting
     var parser: DvrResponseParsing
+    
     var show: DvrShow!
+
+    var disposeBag = DisposeBag()
     
     public required init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
@@ -25,10 +28,30 @@ public class DvrShowDetailsGateway: DvrRequestGateway {
         self.show = show
     }
     
-    public func observe() throws -> Observable<DvrShow> {
-        let request = try builder.make(for: .showDetails(show))
-        
-        return executor.execute(request)
-            .map { try self.parser.parseShowDetails(from: $0) }
+    public func observe() -> Observable<DvrShow> {
+        return Observable.create { observer in
+            let request: Request
+            do {
+                request = try self.builder.make(for: .showDetails(self.show))
+            }
+            catch {
+                observer.onError(error)
+                return Disposables.create()
+            }
+
+            self.executor
+                .execute(request)
+                .subscribe(onNext: {
+                    do {
+                        observer.onNext(try self.parser.parseShowDetails(from: $0))
+                    }
+                    catch {
+                        observer.onError(error)
+                    }
+                })
+                .disposed(by: self.disposeBag)
+
+            return Disposables.create()
+        }
     }
 }

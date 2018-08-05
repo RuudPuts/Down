@@ -25,8 +25,7 @@ public final class DownloadHistoryInteractor: RequestGatewayInteracting, Databas
     }
     
     public func observe() -> Observable<[DownloadItem]> {
-        // swiftlint:disable force_try
-        return try! self.gateway
+        return self.gateway
             .observe()
             .do(onNext: { items in
                 items.forEach { $0.match(with: self.database) }

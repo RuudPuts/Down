@@ -25,8 +25,7 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting {
     }
     
     public func observe() -> Observable<DownloadQueue> {
-        // swiftlint:disable force_try
-        return try! self.gateway
+        return self.gateway
             .observe()
             .do(onNext: { queue in
                 queue.items.forEach { $0.match(with: self.database) }

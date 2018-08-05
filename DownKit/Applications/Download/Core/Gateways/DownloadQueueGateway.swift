@@ -12,6 +12,8 @@ public class DownloadQueueGateway: DownloadRequestGateway {
     var builder: DownloadRequestBuilding
     var executor: RequestExecuting
     var parser: DownloadResponseParsing
+
+    var disposeBag = DisposeBag()
     
     public required init(builder: DownloadRequestBuilding, parser: DownloadResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
@@ -19,10 +21,30 @@ public class DownloadQueueGateway: DownloadRequestGateway {
         self.parser = parser
     }
     
-    public func observe() throws -> Observable<DownloadQueue> {
-        let request = try builder.make(for: .queue)
-        
-        return executor.execute(request)
-            .map { try self.parser.parseQueue(from: $0) }
+    public func observe() -> Observable<DownloadQueue> {
+        return Observable.create { observer in
+            let request: Request
+            do {
+                request = try self.builder.make(for: .queue)
+            }
+            catch {
+                observer.onError(error)
+                return Disposables.create()
+            }
+
+            self.executor
+                .execute(request)
+                .subscribe(onNext: {
+                    do {
+                        observer.onNext(try self.parser.parseQueue(from: $0))
+                    }
+                    catch {
+                        observer.onError(error)
+                    }
+                })
+                .disposed(by: self.disposeBag)
+
+            return Disposables.create()
+        }
     }
 }

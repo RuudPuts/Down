@@ -28,7 +28,7 @@ public class DvrSetSeasonStatusInteractor: CompoundInteractor {
     }
 
     public func observe() -> Observable<DvrShow> {
-        try! interactors.setStatus
+        interactors.setStatus
             .observe()
             .subscribe(onNext: { _ in
                 let show = self.interactors.setStatus.season.show!

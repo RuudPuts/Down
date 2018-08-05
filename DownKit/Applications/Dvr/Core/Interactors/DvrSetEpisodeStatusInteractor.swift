@@ -28,13 +28,14 @@ public class DvrSetEpisodeStatusInteractor: CompoundInteractor {
     }
     
     public func observe() -> Observable<DvrShow> {
-        try! interactors.setStatus
-                .observe()
-                .subscribe(onNext: { _ in
-                    let show = self.interactors.setStatus.episode.show!
-                    self.refreshShowDetails(show: show)
-                })
-                .disposed(by: disposeBag)
+        //! I could use observable.create in stead of the subject
+        interactors.setStatus
+            .observe()
+            .subscribe(onNext: { _ in
+                let show = self.interactors.setStatus.episode.show!
+                self.refreshShowDetails(show: show)
+            })
+            .disposed(by: disposeBag)
         
         return subject.asObservable()
     }

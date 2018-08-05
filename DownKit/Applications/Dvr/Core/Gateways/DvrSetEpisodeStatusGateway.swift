@@ -16,16 +16,38 @@ public class DvrSetEpisodeStatusGateway: DvrRequestGateway {
     var episode: DvrEpisode!
     var status: DvrEpisode.Status!
 
+    var disposeBag = DisposeBag()
+
     public required init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
         self.executor = executor
         self.parser = parser
     }
 
-    public func observe() throws -> Observable<Bool> {
-        let request = try builder.make(for: .setEpisodeStatus(episode, status))
+    public func observe() -> Observable<Bool> {
+        return Observable.create { observer in
+            let request: Request
+            do {
+                request = try self.builder.make(for: .setEpisodeStatus(self.episode, self.status))
+            }
+            catch {
+                observer.onError(error)
+                return Disposables.create()
+            }
 
-        return executor.execute(request)
-            .map { try self.parser.parseSetEpisodeStatus(from: $0) }
+            self.executor
+                .execute(request)
+                .subscribe(onNext: {
+                    do {
+                        observer.onNext(try self.parser.parseSetEpisodeStatus(from: $0))
+                    }
+                    catch {
+                        observer.onError(error)
+                    }
+                })
+                .disposed(by: self.disposeBag)
+
+            return Disposables.create()
+        }
     }
 }

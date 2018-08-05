@@ -48,7 +48,7 @@ public class RealmDatabase: DownDatabase {
     
     private var fetchShowsToken: NotificationToken?
     public func fetchShows() -> Observable<[DvrShow]> {
-        return Observable<[DvrShow]>.create { observer in
+        return Observable.create { observer in
             self.transact {
                 let shows = self.realm.objects(DvrShow.self)
                 self.fetchShowsToken = shows.observe({ changes in
@@ -66,7 +66,7 @@ public class RealmDatabase: DownDatabase {
     }
     
     public func fetchShow(matching nameComponents: [String]) -> Observable<DvrShow> {
-        return Observable<DvrShow>.create { observer in
+        return Observable.create { observer in
             self.transact {
                 var matches: Results<DvrShow>?
                 

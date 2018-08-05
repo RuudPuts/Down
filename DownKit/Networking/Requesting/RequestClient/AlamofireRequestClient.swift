@@ -13,7 +13,7 @@ public class AlamofireRequestClient: RequestClient {
     public init() {}
 
     public func execute(_ request: Request) -> Observable<Response> {
-        return Observable<Response>.create { observable in
+        return Observable.create { observable in
             guard let alamofireRequest = request.asAlamofireRequest() else {
                 observable.onError(RequestClientError.invalidRequest)
                 return Disposables.create()

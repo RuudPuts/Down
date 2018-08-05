@@ -9,7 +9,7 @@
 @testable import DownKit
 import RxSwift
 
-class RequestGatewayMock: RequestGateway {    
+class RequestGatewayMock: RequestGateway {
     struct Stubs {
         var execute: Observable<Any> = Observable.just(0)
     }
@@ -18,7 +18,7 @@ class RequestGatewayMock: RequestGateway {
     
     // RequestGateway
     
-    func observe() throws -> Observable<Any> {
+    func observe() -> Observable<Any> {
         return stubs.execute
     }
 }

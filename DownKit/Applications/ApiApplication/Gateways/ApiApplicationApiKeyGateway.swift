@@ -13,16 +13,38 @@ public class ApiApplicationApiKeyGateway: ApiApplicationRequestGateway {
     var executor: RequestExecuting
     var parser: ApiApplicationResponseParsing
 
+    var disposeBag = DisposeBag()
+
     public required init(builder: ApiApplicationRequestBuilding, parser: ApiApplicationResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
         self.executor = executor
         self.parser = parser
     }
 
-    public func observe() throws -> Observable<String?> {
-        let request = try builder.make(for: .apiKey, credentials: nil)
+    public func observe() -> Observable<String?> {
+        return Observable.create { observer in
+            let request: Request
+            do {
+                request = try self.builder.make(for: .apiKey, credentials: nil)
+            }
+            catch {
+                observer.onError(error)
+                return Disposables.create()
+            }
 
-        return executor.execute(request)
-            .map { try self.parser.parseApiKey(from: $0) }
+            self.executor
+                .execute(request)
+                .subscribe(onNext: {
+                    do {
+                        observer.onNext(try self.parser.parseApiKey(from: $0))
+                    }
+                    catch {
+                        observer.onError(error)
+                    }
+                })
+                .disposed(by: self.disposeBag)
+
+            return Disposables.create()
+        }
     }
 }

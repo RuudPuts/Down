@@ -27,9 +27,8 @@ public class DvrDeleteShowInteractor: RequestGatewayInteracting {
         self.database = database
     }
     
-    public func observe() throws -> Observable<Bool> {
-        // swiftlint:disable force_try
-        return try! gateway.observe()
+    public func observe() -> Observable<Bool> {
+        return gateway.observe()
             .do(onNext: {
                 guard $0 else { return }
 

@@ -28,12 +28,13 @@ public class DvrAddShowToCacheInteractor: CompoundInteractor {
     }
     
     public func observe() -> Observable<DvrShow> {
-        try! interactors.addShow
-                .observe()
-                .subscribe(onNext: { _ in
-                    self.refreshShowDetails(show: self.interactors.addShow.show)
-                })
-                .disposed(by: disposeBag)
+        interactors.addShow
+            .observe()
+            //! This is a bit odd, the interactor will either finish or error
+            .subscribe(onNext: { _ in
+                self.refreshShowDetails(show: self.interactors.addShow.show)
+            })
+            .disposed(by: disposeBag)
         
         return subject.asObservable()
     }
