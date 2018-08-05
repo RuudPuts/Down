@@ -61,9 +61,7 @@ class RequestExecutorSpec: QuickSpec {
                     request = Request(url: "https://google.com", method: .get)
                     
                     response = Response(data: nil, statusCode: 418, headers: [:])
-                    requestClient.stubs.execute.willDo = { _, completionHandler in
-                        completionHandler(response, nil)
-                    }
+                    requestClient.stubs.execute.response = response
                     
                     do {
                         result = try sut
@@ -87,15 +85,13 @@ class RequestExecutorSpec: QuickSpec {
             
             context("failed client execution") {
                 var result: MaterializedSequenceResult<Response>!
-                var failure: RequestClientError!
+                var error: RequestClientError!
                 
                 beforeEach {
                     request = Request(url: "https://google.com", method: .get)
                     
-                    failure = .generic(message: "test failure")
-                    requestClient.stubs.execute.willDo = { _, completionHandler in
-                        completionHandler(nil, failure)
-                    }
+                    error = .generic(message: "test failure")
+                    requestClient.stubs.execute.error = error
                     
                     result = sut
                         .execute(request)
@@ -105,11 +101,11 @@ class RequestExecutorSpec: QuickSpec {
                 
                 afterEach {
                     result = nil
-                    failure = nil
+                    error = nil
                 }
                 
                 it("sends error to observable") {
-                    expect(result.error as? RequestClientError) == failure
+                    expect(result.error as? RequestClientError) == error
                 }
             }
         }

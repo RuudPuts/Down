@@ -6,10 +6,10 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-//! Should use onError of RX
+import RxSwift
 
 public protocol RequestClient {
-    func execute(_ request: Request, completion: @escaping (Response?, RequestClientError?) -> Void)
+    func execute(_ request: Request) -> Observable<Response>
 }
 
 public enum RequestClientError: Error, Hashable {

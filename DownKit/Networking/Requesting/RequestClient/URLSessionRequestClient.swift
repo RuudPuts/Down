@@ -6,33 +6,40 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import RxSwift
+
 extension URLSession: RequestClient {
-    public func execute(_ request: Request, completion: @escaping (Response?, RequestClientError?) -> Void) {
-        guard let request = request.asUrlRequest() else {
-            return completion(nil, RequestClientError.invalidRequest)
+    public func execute(_ request: Request) -> Observable<Response> {
+        return Observable<Response>.create { observable in
+            guard let request = request.asUrlRequest() else {
+                observable.onError(RequestClientError.invalidRequest)
+                return Disposables.create()
+            }
+
+            NSLog("Request: \(request.debugDescription)")
+
+            self.dataTask(with: request) { (data, response, error) in
+                guard error == nil else {
+                    return observable.onError(RequestClientError.generic(message: error!.localizedDescription))
+                }
+
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    return observable.onError(RequestClientError.invalidResponse)
+                }
+
+                guard let data = data else {
+                    return observable.onError(RequestClientError.noData)
+                }
+
+                observable.onNext(Response(
+                    data: data,
+                    statusCode: httpResponse.statusCode,
+                    headers: httpResponse.allHeaderFields as? [String: String]
+                ))
+            }.resume()
+
+            return Disposables.create()
         }
-
-        NSLog("Request: \(request.debugDescription)")
-
-        dataTask(with: request) { (data, response, error) in
-            guard error == nil else {
-                return completion(nil, RequestClientError.generic(message: error!.localizedDescription))
-            }
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                return completion(nil, RequestClientError.invalidResponse)
-            }
-
-            guard let data = data else {
-                return completion(nil, RequestClientError.noData)
-            }
-
-            completion(Response(
-                data: data, statusCode:
-                httpResponse.statusCode,
-                headers: httpResponse.allHeaderFields as? [String: String]
-            ), nil)
-        }.resume()
     }
 }
 

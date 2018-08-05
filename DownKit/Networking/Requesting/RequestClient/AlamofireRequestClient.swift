@@ -6,34 +6,40 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import RxSwift
 import Alamofire
 
 public class AlamofireRequestClient: RequestClient {
     public init() {}
 
-    public func execute(_ request: Request, completion: @escaping (Response?, RequestClientError?) -> Void) {
-        guard let alamofireRequest = request.asAlamofireRequest() else {
-            return completion(nil, RequestClientError.invalidRequest)
-        }
-
-        alamofireRequest.responseData { handler in
-            guard handler.error == nil else {
-                return completion(nil, RequestClientError.generic(message: handler.error!.localizedDescription))
+    public func execute(_ request: Request) -> Observable<Response> {
+        return Observable<Response>.create { observable in
+            guard let alamofireRequest = request.asAlamofireRequest() else {
+                observable.onError(RequestClientError.invalidRequest)
+                return Disposables.create()
             }
 
-            guard let response = handler.response else {
-                return completion(nil, RequestClientError.invalidResponse)
+            alamofireRequest.responseData { handler in
+                guard handler.error == nil else {
+                    return observable.onError(RequestClientError.generic(message: handler.error!.localizedDescription))
+                }
+
+                guard let response = handler.response else {
+                    return observable.onError(RequestClientError.invalidResponse)
+                }
+
+                guard let data = handler.data else {
+                    return observable.onError(RequestClientError.noData)
+                }
+
+                observable.onNext(Response(
+                    data: data,
+                    statusCode: response.statusCode,
+                    headers: response.allHeaderFields as? [String: String]
+                ))
             }
 
-            guard let data = handler.data else {
-                return completion(nil, RequestClientError.noData)
-            }
-
-            completion(Response(
-                data: data,
-                statusCode: response.statusCode,
-                headers: response.allHeaderFields as? [String: String]
-            ), nil)
+            return Disposables.create()
         }
     }
 }

@@ -9,6 +9,8 @@
 import RxSwift
 import RxCocoa
 
+//! Currently the only reason of this class's existence is the default param of the init
+
 public protocol RequestExecuting {
     func execute(_ request: Request) -> Observable<Response>
 }
@@ -22,17 +24,6 @@ public class RequestExecutor: RequestExecuting {
     }
     
     public func execute(_ request: Request) -> Observable<Response> {
-        return Observable<Response>.create { observable in
-            self.requestClient.execute(request) {
-                guard let response = $0 else {
-                    observable.onError($1!)
-                    return
-                }
-                
-                observable.onNext(response)
-            }
-            
-            return Disposables.create()
-        }
+        return requestClient.execute(request)
     }
 }
