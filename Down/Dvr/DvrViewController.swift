@@ -27,7 +27,6 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = R.string.localizable.screen_dvr_root_title()
 
         configureHeaderView()
         configureTableView()
@@ -48,7 +47,7 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
         headerView.application = application
         headerView.button?.rx.tap
             .subscribe(onNext: { _ in
-                self.router?.showSettings(application: self.application)
+                self.router?.dvrRouter.showAddShow()
             })
             .disposed(by: disposeBag)
     }

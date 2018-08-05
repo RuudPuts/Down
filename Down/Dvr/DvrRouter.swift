@@ -32,12 +32,21 @@ class DvrRouter: ChildRouter {
     
     func showDetail(of show: DvrShow) {
         let vc = decorate(viewController: viewControllerFactory.makeDvrDetail())
-        guard let viewController = vc as? DvrDetailViewController else {
+        guard let viewController = vc as? DvrShowDetailViewController else {
             return
         }
         
         viewController.show = show
         navigationController.pushViewController(viewController, animated: true)
+    }
+
+    func showAddShow() {
+        let vc = decorate(viewController: viewControllerFactory.makeDvrAddShow())
+        guard let viewController = vc as? DvrAddShowViewController else {
+            return
+        }
+
+        parent.present(viewController, inNavigationController: true, animated: true)
     }
 
     func decorate(viewController vc: UIViewController) -> UIViewController {

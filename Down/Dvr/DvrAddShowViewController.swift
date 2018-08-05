@@ -1,0 +1,70 @@
+//
+//  DvrAddShowViewController.swift
+//  Down
+//
+//  Created by Ruud Puts on 27/05/2018.
+//  Copyright © 2018 Mobile Sorcery. All rights reserved.
+//
+
+import DownKit
+import RxSwift
+import RxCocoa
+import UIKit
+
+class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
+    var application: DvrApplication!
+    var interactorFactory: DvrInteractorProducing!
+    var database: DownDatabase!
+    var router: Router?
+
+    @IBOutlet weak var searchTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var tableView: UITableView!
+
+    let disposeBag = DisposeBag()
+
+    lazy var viewModel = DvrAddShowViewModel(application: application,
+                                             database: database,
+                                             interactorFactory: interactorFactory)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        configureSearchTextField()
+        configureTableView()
+        applyViewModel()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        searchTextField.becomeFirstResponder()
+    }
+
+    func configureSearchTextField() {
+        searchTextField.rx.text
+            .skip(2)
+            .debounce(0.3, scheduler: MainScheduler.instance)
+            .subscribe(onNext: { query in
+                self.viewModel
+                    .searchShows(query: query ?? "")
+                    .bind(to: self.tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
+                        cell.textLabel?.text = show.name
+                    }
+                    .disposed(by: self.disposeBag)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func configureTableView() {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.rx.modelSelected(DvrShow.self)
+            .subscribe(onNext: {
+                self.router?.dvrRouter.showDetail(of: $0)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func applyViewModel() {
+        title = viewModel.title
+    }
+}

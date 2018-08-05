@@ -30,7 +30,7 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
         )
         case .searchShows(let query): return RequestSpecification(
             host: application.host,
-            path: defaultPath + "cmd=searchtvdb&name={query}",
+            path: defaultPath + "cmd=sb.searchtvdb&name={query}",
             parameters: defaultParameters.merging(["query": query], uniquingKeysWith: { $1 })
         )
         case .addShow(let show, let status): return RequestSpecification(

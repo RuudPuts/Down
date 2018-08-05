@@ -20,12 +20,16 @@ struct DvrViewModel {
     init(database: DvrDatabase, refreshCacheInteractor: DvrRefreshShowCacheInteractor) {
         self.database = database
         self.refreshCacheInteractor = refreshCacheInteractor
-
-        refreshShowCache()
     }
 
     var shows: Observable<[DvrShow]> {
-        return database.fetchShows()
+        return database
+            .fetchShows()
+            .do(onNext: {
+                if $0.count == 0 {
+                    self.refreshShowCache()
+                }
+            })
     }
 }
 

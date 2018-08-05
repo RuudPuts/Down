@@ -1,5 +1,5 @@
 //
-//  DvrDetailViewController.swift
+//  DvrShowDetailViewController.swift
 //  Down
 //
 //  Created by Ruud Puts on 03/06/2018.
@@ -10,7 +10,7 @@ import DownKit
 import RxSwift
 import UIKit
 
-class DvrDetailViewController: UIViewController & Routing {
+class DvrShowDetailViewController: UIViewController & Routing {
     var router: Router?
     
     var show: DvrShow? {

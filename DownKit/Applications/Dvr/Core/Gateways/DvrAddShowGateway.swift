@@ -24,6 +24,12 @@ public class DvrAddShowGateway: DvrRequestGateway {
         self.parser = parser
     }
 
+    public convenience init(show: DvrShow, status: DvrEpisode.Status = .skipped, builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
+        self.init(builder: builder, parser: parser, executor: executor)
+        self.show = show
+        self.status = status
+    }
+
     public func observe() -> Observable<Bool> {
         return Observable.create { observer in
             let request: Request

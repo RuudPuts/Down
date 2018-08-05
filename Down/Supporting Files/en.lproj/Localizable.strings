@@ -7,6 +7,8 @@
 */
 
 "screen_download_root_title" = "Download";
+
 "screen_dvr_root_title" = "Shows";
+"screen_dvr_add_show_title" = "Add show";
 
 "settings_dvr_cacherefresh_description" = "Refreshing show cache...";

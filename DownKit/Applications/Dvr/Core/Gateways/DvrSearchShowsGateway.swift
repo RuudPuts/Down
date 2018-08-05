@@ -22,6 +22,11 @@ public class DvrSearchShowsGateway: DvrRequestGateway {
         self.executor = executor
         self.parser = parser
     }
+
+    public convenience init(query: String, builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
+        self.init(builder: builder, parser: parser, executor: executor)
+        self.query = query
+    }
     
     public func observe() -> Observable<[DvrShow]> {
         return Observable.create { observer in

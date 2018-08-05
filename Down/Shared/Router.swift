@@ -40,7 +40,17 @@ class Router {
 
     func showSettings(application: ApiApplication) {
         let viewController = decorate(viewController: viewControllerFactory.makeApplicationSettings(for: application))
-        rootViewController?.present(viewController, animated: true, completion: nil)
+        present(viewController, inNavigationController: false, animated: true)
+    }
+
+    func present(_ viewController: UIViewController, inNavigationController: Bool, animated: Bool) {
+        guard inNavigationController else {
+            rootViewController?.present(viewController, animated: true, completion: nil)
+            return
+        }
+
+        let navigationController = UINavigationController(rootViewController: viewController)
+       present(navigationController, inNavigationController: false, animated: animated)
     }
 
     func close(viewController: UIViewController) {

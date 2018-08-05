@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public class DvrAddShowToCacheInteractor: CompoundInteractor {
+public class DvrAddShowInteractor: CompoundInteractor {
     public typealias Interactors = (addShow: DvrAddShowGateway, showDetails: DvrShowDetailsInteractor)
     public var interactors: Interactors
     

@@ -9,9 +9,9 @@
 public protocol DvrInteractorProducing {
     func makeShowListInteractor(for application: DvrApplication) -> DvrShowListInteractor
     func makeShowDetailsInteractor(for application: DvrApplication, show: DvrShow) -> DvrShowDetailsInteractor
-    
-    // Compound interactors
     func makeShowCacheRefreshInteractor(for application: DvrApplication) -> DvrRefreshShowCacheInteractor
+    func makeSearchShowsInteractor(for application: DvrApplication, query: String) -> DvrSearchShowsInteractor
+    func makeAddShowInteractor(for application: DvrApplication, show: DvrShow) -> DvrAddShowInteractor
 }
 
 public class DvrInteractorFactory: DvrInteractorProducing {
@@ -41,5 +41,19 @@ public class DvrInteractorFactory: DvrInteractorProducing {
         let interactors = (showList: showListInteractor, showDetails: showDetailsInteractor)
         
         return DvrRefreshShowCacheInteractor(interactors: interactors, database: database)
+    }
+
+    public func makeSearchShowsInteractor(for application: DvrApplication, query: String) -> DvrSearchShowsInteractor {
+        let gateway = gatewayFactory.makeSearchShowsGateway(for: application, query: query)
+
+        return DvrSearchShowsInteractor(gateway: gateway)
+    }
+
+    public func makeAddShowInteractor(for application: DvrApplication, show: DvrShow) -> DvrAddShowInteractor {
+        let gateway = gatewayFactory.makeAddShowGateway(for: application, show: show)
+        let showDetailsInteractor = makeShowDetailsInteractor(for: application, show: show)
+        let interactors = (addShow: gateway, showDetails: showDetailsInteractor)
+
+        return DvrAddShowInteractor(interactors: interactors, database: database)
     }
 }

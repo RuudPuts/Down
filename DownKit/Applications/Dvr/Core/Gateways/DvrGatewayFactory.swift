@@ -9,6 +9,8 @@
 public protocol DvrGatewayProducing {
     func makeShowListGateway(for application: DvrApplication) -> DvrShowListGateway
     func makeShowDetailsGateway(for application: DvrApplication, show: DvrShow) -> DvrShowDetailsGateway
+    func makeSearchShowsGateway(for application: DvrApplication, query: String) -> DvrSearchShowsGateway
+    func makeAddShowGateway(for application: DvrApplication, show: DvrShow) -> DvrAddShowGateway
 }
 
 public class DvrGatewayFactory: DvrGatewayProducing {
@@ -20,14 +22,24 @@ public class DvrGatewayFactory: DvrGatewayProducing {
     
     public func makeShowListGateway(for application: DvrApplication) -> DvrShowListGateway {
         return DvrShowListGateway(builder: additionsFactory.makeDvrRequestBuilder(for: application),
-                               parser: additionsFactory.makeDvrResponseParser(for: application))
+                                  parser: additionsFactory.makeDvrResponseParser(for: application))
     }
     
     public func makeShowDetailsGateway(for application: DvrApplication, show: DvrShow) -> DvrShowDetailsGateway {
-        let gateway = DvrShowDetailsGateway(show: show,
-                                         builder: additionsFactory.makeDvrRequestBuilder(for: application),
-                                         parser: additionsFactory.makeDvrResponseParser(for: application))
-        
-        return gateway
+        return DvrShowDetailsGateway(show: show,
+                                     builder: additionsFactory.makeDvrRequestBuilder(for: application),
+                                     parser: additionsFactory.makeDvrResponseParser(for: application))
+    }
+
+    public func makeSearchShowsGateway(for application: DvrApplication, query: String) -> DvrSearchShowsGateway {
+        return DvrSearchShowsGateway(query: query,
+                                     builder: additionsFactory.makeDvrRequestBuilder(for: application),
+                                     parser: additionsFactory.makeDvrResponseParser(for: application))
+    }
+
+    public func makeAddShowGateway(for application: DvrApplication, show: DvrShow) -> DvrAddShowGateway {
+        return DvrAddShowGateway(show: show,
+                                 builder: additionsFactory.makeDvrRequestBuilder(for: application),
+                                 parser: additionsFactory.makeDvrResponseParser(for: application))
     }
 }
