@@ -1,0 +1,16 @@
+{
+    "data": {
+        "show": {
+            "data": {},
+            "message": "Show not found",
+            "result": "failure"
+        },
+        "show.seasons": {
+            "data": {},
+            "message": "Show not found",
+            "result": "failure"
+        }
+    },
+    "message": "",
+    "result": "success"
+}

@@ -89,6 +89,28 @@ class SickbeardResponseParserSpec: QuickSpec {
                         expect(parseError) == ParseError.api(message: "No such cmd: ''")
                     }
                 }
+
+                context("from chained command failure response") {
+                    var parseError: ParseError!
+
+                    beforeEach {
+                        do {
+                            response.data = Data(fromJsonFile: "sickbeard_error_chainedcommand")
+                            result = try sut.parse(response)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
+                    }
+
+                    afterEach {
+                        parseError = nil
+                    }
+
+                    it("throws api error") {
+                        expect(parseError) == ParseError.api(message: "Show not found")
+                    }
+                }
                 
                 context("from invalid response") {
                     var parseError: ParseError!

@@ -143,12 +143,33 @@ extension SickbeardResponseParser {
             print("Sickbeard parse error: \(error)")
             throw ParseError.invalidJson
         }
-        
-        guard json["result"].string == "success" else {
-            throw ParseError.api(message: json["data"].stringValue)
-        }
+
+        try validate(json)
         
         return json["data"]
+    }
+
+    func validate(_ json: JSON) throws {
+        let data = json["data"]
+        guard json["result"].string == "success" else {
+            throw ParseError.api(message: data.stringValue)
+        }
+
+        // Check for any chained command and their results
+        try data.dictionary?
+            .map({ (key, value) -> JSON in
+                guard value["data"] != JSON.null else {
+                    return JSON.null
+                }
+
+                return data[key]
+            })
+            .filter { $0 != JSON.null }
+            .forEach {
+                guard $0["result"].string == "success" else {
+                    throw ParseError.api(message: $0["message"].stringValue)
+                }
+            }
     }
 }
 
