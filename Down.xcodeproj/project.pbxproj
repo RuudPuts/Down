@@ -171,6 +171,7 @@
 		429F0A64211725D9005582B6 /* DvrAddShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429F0A61211725D9005582B6 /* DvrAddShowViewModel.swift */; };
 		429F0A65211725D9005582B6 /* DvrAddShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429F0A62211725D9005582B6 /* DvrAddShowViewController.swift */; };
 		429F0A66211725D9005582B6 /* DvrAddShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A63211725D9005582B6 /* DvrAddShowViewController.xib */; };
+		429F0A6821174B42005582B6 /* sickbeard_error_chainedcommand.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A6721174B42005582B6 /* sickbeard_error_chainedcommand.json */; };
 		429FE7D520FA7D40005F3A4F /* ApplicationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */; };
 		42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */; };
 		42B16D5720D5A2E90027ED1C /* DvrInteractorFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */; };
@@ -409,6 +410,7 @@
 		429F0A61211725D9005582B6 /* DvrAddShowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrAddShowViewModel.swift; sourceTree = "<group>"; };
 		429F0A62211725D9005582B6 /* DvrAddShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrAddShowViewController.swift; sourceTree = "<group>"; };
 		429F0A63211725D9005582B6 /* DvrAddShowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DvrAddShowViewController.xib; sourceTree = "<group>"; };
+		429F0A6721174B42005582B6 /* sickbeard_error_chainedcommand.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_error_chainedcommand.json; sourceTree = "<group>"; };
 		429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplicationHeaderView.xib; sourceTree = "<group>"; };
 		42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrInteractorFactorySpec.swift; sourceTree = "<group>"; };
@@ -1172,6 +1174,7 @@
 			children = (
 				429F0A3F2115F408005582B6 /* sickbeard_addshow.json */,
 				429F0A3D2115F408005582B6 /* sickbeard_error.json */,
+				429F0A6721174B42005582B6 /* sickbeard_error_chainedcommand.json */,
 				429F0A402115F409005582B6 /* sickbeard_searchshows.json */,
 				429F0A3E2115F408005582B6 /* sickbeard_showdetails.json */,
 				429F0A412115F409005582B6 /* sickbeard_showlist.json */,
@@ -1400,6 +1403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				429F0A6821174B42005582B6 /* sickbeard_error_chainedcommand.json in Resources */,
 				429F0A502115F654005582B6 /* sickbeard_showdetails.json in Resources */,
 				429F0A4D2115F654005582B6 /* sickbeard_addshow.json in Resources */,
 				429F0A522115F654005582B6 /* sickbeard_success.json in Resources */,
