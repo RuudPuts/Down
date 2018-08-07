@@ -47,6 +47,7 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
         headerView.application = application
         headerView.button?.rx.tap
             .subscribe(onNext: { _ in
+//                self.router?.showSettings(application: self.application)
                 self.router?.dvrRouter.showAddShow()
             })
             .disposed(by: disposeBag)
@@ -57,6 +58,10 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
         tableView.rx.modelSelected(DvrShow.self)
             .subscribe(onNext: {
                 self.router?.dvrRouter.showDetail(of: $0)
+
+                if let indexPath = self.tableView.indexPathForSelectedRow {
+                    self.tableView.deselectRow(at: indexPath, animated: true)
+                }
             })
             .disposed(by: disposeBag)
     }
@@ -65,6 +70,11 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
         title = viewModel.title
 
         viewModel.shows
+            .do(onNext: {
+                guard $0.count > 0 else { return }
+
+                self.viewModel.refreshShowCache()
+            })
             .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
                 cell.textLabel?.text = show.name
             }

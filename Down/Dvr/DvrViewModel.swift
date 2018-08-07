@@ -25,15 +25,11 @@ struct DvrViewModel {
     var shows: Observable<[DvrShow]> {
         return database
             .fetchShows()
-            .do(onNext: {
-                if $0.count == 0 {
-                    self.refreshShowCache()
-                }
-            })
+            .map {
+                return $0.sorted(by: { $0.name < $1.name })
+            }
     }
-}
 
-private extension DvrViewModel {
     func refreshShowCache() {
         refreshCacheInteractor
             .observe()

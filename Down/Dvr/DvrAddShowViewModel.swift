@@ -37,5 +37,6 @@ struct DvrAddShowViewModel {
         return interactorFactory
             .makeAddShowInteractor(for: application, show: show)
             .observe()
+            .skip(1)
     }
 }

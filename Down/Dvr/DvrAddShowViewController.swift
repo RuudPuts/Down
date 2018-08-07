@@ -59,7 +59,12 @@ class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming &
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.rx.modelSelected(DvrShow.self)
             .subscribe(onNext: {
-                self.router?.dvrRouter.showDetail(of: $0)
+                self.viewModel
+                    .add(show: $0)
+                    .subscribe(onNext: { _ in
+                        self.router?.close(viewController: self)
+                    })
+                    .disposed(by: self.disposeBag)
             })
             .disposed(by: disposeBag)
     }

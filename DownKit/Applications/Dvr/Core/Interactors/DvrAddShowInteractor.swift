@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import RxSwiftExt
 
 public class DvrAddShowInteractor: CompoundInteractor {
     public typealias Interactors = (addShow: DvrAddShowGateway, showDetails: DvrShowDetailsInteractor)
@@ -43,7 +44,11 @@ public class DvrAddShowInteractor: CompoundInteractor {
         interactors.showDetails
             .setShow(show)
             .observe()
+            .retry(.delayed(maxCount: 5, time: 1))
             .subscribe(onNext: {
+                //! Again this line is sickbeard specific. Won't hurt others but shouldn't be here.
+                $0.identifier = show.identifier
+                
                 $0.store(in: self.database)
                 self.subject.value = $0
             })

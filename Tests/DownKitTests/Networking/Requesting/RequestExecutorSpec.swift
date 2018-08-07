@@ -111,14 +111,3 @@ class RequestExecutorSpec: QuickSpec {
         }
     }
 }
-
-extension HTTPURLResponse {
-    static func from(_ request: Request, and response: Response) -> HTTPURLResponse {
-        return HTTPURLResponse(
-            url: URL(string: request.url)!,
-            statusCode: response.statusCode,
-            httpVersion: nil,
-            headerFields: response.headers
-        )!
-    }
-}

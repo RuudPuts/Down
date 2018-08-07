@@ -57,6 +57,9 @@ class Router {
         if let presenter = viewController.presentingViewController {
             presenter.dismiss(animated: true, completion: nil)
         }
+        else if let navigationController = viewController.navigationController {
+            navigationController.popViewController(animated: true)
+        }
     }
 
     func decorate(viewController: UIViewController) -> UIViewController {
