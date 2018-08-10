@@ -14,7 +14,7 @@ class DvrApplicationRefreshCacheAction: ApplicationSettingsChangedAction {
     var title: String
     var interactor: DvrRefreshShowCacheInteractor
 
-    required init(title: String = R.string.localizable.settings_dvr_cacherefresh_description(),
+    required init(title: String = R.string.localizable.dvr_settings_cacherefresh_description(),
                   interactor: DvrRefreshShowCacheInteractor) {
         self.title = title
         self.interactor = interactor

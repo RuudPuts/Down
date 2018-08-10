@@ -35,9 +35,8 @@ class DesignableView: UIView {
             return
         }
 
-        contentView.frame = bounds
-        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(contentView)
+        contentView.constraintToFillParent()
 
         self.contentView = contentView
     }
@@ -46,5 +45,24 @@ class DesignableView: UIView {
         let nib = UINib(nibName: String(describing: type(of: self)), bundle: Bundle.main)
 
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
+    }
+}
+
+extension UIView {
+    func constraintToFillParent() {
+        guard let superview = superview else {
+            return
+        }
+
+        let views = ["view": self]
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|",
+                                                                   metrics: nil,
+                                                                   views: views)
+
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|",
+                                                                 metrics: nil,
+                                                                 views: views)
+
+        superview.addConstraints(horizontalConstraints + verticalConstraints)
     }
 }

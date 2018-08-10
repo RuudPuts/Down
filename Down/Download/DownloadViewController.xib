@@ -24,44 +24,10 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7x5-Ub-DyQ" userLabel="Queue Status View" customClass="DownloadQueueStatusView" customModule="Down" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="90" width="375" height="50"/>
-                    <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="7Cz-bw-VNs">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xNI-R1-MFf">
-                                    <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uA6-ie-vqM">
-                                    <rect key="frame" x="125" y="0.0" width="125" height="50"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wwq-x1-ah1">
-                                    <rect key="frame" x="250" y="0.0" width="125" height="50"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                        </stackView>
-                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="7Cz-bw-VNs" firstAttribute="leading" secondItem="7x5-Ub-DyQ" secondAttribute="leading" id="8Qd-gZ-lgc"/>
-                        <constraint firstAttribute="bottom" secondItem="7Cz-bw-VNs" secondAttribute="bottom" id="NCW-IK-KMk"/>
-                        <constraint firstItem="7Cz-bw-VNs" firstAttribute="top" secondItem="7x5-Ub-DyQ" secondAttribute="top" id="NoP-PC-2Ui"/>
-                        <constraint firstAttribute="trailing" secondItem="7Cz-bw-VNs" secondAttribute="trailing" id="bXR-pK-TRQ"/>
                         <constraint firstAttribute="height" constant="50" id="jkG-SV-iDh"/>
                     </constraints>
-                    <connections>
-                        <outlet property="mbRemainingLabel" destination="Wwq-x1-ah1" id="yOf-2d-UrQ"/>
-                        <outlet property="speedLabel" destination="xNI-R1-MFf" id="QRj-fw-1t7"/>
-                        <outlet property="timeRemainingLabel" destination="uA6-ie-vqM" id="Jx7-W0-QFI"/>
-                    </connections>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WSC-cT-xYq" customClass="ApplicationHeaderView" customModule="Down" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="20" width="375" height="70"/>
@@ -89,6 +55,7 @@
                 <constraint firstItem="7x5-Ub-DyQ" firstAttribute="trailing" secondItem="WTs-hC-Bf8" secondAttribute="trailing" id="vlJ-lF-tNX"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="WTs-hC-Bf8"/>
+            <point key="canvasLocation" x="-27" y="-21"/>
         </view>
     </objects>
 </document>

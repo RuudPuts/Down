@@ -185,6 +185,8 @@
 		42BF4E8D20D1B5BC0088AAF6 /* StringSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */; };
 		42BF4E9420D2501A0088AAF6 /* DvrShowListGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9320D2501A0088AAF6 /* DvrShowListGatewaySpec.swift */; };
 		42BF4E9620D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9520D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift */; };
+		42D58EF2211A0ACD00F3454A /* UIViewConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */; };
+		42D58EF4211A155100F3454A /* DownloadQueueStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D58EF3211A155100F3454A /* DownloadQueueStatusView.xib */; };
 		42D77BC620E456EB00FA1ACA /* DvrDatabaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B77C20DC2CDC00603528 /* DvrDatabaseMock.swift */; };
 		42D77BC720E456EB00FA1ACA /* DvrRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */; };
 		42D77BC820E456EB00FA1ACA /* DvrResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAAB20D1860D003950CF /* DvrResponseParsingMock.swift */; };
@@ -425,6 +427,8 @@
 		42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSpec.swift; sourceTree = "<group>"; };
 		42BF4E9320D2501A0088AAF6 /* DvrShowListGatewaySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowListGatewaySpec.swift; sourceTree = "<group>"; };
 		42BF4E9520D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsGatewaySpec.swift; sourceTree = "<group>"; };
+		42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewConstraints.swift; sourceTree = "<group>"; };
+		42D58EF3211A155100F3454A /* DownloadQueueStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadQueueStatusView.xib; sourceTree = "<group>"; };
 		42FB9037210114DA007B01DB /* ApplicationPersisting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPersisting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1109,6 +1113,7 @@
 				426BF74020F6A2CB000C3A4A /* AssetProvider.swift */,
 				42FB9037210114DA007B01DB /* ApplicationPersisting.swift */,
 				4243528120FA9CE200A729E1 /* ApplicationSettings */,
+				42D58EF0211A0AAA00F3454A /* Extensions */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1147,6 +1152,7 @@
 				427D606A20E1A6BD0017AE42 /* DownloadItemCell.swift */,
 				4243527F20FA936C00A729E1 /* DownloadItemCell.xib */,
 				425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */,
+				42D58EF3211A155100F3454A /* DownloadQueueStatusView.xib */,
 			);
 			path = Download;
 			sourceTree = "<group>";
@@ -1237,6 +1243,14 @@
 				42BF4E9520D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift */,
 			);
 			path = Gateways;
+			sourceTree = "<group>";
+		};
+		42D58EF0211A0AAA00F3454A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		42D77BC020E4567300FA1ACA /* Tests */ = {
@@ -1422,6 +1436,7 @@
 				429F0A66211725D9005582B6 /* DvrAddShowViewController.xib in Resources */,
 				4243528720FA9D0C00A729E1 /* ApplicationSettingsViewController.xib in Resources */,
 				42B4AAF420FA8CF9008B7C3B /* DvrViewController.xib in Resources */,
+				42D58EF4211A155100F3454A /* DownloadQueueStatusView.xib in Resources */,
 				421D83AF2107A4A6008BEB2F /* Localizable.strings in Resources */,
 				4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */,
 				4221DA4E20D181F2003950CF /* Assets.xcassets in Resources */,
@@ -1723,6 +1738,7 @@
 				42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */,
 				426BF73F20F6A19D000C3A4A /* ApplicationHeaderView.swift in Sources */,
 				429F0A65211725D9005582B6 /* DvrAddShowViewController.swift in Sources */,
+				42D58EF2211A0ACD00F3454A /* UIViewConstraints.swift in Sources */,
 				4243529120FAAF7900A729E1 /* UITextField+fixCaretPosition.swift in Sources */,
 				427D606920E19A660017AE42 /* DownloadViewModel.swift in Sources */,
 				4243529220FAAF7900A729E1 /* SkyFloatingLabelTextField.swift in Sources */,

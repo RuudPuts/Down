@@ -11,16 +11,39 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-class DownloadQueueStatusView: UIView {
+class DownloadQueueStatusView: DesignableView {
     @IBOutlet weak var speedLabel: UILabel?
     @IBOutlet weak var timeRemainingLabel: UILabel?
     @IBOutlet weak var mbRemainingLabel: UILabel?
 
+    @IBOutlet weak var speedValueLabel: UILabel?
+    @IBOutlet weak var timeRemainingValueLabel: UILabel?
+    @IBOutlet weak var mbRemainingValueLabel: UILabel?
+
+    override func awakeFromNib() {
+        speedLabel?.text = R.string.localizable.download_statusview_speed()
+        timeRemainingLabel?.text = R.string.localizable.download_statusview_timeremaining()
+        mbRemainingLabel?.text = R.string.localizable.download_statusview_mbremaining()
+    }
+
     var queue: DownloadQueue? {
         didSet {
-            speedLabel?.text = queue?.currentSpeed
-            timeRemainingLabel?.text = queue?.timeRemaining
-            mbRemainingLabel?.text = queue?.mbRemaining
+            if queue?.currentSpeed == "0" {
+                [speedValueLabel, timeRemainingValueLabel, mbRemainingValueLabel].forEach {
+                    $0?.text = "-"
+                }
+                
+//                heightConstraint?.constant = 0
+            }
+            else {
+                speedValueLabel?.text = queue?.currentSpeed
+                timeRemainingValueLabel?.text = queue?.timeRemaining
+                mbRemainingValueLabel?.text = queue?.mbRemaining
+
+//                heightConstraint?.constant = 50
+            }
+
+//            layoutIfNeeded()
         }
     }
 }

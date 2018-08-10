@@ -10,7 +10,7 @@ import DownKit
 import RxSwift
 
 struct DvrAddShowViewModel {
-    var title = R.string.localizable.screen_dvr_add_show_title()
+    var title = R.string.localizable.dvr_screen_add_show_title()
 
     let application: DvrApplication
     let database: DvrDatabase

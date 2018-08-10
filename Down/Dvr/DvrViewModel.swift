@@ -11,7 +11,7 @@ import RxSwift
 import RxDataSources
 
 struct DvrViewModel {
-    var title = R.string.localizable.screen_dvr_root_title()
+    var title = R.string.localizable.dvr_screen_root_title()
     
     let refreshCacheInteractor: DvrRefreshShowCacheInteractor
     let database: DvrDatabase
