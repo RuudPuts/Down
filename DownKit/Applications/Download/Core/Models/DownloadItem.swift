@@ -28,36 +28,32 @@ extension DownloadItem: DvrDatabaseMatching {
         }
 
         return Observable<DownloadItem>.create { observer in
-            let complete = {
-                observer.onNext(self)
-            }
+            let nameComponents = self.name.components(separatedBy: seasonEpisodeString)
+                .first!
+                .components(separatedBy: ".")
+                .filter { $0.count > 0}
 
-                let nameComponents = self.name.components(separatedBy: seasonEpisodeString)
-                    .first!
-                    .components(separatedBy: ".")
-                    .filter { $0.count > 0}
-
-                database
-                    .fetchShow(matching: nameComponents)
-                    .subscribe { event in
-                        switch event {
-                        case .success(let show):
-                            self.dvrEpisode = show
-                                .seasons.first(where: {
-                                    $0.identifier == String(seasonIdentifier)
-                                })?
-                                .episodes.first(where: {
-                                    $0.identifier == String(episodeIdentifier)
-                                })
-                        default: break
-                        }
-
-                        observer.onNext(self)
+            database
+                .fetchShow(matching: nameComponents)
+                .subscribe { event in
+                    switch event {
+                    case .success(let show):
+                        self.dvrEpisode = show
+                            .seasons.first(where: {
+                                $0.identifier == String(seasonIdentifier)
+                            })?
+                            .episodes.first(where: {
+                                $0.identifier == String(episodeIdentifier)
+                            })
+                    default: break
                     }
-                    .disposed(by: self.disposeBag)
 
-                    return Disposables.create()
-            }
+                    observer.onNext(self)
+                }
+                .disposed(by: self.disposeBag)
+
+                return Disposables.create()
+        }
     }
     
     // swiftlint:disable large_tuple
