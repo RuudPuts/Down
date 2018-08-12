@@ -71,7 +71,7 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
 
         viewModel.shows
             .do(onNext: {
-                guard $0.count > 0 else { return }
+                guard $0.count == 0 else { return }
 
                 self.viewModel.refreshShowCache()
             })
