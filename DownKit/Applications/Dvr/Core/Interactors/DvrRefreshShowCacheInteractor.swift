@@ -28,7 +28,7 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
     }
     
     public func observe() -> Observable<[DvrShow]> {
-        //! Merge (zip) the shows & details observales and return in an Observable.create? Subscribe is now useless for this interactor
+        //! Do use flatmap, zip, map to merge all details observers into one
         refreshShows()
         
         return subject.asObservable()
