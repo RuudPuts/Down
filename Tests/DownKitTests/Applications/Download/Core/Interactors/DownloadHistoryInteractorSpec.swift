@@ -70,7 +70,7 @@ class DownloadHistoryInteractorSpec: QuickSpec {
                 }
 
                 it("matches the items with the database") {
-                    expect(database.captures.fetchShowsMatching?.nameComponents) == ["test", "item", ""]
+                    expect(database.captures.fetchShowsMatching?.nameComponents) == ["test", "item"]
                 }
             }
         }

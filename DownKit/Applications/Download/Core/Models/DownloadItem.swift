@@ -27,22 +27,37 @@ extension DownloadItem: DvrDatabaseMatching {
             return Observable.just(self)
         }
 
-        let nameComponents = name.components(separatedBy: seasonEpisodeString)
-            .first!
-            .components(separatedBy: ".")
+        return Observable<DownloadItem>.create { observer in
+            let complete = {
+                observer.onNext(self)
+            }
 
-        return database
-            .fetchShow(matching: nameComponents)
-            .do(onNext: { show in
-                self.dvrEpisode = show
-                    .seasons.first(where: {
-                        $0.identifier == String(seasonIdentifier)
-                    })?
-                    .episodes.first(where: {
-                        $0.identifier == String(episodeIdentifier)
-                    })
-            })
-            .map { _ in self }
+                let nameComponents = self.name.components(separatedBy: seasonEpisodeString)
+                    .first!
+                    .components(separatedBy: ".")
+                    .filter { $0.count > 0}
+
+                database
+                    .fetchShow(matching: nameComponents)
+                    .subscribe { event in
+                        switch event {
+                        case .success(let show):
+                            self.dvrEpisode = show
+                                .seasons.first(where: {
+                                    $0.identifier == String(seasonIdentifier)
+                                })?
+                                .episodes.first(where: {
+                                    $0.identifier == String(episodeIdentifier)
+                                })
+                        default: break
+                        }
+
+                        observer.onNext(self)
+                    }
+                    .disposed(by: self.disposeBag)
+
+                    return Disposables.create()
+            }
     }
     
     // swiftlint:disable large_tuple

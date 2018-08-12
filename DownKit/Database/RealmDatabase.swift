@@ -65,8 +65,8 @@ public class RealmDatabase: DownDatabase {
         }
     }
     
-    public func fetchShow(matching nameComponents: [String]) -> Observable<DvrShow> {
-        return Observable.create { observer in
+    public func fetchShow(matching nameComponents: [String]) -> Maybe<DvrShow> {
+        return Maybe.create { observer in
             self.transact {
                 var matches: Results<DvrShow>?
                 
@@ -91,7 +91,10 @@ public class RealmDatabase: DownDatabase {
                 }
                 
                 if let show = matches?.first {
-                    observer.onNext(show)
+                    observer(.success(show))
+                }
+                else {
+                    observer(.completed)
                 }
             }
             return Disposables.create()

@@ -12,7 +12,7 @@ public protocol DvrDatabase: Database {
     func store(show: DvrShow)
     func delete(show: DvrShow)
     func fetchShows() -> Observable<[DvrShow]>
-    func fetchShow(matching nameComponents: [String]) -> Observable<DvrShow>
+    func fetchShow(matching nameComponents: [String]) -> Maybe<DvrShow>
 }
 
 protocol DvrDatabaseStoring {
