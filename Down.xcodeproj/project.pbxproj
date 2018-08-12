@@ -345,9 +345,9 @@
 		4243528820FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsViewModel.swift; sourceTree = "<group>"; };
 		4243528A20FAA87D00A729E1 /* Rswift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rswift.framework; path = Carthage/Build/iOS/Rswift.framework; sourceTree = "<group>"; };
 		4243528C20FAA89000A729E1 /* SkyFloatingLabelTextField.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyFloatingLabelTextField.framework; path = Carthage/Build/iOS/SkyFloatingLabelTextField.framework; sourceTree = "<group>"; };
-		4243528E20FAAF7800A729E1 /* UITextField+fixCaretPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITextField+fixCaretPosition.swift"; path = "Carthage/Checkouts/SkyFloatingLabelTextField/Sources/UITextField+fixCaretPosition.swift"; sourceTree = SOURCE_ROOT; };
-		4243528F20FAAF7800A729E1 /* SkyFloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkyFloatingLabelTextField.swift; path = "Down/Supporting Files/SkyFloatingLabelTextField.swift"; sourceTree = SOURCE_ROOT; };
-		4243529020FAAF7800A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkyFloatingLabelTextFieldWithIcon.swift; path = "Down/Supporting Files/SkyFloatingLabelTextFieldWithIcon.swift"; sourceTree = SOURCE_ROOT; };
+		4243528E20FAAF7800A729E1 /* UITextField+fixCaretPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITextField+fixCaretPosition.swift"; path = "Down/Supporting Files/SkyFloatingLabelTextField/UITextField+fixCaretPosition.swift"; sourceTree = SOURCE_ROOT; };
+		4243528F20FAAF7800A729E1 /* SkyFloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkyFloatingLabelTextField.swift; path = "Down/Supporting Files/SkyFloatingLabelTextField/SkyFloatingLabelTextField.swift"; sourceTree = SOURCE_ROOT; };
+		4243529020FAAF7800A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkyFloatingLabelTextFieldWithIcon.swift; path = "Down/Supporting Files/SkyFloatingLabelTextField/SkyFloatingLabelTextFieldWithIcon.swift"; sourceTree = SOURCE_ROOT; };
 		4243529420FABDD000A729E1 /* ApiApplicationInteracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteracting.swift; sourceTree = "<group>"; };
 		4243529620FABE1000A729E1 /* ApiApplicationInteractorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteractorFactory.swift; sourceTree = "<group>"; };
 		42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueInteractor.swift; sourceTree = "<group>"; };
@@ -967,7 +967,6 @@
 				4243528420FA9D0C00A729E1 /* ApplicationSettingsViewController.swift */,
 				4243528520FA9D0C00A729E1 /* ApplicationSettingsViewController.xib */,
 				4243528820FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift */,
-				4243528E20FAAF7800A729E1 /* UITextField+fixCaretPosition.swift */,
 				421D83A021079DAD008BEB2F /* ApplicationSettingChangeAction */,
 			);
 			path = ApplicationSettings;
@@ -1016,8 +1015,7 @@
 			children = (
 				421D83B12107A4A6008BEB2F /* Localizable.strings */,
 				421D83A62107A2BC008BEB2F /* R.generated.swift */,
-				4243528F20FAAF7800A729E1 /* SkyFloatingLabelTextField.swift */,
-				4243529020FAAF7800A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift */,
+				4288011621209799007552FD /* SkyFloatingLabelTextField */,
 				425357C420F2B0FC005BC238 /* Configs */,
 				426A798D20D1810200797AE5 /* Info.plist */,
 			);
@@ -1115,13 +1113,9 @@
 			isa = PBXGroup;
 			children = (
 				4221DA4F20D183B5003950CF /* Router.swift */,
-				42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */,
-				42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */,
-				426BF73E20F6A19D000C3A4A /* ApplicationHeaderView.swift */,
-				429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */,
-				426BF74020F6A2CB000C3A4A /* AssetProvider.swift */,
 				42FB9037210114DA007B01DB /* ApplicationPersisting.swift */,
-				4288010B21209280007552FD /* ViewStyling */,
+				42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */,
+				428801152120976D007552FD /* Views */,
 				4243528120FA9CE200A729E1 /* ApplicationSettings */,
 				42D58EF0211A0AAA00F3454A /* Extensions */,
 			);
@@ -1189,6 +1183,7 @@
 			isa = PBXGroup;
 			children = (
 				4288010C21209280007552FD /* Stylesheet.swift */,
+				426BF74020F6A2CB000C3A4A /* AssetProvider.swift */,
 				4288010D21209280007552FD /* Styles */,
 				4288011021209280007552FD /* ViewStyling.swift */,
 			);
@@ -1201,6 +1196,27 @@
 				4288010F21209280007552FD /* ApplicationHeaderViewStyle.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
+		428801152120976D007552FD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4288010B21209280007552FD /* ViewStyling */,
+				42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */,
+				426BF73E20F6A19D000C3A4A /* ApplicationHeaderView.swift */,
+				429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4288011621209799007552FD /* SkyFloatingLabelTextField */ = {
+			isa = PBXGroup;
+			children = (
+				4243528F20FAAF7800A729E1 /* SkyFloatingLabelTextField.swift */,
+				4243529020FAAF7800A729E1 /* SkyFloatingLabelTextFieldWithIcon.swift */,
+				4243528E20FAAF7800A729E1 /* UITextField+fixCaretPosition.swift */,
+			);
+			path = SkyFloatingLabelTextField;
 			sourceTree = "<group>";
 		};
 		429F0A3A2115F0F2005582B6 /* Mock data */ = {
