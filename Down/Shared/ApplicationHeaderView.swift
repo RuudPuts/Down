@@ -13,15 +13,4 @@ import DownKit
 class ApplicationHeaderView: DesignableView {
     @IBOutlet weak var imageView: UIImageView?
     @IBOutlet weak var button: UIButton?
-
-    var application: DownApplication? {
-        didSet {
-            guard let applicationType = application?.type else {
-                imageView?.image = nil
-                return
-            }
-
-            imageView?.image = AssetProvider.icons.for(applicationType)
-        }
-    }
 }

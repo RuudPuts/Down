@@ -46,7 +46,7 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     }
 
     func configureHeaderView() {
-        headerView.application = application
+        headerView.style(as: .headerView(for: application.downType))
         headerView.button?.rx.tap
             .subscribe(onNext: { _ in
                 self.router?.showSettings(application: self.application)

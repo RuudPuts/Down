@@ -36,8 +36,8 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
     }
 
     func configureHeaderView() {
-        headerView.application = application as? DownApplication
-
+        headerView.style(as: .headerView(for: application.downType))
+        
         headerView.button?.setImage(AssetProvider.icons.close, for: .normal)
         headerView.button?.rx.tap
             .subscribe(onNext: { _ in

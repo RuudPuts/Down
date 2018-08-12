@@ -44,11 +44,11 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
     }
 
     func configureHeaderView() {
-        headerView.application = application
+        headerView.style(as: .headerView(for: application.downType))
         headerView.button?.rx.tap
             .subscribe(onNext: { _ in
-//                self.router?.showSettings(application: self.application)
-                self.router?.dvrRouter.showAddShow()
+                self.router?.showSettings(application: self.application)
+//                self.router?.dvrRouter.showAddShow()
             })
             .disposed(by: disposeBag)
     }
