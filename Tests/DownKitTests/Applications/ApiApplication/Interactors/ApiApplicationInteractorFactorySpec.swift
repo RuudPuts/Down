@@ -37,8 +37,8 @@ class ApiApplicationInteractorFactorySpec: QuickSpec {
                     interactor = nil
                 }
 
-                it("sets the gateway") {
-                    expect(interactor.gateway).toNot(beNil())
+                it("sets the login gateway") {
+                    expect(interactor.gateway).to(beAnInstanceOf(ApiApplicationLoginGateway.self))
                 }
             }
 
@@ -53,8 +53,8 @@ class ApiApplicationInteractorFactorySpec: QuickSpec {
                     interactor = nil
                 }
 
-                it("sets the gateway") {
-                    expect(interactor.gateway).toNot(beNil())
+                it("sets the apikey gateway") {
+                    expect(interactor.gateway).to(beAnInstanceOf(ApiApplicationApiKeyGateway.self))
                 }
             }
         }

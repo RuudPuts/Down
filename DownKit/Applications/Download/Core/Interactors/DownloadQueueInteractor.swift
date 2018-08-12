@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public final class DownloadQueueInteractor: RequestGatewayInteracting {
+public final class DownloadQueueInteractor: RequestGatewayInteracting, DatabaseConsuming {
     public typealias Gateway = DownloadQueueGateway
     public typealias Element = Gateway.ResultType
     

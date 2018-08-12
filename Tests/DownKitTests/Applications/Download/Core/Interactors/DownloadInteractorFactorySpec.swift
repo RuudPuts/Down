@@ -40,12 +40,16 @@ class DownloadInteractorFactorySpec: QuickSpec {
                     interactor = nil
                 }
                 
-                it("sets the gateway") {
-                    expect(interactor.gateway).toNot(beNil())
+                it("sets the queue gateway") {
+                    expect(interactor.gateway).to(beAnInstanceOf(DownloadQueueGateway.self))
+                }
+
+                it("sets the database") {
+                    expect(interactor.database) === database
                 }
             }
             
-            context("queue interactor") {
+            context("history interactor") {
                 var interactor: DownloadHistoryInteractor!
                 
                 beforeEach {
@@ -55,9 +59,13 @@ class DownloadInteractorFactorySpec: QuickSpec {
                 afterEach {
                     interactor = nil
                 }
+
+                it("sets the history gateway") {
+                    expect(interactor.gateway).to(beAnInstanceOf(DownloadHistoryGateway.self))
+                }
                 
-                it("sets the gateway") {
-                    expect(interactor.gateway).toNot(beNil())
+                it("sets the database") {
+                    expect(interactor.database) === database
                 }
             }
         }
