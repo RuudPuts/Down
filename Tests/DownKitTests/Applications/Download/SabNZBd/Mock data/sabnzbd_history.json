@@ -1,0 +1,85 @@
+{
+    "history": {
+        "total_size": "7.7 T",
+        "day_size": "1015 M",
+        "noofslots": 4738,
+        "last_history_update": 1534084971,
+        "week_size": "4.5 G",
+        "version": "2.0.0",
+        "slots": [
+                  {
+                  "action_line": "",
+                  "series": "suits/8/4",
+                  "show_details": "True",
+                  "script_log": "",
+                  "meta": null,
+                  "fail_message": "",
+                  "loaded": false,
+                  "id": 4743,
+                  "size": "714 MB",
+                  "category": "tv",
+                  "pp": "D",
+                  "password": "",
+                  "completeness": 0,
+                  "script": "sabToSickBeard.py",
+                  "nzb_name": "Suits.S08E04.720p.HDTV.x264-KILLERS.nzb",
+                  "download_time": 19,
+                  "storage": "/Users/Ruud/Downloads/SabNZBd/complete/tv/Suits.S08E04.720p.HDTV.x264-KILLERS",
+                  "has_rating": false,
+                  "status": "Completed",
+                  "script_line": "Processing succeeded for /Users/Ruud/Downloads/SabNZBd/complete/tv/Suits.S08E04.720p.HDTV.x264-KILLERS/Suits.S08E04.720p.HDTV.x264-KILLERS.mkv",
+                  "completed": 1534084971,
+                  "nzo_id": "SABnzbd_nzo_X9TUh8",
+                  "downloaded": 748824699,
+                  "retry": 0,
+                  "report": "",
+                  "path": "/Users/Ruud/Downloads/SabNZBd/incomplete/Suits.S08E04.720p.HDTV.x264-KILLERS",
+                  "postproc_time": 38,
+                  "name": "Suits.S08E04.720p.HDTV.x264-KILLERS",
+                  "url": "https://nzbs.in/getnzb/3cdbb57b862253b66a7d7220f5400aee.nzb&i=22504&r=da5589ecb0116825b1660b0ec123ff45",
+                  "md5sum": "1c2d51ba5866936ca6b290e0d1b27640",
+                  "bytes": 748824699,
+                  "url_info": "https://nzbs.in/details/3cdbb57b862253b66a7d7220f5400aee",
+                  "stage_log": [
+                                {
+                                "name": "Source",
+                                "actions": [
+                                            "https://nzbs.in/getnzb/3cdbb57b862253b66a7d7220f5400aee.nzb&i=22504&r=da5589ecb0116825b1660b0ec123ff45"
+                                            ]
+                                },
+                                {
+                                "name": "Download",
+                                "actions": [
+                                            "Downloaded in 19 seconds at an average of 36.5 MB/s<br/>Age: 3d"
+                                            ]
+                                },
+                                {
+                                "name": "Servers",
+                                "actions": [
+                                            "5EuroUsenet=714 MB"
+                                            ]
+                                },
+                                {
+                                "name": "Repair",
+                                "actions": [
+                                            "[3e298ad439c235874744ddd00ecf3e33] Quick Check OK"
+                                            ]
+                                },
+                                {
+                                "name": "Unpack",
+                                "actions": [
+                                            "[ohyeah] Unpacked 1 files/folders in 16 seconds"
+                                            ]
+                                },
+                                {
+                                "name": "Script",
+                                "actions": [
+                                            "Processing succeeded for /Users/Ruud/Downloads/SabNZBd/complete/tv/Suits.S08E04.720p.HDTV.x264-KILLERS/Suits.S08E04.720p.HDTV.x264-KILLERS.mkv <a href=\"./scriptlog?name=SABnzbd_nzo_X9TUh8\">(More)</a>"
+                                            ]
+                                }
+                                ]
+                  }
+                  ],
+        "month_size": "7.3 G"
+    }
+}

@@ -16,10 +16,15 @@ class SabNZBdResponseParser: DownloadResponseParsing {
             DownloadItem(identifier: $0["nzo_id"].stringValue,
                          name: $0["filename"].stringValue)
         }
+
+        let speed = Double(json["speed"].stringValue.split(separator: " ").first ?? "")
+        let timeRemaining = DateFormatter.timeFormatter()
+                                .date(from: json["timeleft"].stringValue)?
+                                .inSeconds
         
-        return DownloadQueue(currentSpeed: json["speed"].stringValue.strip(),
-                             timeRemaining: json["timeleft"].stringValue,
-                             mbRemaining: json["mbleft"].stringValue,
+        return DownloadQueue(speedMb: speed ?? 0,
+                             remainingTime: timeRemaining ?? 0,
+                             remainingMb: json["mbleft"].doubleValue,
                              items: items ?? [])
     }
     
@@ -72,8 +77,19 @@ extension SabNZBdResponseParser {
     }
 }
 
-extension String {
-    func strip() -> String {
-        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+private extension DateFormatter {
+    static func timeFormatter() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+
+        return formatter
+    }
+}
+
+private extension Date {
+    var inSeconds: TimeInterval {
+        let components = Calendar.current.dateComponents([.hour, .minute, .second], from: self)
+
+        return TimeInterval(components.hour! * 3600 + components.minute! * 60 + components.second!)
     }
 }

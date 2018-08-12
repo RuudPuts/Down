@@ -7,20 +7,16 @@
 //
 
 public class DownloadQueue {
-    public let currentSpeed: String
-    public let timeRemaining: String
-    public let mbRemaining: String
+    public let speedMb: Double
+    public let remainingTime: TimeInterval
+    public let remainingMb: Double
     
     public let items: [DownloadItem]
     
-    public init(currentSpeed: String = "", timeRemaining: String = "", mbRemaining: String = "", items: [DownloadItem] = []) {
-        self.currentSpeed = currentSpeed
-        self.timeRemaining = timeRemaining
-        self.mbRemaining = mbRemaining
+    public init(speedMb: Double = 0, remainingTime: TimeInterval = 0, remainingMb: Double = 0, items: [DownloadItem] = []) {
+        self.speedMb = speedMb
+        self.remainingTime = remainingTime
+        self.remainingMb = remainingMb
         self.items = items
-    }
-
-    convenience init() { //! meh
-        self.init(currentSpeed: "", timeRemaining: "", mbRemaining: "", items: [])
     }
 }

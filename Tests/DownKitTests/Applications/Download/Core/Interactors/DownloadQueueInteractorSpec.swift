@@ -52,10 +52,7 @@ class DownloadQueueInteractorSpec: QuickSpec {
 
                 beforeEach {
                     item = DownloadItem(identifier: "test_item", name: "test.item.S01E01")
-                    parser.stubs.parseQueue = DownloadQueue(currentSpeed: "",
-                                                            timeRemaining: "",
-                                                            mbRemaining: "",
-                                                            items: [item])
+                    parser.stubs.parseQueue = DownloadQueue(items: [item])
 
                     do {
                         _ = try sut

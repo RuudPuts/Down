@@ -28,17 +28,13 @@ class DownloadQueueStatusView: DesignableView {
 
     var queue: DownloadQueue? {
         didSet {
-            if queue?.currentSpeed == "0" {
-                [speedValueLabel, timeRemainingValueLabel, mbRemainingValueLabel].forEach {
-                    $0?.text = "-"
-                }
-                
+            if queue?.speedMb == 0 {
                 heightConstraint?.constant = 0
             }
             else {
-                speedValueLabel?.text = queue?.currentSpeed
-                timeRemainingValueLabel?.text = queue?.timeRemaining
-                mbRemainingValueLabel?.text = queue?.mbRemaining
+                speedValueLabel?.text = String(queue?.speedMb ?? 0)
+                timeRemainingValueLabel?.text = String(queue?.remainingTime ?? 0)
+                mbRemainingValueLabel?.text = String(queue?.remainingMb ?? 0)
 
                 heightConstraint?.constant = 50
             }

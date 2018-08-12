@@ -59,7 +59,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 
                 context("from succesful response") {
                     beforeEach {
-                        response.data = self.successJson
+                        response.data = Data(fromJsonFile: "sabnzbd_success")
                         result = try? sut.parse(response, forCall: .queue)
                     }
                     
@@ -73,7 +73,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     
                     beforeEach {
                         do {
-                            response.data = self.errorJson
+                            response.data = Data(fromJsonFile: "sabnzbd_error")
                             result = try sut.parse(response, forCall: .queue)
                         }
                         catch {
@@ -117,7 +117,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 var result: DownloadQueue!
                 
                 beforeEach {
-                    response.data = self.queueJson
+                    response.data = Data(fromJsonFile: "sabnzbd_queue")
                     result = try? sut.parseQueue(from: response)
                 }
                 
@@ -126,15 +126,15 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 }
                 
                 it("parses current speed") {
-                    expect(result.currentSpeed) == "0"
+                    expect(result.speedMb) == 31.7
                 }
                 
                 it("parses time remaining") {
-                    expect(result.timeRemaining) == "0:00:00"
+                    expect(result.remainingTime) == 3855
                 }
                 
                 it("parses current data remaining") {
-                    expect(result.mbRemaining) == "0.00"
+                    expect(result.remainingMb) == 487.70
                 }
                 
                 it("parses 1 item") {
@@ -146,7 +146,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 var result: [DownloadItem]!
                 
                 beforeEach {
-                    response.data = self.historyJson
+                    response.data = Data(fromJsonFile: "sabnzbd_history")
                     result = try? sut.parseHistory(from: response)
                 }
                 
@@ -159,55 +159,5 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 }
             }
         }
-    }
-    
-    var successJson: Data {
-        // swiftlint:disable force_try
-        return try! JSON([
-            "queue": [
-                "version": "2.0.0"
-            ]
-        ]).rawData()
-    }
-    
-    var errorJson: Data {
-        // swiftlint:disable force_try
-        return try! JSON([
-            "status": false,
-            "error": "not implemented"
-        ]).rawData()
-    }
-    
-    var queueJson: Data {
-        // swiftlint:disable force_try
-        return try! JSON([
-            "queue": [
-                "paused": false,
-                "speed": "0  ",
-                "status": "Idle",
-                "mbleft": "0.00",
-                "timeleft": "0:00:00",
-                "mb": "0.00",
-                "slots": [
-                    [
-                        "filename": "Marvels.Luke.Cage.S02E13.They.Reminisce.Over.You.720p.NF.WEB-DL.DDP5.1.x264-NTb"
-                    ]
-                ]
-            ]
-        ]).rawData()
-    }
-    
-    var historyJson: Data {
-        // swiftlint:disable force_try
-        return try! JSON([
-            "history": [
-                "slots": [
-                    [
-                        "id": 4673,
-                        "nzb_name": "Marvels.Luke.Cage.S02E13.They.Reminisce.Over.You.720p.NF.WEB-DL.DDP5.1.x264-NTb.nzb"
-                    ]
-                ]
-            ]
-        ]).rawData()
     }
 }

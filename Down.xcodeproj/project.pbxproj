@@ -155,6 +155,10 @@
 		4288011121209280007552FD /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4288010C21209280007552FD /* Stylesheet.swift */; };
 		4288011321209280007552FD /* ApplicationHeaderViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4288010F21209280007552FD /* ApplicationHeaderViewStyle.swift */; };
 		4288011421209280007552FD /* ViewStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4288011021209280007552FD /* ViewStyling.swift */; };
+		4288011D2120AFD3007552FD /* sabnzbd_history.json in Resources */ = {isa = PBXBuildFile; fileRef = 4288011A2120AFD2007552FD /* sabnzbd_history.json */; };
+		4288011E2120AFD3007552FD /* sabnzbd_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 4288011B2120AFD3007552FD /* sabnzbd_success.json */; };
+		4288011F2120AFD3007552FD /* sabnzbd_error.json in Resources */ = {isa = PBXBuildFile; fileRef = 4288011C2120AFD3007552FD /* sabnzbd_error.json */; };
+		428801202120AFD8007552FD /* sabnzbd_queue.json in Resources */ = {isa = PBXBuildFile; fileRef = 428801182120AF96007552FD /* sabnzbd_queue.json */; };
 		429B01CF20F52B7400BCDA0F /* ApiApplicationResponseParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01CE20F52B7400BCDA0F /* ApiApplicationResponseParsing.swift */; };
 		429B01D220F5324E00BCDA0F /* ApiApplicationGatewayFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D020F5324D00BCDA0F /* ApiApplicationGatewayFactory.swift */; };
 		429B01D320F5324E00BCDA0F /* ApiApplicationRequestGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */; };
@@ -400,6 +404,10 @@
 		4288010C21209280007552FD /* Stylesheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stylesheet.swift; sourceTree = "<group>"; };
 		4288010F21209280007552FD /* ApplicationHeaderViewStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationHeaderViewStyle.swift; sourceTree = "<group>"; };
 		4288011021209280007552FD /* ViewStyling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewStyling.swift; sourceTree = "<group>"; };
+		428801182120AF96007552FD /* sabnzbd_queue.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sabnzbd_queue.json; sourceTree = "<group>"; };
+		4288011A2120AFD2007552FD /* sabnzbd_history.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sabnzbd_history.json; sourceTree = "<group>"; };
+		4288011B2120AFD3007552FD /* sabnzbd_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sabnzbd_success.json; sourceTree = "<group>"; };
+		4288011C2120AFD3007552FD /* sabnzbd_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sabnzbd_error.json; sourceTree = "<group>"; };
 		429B01CE20F52B7400BCDA0F /* ApiApplicationResponseParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationResponseParsing.swift; sourceTree = "<group>"; };
 		429B01D020F5324D00BCDA0F /* ApiApplicationGatewayFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactory.swift; sourceTree = "<group>"; };
 		429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationRequestGateway.swift; sourceTree = "<group>"; };
@@ -931,6 +939,7 @@
 			children = (
 				4227B7C520DD8F7200603528 /* SabNZBdRequestBuilderSpec.swift */,
 				4227B7C620DD8F7200603528 /* SabNZBdResponseParserSpec.swift */,
+				428801172120AF85007552FD /* Mock data */,
 			);
 			path = SabNZBd;
 			sourceTree = "<group>";
@@ -1183,9 +1192,9 @@
 			isa = PBXGroup;
 			children = (
 				4288010C21209280007552FD /* Stylesheet.swift */,
+				4288011021209280007552FD /* ViewStyling.swift */,
 				426BF74020F6A2CB000C3A4A /* AssetProvider.swift */,
 				4288010D21209280007552FD /* Styles */,
-				4288011021209280007552FD /* ViewStyling.swift */,
 			);
 			path = ViewStyling;
 			sourceTree = "<group>";
@@ -1217,6 +1226,17 @@
 				4243528E20FAAF7800A729E1 /* UITextField+fixCaretPosition.swift */,
 			);
 			path = SkyFloatingLabelTextField;
+			sourceTree = "<group>";
+		};
+		428801172120AF85007552FD /* Mock data */ = {
+			isa = PBXGroup;
+			children = (
+				4288011C2120AFD3007552FD /* sabnzbd_error.json */,
+				4288011A2120AFD2007552FD /* sabnzbd_history.json */,
+				4288011B2120AFD3007552FD /* sabnzbd_success.json */,
+				428801182120AF96007552FD /* sabnzbd_queue.json */,
+			);
+			path = "Mock data";
 			sourceTree = "<group>";
 		};
 		429F0A3A2115F0F2005582B6 /* Mock data */ = {
@@ -1462,6 +1482,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				429F0A6821174B42005582B6 /* sickbeard_error_chainedcommand.json in Resources */,
+				4288011E2120AFD3007552FD /* sabnzbd_success.json in Resources */,
+				4288011D2120AFD3007552FD /* sabnzbd_history.json in Resources */,
+				4288011F2120AFD3007552FD /* sabnzbd_error.json in Resources */,
+				428801202120AFD8007552FD /* sabnzbd_queue.json in Resources */,
 				429F0A502115F654005582B6 /* sickbeard_showdetails.json in Resources */,
 				429F0A4D2115F654005582B6 /* sickbeard_addshow.json in Resources */,
 				429F0A522115F654005582B6 /* sickbeard_success.json in Resources */,
