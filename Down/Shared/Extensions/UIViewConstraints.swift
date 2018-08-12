@@ -34,6 +34,27 @@ extension UIView {
     }
 }
 
+extension UIView {
+    func constraintToFillParent() {
+        guard let superview = superview else {
+            return
+        }
+
+        translatesAutoresizingMaskIntoConstraints = false
+
+        let views = ["view": self]
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|",
+                                                                   metrics: nil,
+                                                                   views: views)
+
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|",
+                                                                 metrics: nil,
+                                                                 views: views)
+
+        superview.addConstraints(horizontalConstraints + verticalConstraints)
+    }
+}
+
 private extension UIView {
     func constraint(withAttribute attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
         return constraints.first { $0.firstAttribute == attribute }

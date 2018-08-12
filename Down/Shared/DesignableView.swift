@@ -47,22 +47,3 @@ class DesignableView: UIView {
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
 }
-
-extension UIView {
-    func constraintToFillParent() {
-        guard let superview = superview else {
-            return
-        }
-
-        let views = ["view": self]
-        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|",
-                                                                   metrics: nil,
-                                                                   views: views)
-
-        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|",
-                                                                 metrics: nil,
-                                                                 views: views)
-
-        superview.addConstraints(horizontalConstraints + verticalConstraints)
-    }
-}
