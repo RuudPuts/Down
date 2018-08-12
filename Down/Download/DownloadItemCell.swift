@@ -29,11 +29,15 @@ struct DownloadItemCellModel {
     let text: String
     let detailText: String
 
-    //! Not too happy about this, but is nessecary for DownloadViewController to make a Model
-    // Also starts the DownKit dependency
     init(item: DownloadItem) {
-        if let episode = item.dvrEpisode {
-            text = "\(episode.show.name) - S\(episode.season.identifier)E\(episode.identifier) - \(episode.name)"
+        if let episode = item.dvrEpisode,
+           let episodeId = Int(episode.identifier),
+           let seasonId = Int(episode.season.identifier) {
+            text = String(format: "%@ - S%02dE%02d - %@",
+                                 episode.show.name,
+                                 seasonId,
+                                 episodeId,
+                                 episode.name)
         }
         else {
             text = item.name

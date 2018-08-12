@@ -25,10 +25,19 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting {
     }
     
     public func observe() -> Observable<DownloadQueue> {
+        var queue: DownloadQueue!
+
         return self.gateway
             .observe()
-            .do(onNext: { queue in
-                queue.items.forEach { $0.match(with: self.database) }
-            })
+            .do(onNext: { queue = $0 })
+            .map { $0.items }
+            .flatMap { items -> Observable<[DownloadItem]> in
+                guard items.count > 0 else {
+                    return Observable.just([])
+                }
+
+                return Observable.zip(items.map { $0.match(with: self.database) })
+            }
+            .map { _ in queue }
     }
 }

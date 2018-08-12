@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public class DownloadItem {
+public final class DownloadItem {
     public let identifier: String
     public let name: String
     public var dvrEpisode: DvrEpisode?
@@ -22,25 +22,27 @@ public class DownloadItem {
 }
 
 extension DownloadItem: DvrDatabaseMatching {
-    func match(with database: DvrDatabase) {
-        guard let (season, episode, string) = seasonAndEpisode(in: name) else {
-            return
+    public func match(with database: DvrDatabase) -> Observable<DownloadItem> {
+        guard let (seasonIdentifier, episodeIdentifier, seasonEpisodeString) = seasonAndEpisode(in: name) else {
+            return Observable.just(self)
         }
-        
-        let nameComponents = name.components(separatedBy: string)
-                                 .first!
-                                 .components(separatedBy: ".")
-        database.fetchShow(matching: nameComponents)
-            .subscribe(onNext: { show in
-                let seasonId = season - 1
-                let episodeId = episode - 1
-                
-                if show.seasons.count > seasonId
-                    && show.seasons[seasonId].episodes.count > episodeId {
-                    self.dvrEpisode = show.seasons[seasonId].episodes[episodeId]
-                }
+
+        let nameComponents = name.components(separatedBy: seasonEpisodeString)
+            .first!
+            .components(separatedBy: ".")
+
+        return database
+            .fetchShow(matching: nameComponents)
+            .do(onNext: { show in
+                self.dvrEpisode = show
+                    .seasons.first(where: {
+                        $0.identifier == String(seasonIdentifier)
+                    })?
+                    .episodes.first(where: {
+                        $0.identifier == String(episodeIdentifier)
+                    })
             })
-            .disposed(by: disposeBag)
+            .map { _ in self }
     }
     
     // swiftlint:disable large_tuple

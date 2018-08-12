@@ -23,7 +23,7 @@ public class DownloadInteractorFactory: DownloadInteractorProducing {
     public func makeQueueInteractor(for application: DownloadApplication) -> DownloadQueueInteractor {
         let gateway = gatewayFactory.makeQueueGateway(for: application)
         
-        return DownloadQueueInteractor(gateway: gateway)
+        return DownloadQueueInteractor(gateway: gateway, database: dvrDatabase)
     }
     
     public func makeHistoryInteractor(for application: DownloadApplication) -> DownloadHistoryInteractor {

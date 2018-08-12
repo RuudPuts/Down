@@ -19,6 +19,6 @@ protocol DvrDatabaseStoring {
     func store(in database: DvrDatabase)
 }
 
-protocol DvrDatabaseMatching {
-    func match(with database: DvrDatabase)
+public protocol DvrDatabaseMatching {
+    func match(with database: DvrDatabase) -> Observable<Self>
 }

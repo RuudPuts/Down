@@ -13,52 +13,49 @@ import RxDataSources
 struct DownloadViewModel {
     var title = R.string.localizable.download_screen_root_title()
     var refreshInterval: TimeInterval = 2
-    
+
     let queueInteractor: DownloadQueueInteractor
     let historyInteractor: DownloadHistoryInteractor
     let disposeBag = DisposeBag()
     
     let queueData = Variable(DownloadQueue())
-    let sectionsData = Variable([DownloadSectionData(header: "Queue", items: []), DownloadSectionData(header: "History", items: [])])
+    let sectionsData: Variable<[DownloadSectionData]> = Variable([])
     
     init(queueInteractor: DownloadQueueInteractor, historyInteractor: DownloadHistoryInteractor) {
         self.queueInteractor = queueInteractor
         self.historyInteractor = historyInteractor
 
-        loadQueue()
-        loadHistory()
+        startRefreshing()
     }
 }
 
 private extension DownloadViewModel {
-    //! Should this just be a driver instead?
-    // Note queue & history shoudl still be running together
-    func loadQueue() {
-        queueInteractor
-            .observe()
+    func startRefreshing() {
+        let observables = [refreshQueue(), refreshHistory()]
+        Observable.zip(observables)
             .withInterval(interval: refreshInterval)
-            .subscribe(onNext: { queue in
-                self.queueData.value = queue
-                self.updateSection(0, withItems: queue.items)
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    func loadHistory() {
-        historyInteractor
-            .observe()
-            .withInterval(interval: refreshInterval)
-            .subscribe(onNext: { items in
-                self.updateSection(1, withItems: items)
+            .subscribe(onNext: {
+                self.updateSectionData(queue: $0.first, history: $0.last)
             })
             .disposed(by: disposeBag)
     }
 
-    //! This method causes a UI glitch since it is mutating sectonsData and both Queue and History will call it at the same time
-    func updateSection(_ index: Int, withItems items: [DownloadSectionData.Item]) {
-        let section = DownloadSectionData(original: sectionsData.value[index], items: items)
-        sectionsData.value.remove(at: index)
-        sectionsData.value.insert(section, at: index)
+    func refreshQueue() -> Observable<[DownloadItem]> {
+        return queueInteractor
+            .observe()
+            .do(onNext: { self.queueData.value = $0 })
+            .map { $0.items }
+    }
+
+    func refreshHistory() -> Observable<[DownloadItem]> {
+        return historyInteractor.observe()
+    }
+
+    func updateSectionData(queue: [DownloadItem]? = nil, history: [DownloadItem]? = nil) {
+        sectionsData.value = [
+            DownloadSectionData(header: "Queue", items: queue ?? []),
+            DownloadSectionData(header: "History", items: history ?? [])
+        ]
     }
 }
 

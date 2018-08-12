@@ -33,17 +33,17 @@ class DownloadQueueStatusView: DesignableView {
                     $0?.text = "-"
                 }
                 
-//                heightConstraint?.constant = 0
+                heightConstraint?.constant = 0
             }
             else {
                 speedValueLabel?.text = queue?.currentSpeed
                 timeRemainingValueLabel?.text = queue?.timeRemaining
                 mbRemainingValueLabel?.text = queue?.mbRemaining
 
-//                heightConstraint?.constant = 50
+                heightConstraint?.constant = 50
             }
 
-//            layoutIfNeeded()
+            layoutIfNeeded()
         }
     }
 }
