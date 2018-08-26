@@ -21,7 +21,6 @@ extension ViewStyling where ViewType == CircleProgressView {
     static func progressView(for type: DownApplicationType) -> ViewStyling {
         return ViewStyling {
             $0.trackFillColor = Stylesheet.Colors.primaryColor(for: type)
-                                    .withAlphaComponent(0.8)
         }
     }
 }
