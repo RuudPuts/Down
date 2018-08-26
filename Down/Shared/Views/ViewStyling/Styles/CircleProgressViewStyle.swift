@@ -13,8 +13,15 @@ extension ViewStyling where ViewType == CircleProgressView {
         $0.backgroundColor = .clear
         $0.centerFillColor = Stylesheet.Colors.Backgrounds.lightBlue
         $0.trackBackgroundColor = Stylesheet.Colors.Backgrounds.darkBlue
-        $0.trackFillColor = UIColor.orange.withAlphaComponent(0.8)
+        $0.trackFillColor = UIColor.white.withAlphaComponent(0.8)
 
         $0.trackWidth = 5
+    }
+
+    static func progressView(for type: DownApplicationType) -> ViewStyling {
+        return ViewStyling {
+            $0.trackFillColor = Stylesheet.Colors.primaryColor(for: type)
+                                    .withAlphaComponent(0.8)
+        }
     }
 }

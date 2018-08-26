@@ -38,6 +38,7 @@ class DownloadItemCell: UITableViewCell {
         super.awakeFromNib()
 
         style(as: .downloadItem)
+        progressView.style(as: .progressView(for: .sabnzbd))
     }
 
     func setViewModel(_ viewModel: DownloadItemCellModel) -> DownloadItemCell {
@@ -143,7 +144,7 @@ private extension Date {
 
     var dateTimeString: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM HH:mm:ss"
+        formatter.dateFormat = "dd MMM HH:mm"
 
         return formatter.string(from: self)
     }

@@ -21,6 +21,7 @@ class DownloadQueueStatusView: DesignableView {
     @IBOutlet weak var mbRemainingValueLabel: UILabel?
 
     override func awakeFromNib() {
+        style(as: .defaultQueueStatusView)
         speedLabel?.text = R.string.localizable.download_statusview_speed()
         timeRemainingLabel?.text = R.string.localizable.download_statusview_timeremaining()
         mbRemainingLabel?.text = R.string.localizable.download_statusview_mbremaining()
@@ -29,7 +30,7 @@ class DownloadQueueStatusView: DesignableView {
     var queue: DownloadQueue? {
         didSet {
             if queue?.speedMb == 0 {
-                heightConstraint?.constant = 0
+                heightConstraint?.constant = 50
             }
             else {
                 speedValueLabel?.text = String(queue?.speedMb ?? 0)

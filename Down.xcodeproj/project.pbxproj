@@ -157,6 +157,7 @@
 		4284C721213327FD00F21B91 /* TableSectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C720213327FD00F21B91 /* TableSectionData.swift */; };
 		4284C723213331FE00F21B91 /* UITabBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C722213331FD00F21B91 /* UITabBarStyle.swift */; };
 		4284C7252133442800F21B91 /* SkyFloatingLabelTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */; };
+		4284C72721334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C72621334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift */; };
 		428800FE21208DCA007552FD /* DownloadQueueInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428800FD21208DCA007552FD /* DownloadQueueInteractorSpec.swift */; };
 		4288011121209280007552FD /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4288010C21209280007552FD /* Stylesheet.swift */; };
 		4288011321209280007552FD /* ApplicationHeaderViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4288010F21209280007552FD /* ApplicationHeaderViewStyle.swift */; };
@@ -428,6 +429,7 @@
 		4284C720213327FD00F21B91 /* TableSectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionData.swift; sourceTree = "<group>"; };
 		4284C722213331FD00F21B91 /* UITabBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITabBarStyle.swift; sourceTree = "<group>"; };
 		4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextFieldStyle.swift; sourceTree = "<group>"; };
+		4284C72621334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueueStatusViewStyle.swift; sourceTree = "<group>"; };
 		428800FD21208DCA007552FD /* DownloadQueueInteractorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueInteractorSpec.swift; sourceTree = "<group>"; };
 		4288010C21209280007552FD /* Stylesheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stylesheet.swift; sourceTree = "<group>"; };
 		4288010F21209280007552FD /* ApplicationHeaderViewStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationHeaderViewStyle.swift; sourceTree = "<group>"; };
@@ -1255,6 +1257,7 @@
 				4235075D21248BEC005343CD /* CircleProgressViewStyle.swift */,
 				4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */,
 				4235076521249B9E005343CD /* TableHeaderViewStyle.swift */,
+				4284C72621334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift */,
 				428FCD6621234E3E00C0371D /* UILabelStyle.swift */,
 				4284C722213331FD00F21B91 /* UITabBarStyle.swift */,
 				428FCD622122143D00C0371D /* UITableViewCellStyle.swift */,
@@ -1888,6 +1891,7 @@
 				42FB90392101154C007B01DB /* ApplicationPersisting.swift in Sources */,
 				425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */,
 				428FCD61212212B600C0371D /* UIViewStyle.swift in Sources */,
+				4284C72721334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift in Sources */,
 				427D606120E0325C0017AE42 /* DownloadViewController.swift in Sources */,
 				4284C721213327FD00F21B91 /* TableSectionData.swift in Sources */,
 				42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */,
