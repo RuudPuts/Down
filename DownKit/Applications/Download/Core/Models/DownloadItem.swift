@@ -8,20 +8,26 @@
 
 import RxSwift
 
-public final class DownloadItem {
+public class DownloadItem {
     public let identifier: String
     public let name: String
+    public let category: String
+    public let sizeMb: Double
+    public let progress: Double
     public var dvrEpisode: DvrEpisode?
     
     let disposeBag = DisposeBag()
     
-    public init(identifier: String, name: String) {
+    public init(identifier: String, name: String, category: String, sizeMb: Double, progress: Double) {
         self.identifier = identifier
         self.name = name
+        self.category = category
+        self.sizeMb = sizeMb
+        self.progress = progress
     }
 }
 
-extension DownloadItem: DvrDatabaseMatching {
+extension DownloadItem {
     public func match(with database: DvrDatabase) -> Observable<DownloadItem> {
         guard let (seasonIdentifier, episodeIdentifier, seasonEpisodeString) = seasonAndEpisode(in: name) else {
             return Observable.just(self)

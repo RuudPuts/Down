@@ -6,12 +6,10 @@
   Copyright © 2018 Mobile Sorcery. All rights reserved.
 */
 
-"download_screen_root_title" = "Download";
 "download_statusview_speed" = "Speed";
 "download_statusview_timeremaining" = "Time left";
 "download_statusview_mbremaining" = "MB left";
 
-"dvr_screen_root_title" = "Shows";
 "dvr_screen_add_show_title" = "Add show";
 
 "dvr_settings_cacherefresh_description" = "Refreshing show cache...";

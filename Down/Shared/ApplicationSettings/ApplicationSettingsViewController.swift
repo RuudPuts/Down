@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxSwiftExt
 import DownKit
+import SkyFloatingLabelTextField
 
 class ApplicationSettingsViewController: UIViewController & Routing & ApiApplicationInteracting {
     var application: ApiApplication!
@@ -31,8 +32,18 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        applyStyling()
         configureHeaderView()
         configureTextFields()
+    }
+
+    func applyStyling() {
+        view.style(as: .backgroundView)
+
+        [hostTextField, usernameTextField, passwordTextField, apiKeyTextField].forEach {
+            $0?.style(as: .settingsTextField)
+            $0?.style(as: .textField(for: application.downType))
+        }
     }
 
     func configureHeaderView() {

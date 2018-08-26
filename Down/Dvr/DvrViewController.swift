@@ -28,6 +28,7 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        applyStyling()
         configureHeaderView()
         configureTableView()
         applyViewModel()
@@ -40,7 +41,15 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+
+        if let navigationController = navigationController,
+            navigationController.viewControllers.count > 1 {
+            navigationController.setNavigationBarHidden(false, animated: animated)
+        }
+    }
+
+    func applyStyling() {
+        view.style(as: .backgroundView)
     }
 
     func configureHeaderView() {
@@ -67,8 +76,6 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
     }
 
     func applyViewModel() {
-        title = viewModel.title
-
         viewModel.shows
             .do(onNext: {
                 guard $0.count == 0 else { return }

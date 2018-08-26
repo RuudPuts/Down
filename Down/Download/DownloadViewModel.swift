@@ -11,7 +11,6 @@ import RxSwift
 import RxDataSources
 
 struct DownloadViewModel {
-    var title = R.string.localizable.download_screen_root_title()
     var refreshInterval: TimeInterval = 2
 
     let queueInteractor: DownloadQueueInteractor
@@ -19,7 +18,7 @@ struct DownloadViewModel {
     let disposeBag = DisposeBag()
     
     let queueData = Variable(DownloadQueue())
-    let sectionsData: Variable<[DownloadSectionData]> = Variable([])
+    let sectionsData: Variable<[TableSectionData]> = Variable([])
     
     init(queueInteractor: DownloadQueueInteractor, historyInteractor: DownloadHistoryInteractor) {
         self.queueInteractor = queueInteractor
@@ -53,25 +52,8 @@ private extension DownloadViewModel {
 
     func updateSectionData(queue: [DownloadItem]? = nil, history: [DownloadItem]? = nil) {
         sectionsData.value = [
-            DownloadSectionData(header: "Queue", items: queue ?? []),
-            DownloadSectionData(header: "History", items: history ?? [])
+            TableSectionData(header: "Queue", icon: R.image.icon_queue(), items: queue ?? []),
+            TableSectionData(header: "History", icon: R.image.icon_history(), items: history ?? [])
         ]
-    }
-}
-
-struct DownloadSectionData: SectionModelType {
-    typealias Item = DownloadItem
-    
-    var header: String
-    var items: [Item]
-    
-    init(header: String, items: [Item]) {
-        self.header = header
-        self.items = items
-    }
-    
-    init(original: DownloadSectionData, items: [Item]) {
-        self = original
-        self.items = items
     }
 }

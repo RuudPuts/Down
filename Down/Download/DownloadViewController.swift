@@ -29,6 +29,7 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        applyStyling()
         configureHeaderView()
         configureTableView()
         applyViewModel()
@@ -42,7 +43,16 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+
+        if let navigationController = navigationController,
+            navigationController.viewControllers.count > 1 {
+            navigationController.setNavigationBarHidden(false, animated: animated)
+        }
+    }
+
+    func applyStyling() {
+        view.style(as: .backgroundView)
+        tableView.style(as: .defaultTableView)
     }
 
     func configureHeaderView() {
@@ -55,7 +65,11 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     }
     
     func configureTableView() {
-        tableView.register(cellNib: DownloadItemCell.identifier)
+        tableView.delegate = self
+        tableView.sectionHeaderHeight = 40
+        
+        tableView.registerCell(nibName: DownloadItemCell.identifier)
+        tableView.registerHeaderFooter(nibName: TableHeaderView.identifier)
         
         dataSource.titleForHeaderInSection = { dataSource, index in
             return dataSource.sectionModels[index].header
@@ -63,8 +77,6 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     }
     
     func applyViewModel() {
-        title = viewModel.title
-
         viewModel.queueData.asDriver()
             .drive(statusView.rx.queue)
             .disposed(by: disposeBag)
@@ -74,19 +86,34 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
             .disposed(by: disposeBag)
     }
 
-    let dataSource = RxTableViewSectionedReloadDataSource<DownloadSectionData>(configureCell: { (_, tableView, indexPath, item) -> UITableViewCell in
+    let dataSource = RxTableViewSectionedReloadDataSource<TableSectionData>(configureCell: { (_, tableView, indexPath, item) -> UITableViewCell in
         let cell = tableView.dequeueReusableCell(withIdentifier: DownloadItemCell.identifier, for: indexPath)
-        // Can't call any methods or variables from here for some reason.
-        // Error: Value of type '(DownloadViewController) -> () -> (DownloadViewController)' has no member '<called ref>'
-        // Code should move to view model
-        (cell as? DownloadItemCell)?.viewModel = DownloadItemCellModel(item: item)
+        guard let itemCell = cell as? DownloadItemCell else {
+            return cell
+        }
+
+        if let queueItem = item as? DownloadQueueItem {
+            itemCell.viewModel = DownloadItemCellModel(queueItem: queueItem)
+        }
+        else if let historyItem = item as? DownloadHistoryItem {
+            itemCell.viewModel = DownloadItemCellModel(historyItem: historyItem)
+        }
 
         return cell
     })
 }
 
-extension UITableView {
-    func register(cellNib nib: String) {
-        register(UINib(nibName: nib, bundle: Bundle.main), forCellReuseIdentifier: nib)
+extension DownloadViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.identifier)
+        guard let headerView = view as? TableHeaderView else {
+            return nil
+        }
+
+        let data = viewModel.sectionsData.value[section]
+        headerView.viewModel = TableHeaderViewModel(title: data.header, icon: data.icon)
+
+        return view
     }
 }
+

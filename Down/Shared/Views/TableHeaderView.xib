@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TableHeaderView" customModule="Down" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Queue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ys-4d-bea">
+                    <rect key="frame" x="48" y="14" width="317" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.96922064270667374" green="1" blue="0.9642076204769372" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="queue" translatesAutoresizingMaskIntoConstraints="NO" id="UJj-kM-lDh">
+                    <rect key="frame" x="10" y="10" width="28" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="UJj-kM-lDh" secondAttribute="height" multiplier="1:1" id="8Sr-p8-3fZ"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="0ys-4d-bea" firstAttribute="leading" secondItem="UJj-kM-lDh" secondAttribute="trailing" constant="10" id="2s3-hS-Q0U"/>
+                <constraint firstItem="0ys-4d-bea" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ACg-6C-xsq"/>
+                <constraint firstItem="UJj-kM-lDh" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="ZUL-vY-1K2"/>
+                <constraint firstItem="UJj-kM-lDh" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="khh-Nl-9oi"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="0ys-4d-bea" secondAttribute="trailing" constant="10" id="o8F-CO-jgL"/>
+                <constraint firstItem="UJj-kM-lDh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="sjN-fd-f3g"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="imageView" destination="UJj-kM-lDh" id="iUV-kD-Tc2"/>
+                <outlet property="label" destination="0ys-4d-bea" id="Wg8-Ur-Iic"/>
+            </connections>
+            <point key="canvasLocation" x="-143" y="-189"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="queue" width="60" height="51"/>
+    </resources>
+</document>

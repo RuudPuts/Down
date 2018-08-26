@@ -32,7 +32,9 @@ class Router {
         
         let downloadViewController = startDownloadRouter(tabBarController: tabBarController)
         let dvrViewController = startDvrRouter(tabBarController: tabBarController)
-        tabBarController.viewControllers = [downloadViewController, dvrViewController]
+        let mvrViewController = startMvrRouter(tabBarController: tabBarController)
+        tabBarController.viewControllers = [downloadViewController, dvrViewController, mvrViewController]
+        tabBarController.tabBar.style(as: .defaultTabBar)
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
@@ -82,9 +84,11 @@ class Router {
 
 private extension Router {
     func startDownloadRouter(tabBarController: UITabBarController) -> UIViewController {
+        let icon = R.image.tabbar_downloads()?.withRenderingMode(.alwaysOriginal)
+        let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 0)
+
         let navigationController = UINavigationController()
-        let title = R.string.localizable.download_screen_root_title()
-        navigationController.tabBarItem = UITabBarItem(title: title, image: nil, tag: 0)
+        navigationController.tabBarItem = tabbarItem
 
         downloadRouter = DownloadRouter(parent: self,
                                         viewControllerFactory: viewControllerFactory,
@@ -96,15 +100,27 @@ private extension Router {
     }
 
     func startDvrRouter(tabBarController: UITabBarController) -> UIViewController {
+        let icon = R.image.tabbar_shows()?.withRenderingMode(.alwaysOriginal)
+        let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
+
         let navigationController = UINavigationController()
-        let title = R.string.localizable.dvr_screen_root_title()
-        navigationController.tabBarItem = UITabBarItem(title: title, image: nil, tag: 0)
+        navigationController.tabBarItem = tabbarItem
 
         dvrRouter = DvrRouter(parent: self,
                               viewControllerFactory: viewControllerFactory,
                               navigationController: navigationController,
                               database: database)
         dvrRouter.start()
+
+        return navigationController
+    }
+
+    func startMvrRouter(tabBarController: UITabBarController) -> UIViewController {
+        let icon = R.image.tabbar_movies()?.withRenderingMode(.alwaysOriginal)
+        let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
+
+        let navigationController = UINavigationController()
+        navigationController.tabBarItem = tabbarItem
 
         return navigationController
     }

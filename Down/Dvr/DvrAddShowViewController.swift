@@ -10,6 +10,7 @@ import DownKit
 import RxSwift
 import RxCocoa
 import UIKit
+import SkyFloatingLabelTextField
 
 class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
     var application: DvrApplication!

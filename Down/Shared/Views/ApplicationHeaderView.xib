@@ -29,7 +29,7 @@
                         <constraint firstAttribute="width" constant="40" id="BW7-Js-UU6"/>
                         <constraint firstAttribute="height" constant="40" id="qrW-3j-xeA"/>
                     </constraints>
-                    <state key="normal" image="gear"/>
+                    <state key="normal" image="icon_settings"/>
                 </button>
             </subviews>
             <constraints>
@@ -46,7 +46,7 @@
         </view>
     </objects>
     <resources>
-        <image name="gear" width="512" height="512"/>
+        <image name="icon_settings" width="512" height="512"/>
         <image name="sabnzbd_icon" width="168" height="45"/>
     </resources>
 </document>

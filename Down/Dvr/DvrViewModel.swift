@@ -10,9 +10,7 @@ import DownKit
 import RxSwift
 import RxDataSources
 
-struct DvrViewModel {
-    var title = R.string.localizable.dvr_screen_root_title()
-    
+struct DvrViewModel {   
     let refreshCacheInteractor: DvrRefreshShowCacheInteractor
     let database: DvrDatabase
     let disposeBag = DisposeBag()

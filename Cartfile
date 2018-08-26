@@ -6,3 +6,4 @@ github "realm/realm-cocoa" ~> 3.7
 github "Skyscanner/SkyFloatingLabelTextField" ~> 3.5
 github "mac-cain13/R.swift.Library" ~> 4.0.0
 github "Alamofire/Alamofire" ~> 4.7
+github "CardinalNow/iOS-CircleProgressView"
