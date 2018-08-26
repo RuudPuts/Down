@@ -30,7 +30,7 @@ class DownloadQueueStatusView: DesignableView {
     var queue: DownloadQueue? {
         didSet {
             if queue?.speedMb == 0 {
-                heightConstraint?.constant = 50
+                heightConstraint?.constant = 0
             }
             else {
                 speedValueLabel?.text = String(queue?.speedMb ?? 0)
