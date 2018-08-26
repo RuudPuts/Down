@@ -14,8 +14,12 @@ extension ViewStyling where ViewType == UIView {
         $0.subviews.forEach { $0.backgroundColor = .clear }
     }
 
-    static var cellContentView = ViewStyling {
-        $0.backgroundColor = Stylesheet.Colors.Backgrounds.lightBlue
+    static var contentView = ViewStyling {
         $0.layer.cornerRadius = 5
+    }
+
+    static var cellContentView = ViewStyling {
+        $0.style(as: contentView)
+        $0.backgroundColor = Stylesheet.Colors.Backgrounds.lightBlue
     }
 }

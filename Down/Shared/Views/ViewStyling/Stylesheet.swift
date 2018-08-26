@@ -25,6 +25,9 @@ struct Stylesheet {
                 // case .couchpotato: return UIColor(red: 0.18, green: 0.5, blue: 0.71, alpha: 1)
             }
         }
+
+        static var green = UIColor(red: 0.25, green: 0.75, blue: 0.45, alpha: 1)
+        static var red = UIColor(red: 0.84, green: 0.29, blue: 0.26, alpha: 1)
     }
 
     struct Fonts {

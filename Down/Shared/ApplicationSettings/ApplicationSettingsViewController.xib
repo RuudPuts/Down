@@ -15,6 +15,7 @@
                 <outlet property="headerView" destination="mmK-Ap-zoX" id="AP0-eG-7yg"/>
                 <outlet property="hostTextField" destination="bxy-ky-JOP" id="UnE-Zb-qA3"/>
                 <outlet property="passwordTextField" destination="0cd-4J-uq6" id="BL1-pf-l3M"/>
+                <outlet property="saveButton" destination="k99-e0-T0T" id="fuq-W8-kgB"/>
                 <outlet property="usernameTextField" destination="EFV-4s-Cg3" id="AKg-cf-Jvk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

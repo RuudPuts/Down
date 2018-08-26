@@ -28,6 +28,7 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
     @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var apiKeyTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var headerView: ApplicationHeaderView!
+    @IBOutlet weak var saveButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,7 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
 
     func applyStyling() {
         view.style(as: .backgroundView)
+        saveButton.style(as: .successButton)
 
         [hostTextField, usernameTextField, passwordTextField, apiKeyTextField].forEach {
             $0?.style(as: .settingsTextField)
