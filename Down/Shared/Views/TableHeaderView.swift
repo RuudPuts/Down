@@ -23,8 +23,9 @@ class TableHeaderView: UITableViewHeaderFooterView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundView = UIView()
 
-//        style(as: .defaultTableHeaderView)
+        style(as: .defaultTableHeaderView)
     }
 }
 
