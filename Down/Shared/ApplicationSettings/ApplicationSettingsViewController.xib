@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ApplicationSettingsViewController" customModule="Down" customModuleProvider="target">
             <connections>
                 <outlet property="apiKeyTextField" destination="THG-t6-wE5" id="Wsn-WD-qj5"/>
+                <outlet property="cancelButton" destination="KNB-Zk-9DS" id="P77-08-MIf"/>
                 <outlet property="headerView" destination="mmK-Ap-zoX" id="AP0-eG-7yg"/>
                 <outlet property="hostTextField" destination="bxy-ky-JOP" id="UnE-Zb-qA3"/>
                 <outlet property="passwordTextField" destination="0cd-4J-uq6" id="BL1-pf-l3M"/>
@@ -33,7 +34,7 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="sBZ-JH-rcU">
-                    <rect key="frame" x="20" y="110" width="335" height="230"/>
+                    <rect key="frame" x="20" y="110" width="335" height="280"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bxy-ky-JOP" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                             <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -76,6 +77,14 @@
                             <state key="normal" title="Save"/>
                             <connections>
                                 <action selector="saveButtonTapped:" destination="-1" eventType="touchUpInside" id="kG3-Hy-Yhd"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KNB-Zk-9DS">
+                            <rect key="frame" x="0.0" y="250" width="335" height="30"/>
+                            <state key="normal" title="Cancel"/>
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="FAh-Wp-G6q"/>
+                                <action selector="saveButtonTapped:" destination="-1" eventType="touchUpInside" id="oH3-zK-pfD"/>
                             </connections>
                         </button>
                     </subviews>

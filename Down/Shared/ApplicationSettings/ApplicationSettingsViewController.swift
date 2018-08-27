@@ -29,34 +29,26 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
     @IBOutlet weak var apiKeyTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         applyStyling()
-        configureHeaderView()
         configureTextFields()
     }
 
     func applyStyling() {
         view.style(as: .backgroundView)
+
+        headerView.style(as: .headerView(for: application.downType))
         saveButton.style(as: .successButton)
+        cancelButton.style(as: .cancelButton)
 
         [hostTextField, usernameTextField, passwordTextField, apiKeyTextField].forEach {
             $0?.style(as: .settingsTextField)
             $0?.style(as: .textField(for: application.downType))
         }
-    }
-
-    func configureHeaderView() {
-        headerView.style(as: .headerView(for: application.downType))
-        
-        headerView.button?.setImage(AssetProvider.icons.close, for: .normal)
-        headerView.button?.rx.tap
-            .subscribe(onNext: { _ in
-                self.router?.close(viewController: self)
-            })
-            .disposed(by: disposeBag)
     }
 
     func configureTextFields() {
@@ -119,6 +111,10 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
 
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         viewModel.save()
+        router?.close(viewController: self)
+    }
+
+    @IBAction func cancelButtonTapped(_ sender: UIButton) {
         router?.close(viewController: self)
     }
 }

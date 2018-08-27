@@ -15,4 +15,11 @@ extension ViewStyling where ViewType == UIButton {
         $0.titleLabel?.font = Stylesheet.Fonts.regularFont(ofSize: 14)
         $0.backgroundColor = Stylesheet.Colors.green
     }
+
+    static var cancelButton = ViewStyling {
+        $0.style(as: .contentView)
+        $0.setTitleColor(.white, for: .normal)
+        $0.titleLabel?.font = Stylesheet.Fonts.regularFont(ofSize: 14)
+        $0.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+    }
 }
