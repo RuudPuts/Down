@@ -10,7 +10,7 @@ import DownKit
 import RxSwift
 import RxDataSources
 
-struct DvrViewModel {   
+class DvrViewModel {   
     let refreshCacheInteractor: DvrRefreshShowCacheInteractor
     let database: DvrDatabase
     let disposeBag = DisposeBag()

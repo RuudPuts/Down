@@ -6,10 +6,13 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public protocol ResponseParsing { }
+public protocol ResponseParsing {
+    func parseImage(from response: Response) throws -> UIImage
+}
 
 enum ParseError: Error, Hashable {
     case noData
+    case invalidData
     case invalidJson
     case api(message: String)
     case missingData
@@ -27,5 +30,13 @@ extension ResponseParsing {
         }
 
         return String(data: data, encoding: .utf8) ?? ""
+    }
+
+    func parseImage(from response: Response) throws -> UIImage {
+        guard let data = response.data, let image = UIImage(data: data) else {
+            throw ParseError.invalidData
+        }
+
+        return image
     }
 }

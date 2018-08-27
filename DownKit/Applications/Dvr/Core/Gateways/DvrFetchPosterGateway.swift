@@ -1,14 +1,14 @@
 //
-//  DvrDeleteShowGateway.swift
+//  DvrFetchPosterGateway.swift
 //  DownKit
 //
-//  Created by Ruud Puts on 02/08/2018.
+//  Created by Ruud Puts on 26/08/2018.
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
 import RxSwift
 
-public class DvrDeleteShowGateway: DvrRequestGateway {
+public class DvrFetchPosterGateway: DvrRequestGateway {
     var builder: DvrRequestBuilding
     var executor: RequestExecuting
     var parser: DvrResponseParsing
@@ -23,11 +23,11 @@ public class DvrDeleteShowGateway: DvrRequestGateway {
         self.parser = parser
     }
 
-    public func observe() -> Observable<Bool> {
+    public func observe() -> Observable<UIImage> {
         return Observable.create { observer in
             let request: Request
             do {
-                request = try self.builder.make(for: .deleteShow(self.show))
+                request = try self.builder.make(for: .fetchPoster(self.show))
             }
             catch {
                 observer.onError(error)
@@ -38,7 +38,7 @@ public class DvrDeleteShowGateway: DvrRequestGateway {
                 .execute(request)
                 .subscribe(onNext: {
                     do {
-                        observer.onNext(try self.parser.parseDeleteShow(from: $0))
+                        observer.onNext(try self.parser.parseImage(from: $0))
                     }
                     catch {
                         observer.onError(error)

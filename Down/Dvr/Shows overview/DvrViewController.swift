@@ -18,19 +18,20 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
     var router: Router?
 
     @IBOutlet weak var headerView: ApplicationHeaderView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
 
     let disposeBag = DisposeBag()
 
     lazy var viewModel = DvrViewModel(database: database,
                                       refreshCacheInteractor: interactorFactory.makeShowCacheRefreshInteractor(for: application))
+    lazy var collectionViewModel = DvrShowsCollectionViewModel(collectionView: collectionView, application: application, interactorFactory: interactorFactory)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         applyStyling()
         configureHeaderView()
-        configureTableView()
+        configureCollectionView()
         applyViewModel()
     }
 
@@ -62,29 +63,23 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
             .disposed(by: disposeBag)
     }
 
-    func configureTableView() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        tableView.rx.modelSelected(DvrShow.self)
-            .subscribe(onNext: {
-                self.router?.dvrRouter.showDetail(of: $0)
-
-                if let indexPath = self.tableView.indexPathForSelectedRow {
-                    self.tableView.deselectRow(at: indexPath, animated: true)
-                }
-            })
-            .disposed(by: disposeBag)
+    func configureCollectionView() {
+        collectionView.register(UINib(nibName: DvrShowCollectionViewCell.identifier, bundle: nil),
+                                forCellWithReuseIdentifier: DvrShowCollectionViewCell.identifier)
+        collectionView.dataSource = collectionViewModel
+        collectionView.delegate = collectionViewModel
     }
 
     func applyViewModel() {
         viewModel.shows
-            .do(onNext: {
-                guard $0.count == 0 else { return }
+            .subscribe(onNext: {
+                if $0.count == 0 {
+                    self.viewModel.refreshShowCache()
+                }
 
-                self.viewModel.refreshShowCache()
+                self.collectionViewModel.shows = $0
+                self.collectionView.reloadData()
             })
-            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
-                cell.textLabel?.text = show.name
-            }
             .disposed(by: disposeBag)
     }
 }

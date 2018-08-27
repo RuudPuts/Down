@@ -41,6 +41,20 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
                     "status": status.rawValue
                 ], uniquingKeysWith: { $1 })
         )
+        case .fetchBanner(let show): return RequestSpecification(
+            host: application.host,
+            path: defaultPath + "cmd=show.getbanner&tvdbid={id}",
+            parameters: defaultParameters.merging([
+                "id": show.identifier
+                ], uniquingKeysWith: { $1 })
+            )
+        case .fetchPoster(let show): return RequestSpecification(
+            host: application.host,
+            path: defaultPath + "cmd=show.getposter&tvdbid={id}",
+            parameters: defaultParameters.merging([
+                "id": show.identifier
+                ], uniquingKeysWith: { $1 })
+            )
         case .deleteShow(let show): return RequestSpecification(
             host: application.host,
             path: defaultPath + "cmd=show.delete&tvdbid={id}",

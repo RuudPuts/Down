@@ -34,6 +34,8 @@ public enum DvrApplicationCall {
     case showDetails(DvrShow)
     case searchShows(String)
     case addShow(DvrShow, DvrEpisode.Status)
+    case fetchBanner(DvrShow)
+    case fetchPoster(DvrShow)
     case deleteShow(DvrShow)
     case setSeasonStatus(DvrSeason, DvrEpisode.Status)
     case setEpisodeStatus(DvrEpisode, DvrEpisode.Status)
@@ -50,12 +52,16 @@ extension DvrApplicationCall: Hashable {
             return Int("2\(query.hashValue)") ?? 2
         case .addShow:
             return 3
-        case .deleteShow(let show):
+        case .fetchBanner(let show):
             return Int("4\(show)") ?? 4
+        case .fetchPoster(let show):
+            return Int("5\(show)") ?? 5
+        case .deleteShow(let show):
+            return Int("6\(show)") ?? 6
         case .setSeasonStatus(let season, let status):
-            return Int("5\(season.hashValue)\(status.hashValue)") ?? 5
+            return Int("7\(season.hashValue)\(status.hashValue)") ?? 7
         case .setEpisodeStatus(let episode, let status):
-            return Int("6\(episode.hashValue)\(status.hashValue)") ?? 6
+            return Int("8\(episode.hashValue)\(status.hashValue)") ?? 8
         }
     }
     

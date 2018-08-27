@@ -12,6 +12,8 @@ public protocol DvrInteractorProducing {
     func makeShowCacheRefreshInteractor(for application: DvrApplication) -> DvrRefreshShowCacheInteractor
     func makeSearchShowsInteractor(for application: DvrApplication, query: String) -> DvrSearchShowsInteractor
     func makeAddShowInteractor(for application: DvrApplication, show: DvrShow) -> DvrAddShowInteractor
+    func makeShowBannerInteractor(for application: DvrApplication, show: DvrShow) -> DvrShowBannerInteractor
+    func makeShowPosterInteractor(for application: DvrApplication, show: DvrShow) -> DvrShowPosterInteractor
 }
 
 public class DvrInteractorFactory: DvrInteractorProducing {
@@ -55,5 +57,17 @@ public class DvrInteractorFactory: DvrInteractorProducing {
         let interactors = (addShow: gateway, showDetails: showDetailsInteractor)
 
         return DvrAddShowInteractor(interactors: interactors, database: database)
+    }
+
+    public func makeShowBannerInteractor(for application: DvrApplication, show: DvrShow) -> DvrShowBannerInteractor {
+        let gateway = gatewayFactory.makeFetchBannerGateway(for: application, show: show)
+
+        return DvrShowBannerInteractor(gateway: gateway, show: show)
+    }
+
+    public func makeShowPosterInteractor(for application: DvrApplication, show: DvrShow) -> DvrShowPosterInteractor {
+        let gateway = gatewayFactory.makeFetchPosterGateway(for: application, show: show)
+
+        return DvrShowPosterInteractor(gateway: gateway, show: show)
     }
 }
