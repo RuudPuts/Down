@@ -60,6 +60,18 @@ extension DvrShowsCollectionViewModel {
         return UIImage()
     }
 
+    func resize(image: UIImage) -> UIImage {
+        guard let collectionView = collectionView else {
+            return image
+        }
+
+        let size = self.collectionView(collectionView,
+                                       layout: UICollectionViewFlowLayout(),
+                                       sizeForItemAt: IndexPath(item: 0, section: 0))
+
+        return image.scaled(to: size)
+    }
+
     func fetchPoster(for show: DvrShow) {
         guard let application = application else {
             return
@@ -69,7 +81,8 @@ extension DvrShowsCollectionViewModel {
             .makeShowPosterInteractor(for: application, show: show)
             .observe()
             .subscribe(onNext: {
-                self.imageCache.setObject($0, forKey: show.identifier as NSString)
+                let resized = self.resize(image: $0)
+                self.imageCache.setObject(resized, forKey: show.identifier as NSString)
                 self.collectionView?.reloadItems(at: [self.indexPath(for: show)])
             })
             .disposed(by: disposeBag)
