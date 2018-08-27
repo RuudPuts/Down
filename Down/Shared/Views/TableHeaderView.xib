@@ -22,7 +22,7 @@
                     <color key="textColor" red="0.96922064270667374" green="1" blue="0.9642076204769372" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="queue" translatesAutoresizingMaskIntoConstraints="NO" id="UJj-kM-lDh">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_queue" translatesAutoresizingMaskIntoConstraints="NO" id="UJj-kM-lDh">
                     <rect key="frame" x="10" y="10" width="28" height="28"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="UJj-kM-lDh" secondAttribute="height" multiplier="1:1" id="8Sr-p8-3fZ"/>
@@ -47,6 +47,6 @@
         </view>
     </objects>
     <resources>
-        <image name="queue" width="60" height="51"/>
+        <image name="icon_queue" width="60" height="51"/>
     </resources>
 </document>

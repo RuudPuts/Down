@@ -29,8 +29,7 @@ class DownloadItemCell: UITableViewCell {
             progressView.isHidden = !viewModel.hasProgress
             progressView.progress = viewModel.progress
 
-            nameLabel.sizeToFit()
-            setNeedsDisplay()
+            setNeedsLayout()
         }
     }
 
