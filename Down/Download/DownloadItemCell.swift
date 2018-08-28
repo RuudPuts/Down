@@ -126,25 +126,3 @@ private extension DownloadHistoryItem.State {
         }
     }
 }
-
-private extension TimeInterval {
-    var displayString: String {
-        return Date(timeIntervalSince1970: self).timeString
-    }
-}
-
-private extension Date {
-    var timeString: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss"
-
-        return formatter.string(from: self)
-    }
-
-    var dateTimeString: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM HH:mm"
-
-        return formatter.string(from: self)
-    }
-}

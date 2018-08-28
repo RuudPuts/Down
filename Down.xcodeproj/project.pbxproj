@@ -236,6 +236,7 @@
 		42D77BCB20E456EB00FA1ACA /* RequestClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */; };
 		42D77BCC20E456EB00FA1ACA /* ResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAA720D1860D003950CF /* ResponseParsingMock.swift */; };
 		42D77BCD20E456EB00FA1ACA /* RequestGatewayMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340BF20D2FB2500CB2D7A /* RequestGatewayMock.swift */; };
+		42E014762135CC18006D550D /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E014752135CC18006D550D /* DateExtensions.swift */; };
 		42FB90392101154C007B01DB /* ApplicationPersisting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FB9037210114DA007B01DB /* ApplicationPersisting.swift */; };
 /* End PBXBuildFile section */
 
@@ -511,6 +512,7 @@
 		42BF4E9520D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsGatewaySpec.swift; sourceTree = "<group>"; };
 		42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewConstraints.swift; sourceTree = "<group>"; };
 		42D58EF3211A155100F3454A /* DownloadQueueStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadQueueStatusView.xib; sourceTree = "<group>"; };
+		42E014752135CC18006D550D /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		42FB9037210114DA007B01DB /* ApplicationPersisting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPersisting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1442,6 +1444,7 @@
 		42D58EF0211A0AAA00F3454A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				42E014752135CC18006D550D /* DateExtensions.swift */,
 				42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */,
 				4235075F21249866005343CD /* UITableViewExtensions.swift */,
 				42223882213454F900F73619 /* UIImageResize.swift */,
@@ -1972,6 +1975,7 @@
 				428FCD6721234E3E00C0371D /* UILabelStyle.swift in Sources */,
 				426BF73F20F6A19D000C3A4A /* ApplicationHeaderView.swift in Sources */,
 				4235076621249B9E005343CD /* TableHeaderViewStyle.swift in Sources */,
+				42E014762135CC18006D550D /* DateExtensions.swift in Sources */,
 				429F0A65211725D9005582B6 /* DvrAddShowViewController.swift in Sources */,
 				4288011321209280007552FD /* ApplicationHeaderViewStyle.swift in Sources */,
 				42D58EF2211A0ACD00F3454A /* UIViewConstraints.swift in Sources */,

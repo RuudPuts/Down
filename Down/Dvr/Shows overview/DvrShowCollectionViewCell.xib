@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,17 +13,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="DvrShowCollectionViewCell" customModule="Down" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="178" height="256"/>
+            <rect key="frame" x="0.0" y="0.0" width="354" height="439"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="178" height="256"/>
+                <rect key="frame" x="0.0" y="0.0" width="354" height="439"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ktO-i9-PXB">
-                        <rect key="frame" x="8" y="8" width="162" height="240"/>
+                        <rect key="frame" x="43.5" y="8" width="267" height="423"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFH-Nj-c40">
-                                <rect key="frame" x="4" y="215" width="154" height="21"/>
+                                <rect key="frame" x="4" y="398" width="259" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -36,28 +37,32 @@
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="adL-Ja-o7h">
-                        <rect key="frame" x="8" y="8" width="162" height="210"/>
+                        <rect key="frame" x="43.5" y="8" width="267" height="393"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="adL-Ja-o7h" secondAttribute="height" multiplier="680:1000" id="kfS-VF-vGQ"/>
+                        </constraints>
                     </imageView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="ktO-i9-PXB" secondAttribute="bottom" constant="8" id="52J-Ca-t4n"/>
+                <constraint firstAttribute="bottom" secondItem="ktO-i9-PXB" secondAttribute="bottom" constant="8" id="6hQ-ti-Zoh"/>
                 <constraint firstItem="adL-Ja-o7h" firstAttribute="trailing" secondItem="ktO-i9-PXB" secondAttribute="trailing" id="9YH-ha-cse"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="adL-Ja-o7h" secondAttribute="trailing" id="C3Q-ZL-pSQ"/>
                 <constraint firstItem="adL-Ja-o7h" firstAttribute="bottom" secondItem="ktO-i9-PXB" secondAttribute="bottom" constant="-30" id="FaX-gR-RoM"/>
                 <constraint firstItem="adL-Ja-o7h" firstAttribute="leading" secondItem="ktO-i9-PXB" secondAttribute="leading" id="FvR-JN-6Qe"/>
-                <constraint firstItem="ktO-i9-PXB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="W7n-Ox-c7K"/>
-                <constraint firstAttribute="trailing" secondItem="ktO-i9-PXB" secondAttribute="trailing" constant="8" id="bvc-eR-BeJ"/>
-                <constraint firstItem="ktO-i9-PXB" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="hpg-cK-uro"/>
+                <constraint firstItem="adL-Ja-o7h" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="IG6-eu-08G"/>
+                <constraint firstItem="adL-Ja-o7h" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="S7w-Wz-Roh"/>
+                <constraint firstItem="adL-Ja-o7h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="leading" id="iCq-rQ-se5"/>
                 <constraint firstItem="adL-Ja-o7h" firstAttribute="top" secondItem="ktO-i9-PXB" secondAttribute="top" id="ucf-zd-Ovh"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="178" height="256"/>
+            <size key="customSize" width="352" height="439"/>
             <connections>
                 <outlet property="containerView" destination="ktO-i9-PXB" id="beu-eS-O1P"/>
                 <outlet property="imageView" destination="adL-Ja-o7h" id="y5v-oa-voK"/>
                 <outlet property="textLabel" destination="OFH-Nj-c40" id="rDR-IQ-J8j"/>
             </connections>
-            <point key="canvasLocation" x="24" y="47"/>
+            <point key="canvasLocation" x="-158" y="41.5"/>
         </collectionViewCell>
     </objects>
 </document>

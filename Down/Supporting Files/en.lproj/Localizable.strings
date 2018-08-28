@@ -8,7 +8,7 @@
 
 "download_statusview_speed" = "Speed";
 "download_statusview_timeremaining" = "Time left";
-"download_statusview_mbremaining" = "MB left";
+"download_statusview_mbremaining" = "Remaining";
 
 "dvr_screen_add_show_title" = "Add show";
 

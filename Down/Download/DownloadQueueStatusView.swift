@@ -33,9 +33,9 @@ class DownloadQueueStatusView: DesignableView {
                 heightConstraint?.constant = 0
             }
             else {
-                speedValueLabel?.text = String(queue?.speedMb ?? 0)
-                timeRemainingValueLabel?.text = String(queue?.remainingTime ?? 0)
-                mbRemainingValueLabel?.text = String(queue?.remainingMb ?? 0)
+                speedValueLabel?.text = displayString(forSpeed: queue?.speedMb ?? 0)
+                timeRemainingValueLabel?.text = queue?.remainingTime.displayString
+                mbRemainingValueLabel?.text = displayString(forMb: queue?.remainingMb ?? 0)
 
                 heightConstraint?.constant = 50
             }
@@ -56,5 +56,27 @@ extension Reactive where Base: DownloadQueueStatusView {
         }
 
         return ControlProperty(values: source, valueSink: bindingObserver)
+    }
+}
+
+private extension DownloadQueueStatusView {
+    func displayString(forMb mb: Double) -> String {
+        var amount = max(mb, 0)
+        var label = "MB"
+
+        if amount > 1024 {
+            amount /= 1024
+            label = "GB"
+        }
+        else if amount < 1 {
+            amount *= 1024
+            label = "KB"
+        }
+
+        return String(format: "%.1f", amount) + " " + label
+    }
+
+    func displayString(forSpeed mbSpeed: Double) -> String {
+        return "\(displayString(forMb: mbSpeed))/s"
     }
 }

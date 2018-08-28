@@ -13,12 +13,12 @@ class SabNZBdResponseParser: DownloadResponseParsing {
         let json = try parse(response, forCall: .queue)
         
         let items = json["slots"].array?.map { parseQueueItem(from: $0) }
-        let speed = Double(json["speed"].stringValue.split(separator: " ").first ?? "")
+        let speed = parseMb(from: json["speed"])
         let remainingTime = DateFormatter.timeFormatter()
                                 .date(from: json["timeleft"].stringValue)?
                                 .inSeconds
         
-        return DownloadQueue(speedMb: speed ?? 0,
+        return DownloadQueue(speedMb: speed,
                              remainingTime: remainingTime ?? 0,
                              remainingMb: json["mbleft"].doubleValue,
                              items: items ?? [])
@@ -87,13 +87,22 @@ extension SabNZBdResponseParser {
                                  state: state)
     }
 
-    func parseHistoryItem(from json: JSON) -> DownloadHistoryItem {
-        var sizeMb: Double = 0
-        if let size = json["size"].stringValue.split(separator: " ").first {
-            sizeMb = Double(size) ?? sizeMb
+    func parseMb(from value: JSON) -> Double {
+        let components = value.stringValue.split(separator: " ")
+        guard components.count == 2, var value = Double(components.first ?? "x") else {
+            return 0
         }
 
+        if components.last?.uppercased() == "K" {
+            value /= 1024
+        }
+
+        return value
+    }
+
+    func parseHistoryItem(from json: JSON) -> DownloadHistoryItem {
         let state = DownloadHistoryItem.State.from(string: json["status"].stringValue)
+        let sizeMb = parseMb(from: json["size"])
         let progress = parseHistoryProgress(for: state, actionLine: json["action_line"].stringValue)
         let finishDate = Date(timeIntervalSince1970: json["completed"].doubleValue)
 

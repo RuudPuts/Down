@@ -92,7 +92,7 @@ extension DvrShowsCollectionViewModel {
 extension DvrShowsCollectionViewModel: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = round(collectionView.bounds.width / 3)
-        return CGSize(width: width, height: width * 1.4)
+        return CGSize(width: width, height: width * 1.7)
     }
 }
 
