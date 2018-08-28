@@ -1,5 +1,5 @@
 //
-//  DvrViewModel.swift
+//  DvrShowsViewModel.swift
 //  Down
 //
 //  Created by Ruud Puts on 03/08/2018.
@@ -10,7 +10,7 @@ import DownKit
 import RxSwift
 import RxDataSources
 
-class DvrViewModel {   
+class DvrShowsViewModel {
     let refreshCacheInteractor: DvrRefreshShowCacheInteractor
     let database: DvrDatabase
     let disposeBag = DisposeBag()

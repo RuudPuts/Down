@@ -32,7 +32,7 @@ class ViewControllerFactory: ViewControllerProducing {
     }
 
     func makeDvrRoot() -> UIViewController {
-        return DvrViewController()
+        return DvrShowsViewController()
     }
 
     func makeDvrDetail() -> UIViewController {

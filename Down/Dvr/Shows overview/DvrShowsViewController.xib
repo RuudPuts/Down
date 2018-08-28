@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DvrViewController" customModule="Down" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DvrShowsViewController" customModule="Down" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="bTS-vZ-jE4" id="lZa-2z-tFC"/>
                 <outlet property="headerView" destination="8jB-Jt-Gwy" id="glf-G3-f3s"/>
@@ -29,7 +29,7 @@
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bTS-vZ-jE4">
-                    <rect key="frame" x="0.0" y="90" width="375" height="577"/>
+                    <rect key="frame" x="0.0" y="98" width="375" height="569"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="hqX-sI-IGY">
                         <size key="itemSize" width="50" height="50"/>

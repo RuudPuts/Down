@@ -1,5 +1,5 @@
 //
-//  DvrViewController.swift
+//  DvrShowsViewController.swift
 //  Down
 //
 //  Created by Ruud Puts on 27/05/2018.
@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
+class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
     var application: DvrApplication!
     var interactorFactory: DvrInteractorProducing!
     var database: DownDatabase!
@@ -22,8 +22,8 @@ class DvrViewController: UIViewController & Routing & DatabaseConsuming & DvrApp
 
     let disposeBag = DisposeBag()
 
-    lazy var viewModel = DvrViewModel(database: database,
-                                      refreshCacheInteractor: interactorFactory.makeShowCacheRefreshInteractor(for: application))
+    lazy var viewModel = DvrShowsViewModel(database: database,
+                                           refreshCacheInteractor: interactorFactory.makeShowCacheRefreshInteractor(for: application))
     lazy var collectionViewModel = DvrShowsCollectionViewModel(collectionView: collectionView, application: application, interactorFactory: interactorFactory)
     
     override func viewDidLoad() {
