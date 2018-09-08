@@ -11,14 +11,29 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DvrShowDetailViewController" customModule="Down" customModuleProvider="target">
             <connections>
+                <outlet property="headerView" destination="pKP-2Y-w8q" id="Djd-ce-7KI"/>
                 <outlet property="view" destination="iN0-l3-epB" id="SN2-59-Wgm"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pKP-2Y-w8q" customClass="DvrShowHeaderView" customModule="Down" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="-44" width="375" height="200"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" placeholder="YES" id="tP8-HJ-Ac5"/>
+                    </constraints>
+                </view>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="pKP-2Y-w8q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-44" id="0nW-ee-G2g"/>
+                <constraint firstItem="pKP-2Y-w8q" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="9IZ-vA-z9X"/>
+                <constraint firstItem="pKP-2Y-w8q" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="kxX-Eg-BHm"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
         </view>
     </objects>

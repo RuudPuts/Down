@@ -13,7 +13,7 @@ public class DvrEpisode: Object {
     @objc public dynamic var identifier = ""
     @objc public dynamic var name = ""
     @objc public dynamic var airdate = ""
-    @objc public dynamic var quality = ""
+    @objc public dynamic var quality = Quality.unkown
     @objc public dynamic var status = ""
     
     @objc public dynamic var show: DvrShow!
@@ -29,7 +29,7 @@ public class DvrEpisode: Object {
         case downloaded
     }
     
-    public convenience init(identifier: String, name: String, airdate: String, quality: String, status: String) {
+    public convenience init(identifier: String, name: String, airdate: String, quality: Quality, status: String) {
         self.init()
         self.identifier = identifier
         self.name = name

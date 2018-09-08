@@ -24,7 +24,10 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
 
     lazy var viewModel = DvrShowsViewModel(database: database,
                                            refreshCacheInteractor: interactorFactory.makeShowCacheRefreshInteractor(for: application))
-    lazy var collectionViewModel = DvrShowsCollectionViewModel(collectionView: collectionView, application: application, interactorFactory: interactorFactory)
+    lazy var collectionViewModel = DvrShowsCollectionViewModel(collectionView: collectionView,
+                                                               router: router?.dvrRouter,
+                                                               application: application,
+                                                               interactorFactory: interactorFactory)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +40,7 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

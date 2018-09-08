@@ -14,12 +14,12 @@ extension ViewStyling where ViewType == DownloadQueueStatusView {
 
         [$0.speedLabel, $0.timeRemainingLabel, $0.mbRemainingLabel].forEach {
             $0?.font = Stylesheet.Fonts.regularFont(ofSize: 18)
-            $0?.textColor = .white
+            $0?.textColor = Stylesheet.Colors.white
         }
 
         [$0.speedValueLabel, $0.timeRemainingValueLabel, $0.mbRemainingValueLabel].forEach {
             $0?.font = Stylesheet.Fonts.lightFont(ofSize: 16)
-            $0?.textColor = .white
+            $0?.textColor = Stylesheet.Colors.white
         }
     }
 }

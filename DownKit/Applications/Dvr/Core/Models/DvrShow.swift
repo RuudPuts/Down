@@ -12,8 +12,18 @@ public class DvrShow: Object {
     @objc dynamic var key = UUID().uuidString
     @objc public dynamic var identifier: String = String(NSNotFound)
     @objc public dynamic var name = ""
-    @objc public dynamic var quality = ""
+    @objc public dynamic var quality = Quality.unkown
+    @objc public dynamic var status = Status.unkown
+    @objc public dynamic var network = ""
+    @objc public dynamic var airTime = ""
     public var seasons = List<DvrSeason>()
+
+    @objc
+    public enum Status: Int {
+        case unkown
+        case continuing
+        case ended
+    }
     
     public convenience init(identifier: String, name: String) {
         self.init()

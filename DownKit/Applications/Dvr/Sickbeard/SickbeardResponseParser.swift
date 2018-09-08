@@ -84,7 +84,10 @@ private extension SickbeardResponseParser {
             identifier: identifier,
             name: json[keymap.name].stringValue
         )
-        show.quality = json["quality"].stringValue
+        show.quality = parseQuality(from: json["quality"])
+        show.network = json["network"].stringValue
+        show.airTime = json["airs"].stringValue
+        show.status = parseShowStatus(from: json["status"])
 
         return show
     }
@@ -95,10 +98,27 @@ private extension SickbeardResponseParser {
                 identifier: $0,
                 name: $1["name"].stringValue,
                 airdate: $1["airdate"].stringValue,
-                quality: $1["quality"].stringValue,
+                quality: parseQuality(from: $1["quality"]),
                 status: $1["status"].stringValue
             )
         } ?? []
+    }
+
+    func parseQuality(from json: JSON) -> Quality {
+        switch json.stringValue {
+        case "HD1080p": return .hd720p
+        case "HD720p": return .hd720p
+        case "HDTV": return .hdtv
+        default: return .unkown
+        }
+    }
+
+    func parseShowStatus(from json: JSON) -> DvrShow.Status {
+        switch json.stringValue {
+        case "Continuing": return .continuing
+        case "Ended": return .ended
+        default: return .unkown
+        }
     }
 }
 

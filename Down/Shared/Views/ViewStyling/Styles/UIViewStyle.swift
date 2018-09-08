@@ -14,12 +14,23 @@ extension ViewStyling where ViewType == UIView {
         $0.subviews.forEach { $0.backgroundColor = .clear }
     }
 
+    static func roundedView(_ radius: CGFloat) -> ViewStyling {
+        return ViewStyling {
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = radius
+        }
+    }
+
     static var contentView = ViewStyling {
-        $0.layer.cornerRadius = 5
+        $0.style(as: .roundedView(5))
     }
 
     static var cellContentView = ViewStyling {
         $0.style(as: contentView)
         $0.backgroundColor = Stylesheet.Colors.Backgrounds.lightBlue
+    }
+
+    static var overlayView = ViewStyling {
+        $0.backgroundColor = Stylesheet.Colors.black.withAlphaComponent(0.2)
     }
 }

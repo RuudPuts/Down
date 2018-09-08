@@ -16,11 +16,13 @@ class DvrShowsCollectionViewModel: NSObject {
     var shows: [DvrShow]?
     var imageCache = NSCache<NSString, UIImage>()
     weak var collectionView: UICollectionView?
+    weak var router: DvrRouter?
     weak var application: DvrApplication?
     let disposeBag = DisposeBag()
 
-    init(collectionView: UICollectionView, application: DvrApplication?, interactorFactory: DvrInteractorProducing) {
+    init(collectionView: UICollectionView, router: DvrRouter?, application: DvrApplication?, interactorFactory: DvrInteractorProducing) {
         self.collectionView = collectionView
+        self.router = router
         self.application = application
         self.interactorFactory = interactorFactory
     }
@@ -93,6 +95,16 @@ extension DvrShowsCollectionViewModel: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = round(collectionView.bounds.width / 3)
         return CGSize(width: width, height: width * 1.7)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+
+        guard let show = shows?[indexPath.item] else {
+            return
+        }
+
+        router?.showDetail(of: show)
     }
 }
 

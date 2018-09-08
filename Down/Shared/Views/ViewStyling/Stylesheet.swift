@@ -26,14 +26,20 @@ struct Stylesheet {
             }
         }
 
+        static var black = UIColor.black
+        static var white = UIColor.white
         static var green = UIColor(red: 0.25, green: 0.75, blue: 0.45, alpha: 1)
+        static var orange = UIColor(red:0.87, green:0.63, blue:0.31, alpha:1.00)
         static var red = UIColor(red: 0.84, green: 0.29, blue: 0.26, alpha: 1)
     }
 
     struct Fonts {
         static let headerFont = regularFont(ofSize: 18)
+        static let largeHeaderFont = regularFont(ofSize: 22)
         static let titleFont = regularFont(ofSize: 15)
+        static let boldTitleFont = boldFont(ofSize: 15)
         static let detailFont = lightFont(ofSize: 13)
+        static let boldDetailFont = regularFont(ofSize: 13)
 
         static func regularFont(ofSize size: CGFloat) -> UIFont {
 //            UIFont.familyNames.forEach {
