@@ -36,10 +36,10 @@ struct Stylesheet {
     struct Fonts {
         static let headerFont = regularFont(ofSize: 18)
         static let largeHeaderFont = regularFont(ofSize: 22)
-        static let titleFont = regularFont(ofSize: 15)
-        static let boldTitleFont = boldFont(ofSize: 15)
-        static let detailFont = lightFont(ofSize: 13)
-        static let boldDetailFont = regularFont(ofSize: 13)
+        static let titleFont = regularFont(ofSize: 16)
+        static let boldTitleFont = boldFont(ofSize: 16)
+        static let detailFont = lightFont(ofSize: 14)
+        static let boldDetailFont = regularFont(ofSize: 14)
 
         static func regularFont(ofSize size: CGFloat) -> UIFont {
 //            UIFont.familyNames.forEach {
