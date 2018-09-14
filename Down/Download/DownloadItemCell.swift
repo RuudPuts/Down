@@ -33,14 +33,10 @@ class DownloadItemCell: UITableViewCell {
         }
     }
 
-    func applyStyling(for indexPath: IndexPath) {
-        if indexPath.row % 2 == 0 {
-            style(as: .downloadItem)
-        }
-        else {
-            style(as: .alternateDownloadItem)
-        }
+    override func awakeFromNib() {
+        super.awakeFromNib()
 
+        style(as: .downloadItem)
         progressView.style(as: .progressView(for: .sabnzbd))
     }
 

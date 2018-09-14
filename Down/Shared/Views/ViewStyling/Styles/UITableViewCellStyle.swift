@@ -23,14 +23,9 @@ extension ViewStyling where ViewType == DownloadItemCell {
         $0.progressView.style(as: .defaultProgressView)
         $0.containerView.style(as: .contentView)
 
+        $0.backgroundColor = .clear
         $0.nameLabel?.style(as: .titleLabel)
         $0.statusLabel?.style(as: .detailLabel)
         $0.timeLabel?.style(as: .detailLabel)
-    }
-
-    static var alternateDownloadItem = ViewStyling {
-        $0.style(as: .downloadItem)
-        $0.containerView.backgroundColor = .clear
-        $0.progressView.centerFillColor = .clear
     }
 }

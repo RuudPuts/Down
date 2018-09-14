@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKU-kG-XjL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="82.5"/>
+                        <rect key="frame" x="10" y="5" width="300" height="72.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of the download" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pda-9o-9xT">
-                                <rect key="frame" x="8" y="8" width="246" height="42"/>
+                                <rect key="frame" x="8" y="8" width="226" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="0H1-qp-ZMU"/>
                                 </constraints>
@@ -30,7 +30,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sic-GM-Qsh" userLabel="Bottom container">
-                                <rect key="frame" x="0.0" y="54" width="320" height="20.5"/>
+                                <rect key="frame" x="0.0" y="44" width="300" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eol-jk-xub">
                                         <rect key="frame" x="8" y="0.0" width="49.5" height="20.5"/>
@@ -39,7 +39,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TG-GG-sXj">
-                                        <rect key="frame" x="140.5" y="0.0" width="38" height="20.5"/>
+                                        <rect key="frame" x="130.5" y="0.0" width="38" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -56,7 +56,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KXw-Y5-h1x" customClass="CircleProgressView" customModule="CircleProgressView">
-                                <rect key="frame" x="262" y="16.5" width="50" height="50"/>
+                                <rect key="frame" x="242" y="11.5" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="6Bq-X6-A40"/>
                                     <constraint firstAttribute="width" constant="50" id="6ZC-kf-MJi"/>
@@ -80,10 +80,10 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="DKU-kG-XjL" secondAttribute="trailing" id="GeH-0Z-U2M"/>
-                    <constraint firstItem="DKU-kG-XjL" firstAttribute="leading" secondItem="8nR-a9-mej" secondAttribute="leading" id="JWz-J9-eRc"/>
-                    <constraint firstAttribute="bottom" secondItem="DKU-kG-XjL" secondAttribute="bottom" id="gHy-R6-zVk"/>
-                    <constraint firstItem="DKU-kG-XjL" firstAttribute="top" secondItem="8nR-a9-mej" secondAttribute="top" id="il6-Yx-eJP"/>
+                    <constraint firstAttribute="trailing" secondItem="DKU-kG-XjL" secondAttribute="trailing" constant="10" id="GeH-0Z-U2M"/>
+                    <constraint firstItem="DKU-kG-XjL" firstAttribute="leading" secondItem="8nR-a9-mej" secondAttribute="leading" constant="10" id="JWz-J9-eRc"/>
+                    <constraint firstAttribute="bottom" secondItem="DKU-kG-XjL" secondAttribute="bottom" constant="5" id="gHy-R6-zVk"/>
+                    <constraint firstItem="DKU-kG-XjL" firstAttribute="top" secondItem="8nR-a9-mej" secondAttribute="top" constant="5" id="il6-Yx-eJP"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

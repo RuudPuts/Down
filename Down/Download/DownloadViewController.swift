@@ -115,13 +115,5 @@ extension DownloadViewController: UITableViewDelegate {
 
         return view
     }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let itemCell = cell as? DownloadItemCell else {
-            return
-        }
-
-        itemCell.applyStyling(for: indexPath)
-    }
 }
 

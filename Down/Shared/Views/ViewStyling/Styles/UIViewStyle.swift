@@ -33,5 +33,4 @@ extension ViewStyling where ViewType == UIView {
     static var overlayView = ViewStyling {
         $0.backgroundColor = Stylesheet.Colors.black.withAlphaComponent(0.3)
     }
-    }
 }
