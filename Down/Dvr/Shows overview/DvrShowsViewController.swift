@@ -67,10 +67,7 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
     }
 
     func configureCollectionView() {
-        collectionView.register(UINib(nibName: DvrShowCollectionViewCell.identifier, bundle: nil),
-                                forCellWithReuseIdentifier: DvrShowCollectionViewCell.identifier)
-        collectionView.dataSource = collectionViewModel
-        collectionView.delegate = collectionViewModel
+        collectionViewModel.configure(collectionView)
     }
 
     func applyViewModel() {

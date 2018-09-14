@@ -26,6 +26,13 @@ class DvrShowsCollectionViewModel: NSObject {
         self.application = application
         self.interactorFactory = interactorFactory
     }
+
+    func configure(_ collectionView: UICollectionView) {
+        collectionView.register(UINib(nibName: DvrShowCollectionViewCell.identifier, bundle: nil),
+                                forCellWithReuseIdentifier: DvrShowCollectionViewCell.identifier)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    }
 }
 
 extension DvrShowsCollectionViewModel: UICollectionViewDataSource {
@@ -44,6 +51,23 @@ extension DvrShowsCollectionViewModel: UICollectionViewDataSource {
                                           image: image(for: show))
 
         return cell
+    }
+}
+
+extension DvrShowsCollectionViewModel: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = round(collectionView.bounds.width / 3)
+        return CGSize(width: width, height: width * 1.7)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+
+        guard let show = shows?[indexPath.item] else {
+            return
+        }
+
+        router?.showDetail(of: show)
     }
 }
 
@@ -88,23 +112,6 @@ extension DvrShowsCollectionViewModel {
                 self.collectionView?.reloadItems(at: [self.indexPath(for: show)])
             })
             .disposed(by: disposeBag)
-    }
-}
-
-extension DvrShowsCollectionViewModel: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = round(collectionView.bounds.width / 3)
-        return CGSize(width: width, height: width * 1.7)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-
-        guard let show = shows?[indexPath.item] else {
-            return
-        }
-
-        router?.showDetail(of: show)
     }
 }
 
