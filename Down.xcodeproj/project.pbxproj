@@ -111,6 +111,7 @@
 		4243529720FABE1000A729E1 /* ApiApplicationInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243529620FABE1000A729E1 /* ApiApplicationInteractorFactory.swift */; };
 		42457CA020E1AB5900DBC6C7 /* DownloadQueueInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */; };
 		424DDA7F2144718500588B48 /* UINavigationBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424DDA7E2144718400588B48 /* UINavigationBarStyle.swift */; };
+		424DDA83214591EF00588B48 /* DvrShowDetailsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424DDA82214591EF00588B48 /* DvrShowDetailsTableViewModel.swift */; };
 		424FBD3B210F927600885D8B /* ApiApplicationGatewayFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */; };
 		424FBD3C210F927600885D8B /* ApiApplicationLoginGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */; };
 		424FBD3D210F927600885D8B /* ApiApplicationApiKeyGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD36210F90D800885D8B /* ApiApplicationApiKeyGatewaySpec.swift */; };
@@ -242,7 +243,6 @@
 		42E0147A2135DACD006D550D /* DvrShowHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42E014792135DACD006D550D /* DvrShowHeaderView.xib */; };
 		42E49DC9214458C600F8491B /* DownKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E49DC8214458C600F8491B /* DownKit.swift */; };
 		42E49DCB21445B1000F8491B /* DownKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E49DCA21445B1000F8491B /* DownKitExtensions.swift */; };
-		42E49DCD21446BCD00F8491B /* DvrShowDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E49DCC21446BCD00F8491B /* DvrShowDetailViewModel.swift */; };
 		42FB90392101154C007B01DB /* ApplicationPersisting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FB9037210114DA007B01DB /* ApplicationPersisting.swift */; };
 /* End PBXBuildFile section */
 
@@ -401,6 +401,7 @@
 		4243529620FABE1000A729E1 /* ApiApplicationInteractorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteractorFactory.swift; sourceTree = "<group>"; };
 		42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueInteractor.swift; sourceTree = "<group>"; };
 		424DDA7E2144718400588B48 /* UINavigationBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationBarStyle.swift; sourceTree = "<group>"; };
+		424DDA82214591EF00588B48 /* DvrShowDetailsTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsTableViewModel.swift; sourceTree = "<group>"; };
 		424FBD32210F90D100885D8B /* ApiApplicationInteractorFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteractorFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGatewaySpec.swift; sourceTree = "<group>"; };
@@ -524,7 +525,6 @@
 		42E014792135DACD006D550D /* DvrShowHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrShowHeaderView.xib; sourceTree = "<group>"; };
 		42E49DC8214458C600F8491B /* DownKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownKit.swift; sourceTree = "<group>"; };
 		42E49DCA21445B1000F8491B /* DownKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownKitExtensions.swift; sourceTree = "<group>"; };
-		42E49DCC21446BCD00F8491B /* DvrShowDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowDetailViewModel.swift; sourceTree = "<group>"; };
 		42FB9037210114DA007B01DB /* ApplicationPersisting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPersisting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1310,7 +1310,7 @@
 			children = (
 				4221DA5020D183B6003950CF /* DvrShowDetailViewController.swift */,
 				4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */,
-				42E49DCC21446BCD00F8491B /* DvrShowDetailViewModel.swift */,
+				424DDA82214591EF00588B48 /* DvrShowDetailsTableViewModel.swift */,
 				42E014772135DA9D006D550D /* DvrShowHeaderView.swift */,
 				42E014792135DACD006D550D /* DvrShowHeaderView.xib */,
 			);
@@ -1989,6 +1989,7 @@
 				428FCD61212212B600C0371D /* UIViewStyle.swift in Sources */,
 				4284C72721334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift in Sources */,
 				427D606120E0325C0017AE42 /* DownloadViewController.swift in Sources */,
+				424DDA83214591EF00588B48 /* DvrShowDetailsTableViewModel.swift in Sources */,
 				4284C721213327FD00F21B91 /* TableSectionData.swift in Sources */,
 				42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
@@ -2004,7 +2005,6 @@
 				42D58EF2211A0ACD00F3454A /* UIViewConstraints.swift in Sources */,
 				427D606920E19A660017AE42 /* DownloadViewModel.swift in Sources */,
 				421D83A72107A2BC008BEB2F /* R.generated.swift in Sources */,
-				42E49DCD21446BCD00F8491B /* DvrShowDetailViewModel.swift in Sources */,
 				42350762212499BD005343CD /* TableHeaderView.swift in Sources */,
 				426A798220D1810100797AE5 /* AppDelegate.swift in Sources */,
 				4284C723213331FE00F21B91 /* UITabBarStyle.swift in Sources */,

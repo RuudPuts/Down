@@ -32,6 +32,7 @@ class DvrShowsCollectionViewModel: NSObject {
                                 forCellWithReuseIdentifier: DvrShowCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.prefetchDataSource = self
     }
 }
 
@@ -68,6 +69,18 @@ extension DvrShowsCollectionViewModel: UICollectionViewDelegate, UICollectionVie
         }
 
         router?.showDetail(of: show)
+    }
+}
+
+extension DvrShowsCollectionViewModel: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach {
+            guard let show = shows?[$0.item] else {
+                return
+            }
+
+            _ = image(for: show)
+        }
     }
 }
 

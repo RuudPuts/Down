@@ -1,5 +1,5 @@
 //
-//  UITabBarStyle.swift
+//  UINavigationBarStyle.swift
 //  StylingEngine
 //
 //  Created by Ruud Puts on 17/07/2018.

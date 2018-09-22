@@ -16,6 +16,10 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
     var router: Router?
 
     @IBOutlet weak var headerView: DvrShowHeaderView?
+    @IBOutlet weak var tableView: UITableView?
+
+    private var headerViewModel: DvrShowHeaderViewModel?
+    private var tableViewModel: DvrShowDetailsTableViewModel?
 
     private let disposeBag = DisposeBag()
 
@@ -33,6 +37,8 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
 
         applyStyling()
         configureHeaderView()
+        configureTableView()
+        tableViewModel?.prepare(tableView: tableView!)
     }
     
     func applyStyling() {
@@ -41,7 +47,14 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
     }
 
     func configureHeaderView() {
-        headerView?.model = DvrShowHeaderViewModel(show: show!)
+        headerViewModel = DvrShowHeaderViewModel(show: show!)
+        headerView?.model = headerViewModel
+    }
+
+    func configureTableView() {
+        tableViewModel = DvrShowDetailsTableViewModel(show: show!)
+        tableView?.dataSource = tableViewModel
+        tableView?.delegate = tableViewModel
     }
 
     func checkShowBanner() {
