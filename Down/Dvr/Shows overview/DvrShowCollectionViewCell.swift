@@ -25,7 +25,7 @@ class DvrShowCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        containerView.style(as: .contentView)
+        containerView.style(as: .roundedContentView)
         textLabel.style(as: .titleLabel)
     }
 }

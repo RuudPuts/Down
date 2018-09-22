@@ -24,7 +24,12 @@ extension ViewStyling where ViewType == UIView {
     static var contentView = ViewStyling {
         $0.backgroundColor = Stylesheet.Colors.Backgrounds.lightBlue
     }
-    
+
+    static var roundedContentView = ViewStyling {
+        $0.style(as: .contentView)
+        $0.style(as: .roundedView(5))
+    }
+
     static var overlayView = ViewStyling {
         $0.backgroundColor = Stylesheet.Colors.black.withAlphaComponent(0.3)
     }

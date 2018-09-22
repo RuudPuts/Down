@@ -112,7 +112,6 @@ extension DownloadViewController: UITableViewDelegate {
 
         let data = viewModel.sectionsData.value[section]
         headerView.viewModel = TableHeaderViewModel(title: data.header, icon: data.icon)
-        headerView.backgroundView?.backgroundColor = Stylesheet.Colors.primaryColor(for: application.type).withAlphaComponent(0.2)
 
         return view
     }
