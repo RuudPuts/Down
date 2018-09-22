@@ -23,12 +23,10 @@ class DvrShowDetailsTableViewModel: NSObject {
 
 extension DvrShowDetailsTableViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        NSLog("Sections: \(show.seasons.count)")
         return show.seasons.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        NSLog("Section: \(section) - \(show.seasons[section].episodes.count)")
         return show.seasons[section].episodes.count
     }
 

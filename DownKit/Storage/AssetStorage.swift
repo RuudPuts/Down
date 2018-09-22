@@ -9,6 +9,7 @@
 import Foundation
 
 public class AssetStorage {
+    fileprivate static var cache = NSCache<NSString, UIImage>()
 }
 
 public typealias DvrAssetStorage = AssetStorage
@@ -73,6 +74,7 @@ private extension AssetStorage {
             return
         }
 
+        cache.setObject(image, forKey: filepath as NSString)
         store(data: data, atPath: filepath)
     }
 
@@ -89,11 +91,15 @@ private extension AssetStorage {
     }
 
     static func loadImage(_ filepath: String) -> UIImage? {
-        var image: UIImage?
-        if fileExists(filepath) {
-            image = UIImage(contentsOfFile: filepath)
+        if let image = cache.object(forKey: filepath as NSString) {
+            return image
         }
-        return image
+
+        if fileExists(filepath) {
+            return UIImage(contentsOfFile: filepath)
+        }
+
+        return nil
     }
 }
 
