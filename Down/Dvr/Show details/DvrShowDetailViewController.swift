@@ -44,6 +44,9 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
     func applyStyling() {
         view.style(as: .backgroundView)
         navigationController?.navigationBar.style(as: .transparentNavigationBar)
+
+        tableView?.tableFooterView = UIView()
+        tableView?.separatorColor = Stylesheet.Colors.Backgrounds.lightGray
     }
 
     func configureHeaderView() {

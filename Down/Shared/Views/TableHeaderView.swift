@@ -18,6 +18,7 @@ class TableHeaderView: UITableViewHeaderFooterView {
         didSet {
             label.text = viewModel?.title
             imageView.image = viewModel?.icon
+            imageView.isHidden = imageView.image == nil
         }
     }
 
