@@ -99,7 +99,7 @@ private extension SickbeardResponseParser {
                 name: $1["name"].stringValue,
                 airdate: $1["airdate"].stringValue,
                 quality: parseQuality(from: $1["quality"]),
-                status: $1["status"].stringValue
+                status: DvrEpisodeStatus.from(sickbeardValue: $1["status"].stringValue)
             )
         } ?? []
     }
@@ -190,6 +190,32 @@ extension SickbeardResponseParser {
                     throw ParseError.api(message: $0["message"].stringValue)
                 }
             }
+    }
+}
+
+extension DvrEpisodeStatus {
+    static func from(sickbeardValue string: String) -> DvrEpisodeStatus {
+        switch string.lowercased() {
+        case DvrEpisodeStatus.wanted.sickbeardValue: return .wanted
+        case DvrEpisodeStatus.skipped.sickbeardValue: return .skipped
+        case DvrEpisodeStatus.archived.sickbeardValue: return .archived
+        case DvrEpisodeStatus.ignored.sickbeardValue: return .ignored
+        case DvrEpisodeStatus.snatched.sickbeardValue: return .snatched
+        case DvrEpisodeStatus.downloaded.sickbeardValue: return .downloaded
+        default: return .unknown
+        }
+    }
+
+    var sickbeardValue: String {
+        switch self {
+        case .unknown: return "unkown"
+        case .wanted: return "wanted"
+        case .skipped: return "skipped"
+        case .archived: return "archived"
+        case .ignored: return "ignored"
+        case .snatched: return "snatched"
+        case .downloaded: return "downloaded"
+        }
     }
 }
 

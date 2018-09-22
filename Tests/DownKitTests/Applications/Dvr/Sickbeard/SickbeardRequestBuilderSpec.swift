@@ -69,7 +69,7 @@ class SickbeardRequestBuilderSpec: QuickSpec {
 
                 context("build add show call") {
                     var show: DvrShow!
-                    var status: DvrEpisode.Status!
+                    var status: DvrEpisodeStatus!
 
                     beforeEach {
                         show = DvrShow(identifier: "128", name: "TestShow")

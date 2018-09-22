@@ -14,22 +14,12 @@ public class DvrEpisode: Object {
     @objc public dynamic var name = ""
     @objc public dynamic var airdate = ""
     @objc public dynamic var quality = Quality.unkown
-    @objc public dynamic var status = ""
+    @objc public dynamic var status = DvrEpisodeStatus.unknown
     
     @objc public dynamic var show: DvrShow!
     @objc public dynamic var season: DvrSeason!
-
-    public enum Status: String {
-        case unknown
-        case wanted
-        case skipped
-        case archived
-        case ignored
-        case snatched
-        case downloaded
-    }
     
-    public convenience init(identifier: String, name: String, airdate: String, quality: Quality, status: String) {
+    public convenience init(identifier: String, name: String, airdate: String, quality: Quality, status: DvrEpisodeStatus) {
         self.init()
         self.identifier = identifier
         self.name = name
@@ -41,4 +31,15 @@ public class DvrEpisode: Object {
     override public static func primaryKey() -> String? {
         return "key"
     }
+}
+
+@objc
+public enum DvrEpisodeStatus: Int {
+    case unknown
+    case wanted
+    case skipped
+    case archived
+    case ignored
+    case snatched
+    case downloaded
 }

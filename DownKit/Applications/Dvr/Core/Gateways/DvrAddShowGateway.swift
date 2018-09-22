@@ -14,7 +14,7 @@ public class DvrAddShowGateway: DvrRequestGateway {
     var parser: DvrResponseParsing
 
     var show: DvrShow!
-    var status: DvrEpisode.Status!
+    var status: DvrEpisodeStatus!
 
     var disposeBag = DisposeBag()
 
@@ -24,7 +24,7 @@ public class DvrAddShowGateway: DvrRequestGateway {
         self.parser = parser
     }
 
-    public convenience init(show: DvrShow, status: DvrEpisode.Status = .skipped, builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
+    public convenience init(show: DvrShow, status: DvrEpisodeStatus = .skipped, builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.init(builder: builder, parser: parser, executor: executor)
         self.show = show
         self.status = status

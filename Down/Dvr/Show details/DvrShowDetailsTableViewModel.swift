@@ -16,7 +16,7 @@ class DvrShowDetailsTableViewModel: NSObject {
     }
 
     func prepare(tableView: UITableView) {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.registerCell(nibName: DvrEpisodeCell.identifier)
         tableView.registerHeaderFooter(nibName: TableHeaderView.identifier)
     }
 }
@@ -31,10 +31,13 @@ extension DvrShowDetailsTableViewModel: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: DvrEpisodeCell.identifier, for: indexPath)
+        guard let episodeCell = cell as? DvrEpisodeCell else {
+            return cell
+        }
 
         let episode = show.sortedSeasons[indexPath.section].sortedEpisodes[indexPath.row]
-        cell.textLabel?.text = "\(episode.identifier). \(episode.name)"
+        episodeCell.viewModel = DvrEpisodeCellModel(episode: episode)
 
         return cell
     }

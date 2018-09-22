@@ -28,3 +28,17 @@ extension DvrShow.Status {
         }
     }
 }
+
+extension DvrEpisodeStatus {
+    var displayString: String {
+        switch self {
+        case .unknown: return "Unkown"
+        case .wanted: return "Wanted"
+        case .skipped: return "Skipped"
+        case .archived: return "Archived"
+        case .ignored: return "Ignored"
+        case .snatched: return "Snatched"
+        case .downloaded: return "Downloaded"
+        }
+    }
+}

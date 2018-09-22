@@ -33,12 +33,12 @@ public enum DvrApplicationCall {
     case showList
     case showDetails(DvrShow)
     case searchShows(String)
-    case addShow(DvrShow, DvrEpisode.Status)
+    case addShow(DvrShow, DvrEpisodeStatus)
     case fetchBanner(DvrShow)
     case fetchPoster(DvrShow)
     case deleteShow(DvrShow)
-    case setSeasonStatus(DvrSeason, DvrEpisode.Status)
-    case setEpisodeStatus(DvrEpisode, DvrEpisode.Status)
+    case setSeasonStatus(DvrSeason, DvrEpisodeStatus)
+    case setEpisodeStatus(DvrEpisode, DvrEpisodeStatus)
 }
 
 extension DvrApplicationCall: Hashable {

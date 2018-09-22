@@ -38,7 +38,7 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
             path: defaultPath + "cmd=show.addnew&tvdbid={id}&status={status}",
             parameters: defaultParameters.merging([
                     "id": show.identifier,
-                    "status": status.rawValue
+                    "status": status.sickbeardValue
                 ], uniquingKeysWith: { $1 })
         )
         case .fetchBanner(let show): return RequestSpecification(
@@ -66,7 +66,7 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
             parameters: defaultParameters.merging([
                     "show_id": season.show.identifier,
                     "season_id": season.identifier,
-                    "status": status.rawValue
+                    "status": status.sickbeardValue
                 ], uniquingKeysWith: { $1 })
         )
         case .setEpisodeStatus(let episode, let status): return RequestSpecification(
@@ -76,7 +76,7 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
                     "show_id": episode.show.identifier,
                     "season_id": episode.season.identifier,
                     "episode_id": episode.identifier,
-                    "status": status.rawValue
+                    "status": status.sickbeardValue
                 ], uniquingKeysWith: { $1 })
         )
         }

@@ -14,7 +14,7 @@ public class DvrSetSeasonStatusGateway: DvrRequestGateway {
     var parser: DvrResponseParsing
 
     var season: DvrSeason!
-    var status: DvrEpisode.Status!
+    var status: DvrEpisodeStatus!
 
     var disposeBag = DisposeBag()
 
