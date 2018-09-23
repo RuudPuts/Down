@@ -142,7 +142,7 @@ extension DvrShowsCollectionViewModel {
             .subscribe(onNext: {
                 let resized = self.resize(image: $0)
                 self.imageCache.setObject(resized, forKey: show.identifier as NSString)
-                self.collectionView?.reloadData()
+                self.collectionView?.reloadItems(at: [self.indexPath(for: show)])
             })
             .disposed(by: disposeBag)
     }
