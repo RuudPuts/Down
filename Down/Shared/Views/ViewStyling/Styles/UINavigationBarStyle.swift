@@ -14,5 +14,6 @@ extension ViewStyling where ViewType == UINavigationBar {
         $0.shadowImage = UIImage()
         $0.isTranslucent = true
         $0.tintColor = Stylesheet.Colors.white
+        $0.titleTextAttributes = [.foregroundColor: Stylesheet.Colors.white]
     }
 }

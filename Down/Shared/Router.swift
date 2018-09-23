@@ -52,7 +52,16 @@ class Router {
         }
 
         let navigationController = UINavigationController(rootViewController: viewController)
-       present(navigationController, inNavigationController: false, animated: animated)
+        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain,
+                                                                          target: self,
+                                                                          action: #selector(aaa))
+
+        present(navigationController, inNavigationController: false, animated: animated)
+    }
+
+    @objc
+    func aaa() {
+        rootViewController?.dismiss(animated: true, completion: nil)
     }
 
     func close(viewController: UIViewController) {

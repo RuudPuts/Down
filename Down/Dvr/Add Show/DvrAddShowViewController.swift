@@ -32,6 +32,7 @@ class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming &
 
         configureSearchTextField()
         configureTableView()
+        applyStyling()
         applyViewModel()
     }
 
@@ -50,6 +51,9 @@ class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming &
                     .searchShows(query: query ?? "")
                     .bind(to: self.tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
                         cell.textLabel?.text = show.name
+
+                        cell.backgroundColor = .clear
+                        cell.textLabel?.style(as: .headerLabel)
                     }
                     .disposed(by: self.disposeBag)
             })
@@ -58,6 +62,8 @@ class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming &
 
     func configureTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
         tableView.rx.modelSelected(DvrShow.self)
             .subscribe(onNext: {
                 self.viewModel
@@ -72,5 +78,11 @@ class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming &
 
     func applyViewModel() {
         title = viewModel.title
+    }
+
+    func applyStyling() {
+        view.style(as: .backgroundView)
+        searchTextField.style(as: .textField(for: application.downType))
+        navigationController?.navigationBar.style(as: .transparentNavigationBar)
     }
 }

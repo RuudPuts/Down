@@ -32,9 +32,9 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        applyStyling()
         configureHeaderView()
         configureCollectionView()
+        applyStyling()
         applyViewModel()
     }
 
@@ -61,7 +61,6 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
         headerView.button?.rx.tap
             .subscribe(onNext: { _ in
                 self.router?.showSettings(application: self.application)
-//                self.router?.dvrRouter.showAddShow()
             })
             .disposed(by: disposeBag)
     }

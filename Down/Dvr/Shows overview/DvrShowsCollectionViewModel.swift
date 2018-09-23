@@ -30,6 +30,12 @@ class DvrShowsCollectionViewModel: NSObject {
     func configure(_ collectionView: UICollectionView) {
         collectionView.register(UINib(nibName: DvrShowCollectionViewCell.identifier, bundle: nil),
                                 forCellWithReuseIdentifier: DvrShowCollectionViewCell.identifier)
+        collectionView.register(ButtonsView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
+
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.headerReferenceSize = CGSize(width: collectionView.bounds.width, height: 30)
+        }
+
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.prefetchDataSource = self
@@ -56,6 +62,28 @@ extension DvrShowsCollectionViewModel: UICollectionViewDataSource {
 }
 
 extension DvrShowsCollectionViewModel: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+//    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+//
+//        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "headerView", forIndexPath: indexPath)
+//
+//        headerView.frame.size.height = 100
+//
+//        return headerView
+//    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath)
+        if let button = view.subviews.first?.subviews.first as? UIButton {
+            button.rx.tap
+                .subscribe(onNext: { _ in
+                    self.router?.showAddShow()
+                })
+                .disposed(by: disposeBag)
+        }
+
+        return view
+    }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = round(collectionView.bounds.width / 3)
         return CGSize(width: width, height: width * 1.7)
@@ -125,6 +153,36 @@ extension DvrShowsCollectionViewModel {
                 self.collectionView?.reloadData()
             })
             .disposed(by: disposeBag)
+    }
+}
+
+class ButtonsView: UICollectionReusableView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        commonInit()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
+        commonInit()
+    }
+
+    func commonInit() {
+        let stackView = UIStackView()
+        let button = UIButton()
+        button.setTitle("Add show", for: .normal)
+        button.style(as: .successButton)
+        stackView.addArrangedSubview(button)
+
+        addSubview(stackView)
+        stackView.bounds = bounds
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        subviews.first?.bounds = bounds
     }
 }
 
