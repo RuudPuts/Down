@@ -9,12 +9,14 @@
 import SkyFloatingLabelTextField
 
 extension ViewStyling where ViewType == SkyFloatingLabelTextField {
-    static var settingsTextField = ViewStyling {
+    static var defaultTextField = ViewStyling {
         $0.textColor = Stylesheet.Colors.white
     }
 
     static func textField(for type: DownApplicationType) -> ViewStyling {
         return ViewStyling {
+            $0.style(as: .defaultTextField)
+
             $0.titleColor = Stylesheet.Colors.primaryColor(for: type)
             $0.selectedTitleColor = Stylesheet.Colors.primaryColor(for: type)
 

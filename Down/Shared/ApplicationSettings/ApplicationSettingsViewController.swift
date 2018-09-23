@@ -46,7 +46,6 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
         cancelButton.style(as: .cancelButton)
 
         [hostTextField, usernameTextField, passwordTextField, apiKeyTextField].forEach {
-            $0?.style(as: .settingsTextField)
             $0?.style(as: .textField(for: application.downType))
         }
     }
