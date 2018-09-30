@@ -9,14 +9,14 @@
 import RxSwift
 
 public class DvrSetEpisodeStatusGateway: DvrRequestGateway {
+    public var executor: RequestExecuting
+    public var disposeBag = DisposeBag()
+
     var builder: DvrRequestBuilding
-    var executor: RequestExecuting
     var parser: DvrResponseParsing
 
     var episode: DvrEpisode!
     var status: DvrEpisodeStatus!
-
-    var disposeBag = DisposeBag()
 
     public required init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
@@ -24,30 +24,11 @@ public class DvrSetEpisodeStatusGateway: DvrRequestGateway {
         self.parser = parser
     }
 
-    public func observe() -> Observable<Bool> {
-        return Observable.create { observer in
-            let request: Request
-            do {
-                request = try self.builder.make(for: .setEpisodeStatus(self.episode, self.status))
-            }
-            catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+    public func makeRequest() throws -> Request {
+        return try builder.make(for: .setEpisodeStatus(episode, status))
+    }
 
-            self.executor
-                .execute(request)
-                .subscribe(onNext: {
-                    do {
-                        observer.onNext(try self.parser.parseSetEpisodeStatus(from: $0))
-                    }
-                    catch {
-                        observer.onError(error)
-                    }
-                })
-                .disposed(by: self.disposeBag)
-
-            return Disposables.create()
-        }
+    public func parse(response: Response) throws -> Bool {
+        return try parser.parseSetEpisodeStatus(from: response)
     }
 }

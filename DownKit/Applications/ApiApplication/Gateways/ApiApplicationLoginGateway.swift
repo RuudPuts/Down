@@ -9,12 +9,12 @@
 import RxSwift
 
 public class ApiApplicationLoginGateway: ApiApplicationRequestGateway {
+    public var executor: RequestExecuting
+    public var disposeBag = DisposeBag()
+
     var builder: ApiApplicationRequestBuilding
-    var executor: RequestExecuting
     var parser: ApiApplicationResponseParsing
     var credentials: UsernamePassword?
-
-    var disposeBag = DisposeBag()
 
     public required init(builder: ApiApplicationRequestBuilding,
                          parser: ApiApplicationResponseParsing,
@@ -32,32 +32,12 @@ public class ApiApplicationLoginGateway: ApiApplicationRequestGateway {
         self.credentials = credentials
     }
 
-    public func observe() -> Observable<LoginResult> {
-        return Observable.create { observer in
-            let request: Request
-            do {
-                request = try self.builder.make(for: .login, credentials: self.credentials)
-            }
-            catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+    public func makeRequest() throws -> Request {
+        return try builder.make(for: .login, credentials: credentials)
+    }
 
-            self.executor
-                .execute(request)
-                .subscribe(onNext: {
-                    do {
-                        observer.onNext(try self.parser.parseLoggedIn(from: $0))
-                    }
-                    catch {
-                        observer.onNext(.failed)
-                        observer.onError(error)
-                    }
-                })
-                .disposed(by: self.disposeBag)
-
-            return Disposables.create()
-        }
+    public func parse(response: Response) throws -> LoginResult {
+        return try parser.parseLoggedIn(from: response)
     }
 }
 

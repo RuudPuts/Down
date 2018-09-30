@@ -9,11 +9,11 @@
 import RxSwift
 
 public class ApiApplicationApiKeyGateway: ApiApplicationRequestGateway {
+    public var executor: RequestExecuting
+    public var disposeBag = DisposeBag()
+    
     var builder: ApiApplicationRequestBuilding
-    var executor: RequestExecuting
     var parser: ApiApplicationResponseParsing
-
-    var disposeBag = DisposeBag()
 
     public required init(builder: ApiApplicationRequestBuilding, parser: ApiApplicationResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
@@ -21,30 +21,11 @@ public class ApiApplicationApiKeyGateway: ApiApplicationRequestGateway {
         self.parser = parser
     }
 
-    public func observe() -> Observable<String?> {
-        return Observable.create { observer in
-            let request: Request
-            do {
-                request = try self.builder.make(for: .apiKey, credentials: nil)
-            }
-            catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+    public func makeRequest() throws -> Request {
+        return try builder.make(for: .apiKey)
+    }
 
-            self.executor
-                .execute(request)
-                .subscribe(onNext: {
-                    do {
-                        observer.onNext(try self.parser.parseApiKey(from: $0))
-                    }
-                    catch {
-                        observer.onError(error)
-                    }
-                })
-                .disposed(by: self.disposeBag)
-
-            return Disposables.create()
-        }
+    public func parse(response: Response) throws -> String? {
+        return try parser.parseApiKey(from: response)
     }
 }

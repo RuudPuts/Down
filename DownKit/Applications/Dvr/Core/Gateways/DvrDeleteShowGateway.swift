@@ -9,13 +9,13 @@
 import RxSwift
 
 public class DvrDeleteShowGateway: DvrRequestGateway {
+    public var executor: RequestExecuting
+    public var disposeBag = DisposeBag()
+
     var builder: DvrRequestBuilding
-    var executor: RequestExecuting
     var parser: DvrResponseParsing
 
     var show: DvrShow!
-
-    var disposeBag = DisposeBag()
 
     public required init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
@@ -23,30 +23,11 @@ public class DvrDeleteShowGateway: DvrRequestGateway {
         self.parser = parser
     }
 
-    public func observe() -> Observable<Bool> {
-        return Observable.create { observer in
-            let request: Request
-            do {
-                request = try self.builder.make(for: .deleteShow(self.show))
-            }
-            catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+    public func makeRequest() throws -> Request {
+        return try builder.make(for: .deleteShow(show))
+    }
 
-            self.executor
-                .execute(request)
-                .subscribe(onNext: {
-                    do {
-                        observer.onNext(try self.parser.parseDeleteShow(from: $0))
-                    }
-                    catch {
-                        observer.onError(error)
-                    }
-                })
-                .disposed(by: self.disposeBag)
-
-            return Disposables.create()
-        }
+    public func parse(response: Response) throws -> Bool {
+        return try parser.parseDeleteShow(from: response)
     }
 }

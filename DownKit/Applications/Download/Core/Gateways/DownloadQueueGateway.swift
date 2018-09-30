@@ -9,42 +9,23 @@
 import RxSwift
 
 public class DownloadQueueGateway: DownloadRequestGateway {
+    public var executor: RequestExecuting
+    public var disposeBag = DisposeBag()
+
     var builder: DownloadRequestBuilding
-    var executor: RequestExecuting
     var parser: DownloadResponseParsing
 
-    var disposeBag = DisposeBag()
-    
     public required init(builder: DownloadRequestBuilding, parser: DownloadResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
         self.executor = executor
         self.parser = parser
     }
-    
-    public func observe() -> Observable<DownloadQueue> {
-        return Observable.create { observer in
-            let request: Request
-            do {
-                request = try self.builder.make(for: .queue)
-            }
-            catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
 
-            self.executor
-                .execute(request)
-                .subscribe(onNext: {
-                    do {
-                        observer.onNext(try self.parser.parseQueue(from: $0))
-                    }
-                    catch {
-                        observer.onError(error)
-                    }
-                })
-                .disposed(by: self.disposeBag)
+    public func makeRequest() throws -> Request {
+        return try builder.make(for: .queue)
+    }
 
-            return Disposables.create()
-        }
+    public func parse(response: Response) throws -> DownloadQueue {
+        return try parser.parseQueue(from: response)
     }
 }

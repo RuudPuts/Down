@@ -8,7 +8,6 @@
 
 protocol DownloadRequestGateway: RequestGateway {
     var builder: DownloadRequestBuilding { get }
-    var executor: RequestExecuting { get }
     var parser: DownloadResponseParsing { get }
     
     init(builder: DownloadRequestBuilding, parser: DownloadResponseParsing, executor: RequestExecuting)

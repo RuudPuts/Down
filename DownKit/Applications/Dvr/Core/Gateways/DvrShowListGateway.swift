@@ -9,42 +9,23 @@
 import RxSwift
 
 public class DvrShowListGateway: DvrRequestGateway {
+    public var executor: RequestExecuting
+    public var disposeBag = DisposeBag()
+
     var builder: DvrRequestBuilding
-    var executor: RequestExecuting
     var parser: DvrResponseParsing
 
-    var disposeBag = DisposeBag()
-    
     public required init(builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
         self.executor = executor
         self.parser = parser
     }
-    
-    public func observe() -> Observable<[DvrShow]> {
-        return Observable.create { observer in
-            let request: Request
-            do {
-                request = try self.builder.make(for: .showList)
-            }
-            catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
 
-            self.executor
-                .execute(request)
-                .subscribe(onNext: {
-                    do {
-                        observer.onNext(try self.parser.parseShows(from: $0))
-                    }
-                    catch {
-                        observer.onError(error)
-                    }
-                })
-                .disposed(by: self.disposeBag)
+    public func makeRequest() throws -> Request {
+        return try builder.make(for: .showList)
+    }
 
-            return Disposables.create()
-        }
+    public func parse(response: Response) throws -> [DvrShow] {
+        return try parser.parseShows(from: response)
     }
 }

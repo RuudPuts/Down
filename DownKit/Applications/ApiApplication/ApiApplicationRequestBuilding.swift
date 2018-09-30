@@ -14,7 +14,7 @@ public protocol ApiApplicationRequestBuilding: RequestBuilding {
 }
 
 extension ApiApplicationRequestBuilding {
-    func make(for apiCall: ApiApplicationCall, credentials: UsernamePassword?) throws -> Request {
+    func make(for apiCall: ApiApplicationCall, credentials: UsernamePassword? = nil) throws -> Request {
         guard let spec = specification(for: apiCall, credentials: credentials) else {
             throw RequestBuildingError.notSupportedError("\(apiCall) call not supported by \(application.name)")
         }
