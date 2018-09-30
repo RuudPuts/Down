@@ -128,8 +128,11 @@ private extension Router {
         let icon = R.image.tabbar_movies()?.withRenderingMode(.alwaysOriginal)
         let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
 
-        let navigationController = UINavigationController()
+        let navigationController = UINavigationController(rootViewController: UIViewController())
         navigationController.tabBarItem = tabbarItem
+
+        navigationController.navigationBar.style(as: .transparentNavigationBar)
+        navigationController.topViewController?.view.style(as: .backgroundView)
 
         return navigationController
     }

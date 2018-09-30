@@ -88,6 +88,7 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
 
     let dataSource = RxTableViewSectionedReloadDataSource<TableSectionData>(configureCell: { (_, tableView, indexPath, item) -> UITableViewCell in
         let cell = tableView.dequeueReusableCell(withIdentifier: DownloadItemCell.identifier, for: indexPath)
+        
         guard let itemCell = cell as? DownloadItemCell else {
             return cell
         }

@@ -18,13 +18,12 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
     @IBOutlet weak var headerView: DvrShowHeaderView?
     @IBOutlet weak var tableView: UITableView?
 
-    private var headerViewModel: DvrShowHeaderViewModel?
     private var tableViewModel: DvrShowDetailsTableViewModel?
-
     private let disposeBag = DisposeBag()
 
     var show: DvrShow? {
         didSet {
+            configureTableView()
             configureHeaderView()
 
             checkShowBanner()
@@ -50,12 +49,15 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
     }
 
     func configureHeaderView() {
-        headerViewModel = DvrShowHeaderViewModel(show: show!)
-        headerView?.model = headerViewModel
+        headerView?.viewModel = DvrShowHeaderViewModel(show: show!)
     }
 
     func configureTableView() {
-        tableViewModel = DvrShowDetailsTableViewModel(show: show!)
+        guard let show = show else {
+            return
+        }
+
+        tableViewModel = DvrShowDetailsTableViewModel(show: show, application: application)
         tableView?.dataSource = tableViewModel
         tableView?.delegate = tableViewModel
     }

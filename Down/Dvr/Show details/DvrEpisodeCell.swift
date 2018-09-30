@@ -20,16 +20,20 @@ class DvrEpisodeCell: UITableViewCell {
         didSet {
             nameLabel?.text = viewModel.title
             airLabel?.text = viewModel.airdDate
-            statusLabel?.text = viewModel.status?.displayString
+            statusLabel?.text = viewModel.status.displayString
+
+            applyStyling()
         }
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
+    func applyStyling() {
         nameLabel.style(as: .titleLabel)
         airLabel.style(as: .detailLabel)
         statusLabel.style(as: .detailLabel)
+
+        if let viewModel = viewModel {
+            statusLabel.style(as: .episodeStatusLabel(viewModel.status))
+        }
     }
 }
 
@@ -37,7 +41,7 @@ struct DvrEpisodeCellModel {
     var identifier: String
     var name: String
     var airdDate: String
-    var status: DvrEpisodeStatus? = nil
+    var status: DvrEpisodeStatus
 
     init(episode: DvrEpisode) {
         identifier = episode.identifier

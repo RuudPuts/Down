@@ -19,7 +19,7 @@ extension Quality {
     }
 }
 
-extension DvrShow.Status {
+extension DvrShowStatus {
     var displayString: String {
         switch self {
         case .continuing: return "Continuing"

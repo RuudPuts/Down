@@ -9,10 +9,12 @@
 import DownKit
 
 class DvrShowDetailsTableViewModel: NSObject {
-    var show: DvrShow
+    let show: DvrShow
+    let application: DvrApplication
 
-    init(show: DvrShow) {
+    init(show: DvrShow, application: DvrApplication) {
         self.show = show
+        self.application = application
     }
 
     func prepare(tableView: UITableView) {
@@ -58,6 +60,7 @@ extension DvrShowDetailsTableViewModel: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.style(as: .defaultCell)
+        cell.style(as: .selectableCell(application: application.type))
     }
 }
 

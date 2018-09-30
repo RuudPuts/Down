@@ -18,25 +18,25 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="F4F-ee-Ux4">
-                        <rect key="frame" x="20" y="4" width="347" height="37.5"/>
+                        <rect key="frame" x="16" y="4" width="349" height="37.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kbv-va-71F">
-                                <rect key="frame" x="0.0" y="0.0" width="347" height="11"/>
+                                <rect key="frame" x="0.0" y="0.0" width="349" height="11"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="lCj-CB-MPM">
-                                <rect key="frame" x="0.0" y="17" width="347" height="20.5"/>
+                                <rect key="frame" x="0.0" y="17" width="349" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySY-VJ-Mlh">
-                                        <rect key="frame" x="0.0" y="0.0" width="173.5" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="174.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzU-fb-O1i">
-                                        <rect key="frame" x="173.5" y="0.0" width="173.5" height="20.5"/>
+                                        <rect key="frame" x="174.5" y="0.0" width="174.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -49,14 +49,14 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="F4F-ee-Ux4" secondAttribute="bottom" constant="2" id="dd1-Gv-6Fa"/>
                     <constraint firstItem="F4F-ee-Ux4" firstAttribute="top" secondItem="W3D-KK-q8r" secondAttribute="top" constant="4" id="fWD-9z-c7B"/>
-                    <constraint firstItem="F4F-ee-Ux4" firstAttribute="leading" secondItem="W3D-KK-q8r" secondAttribute="leading" constant="20" id="o1b-WY-PNr"/>
-                    <constraint firstAttribute="trailing" secondItem="F4F-ee-Ux4" secondAttribute="trailing" constant="8" id="uBU-KX-WkI"/>
+                    <constraint firstItem="F4F-ee-Ux4" firstAttribute="leading" secondItem="W3D-KK-q8r" secondAttribute="leading" constant="16" id="o1b-WY-PNr"/>
+                    <constraint firstAttribute="trailing" secondItem="F4F-ee-Ux4" secondAttribute="trailing" constant="10" id="uBU-KX-WkI"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="airLabel" destination="ySY-VJ-Mlh" id="t2y-H8-M9d"/>
+                <outlet property="airLabel" destination="uzU-fb-O1i" id="OYb-he-Kz1"/>
                 <outlet property="nameLabel" destination="Kbv-va-71F" id="Zsz-f1-k2m"/>
-                <outlet property="statusLabel" destination="uzU-fb-O1i" id="aQ4-Zr-tYd"/>
+                <outlet property="statusLabel" destination="ySY-VJ-Mlh" id="uO0-zS-06l"/>
             </connections>
             <point key="canvasLocation" x="17" y="-9"/>
         </tableViewCell>

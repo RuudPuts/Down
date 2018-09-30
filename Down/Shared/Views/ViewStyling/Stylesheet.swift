@@ -31,6 +31,8 @@ struct Stylesheet {
         static var green = UIColor(red: 0.25, green: 0.75, blue: 0.45, alpha: 1)
         static var orange = UIColor(red:0.87, green:0.63, blue:0.31, alpha:1.00)
         static var red = UIColor(red: 0.84, green: 0.29, blue: 0.26, alpha: 1)
+        static var blue = UIColor(red:0.25, green:0.50, blue:0.71, alpha:1.00)
+        static var purple = UIColor(red:0.52, green:0.30, blue:0.66, alpha:1.00)
     }
 
     struct Fonts {

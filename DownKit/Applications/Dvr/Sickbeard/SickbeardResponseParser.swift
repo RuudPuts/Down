@@ -113,7 +113,7 @@ private extension SickbeardResponseParser {
         }
     }
 
-    func parseShowStatus(from json: JSON) -> DvrShow.Status {
+    func parseShowStatus(from json: JSON) -> DvrShowStatus {
         switch json.stringValue {
         case "Continuing": return .continuing
         case "Ended": return .ended

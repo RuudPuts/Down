@@ -50,8 +50,6 @@ extension ViewStyling where ViewType == UILabel {
     }
 }
 
-// MARK: - Dvr specific
-
 extension ViewStyling where ViewType == UILabel {
     static func qualityLabel(_ quality: Quality) -> ViewStyling {
         return ViewStyling {
@@ -68,11 +66,13 @@ extension ViewStyling where ViewType == UILabel {
             }
         }
     }
+}
 
-    static func showStatusLabel(_ status: DvrShow.Status) -> ViewStyling {
+// MARK: - Dvr specific
+
+extension ViewStyling where ViewType == UILabel {
+    static func showStatusLabel(_ status: DvrShowStatus) -> ViewStyling {
         return ViewStyling {
-            $0.style(as: .titleLabel)
-
             switch status {
             case .continuing:
                 $0.textColor = Stylesheet.Colors.green
@@ -80,6 +80,23 @@ extension ViewStyling where ViewType == UILabel {
                 $0.textColor = Stylesheet.Colors.red
             case .unkown:
                 $0.textColor = Stylesheet.Colors.white
+            }
+        }
+    }
+
+    static func episodeStatusLabel(_ status: DvrEpisodeStatus) -> ViewStyling {
+        return ViewStyling {
+            switch status {
+            case .wanted:
+                $0.textColor = Stylesheet.Colors.red
+            case .skipped, .archived, .ignored:
+                $0.textColor = Stylesheet.Colors.blue
+            case .snatched:
+                $0.textColor = Stylesheet.Colors.purple
+            case .downloaded:
+                $0.textColor = Stylesheet.Colors.green
+            case .unknown:
+                break
             }
         }
     }

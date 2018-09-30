@@ -19,14 +19,14 @@ class DvrShowHeaderView: DesignableView {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var qualityLabel: UILabel!
 
-    var model: DvrShowHeaderViewModel? {
+    var viewModel: DvrShowHeaderViewModel! {
         didSet {
-            bannerImageView.image = model?.banner
-            posterImageView.image = model?.poster
-            nameLabel.text = model?.name
-            networkLabel.text = model?.airingOn
-            statusLabel.text = model?.status.displayString
-            qualityLabel.text = model?.quality.displayString
+            bannerImageView.image = viewModel?.banner
+            posterImageView.image = viewModel?.poster
+            nameLabel.text = viewModel?.name
+            networkLabel.text = viewModel?.airingOn
+            statusLabel.text = viewModel?.status.displayString
+            qualityLabel.text = viewModel?.quality.displayString
 
             applyStyling()
         }
@@ -42,10 +42,11 @@ class DvrShowHeaderView: DesignableView {
         bannerOverlayView.style(as: .overlayView)
         nameLabel.style(as: .largeHeaderLabel)
         networkLabel.style(as: .titleLabel)
+        statusLabel.style(as: .titleLabel)
 
-        if let model = model {
-            qualityLabel.style(as: .qualityLabel(model.quality))
-            statusLabel.style(as: .showStatusLabel(model.status))
+        if let viewModel = viewModel {
+            qualityLabel.style(as: .qualityLabel(viewModel.quality))
+            statusLabel.style(as: .showStatusLabel(viewModel.status))
         }
     }
 }
@@ -57,7 +58,7 @@ struct DvrShowHeaderViewModel {
     let network: String
     let airTime: String
     let quality: Quality
-    let status: DvrShow.Status
+    let status: DvrShowStatus
 
     var airingOn: String {
         return "Airs \(airTime) on \(network)"
