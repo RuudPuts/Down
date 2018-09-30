@@ -27,7 +27,9 @@ class DownloadRouter: ChildRouter {
     }
     
     func start() {
-        navigationController.viewControllers = [decorate(viewController: viewControllerFactory.makeDownloadRoot())]
+        navigationController.viewControllers = [
+            decorate(viewController: viewControllerFactory.makeDownloadRoot())
+        ]
     }
 
     func decorate(viewController vc: UIViewController) -> UIViewController {

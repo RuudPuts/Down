@@ -22,8 +22,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="GTM-KT-WG1">
-                                <rect key="frame" x="46" y="261" width="283" height="145.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="GTM-KT-WG1">
+                                <rect key="frame" x="46" y="254" width="283" height="159.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Down" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABS-5d-5ij">
                                         <rect key="frame" x="51" y="0.0" width="181" height="95.5"/>
@@ -32,7 +32,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="cxa-9F-2eh">
-                                        <rect key="frame" x="0.0" y="95.5" width="283" height="50"/>
+                                        <rect key="frame" x="0.0" y="109.5" width="283" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="e9R-4C-byL"/>
                                         </constraints>
