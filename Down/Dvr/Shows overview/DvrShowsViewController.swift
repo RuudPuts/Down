@@ -34,6 +34,7 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
 
         configureHeaderView()
         configureCollectionView()
+        createAddShowsButton()
         applyStyling()
         applyViewModel()
     }
@@ -67,6 +68,25 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
 
     func configureCollectionView() {
         collectionViewModel.configure(collectionView)
+    }
+
+    func createAddShowsButton() {
+        let button = UIButton()
+        button.setTitle("Add show", for: .normal)
+        button.style(as: .successButton)
+        button.translatesAutoresizingMaskIntoConstraints = false
+
+        collectionView.addSubview(button)
+
+        button.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
+        button.widthAnchor.constraint(equalTo: collectionView.widthAnchor).isActive = true
+        button.topAnchor.constraint(equalTo: collectionView.topAnchor).isActive = true
+
+        button.rx.tap
+            .subscribe(onNext: { _ in
+                self.router?.dvrRouter.showAddShow()
+            })
+            .disposed(by: disposeBag)
     }
 
     func applyViewModel() {
