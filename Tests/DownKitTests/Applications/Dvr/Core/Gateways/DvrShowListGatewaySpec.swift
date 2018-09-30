@@ -18,75 +18,79 @@ class DvrShowListGatewaySpec: QuickSpec {
         describe("DvrShowListGateway") {
             var sut: DvrShowListGateway!
             
-            var request: Request!
             var application: DvrApplication!
             var requestBuilder: DvrRequestBuildingMock!
             var responseParser: DvrResponseParsingMock!
             var requestExecutor: RequestExecutingMock!
             
             beforeEach {
-                request = Request(url: "http://myapi/show",
-                                  method: .get)
                 application = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
                 requestBuilder = DvrRequestBuildingMock(application: application)
-                requestBuilder.stubs.make = request
                 requestExecutor = RequestExecutingMock()
                 responseParser = DvrResponseParsingMock()
-                responseParser.stubs.parseShows = [DvrShow(identifier: "1", name: "UpdatedShow")]
                 
                 sut = DvrShowListGateway(builder: requestBuilder, parser: responseParser, executor: requestExecutor)
             }
-            
+
             afterEach {
                 sut = nil
-                
+
                 responseParser = nil
                 requestExecutor = nil
                 requestBuilder = nil
                 application = nil
-                request = nil
             }
-            
-            context("fetching shows") {
-                var responseData: Data!
-                var result: [DvrShow]!
-                
+
+            describe("making the request") {
+                var request: Request!
+                var result: Request!
+
                 beforeEach {
-                    responseData = "stubbed data".data(using: .utf8)
-                    requestExecutor.stubs.execute = Observable<Response>.just(
-                        Response(data: responseData, statusCode: 200, headers: [:])
-                    )
-                    
-                    do {
-                        result = try sut
-                            .observe()
-                            .toBlocking()
-                            .first()
-                    }
-                    catch {
-                        fail("Failed to execute gateway: \(error.localizedDescription)")
-                    }
+                    request = Request(url: "http://myapi/shows", method: .get)
+                    requestBuilder.stubs.make = request
+                    result = try? sut.makeRequest()
                 }
-                
+
                 afterEach {
                     result = nil
-                    responseData = nil
+                    request = nil
                 }
-                
-                it("builds the show list request") {
+
+                it("builds the shows request") {
                     expect(requestBuilder.captures.make?.call) == DvrApplicationCall.showList
                 }
-                
-                it("executes the request") {
-                    expect(requestExecutor.captures.execute?.request) == request
+
+                it("returns the request") {
+                    expect(result) === request
                 }
-                
+            }
+
+            describe("parsing the response") {
+                var response: Response!
+                var shows: [DvrShow]!
+                var result: [DvrShow]!
+
+                beforeEach {
+                    response = Response(data: Data(), statusCode: 200, headers: [:])
+
+                    shows = [DvrShow(identifier: "1", name: "UpdatedShow")]
+                    responseParser.stubs.parseShows = shows
+
+                    result = try! sut.parse(response: response)
+                }
+
+                afterEach {
+                    result = nil
+                    shows = nil
+                    response = nil
+                }
+
                 it("parses the shows") {
-                    expect(responseParser.captures.parseShows?.response.data) == responseData
+                    expect(responseParser.captures.parseShows?.response.data) == Data()
                 }
-                
+
                 it("returns the shows") {
-                    expect(result).toNot(beNil())
+                    expect(result) === shows
                 }
             }
         }

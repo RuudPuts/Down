@@ -12,4 +12,5 @@ class Down {
     static var applicationPersistence: ApplicationPersisting = UserDefaults.standard
     static var downloadApplication = applicationPersistence.load(type: .sabnzbd) as! DownloadApplication
     static var dvrApplication = applicationPersistence.load(type: .sickbeard) as! DvrApplication
+    static var dmrApplication = applicationPersistence.load(type: .couchpotato) as! DmrApplication
 }

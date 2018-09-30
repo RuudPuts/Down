@@ -16,6 +16,7 @@ class Router {
     
     var downloadRouter: DownloadRouter!
     var dvrRouter: DvrRouter!
+    var dmrRouter: DmrRouter!
     
     var rootViewController: UIViewController? {
         return window.rootViewController
@@ -131,8 +132,11 @@ private extension Router {
         let navigationController = UINavigationController(rootViewController: UIViewController())
         navigationController.tabBarItem = tabbarItem
 
-        navigationController.navigationBar.style(as: .transparentNavigationBar)
-        navigationController.topViewController?.view.style(as: .backgroundView)
+        dmrRouter = DmrRouter(parent: self,
+                              viewControllerFactory: viewControllerFactory,
+                              navigationController: navigationController,
+                              database: database)
+        dmrRouter.start()
 
         return navigationController
     }

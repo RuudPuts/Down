@@ -18,92 +18,80 @@ class DvrShowDetailsGatewaySpec: QuickSpec {
         describe("DvrShowDetailsGateway") {
             var sut: DvrShowDetailsGateway!
             
-            var request: Request!
             var application: DvrApplication!
             var requestBuilder: DvrRequestBuildingMock!
             var responseParser: DvrResponseParsingMock!
             var requestExecutor: RequestExecutingMock!
-            
+
             beforeEach {
-                request = Request(url: "http://myapi/show/identifier",
-                                  method: .get)
                 application = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
                 requestBuilder = DvrRequestBuildingMock(application: application)
-                requestBuilder.stubs.make = request
                 requestExecutor = RequestExecutingMock()
                 responseParser = DvrResponseParsingMock()
-                responseParser.stubs.parseShowDetails = DvrShow(identifier: "1", name: "UpdatedShow")
+
+                sut = DvrShowDetailsGateway(builder: requestBuilder, parser: responseParser, executor: requestExecutor)
+                sut.show = DvrShow(identifier: "1", name: "Show")
             }
-            
+
             afterEach {
                 sut = nil
-                
+
                 responseParser = nil
                 requestExecutor = nil
                 requestBuilder = nil
                 application = nil
-                request = nil
             }
-            
-            context("without show") {
+
+            describe("making the request") {
+                var request: Request!
+                var result: Request!
+
                 beforeEach {
-                    sut = DvrShowDetailsGateway(builder: requestBuilder, parser: responseParser, executor: requestExecutor)
+                    request = Request(url: "http://myapi/show_details", method: .get)
+                    requestBuilder.stubs.make = request
+                    result = try? sut.makeRequest()
                 }
-            }
-            
-            context("with show") {
-                var show: DvrShow!
-                
-                beforeEach {
-                    show = DvrShow(identifier: "1", name: "TestShow")
-                    sut = DvrShowDetailsGateway(show: show, builder: requestBuilder, parser: responseParser, executor: requestExecutor)
-                }
-                
+
                 afterEach {
-                    show = nil
+                    result = nil
+                    request = nil
                 }
-                
-                context("fetching details") {
-                    var responseData: Data!
-                    var result: DvrShow!
-                    
-                    beforeEach {
-                        responseData = "stubbed data".data(using: .utf8)
-                        requestExecutor.stubs.execute = Observable<Response>.just(
-                            Response(data: responseData, statusCode: 200, headers: [:])
-                        )
-                        
-                        do {
-                            result = try sut
-                                .observe()
-                                .toBlocking()
-                                .first()
-                        }
-                        catch {
-                            fail("Failed to execute gateway: \(error.localizedDescription)")
-                        }
-                    }
-                    
-                    afterEach {
-                        result = nil
-                        responseData = nil
-                    }
-                    
-                    it("builds the show details request for show") {
-                        expect(requestBuilder.captures.make?.call) == DvrApplicationCall.showDetails(show)
-                    }
-                    
-                    it("executes the request") {
-                        expect(requestExecutor.captures.execute?.request) == request
-                    }
-                    
-                    it("parses the show details") {
-                        expect(responseParser.captures.parseShowDetails?.response.data) == responseData
-                    }
-                    
-                    it("returns updated show") {
-                        expect(result.name) == "UpdatedShow"
-                    }
+
+                it("builds the show details request") {
+                    expect(requestBuilder.captures.make?.call) == DvrApplicationCall.showDetails(sut.show)
+                }
+
+                it("returns the request") {
+                    expect(result) === request
+                }
+            }
+
+            describe("parsing the response") {
+                var response: Response!
+                var updatedShow: DvrShow!
+                var result: DvrShow!
+
+                beforeEach {
+                    response = Response(data: Data(), statusCode: 200, headers: [:])
+
+                    updatedShow = DvrShow(identifier: "1", name: "UpdatedShow")
+                    responseParser.stubs.parseShowDetails = updatedShow
+
+                    result = try! sut.parse(response: response)
+                }
+
+                afterEach {
+                    result = nil
+                    updatedShow = nil
+                    response = nil
+                }
+
+                it("parses the show details") {
+                    expect(responseParser.captures.parseShowDetails?.response.data) == Data()
+                }
+
+                it("returns the show details") {
+                    expect(result) === updatedShow
                 }
             }
         }

@@ -17,10 +17,10 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
     var database: DownDatabase!
     var router: Router?
 
+    let disposeBag = DisposeBag()
+
     @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var collectionView: UICollectionView!
-
-    let disposeBag = DisposeBag()
 
     lazy var viewModel = DvrShowsViewModel(database: database,
                                            refreshCacheInteractor: interactorFactory.makeShowCacheRefreshInteractor(for: application))

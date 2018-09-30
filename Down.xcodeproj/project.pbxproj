@@ -102,6 +102,27 @@
 		42350762212499BD005343CD /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42350761212499BD005343CD /* TableHeaderView.swift */; };
 		42350764212499C6005343CD /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42350763212499C6005343CD /* TableHeaderView.xib */; };
 		4235076621249B9E005343CD /* TableHeaderViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4235076521249B9E005343CD /* TableHeaderViewStyle.swift */; };
+		42384A4621612641004A0349 /* MvrDatabaseStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A3B21612640004A0349 /* MvrDatabaseStoring.swift */; };
+		42384A4721612641004A0349 /* DmrApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A3C21612640004A0349 /* DmrApplication.swift */; };
+		42384A4821612641004A0349 /* DmrRequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A3D21612640004A0349 /* DmrRequestBuilding.swift */; };
+		42384A4921612641004A0349 /* DmrMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A3F21612640004A0349 /* DmrMovie.swift */; };
+		42384A4A21612641004A0349 /* DmrResponseParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A4021612640004A0349 /* DmrResponseParsing.swift */; };
+		42384A4B21612641004A0349 /* CouchPotatoRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A4421612640004A0349 /* CouchPotatoRequestBuilder.swift */; };
+		42384A4C21612641004A0349 /* CouchPotatoResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A4521612640004A0349 /* CouchPotatoResponseParser.swift */; };
+		42384A5121613063004A0349 /* DmrRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A4E21613063004A0349 /* DmrRequestBuildingMock.swift */; };
+		42384A5221613063004A0349 /* DmrResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A4F21613063004A0349 /* DmrResponseParsingMock.swift */; };
+		42384A5321613063004A0349 /* DmrDatabaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A5021613063004A0349 /* DmrDatabaseMock.swift */; };
+		42384A6221613E0B004A0349 /* CouchPotatoResponseParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A5B21613E0B004A0349 /* CouchPotatoResponseParserSpec.swift */; };
+		42384A6321613E0B004A0349 /* CouchPotatoRequestBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A5C21613E0B004A0349 /* CouchPotatoRequestBuilderSpec.swift */; };
+		42384A6421613E0B004A0349 /* couchpotato_error.json in Resources */ = {isa = PBXBuildFile; fileRef = 42384A5E21613E0B004A0349 /* couchpotato_error.json */; };
+		42384A6521613E0B004A0349 /* couchpotato_movielist.json in Resources */ = {isa = PBXBuildFile; fileRef = 42384A5F21613E0B004A0349 /* couchpotato_movielist.json */; };
+		42384A6621613E0B004A0349 /* couchpotato_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 42384A6021613E0B004A0349 /* couchpotato_success.json */; };
+		42384A6821614487004A0349 /* couchpotato_apikey.json in Resources */ = {isa = PBXBuildFile; fileRef = 42384A6721614487004A0349 /* couchpotato_apikey.json */; };
+		42384A6A21614756004A0349 /* SwiftHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42384A6921614756004A0349 /* SwiftHash.framework */; };
+		42384A6F216151CC004A0349 /* DmrStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A6D216151CC004A0349 /* DmrStatusViewController.swift */; };
+		42384A70216151CC004A0349 /* DmrStatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42384A6E216151CC004A0349 /* DmrStatusViewController.xib */; };
+		42384A722161525B004A0349 /* DmrRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A712161525B004A0349 /* DmrRouter.swift */; };
+		42384A74216152A5004A0349 /* DmrApplicationInteracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A73216152A5004A0349 /* DmrApplicationInteracting.swift */; };
 		4243527A20FA8FB800A729E1 /* DvrShowDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */; };
 		4243527C20FA8FE700A729E1 /* DownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527B20FA8FE700A729E1 /* DownloadViewController.xib */; };
 		4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527F20FA936C00A729E1 /* DownloadItemCell.xib */; };
@@ -393,6 +414,27 @@
 		42350761212499BD005343CD /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		42350763212499C6005343CD /* TableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
 		4235076521249B9E005343CD /* TableHeaderViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderViewStyle.swift; sourceTree = "<group>"; };
+		42384A3B21612640004A0349 /* MvrDatabaseStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MvrDatabaseStoring.swift; sourceTree = "<group>"; };
+		42384A3C21612640004A0349 /* DmrApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DmrApplication.swift; sourceTree = "<group>"; };
+		42384A3D21612640004A0349 /* DmrRequestBuilding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DmrRequestBuilding.swift; sourceTree = "<group>"; };
+		42384A3F21612640004A0349 /* DmrMovie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DmrMovie.swift; sourceTree = "<group>"; };
+		42384A4021612640004A0349 /* DmrResponseParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DmrResponseParsing.swift; sourceTree = "<group>"; };
+		42384A4421612640004A0349 /* CouchPotatoRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoRequestBuilder.swift; sourceTree = "<group>"; };
+		42384A4521612640004A0349 /* CouchPotatoResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoResponseParser.swift; sourceTree = "<group>"; };
+		42384A4E21613063004A0349 /* DmrRequestBuildingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DmrRequestBuildingMock.swift; sourceTree = "<group>"; };
+		42384A4F21613063004A0349 /* DmrResponseParsingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DmrResponseParsingMock.swift; sourceTree = "<group>"; };
+		42384A5021613063004A0349 /* DmrDatabaseMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DmrDatabaseMock.swift; sourceTree = "<group>"; };
+		42384A5B21613E0B004A0349 /* CouchPotatoResponseParserSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoResponseParserSpec.swift; sourceTree = "<group>"; };
+		42384A5C21613E0B004A0349 /* CouchPotatoRequestBuilderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouchPotatoRequestBuilderSpec.swift; sourceTree = "<group>"; };
+		42384A5E21613E0B004A0349 /* couchpotato_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = couchpotato_error.json; sourceTree = "<group>"; };
+		42384A5F21613E0B004A0349 /* couchpotato_movielist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = couchpotato_movielist.json; sourceTree = "<group>"; };
+		42384A6021613E0B004A0349 /* couchpotato_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = couchpotato_success.json; sourceTree = "<group>"; };
+		42384A6721614487004A0349 /* couchpotato_apikey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = couchpotato_apikey.json; sourceTree = "<group>"; };
+		42384A6921614756004A0349 /* SwiftHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHash.framework; path = Carthage/Build/iOS/SwiftHash.framework; sourceTree = "<group>"; };
+		42384A6D216151CC004A0349 /* DmrStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmrStatusViewController.swift; sourceTree = "<group>"; };
+		42384A6E216151CC004A0349 /* DmrStatusViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DmrStatusViewController.xib; sourceTree = "<group>"; };
+		42384A712161525B004A0349 /* DmrRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmrRouter.swift; sourceTree = "<group>"; };
+		42384A73216152A5004A0349 /* DmrApplicationInteracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmrApplicationInteracting.swift; sourceTree = "<group>"; };
 		4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrShowDetailViewController.xib; sourceTree = "<group>"; };
 		4243527B20FA8FE700A729E1 /* DownloadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadViewController.xib; sourceTree = "<group>"; };
 		4243527F20FA936C00A729E1 /* DownloadItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadItemCell.xib; sourceTree = "<group>"; };
@@ -538,6 +580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4221DAD420D18678003950CF /* SwiftyJSON.framework in Frameworks */,
+				42384A6A21614756004A0349 /* SwiftHash.framework in Frameworks */,
 				4221DAD020D18672003950CF /* RxSwift.framework in Frameworks */,
 				42723A5B20D82A6D000445C3 /* RealmSwift.framework in Frameworks */,
 				42BA6F2720FFC2C4001CA926 /* Alamofire.framework in Frameworks */,
@@ -663,6 +706,7 @@
 				4263A18A20E1C3CA008F7E40 /* ApiApplication */,
 				4227B78A20DC589400603528 /* Download */,
 				4221DA6A20D18450003950CF /* Dvr */,
+				42384A3821612640004A0349 /* Mvr */,
 			);
 			path = Applications;
 			sourceTree = "<group>";
@@ -736,8 +780,8 @@
 				4221DA7520D18450003950CF /* DvrResponseParsing.swift */,
 				4221DA6B20D18450003950CF /* Models */,
 				42723A6020D84432000445C3 /* Database */,
-				422BE6C920D6DDD400DDDF37 /* Interactors */,
 				4221DA5F20D18450003950CF /* Gateways */,
+				422BE6C920D6DDD400DDDF37 /* Interactors */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -776,6 +820,7 @@
 				424FBD3F210F937B00885D8B /* ApiApplication */,
 				4227B7B220DD8EDC00603528 /* Download */,
 				4221DAA920D1860D003950CF /* Dvr */,
+				42384A4D21613063004A0349 /* Dmr */,
 			);
 			path = Applications;
 			sourceTree = "<group>";
@@ -822,6 +867,7 @@
 				424FBD31210F909000885D8B /* ApiApplication */,
 				4227B7B720DD8F7200603528 /* Download */,
 				4221DAB420D1860E003950CF /* Dvr */,
+				42384A5421613E0B004A0349 /* Dmr */,
 			);
 			path = Applications;
 			sourceTree = "<group>";
@@ -858,6 +904,7 @@
 		4221DAC420D18629003950CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42384A6921614756004A0349 /* SwiftHash.framework */,
 				4235075B21248A4B005343CD /* CircleProgressView.framework */,
 				42BA6F2520FFC2BF001CA926 /* Alamofire.framework */,
 				4243528C20FAA89000A729E1 /* SkyFloatingLabelTextField.framework */,
@@ -1049,8 +1096,8 @@
 		422BE6C920D6DDD400DDDF37 /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
-				4221DA6020D18450003950CF /* DvrRequestInteractors.swift */,
 				422BE6D020D6E14200DDDF37 /* DvrApplicationInteracting.swift */,
+				4221DA6020D18450003950CF /* DvrRequestInteractors.swift */,
 				422BE6CC20D6DE9400DDDF37 /* DvrInteractorFactory.swift */,
 				42723A4920D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift */,
 				42723A4F20D81C8D000445C3 /* DvrShowDetailsInteractor.swift */,
@@ -1062,6 +1109,158 @@
 				429F0A5C211629C3005582B6 /* DvrSetSeasonStatusInteractor.swift */,
 			);
 			path = Interactors;
+			sourceTree = "<group>";
+		};
+		42384A3821612640004A0349 /* Mvr */ = {
+			isa = PBXGroup;
+			children = (
+				42384A3921612640004A0349 /* Core */,
+				42384A4321612640004A0349 /* Couchpotato */,
+			);
+			path = Mvr;
+			sourceTree = "<group>";
+		};
+		42384A3921612640004A0349 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				42384A3C21612640004A0349 /* DmrApplication.swift */,
+				42384A3D21612640004A0349 /* DmrRequestBuilding.swift */,
+				42384A4021612640004A0349 /* DmrResponseParsing.swift */,
+				42384A3E21612640004A0349 /* Models */,
+				42384A3A21612640004A0349 /* Database */,
+				42384A4121612640004A0349 /* Gateways */,
+				42384A4221612640004A0349 /* Interactors */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		42384A3A21612640004A0349 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				42384A3B21612640004A0349 /* MvrDatabaseStoring.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		42384A3E21612640004A0349 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				42384A3F21612640004A0349 /* DmrMovie.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		42384A4121612640004A0349 /* Gateways */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Gateways;
+			sourceTree = "<group>";
+		};
+		42384A4221612640004A0349 /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				42384A73216152A5004A0349 /* DmrApplicationInteracting.swift */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
+		42384A4321612640004A0349 /* Couchpotato */ = {
+			isa = PBXGroup;
+			children = (
+				42384A4421612640004A0349 /* CouchPotatoRequestBuilder.swift */,
+				42384A4521612640004A0349 /* CouchPotatoResponseParser.swift */,
+			);
+			path = Couchpotato;
+			sourceTree = "<group>";
+		};
+		42384A4D21613063004A0349 /* Dmr */ = {
+			isa = PBXGroup;
+			children = (
+				42384A4E21613063004A0349 /* DmrRequestBuildingMock.swift */,
+				42384A4F21613063004A0349 /* DmrResponseParsingMock.swift */,
+				42384A5021613063004A0349 /* DmrDatabaseMock.swift */,
+			);
+			path = Dmr;
+			sourceTree = "<group>";
+		};
+		42384A5421613E0B004A0349 /* Dmr */ = {
+			isa = PBXGroup;
+			children = (
+				42384A5521613E0B004A0349 /* Core */,
+				42384A5A21613E0B004A0349 /* CouchPotato */,
+			);
+			path = Dmr;
+			sourceTree = "<group>";
+		};
+		42384A5521613E0B004A0349 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				42384A5621613E0B004A0349 /* Models */,
+				42384A5721613E0B004A0349 /* Gateways */,
+				42384A5821613E0B004A0349 /* Interactors */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		42384A5621613E0B004A0349 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		42384A5721613E0B004A0349 /* Gateways */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Gateways;
+			sourceTree = "<group>";
+		};
+		42384A5821613E0B004A0349 /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
+		42384A5A21613E0B004A0349 /* CouchPotato */ = {
+			isa = PBXGroup;
+			children = (
+				42384A5D21613E0B004A0349 /* Mock data */,
+				42384A5B21613E0B004A0349 /* CouchPotatoResponseParserSpec.swift */,
+				42384A5C21613E0B004A0349 /* CouchPotatoRequestBuilderSpec.swift */,
+			);
+			path = CouchPotato;
+			sourceTree = "<group>";
+		};
+		42384A5D21613E0B004A0349 /* Mock data */ = {
+			isa = PBXGroup;
+			children = (
+				42384A6721614487004A0349 /* couchpotato_apikey.json */,
+				42384A5E21613E0B004A0349 /* couchpotato_error.json */,
+				42384A5F21613E0B004A0349 /* couchpotato_movielist.json */,
+				42384A6021613E0B004A0349 /* couchpotato_success.json */,
+			);
+			path = "Mock data";
+			sourceTree = "<group>";
+		};
+		42384A6B2161518C004A0349 /* Dmr */ = {
+			isa = PBXGroup;
+			children = (
+				42384A712161525B004A0349 /* DmrRouter.swift */,
+				42384A6C216151A0004A0349 /* Status overview */,
+			);
+			path = Dmr;
+			sourceTree = "<group>";
+		};
+		42384A6C216151A0004A0349 /* Status overview */ = {
+			isa = PBXGroup;
+			children = (
+				42384A6D216151CC004A0349 /* DmrStatusViewController.swift */,
+				42384A6E216151CC004A0349 /* DmrStatusViewController.xib */,
+			);
+			path = "Status overview";
 			sourceTree = "<group>";
 		};
 		4243528120FA9CE200A729E1 /* ApplicationSettings */ = {
@@ -1196,6 +1395,7 @@
 				426BF73D20F6A18D000C3A4A /* Shared */,
 				427D605D20E0325C0017AE42 /* Download */,
 				427D605920E02DD00017AE42 /* Dvr */,
+				42384A6B2161518C004A0349 /* Dmr */,
 				4221DA4A20D181F2003950CF /* Resources */,
 				425357C320F2B0CE005BC238 /* Supporting Files */,
 			);
@@ -1641,13 +1841,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				429F0A6821174B42005582B6 /* sickbeard_error_chainedcommand.json in Resources */,
+				42384A6521613E0B004A0349 /* couchpotato_movielist.json in Resources */,
 				4288011E2120AFD3007552FD /* sabnzbd_success.json in Resources */,
+				42384A6621613E0B004A0349 /* couchpotato_success.json in Resources */,
 				4288011D2120AFD3007552FD /* sabnzbd_history.json in Resources */,
 				4288011F2120AFD3007552FD /* sabnzbd_error.json in Resources */,
 				428801202120AFD8007552FD /* sabnzbd_queue.json in Resources */,
 				429F0A502115F654005582B6 /* sickbeard_showdetails.json in Resources */,
+				42384A6821614487004A0349 /* couchpotato_apikey.json in Resources */,
 				429F0A4D2115F654005582B6 /* sickbeard_addshow.json in Resources */,
 				429F0A522115F654005582B6 /* sickbeard_success.json in Resources */,
+				42384A6421613E0B004A0349 /* couchpotato_error.json in Resources */,
 				429F0A512115F654005582B6 /* sickbeard_showlist.json in Resources */,
 				429F0A4E2115F654005582B6 /* sickbeard_error.json in Resources */,
 				429F0A4F2115F654005582B6 /* sickbeard_searchshows.json in Resources */,
@@ -1662,6 +1866,7 @@
 				42350764212499C6005343CD /* TableHeaderView.xib in Resources */,
 				4243527A20FA8FB800A729E1 /* DvrShowDetailViewController.xib in Resources */,
 				4222BE562156FFD6002742D8 /* DvrEpisodeCell.xib in Resources */,
+				42384A70216151CC004A0349 /* DmrStatusViewController.xib in Resources */,
 				429FE7D520FA7D40005F3A4F /* ApplicationHeaderView.xib in Resources */,
 				429F0A66211725D9005582B6 /* DvrAddShowViewController.xib in Resources */,
 				428FCD7E212350DE00C0371D /* OpenSans-Semibold.ttf in Resources */,
@@ -1721,6 +1926,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftHash.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -1729,6 +1935,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Realm.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RealmSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftHash.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1792,6 +1999,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwiftExt.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CircleProgressView.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftHash.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -1807,6 +2015,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwiftExt.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CircleProgressView.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftHash.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1834,6 +2043,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				429F0A572116254B005582B6 /* DvrSetEpisodeStatusGateway.swift in Sources */,
+				42384A4621612641004A0349 /* MvrDatabaseStoring.swift in Sources */,
 				4284C72D213356AB00F21B91 /* DvrFetchPosterGateway.swift in Sources */,
 				4243529520FABDD000A729E1 /* ApiApplicationInteracting.swift in Sources */,
 				4221DA8E20D18450003950CF /* DvrShow.swift in Sources */,
@@ -1848,6 +2058,7 @@
 				4263A18120E1B72A008F7E40 /* ApiApplicationLoginGateway.swift in Sources */,
 				4227B7A620DC589500603528 /* DownloadQueueGateway.swift in Sources */,
 				4263A18920E1C3BA008F7E40 /* ApiApplicationRequestBuilding.swift in Sources */,
+				42384A4A21612641004A0349 /* DmrResponseParsing.swift in Sources */,
 				422BE6BA20D6C41100DDDF37 /* ApplicationAddtionsFactory.swift in Sources */,
 				42BF4E8A20D1B5990088AAF6 /* String.swift in Sources */,
 				4284C72B2133560300F21B91 /* DvrFetchBannerGateway.swift in Sources */,
@@ -1856,6 +2067,7 @@
 				42E49DC9214458C600F8491B /* DownKit.swift in Sources */,
 				422CEE0A20D52B5800EF0A16 /* DataTaskExecuting.swift in Sources */,
 				4227B7A220DC589500603528 /* DownloadItem.swift in Sources */,
+				42384A74216152A5004A0349 /* DmrApplicationInteracting.swift in Sources */,
 				4221DA9C20D18450003950CF /* RequestExecutor.swift in Sources */,
 				4227B7AE20DC589500603528 /* DownloadInteractorFactory.swift in Sources */,
 				42723A4820D80E86000445C3 /* CompoundInteractor.swift in Sources */,
@@ -1872,6 +2084,7 @@
 				422BE6D120D6E14200DDDF37 /* DvrApplicationInteracting.swift in Sources */,
 				4227B76F20DB0B0000603528 /* DvrEpisode.swift in Sources */,
 				4263A18720E1B74F008F7E40 /* ApiApplicationApiKeyInteractor.swift in Sources */,
+				42384A4721612641004A0349 /* DmrApplication.swift in Sources */,
 				4221DA9E20D18450003950CF /* Request.swift in Sources */,
 				42BA6F2A20FFC2F5001CA926 /* URLSessionRequestClient.swift in Sources */,
 				429F0A5A211627B5005582B6 /* DvrDeleteShowInteractor.swift in Sources */,
@@ -1887,11 +2100,14 @@
 				42723A5020D81C8D000445C3 /* DvrShowDetailsInteractor.swift in Sources */,
 				4284C7352134317D00F21B91 /* DvrShowPosterInteractor.swift in Sources */,
 				4227B77820DB160500603528 /* RealmDatabase.swift in Sources */,
+				42384A4921612641004A0349 /* DmrMovie.swift in Sources */,
 				422CEE1120D55AD200EF0A16 /* RequestClient.swift in Sources */,
+				42384A4B21612641004A0349 /* CouchPotatoRequestBuilder.swift in Sources */,
 				42723A1B20D7FBFA000445C3 /* Observable.swift in Sources */,
 				4284C73321342F3C00F21B91 /* DvrShowBannerInteractor.swift in Sources */,
 				4227B7AC20DC589500603528 /* DownloadApplicationInteracting.swift in Sources */,
 				429B01D220F5324E00BCDA0F /* ApiApplicationGatewayFactory.swift in Sources */,
+				42384A4C21612641004A0349 /* CouchPotatoResponseParser.swift in Sources */,
 				42457CA020E1AB5900DBC6C7 /* DownloadQueueInteractor.swift in Sources */,
 				426BF73C20F688CA000C3A4A /* RequestSpecification.swift in Sources */,
 				4221DA8C20D18450003950CF /* ApiApplication.swift in Sources */,
@@ -1912,6 +2128,7 @@
 				4227B7B020DC589500603528 /* DownloadResponseParsing.swift in Sources */,
 				4221DA9D20D18450003950CF /* RequestBuilding.swift in Sources */,
 				42BF4E8520D19CF20088AAF6 /* DvrRequestBuilding.swift in Sources */,
+				42384A4821612641004A0349 /* DmrRequestBuilding.swift in Sources */,
 				4263A18520E1B745008F7E40 /* ApiApplicationApiKeyGateway.swift in Sources */,
 				4227B77720DB160500603528 /* Database.swift in Sources */,
 				42723A4E20D81C3A000445C3 /* DvrShowListGateway.swift in Sources */,
@@ -1933,13 +2150,16 @@
 				422BE6E020D7016B00DDDF37 /* ApplicationAdditionsFactorySpec.swift in Sources */,
 				4221DABC20D1860E003950CF /* DvrResponseParsingMock.swift in Sources */,
 				428340B720D28D7400CB2D7A /* DvrRequestBuildingMock.swift in Sources */,
+				42384A5121613063004A0349 /* DmrRequestBuildingMock.swift in Sources */,
 				427D605320DED3E30017AE42 /* SabNZBdRequestBuilderSpec.swift in Sources */,
+				42384A6321613E0B004A0349 /* CouchPotatoRequestBuilderSpec.swift in Sources */,
 				4227B7B520DD8EDC00603528 /* DownloadRequestBuildingMock.swift in Sources */,
 				4227B78220DC33CB00603528 /* DvrShowDetailsInteractorSpec.swift in Sources */,
 				424FBD3E210F927600885D8B /* ApiApplicationInteractorFactorySpec.swift in Sources */,
 				4221DABF20D1860E003950CF /* RequestSpec.swift in Sources */,
 				428340C720D2FD0A00CB2D7A /* RequestExecutingMock.swift in Sources */,
 				427D605120DED3E30017AE42 /* DownloadHistoryGatewaySpec.swift in Sources */,
+				42384A5321613063004A0349 /* DmrDatabaseMock.swift in Sources */,
 				427D604F20DED3E30017AE42 /* DownloadGatewayFactorySpec.swift in Sources */,
 				422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */,
 				4221DABB20D1860E003950CF /* ResponseParsingMock.swift in Sources */,
@@ -1960,8 +2180,10 @@
 				427D605220DED3E30017AE42 /* DownloadInteractorFactorySpec.swift in Sources */,
 				424FBD44210F937B00885D8B /* ApiApplicationMock.swift in Sources */,
 				421D06D42112401A005DC78D /* DownloadHistoryInteractorSpec.swift in Sources */,
+				42384A5221613063004A0349 /* DmrResponseParsingMock.swift in Sources */,
 				424FBD3B210F927600885D8B /* ApiApplicationGatewayFactorySpec.swift in Sources */,
 				428800FE21208DCA007552FD /* DownloadQueueInteractorSpec.swift in Sources */,
+				42384A6221613E0B004A0349 /* CouchPotatoResponseParserSpec.swift in Sources */,
 				422CEE0C20D52B8700EF0A16 /* RequestClientMock.swift in Sources */,
 				42BF4E9420D2501A0088AAF6 /* DvrShowListGatewaySpec.swift in Sources */,
 			);
@@ -1997,7 +2219,9 @@
 				428FCD61212212B600C0371D /* UIViewStyle.swift in Sources */,
 				4284C72721334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift in Sources */,
 				427D606120E0325C0017AE42 /* DownloadViewController.swift in Sources */,
+				42384A6F216151CC004A0349 /* DmrStatusViewController.swift in Sources */,
 				424DDA83214591EF00588B48 /* DvrShowDetailsTableViewModel.swift in Sources */,
+				42384A722161525B004A0349 /* DmrRouter.swift in Sources */,
 				4284C721213327FD00F21B91 /* TableSectionData.swift in Sources */,
 				42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,

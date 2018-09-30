@@ -22,7 +22,7 @@ public class ApiApplicationApiKeyGateway: ApiApplicationRequestGateway {
     }
 
     public func makeRequest() throws -> Request {
-        return try builder.make(for: .apiKey)
+        return try builder.make(for: .apiKey, credentials: nil)
     }
 
     public func parse(response: Response) throws -> String? {

@@ -17,6 +17,8 @@ protocol ViewControllerProducing {
     func makeDvrRoot() -> UIViewController
     func makeDvrDetail() -> UIViewController
     func makeDvrAddShow() -> UIViewController
+
+    func makeDmrRoot() -> UIViewController
 }
 
 class ViewControllerFactory: ViewControllerProducing {
@@ -41,5 +43,9 @@ class ViewControllerFactory: ViewControllerProducing {
 
     func makeDvrAddShow() -> UIViewController {
         return DvrAddShowViewController()
+    }
+
+    func makeDmrRoot() -> UIViewController {
+        return DmrStatusViewController()
     }
 }

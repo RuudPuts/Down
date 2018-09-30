@@ -1,0 +1,262 @@
+{
+	"movies": [{
+		"status": "done",
+		"info": {
+			"rating": {
+				"imdb": [
+					7.2,
+					189972
+				]
+			},
+			"genres": [
+				"Science Fiction",
+				"Drama",
+				"Horror",
+				"Mystery",
+				"Sci-Fi",
+				"Thriller"
+			],
+			"tmdb_id": 333371,
+			"plot": "After a car accident, Michelle awakens to find herself in a mysterious bunker with two men named Howard and Emmett. Howard offers her a pair of crutches to help her remain mobile with her leg injury sustained from the car crash and tells her to \"get good on those\" before leaving the bunker. She has been given the information that there has been an alien attack and the outside world is poisoned. However, Howard and Emmett's intentions soon become questionable and Michelle is faced with a question: Is it better in here or out there?",
+			"tagline": "Monsters come in many forms.",
+			"original_title": "10 Cloverfield Lane",
+			"actor_roles": {
+				"Mat Vairo": "Jeremy",
+				"Maya Erskine": "Darcy",
+				"Ryan Martin Dwyer": "Extra Licoreria",
+				"John Goodman": "Howard Stambler",
+				"Suzanne Cryer": "Leslie",
+				"John Gallagher Jr.": "Emmett DeWitt",
+				"Douglas M. Griffin": "Driver",
+				"Mary Elizabeth Winstead": "Michelle",
+				"Bradley Cooper": "Ben (voice)",
+				"Cindy Hogan": "Neighbor Woman"
+			},
+			"via_imdb": true,
+			"mpaa": "PG-13",
+			"via_tmdb": true,
+			"directors": [
+				"Dan Trachtenberg"
+			],
+			"titles": [
+				"10 Cloverfield Lane",
+				"Ул. Чудовищно 10",
+				"The Cellar",
+				"Untitled Bad Robot Project",
+				"Ten Cloverfield Lane",
+				"Valencia",
+				"Вул. Монстро, 10",
+				"Монстро 2",
+				"科洛弗10號地窖",
+				"Вулиця Кловерфілд, 10"
+			],
+			"imdb": "tt1179933",
+			"year": 2016,
+			"images": {
+				"disc_art": [],
+				"poster": [
+					"https://images-na.ssl-images-amazon.com/images/M/MV5BMjEzMjczOTIxMV5BMl5BanBnXkFtZTgwOTUwMjI3NzE@._V1_SX300.jpg"
+				],
+				"extra_thumbs": [],
+				"poster_original": [
+					"https://image.tmdb.org/t/p/original/aeiVxTSTeGJ2ICf1iSDXkF3ivZp.jpg"
+				],
+				"landscape": [],
+				"actors": {
+					"Mat Vairo": "https://image.tmdb.org/t/p/w185/jwoIHRvTNiqrgpFZk9NMp6Yxz1S.jpg",
+					"Maya Erskine": "https://image.tmdb.org/t/p/w185/ujJinfGkFnBKQ6mGijDa47fbJDW.jpg",
+					"John Goodman": "https://image.tmdb.org/t/p/w185/mLJC7sRO3JnGkySJlwCJblvhBHm.jpg",
+					"Suzanne Cryer": "https://image.tmdb.org/t/p/w185/AkMReAlA7VyazP89hmzNaZmT9WR.jpg",
+					"John Gallagher Jr.": "https://image.tmdb.org/t/p/w185/2mn6gmPdFKaGBBAEMtTEk1tCVyi.jpg",
+					"Douglas M. Griffin": "https://image.tmdb.org/t/p/w185/5QTBIsyxZRo21uYGtpGBxvkz6cB.jpg",
+					"Mary Elizabeth Winstead": "https://image.tmdb.org/t/p/w185/7GFT1a5naPqg9WrfP5eBHjqDQ0K.jpg",
+					"Bradley Cooper": "https://image.tmdb.org/t/p/w185/2daC5DeXqwkFND0xxutbnSVKN6c.jpg",
+					"Cindy Hogan": "https://image.tmdb.org/t/p/w185/psxEhYc97fL6suQjsKGEdkqODG3.jpg"
+				},
+				"backdrop_original": [
+					"https://image.tmdb.org/t/p/original/qEu2EJBQUNFx5mSKOCItwZm74ZE.jpg"
+				],
+				"clear_art": [],
+				"logo": [],
+				"banner": [],
+				"backdrop": [
+					"https://image.tmdb.org/t/p/w1280/qEu2EJBQUNFx5mSKOCItwZm74ZE.jpg"
+				],
+				"extra_fanart": []
+			},
+			"actors": [
+				"John Goodman",
+				"Mary Elizabeth Winstead",
+				"John Gallagher Jr.",
+				"Douglas M. Griffin"
+			],
+			"writers": [
+				"Josh Campbell (story)",
+				"Matthew Stuecken (story)",
+				"Josh Campbell (screenplay)",
+				"Matthew Stuecken (screenplay)",
+				"Damien Chazelle (screenplay)"
+			],
+			"runtime": 103,
+			"type": "movie"
+		},
+		"_t": "media",
+		"releases": [{
+				"status": "ignored",
+				"info": {
+					"protocol": "nzb",
+					"description": "",
+					"name": "10.Cloverfield.Lane.2016.BluRay.1080p.DTS-HD.MA.7.1.x264.dxva-FraMeSToR",
+					"url": "https://nzbs.in/api?t=get&id=bb7c5182db78e176655480f352ba9c66&apikey=da5589ecb0116825b1660b0ec123ff45",
+					"age": 292,
+					"name_extra": "",
+					"seed_ratio": "",
+					"content": "<div><ul><li>ID: bb7c5182db78e176655480f352ba9c66</li><li>Name: <a href=\"https://nzbs.in/details/bb7c5182db78e176655480f352ba9c66\">10.Cloverfield.Lane.2016.BluRay.1080p.DTS-HD.MA.7.1.x264.dxva-FraMeSToR</a></li><li>Size: 13.76 GB </li><li>Attributes: Category - <a href=\"https://nzbs.in/browse?t=2040\">Movies > HD</a></li><li>Groups: <a href=\"https://nzbs.in/browse?g=alt.binaries.frogs\">alt.binaries.frogs</a></li><li>Poster: yEncBin@Poster.com (yEncBin)</li><li>PostDate: Wed, 13 Jul 2016 09:19:11 +0200</li><li>Password: None</li><li>Nfo: <a href=\"https://nzbs.in/api?t=getnfo&amp;id=bb7c5182db78e176655480f352ba9c66&amp;raw=1&amp;i=22504&amp;r=da5589ecb0116825b1660b0ec123ff45\">10.Cloverfield.Lane.2016.BluRay.1080p.DTS-HD.MA.7.1.x264.dxva-FraMeSToR.nfo</a></li></ul></div><div style=\"clear:both;\">\n\t",
+					"score": 29,
+					"provider": "Newznab",
+					"seed_time": "",
+					"provider_extra": ", nzbs.in",
+					"detail_url": "https://nzbs.in/details/bb7c5182db78e176655480f352ba9c66",
+					"type": "movie",
+					"id": "bb7c5182db78e176655480f352ba9c66",
+					"size": 14087
+				},
+				"download_info": {
+					"status_support": false,
+					"id": "",
+					"downloader": "Blackhole"
+				},
+				"_id": "a8a05ad0af7b4facbf76a7fcf7591426",
+				"media_id": "3e14133df6df4036b18e62ef75e4014f",
+				"_rev": "0010e05a",
+				"_t": "release",
+				"is_3d": false,
+				"last_edit": 1491143784,
+				"identifier": "ca338a98a851c0b146f045e62c7e65c8",
+				"quality": "1080p"
+			},
+			{
+				"status": "ignored",
+				"info": {
+					"protocol": "nzb",
+					"description": "",
+					"name": "10.Cloverfield.Lane.2016.BluRay.1080p.DTS.x264-LEGi0N",
+					"url": "https://nzbs.in/api?t=get&id=64b59697e67b23e312d4dbb74f98225c&apikey=da5589ecb0116825b1660b0ec123ff45",
+					"age": 320,
+					"name_extra": "",
+					"seed_ratio": "",
+					"content": "<div><ul><li>ID: 64b59697e67b23e312d4dbb74f98225c</li><li>Name: <a href=\"https://nzbs.in/details/64b59697e67b23e312d4dbb74f98225c\">10.Cloverfield.Lane.2016.BluRay.1080p.DTS.x264-LEGi0N</a></li><li>Size: 9.25 GB </li><li>Attributes: Category - <a href=\"https://nzbs.in/browse?t=2040\">Movies > HD</a></li><li>Groups: <a href=\"https://nzbs.in/browse?g=alt.binaries.frogs\">alt.binaries.frogs</a></li><li>Poster: yEncBin@Poster.com (yEncBin)</li><li>PostDate: Wed, 15 Jun 2016 07:46:47 +0200</li><li>Password: None</li></ul></div><div style=\"clear:both;\">\n\t",
+					"score": 29,
+					"provider": "Newznab",
+					"seed_time": "",
+					"provider_extra": ", nzbs.in",
+					"detail_url": "https://nzbs.in/details/64b59697e67b23e312d4dbb74f98225c",
+					"type": "movie",
+					"id": "64b59697e67b23e312d4dbb74f98225c",
+					"size": 9472
+				},
+				"download_info": {
+					"status_support": false,
+					"id": "",
+					"downloader": "Blackhole"
+				},
+				"_id": "1af8901706b14f3cb402001c430d5ee2",
+				"media_id": "3e14133df6df4036b18e62ef75e4014f",
+				"_rev": "000e7b18",
+				"_t": "release",
+				"is_3d": false,
+				"last_edit": 1491856559,
+				"identifier": "e389a341fc1fa064ba814f47691db8dc",
+				"quality": "1080p"
+			},
+			{
+				"status": "failed",
+				"info": {
+					"protocol": "nzb",
+					"description": "",
+					"name": "10.Cloverfield.Lane.2016.BluRay.1080p.DTS-HD.MA.7.1.(10bit).x265-LEGi0N",
+					"url": "https://nzbs.in/api?t=get&id=260fbcd2ed5225a181527735ec931d4f&apikey=da5589ecb0116825b1660b0ec123ff45",
+					"age": 320,
+					"name_extra": "",
+					"seed_ratio": "",
+					"content": "<div><ul><li>ID: 260fbcd2ed5225a181527735ec931d4f</li><li>Name: <a href=\"https://nzbs.in/details/260fbcd2ed5225a181527735ec931d4f\">10.Cloverfield.Lane.2016.BluRay.1080p.DTS-HD.MA.7.1.(10bit).x265-LEGi0N</a></li><li>Size: 10.88 GB </li><li>Attributes: Category - <a href=\"https://nzbs.in/browse?t=2070\">Movies > HEVC</a></li><li>Groups: <a href=\"https://nzbs.in/browse?g=alt.binaries.frogs\">alt.binaries.frogs</a></li><li>Poster: yEncBin@Poster.com (yEncBin)</li><li>PostDate: Wed, 15 Jun 2016 12:46:47 +0200</li><li>Password: None</li></ul></div><div style=\"clear:both;\">\n\t",
+					"score": 28,
+					"provider": "Newznab",
+					"seed_time": "",
+					"provider_extra": ", nzbs.in",
+					"detail_url": "https://nzbs.in/details/260fbcd2ed5225a181527735ec931d4f",
+					"type": "movie",
+					"id": "260fbcd2ed5225a181527735ec931d4f",
+					"size": 11140
+				},
+				"download_info": {
+					"status_support": true,
+					"id": "SABnzbd_nzo_ncg3mF",
+					"downloader": "Sabnzbd"
+				},
+				"_id": "feb45dc5ce6d4329859f3a8ee292dec1",
+				"media_id": "3e14133df6df4036b18e62ef75e4014f",
+				"_rev": "000a7d77",
+				"_t": "release",
+				"is_3d": false,
+				"last_edit": 1493640856,
+				"identifier": "493ae56cd67d4b5cecc58635dd26fccc",
+				"quality": "1080p"
+			},
+			{
+				"status": "done",
+				"info": {
+					"size": 11718,
+					"protocol": "nzb",
+					"description": "",
+					"url": "https://nzbs.in/api?t=get&id=abde292bc96a609355e709d8b44437a7&apikey=da5589ecb0116825b1660b0ec123ff45",
+					"age": 329,
+					"name_extra": "",
+					"id": "abde292bc96a609355e709d8b44437a7",
+					"content": "<div><ul><li>ID: abde292bc96a609355e709d8b44437a7</li><li>Name: <a href=\"https://nzbs.in/details/abde292bc96a609355e709d8b44437a7\">10.Cloverfield.Lane.2016.BluRay.1080p.x264.DD5.1-HDChina</a></li><li>Size: 11.44 GB </li><li>Attributes: Category - <a href=\"https://nzbs.in/browse?t=2040\">Movies > HD</a></li><li>Groups: <a href=\"https://nzbs.in/browse?g=alt.binaries.frogs\">alt.binaries.frogs</a></li><li>Poster: yEncBin@Poster.com (yEncBin)</li><li>PostDate: Mon, 06 Jun 2016 07:25:51 +0200</li><li>Password: None</li><li>Nfo: <a href=\"https://nzbs.in/api?t=getnfo&amp;id=abde292bc96a609355e709d8b44437a7&amp;raw=1&amp;i=22504&amp;r=da5589ecb0116825b1660b0ec123ff45\">10.Cloverfield.Lane.2016.BluRay.1080p.x264.DD5.1-HDChina.nfo</a></li></ul></div><div style=\"clear:both;\">\n\t",
+					"score": 25,
+					"provider": "Newznab",
+					"seed_time": "",
+					"provider_extra": ", nzbs.in",
+					"detail_url": "https://nzbs.in/details/abde292bc96a609355e709d8b44437a7",
+					"type": "movie",
+					"seed_ratio": "",
+					"name": "10.Cloverfield.Lane.2016.BluRay.1080p.x264.DD5.1-HDChina"
+				},
+				"download_info": {
+					"status_support": true,
+					"id": "SABnzbd_nzo_Dwna9s",
+					"downloader": "Sabnzbd"
+				},
+				"_id": "8fbaef418f244db7946088e43d6d81f8",
+				"media_id": "3e14133df6df4036b18e62ef75e4014f",
+				"_rev": "000b0612",
+				"_t": "release",
+				"is_3d": false,
+				"last_edit": 1493642738,
+				"identifier": "tt1179933.AC3.1080p",
+				"quality": "1080p",
+				"files": {
+					"movie": [
+						"/Volumes/Movies/10 Cloverfield Lane (2016)/10 Cloverfield Lane 1080p.mkv"
+					]
+				}
+			}
+		],
+		"title": "10 Cloverfield Lane",
+		"_rev": "000e0706",
+		"profile_id": "71f0bf76e0ab45e78e8fa53a6b620f32",
+		"files": {},
+		"_id": "3e14133df6df4036b18e62ef75e4014f",
+		"last_edit": 1493121067,
+		"category_id": null,
+		"type": "movie",
+		"tags": [],
+		"identifiers": {
+			"imdb": "tt1179933"
+		}
+	}],
+	"total": 78,
+	"empty": false,
+	"success": true
+}

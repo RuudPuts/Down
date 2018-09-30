@@ -18,20 +18,16 @@ class ApiApplicationApiKeyGatewaySpec: QuickSpec {
         describe("ApiApplicationApiKeyGateway") {
             var sut: ApiApplicationApiKeyGateway!
 
-            var request: Request!
             var application: ApiApplication!
             var requestBuilder: ApiApplicationRequestBuildingMock!
             var responseParser: ApiApplicationResponseParsingMock!
             var requestExecutor: RequestExecutingMock!
 
             beforeEach {
-                request = Request(url: "http://myapi/show", method: .get)
                 application = ApiApplicationMock()
                 requestBuilder = ApiApplicationRequestBuildingMock(application: application)
-                requestBuilder.stubs.make = request
                 requestExecutor = RequestExecutingMock()
                 responseParser = ApiApplicationResponseParsingMock()
-                responseParser.stubs.parseApiKey = "API_KEY"
 
                 sut = ApiApplicationApiKeyGateway(builder: requestBuilder, parser: responseParser, executor: requestExecutor)
             }
@@ -43,49 +39,54 @@ class ApiApplicationApiKeyGatewaySpec: QuickSpec {
                 requestExecutor = nil
                 requestBuilder = nil
                 application = nil
-                request = nil
             }
 
-            context("fetching api key") {
-                var responseData: Data!
-                var result: String!
+            describe("making the request") {
+                var request: Request!
+                var result: Request!
 
                 beforeEach {
-                    responseData = "stubbed data".data(using: .utf8)
-                    requestExecutor.stubs.execute = Observable<Response>.just(
-                        Response(data: responseData, statusCode: 200, headers: [:])
-                    )
-
-                    do {
-                        result = try sut
-                            .observe()
-                            .toBlocking()
-                            .first() ?? "FAILED"
-                    }
-                    catch {
-                        fail("Failed to execute gateway: \(error.localizedDescription)")
-                    }
+                    request = Request(url: "http://myapi/apikey", method: .get)
+                    requestBuilder.stubs.make = request
+                    result = try? sut.makeRequest()
                 }
 
                 afterEach {
                     result = nil
-                    responseData = nil
                 }
 
                 it("builds the api key request") {
                     expect(requestBuilder.captures.make?.call) == ApiApplicationCall.apiKey
                 }
 
-                it("executes the request") {
-                    expect(requestExecutor.captures.execute?.request) == request
+                it("returns the request") {
+                    expect(result) === request
+                }
+            }
+
+            describe("parsing the response") {
+                var response: Response!
+                var result: String!
+
+                beforeEach {
+                    response = Response(data: Data(), statusCode: 200, headers: [:])
+
+                    responseParser.stubs.parseApiKey = "API_KEY"
+
+                    result = try! sut.parse(response: response)
+                }
+
+                afterEach {
+                    result = nil
+                    response = nil
                 }
 
                 it("parses the api key") {
-                    expect(responseParser.captures.parseApiKey?.response.data) == responseData
+                    expect(responseParser.captures.parseApiKey?.response.data) == Data()
                 }
 
-                it("returns the api key") {
-                    expect(result).to(equal("API_KEY"))
+                it("returns the apikey") {
+                    expect(result) == "API_KEY"
                 }
             }
         }

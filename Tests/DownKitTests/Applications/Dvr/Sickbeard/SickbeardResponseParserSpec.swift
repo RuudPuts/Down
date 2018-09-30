@@ -160,7 +160,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 }
                 
                 it("parses the show's quality") {
-                    expect(result.first?.quality) == "HD720p"
+                    expect(result.first?.quality) == Quality.hd720p
                 }
             }
             
@@ -185,7 +185,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 }
                 
                 it("parses the show's quality") {
-                    expect(result.quality) == "HD720p"
+                    expect(result.quality) == Quality.hd720p
                 }
                 
                 it("parses 1 season") {
@@ -213,11 +213,11 @@ class SickbeardResponseParserSpec: QuickSpec {
                 }
                 
                 it("parses the episode's quality") {
-                    expect(result.seasons.first?.episodes.first?.quality) == "N/A"
+                    expect(result.seasons.first?.episodes.first?.quality) == Quality.unkown
                 }
                 
                 it("parses the episode's status") {
-                    expect(result.seasons.first?.episodes.first?.status) == "Ignored"
+                    expect(result.seasons.first?.episodes.first?.status) == DvrEpisodeStatus.ignored
                 }
             }
 
@@ -274,7 +274,7 @@ class SickbeardResponseParserSpec: QuickSpec {
     }
 }
 
-extension Data {
+private extension Data {
     init(fromJsonFile filename: String) {
         let bundle = Bundle(for: SickbeardResponseParserSpec.self)
         let filePath = bundle.path(forResource: filename, ofType: "json")!

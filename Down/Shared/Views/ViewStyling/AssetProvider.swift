@@ -10,8 +10,8 @@ import UIKit
 
 class AssetProvider {
     struct icons {
-        static func `for`(_ application: DownApplicationType) -> UIImage? {
-            return UIImage(named: "\(application.rawValue)_icon")
+        static func `for`(_ application: DownApplicationType) -> UIImage {
+            return UIImage(named: "\(application.rawValue)_icon")!
         }
 
         static var x: UIImage? {

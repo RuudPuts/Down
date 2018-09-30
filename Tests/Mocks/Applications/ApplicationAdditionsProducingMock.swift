@@ -21,6 +21,10 @@ final class ApplicationAdditionsProducingMock: ApplicationAdditionsProducing {
         var makeDvrRequestBuilder = DvrRequestBuildingMock(application:
                 DvrApplication(type: .sickbeard, host: "host", apiKey: "key"))
         var makeDvrResponseParser = DvrResponseParsingMock()
+
+        var makeDmrRequestBuilder = DmrRequestBuildingMock(application:
+            DmrApplication(type: .couchpotato, host: "host", apiKey: "key"))
+        var makeDmrResponseParser = DmrResponseParsingMock()
     }
     
     struct Captures {
@@ -30,6 +34,8 @@ final class ApplicationAdditionsProducingMock: ApplicationAdditionsProducing {
         var makeDownloadResponseParser: MakeDownload?
         var makeDvrRequestBuilder: MakeDvr?
         var makeDvrResponseParser: MakeDvr?
+        var makeDmrRequestBuilder: MakeDmr?
+        var makeDmrResponseParser: MakeDmr?
 
         struct MakeApiApplication {
             let application: ApiApplication
@@ -41,6 +47,10 @@ final class ApplicationAdditionsProducingMock: ApplicationAdditionsProducing {
 
         struct MakeDvr {
             let application: DvrApplication
+        }
+
+        struct MakeDmr {
+            let application: DmrApplication
         }
     }
     
@@ -76,5 +86,15 @@ final class ApplicationAdditionsProducingMock: ApplicationAdditionsProducing {
     func makeDvrResponseParser(for application: DvrApplication) -> DvrResponseParsing {
         captures.makeDvrResponseParser = Captures.MakeDvr(application: application)
         return stubs.makeDvrResponseParser
+    }
+
+    func makeDmrRequestBuilder(for application: DmrApplication) -> DmrRequestBuilding {
+        captures.makeDmrRequestBuilder = Captures.MakeDmr(application: application)
+        return stubs.makeDmrRequestBuilder
+    }
+
+    func makeDmrResponseParser(for application: DmrApplication) -> DmrResponseParsing {
+        captures.makeDmrResponseParser = Captures.MakeDmr(application: application)
+        return stubs.makeDmrResponseParser
     }
 }

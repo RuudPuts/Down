@@ -17,6 +17,9 @@ public protocol ApplicationAdditionsProducing {
     
     func makeDvrRequestBuilder(for application: DvrApplication) -> DvrRequestBuilding
     func makeDvrResponseParser(for application: DvrApplication) -> DvrResponseParsing
+
+    func makeDmrRequestBuilder(for application: DmrApplication) -> DmrRequestBuilding
+    func makeDmrResponseParser(for application: DmrApplication) -> DmrResponseParsing
 }
 
 public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
@@ -34,6 +37,11 @@ public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
             switch(dvrApplication.dvrType) {
             case .sickbeard: return SickbeardRequestBuilder(application: dvrApplication)
             }
+        case .dmr:
+            let dmrApplication = (application as! DmrApplication)
+            switch(dmrApplication.dmrType) {
+            case .couchpotato: return CouchPotatoRequestBuilder(application: dmrApplication)
+            }
         }
     }
 
@@ -48,6 +56,11 @@ public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
             let dvrApplication = (application as! DvrApplication)
             switch(dvrApplication.dvrType) {
             case .sickbeard: return SickbeardResponseParser()
+            }
+        case .dmr:
+            let dmrApplication = (application as! DmrApplication)
+            switch(dmrApplication.dmrType) {
+            case .couchpotato: return CouchPotatoResponseParser()
             }
         }
     }
@@ -73,6 +86,18 @@ public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
     public func makeDvrResponseParser(for application: DvrApplication) -> DvrResponseParsing {
         switch application.dvrType {
         case .sickbeard: return SickbeardResponseParser()
+        }
+    }
+
+    public func makeDmrRequestBuilder(for application: DmrApplication) -> DmrRequestBuilding {
+        switch application.dmrType {
+        case .couchpotato: return CouchPotatoRequestBuilder(application: application)
+        }
+    }
+
+    public func makeDmrResponseParser(for application: DmrApplication) -> DmrResponseParsing {
+        switch application.dmrType {
+        case .couchpotato: return CouchPotatoResponseParser()
         }
     }
 }

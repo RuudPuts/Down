@@ -15,6 +15,7 @@ protocol DownApplication {
 enum DownApplicationType: String {
     case sabnzbd
     case sickbeard
+    case couchpotato
 }
 
 // Note on the extensions below. Yes they look odd, but I have to map the types them.
@@ -37,6 +38,14 @@ extension DvrApplication: DownApplication {
     var type: DownApplicationType {
         switch dvrType {
         case .sickbeard: return .sickbeard
+        }
+    }
+}
+
+extension DmrApplication: DownApplication {
+    var type: DownApplicationType {
+        switch dmrType {
+        case .couchpotato: return .couchpotato
         }
     }
 }

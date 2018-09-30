@@ -18,17 +18,14 @@ class ApiApplicationLoginGatewaySpec: QuickSpec {
         describe("ApiApplicationLoginGateway") {
             var sut: ApiApplicationLoginGateway!
 
-            var request: Request!
             var application: ApiApplication!
             var requestBuilder: ApiApplicationRequestBuildingMock!
             var responseParser: ApiApplicationResponseParsingMock!
             var requestExecutor: RequestExecutingMock!
 
             beforeEach {
-                request = Request(url: "http://myapi/show", method: .get)
                 application = ApiApplicationMock()
                 requestBuilder = ApiApplicationRequestBuildingMock(application: application)
-                requestBuilder.stubs.make = request
                 requestExecutor = RequestExecutingMock()
                 responseParser = ApiApplicationResponseParsingMock()
                 responseParser.stubs.parseLogin = .success
@@ -43,49 +40,56 @@ class ApiApplicationLoginGatewaySpec: QuickSpec {
                 requestExecutor = nil
                 requestBuilder = nil
                 application = nil
-                request = nil
             }
 
-            context("fetching Login") {
-                var responseData: Data!
-                var result: LoginResult!
+            describe("making the request") {
+                var request: Request!
+                var result: Request!
 
                 beforeEach {
-                    responseData = "stubbed data".data(using: .utf8)
-                    requestExecutor.stubs.execute = Observable<Response>.just(
-                        Response(data: responseData, statusCode: 200, headers: [:])
-                    )
-
-                    do {
-                        result = try sut
-                            .observe()
-                            .toBlocking()
-                            .first()
-                    }
-                    catch {
-                        fail("Failed to execute gateway: \(error.localizedDescription)")
-                    }
+                    request = Request(url: "http://myapi/login", method: .get)
+                    requestBuilder.stubs.make = request
+                    result = try? sut.makeRequest()
                 }
 
                 afterEach {
                     result = nil
-                    responseData = nil
+                    request = nil
                 }
 
                 it("builds the login request") {
                     expect(requestBuilder.captures.make?.call) == ApiApplicationCall.login
                 }
 
-                it("executes the request") {
-                    expect(requestExecutor.captures.execute?.request) == request
+                it("returns the request") {
+                    expect(result) === request
+                }
+            }
+
+            describe("parsing the response") {
+                var response: Response!
+
+                var result: LoginResult!
+
+                beforeEach {
+                    response = Response(data: Data(), statusCode: 200, headers: [:])
+
+                    responseParser.stubs.parseLogin = .success
+
+                    result = try! sut.parse(response: response)
                 }
 
-                it("parses the login response") {
-                    expect(responseParser.captures.parseLogin?.response.data) == responseData
+                afterEach {
+                    result = nil
+                    response = nil
                 }
 
-                it("returns success result") {
-                    expect(result).to(equal(.success))
+                it("parses the login result") {
+                    expect(responseParser.captures.parseLogin?.response.data) == Data()
+                }
+
+                it("returns the login result") {
+                    expect(result) == .success
                 }
             }
         }

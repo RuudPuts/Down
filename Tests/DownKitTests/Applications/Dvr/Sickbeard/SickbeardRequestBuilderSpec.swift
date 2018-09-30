@@ -77,7 +77,7 @@ class SickbeardRequestBuilderSpec: QuickSpec {
 
                         expectedParamters.merge([
                                 "id": show.identifier,
-                                "status": status.rawValue
+                                "status": status.sickbeardValue
                             ], uniquingKeysWith: { $1 })
 
                         result = sut.specification(for: .addShow(show, status))

@@ -51,7 +51,7 @@ class DownloadHistoryInteractorSpec: QuickSpec {
                 var item: DownloadItem!
 
                 beforeEach {
-                    item = DownloadItem(identifier: "test_item", name: "test.item.S01E01")
+                    item = DownloadItem(identifier: "test_item", name: "test.item.S01E01", category: "", sizeMb: 0, progress: 0)
                     parser.stubs.parseHistory = [item]
 
                     do {

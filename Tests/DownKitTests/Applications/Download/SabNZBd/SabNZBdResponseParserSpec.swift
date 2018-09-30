@@ -161,3 +161,13 @@ class SabNZBdResponseParserSpec: QuickSpec {
         }
     }
 }
+
+private extension Data {
+    init(fromJsonFile filename: String) {
+        let bundle = Bundle(for: SabNZBdResponseParserSpec.self)
+        let filePath = bundle.path(forResource: filename, ofType: "json")!
+
+        // swiftlint:disable force_try
+        try! self.init(contentsOf: URL(fileURLWithPath: filePath))
+    }
+}

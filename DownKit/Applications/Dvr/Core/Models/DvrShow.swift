@@ -10,7 +10,7 @@ import RealmSwift
 
 public class DvrShow: Object {
     @objc dynamic var key = UUID().uuidString
-    @objc public dynamic var identifier: String = String(NSNotFound)
+    @objc public dynamic var identifier = String(NSNotFound)
     @objc public dynamic var name = ""
     @objc public dynamic var quality = Quality.unkown
     @objc public dynamic var status = DvrShowStatus.unkown
