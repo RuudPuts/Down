@@ -84,6 +84,14 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
                 })
                 .disposed(by: disposeBag)
         }
+
+        apiKeyTextField.rx.text
+            .skip(2)
+            .debounce(0.3, scheduler: MainScheduler.instance)
+            .subscribe(onNext: {
+                self.viewModel.apiKey.accept($0)
+            })
+            .disposed(by: disposeBag)
     }
 
     func performLogin() {

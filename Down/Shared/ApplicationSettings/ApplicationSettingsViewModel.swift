@@ -52,7 +52,7 @@ class ApplicationSettingsViewModel {
                             .disposed(by: self.disposeBag)
                         break
                     case .authenticationRequired:
-                        let authenticationRequired = self.apiKey.value == nil
+                        let authenticationRequired = (self.apiKey.value ?? "").isEmpty
                         self.authenticationRequired.accept(authenticationRequired)
                         break
                     default: break
