@@ -8,7 +8,7 @@
 
 public protocol ApiApplicationInteractorProducing {
     func makeLoginInteractor(for application: ApiApplication, credentials: UsernamePassword?) -> ApiApplicationLoginInteractor
-    func makeApiKeyInteractor(for application: ApiApplication) -> ApiApplicationApiKeyInteractor
+    func makeApiKeyInteractor(for application: ApiApplication, credentials: UsernamePassword?) -> ApiApplicationApiKeyInteractor
 }
 
 public class ApiApplicationInteractorFactory: ApiApplicationInteractorProducing {
@@ -25,8 +25,9 @@ public class ApiApplicationInteractorFactory: ApiApplicationInteractorProducing 
         return ApiApplicationLoginInteractor(gateway: gateway)
     }
     
-    public func makeApiKeyInteractor(for application: ApiApplication) -> ApiApplicationApiKeyInteractor {
-        let gateway = gatewayFactory.makeApiKeyGateway(for: application)
+    public func makeApiKeyInteractor(for application: ApiApplication, credentials: UsernamePassword?) -> ApiApplicationApiKeyInteractor {
+        let gateway = gatewayFactory.makeApiKeyGateway(for: application,
+                                                       credentials: credentials)
         
         return ApiApplicationApiKeyInteractor(gateway: gateway)
     }

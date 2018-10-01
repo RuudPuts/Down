@@ -47,12 +47,12 @@ class ApplicationSettingsViewModel {
                     switch result {
                     case .success:
                         self.host.accept(host)
-                        self.fetchApiKey()
+                        self.fetchApiKey(credentials: credentials)
                             .subscribe()
                             .disposed(by: self.disposeBag)
                         break
                     case .authenticationRequired:
-                        let authenticationRequired = self.apiKey.value != nil
+                        let authenticationRequired = self.apiKey.value == nil
                         self.authenticationRequired.accept(authenticationRequired)
                         break
                     default: break
@@ -64,12 +64,12 @@ class ApplicationSettingsViewModel {
                 })
     }
 
-    func fetchApiKey() -> Observable<String?> {
+    func fetchApiKey(credentials: UsernamePassword? = nil) -> Observable<String?> {
         var applicationCopy = application.copy() as! ApiApplication
         applicationCopy.host = host.value!
 
         return interactorFactory
-            .makeApiKeyInteractor(for: applicationCopy)
+            .makeApiKeyInteractor(for: applicationCopy, credentials: credentials)
             .observe()
             .do(onNext: {
                     guard let apiKey = $0 else {

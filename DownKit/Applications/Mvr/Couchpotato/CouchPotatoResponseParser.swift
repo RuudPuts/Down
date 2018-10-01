@@ -32,6 +32,12 @@ extension CouchPotatoResponseParser: ApiApplicationResponseParsing {
             return .authenticationRequired
         }
 
+        if let data = response.data,
+           let body = String(data: data, encoding: .utf8),
+           body.contains("input class=\"username\"") {
+            return .authenticationRequired
+        }
+
         if response.statusCode >= 200 && response.statusCode < 400 {
             return .success
         }

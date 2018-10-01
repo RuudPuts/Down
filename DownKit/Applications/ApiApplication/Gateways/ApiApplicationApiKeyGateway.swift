@@ -14,6 +14,7 @@ public class ApiApplicationApiKeyGateway: ApiApplicationRequestGateway {
     
     var builder: ApiApplicationRequestBuilding
     var parser: ApiApplicationResponseParsing
+    var credentials: UsernamePassword?
 
     public required init(builder: ApiApplicationRequestBuilding, parser: ApiApplicationResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
@@ -21,8 +22,16 @@ public class ApiApplicationApiKeyGateway: ApiApplicationRequestGateway {
         self.parser = parser
     }
 
+    public convenience init(builder: ApiApplicationRequestBuilding,
+                            parser: ApiApplicationResponseParsing,
+                            executor: RequestExecuting = RequestExecutor(),
+                            credentials: UsernamePassword? = nil) {
+        self.init(builder: builder, parser: parser, executor: executor)
+        self.credentials = credentials
+    }
+
     public func makeRequest() throws -> Request {
-        return try builder.make(for: .apiKey, credentials: nil)
+        return try builder.make(for: .apiKey, credentials: credentials)
     }
 
     public func parse(response: Response) throws -> String? {

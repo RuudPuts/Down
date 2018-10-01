@@ -6,6 +6,8 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import SwiftHash
+
 class CouchPotatoRequestBuilder: DmrRequestBuilding {
     var application: ApiApplication
 
@@ -32,17 +34,23 @@ extension CouchPotatoRequestBuilder: ApiApplicationRequestBuilding {
         switch apiCall {
         case .login: return RequestSpecification(
             host: application.host,
+            path: "login/?next=%2F",
+            method: .post,
             authenticationMethod: .form,
             formAuthenticationData: makeAuthenticationData(with: credentials)
         )
-        case .apiKey: return RequestSpecification(
-            host: application.host,
-            path: "getkey/?u={username}&p={password}",
-            parameters: [
-                "username": credentials?.username ?? "",
-                "password": credentials?.password ?? ""
-            ]
-        )
+        case .apiKey:
+            let username = credentials?.username ?? ""
+            let password = credentials?.password ?? ""
+
+            return RequestSpecification(
+                host: application.host,
+                path: "getkey/?u={username}&p={password}",
+                parameters: [
+                    "username": username.isEmpty ? username : MD5(username).lowercased(),
+                    "password": password.isEmpty ? password : MD5(password).lowercased(),
+                ]
+            )
         }
     }
 

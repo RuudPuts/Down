@@ -9,6 +9,7 @@
 @testable import DownKit
 import Quick
 import Nimble
+import SwiftHash
 
 class CouchPotatoRequestBuilderSpec: QuickSpec {
     override func spec() {
@@ -66,31 +67,52 @@ class CouchPotatoRequestBuilderSpec: QuickSpec {
 
                     it("builds the specification") {
                         expect(result) == RequestSpecification(host: application.host,
+                                                               path: "login/?next=%2F",
+                                                               method: .post,
                                                                authenticationMethod: .form,
                                                                formAuthenticationData: expectedFormData)
                     }
                 }
 
                 context("build api key call") {
-                    var credentials: UsernamePassword!
+                    context("without credentials") {
 
-                    beforeEach {
-                        credentials = ("username", "password")
-                        expectedParamters = [
-                            "username": credentials.username,
-                            "password": credentials.password
-                        ]
-                        result = sut.specification(for: .apiKey, credentials: credentials)
+                        beforeEach {
+                            expectedParamters = [
+                                "username": "",
+                                "password": ""
+                            ]
+                            result = sut.specification(for: .apiKey, credentials: nil)
+                        }
+
+                        it("builds the specification") {
+                            expect(result) == RequestSpecification(host: application.host,
+                                                                   path: "getkey/?u={username}&p={password}",
+                                                                   parameters: expectedParamters)
+                        }
                     }
 
-                    afterEach {
-                        credentials = nil
-                    }
+                    context("with credentials") {
+                        var credentials: UsernamePassword!
 
-                    it("builds the specification") {
-                        expect(result) == RequestSpecification(host: application.host,
-                                                               path: "getkey/?u={username}&p={password}",
-                                                               parameters: expectedParamters)
+                        beforeEach {
+                            credentials = ("username", "password")
+                            expectedParamters = [
+                                "username": "14c4b06b824ec593239362517f538b29",
+                                "password": "5f4dcc3b5aa765d61d8327deb882cf99"
+                            ]
+                            result = sut.specification(for: .apiKey, credentials: credentials)
+                        }
+
+                        afterEach {
+                            credentials = nil
+                        }
+
+                        it("builds the specification") {
+                            expect(result) == RequestSpecification(host: application.host,
+                                                                   path: "getkey/?u={username}&p={password}",
+                                                                   parameters: expectedParamters)
+                        }
                     }
                 }
             }

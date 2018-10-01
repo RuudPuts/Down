@@ -42,11 +42,11 @@ class ApiApplicationInteractorFactorySpec: QuickSpec {
                 }
             }
 
-            context("queue interactor") {
+            context("key interactor") {
                 var interactor: ApiApplicationApiKeyInteractor!
 
                 beforeEach {
-                    interactor = sut.makeApiKeyInteractor(for: application)
+                    interactor = sut.makeApiKeyInteractor(for: application, credentials: nil)
                 }
 
                 afterEach {

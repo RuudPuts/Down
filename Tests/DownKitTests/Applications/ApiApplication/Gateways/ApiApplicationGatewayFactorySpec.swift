@@ -59,7 +59,7 @@ class ApiApplicationGatewayFactorySpec: QuickSpec {
                 var gateway: ApiApplicationApiKeyGateway!
                 
                 beforeEach {
-                    gateway = sut.makeApiKeyGateway(for: application)
+                    gateway = sut.makeApiKeyGateway(for: application, credentials: nil)
                 }
                 
                 afterEach {
