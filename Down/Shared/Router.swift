@@ -30,11 +30,12 @@ class Router {
     
     func start() {
         let tabBarController = UITabBarController()
-        
-        let downloadViewController = startDownloadRouter(tabBarController: tabBarController)
-        let dvrViewController = startDvrRouter(tabBarController: tabBarController)
-        let mvrViewController = startMvrRouter(tabBarController: tabBarController)
-        tabBarController.viewControllers = [downloadViewController, dvrViewController, mvrViewController]
+        tabBarController.viewControllers = [
+            startDownloadRouter(tabBarController: tabBarController),
+            startDvrRouter(tabBarController: tabBarController),
+            startMvrRouter(tabBarController: tabBarController),
+            startSettingsRouter(tabBarController: tabBarController)
+        ]
         tabBarController.tabBar.style(as: .defaultTabBar)
         
         window.rootViewController = tabBarController
@@ -129,7 +130,7 @@ private extension Router {
         let icon = R.image.tabbar_movies()?.withRenderingMode(.alwaysOriginal)
         let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
 
-        let navigationController = UINavigationController(rootViewController: UIViewController())
+        let navigationController = UINavigationController()
         navigationController.tabBarItem = tabbarItem
 
         dmrRouter = DmrRouter(parent: self,
@@ -137,6 +138,16 @@ private extension Router {
                               navigationController: navigationController,
                               database: database)
         dmrRouter.start()
+
+        return navigationController
+    }
+
+    func startSettingsRouter(tabBarController: UITabBarController) -> UIViewController {
+        let icon = R.image.tabbar_settings()?.withRenderingMode(.alwaysOriginal)
+        let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
+
+        let navigationController = UINavigationController(rootViewController: UIViewController())
+        navigationController.tabBarItem = tabbarItem
 
         return navigationController
     }
