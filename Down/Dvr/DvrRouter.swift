@@ -18,9 +18,11 @@ class DvrRouter: ChildRouter {
     var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController
     var database: DownDatabase
+    var application: DvrApplication
 
-    init(parent: Router, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
+    init(parent: Router, application: DvrApplication, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
         self.parent = parent
+        self.application = application
         self.viewControllerFactory = viewControllerFactory
         self.navigationController = navigationController
         self.database = database
@@ -53,7 +55,7 @@ class DvrRouter: ChildRouter {
         let viewController = parent.decorate(viewController: vc)
 
         if var dvrInteracting = viewController as? DvrApplicationInteracting {
-            dvrInteracting.application = Down.dvrApplication
+            dvrInteracting.application = application
             dvrInteracting.interactorFactory = DvrInteractorFactory(database: database)
         }
 

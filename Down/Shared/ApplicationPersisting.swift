@@ -9,14 +9,16 @@
 import DownKit
 
 protocol ApplicationPersisting {
-    func load(type: DownApplicationType) -> ApiApplication
+    func load(type: DownApplicationType) -> ApiApplication?
     func store(_ application: ApiApplication)
 }
 
 extension UserDefaults: ApplicationPersisting {
-    func load(type: DownApplicationType) -> ApiApplication {
-        let host = object(forKey: "\(type.rawValue)_host") as? String ?? ""
-        let apiKey = object(forKey: "\(type.rawValue)_apikey") as? String ?? ""
+    func load(type: DownApplicationType) -> ApiApplication? {
+        guard let host = object(forKey: "\(type.rawValue)_host") as? String,
+              let apiKey = object(forKey: "\(type.rawValue)_apikey") as? String else {
+            return nil
+        }
 
         //! hmmmm, I need this evil somewhere...
         switch type {
@@ -33,7 +35,5 @@ extension UserDefaults: ApplicationPersisting {
         set(application.host, forKey: "\(application.downType.rawValue)_host")
         set(application.apiKey, forKey: "\(application.downType.rawValue)_apikey")
         synchronize()
-
-        NSLog("UserDefaults: \(dictionaryRepresentation())")
     }
 }

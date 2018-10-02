@@ -18,9 +18,11 @@ class DownloadRouter: ChildRouter {
     var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController
     var database: DownDatabase
+    var application: DownloadApplication
 
-    init(parent: Router, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
+    init(parent: Router, application: DownloadApplication, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
         self.parent = parent
+        self.application = application
         self.viewControllerFactory = viewControllerFactory
         self.navigationController = navigationController
         self.database = database
@@ -36,7 +38,7 @@ class DownloadRouter: ChildRouter {
         let viewController = parent.decorate(viewController: vc)
 
         if var downloadInteracting = viewController as? DownloadApplicationInteracting {
-            downloadInteracting.application = Down.downloadApplication
+            downloadInteracting.application = application
             downloadInteracting.interactorFactory = DownloadInteractorFactory(dvrDatabase: parent.database)
         }
 

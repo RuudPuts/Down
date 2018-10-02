@@ -35,7 +35,7 @@ class Router {
             startDvrRouter(tabBarController: tabBarController),
             startMvrRouter(tabBarController: tabBarController),
             startSettingsRouter(tabBarController: tabBarController)
-        ]
+        ].compactMap { $0 }
         tabBarController.tabBar.style(as: .defaultTabBar)
         
         window.rootViewController = tabBarController
@@ -94,7 +94,11 @@ class Router {
 }
 
 private extension Router {
-    func startDownloadRouter(tabBarController: UITabBarController) -> UIViewController {
+    func startDownloadRouter(tabBarController: UITabBarController) -> UIViewController? {
+        guard let application = Down.persistence.load(type: .sabnzbd) as? DownloadApplication else {
+            return nil
+        }
+
         let icon = R.image.tabbar_downloads()?.withRenderingMode(.alwaysOriginal)
         let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 0)
 
@@ -102,6 +106,7 @@ private extension Router {
         navigationController.tabBarItem = tabbarItem
 
         downloadRouter = DownloadRouter(parent: self,
+                                        application: application,
                                         viewControllerFactory: viewControllerFactory,
                                         navigationController: navigationController,
                                         database: database)
@@ -110,7 +115,11 @@ private extension Router {
         return navigationController
     }
 
-    func startDvrRouter(tabBarController: UITabBarController) -> UIViewController {
+    func startDvrRouter(tabBarController: UITabBarController) -> UIViewController? {
+        guard let application = Down.persistence.load(type: .sickbeard) as? DvrApplication else {
+            return nil
+        }
+
         let icon = R.image.tabbar_shows()?.withRenderingMode(.alwaysOriginal)
         let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
 
@@ -118,6 +127,7 @@ private extension Router {
         navigationController.tabBarItem = tabbarItem
 
         dvrRouter = DvrRouter(parent: self,
+                              application: application,
                               viewControllerFactory: viewControllerFactory,
                               navigationController: navigationController,
                               database: database)
@@ -126,7 +136,11 @@ private extension Router {
         return navigationController
     }
 
-    func startMvrRouter(tabBarController: UITabBarController) -> UIViewController {
+    func startMvrRouter(tabBarController: UITabBarController) -> UIViewController? {
+        guard let application = Down.persistence.load(type: .couchpotato) as? DmrApplication else {
+            return nil
+        }
+
         let icon = R.image.tabbar_movies()?.withRenderingMode(.alwaysOriginal)
         let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
 
@@ -134,6 +148,7 @@ private extension Router {
         navigationController.tabBarItem = tabbarItem
 
         dmrRouter = DmrRouter(parent: self,
+                              application: application,
                               viewControllerFactory: viewControllerFactory,
                               navigationController: navigationController,
                               database: database)

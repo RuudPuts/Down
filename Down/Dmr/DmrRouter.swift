@@ -18,9 +18,11 @@ class DmrRouter: ChildRouter {
     var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController
     var database: DownDatabase
+    var application: DmrApplication
 
-    init(parent: Router, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
+    init(parent: Router, application: DmrApplication, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
         self.parent = parent
+        self.application = application
         self.viewControllerFactory = viewControllerFactory
         self.navigationController = navigationController
         self.database = database
@@ -33,8 +35,8 @@ class DmrRouter: ChildRouter {
     func decorate(viewController vc: UIViewController) -> UIViewController {
         let viewController = parent.decorate(viewController: vc)
 
-        if var DmrInteracting = viewController as? DmrApplicationInteracting {
-            DmrInteracting.application = Down.dmrApplication
+        if var dmrInteracting = viewController as? DmrApplicationInteracting {
+            dmrInteracting.application = application
 //            DmrInteracting.interactorFactory = DmrInteractorFactory(database: database)
         }
 
