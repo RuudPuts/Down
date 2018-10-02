@@ -11,12 +11,16 @@ import UIKit
 class SettingsViewController: UIViewController & Routing {
     var router: Router?
     var viewModel: SettingsViewModel!
+    var tableViewModel: SettingsTableViewModel?
+
+    @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         applyStyling()
         applyViewModel()
+        configureTableView()
     }
 
     func applyStyling() {
@@ -26,22 +30,35 @@ class SettingsViewController: UIViewController & Routing {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: Stylesheet.Colors.red]
 
-//        tableView?.tableFooterView = UIView()
-//        tableView?.separatorColor = Stylesheet.Colors.Backgrounds.lightGray
+        tableView?.tableFooterView = UIView()
+        tableView?.separatorColor = Stylesheet.Colors.Backgrounds.lightGray
     }
 
     func applyViewModel() {
         title = viewModel.title
         navigationController?.tabBarItem.title = nil
+
+        if viewModel.showWelcomeMessage {
+            let headerLabel = UILabel()
+            headerLabel.numberOfLines = 0
+            headerLabel.text = viewModel.welcomeMessage
+            headerLabel.style(as: .headerLabel)
+
+            let size = headerLabel.sizeThatFits(CGSize(width: tableView.bounds.width, height: 200))
+            headerLabel.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height + 30)
+
+            tableView.tableHeaderView = headerLabel
+        }
+        else {
+            tableView.tableHeaderView = nil
+        }
     }
 
-//    func configureTableView() {
-//        guard let show = show else {
-//            return
-//        }
-//
-//        tableViewModel = DvrShowDetailsTableViewModel(show: show, application: application)
-//        tableView?.dataSource = tableViewModel
-//        tableView?.delegate = tableViewModel
-//    }
+    func configureTableView() {
+        tableViewModel = SettingsTableViewModel(viewModel: viewModel)
+        tableViewModel?.prepare(tableView: tableView)
+
+        tableView.dataSource = tableViewModel
+        tableView.delegate = tableViewModel
+    }
 }

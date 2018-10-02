@@ -15,10 +15,10 @@ class SettingsViewModel {
     var showWelcomeMessage: Bool
     var welcomeMessage = "Welcome to Down!\n\nTo get started configure your downoader and indexers below"
 
-    let datasource: [ApiApplicationType: [DownApplicationType]] = [
-        .download: [ .sabnzbd ],
-        .dvr: [ .sickbeard ],
-        .dmr: [ .couchpotato ],
+    let datasource: [SettingsSectionModel] = [
+        SettingsSectionModel(applicationType: .download, applications: [.sabnzbd]),
+        SettingsSectionModel(applicationType: .dvr, applications: [.sickbeard]),
+        SettingsSectionModel(applicationType: .dmr, applications: [.couchpotato]),
     ]
 
     init(showWelcomeMessage: Bool) {

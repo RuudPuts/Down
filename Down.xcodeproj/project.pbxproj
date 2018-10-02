@@ -13,6 +13,9 @@
 		420C28292163E1ED0088259C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C28272163E1ED0088259C /* SettingsViewController.swift */; };
 		420C282A2163E1ED0088259C /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420C28282163E1ED0088259C /* SettingsViewController.xib */; };
 		420C282C2163E1FD0088259C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C282B2163E1FD0088259C /* SettingsViewModel.swift */; };
+		420C282E2163EBA40088259C /* SettingsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C282D2163EBA40088259C /* SettingsTableViewModel.swift */; };
+		420C28302163ED0E0088259C /* SettingsApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C282F2163ED0E0088259C /* SettingsApplicationCell.swift */; };
+		420C28322163F58D0088259C /* SettingsApplicationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420C28312163F58D0088259C /* SettingsApplicationCell.xib */; };
 		421D06CF21123C5D005DC78D /* ApiApplicationResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */; };
 		421D06D121123D5B005DC78D /* ApiApplicationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */; };
 		421D06D42112401A005DC78D /* DownloadHistoryInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D32112401A005DC78D /* DownloadHistoryInteractorSpec.swift */; };
@@ -324,6 +327,9 @@
 		420C28272163E1ED0088259C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		420C28282163E1ED0088259C /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		420C282B2163E1FD0088259C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		420C282D2163EBA40088259C /* SettingsTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewModel.swift; sourceTree = "<group>"; };
+		420C282F2163ED0E0088259C /* SettingsApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsApplicationCell.swift; sourceTree = "<group>"; };
+		420C28312163F58D0088259C /* SettingsApplicationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsApplicationCell.xib; sourceTree = "<group>"; };
 		421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationResponseParsingMock.swift; sourceTree = "<group>"; };
 		421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationSpec.swift; sourceTree = "<group>"; };
 		421D06D32112401A005DC78D /* DownloadHistoryInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadHistoryInteractorSpec.swift; sourceTree = "<group>"; };
@@ -635,6 +641,9 @@
 				420C28272163E1ED0088259C /* SettingsViewController.swift */,
 				420C28282163E1ED0088259C /* SettingsViewController.xib */,
 				420C282B2163E1FD0088259C /* SettingsViewModel.swift */,
+				420C282D2163EBA40088259C /* SettingsTableViewModel.swift */,
+				420C282F2163ED0E0088259C /* SettingsApplicationCell.swift */,
+				420C28312163F58D0088259C /* SettingsApplicationCell.xib */,
 				4243528120FA9CE200A729E1 /* ApplicationSettings */,
 			);
 			path = Settings;
@@ -1896,6 +1905,7 @@
 				428FCD83212350DE00C0371D /* OpenSans-LightItalic.ttf in Resources */,
 				428FCD86212350DE00C0371D /* OpenSans-Regular.ttf in Resources */,
 				428FCD80212350DE00C0371D /* OpenSans-Bold.ttf in Resources */,
+				420C28322163F58D0088259C /* SettingsApplicationCell.xib in Resources */,
 				421D83AF2107A4A6008BEB2F /* Localizable.strings in Resources */,
 				4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */,
 				420C282A2163E1ED0088259C /* SettingsViewController.xib in Resources */,
@@ -2234,6 +2244,7 @@
 				429F0A64211725D9005582B6 /* DvrAddShowViewModel.swift in Sources */,
 				42FB90392101154C007B01DB /* ApplicationPersisting.swift in Sources */,
 				4284C72921334D7000F21B91 /* UIButtonStyle.swift in Sources */,
+				420C28302163ED0E0088259C /* SettingsApplicationCell.swift in Sources */,
 				425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */,
 				428FCD61212212B600C0371D /* UIViewStyle.swift in Sources */,
 				4284C72721334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift in Sources */,
@@ -2242,6 +2253,7 @@
 				424DDA83214591EF00588B48 /* DvrShowDetailsTableViewModel.swift in Sources */,
 				42384A722161525B004A0349 /* DmrRouter.swift in Sources */,
 				4284C721213327FD00F21B91 /* TableSectionData.swift in Sources */,
+				420C282E2163EBA40088259C /* SettingsTableViewModel.swift in Sources */,
 				42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
 				42223883213454F900F73619 /* UIImageResize.swift in Sources */,

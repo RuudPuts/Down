@@ -16,6 +16,14 @@ enum DownApplicationType: String {
     case sabnzbd
     case sickbeard
     case couchpotato
+
+    var displayName: String {
+        switch self {
+        case .sabnzbd: return "SabNZBd"
+        case .sickbeard: return "Sickbeard"
+        case .couchpotato: return "CouchPotato"
+        }
+    }
 }
 
 // Note on the extensions below. Yes they look odd, but I have to map the types them.
