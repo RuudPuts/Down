@@ -57,7 +57,6 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     
     func configureTableView() {
         tableView.delegate = self
-        tableView.sectionHeaderHeight = 40
         
         tableView.registerCell(nibName: DownloadItemCell.identifier)
         tableView.registerHeaderFooter(nibName: TableHeaderView.identifier)

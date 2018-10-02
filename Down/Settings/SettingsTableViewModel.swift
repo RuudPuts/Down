@@ -66,7 +66,8 @@ extension SettingsTableViewModel: UITableViewDelegate {
         }
 
         let type = datasource[section].applicationType
-        headerView.viewModel = TableHeaderViewModel(title: viewModel.title(for: type), icon: nil)
+        headerView.viewModel = TableHeaderViewModel(title: viewModel.title(for: type),
+                                                    icon: AssetProvider.icons.for(type))
 
         return view
     }

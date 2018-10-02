@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,17 +18,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="AF6-Tt-IGa">
-                    <rect key="frame" x="10" y="14" width="375" height="20"/>
+                    <rect key="frame" x="10" y="12" width="375" height="24"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_queue" translatesAutoresizingMaskIntoConstraints="NO" id="UJj-kM-lDh">
-                            <rect key="frame" x="0.0" y="0.0" width="24" height="20"/>
+                            <rect key="frame" x="0.0" y="0.0" width="29" height="24"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="20" id="6RO-dE-rSG"/>
                                 <constraint firstAttribute="width" secondItem="UJj-kM-lDh" secondAttribute="height" multiplier="20:17" id="mCr-nF-zw2"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Queue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ys-4d-bea">
-                            <rect key="frame" x="34" y="0.0" width="341" height="20"/>
+                            <rect key="frame" x="39" y="0.0" width="336" height="24"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.96922064270667374" green="1" blue="0.9642076204769372" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <nil key="highlightedColor"/>
@@ -36,6 +36,7 @@
                 </stackView>
             </subviews>
             <constraints>
+                <constraint firstItem="UJj-kM-lDh" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.5" id="2Oj-pn-bj8"/>
                 <constraint firstItem="AF6-Tt-IGa" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="UcP-q6-VmU"/>
                 <constraint firstItem="AF6-Tt-IGa" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="10" id="ic6-gk-HH0"/>
                 <constraint firstItem="AF6-Tt-IGa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="z2L-pH-sdF"/>

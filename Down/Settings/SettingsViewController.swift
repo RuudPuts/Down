@@ -31,6 +31,7 @@ class SettingsViewController: UIViewController & Routing {
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: Stylesheet.Colors.red]
 
         tableView.style(as: .defaultTableView)
+        tableView.sectionHeaderHeight = 80
         tableView.tableFooterView = UIView()
         tableView.separatorColor = Stylesheet.Colors.Backgrounds.lightGray
     }

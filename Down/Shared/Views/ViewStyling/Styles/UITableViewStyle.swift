@@ -11,5 +11,6 @@ import UIKit
 extension ViewStyling where ViewType == UITableView {
     static var `defaultTableView` = ViewStyling {
         $0.separatorStyle = .none
+        $0.sectionHeaderHeight = 40
     }
 }

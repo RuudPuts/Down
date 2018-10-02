@@ -7,11 +7,20 @@
 //
 
 import UIKit
+import DownKit
 
 class AssetProvider {
     struct icons {
         static func `for`(_ application: DownApplicationType) -> UIImage {
             return UIImage(named: "\(application.rawValue)_icon")!
+        }
+
+        static func `for`(_ application: ApiApplicationType) -> UIImage? {
+            switch application {
+            case .download: return R.image.tabbar_downloads()
+            case .dvr: return R.image.tabbar_shows()
+            case .dmr: return R.image.tabbar_movies()
+            }
         }
 
         static var x: UIImage? {
