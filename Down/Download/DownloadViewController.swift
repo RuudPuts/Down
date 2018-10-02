@@ -30,7 +30,6 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
         super.viewDidLoad()
 
         applyStyling()
-        configureHeaderView()
         configureTableView()
         applyViewModel()
     }
@@ -53,15 +52,7 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     func applyStyling() {
         view.style(as: .backgroundView)
         tableView.style(as: .defaultTableView)
-    }
-
-    func configureHeaderView() {
         headerView.style(as: .headerView(for: application.downType))
-        headerView.button?.rx.tap
-            .subscribe(onNext: { _ in
-                self.router?.showSettings(application: self.application)
-            })
-            .disposed(by: disposeBag)
     }
     
     func configureTableView() {

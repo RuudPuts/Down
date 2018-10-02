@@ -44,8 +44,13 @@ class Router {
     }
 
     func showSettings(application: ApiApplication) {
+        guard let tabbarController = rootViewController as? UITabBarController,
+            let navigationController = tabbarController.viewControllers?[tabbarController.selectedIndex] as? UINavigationController else {
+            return
+        }
+
         let viewController = decorate(viewController: viewControllerFactory.makeApplicationSettings(for: application))
-        present(viewController, inNavigationController: false, animated: true)
+        navigationController.pushViewController(viewController, animated: true)
     }
 
     func present(_ viewController: UIViewController, inNavigationController: Bool, animated: Bool) {
@@ -162,7 +167,8 @@ private extension Router {
         let icon = R.image.tabbar_settings()?.withRenderingMode(.alwaysOriginal)
         let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
 
-        guard let settingsViewController = viewControllerFactory.makeSettings() as? SettingsViewController else {
+        let viewController = decorate(viewController: viewControllerFactory.makeSettings())
+        guard let settingsViewController = viewController as? SettingsViewController else {
             fatalError()
         }
         settingsViewController.viewModel = SettingsViewModel(showWelcomeMessage: true)

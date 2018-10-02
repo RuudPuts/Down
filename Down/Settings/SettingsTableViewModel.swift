@@ -16,10 +16,12 @@ struct SettingsSectionModel {
 class SettingsTableViewModel: NSObject {
     let viewModel: SettingsViewModel
     let datasource: [SettingsSectionModel]
+    var router: Router?
 
-    init(viewModel: SettingsViewModel) {
+    init(viewModel: SettingsViewModel, router: Router?) {
         self.viewModel = viewModel
         self.datasource = viewModel.datasource
+        self.router = router
     }
 
     func prepare(tableView: UITableView) {
@@ -67,5 +69,20 @@ extension SettingsTableViewModel: UITableViewDelegate {
         headerView.viewModel = TableHeaderViewModel(title: viewModel.title(for: type), icon: nil)
 
         return view
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let applicationType = datasource[indexPath.section].applications[indexPath.row]
+        let application = Down.persistence.load(type: applicationType) ?? makeApplication(ofType: applicationType)
+
+        router?.showSettings(application: application)
+    }
+
+    private func makeApplication(ofType type: DownApplicationType) -> ApiApplication {
+        switch type {
+        case .sabnzbd: return DownloadApplication(type: .sabnzbd, host: "", apiKey: "")
+        case .sickbeard: return DvrApplication(type: .sickbeard, host: "", apiKey: "")
+        case .couchpotato: return DmrApplication(type: .couchpotato, host: "", apiKey: "")
+        }
     }
 }

@@ -23,7 +23,6 @@ class DmrStatusViewController: UIViewController & Routing & DmrApplicationIntera
         super.viewDidLoad()
 
         applyStyling()
-        configureHeaderView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -43,14 +42,6 @@ class DmrStatusViewController: UIViewController & Routing & DmrApplicationIntera
 
     func applyStyling() {
         view.style(as: .backgroundView)
-    }
-
-    func configureHeaderView() {
         headerView.style(as: .headerView(for: application.downType))
-        headerView.button?.rx.tap
-            .subscribe(onNext: { _ in
-                self.router?.showSettings(application: self.application)
-            })
-            .disposed(by: disposeBag)
     }
 }

@@ -30,8 +30,9 @@ class SettingsViewController: UIViewController & Routing {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: Stylesheet.Colors.red]
 
-        tableView?.tableFooterView = UIView()
-        tableView?.separatorColor = Stylesheet.Colors.Backgrounds.lightGray
+        tableView.style(as: .defaultTableView)
+        tableView.tableFooterView = UIView()
+        tableView.separatorColor = Stylesheet.Colors.Backgrounds.lightGray
     }
 
     func applyViewModel() {
@@ -55,7 +56,7 @@ class SettingsViewController: UIViewController & Routing {
     }
 
     func configureTableView() {
-        tableViewModel = SettingsTableViewModel(viewModel: viewModel)
+        tableViewModel = SettingsTableViewModel(viewModel: viewModel, router: router)
         tableViewModel?.prepare(tableView: tableView)
 
         tableView.dataSource = tableViewModel
