@@ -10,6 +10,9 @@
 		4202D5A72113905D00ED1859 /* DvrAddShowGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */; };
 		4202D5A92113920E00ED1859 /* DvrAddShowInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5A82113920E00ED1859 /* DvrAddShowInteractor.swift */; };
 		4202D5AB211398EB00ED1859 /* DvrSearchShowsGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */; };
+		420C28292163E1ED0088259C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C28272163E1ED0088259C /* SettingsViewController.swift */; };
+		420C282A2163E1ED0088259C /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420C28282163E1ED0088259C /* SettingsViewController.xib */; };
+		420C282C2163E1FD0088259C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C282B2163E1FD0088259C /* SettingsViewModel.swift */; };
 		421D06CF21123C5D005DC78D /* ApiApplicationResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */; };
 		421D06D121123D5B005DC78D /* ApiApplicationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */; };
 		421D06D42112401A005DC78D /* DownloadHistoryInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D32112401A005DC78D /* DownloadHistoryInteractorSpec.swift */; };
@@ -318,6 +321,9 @@
 		4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAddShowGateway.swift; sourceTree = "<group>"; };
 		4202D5A82113920E00ED1859 /* DvrAddShowInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrAddShowInteractor.swift; sourceTree = "<group>"; };
 		4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrSearchShowsGateway.swift; sourceTree = "<group>"; };
+		420C28272163E1ED0088259C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		420C28282163E1ED0088259C /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		420C282B2163E1FD0088259C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationResponseParsingMock.swift; sourceTree = "<group>"; };
 		421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationSpec.swift; sourceTree = "<group>"; };
 		421D06D32112401A005DC78D /* DownloadHistoryInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadHistoryInteractorSpec.swift; sourceTree = "<group>"; };
@@ -626,6 +632,9 @@
 		420C28262163E13A0088259C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				420C28272163E1ED0088259C /* SettingsViewController.swift */,
+				420C28282163E1ED0088259C /* SettingsViewController.xib */,
+				420C282B2163E1FD0088259C /* SettingsViewModel.swift */,
 				4243528120FA9CE200A729E1 /* ApplicationSettings */,
 			);
 			path = Settings;
@@ -1889,6 +1898,7 @@
 				428FCD80212350DE00C0371D /* OpenSans-Bold.ttf in Resources */,
 				421D83AF2107A4A6008BEB2F /* Localizable.strings in Resources */,
 				4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */,
+				420C282A2163E1ED0088259C /* SettingsViewController.xib in Resources */,
 				4221DA4E20D181F2003950CF /* Assets.xcassets in Resources */,
 				4243527C20FA8FE700A729E1 /* DownloadViewController.xib in Resources */,
 				4221DA4D20D181F2003950CF /* LaunchScreen.storyboard in Resources */,
@@ -2214,6 +2224,7 @@
 				4243528620FA9D0C00A729E1 /* ApplicationSettingsViewController.swift in Sources */,
 				429F0A602116371E005582B6 /* DvrShowsViewModel.swift in Sources */,
 				4221DA5620D183B6003950CF /* Down.swift in Sources */,
+				420C28292163E1ED0088259C /* SettingsViewController.swift in Sources */,
 				4243528920FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift in Sources */,
 				426BF74120F6A2CB000C3A4A /* AssetProvider.swift in Sources */,
 				428FCD632122143E00C0371D /* UITableViewCellStyle.swift in Sources */,
@@ -2255,6 +2266,7 @@
 				427D606B20E1A6BD0017AE42 /* DownloadItemCell.swift in Sources */,
 				4284C73B2134330C00F21B91 /* DvrShowCollectionViewCell.swift in Sources */,
 				427D605B20E02E2F0017AE42 /* DvrRouter.swift in Sources */,
+				420C282C2163E1FD0088259C /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

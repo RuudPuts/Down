@@ -37,6 +37,7 @@ class Router {
             startSettingsRouter(tabBarController: tabBarController)
         ].compactMap { $0 }
         tabBarController.tabBar.style(as: .defaultTabBar)
+        tabBarController.tabBar.isHidden = tabBarController.viewControllers?.count ?? 0 < 2
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
@@ -161,7 +162,12 @@ private extension Router {
         let icon = R.image.tabbar_settings()?.withRenderingMode(.alwaysOriginal)
         let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
 
-        let navigationController = UINavigationController(rootViewController: UIViewController())
+        guard let settingsViewController = viewControllerFactory.makeSettings() as? SettingsViewController else {
+            fatalError()
+        }
+        settingsViewController.viewModel = SettingsViewModel(showWelcomeMessage: true)
+
+        let navigationController = UINavigationController(rootViewController: settingsViewController)
         navigationController.tabBarItem = tabbarItem
 
         return navigationController

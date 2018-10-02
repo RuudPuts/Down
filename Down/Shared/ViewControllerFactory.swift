@@ -10,6 +10,7 @@ import UIKit
 import DownKit
 
 protocol ViewControllerProducing {
+    func makeSettings() -> UIViewController
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController
 
     func makeDownloadRoot() -> UIViewController
@@ -22,6 +23,10 @@ protocol ViewControllerProducing {
 }
 
 class ViewControllerFactory: ViewControllerProducing {
+    func makeSettings() -> UIViewController {
+        return SettingsViewController()
+    }
+
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController {
         let viewController = ApplicationSettingsViewController()
         viewController.application = application
