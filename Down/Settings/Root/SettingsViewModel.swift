@@ -13,7 +13,7 @@ class SettingsViewModel {
         return showWelcomeMessage ? "Down" : "Settings"
     }
     var showWelcomeMessage: Bool
-    var welcomeMessage = "Welcome to Down!\n\nTo get started configure your downoader and indexers below"
+    var welcomeMessage = "Welcome to Down!\n\nTo get started configure your downloader and indexers below"
 
     let datasource: [SettingsSectionModel] = [
         SettingsSectionModel(applicationType: .download, applications: [.sabnzbd]),

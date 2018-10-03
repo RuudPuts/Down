@@ -59,7 +59,7 @@
 		4221DAD120D18673003950CF /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DAC620D18666003950CF /* RxSwift.framework */; };
 		4221DAD420D18678003950CF /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DACA20D18666003950CF /* SwiftyJSON.framework */; };
 		4222388121343C7B00F73619 /* DvrShowsCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4222388021343C7B00F73619 /* DvrShowsCollectionViewModel.swift */; };
-		42223883213454F900F73619 /* UIImageResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42223882213454F900F73619 /* UIImageResize.swift */; };
+		42223883213454F900F73619 /* UIImageResizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42223882213454F900F73619 /* UIImageResizeExtension.swift */; };
 		4222BE542156FFC7002742D8 /* DvrEpisodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4222BE532156FFC7002742D8 /* DvrEpisodeCell.swift */; };
 		4222BE562156FFD6002742D8 /* DvrEpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4222BE552156FFD6002742D8 /* DvrEpisodeCell.xib */; };
 		4227B76D20DB0AF200603528 /* DvrSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B76C20DB0AF200603528 /* DvrSeason.swift */; };
@@ -247,6 +247,7 @@
 		429FE7D520FA7D40005F3A4F /* ApplicationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */; };
 		42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */; };
 		42B16D5720D5A2E90027ED1C /* DvrInteractorFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */; };
+		42B2328121653656006604D9 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B2328021653656006604D9 /* SettingsRouter.swift */; };
 		42B4AAF420FA8CF9008B7C3B /* DvrShowsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42B4AAF320FA8CF9008B7C3B /* DvrShowsViewController.xib */; };
 		42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */; };
 		42BA6F2720FFC2C4001CA926 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42BA6F2520FFC2BF001CA926 /* Alamofire.framework */; };
@@ -373,7 +374,7 @@
 		4221DAC920D18666003950CF /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		4221DACA20D18666003950CF /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4222388021343C7B00F73619 /* DvrShowsCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowsCollectionViewModel.swift; sourceTree = "<group>"; };
-		42223882213454F900F73619 /* UIImageResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageResize.swift; sourceTree = "<group>"; };
+		42223882213454F900F73619 /* UIImageResizeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageResizeExtension.swift; sourceTree = "<group>"; };
 		4222BE532156FFC7002742D8 /* DvrEpisodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrEpisodeCell.swift; sourceTree = "<group>"; };
 		4222BE552156FFD6002742D8 /* DvrEpisodeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrEpisodeCell.xib; sourceTree = "<group>"; };
 		4227B76C20DB0AF200603528 /* DvrSeason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrSeason.swift; sourceTree = "<group>"; };
@@ -566,6 +567,7 @@
 		42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		42B16D5620D5A2E90027ED1C /* DvrInteractorFactorySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrInteractorFactorySpec.swift; sourceTree = "<group>"; };
 		42B16D5820D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRefreshShowCacheInteractorSpec.swift; sourceTree = "<group>"; };
+		42B2328021653656006604D9 /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
 		42B4AAF320FA8CF9008B7C3B /* DvrShowsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrShowsViewController.xib; sourceTree = "<group>"; };
 		42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		42BA6F2520FFC2BF001CA926 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -638,13 +640,9 @@
 		420C28262163E13A0088259C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				420C28272163E1ED0088259C /* SettingsViewController.swift */,
-				420C28282163E1ED0088259C /* SettingsViewController.xib */,
-				420C282B2163E1FD0088259C /* SettingsViewModel.swift */,
-				420C282D2163EBA40088259C /* SettingsTableViewModel.swift */,
-				420C282F2163ED0E0088259C /* SettingsApplicationCell.swift */,
-				420C28312163F58D0088259C /* SettingsApplicationCell.xib */,
-				4243528120FA9CE200A729E1 /* ApplicationSettings */,
+				42B2328021653656006604D9 /* SettingsRouter.swift */,
+				42B232822165365B006604D9 /* Root */,
+				4243528120FA9CE200A729E1 /* Application */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1289,7 +1287,7 @@
 			path = "Status overview";
 			sourceTree = "<group>";
 		};
-		4243528120FA9CE200A729E1 /* ApplicationSettings */ = {
+		4243528120FA9CE200A729E1 /* Application */ = {
 			isa = PBXGroup;
 			children = (
 				4243528420FA9D0C00A729E1 /* ApplicationSettingsViewController.swift */,
@@ -1297,7 +1295,7 @@
 				4243528820FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift */,
 				421D83A021079DAD008BEB2F /* ApplicationSettingChangeAction */,
 			);
-			path = ApplicationSettings;
+			path = Application;
 			sourceTree = "<group>";
 		};
 		424FBD2F210F907F00885D8B /* Gateways */ = {
@@ -1652,6 +1650,19 @@
 			path = Implementations;
 			sourceTree = "<group>";
 		};
+		42B232822165365B006604D9 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				420C28272163E1ED0088259C /* SettingsViewController.swift */,
+				420C28282163E1ED0088259C /* SettingsViewController.xib */,
+				420C282B2163E1FD0088259C /* SettingsViewModel.swift */,
+				420C282D2163EBA40088259C /* SettingsTableViewModel.swift */,
+				420C282F2163ED0E0088259C /* SettingsApplicationCell.swift */,
+				420C28312163F58D0088259C /* SettingsApplicationCell.xib */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
 		42BA6F2820FFC2E0001CA926 /* RequestClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -1694,9 +1705,9 @@
 			isa = PBXGroup;
 			children = (
 				42E014752135CC18006D550D /* DateExtensions.swift */,
-				42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */,
+				42223882213454F900F73619 /* UIImageResizeExtension.swift */,
 				4235075F21249866005343CD /* UITableViewExtensions.swift */,
-				42223882213454F900F73619 /* UIImageResize.swift */,
+				42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */,
 				42E49DCA21445B1000F8491B /* DownKitExtensions.swift */,
 			);
 			path = Extensions;
@@ -2230,6 +2241,7 @@
 				421D83A421079E0A008BEB2F /* ApplicationSettingsChangedActionFactory.swift in Sources */,
 				4235076021249866005343CD /* UITableViewExtensions.swift in Sources */,
 				421D83A221079DC8008BEB2F /* DvrApplicationRefreshCacheAction.swift in Sources */,
+				42B2328121653656006604D9 /* SettingsRouter.swift in Sources */,
 				421D839F21079C2B008BEB2F /* ApplicationSettingsChangedAction.swift in Sources */,
 				4243528620FA9D0C00A729E1 /* ApplicationSettingsViewController.swift in Sources */,
 				429F0A602116371E005582B6 /* DvrShowsViewModel.swift in Sources */,
@@ -2256,7 +2268,7 @@
 				420C282E2163EBA40088259C /* SettingsTableViewModel.swift in Sources */,
 				42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
-				42223883213454F900F73619 /* UIImageResize.swift in Sources */,
+				42223883213454F900F73619 /* UIImageResizeExtension.swift in Sources */,
 				42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */,
 				4235075E21248BEC005343CD /* CircleProgressViewStyle.swift in Sources */,
 				428FCD6721234E3E00C0371D /* UILabelStyle.swift in Sources */,

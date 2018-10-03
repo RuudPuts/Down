@@ -76,7 +76,7 @@ extension SettingsTableViewModel: UITableViewDelegate {
         let applicationType = datasource[indexPath.section].applications[indexPath.row]
         let application = Down.persistence.load(type: applicationType) ?? makeApplication(ofType: applicationType)
 
-        router?.showSettings(application: application)
+        router?.settingsRouter.showSettings(for: application)
     }
 
     private func makeApplication(ofType type: DownApplicationType) -> ApiApplication {

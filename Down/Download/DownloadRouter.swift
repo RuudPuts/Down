@@ -26,6 +26,8 @@ class DownloadRouter: ChildRouter {
         self.viewControllerFactory = viewControllerFactory
         self.navigationController = navigationController
         self.database = database
+
+        configureTabBarItem()
     }
     
     func start() {
@@ -43,5 +45,12 @@ class DownloadRouter: ChildRouter {
         }
 
         return viewController
+    }
+}
+
+private extension DownloadRouter {
+    func configureTabBarItem() {
+        let icon = R.image.tabbar_downloads()?.withRenderingMode(.alwaysOriginal)
+        navigationController.tabBarItem = UITabBarItem(title: nil, image: icon, tag: 0)
     }
 }

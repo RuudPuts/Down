@@ -27,9 +27,7 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
     @IBOutlet weak var usernameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var apiKeyTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,13 +39,13 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
     func applyStyling() {
         view.style(as: .backgroundView)
 
-        headerView.style(as: .headerView(for: application.downType))
         saveButton.style(as: .successButton)
-        cancelButton.style(as: .cancelButton)
 
         [hostTextField, usernameTextField, passwordTextField, apiKeyTextField].forEach {
             $0?.style(as: .textField(for: application.downType))
         }
+
+        navigationItem.titleView = UIImageView(image: AssetProvider.icons.for(application.downType))
     }
 
     func configureTextFields() {
@@ -118,6 +116,7 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
 
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         viewModel.save()
+        router?.restartRouter(type: application.type)
         router?.close(viewController: self)
     }
 

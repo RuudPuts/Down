@@ -26,6 +26,10 @@ public enum ApiApplicationType {
     case download
     case dvr
     case dmr
+
+    public static var allValues: [ApiApplicationType] {
+        return [.download, .dvr, .dmr]
+    }
 }
 
 public enum ApiApplicationCall {

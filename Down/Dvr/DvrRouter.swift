@@ -26,6 +26,8 @@ class DvrRouter: ChildRouter {
         self.viewControllerFactory = viewControllerFactory
         self.navigationController = navigationController
         self.database = database
+
+        configureTabBarItem()
     }
     
     func start() {
@@ -60,5 +62,12 @@ class DvrRouter: ChildRouter {
         }
 
         return viewController
+    }
+}
+
+private extension DvrRouter {
+    func configureTabBarItem() {
+        let icon = R.image.tabbar_shows()?.withRenderingMode(.alwaysOriginal)
+        navigationController.tabBarItem = UITabBarItem(title: nil, image: icon, tag: 0)
     }
 }

@@ -17,10 +17,9 @@ class Router {
     var downloadRouter: DownloadRouter!
     var dvrRouter: DvrRouter!
     var dmrRouter: DmrRouter!
+    var settingsRouter: SettingsRouter!
     
-    var rootViewController: UIViewController? {
-        return window.rootViewController
-    }
+    var tabBarController: UITabBarController?
     
     init(window: UIWindow, viewControllerFactory: ViewControllerProducing, database: DownDatabase = RealmDatabase.default) {
         self.window = window
@@ -29,47 +28,42 @@ class Router {
     }
     
     func start() {
+        var viewControllers: [UIViewController] = ApiApplicationType.allValues
+            .map {
+                startRouter(type: $0)
+            }
+            .compactMap { $0 }
+
+        viewControllers.append(startSettingsRouter())
+
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [
-            startDownloadRouter(tabBarController: tabBarController),
-            startDvrRouter(tabBarController: tabBarController),
-            startMvrRouter(tabBarController: tabBarController),
-            startSettingsRouter(tabBarController: tabBarController)
-        ].compactMap { $0 }
+        tabBarController.viewControllers = viewControllers
         tabBarController.tabBar.style(as: .defaultTabBar)
-        tabBarController.tabBar.isHidden = tabBarController.viewControllers?.count ?? 0 < 2
+        tabBarController.tabBar.isHidden = viewControllers.count < 2
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
-    }
 
-    func showSettings(application: ApiApplication) {
-        guard let tabbarController = rootViewController as? UITabBarController,
-            let navigationController = tabbarController.viewControllers?[tabbarController.selectedIndex] as? UINavigationController else {
-            return
-        }
-
-        let viewController = decorate(viewController: viewControllerFactory.makeApplicationSettings(for: application))
-        navigationController.pushViewController(viewController, animated: true)
+        self.tabBarController = tabBarController
     }
 
     func present(_ viewController: UIViewController, inNavigationController: Bool, animated: Bool) {
         guard inNavigationController else {
-            rootViewController?.present(viewController, animated: true, completion: nil)
+            tabBarController?.present(viewController, animated: true, completion: nil)
             return
         }
 
         let navigationController = UINavigationController(rootViewController: viewController)
         viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain,
                                                                           target: self,
-                                                                          action: #selector(aaa))
+                                                                          action: #selector(closePresentedViewController))
 
         present(navigationController, inNavigationController: false, animated: animated)
     }
 
     @objc
-    func aaa() {
-        rootViewController?.dismiss(animated: true, completion: nil)
+    func closePresentedViewController() {
+        tabBarController?.dismiss(animated: true, completion: nil)
     }
 
     func close(viewController: UIViewController) {
@@ -99,18 +93,64 @@ class Router {
     }
 }
 
-private extension Router {
-    func startDownloadRouter(tabBarController: UITabBarController) -> UIViewController? {
+extension Router {
+    func restartRouter(type: ApiApplicationType) {
+        stopRouter(type: type)
+        startRouter(type: type)
+
+        tabBarController?.tabBar.isHidden = (tabBarController?.viewControllers?.count ?? 0) < 2
+    }
+
+    private func routerStarted(type: ApiApplicationType) -> Bool {
+        switch type {
+        case .download: return downloadRouter != nil
+        case .dvr: return dvrRouter != nil
+        case .dmr: return dmrRouter != nil
+        }
+    }
+
+    private func stopRouter(type: ApiApplicationType) {
+        guard routerStarted(type: type) else {
+            return
+        }
+
+        if let index = ApiApplicationType.allValues.index(of: type) {
+            tabBarController?.viewControllers?.remove(at: index)
+        }
+
+        switch type {
+        case .download: downloadRouter = nil
+        case .dvr: dvrRouter = nil
+        case .dmr: dmrRouter = nil
+        }
+    }
+
+    @discardableResult
+    private func startRouter(type: ApiApplicationType) -> UIViewController? {
+        let vc: UIViewController?
+
+        switch type {
+        case .download: vc = startDownloadRouter()
+        case .dvr: vc = startDvrRouter()
+        case .dmr: vc = startDmrRouter()
+        }
+
+        guard let viewController = vc,
+              let index = ApiApplicationType.allValues.index(of: type) else {
+            return nil
+        }
+
+        tabBarController?.viewControllers?.insert(viewController, at: index)
+
+        return viewController
+    }
+
+    func startDownloadRouter() -> UIViewController? {
         guard let application = Down.persistence.load(type: .sabnzbd) as? DownloadApplication else {
             return nil
         }
 
-        let icon = R.image.tabbar_downloads()?.withRenderingMode(.alwaysOriginal)
-        let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 0)
-
         let navigationController = UINavigationController()
-        navigationController.tabBarItem = tabbarItem
-
         downloadRouter = DownloadRouter(parent: self,
                                         application: application,
                                         viewControllerFactory: viewControllerFactory,
@@ -121,17 +161,12 @@ private extension Router {
         return navigationController
     }
 
-    func startDvrRouter(tabBarController: UITabBarController) -> UIViewController? {
+    func startDvrRouter() -> UIViewController? {
         guard let application = Down.persistence.load(type: .sickbeard) as? DvrApplication else {
             return nil
         }
 
-        let icon = R.image.tabbar_shows()?.withRenderingMode(.alwaysOriginal)
-        let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
-
         let navigationController = UINavigationController()
-        navigationController.tabBarItem = tabbarItem
-
         dvrRouter = DvrRouter(parent: self,
                               application: application,
                               viewControllerFactory: viewControllerFactory,
@@ -142,17 +177,12 @@ private extension Router {
         return navigationController
     }
 
-    func startMvrRouter(tabBarController: UITabBarController) -> UIViewController? {
+    func startDmrRouter() -> UIViewController? {
         guard let application = Down.persistence.load(type: .couchpotato) as? DmrApplication else {
             return nil
         }
 
-        let icon = R.image.tabbar_movies()?.withRenderingMode(.alwaysOriginal)
-        let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
-
         let navigationController = UINavigationController()
-        navigationController.tabBarItem = tabbarItem
-
         dmrRouter = DmrRouter(parent: self,
                               application: application,
                               viewControllerFactory: viewControllerFactory,
@@ -163,18 +193,12 @@ private extension Router {
         return navigationController
     }
 
-    func startSettingsRouter(tabBarController: UITabBarController) -> UIViewController {
-        let icon = R.image.tabbar_settings()?.withRenderingMode(.alwaysOriginal)
-        let tabbarItem = UITabBarItem(title: nil, image: icon, tag: 1)
-
-        let viewController = decorate(viewController: viewControllerFactory.makeSettings())
-        guard let settingsViewController = viewController as? SettingsViewController else {
-            fatalError()
-        }
-        settingsViewController.viewModel = SettingsViewModel(showWelcomeMessage: true)
-
-        let navigationController = UINavigationController(rootViewController: settingsViewController)
-        navigationController.tabBarItem = tabbarItem
+    func startSettingsRouter() -> UIViewController {
+        let navigationController = UINavigationController()
+        settingsRouter = SettingsRouter(parent: self,
+                                        viewControllerFactory: viewControllerFactory,
+                                        navigationController: navigationController)
+        settingsRouter.start()
 
         return navigationController
     }
@@ -187,4 +211,6 @@ protocol Routing {
 protocol ChildRouter {
     var parent: Router { get set }
     var viewControllerFactory: ViewControllerProducing { get set }
+
+    func start()
 }

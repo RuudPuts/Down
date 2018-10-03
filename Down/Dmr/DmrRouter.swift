@@ -26,6 +26,8 @@ class DmrRouter: ChildRouter {
         self.viewControllerFactory = viewControllerFactory
         self.navigationController = navigationController
         self.database = database
+
+        configureTabBarItem()
     }
 
     func start() {
@@ -41,5 +43,12 @@ class DmrRouter: ChildRouter {
         }
 
         return viewController
+    }
+}
+
+private extension DmrRouter {
+    func configureTabBarItem() {
+        let icon = R.image.tabbar_movies()?.withRenderingMode(.alwaysOriginal)
+        navigationController.tabBarItem = UITabBarItem(title: nil, image: icon, tag: 0)
     }
 }
