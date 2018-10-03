@@ -19,13 +19,14 @@ class ApplicationSettingsViewModel {
     var authenticationRequired = BehaviorRelay<Bool>(value: false)
 
     private var application: ApiApplication
-    private var interactorFactory: ApiApplicationInteractorProducing
+    private var apiInteractorFactory: ApiApplicationInteractorProducing
+    private var dvrInteractorFactory: DvrInteractorProducing
     private let disposeBag = DisposeBag()
 
-    init(application: ApiApplication,
-         interactorFactory: ApiApplicationInteractorProducing) {
+    init(application: ApiApplication, apiInteractorFactory: ApiApplicationInteractorProducing, dvrInteractorFactory: DvrInteractorProducing) {
         self.application = application
-        self.interactorFactory = interactorFactory
+        self.apiInteractorFactory = apiInteractorFactory
+        self.dvrInteractorFactory = dvrInteractorFactory
 
         host.accept(application.host)
         apiKey.accept(application.apiKey)
@@ -39,7 +40,7 @@ class ApplicationSettingsViewModel {
         var applicationCopy = application.copy() as! ApiApplication
         applicationCopy.host = host
 
-        return interactorFactory
+        return apiInteractorFactory
             .makeLoginInteractor(for: applicationCopy, credentials: credentials)
             .observe()
             .do(onNext: { result in
@@ -68,7 +69,7 @@ class ApplicationSettingsViewModel {
         var applicationCopy = application.copy() as! ApiApplication
         applicationCopy.host = host.value!
 
-        return interactorFactory
+        return apiInteractorFactory
             .makeApiKeyInteractor(for: applicationCopy, credentials: credentials)
             .observe()
             .do(onNext: {
@@ -84,6 +85,30 @@ class ApplicationSettingsViewModel {
                  onError: { error in
                     NSLog("ApiKey error: \(error)")
                 })
+    }
+
+    func updateApplicationCache() -> Completable {
+        return Completable.create { completable in
+            switch self.application.type {
+            case .dvr:
+                guard let dvrApplication = self.application as? DvrApplication else {
+                    completable(.completed)
+                    return Disposables.create()
+                }
+
+                self.dvrInteractorFactory
+                    .makeShowCacheRefreshInteractor(for: dvrApplication)
+                    .observe()
+                    .subscribe(onNext: { _ in
+                        completable(.completed)
+                    })
+                    .disposed(by: self.disposeBag)
+            default:
+                completable(.completed)
+            }
+
+            return Disposables.create()
+        }
     }
 
     func save() {

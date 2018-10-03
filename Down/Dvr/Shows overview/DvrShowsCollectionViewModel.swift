@@ -104,29 +104,21 @@ extension DvrShowsCollectionViewModel {
         return UIImage()
     }
 
-    func resize(image: UIImage) -> UIImage {
+    func fetchPoster(for show: DvrShow) {
         guard let collectionView = collectionView else {
-            return image
+            return
         }
 
         let size = self.collectionView(collectionView,
                                        layout: UICollectionViewFlowLayout(),
                                        sizeForItemAt: IndexPath(item: 0, section: 0))
 
-        return image.scaled(to: size)
-    }
-
-    func fetchPoster(for show: DvrShow) {
-        guard let application = application else {
-            return
-        }
-
         interactorFactory
-            .makeShowPosterInteractor(for: application, show: show)
+            .makeShowPosterInteractor(for: application!, show: show)
             .observe()
-            .subscribe(onNext: {
-                let resized = self.resize(image: $0)
-                self.imageCache.setObject(resized, forKey: show.identifier as NSString)
+            .map { $0.scaled(to: size) }
+            .subscribe(onNext: { $0
+                self.imageCache.setObject($0, forKey: show.identifier as NSString)
                 self.collectionView?.reloadItems(at: [self.indexPath(for: show)])
             })
             .disposed(by: disposeBag)

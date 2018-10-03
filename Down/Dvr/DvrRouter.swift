@@ -18,9 +18,9 @@ class DvrRouter: ChildRouter {
     var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController
     var database: DownDatabase
-    var application: DvrApplication
+    var application: DvrApplication?
 
-    init(parent: Router, application: DvrApplication, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
+    init(parent: Router, application: DvrApplication?, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
         self.parent = parent
         self.application = application
         self.viewControllerFactory = viewControllerFactory
@@ -31,11 +31,11 @@ class DvrRouter: ChildRouter {
     }
     
     func start() {
-        navigationController.viewControllers = [decorate(viewController: viewControllerFactory.makeDvrRoot())]
+        navigationController.viewControllers = [parent.decorate(viewController: viewControllerFactory.makeDvrRoot())]
     }
     
     func showDetail(of show: DvrShow) {
-        let vc = decorate(viewController: viewControllerFactory.makeDvrDetail())
+        let vc = parent.decorate(viewController: viewControllerFactory.makeDvrDetail())
         guard let viewController = vc as? DvrShowDetailViewController else {
             return
         }
@@ -45,23 +45,12 @@ class DvrRouter: ChildRouter {
     }
 
     func showAddShow() {
-        let vc = decorate(viewController: viewControllerFactory.makeDvrAddShow())
+        let vc = parent.decorate(viewController: viewControllerFactory.makeDvrAddShow())
         guard let viewController = vc as? DvrAddShowViewController else {
             return
         }
 
         parent.present(viewController, inNavigationController: true, animated: true)
-    }
-
-    func decorate(viewController vc: UIViewController) -> UIViewController {
-        let viewController = parent.decorate(viewController: vc)
-
-        if var dvrInteracting = viewController as? DvrApplicationInteracting {
-            dvrInteracting.application = application
-            dvrInteracting.interactorFactory = DvrInteractorFactory(database: database)
-        }
-
-        return viewController
     }
 }
 

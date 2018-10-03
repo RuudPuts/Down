@@ -6,6 +6,8 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import RxSwift
+
 public protocol Copying {
     func copy() -> Any
 }

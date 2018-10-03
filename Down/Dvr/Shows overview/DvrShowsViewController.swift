@@ -12,8 +12,8 @@ import RxCocoa
 import UIKit
 
 class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
-    var application: DvrApplication!
-    var interactorFactory: DvrInteractorProducing!
+    var dvrApplication: DvrApplication!
+    var dvrInteractorFactory: DvrInteractorProducing!
     var database: DownDatabase!
     var router: Router?
 
@@ -23,11 +23,11 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
     @IBOutlet weak var collectionView: UICollectionView!
 
     lazy var viewModel = DvrShowsViewModel(database: database,
-                                           refreshCacheInteractor: interactorFactory.makeShowCacheRefreshInteractor(for: application))
+                                           refreshCacheInteractor: dvrInteractorFactory.makeShowCacheRefreshInteractor(for: dvrApplication))
     lazy var collectionViewModel = DvrShowsCollectionViewModel(collectionView: collectionView,
                                                                router: router?.dvrRouter,
-                                                               application: application,
-                                                               interactorFactory: interactorFactory)
+                                                               application: dvrApplication,
+                                                               interactorFactory: dvrInteractorFactory)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,7 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
 
     func applyStyling() {
         view.style(as: .backgroundView)
-        headerView.style(as: .headerView(for: application.downType))
+        headerView.style(as: .headerView(for: dvrApplication.downType))
     }
 
     func configureCollectionView() {
@@ -83,9 +83,9 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
     func applyViewModel() {
         viewModel.shows
             .subscribe(onNext: {
-                if $0.count == 0 {
-                    self.viewModel.refreshShowCache()
-                }
+//                if $0.count == 0 {
+//                    self.viewModel.refreshShowCache()
+//                }
 
                 self.collectionViewModel.shows = $0
                 self.collectionView.reloadData()

@@ -13,15 +13,19 @@ import RxSwiftExt
 import DownKit
 import SkyFloatingLabelTextField
 
-class ApplicationSettingsViewController: UIViewController & Routing & ApiApplicationInteracting {
-    var application: ApiApplication!
-    var interactorFactory: ApiApplicationInteractorProducing!
+class ApplicationSettingsViewController: UIViewController & Routing & ApiApplicationInteracting, DvrApplicationInteracting {
+    var apiApplication: ApiApplication!
+    var apiInteractorFactory: ApiApplicationInteractorProducing!
+    var dvrApplication: DvrApplication!
+    var dvrInteractorFactory: DvrInteractorProducing!
+
     var router: Router?
 //    var settingsChangeActions: [ApplicationSettingsChangedAction]?
     let disposeBag = DisposeBag()
 
-    lazy var viewModel = ApplicationSettingsViewModel(application: application,
-                                                      interactorFactory: interactorFactory)
+    lazy var viewModel = ApplicationSettingsViewModel(application: apiApplication,
+                                                      apiInteractorFactory: apiInteractorFactory,
+                                                      dvrInteractorFactory: dvrInteractorFactory)
 
     @IBOutlet weak var hostTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var usernameTextField: SkyFloatingLabelTextField!
@@ -42,10 +46,10 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
         saveButton.style(as: .successButton)
 
         [hostTextField, usernameTextField, passwordTextField, apiKeyTextField].forEach {
-            $0?.style(as: .textField(for: application.downType))
+            $0?.style(as: .textField(for: apiApplication.downType))
         }
 
-        navigationItem.titleView = UIImageView(image: AssetProvider.icons.for(application.downType))
+        navigationItem.titleView = UIImageView(image: AssetProvider.icons.for(apiApplication.downType))
     }
 
     func configureTextFields() {
@@ -116,8 +120,14 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
 
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         viewModel.save()
-        router?.restartRouter(type: application.type)
-        router?.close(viewController: self)
+        self.router?.store(application: self.apiApplication)
+
+        viewModel.updateApplicationCache()
+            .subscribe(onCompleted: {
+                self.router?.restartRouter(type: self.apiApplication.type)
+                self.router?.close(viewController: self)
+            })
+            .disposed(by: disposeBag)
     }
 
     @IBAction func cancelButtonTapped(_ sender: UIButton) {

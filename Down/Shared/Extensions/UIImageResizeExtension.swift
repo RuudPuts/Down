@@ -9,7 +9,6 @@
 import UIKit
 
 extension UIImage {
-
     func scaled(to newSize: CGSize) -> UIImage {
         guard newSize.height > 0 && newSize.width > 0 else {
             return self

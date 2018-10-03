@@ -43,7 +43,6 @@ public class DvrSetEpisodeStatusInteractor: CompoundInteractor {
     private func refreshShowDetails(show: DvrShow) {
         interactors.showDetails
             .setShow(show)
-            .observe()
             .subscribe(onNext: {
                 $0.store(in: self.database)
                 self.subject.value = $0

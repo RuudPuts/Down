@@ -28,8 +28,8 @@ class SettingsViewModel {
     func title(for type: ApiApplicationType) -> String {
         switch type {
         case .download: return "Downloaders"
-        case .dvr: return "Movie indexers"
-        case .dmr: return "TV Show indexers"
+        case .dvr: return "TV Show indexers"
+        case .dmr: return "Movie indexers"
         }
     }
 }

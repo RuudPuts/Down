@@ -13,8 +13,8 @@ import RxCocoa
 import RxDataSources
 
 class DownloadViewController: UIViewController & Routing & DatabaseConsuming & DownloadApplicationInteracting {
-    var application: DownloadApplication!
-    var interactorFactory: DownloadInteractorProducing!
+    var downloadApplication: DownloadApplication!
+    var downloadInteractorFactory: DownloadInteractorProducing!
     var database: DownDatabase!
     var router: Router?
     let disposeBag = DisposeBag()
@@ -23,8 +23,8 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     @IBOutlet weak var statusView: DownloadQueueStatusView!
     @IBOutlet weak var tableView: UITableView!
     
-    lazy var viewModel = DownloadViewModel(queueInteractor: interactorFactory.makeQueueInteractor(for: application),
-                                           historyInteractor: interactorFactory.makeHistoryInteractor(for: application))
+    lazy var viewModel = DownloadViewModel(queueInteractor: downloadInteractorFactory.makeQueueInteractor(for: downloadApplication),
+                                           historyInteractor: downloadInteractorFactory.makeHistoryInteractor(for: downloadApplication))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,7 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     func applyStyling() {
         view.style(as: .backgroundView)
         tableView.style(as: .defaultTableView)
-        headerView.style(as: .headerView(for: application.downType))
+        headerView.style(as: .headerView(for: downloadApplication.downType))
     }
     
     func configureTableView() {

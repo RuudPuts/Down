@@ -29,7 +29,7 @@ class ViewControllerFactory: ViewControllerProducing {
 
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController {
         let viewController = ApplicationSettingsViewController()
-        viewController.application = application
+        viewController.apiApplication = application
 
         return viewController
     }

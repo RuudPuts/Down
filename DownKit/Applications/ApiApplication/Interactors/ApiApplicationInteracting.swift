@@ -8,6 +8,6 @@
 
 public protocol ApiApplicationInteracting {
     //! If view controllers where to be bulid in xibs these shouldn't hvae to be implicit unwrapped
-    var application: ApiApplication! { get set }
-    var interactorFactory: ApiApplicationInteractorProducing! { get set }
+    var apiApplication: ApiApplication! { get set }
+    var apiInteractorFactory: ApiApplicationInteractorProducing! { get set }
 }

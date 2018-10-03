@@ -13,8 +13,8 @@ import UIKit
 import SkyFloatingLabelTextField
 
 class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
-    var application: DvrApplication!
-    var interactorFactory: DvrInteractorProducing!
+    var dvrApplication: DvrApplication!
+    var dvrInteractorFactory: DvrInteractorProducing!
     var database: DownDatabase!
     var router: Router?
 
@@ -23,9 +23,9 @@ class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming &
 
     let disposeBag = DisposeBag()
 
-    lazy var viewModel = DvrAddShowViewModel(application: application,
+    lazy var viewModel = DvrAddShowViewModel(application: dvrApplication,
                                              database: database,
-                                             interactorFactory: interactorFactory)
+                                             interactorFactory: dvrInteractorFactory)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +82,7 @@ class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming &
 
     func applyStyling() {
         view.style(as: .backgroundView)
-        searchTextField.style(as: .textField(for: application.downType))
+        searchTextField.style(as: .textField(for: dvrApplication.downType))
         navigationController?.navigationBar.style(as: .transparentNavigationBar)
     }
 }

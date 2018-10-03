@@ -47,7 +47,7 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
         shows.forEach { show in
             interactors.showDetails
                 .setShow(show)
-                .observe()
+                .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
                 .map { show -> DvrShow in //! Though generic for shows, this map is sickbeard specific. Applications should have injection points in interactors?
                     if let index = shows.index(where: { $0.name == show.name }) {
                         show.identifier = shows[index].identifier

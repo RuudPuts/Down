@@ -28,23 +28,30 @@ class Router {
     }
     
     func start() {
+        makeDownloadRouter()
+        makeDvrRouter()
+        makeDmrRouter()
+
         var viewControllers: [UIViewController] = ApiApplicationType.allValues
             .map {
                 startRouter(type: $0)
             }
             .compactMap { $0 }
-
         viewControllers.append(startSettingsRouter())
 
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = viewControllers
         tabBarController.tabBar.style(as: .defaultTabBar)
-        tabBarController.tabBar.isHidden = viewControllers.count < 2
+        updateTabBarHidden()
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
 
         self.tabBarController = tabBarController
+    }
+
+    private func updateTabBarHidden() {
+        tabBarController?.tabBar.isHidden = tabBarController?.viewControllers?.count ?? 0 < 2
     }
 
     func present(_ viewController: UIViewController, inNavigationController: Bool, animated: Bool) {
@@ -84,9 +91,22 @@ class Router {
             databaseConuming.database = database
         }
 
-        if var apiApplicationInteractor = viewController as? ApiApplicationInteracting {
-            //! UGH
-            apiApplicationInteractor.interactorFactory = ApiApplicationInteractorFactory()
+        if var apiInteracting = viewController as? ApiApplicationInteracting {
+            apiInteracting.apiInteractorFactory = ApiApplicationInteractorFactory()
+        }
+
+        if var downloadInteracting = viewController as? DownloadApplicationInteracting {
+            if let application = downloadRouter?.application {
+                downloadInteracting.downloadApplication = application
+            }
+            downloadInteracting.downloadInteractorFactory = DownloadInteractorFactory(dvrDatabase: database)
+        }
+
+        if var dvrInteracting = viewController as? DvrApplicationInteracting {
+            if let application = dvrRouter?.application {
+                dvrInteracting.dvrApplication = application
+            }
+            dvrInteracting.dvrInteractorFactory = DvrInteractorFactory(database: database)
         }
 
         return viewController
@@ -94,19 +114,32 @@ class Router {
 }
 
 extension Router {
+    func store(application: ApiApplication) {
+        switch application.type {
+        case .download:
+            downloadRouter.application = application as? DownloadApplication
+        case .dvr:
+            dvrRouter.application = application as? DvrApplication
+        case .dmr:
+            dmrRouter.application = application as? DmrApplication
+        }
+    }
+
+    private func childRouter(ofType type: ApiApplicationType) -> ChildRouter {
+        switch type {
+        case .download: return downloadRouter
+        case .dvr: return dvrRouter
+        case .dmr: return dmrRouter
+        }
+    }
+
     func restartRouter(type: ApiApplicationType) {
         stopRouter(type: type)
         startRouter(type: type)
-
-        tabBarController?.tabBar.isHidden = (tabBarController?.viewControllers?.count ?? 0) < 2
     }
 
     private func routerStarted(type: ApiApplicationType) -> Bool {
-        switch type {
-        case .download: return downloadRouter != nil
-        case .dvr: return dvrRouter != nil
-        case .dmr: return dmrRouter != nil
-        }
+        return !childRouter(ofType: type).navigationController.viewControllers.isEmpty
     }
 
     private func stopRouter(type: ApiApplicationType) {
@@ -114,14 +147,10 @@ extension Router {
             return
         }
 
+        childRouter(ofType: type).stop()
+
         if let index = ApiApplicationType.allValues.index(of: type) {
             tabBarController?.viewControllers?.remove(at: index)
-        }
-
-        switch type {
-        case .download: downloadRouter = nil
-        case .dvr: dvrRouter = nil
-        case .dmr: dmrRouter = nil
         }
     }
 
@@ -136,19 +165,21 @@ extension Router {
         }
 
         guard let viewController = vc,
-              let index = ApiApplicationType.allValues.index(of: type) else {
+              let typeIndex = ApiApplicationType.allValues.index(of: type) else {
             return nil
         }
 
-        tabBarController?.viewControllers?.insert(viewController, at: index)
+        if let tabBarController = tabBarController {
+            let tabIndex = min(typeIndex, tabBarController.viewControllers?.count ?? 1 - 1)
+            tabBarController.viewControllers?.insert(viewController, at: tabIndex)
+            updateTabBarHidden()
+        }
 
         return viewController
     }
 
-    func startDownloadRouter() -> UIViewController? {
-        guard let application = Down.persistence.load(type: .sabnzbd) as? DownloadApplication else {
-            return nil
-        }
+    func makeDownloadRouter() {
+        let application = Down.persistence.load(type: .sabnzbd) as? DownloadApplication
 
         let navigationController = UINavigationController()
         downloadRouter = DownloadRouter(parent: self,
@@ -156,15 +187,20 @@ extension Router {
                                         viewControllerFactory: viewControllerFactory,
                                         navigationController: navigationController,
                                         database: database)
-        downloadRouter.start()
-
-        return navigationController
     }
 
-    func startDvrRouter() -> UIViewController? {
-        guard let application = Down.persistence.load(type: .sickbeard) as? DvrApplication else {
+    func startDownloadRouter() -> UIViewController? {
+        guard downloadRouter.application != nil else {
             return nil
         }
+
+        downloadRouter.start()
+
+        return downloadRouter.navigationController
+    }
+
+    func makeDvrRouter() {
+        let application = Down.persistence.load(type: .sickbeard) as? DvrApplication
 
         let navigationController = UINavigationController()
         dvrRouter = DvrRouter(parent: self,
@@ -172,15 +208,20 @@ extension Router {
                               viewControllerFactory: viewControllerFactory,
                               navigationController: navigationController,
                               database: database)
-        dvrRouter.start()
-
-        return navigationController
     }
 
-    func startDmrRouter() -> UIViewController? {
-        guard let application = Down.persistence.load(type: .couchpotato) as? DmrApplication else {
+    func startDvrRouter() -> UIViewController? {
+        guard dvrRouter.application != nil else {
             return nil
         }
+
+        dvrRouter.start()
+
+        return dvrRouter.navigationController
+    }
+
+    func makeDmrRouter() {
+        let application = Down.persistence.load(type: .couchpotato) as? DmrApplication
 
         let navigationController = UINavigationController()
         dmrRouter = DmrRouter(parent: self,
@@ -188,29 +229,43 @@ extension Router {
                               viewControllerFactory: viewControllerFactory,
                               navigationController: navigationController,
                               database: database)
+    }
+
+    func startDmrRouter() -> UIViewController? {
+        guard dmrRouter.application != nil else {
+            return nil
+        }
+
         dmrRouter.start()
 
-        return navigationController
+        return dmrRouter.navigationController
     }
 
     func startSettingsRouter() -> UIViewController {
-        let navigationController = UINavigationController()
         settingsRouter = SettingsRouter(parent: self,
                                         viewControllerFactory: viewControllerFactory,
-                                        navigationController: navigationController)
+                                        navigationController: UINavigationController())
         settingsRouter.start()
 
-        return navigationController
+        return settingsRouter.navigationController
     }
 }
 
 protocol Routing {
-    var router: Router? { get set } //! Convert UI to Xibs to make non optional
+    var router: Router? { get set }
 }
 
 protocol ChildRouter {
     var parent: Router { get set }
+    var navigationController: UINavigationController { get }
     var viewControllerFactory: ViewControllerProducing { get set }
 
     func start()
+    func stop()
+}
+
+extension ChildRouter {
+    func stop() {
+        navigationController.viewControllers = []
+    }
 }

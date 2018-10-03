@@ -18,9 +18,9 @@ class DmrRouter: ChildRouter {
     var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController
     var database: DownDatabase
-    var application: DmrApplication
+    var application: DmrApplication?
 
-    init(parent: Router, application: DmrApplication, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
+    init(parent: Router, application: DmrApplication?, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
         self.parent = parent
         self.application = application
         self.viewControllerFactory = viewControllerFactory

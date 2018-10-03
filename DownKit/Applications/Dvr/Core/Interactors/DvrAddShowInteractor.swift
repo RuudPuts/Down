@@ -43,7 +43,6 @@ public class DvrAddShowInteractor: CompoundInteractor {
     private func refreshShowDetails(show: DvrShow) {
         interactors.showDetails
             .setShow(show)
-            .observe()
             .retry(.delayed(maxCount: 5, time: 1))
             .subscribe(onNext: {
                 //! Again this line is sickbeard specific. Won't hurt others but shouldn't be here.

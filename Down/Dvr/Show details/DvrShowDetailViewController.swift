@@ -11,8 +11,8 @@ import RxSwift
 import UIKit
 
 class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationInteracting {
-    var application: DvrApplication!
-    var interactorFactory: DvrInteractorProducing!
+    var dvrApplication: DvrApplication!
+    var dvrInteractorFactory: DvrInteractorProducing!
     var router: Router?
 
     @IBOutlet weak var headerView: DvrShowHeaderView?
@@ -57,19 +57,18 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
             return
         }
 
-        tableViewModel = DvrShowDetailsTableViewModel(show: show, application: application)
+        tableViewModel = DvrShowDetailsTableViewModel(show: show, application: dvrApplication)
         tableView?.dataSource = tableViewModel
         tableView?.delegate = tableViewModel
     }
 
     func checkShowBanner() {
-        guard let show = show, let application = application,
-            AssetStorage.banner(for: show) == nil else {
+        guard let show = show, AssetStorage.banner(for: show) == nil else {
             return
         }
 
-        interactorFactory
-            .makeShowBannerInteractor(for: application, show: show)
+        dvrInteractorFactory
+            .makeShowBannerInteractor(for: dvrApplication, show: show)
             .observe()
             .subscribe(onNext: { _ in
                 self.configureHeaderView()
@@ -77,13 +76,12 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
             .disposed(by: disposeBag)    }
 
     func checkShowPoster() {
-        guard let show = show, let application = application,
-            AssetStorage.poster(for: show) == nil else {
+        guard let show = show, AssetStorage.poster(for: show) == nil else {
             return
         }
 
-        interactorFactory
-            .makeShowPosterInteractor(for: application, show: show)
+        dvrInteractorFactory
+            .makeShowPosterInteractor(for: dvrApplication, show: show)
             .observe()
             .subscribe(onNext: { _ in
                 self.configureHeaderView()
