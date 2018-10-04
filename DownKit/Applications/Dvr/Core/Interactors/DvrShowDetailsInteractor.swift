@@ -20,6 +20,12 @@ public final class DvrShowDetailsInteractor: RequestGatewayInteracting {
     func setShow(_ show: DvrShow) -> Observable<DvrShow> {
         gateway.show = show
         
-        return self.observe()
+        return observe()
+    }
+
+    public func observe() -> Observable<DvrShow> {
+        return gateway
+            .observe()
+            .do(onNext: { $0.identifier = self.gateway.show.identifier })
     }
 }

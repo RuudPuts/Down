@@ -9,11 +9,12 @@
 import RxSwift
 
 public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableInteractor {
-    public typealias Interactors = (showList: DvrShowListInteractor, showDetails: DvrShowDetailsInteractor)
+    public typealias Interactors = DvrInteractorProducing
     public var interactors: Interactors
     
     public typealias Element = DvrShowListInteractor.Element
 
+    var application: DvrApplication!
     var database: DvrDatabase!
     let disposeBag = DisposeBag()
     
@@ -21,27 +22,21 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
         self.interactors = interactors
     }
     
-    convenience init(interactors: Interactors, database: DvrDatabase) {
+    convenience init(application: DvrApplication, interactors: Interactors, database: DvrDatabase) {
         self.init(interactors: interactors)
+        self.application = application
         self.database = database
     }
     
     public func observe() -> Observable<[DvrShow]> {
-        return interactors.showList
+        return interactors
+            .makeShowListInteractor(for: application)
             .observe()
             .flatMap { shows in
                 Observable.zip(shows.map {
-                    self.interactors.showDetails
-                        .setShow($0)
-                        .map { show -> DvrShow in
-                            //! Though generic for shows, this map is sickbeard specific.
-                            // Applications should have injection points in interactors?
-                            if let index = shows.index(where: { $0.name == show.name }) {
-                                show.identifier = shows[index].identifier
-                            }
-
-                            return show
-                        }
+                    self.interactors
+                        .makeShowDetailsInteractor(for: self.application, show: $0)
+                        .observe()
                         .do(onNext: {
                             $0.store(in: self.database)
                         })

@@ -38,11 +38,7 @@ public class DvrInteractorFactory: DvrInteractorProducing {
     }
     
     public func makeShowCacheRefreshInteractor(for application: DvrApplication) -> DvrRefreshShowCacheInteractor {
-        let showListInteractor = makeShowListInteractor(for: application)
-        let showDetailsInteractor = makeShowDetailsInteractor(for: application, show: DvrShow())
-        let interactors = (showList: showListInteractor, showDetails: showDetailsInteractor)
-        
-        return DvrRefreshShowCacheInteractor(interactors: interactors, database: database)
+        return DvrRefreshShowCacheInteractor(application: application, interactors: self, database: database)
     }
 
     public func makeSearchShowsInteractor(for application: DvrApplication, query: String) -> DvrSearchShowsInteractor {
