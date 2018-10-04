@@ -170,7 +170,7 @@ extension Router {
         }
 
         if let tabBarController = tabBarController {
-            let tabIndex = min(typeIndex, tabBarController.viewControllers?.count ?? 1 - 1)
+            let tabIndex = min(typeIndex, (tabBarController.viewControllers?.count ?? 1) - 1)
             tabBarController.viewControllers?.insert(viewController, at: tabIndex)
             updateTabBarHidden()
         }
