@@ -13,8 +13,7 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
     public var interactors: Interactors
     
     public typealias Element = DvrShowListInteractor.Element
-    var subject: Variable<Element> = Variable([])
-    
+
     var database: DvrDatabase!
     let disposeBag = DisposeBag()
     
@@ -28,37 +27,26 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
     }
     
     public func observe() -> Observable<[DvrShow]> {
-        //! Do use flatmap, zip, map to merge all details observers into one
-        refreshShows()
-        
-        return subject.asObservable()
-    }
-    
-    private func refreshShows() {
-        interactors.showList
+        return interactors.showList
             .observe()
-            .subscribe(onNext: {
-                self.refreshShowDetails(shows: $0)
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func refreshShowDetails(shows: [DvrShow]) {
-        shows.forEach { show in
-            interactors.showDetails
-                .setShow(show)
-                .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-                .map { show -> DvrShow in //! Though generic for shows, this map is sickbeard specific. Applications should have injection points in interactors?
-                    if let index = shows.index(where: { $0.name == show.name }) {
-                        show.identifier = shows[index].identifier
+            .flatMap { shows in
+                Observable.zip(shows.map {
+                    self.interactors.showDetails
+                        .setShow($0)
+                        .map { show -> DvrShow in
+                            //! Though generic for shows, this map is sickbeard specific.
+                            // Applications should have injection points in interactors?
+                            if let index = shows.index(where: { $0.name == show.name }) {
+                                show.identifier = shows[index].identifier
+                            }
+
+                            return show
+                        }
+                        .do(onNext: {
+                            $0.store(in: self.database)
+                        })
                     }
-                    
-                    return show
-                }
-                .subscribe(onNext: {
-                    $0.store(in: self.database)
-                })
-                .disposed(by: disposeBag)
-        }
+                )
+            }
     }
 }
