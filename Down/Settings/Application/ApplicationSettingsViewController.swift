@@ -77,11 +77,12 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
             $0.rx.text
                 .skip(2)
                 .debounce(0.3, scheduler: MainScheduler.instance)
-                .subscribe(onNext: { _ in
+                .subscribe(onNext: { [weak self] _ in
+                    guard let `self` = self else { return }
+                    
                     // Text needs to be subscribed to the view model as well..
                     // Should the text directly bind to the view model's variables?
                     // And make it do the perform login below?
-
                     self.performLogin()
                 })
                 .disposed(by: disposeBag)
@@ -120,10 +121,12 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
 
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         viewModel.save()
-        self.router?.store(application: self.apiApplication)
+        router?.store(application: self.apiApplication)
 
         viewModel.updateApplicationCache()
-            .subscribe(onCompleted: {
+            .subscribe(onCompleted: { [weak self] in
+                guard let `self` = self else { return }
+
                 self.router?.restartRouter(type: self.apiApplication.type)
                 self.router?.close(viewController: self)
             })
