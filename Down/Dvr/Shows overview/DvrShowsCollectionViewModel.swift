@@ -109,14 +109,9 @@ extension DvrShowsCollectionViewModel {
             return
         }
 
-        let size = self.collectionView(collectionView,
-                                       layout: UICollectionViewFlowLayout(),
-                                       sizeForItemAt: IndexPath(item: 0, section: 0))
-
         interactorFactory
             .makeShowPosterInteractor(for: application!, show: show)
             .observe()
-            .map { $0.scaled(to: size) }
             .subscribe(onNext: { $0
                 self.imageCache.setObject($0, forKey: show.identifier as NSString)
                 self.collectionView?.reloadItems(at: [self.indexPath(for: show)])

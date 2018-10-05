@@ -33,6 +33,9 @@ public class DvrShowPosterInteractor: RequestGatewayInteracting {
 
         return gateway
             .observe()
-            .do(onNext: { DvrAssetStorage.store(poster: $0, for: self.gateway.show) })
+            .do(onNext: {
+                let poster = $0.scaled(to: CGSize(width: 200, height: 300))
+                DvrAssetStorage.store(poster: poster, for: self.show)
+            })
     }
 }
