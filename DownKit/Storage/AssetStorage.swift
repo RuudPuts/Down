@@ -45,7 +45,7 @@ private extension DvrAssetStorage {
 }
 
 private extension AssetStorage {
-    static let diskQueue = DispatchQueue(label: "com.ruudputs.down.ImageQueue", attributes: [])
+    static let diskQueue = DispatchQueue(label: "com.ruudputs.down.AssetStorage", attributes: [])
 
     static func fileExists(_ filepath: String) -> Bool {
         return FileManager.default.fileExists(atPath: filepath)
@@ -70,24 +70,24 @@ private extension AssetStorage {
     }
 
     static func store(image: UIImage, atPath filepath: String) {
-        guard let data = UIImagePNGRepresentation(image) else {
-            return
-        }
+        diskQueue.async(execute: {
+            guard let data = UIImagePNGRepresentation(image) else {
+                return
+            }
 
-        cache.setObject(image, forKey: filepath as NSString)
-        store(data: data, atPath: filepath)
+            cache.setObject(image, forKey: filepath as NSString)
+            store(data: data, atPath: filepath)
+        })
     }
 
     static func store(data: Data, atPath filepath: String) {
         ensureFilepath(filepath)
-        diskQueue.async(execute: {
-            do {
-                try data.write(to: URL(fileURLWithPath: filepath), options: [.atomic])
-            }
-            catch {
-                NSLog("Error while storing image: \(error.localizedDescription)")
-            }
-        })
+        do {
+            try data.write(to: URL(fileURLWithPath: filepath), options: [.atomic])
+        }
+        catch {
+            NSLog("Error while storing image: \(error.localizedDescription)")
+        }
     }
 
     static func loadImage(_ filepath: String) -> UIImage? {
