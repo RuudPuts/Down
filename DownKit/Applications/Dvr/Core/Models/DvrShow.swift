@@ -12,8 +12,8 @@ public class DvrShow: Object {
     @objc dynamic var key = UUID().uuidString
     @objc public dynamic var identifier = String(NSNotFound)
     @objc public dynamic var name = ""
-    @objc public dynamic var quality = Quality.unkown
-    @objc public dynamic var status = DvrShowStatus.unkown
+    @objc public dynamic var quality = Quality.unknown
+    @objc public dynamic var status = DvrShowStatus.unknown
     @objc public dynamic var network = ""
     @objc public dynamic var airTime = ""
     public var seasons = List<DvrSeason>()
@@ -47,6 +47,16 @@ extension DvrShow {
     }
 }
 
+extension DvrShow {
+    func episodeAired(since referenceDate: Date) -> [DvrEpisode] {
+        let now = Date()
+
+        return  seasons
+            .flatMap { $0.episodes }
+            .filter { $0.airdate.isBetweeen(date: referenceDate, and: now) }
+    }
+}
+
 extension DvrShow: DvrDatabaseStoring {
     func store(in database: DvrDatabase) {
         guard !isPartial else { return }
@@ -57,7 +67,7 @@ extension DvrShow: DvrDatabaseStoring {
 
 @objc
 public enum DvrShowStatus: Int {
-    case unkown
+    case unknown
     case continuing
     case ended
 }

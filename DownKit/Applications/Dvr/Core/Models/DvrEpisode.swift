@@ -12,14 +12,15 @@ public class DvrEpisode: Object {
     @objc dynamic var key = UUID().uuidString
     @objc public dynamic var identifier = ""
     @objc public dynamic var name = ""
-    @objc public dynamic var airdate = ""
-    @objc public dynamic var quality = Quality.unkown
+    @objc public dynamic var airdate = Date(timeIntervalSince1970: 0)
+    @objc public dynamic var quality = Quality.unknown
     @objc public dynamic var status = DvrEpisodeStatus.unknown
     
     @objc public dynamic var show: DvrShow!
     @objc public dynamic var season: DvrSeason!
     
-    public convenience init(identifier: String, name: String, airdate: String, quality: Quality, status: DvrEpisodeStatus) {
+    public convenience init(identifier: String, name: String, airdate: Date,
+                            quality: Quality = .unknown, status: DvrEpisodeStatus = .unknown) {
         self.init()
         self.identifier = identifier
         self.name = name

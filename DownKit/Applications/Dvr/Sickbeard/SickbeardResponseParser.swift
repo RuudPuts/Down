@@ -93,13 +93,18 @@ private extension SickbeardResponseParser {
     }
     
     func parseEpisodes(from json: JSON) -> [DvrEpisode] {
-        return json.dictionary?.map {
-            DvrEpisode(
-                identifier: $0,
-                name: $1["name"].stringValue,
-                airdate: $1["airdate"].stringValue,
-                quality: parseQuality(from: $1["quality"]),
-                status: DvrEpisodeStatus.from(sickbeardValue: $1["status"].stringValue)
+        return json.dictionary?.map { identifier, data in
+            let airDate = DateFormatter.dateFormatter()
+                .date(from: data["airdate"].stringValue)!
+
+            let status = DvrEpisodeStatus.from(sickbeardValue: data["status"].stringValue)
+
+            return DvrEpisode(
+                identifier: identifier,
+                name: data["name"].stringValue,
+                airdate: airDate,
+                quality: parseQuality(from: data["quality"]),
+                status: status
             )
         } ?? []
     }
@@ -216,6 +221,15 @@ extension DvrEpisodeStatus {
         case .snatched: return "snatched"
         case .downloaded: return "downloaded"
         }
+    }
+}
+
+private extension DateFormatter {
+    static func dateFormatter() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+
+        return formatter
     }
 }
 

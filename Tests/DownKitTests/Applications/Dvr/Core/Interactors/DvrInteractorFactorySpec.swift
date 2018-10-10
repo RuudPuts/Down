@@ -84,12 +84,8 @@ class DvrInteractorFactorySpec: QuickSpec {
                     interactor = nil
                 }
 
-                it("sets the show list interactor") {
-                    expect(interactor.interactors.showList).to(beAKindOf(DvrShowListInteractor.self))
-                }
-                
-                it("sets the show details interactor") {
-                    expect(interactor.interactors.showDetails).to(beAKindOf(DvrShowDetailsInteractor.self))
+                it("sets the dvr interactor producer") {
+                    expect(interactor.interactors).to(beAKindOf(DvrInteractorProducing.self))
                 }
                 
                 it("sets the database") {

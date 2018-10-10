@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+extension Date {
+    func isBetweeen(date lhs: Date, and rhs: Date) -> Bool {
+        return lhs.compare(self) == self.compare(rhs)
+    }
+}

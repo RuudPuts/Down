@@ -11,8 +11,8 @@ import RxSwift
 
 class DvrDatabaseMock: DvrDatabase {
     struct Stubs {
-        var fetchShows = Observable<[DvrShow]>.just([])
-        var fetchShowsMatchingNameComponents = Maybe<DvrShow>.just(DvrShow())
+        var fetchShows = [DvrShow]()
+        var fetchShowsMatchingNameComponents = DvrShow()
     }
     
     struct Captures {
@@ -45,12 +45,12 @@ class DvrDatabaseMock: DvrDatabase {
     
     func fetchShows() -> Observable<[DvrShow]> {
         captures.fetchShows = true
-        return stubs.fetchShows
+        return Observable.just(stubs.fetchShows)
     }
     
     func fetchShow(matching nameComponents: [String]) -> Maybe<DvrShow> {
         captures.fetchShowsMatching = Captures.FetchShowsMatching(nameComponents: nameComponents)
-        return stubs.fetchShowsMatchingNameComponents
+        return Maybe.just(stubs.fetchShowsMatchingNameComponents)
     }
     
     func transact(block: @escaping () -> Void) {

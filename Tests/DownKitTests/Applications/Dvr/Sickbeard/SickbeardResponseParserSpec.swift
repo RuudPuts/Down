@@ -209,11 +209,22 @@ class SickbeardResponseParserSpec: QuickSpec {
                 }
                 
                 it("parses the episode's airdate") {
-                    expect(result.seasons.first?.episodes.first?.airdate) == "2010-05-15"
+                    let expectedComponents = DateComponents(year: 2010,
+                                                            month: 5,
+                                                            day: 15,
+                                                            hour: 0,
+                                                            minute: 0,
+                                                            second: 0)
+
+                    let components = Calendar.current
+                        .dateComponents([.year, .month, .day, .hour, .minute, .second],
+                                        from: result.seasons.first?.episodes.first?.airdate ?? Date())
+
+                    expect(components) == expectedComponents
                 }
                 
                 it("parses the episode's quality") {
-                    expect(result.seasons.first?.episodes.first?.quality) == Quality.unkown
+                    expect(result.seasons.first?.episodes.first?.quality) == Quality.unknown
                 }
                 
                 it("parses the episode's status") {

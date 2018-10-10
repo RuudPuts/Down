@@ -46,7 +46,7 @@ struct DvrEpisodeCellModel {
     init(episode: DvrEpisode) {
         identifier = episode.identifier
         name = episode.name
-        airdDate = episode.airdate
+        airdDate = episode.airdate.dateString
         status = episode.status
     }
 

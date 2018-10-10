@@ -32,16 +32,63 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
         return interactors
             .makeShowListInteractor(for: application)
             .observe()
-            .flatMap { shows in
-                Observable.zip(shows.map {
-                    self.interactors
-                        .makeShowDetailsInteractor(for: self.application, show: $0)
-                        .observe()
-                        .do(onNext: {
-                            $0.store(in: self.database)
-                        })
-                    }
-                )
+            .flatMap { self.processDeletedShows($0) }
+            .flatMap { self.determineShowsToRefresh($0) }
+            .flatMap { self.refreshShowDetails($0) }
+    }
+
+    func processDeletedShows(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
+        return Observable.zip([Observable.just(shows), database.fetchShows()])
+            .map {
+                guard let fetchedShows = $0.first, let storedShows = $0.last,
+                      fetchedShows != storedShows else {
+                    return shows
+                }
+
+                let fetchedShowIdentifiers = fetchedShows.map { $0.identifier }
+
+                storedShows
+                    .filter { fetchedShowIdentifiers.index(of: $0.identifier) == nil }
+                    .forEach { self.database.delete(show: $0) }
+
+                return storedShows.filter {
+                    fetchedShowIdentifiers.index(of: $0.identifier) != nil
+                }
             }
+    }
+
+    func determineShowsToRefresh(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
+        return Observable.zip([Observable.just(shows), database.fetchShows()])
+            .map {
+                guard let fetchedShows = $0.first, let storedShows = $0.last,
+                      fetchedShows != storedShows else {
+                    return shows
+                }
+
+                let storedShowsIdentifiers = storedShows.map { $0.identifier }
+
+                let newShows = fetchedShows.filter {
+                    storedShowsIdentifiers.index(of: $0.identifier) == nil
+                }
+
+                let showsToRefresh = storedShows.filter {
+                    !$0.episodeAired(since: Date().addingTimeInterval(-604800)).isEmpty
+                }
+
+                return newShows + showsToRefresh
+        }
+    }
+
+    func refreshShowDetails(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
+        let observables = shows.map {
+            self.interactors
+                .makeShowDetailsInteractor(for: self.application, show: $0)
+                .observe()
+                .do(onNext: {
+                    $0.store(in: self.database)
+                })
+            }
+
+        return Observable.zip(observables)
     }
 }

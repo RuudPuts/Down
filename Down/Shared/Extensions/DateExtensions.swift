@@ -15,6 +15,14 @@ extension TimeInterval {
 }
 
 extension Date {
+    var dateString: String {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd"
+
+        return formatter.string(from: self)
+    }
+
     var timeString: String {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
