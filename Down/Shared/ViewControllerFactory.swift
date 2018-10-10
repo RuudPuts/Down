@@ -14,6 +14,7 @@ protocol ViewControllerProducing {
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController
 
     func makeDownloadRoot() -> UIViewController
+    func makeDownloadItemDetail() -> UIViewController
 
     func makeDvrRoot() -> UIViewController
     func makeDvrDetail() -> UIViewController
@@ -36,6 +37,10 @@ class ViewControllerFactory: ViewControllerProducing {
 
     func makeDownloadRoot() -> UIViewController {
         return DownloadViewController()
+    }
+
+    func makeDownloadItemDetail() -> UIViewController {
+        return DownloadItemDetailViewController()
     }
 
     func makeDvrRoot() -> UIViewController {

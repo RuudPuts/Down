@@ -73,7 +73,8 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
             .subscribe(onNext: { _ in
                 self.configureHeaderView()
             })
-            .disposed(by: disposeBag)    }
+            .disposed(by: disposeBag)
+    }
 
     func checkShowPoster() {
         guard let show = show, AssetStorage.poster(for: show) == nil else {

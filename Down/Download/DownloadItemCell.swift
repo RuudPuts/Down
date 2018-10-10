@@ -36,13 +36,18 @@ class DownloadItemCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        applyStyling()
+    }
+
+    func applyStyling() {
         style(as: .downloadItem)
         progressView.style(as: .progressView(for: .sabnzbd))
     }
 
-    func setViewModel(_ viewModel: DownloadItemCellModel) -> DownloadItemCell {
-        self.viewModel = viewModel
-        return self
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        applyStyling()
     }
 }
 
@@ -54,20 +59,8 @@ struct DownloadItemCellModel {
     var progress = 0.0
 
     init(item: DownloadItem) {
-        if let episode = item.dvrEpisode,
-            let episodeId = Int(episode.identifier),
-            let seasonId = Int(episode.season.identifier) {
-            name = String(format: "%@ - S%02dE%02d - %@",
-                          episode.show.name,
-                          seasonId,
-                          episodeId,
-                          episode.name)
-        }
-        else {
-            name = item.name
-        }
-
-        self.progress = item.progress / 100
+        name = item.displayName
+        progress = item.progress / 100
     }
 
     init(queueItem: DownloadQueueItem) {

@@ -26,6 +26,12 @@ struct DownloadViewModel {
 
         startRefreshing()
     }
+
+    func itemAt(indexPath: IndexPath) -> DownloadItem? {
+        return sectionsData
+            .value[safe: indexPath.section]?
+            .items[safe: indexPath.row]
+    }
 }
 
 private extension DownloadViewModel {

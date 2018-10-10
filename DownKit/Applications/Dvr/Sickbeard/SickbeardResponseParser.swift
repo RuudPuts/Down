@@ -109,7 +109,7 @@ private extension SickbeardResponseParser {
         case "HD1080p": return .hd720p
         case "HD720p": return .hd720p
         case "HDTV": return .hdtv
-        default: return .unkown
+        default: return .unknown
         }
     }
 
@@ -117,7 +117,7 @@ private extension SickbeardResponseParser {
         switch json.stringValue {
         case "Continuing": return .continuing
         case "Ended": return .ended
-        default: return .unkown
+        default: return .unknown
         }
     }
 }
@@ -208,7 +208,7 @@ extension DvrEpisodeStatus {
 
     var sickbeardValue: String {
         switch self {
-        case .unknown: return "unkown"
+        case .unknown: return "unknown"
         case .wanted: return "wanted"
         case .skipped: return "skipped"
         case .archived: return "archived"

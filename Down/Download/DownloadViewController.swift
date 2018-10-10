@@ -106,5 +106,17 @@ extension DownloadViewController: UITableViewDelegate {
 
         return view
     }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.style(as: .selectableCell(application: downloadApplication.type))
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let item = viewModel.itemAt(indexPath: indexPath) else {
+            return
+        }
+
+        router?.downloadRouter.showDetail(of: item)
+    }
 }
 

@@ -62,7 +62,7 @@ extension ViewStyling where ViewType == UILabel {
                 $0.backgroundColor = Stylesheet.Colors.green
             case .hdtv:
                 $0.backgroundColor = Stylesheet.Colors.orange
-            case .unkown: break
+            case .unknown: break
             }
         }
     }
@@ -78,7 +78,7 @@ extension ViewStyling where ViewType == UILabel {
                 $0.textColor = Stylesheet.Colors.green
             case .ended:
                 $0.textColor = Stylesheet.Colors.red
-            case .unkown:
+            case .unknown:
                 $0.textColor = Stylesheet.Colors.white
             }
         }

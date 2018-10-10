@@ -35,6 +35,15 @@ class DownloadRouter: ChildRouter {
             parent.decorate(viewController: viewControllerFactory.makeDownloadRoot())
         ]
     }
+
+    func showDetail(of item: DownloadItem) {
+        let vc = parent.decorate(viewController: viewControllerFactory.makeDownloadItemDetail())
+        guard let viewController = vc as? DownloadItemDetailViewController else {
+            return
+        }
+
+        navigationController.pushViewController(viewController, animated: true)
+    }
 }
 
 private extension DownloadRouter {

@@ -8,13 +8,29 @@
 
 import DownKit
 
+extension DownloadItem {
+    var displayName: String {
+        if let episode = dvrEpisode,
+            let episodeId = Int(episode.identifier),
+            let seasonId = Int(episode.season.identifier) {
+            return String(format: "%@ - S%02dE%02d - %@",
+                          episode.show.name,
+                          seasonId,
+                          episodeId,
+                          episode.name)
+        }
+
+        return name
+    }
+}
+
 extension Quality {
     var displayString: String {
         switch self {
         case .hd1080p: return "1080P"
         case .hd720p: return "720P"
         case .hdtv: return "HD TV"
-        case .unkown: return ""
+        case .unknown: return ""
         }
     }
 }
@@ -24,7 +40,7 @@ extension DvrShowStatus {
         switch self {
         case .continuing: return "Continuing"
         case .ended: return "Ended"
-        case .unkown: return ""
+        case .unknown: return ""
         }
     }
 }
