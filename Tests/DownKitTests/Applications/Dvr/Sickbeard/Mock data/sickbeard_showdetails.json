@@ -45,6 +45,12 @@
                         "name": "Amy's Choice",
                         "quality": "N/A",
                         "status": "Ignored"
+                    },
+                    "13": {
+                        "airdate": "",
+                        "name": "Unaired: New episode",
+                        "quality": "N/A",
+                        "status": "Ignored"
                     }
                 }
             },

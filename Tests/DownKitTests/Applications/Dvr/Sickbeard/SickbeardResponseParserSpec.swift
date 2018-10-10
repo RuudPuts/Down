@@ -196,19 +196,19 @@ class SickbeardResponseParserSpec: QuickSpec {
                     expect(result.seasons.first?.identifier) == "5"
                 }
                 
-                it("parses 1 episode") {
-                    expect(result.seasons.first?.episodes.count) == 1
+                it("parses 2 episodes") {
+                    expect(result.seasons.first?.episodes.count) == 2
                 }
                 
-                it("parses the episode's identifier") {
-                    expect(result.seasons.first?.episodes.first?.identifier) == "7"
+                it("parses the episode's identifiers") {
+                    expect(result.seasons.first?.episodes.map { $0.identifier } ?? []) == ["7", "13"]
                 }
                 
                 it("parses the episode's name") {
-                    expect(result.seasons.first?.episodes.first?.name) == "Amy's Choice"
+                    expect(result.seasons.first?.episodes.map { $0.name } ?? []) == ["Amy's Choice", "Unaired: New episode"]
                 }
                 
-                it("parses the episode's airdate") {
+                it("parses an episode's airdate") {
                     let expectedComponents = DateComponents(year: 2010,
                                                             month: 5,
                                                             day: 15,
@@ -222,13 +222,17 @@ class SickbeardResponseParserSpec: QuickSpec {
 
                     expect(components) == expectedComponents
                 }
+
+                it("parses an unaired episode date") {
+                    expect(result.seasons.first?.episodes.last?.airdate).to(beNil())
+                }
                 
                 it("parses the episode's quality") {
-                    expect(result.seasons.first?.episodes.first?.quality) == Quality.unknown
+                    expect(result.seasons.first?.episodes.map { $0.quality } ?? []) == [.unknown, .unknown]
                 }
                 
                 it("parses the episode's status") {
-                    expect(result.seasons.first?.episodes.first?.status) == DvrEpisodeStatus.ignored
+                    expect(result.seasons.first?.episodes.map { $0.status } ?? []) == [.ignored, .ignored]
                 }
             }
 

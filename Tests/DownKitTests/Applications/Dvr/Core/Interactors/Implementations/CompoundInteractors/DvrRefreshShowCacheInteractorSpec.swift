@@ -82,8 +82,8 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                         expect(database.captures.deleteShow?.show) == storedShows.last
                     }
 
-                    it("returns remaining the stored shows") {
-                        expect(result) == [storedShows[0], storedShows[1]]
+                    it("returns fetched shows") {
+                        expect(result) == fetchedShows
                     }
                 }
 

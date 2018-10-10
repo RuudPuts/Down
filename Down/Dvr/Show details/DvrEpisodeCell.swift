@@ -19,7 +19,7 @@ class DvrEpisodeCell: UITableViewCell {
     var viewModel: DvrEpisodeCellModel! {
         didSet {
             nameLabel?.text = viewModel.title
-            airLabel?.text = viewModel.airdDate
+            airLabel?.text = viewModel.airingOn
             statusLabel?.text = viewModel.status.displayString
 
             applyStyling()
@@ -40,13 +40,13 @@ class DvrEpisodeCell: UITableViewCell {
 struct DvrEpisodeCellModel {
     var identifier: String
     var name: String
-    var airdDate: String
+    var airdate: Date?
     var status: DvrEpisodeStatus
 
     init(episode: DvrEpisode) {
         identifier = episode.identifier
         name = episode.name
-        airdDate = episode.airdate.dateString
+        airdate = episode.airdate
         status = episode.status
     }
 
@@ -55,6 +55,6 @@ struct DvrEpisodeCellModel {
     }
 
     var airingOn: String {
-        return airdDate
+        return airdate?.dateString ?? R.string.localizable.dvr_episode_unaired()
     }
 }

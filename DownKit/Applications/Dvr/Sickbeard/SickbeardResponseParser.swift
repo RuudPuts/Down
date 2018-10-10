@@ -95,7 +95,7 @@ private extension SickbeardResponseParser {
     func parseEpisodes(from json: JSON) -> [DvrEpisode] {
         return json.dictionary?.map { identifier, data in
             let airDate = DateFormatter.dateFormatter()
-                .date(from: data["airdate"].stringValue)!
+                .date(from: data["airdate"].stringValue)
 
             let status = DvrEpisodeStatus.from(sickbeardValue: data["status"].stringValue)
 

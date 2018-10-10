@@ -13,3 +13,5 @@
 "dvr_screen_add_show_title" = "Add new show";
 
 "dvr_settings_cacherefresh_description" = "Refreshing show cache...";
+
+"dvr_episode_unaired" = "Unaired";

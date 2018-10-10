@@ -9,7 +9,6 @@
 import RealmSwift
 
 public class DvrShow: Object {
-    @objc dynamic var key = UUID().uuidString
     @objc public dynamic var identifier = String(NSNotFound)
     @objc public dynamic var name = ""
     @objc public dynamic var quality = Quality.unknown
@@ -32,8 +31,7 @@ public class DvrShow: Object {
     }
     
     override public static func primaryKey() -> String? {
-        //! Should 'identifier' be the primary key?
-        return "key"
+        return "identifier"
     }
 }
 
@@ -53,7 +51,7 @@ extension DvrShow {
 
         return  seasons
             .flatMap { $0.episodes }
-            .filter { $0.airdate.isBetweeen(date: referenceDate, and: now) }
+            .filter { $0.airdate?.isBetweeen(date: referenceDate, and: now) ?? true }
     }
 }
 

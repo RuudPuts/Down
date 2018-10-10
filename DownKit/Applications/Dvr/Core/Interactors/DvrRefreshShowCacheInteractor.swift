@@ -51,22 +51,18 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
                     .filter { fetchedShowIdentifiers.index(of: $0.identifier) == nil }
                     .forEach { self.database.delete(show: $0) }
 
-                return storedShows.filter {
-                    fetchedShowIdentifiers.index(of: $0.identifier) != nil
-                }
+                return shows
             }
     }
 
     func determineShowsToRefresh(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
         return Observable.zip([Observable.just(shows), database.fetchShows()])
             .map {
-                guard let fetchedShows = $0.first, let storedShows = $0.last,
-                      fetchedShows != storedShows else {
+                guard let fetchedShows = $0.first, let storedShows = $0.last else {
                     return shows
                 }
 
                 let storedShowsIdentifiers = storedShows.map { $0.identifier }
-
                 let newShows = fetchedShows.filter {
                     storedShowsIdentifiers.index(of: $0.identifier) == nil
                 }
