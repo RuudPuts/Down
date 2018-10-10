@@ -18,12 +18,11 @@ extension ViewStyling where ViewType == UITableViewCell {
 
     static func selectableCell(application: DownApplicationType) -> ViewStyling {
         return ViewStyling {
-            if $0.selectedBackgroundView == nil {
-                $0.selectedBackgroundView = UIView()
-            }
-
-            let applicationColor = Stylesheet.Colors.primaryColor(for: application)
-            $0.selectedBackgroundView?.backgroundColor = applicationColor.withAlphaComponent(0.3)
+            let view = UIView()
+            view.backgroundColor = Stylesheet.Colors
+                .primaryColor(for: application)
+                .withAlphaComponent(0.3)
+            $0.selectedBackgroundView = view
         }
     }
 }
