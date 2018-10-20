@@ -9,4 +9,5 @@
 public protocol DownloadResponseParsing: ResponseParsing {
     func parseQueue(from response: Response) throws -> DownloadQueue
     func parseHistory(from response: Response) throws -> [DownloadItem]
+    func parseDeleteItem(from response: Response) throws -> Bool
 }

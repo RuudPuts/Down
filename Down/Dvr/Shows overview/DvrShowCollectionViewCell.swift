@@ -9,8 +9,6 @@
 import UIKit
 
 class DvrShowCollectionViewCell: UICollectionViewCell {
-    static let identifier = String(describing: DvrShowCollectionViewCell.self)
-
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var containerView: UIView!

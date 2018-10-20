@@ -10,8 +10,6 @@ import UIKit
 import DownKit
 
 class DvrEpisodeCell: UITableViewCell {
-    static let identifier = String(describing: DvrEpisodeCell.self)
-
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var airLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!

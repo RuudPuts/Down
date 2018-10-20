@@ -12,7 +12,7 @@ public protocol RequestGateway {
     associatedtype ResultType
 
     var executor: RequestExecuting { get }
-    var disposeBag: DisposeBag { get }
+    var disposeBag: DisposeBag { get } //! remove!!
 
     func makeRequest() throws -> Request
     func parse(response: Response) throws -> ResultType

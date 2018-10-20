@@ -9,8 +9,6 @@
 import UIKit
 
 class SettingsApplicationCell: UITableViewCell {
-    static let identifier = String(describing: SettingsApplicationCell.self)
-
     @IBOutlet weak var iconImageView: UIImageView!
 
     var viewModel: SettingsApplicationCellModel? {

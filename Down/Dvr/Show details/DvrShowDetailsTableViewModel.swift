@@ -18,8 +18,8 @@ class DvrShowDetailsTableViewModel: NSObject {
     }
 
     func prepare(tableView: UITableView) {
-        tableView.registerCell(nibName: DvrEpisodeCell.identifier)
-        tableView.registerHeaderFooter(nibName: TableHeaderView.identifier)
+        tableView.registerCell(nibName: DvrEpisodeCell.reuseIdentifier)
+        tableView.registerHeaderFooter(nibName: TableHeaderView.reuseIdentifier)
     }
 }
 
@@ -33,7 +33,7 @@ extension DvrShowDetailsTableViewModel: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DvrEpisodeCell.identifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: DvrEpisodeCell.reuseIdentifier, for: indexPath)
         guard let episodeCell = cell as? DvrEpisodeCell else {
             return cell
         }
@@ -47,7 +47,7 @@ extension DvrShowDetailsTableViewModel: UITableViewDataSource {
 
 extension DvrShowDetailsTableViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.identifier)
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.reuseIdentifier)
         guard let headerView = view as? TableHeaderView else {
             return nil
         }

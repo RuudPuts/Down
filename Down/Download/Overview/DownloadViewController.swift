@@ -58,8 +58,8 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     func configureTableView() {
         tableView.delegate = self
         
-        tableView.registerCell(nibName: DownloadItemCell.identifier)
-        tableView.registerHeaderFooter(nibName: TableHeaderView.identifier)
+        tableView.registerCell(nibName: DownloadItemCell.reuseIdentifier)
+        tableView.registerHeaderFooter(nibName: TableHeaderView.reuseIdentifier)
         
         dataSource.titleForHeaderInSection = { dataSource, index in
             return dataSource.sectionModels[index].header
@@ -77,7 +77,7 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     }
 
     let dataSource = RxTableViewSectionedReloadDataSource<TableSectionData>(configureCell: { (_, tableView, indexPath, item) -> UITableViewCell in
-        let cell = tableView.dequeueReusableCell(withIdentifier: DownloadItemCell.identifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: DownloadItemCell.reuseIdentifier, for: indexPath)
         
         guard let itemCell = cell as? DownloadItemCell else {
             return cell
@@ -96,7 +96,7 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
 
 extension DownloadViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.identifier)
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.reuseIdentifier)
         guard let headerView = view as? TableHeaderView else {
             return nil
         }

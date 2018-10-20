@@ -9,6 +9,7 @@
 public protocol DownloadGatewayProducing {
     func makeQueueGateway(for application: DownloadApplication) -> DownloadQueueGateway
     func makeHistoryGateway(for application: DownloadApplication) -> DownloadHistoryGateway
+    func makeDeleteItemGateway(for application: DownloadApplication, item: DownloadItem) -> DownloadDeleteItemGateway
 }
 
 public class DownloadGatewayFactory: DownloadGatewayProducing {
@@ -26,5 +27,11 @@ public class DownloadGatewayFactory: DownloadGatewayProducing {
     public func makeHistoryGateway(for application: DownloadApplication) -> DownloadHistoryGateway {
         return DownloadHistoryGateway(builder: additionsFactory.makeDownloadRequestBuilder(for: application),
                                       parser: additionsFactory.makeDownloadResponseParser(for: application))
+    }
+
+    public func makeDeleteItemGateway(for application: DownloadApplication, item: DownloadItem) -> DownloadDeleteItemGateway {
+        return DownloadDeleteItemGateway(builder: additionsFactory.makeDownloadRequestBuilder(for: application),
+                                         parser: additionsFactory.makeDownloadResponseParser(for: application),
+                                         item: item)
     }
 }

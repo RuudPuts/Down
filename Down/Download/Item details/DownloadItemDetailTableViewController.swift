@@ -3,33 +3,50 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-class DownloadItemDetailTableViewController {
-//    var headerImage: BehaviorRelay<UIImage?>
-//    var title: String
-//
-//    var downloadItem: DownloadItem
-//    var items: [DownloadItemDetailModel]?
-//
-//    var dvrApplication: DvrApplication!
-//    var dvrInteractorFactory: DvrInteractorProducing!
-//
-//    let disposeBag = DisposeBag()
-//
-//    init(item: DownloadQueueItem) {
-//        
-//    }
-//
-//    func makeItems() {
-//        items?.append(DownloadItemDetailModel(key: .name, value: downloadItem.displayName))
-//    }
-//
-//    func fetchBanner(for show: DvrShow) {
-//        dvrInteractorFactory
-//            .makeShowBannerInteractor(for: dvrApplication, show: show)
-//            .observe()
-//            .subscribe(onNext: {
-//                self.headerImage.accept($0)
-//            })
-//            .disposed(by: disposeBag)
-//    }
+class DownloadItemDetailTableViewController: NSObject {
+    var dataModel: [[DownloadItemDetailRow]]
+
+    init(dataModel: [[DownloadItemDetailRow]]) {
+        self.dataModel = dataModel
+    }
+}
+
+extension DownloadItemDetailTableViewController {
+    func prepare(tableView: UITableView) {
+        tableView.registerCell(nibName: KeyValueTableViewCell.reuseIdentifier)
+    }
+}
+
+extension DownloadItemDetailTableViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return dataModel.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataModel[section].count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: KeyValueTableViewCell.reuseIdentifier,
+                                                 for: indexPath)
+
+        guard let keyValueCell = cell as? KeyValueTableViewCell else {
+            return cell
+        }
+
+        let rowData = dataModel[indexPath.section][indexPath.row]
+        keyValueCell.viewModel = rowData
+
+        return keyValueCell
+    }
+}
+
+extension DownloadItemDetailRow: KeyValueCellModel {
+    var keyText: String {
+        return title
+    }
+
+    var valueText: String {
+        return value
+    }
 }

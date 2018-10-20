@@ -16,11 +16,32 @@ class SabNZBdRequestBuilder: DownloadRequestBuilding {
     }
 
     func specification(for apiCall: DownloadApplicationCall) -> RequestSpecification? {
-        return RequestSpecification(
+        switch apiCall {
+        case .queue: return RequestSpecification(
             host: application.host,
-            path: "api?mode=\(apiCall.rawValue)&output=json&apikey={apikey}",
+            path: "api?mode=queue&output=json&apikey={apikey}",
             parameters: defaultParameters
         )
+        case .history: return RequestSpecification(
+            host: application.host,
+            path: "api?mode=history&output=json&apikey={apikey}",
+            parameters: defaultParameters
+        )
+        case .delete(let item):
+            var mode: String
+            if item is DownloadQueueItem {
+                mode = "queue"
+            }
+            else {
+                mode = "history"
+            }
+
+            return RequestSpecification(
+                host: application.host,
+                path: "api?mode=\(mode)&name=delete&value=\(item.identifier)&apikey={apikey}",
+                parameters: defaultParameters
+            )
+        }
     }
 }
 

@@ -9,6 +9,8 @@
 public protocol DownloadInteractorProducing {
     func makeQueueInteractor(for application: DownloadApplication) -> DownloadQueueInteractor
     func makeHistoryInteractor(for application: DownloadApplication) -> DownloadHistoryInteractor
+
+    func makeDeleteItemInteractor(for application: DownloadApplication, item: DownloadItem) -> DownloadDeleteItemInteractor
 }
 
 public class DownloadInteractorFactory: DownloadInteractorProducing {
@@ -30,5 +32,11 @@ public class DownloadInteractorFactory: DownloadInteractorProducing {
         let gateway = gatewayFactory.makeHistoryGateway(for: application)
         
         return DownloadHistoryInteractor(gateway: gateway, database: dvrDatabase)
+    }
+
+    public func makeDeleteItemInteractor(for application: DownloadApplication, item: DownloadItem) -> DownloadDeleteItemInteractor {
+        let gateway = gatewayFactory.makeDeleteItemGateway(for: application, item: item)
+
+        return DownloadDeleteItemInteractor(gateway: gateway)
     }
 }

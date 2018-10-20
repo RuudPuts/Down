@@ -10,7 +10,7 @@ import SwiftyJSON
 
 class SabNZBdResponseParser: DownloadResponseParsing {    
     func parseQueue(from response: Response) throws -> DownloadQueue {
-        let json = try parse(response, forCall: .queue)
+        let json = try parse(response, forKey: .queue)
         
         let items = json["slots"].array?.map { parseQueueItem(from: $0) }
         let speed = parseMb(from: json["speed"])
@@ -25,9 +25,13 @@ class SabNZBdResponseParser: DownloadResponseParsing {
     }
     
     func parseHistory(from response: Response) throws -> [DownloadItem] {
-        return try parse(response, forCall: .history)["slots"].array?.map {
+        return try parse(response, forKey: .history)["slots"].array?.map {
             parseHistoryItem(from: $0)
         } ?? []
+    }
+
+    func parseDeleteItem(from response: Response) throws -> Bool {
+        return try parse(response, forKey: .delete).boolValue
     }
 }
 
@@ -50,7 +54,7 @@ extension SabNZBdResponseParser: ApiApplicationResponseParsing {
 }
 
 extension SabNZBdResponseParser {
-    func parse(_ response: Response, forCall call: DownloadApplicationCall) throws -> JSON {
+    func parse(_ response: Response, forKey key: SabNZBdResponseKey) throws -> JSON {
         guard let data = response.data else {
             throw ParseError.noData
         }
@@ -68,7 +72,7 @@ extension SabNZBdResponseParser {
             throw ParseError.api(message: json["error"].string ?? "")
         }
         
-        return json[call.rawValue]
+        return json[key.rawValue]
     }
 
     func parseQueueItem(from json: JSON) -> DownloadQueueItem {
@@ -141,6 +145,12 @@ extension SabNZBdResponseParser {
             return 0
         }
     }
+}
+
+enum SabNZBdResponseKey: String {
+    case queue
+    case history
+    case delete
 }
 
 extension DownloadQueueItem.State {

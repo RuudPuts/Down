@@ -16,6 +16,11 @@
 		420C282E2163EBA40088259C /* SettingsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C282D2163EBA40088259C /* SettingsTableViewModel.swift */; };
 		420C28302163ED0E0088259C /* SettingsApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C282F2163ED0E0088259C /* SettingsApplicationCell.swift */; };
 		420C28322163F58D0088259C /* SettingsApplicationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420C28312163F58D0088259C /* SettingsApplicationCell.xib */; };
+		421752D8217BB1BC0002F0C1 /* DownloadQueueItemDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752D7217BB1BC0002F0C1 /* DownloadQueueItemDetailViewModel.swift */; };
+		421752DA217BB1D20002F0C1 /* DownloadHistoryItemDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752D9217BB1D20002F0C1 /* DownloadHistoryItemDetailViewModel.swift */; };
+		421752DC217BB1F80002F0C1 /* DownloadItemDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */; };
+		421752DE217BB3DF0002F0C1 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DD217BB3DF0002F0C1 /* ReusableCell.swift */; };
+		421752E2217BB6D20002F0C1 /* KeyValueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 421752E1217BB6D20002F0C1 /* KeyValueTableViewCell.xib */; };
 		421D06CF21123C5D005DC78D /* ApiApplicationResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */; };
 		421D06D121123D5B005DC78D /* ApiApplicationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */; };
 		421D06D42112401A005DC78D /* DownloadHistoryInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D32112401A005DC78D /* DownloadHistoryInteractorSpec.swift */; };
@@ -190,6 +195,8 @@
 		428340C720D2FD0A00CB2D7A /* RequestExecutingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340C620D2FD0A00CB2D7A /* RequestExecutingMock.swift */; };
 		428340C920D2FF9300CB2D7A /* RequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340C820D2FF9300CB2D7A /* RequestBuildingMock.swift */; };
 		428340CB20D3000F00CB2D7A /* RequestExecutorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340CA20D3000F00CB2D7A /* RequestExecutorSpec.swift */; };
+		42845A94217BBCF30097F58A /* DownloadDeleteItemGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42845A93217BBCF30097F58A /* DownloadDeleteItemGateway.swift */; };
+		42845A96217BC5A20097F58A /* DownloadRequestInteractors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42845A95217BC5A20097F58A /* DownloadRequestInteractors.swift */; };
 		4284C721213327FD00F21B91 /* TableSectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C720213327FD00F21B91 /* TableSectionData.swift */; };
 		4284C723213331FE00F21B91 /* UITabBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C722213331FD00F21B91 /* UITabBarStyle.swift */; };
 		4284C7252133442800F21B91 /* SkyFloatingLabelTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */; };
@@ -339,6 +346,11 @@
 		420C282D2163EBA40088259C /* SettingsTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewModel.swift; sourceTree = "<group>"; };
 		420C282F2163ED0E0088259C /* SettingsApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsApplicationCell.swift; sourceTree = "<group>"; };
 		420C28312163F58D0088259C /* SettingsApplicationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsApplicationCell.xib; sourceTree = "<group>"; };
+		421752D7217BB1BC0002F0C1 /* DownloadQueueItemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueueItemDetailViewModel.swift; sourceTree = "<group>"; };
+		421752D9217BB1D20002F0C1 /* DownloadHistoryItemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadHistoryItemDetailViewModel.swift; sourceTree = "<group>"; };
+		421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItemDetailRow.swift; sourceTree = "<group>"; };
+		421752DD217BB3DF0002F0C1 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
+		421752E1217BB6D20002F0C1 /* KeyValueTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyValueTableViewCell.xib; sourceTree = "<group>"; };
 		421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationResponseParsingMock.swift; sourceTree = "<group>"; };
 		421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationSpec.swift; sourceTree = "<group>"; };
 		421D06D32112401A005DC78D /* DownloadHistoryInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadHistoryInteractorSpec.swift; sourceTree = "<group>"; };
@@ -516,6 +528,8 @@
 		428340C620D2FD0A00CB2D7A /* RequestExecutingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutingMock.swift; sourceTree = "<group>"; };
 		428340C820D2FF9300CB2D7A /* RequestBuildingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuildingMock.swift; sourceTree = "<group>"; };
 		428340CA20D3000F00CB2D7A /* RequestExecutorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutorSpec.swift; sourceTree = "<group>"; };
+		42845A93217BBCF30097F58A /* DownloadDeleteItemGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDeleteItemGateway.swift; sourceTree = "<group>"; };
+		42845A95217BC5A20097F58A /* DownloadRequestInteractors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadRequestInteractors.swift; sourceTree = "<group>"; };
 		4284C720213327FD00F21B91 /* TableSectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionData.swift; sourceTree = "<group>"; };
 		4284C722213331FD00F21B91 /* UITabBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITabBarStyle.swift; sourceTree = "<group>"; };
 		4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextFieldStyle.swift; sourceTree = "<group>"; };
@@ -1019,6 +1033,7 @@
 				4227B79420DC589400603528 /* DownloadGatewayFactory.swift */,
 				4227B79220DC589400603528 /* DownloadQueueGateway.swift */,
 				4227B79320DC589400603528 /* DownloadHistoryGateway.swift */,
+				42845A93217BBCF30097F58A /* DownloadDeleteItemGateway.swift */,
 			);
 			path = Gateways;
 			sourceTree = "<group>";
@@ -1036,6 +1051,7 @@
 			isa = PBXGroup;
 			children = (
 				4227B79B20DC589400603528 /* DownloadApplicationInteracting.swift */,
+				42845A95217BC5A20097F58A /* DownloadRequestInteractors.swift */,
 				4227B79D20DC589400603528 /* DownloadInteractorFactory.swift */,
 				427D605720DF00D50017AE42 /* DownloadHistoryInteractor.swift */,
 				42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */,
@@ -1602,6 +1618,7 @@
 				42350763212499C6005343CD /* TableHeaderView.xib */,
 				423A5502216913A100CC558A /* ButtonToolbar.swift */,
 				42BE70CF2169835B004167C3 /* KeyValueTableViewCell.swift */,
+				421752E1217BB6D20002F0C1 /* KeyValueTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1695,6 +1712,9 @@
 				42BE70C321693BED004167C3 /* DownloadItemDetailViewController.swift */,
 				42BE70C421693BED004167C3 /* DownloadItemDetailViewController.xib */,
 				42BE70C721693C05004167C3 /* DownloadItemDetailViewModel.swift */,
+				421752D7217BB1BC0002F0C1 /* DownloadQueueItemDetailViewModel.swift */,
+				421752D9217BB1D20002F0C1 /* DownloadHistoryItemDetailViewModel.swift */,
+				421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */,
 				42335DC52171DA970048BB56 /* DownloadItemDetailTableViewController.swift */,
 			);
 			path = "Item details";
@@ -1738,6 +1758,7 @@
 				423A5504216917A800CC558A /* UICollectionViewExtensions.swift */,
 				4235075F21249866005343CD /* UITableViewExtensions.swift */,
 				42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */,
+				421752DD217BB3DF0002F0C1 /* ReusableCell.swift */,
 				42E49DCA21445B1000F8491B /* DownKitExtensions.swift */,
 			);
 			path = Extensions;
@@ -1934,6 +1955,7 @@
 				4243527A20FA8FB800A729E1 /* DvrShowDetailViewController.xib in Resources */,
 				4222BE562156FFD6002742D8 /* DvrEpisodeCell.xib in Resources */,
 				42384A70216151CC004A0349 /* DmrStatusViewController.xib in Resources */,
+				421752E2217BB6D20002F0C1 /* KeyValueTableViewCell.xib in Resources */,
 				429FE7D520FA7D40005F3A4F /* ApplicationHeaderView.xib in Resources */,
 				429F0A66211725D9005582B6 /* DvrAddShowViewController.xib in Resources */,
 				428FCD7E212350DE00C0371D /* OpenSans-Semibold.ttf in Resources */,
@@ -2156,12 +2178,14 @@
 				4227B76F20DB0B0000603528 /* DvrEpisode.swift in Sources */,
 				4263A18720E1B74F008F7E40 /* ApiApplicationApiKeyInteractor.swift in Sources */,
 				42384A4721612641004A0349 /* DmrApplication.swift in Sources */,
+				42845A96217BC5A20097F58A /* DownloadRequestInteractors.swift in Sources */,
 				4221DA9E20D18450003950CF /* Request.swift in Sources */,
 				42BA6F2A20FFC2F5001CA926 /* URLSessionRequestClient.swift in Sources */,
 				429F0A5A211627B5005582B6 /* DvrDeleteShowInteractor.swift in Sources */,
 				4221DA9220D18450003950CF /* SickbeardRequestBuilder.swift in Sources */,
 				422BE6CF20D6DF6100DDDF37 /* DvrGatewayFactory.swift in Sources */,
 				429F0A582116254B005582B6 /* DvrDeleteShowGateway.swift in Sources */,
+				42845A94217BBCF30097F58A /* DownloadDeleteItemGateway.swift in Sources */,
 				422BE6C120D6CC8300DDDF37 /* DvrRequestInteractors.swift in Sources */,
 				429F0A562116254B005582B6 /* DvrSetSeasonStatusGateway.swift in Sources */,
 				429B01CF20F52B7400BCDA0F /* ApiApplicationResponseParsing.swift in Sources */,
@@ -2294,12 +2318,15 @@
 				428FCD61212212B600C0371D /* UIViewStyle.swift in Sources */,
 				4284C72721334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift in Sources */,
 				42BE70C521693BED004167C3 /* DownloadItemDetailViewController.swift in Sources */,
+				421752DA217BB1D20002F0C1 /* DownloadHistoryItemDetailViewModel.swift in Sources */,
 				427D606120E0325C0017AE42 /* DownloadViewController.swift in Sources */,
+				421752D8217BB1BC0002F0C1 /* DownloadQueueItemDetailViewModel.swift in Sources */,
 				42BE70D02169835B004167C3 /* KeyValueTableViewCell.swift in Sources */,
 				42384A6F216151CC004A0349 /* DmrStatusViewController.swift in Sources */,
 				424DDA83214591EF00588B48 /* DvrShowDetailsTableViewModel.swift in Sources */,
 				42384A722161525B004A0349 /* DmrRouter.swift in Sources */,
 				4284C721213327FD00F21B91 /* TableSectionData.swift in Sources */,
+				421752DE217BB3DF0002F0C1 /* ReusableCell.swift in Sources */,
 				420C282E2163EBA40088259C /* SettingsTableViewModel.swift in Sources */,
 				42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
@@ -2320,6 +2347,7 @@
 				42350762212499BD005343CD /* TableHeaderView.swift in Sources */,
 				426A798220D1810100797AE5 /* AppDelegate.swift in Sources */,
 				4284C723213331FE00F21B91 /* UITabBarStyle.swift in Sources */,
+				421752DC217BB1F80002F0C1 /* DownloadItemDetailRow.swift in Sources */,
 				4288011121209280007552FD /* Stylesheet.swift in Sources */,
 				428FCD652122204000C0371D /* UITableViewStyle.swift in Sources */,
 				426BF74320F6A527000C3A4A /* DownApplication.swift in Sources */,

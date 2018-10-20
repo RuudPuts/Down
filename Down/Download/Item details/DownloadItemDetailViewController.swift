@@ -20,7 +20,12 @@ class DownloadItemDetailViewController: UIViewController & Routing & DownloadApp
     var dvrApplication: DvrApplication!
     var dvrInteractorFactory: DvrInteractorProducing!
 
-    var viewModel: DownloadItemDetailViewModel?
+    var viewModel: DownloadItemDetailViewModel? {
+        didSet {
+            tableViewController = DownloadItemDetailTableViewController(dataModel: viewModel?.detailRows ?? [])
+        }
+    }
+    var tableViewController: DownloadItemDetailTableViewController?
     var router: Router?
 
     @IBOutlet weak var headerImageView: UIImageView!
@@ -32,7 +37,8 @@ class DownloadItemDetailViewController: UIViewController & Routing & DownloadApp
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
 
-    private var disposeBag = DisposeBag()
+    private var viewModelDisposeBag = DisposeBag()
+    private var footerDisposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +51,9 @@ class DownloadItemDetailViewController: UIViewController & Routing & DownloadApp
 
     func configureTableView() {
         tableView.tableFooterView = UIView()
+        
+        tableViewController?.prepare(tableView: tableView)
+        tableView.dataSource = tableViewController
     }
 
     func applyStyling() {
@@ -58,7 +67,7 @@ class DownloadItemDetailViewController: UIViewController & Routing & DownloadApp
     }
 
     func applyViewModel() {
-        disposeBag = DisposeBag()
+        viewModelDisposeBag = DisposeBag()
 
         guard let viewModel = viewModel else {
             tableView.reloadData()
@@ -77,14 +86,35 @@ class DownloadItemDetailViewController: UIViewController & Routing & DownloadApp
 
         headerImage
             .drive(headerImageView.rx.image)
-            .disposed(by: disposeBag)
+            .disposed(by: viewModelDisposeBag)
 
         headerImage
             .map { $0 == nil }
             .startWith(true)
             .drive(headerImageView.rx.isHidden)
-            .disposed(by: disposeBag)
+            .disposed(by: viewModelDisposeBag)
 
+        bindFooterButtons()
         tableView.reloadData()
+    }
+
+    func bindFooterButtons() {
+        guard let viewModel = viewModel else {
+            return
+        }
+
+        deleteButton.rx.tap
+            .asObservable()
+            .flatMap { _ in
+                viewModel.deleteDownloadItem()
+            }
+            .subscribe(onNext: {
+                guard $0 else {
+                    return
+                }
+
+                self.router?.close(viewController: self)
+            })
+            .disposed(by: footerDisposeBag)
     }
 }

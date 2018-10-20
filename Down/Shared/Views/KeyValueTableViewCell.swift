@@ -9,17 +9,15 @@
 import UIKit
 
 class KeyValueTableViewCell: UITableViewCell {
-    static let identifier = String(describing: DownloadItemCell.self)
-
     @IBOutlet weak var keyLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
 
-//    var viewModel: DownloadItemCellModel? {
-//        didSet {
-//            keyLabel.text = viewModel?.keyLabel
-//            valueLabel.text = viewModel?.valueLabel
-//        }
-//    }
+    var viewModel: KeyValueCellModel? {
+        didSet {
+            keyLabel.text = viewModel?.keyText
+            valueLabel.text = viewModel?.valueText
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,6 +26,12 @@ class KeyValueTableViewCell: UITableViewCell {
     }
 
     func applyStyling() {
-//        style(as: .keyValueCell)
+        keyLabel.style(as: .titleLabel)
+        valueLabel.style(as: .detailLabel)
     }
+}
+
+protocol KeyValueCellModel {
+    var keyText: String { get }
+    var valueText: String { get }
 }

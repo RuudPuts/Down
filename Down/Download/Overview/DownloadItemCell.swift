@@ -10,9 +10,7 @@ import UIKit
 import DownKit
 import CircleProgressView
 
-class DownloadItemCell: UITableViewCell {
-    static let identifier = String(describing: DownloadItemCell.self)
-    
+class DownloadItemCell: UITableViewCell {   
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!

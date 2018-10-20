@@ -11,20 +11,25 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-protocol DownloadItemDetailViewModel: DvrApplicationInteracting {
+protocol DownloadItemDetailViewModel: DownloadApplicationInteracting, DvrApplicationInteracting {
     var title: String { get }
     var subtitle: String? { get }
     var statusText: String { get }
     var statusStyle: ViewStyling<UILabel> { get }
 
     var downloadItem: DownloadItem { get }
-    var items: [[DownloadItemDetailModel]]? { get }
+    func makeItemRows() -> [DownloadItemDetailRow]
+    var detailRows: [[DownloadItemDetailRow]] { get }
 
     var itemHasProgress: Bool { get }
     var itemCanRetry: Bool { get }
 }
 
 extension DownloadItemDetailViewModel {
+    var title: String {
+        return downloadItem.displayName
+    }
+
     func fetchHeaderImage() -> Driver<UIImage?> {
         guard let show = downloadItem.dvrEpisode?.show else {
             return Single.just(nil).asDriver(onErrorJustReturn: nil)
@@ -36,127 +41,35 @@ extension DownloadItemDetailViewModel {
             .map { $0 as UIImage?}
             .asDriver(onErrorJustReturn: nil)
     }
-}
 
-class DownloadQueueItemDetailViewModel: DownloadItemDetailViewModel {
-    var title: String
-    var subtitle: String?
-    var statusText: String
-    var statusStyle: ViewStyling<UILabel>
+    var detailRows: [[DownloadItemDetailRow]] {
+        var sections = [makeItemRows()]
 
-    var downloadItem: DownloadItem {
-        return queueItem
-    }
-    var queueItem: DownloadQueueItem
-    var items: [[DownloadItemDetailModel]]?
-
-    var dvrApplication: DvrApplication!
-    var dvrInteractorFactory: DvrInteractorProducing!
-
-    init(queueItem: DownloadQueueItem) {
-        self.queueItem = queueItem
-
-        title = queueItem.displayName
-
-        statusText = queueItem.state.displayName
-        statusStyle = .queueItemStatusLabel(queueItem.state)
-    }
-
-    func makeItems() {
-        let firstSection = [
-            DownloadItemDetailModel(key: .nzbname, value: downloadItem.displayName)
-            // status
-            // mb total
-            // mb left
-            // timeleft
-        ]
-
-        // show stuf
-
-        items?.append(firstSection)
-    }
-
-    var itemHasProgress: Bool {
-        return true
-    }
-
-    var itemCanRetry: Bool {
-        return false
-    }
-}
-
-class DownloadHistoryItemDetailViewModel: DownloadItemDetailViewModel {
-    var title: String
-    var subtitle: String?
-    var statusText: String
-    var statusStyle: ViewStyling<UILabel>
-
-    var downloadItem: DownloadItem {
-        return historyItem
-    }
-    var historyItem: DownloadHistoryItem
-    var items: [[DownloadItemDetailModel]]?
-
-    var dvrApplication: DvrApplication!
-    var dvrInteractorFactory: DvrInteractorProducing!
-
-    init(historyItem: DownloadHistoryItem) {
-        self.historyItem = historyItem
-
-        title = historyItem.displayName
-
-        statusText = historyItem.state.displayName
-        statusStyle = .historyItemStatusLabel(historyItem.state)
-    }
-
-    func makeItems() {
-        let firstSection = [
-            DownloadItemDetailModel(key: .nzbname, value: downloadItem.displayName)
-            // status
-            // time finishd opt
-        ]
-
-        // show stuf
-
-        items?.append(firstSection)
-    }
-
-    var itemHasProgress: Bool {
-        return historyItem.state.hasProgress
-    }
-
-    var itemCanRetry: Bool {
-        guard historyItem.state == .failed,
-              downloadItem.dvrEpisode != nil else {
-            return false
+        if let dvrShowRows = makeDvrEpisodeRows() {
+            sections.append(dvrShowRows)
         }
 
-        return true
+        return sections
     }
-}
 
-enum DownloadItemDetailKey {
-        case nzbname
-        case status
-        case progress
-        case totalSize
+    private func makeDvrEpisodeRows() -> [DownloadItemDetailRow]? {
+        guard let episode = downloadItem.dvrEpisode,
+              let show = downloadItem.dvrEpisode?.show else {
+            return nil
+        }
 
-        // Queue specific
-        case mbProgress
+        return [
+            DownloadItemDetailRow(key: .showName, value: show.name),
+            DownloadItemDetailRow(key: .episodeNumber, value: episode.seasonIdentifierString ?? "-"),
+            DownloadItemDetailRow(key: .episodeName, value: episode.name),
+            DownloadItemDetailRow(key: .episodeAirdate, value: episode.airdate?.dateString ?? "-"),
+//            DownloadItemDetailRow(key: .episodePlot, value: episode.plot)
+        ]
+    }
 
-        // History specific
-        case finishedAt
-        case postProcessingOutput
-
-        // Dvr
-        case showName
-        case episodeNumber
-        case episodeName
-        case episodeAirdate
-        case episodePlot
-}
-
-struct DownloadItemDetailModel {
-    let key: DownloadItemDetailKey
-    let value: String
+    func deleteDownloadItem() -> Observable<Bool> {
+        return downloadInteractorFactory
+            .makeDeleteItemInteractor(for: downloadApplication, item: downloadItem)
+            .observe()
+    }
 }

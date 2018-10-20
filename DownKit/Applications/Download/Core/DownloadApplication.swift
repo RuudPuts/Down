@@ -33,7 +33,16 @@ public enum DownloadApplicationType: String {
     case sabnzbd
 }
 
-public enum DownloadApplicationCall: String {
+public enum DownloadApplicationCall {
     case queue
     case history
+    case delete(item: DownloadItem)
+
+    var stringValue: String {
+        switch self {
+        case .queue: return "queue"
+        case .history: return "history"
+        case .delete(_): return "delete"
+        }
+    }
 }

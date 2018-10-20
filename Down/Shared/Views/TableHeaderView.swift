@@ -9,8 +9,6 @@
 import UIKit
 
 class TableHeaderView: UITableViewHeaderFooterView {
-    static let identifier = String(describing: TableHeaderView.self)
-
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var imageView: UIImageView!
 

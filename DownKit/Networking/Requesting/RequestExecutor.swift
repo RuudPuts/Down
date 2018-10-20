@@ -9,8 +9,6 @@
 import RxSwift
 import RxCocoa
 
-//! Currently the only reason of this class's existence is the default param of the init
-
 public protocol RequestExecuting {
     func execute(_ request: Request) -> Observable<Response>
 }

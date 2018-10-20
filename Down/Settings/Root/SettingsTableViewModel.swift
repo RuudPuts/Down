@@ -25,8 +25,8 @@ class SettingsTableViewModel: NSObject {
     }
 
     func prepare(tableView: UITableView) {
-        tableView.registerCell(nibName: SettingsApplicationCell.identifier)
-        tableView.registerHeaderFooter(nibName: TableHeaderView.identifier)
+        tableView.registerCell(nibName: SettingsApplicationCell.reuseIdentifier)
+        tableView.registerHeaderFooter(nibName: TableHeaderView.reuseIdentifier)
     }
 }
 
@@ -40,7 +40,8 @@ extension SettingsTableViewModel: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SettingsApplicationCell.identifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: SettingsApplicationCell.reuseIdentifier,
+                                                 for: indexPath)
         guard let applicationCell = cell as? SettingsApplicationCell else {
             return cell
         }
@@ -58,7 +59,7 @@ extension SettingsTableViewModel: UITableViewDataSource {
 
 extension SettingsTableViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.identifier)
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.reuseIdentifier)
         guard let headerView = view as? TableHeaderView else {
             return nil
         }

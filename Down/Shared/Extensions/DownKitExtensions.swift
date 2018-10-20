@@ -72,16 +72,23 @@ extension DvrShowStatus {
 }
 
 extension DvrEpisode {
-    var displayName: String {
-        if let episodeId = Int(identifier),
-            let seasonId = Int(season.identifier) {
-            return String(format: "S%02dE%02d - %@",
-                          seasonId,
-                          episodeId,
-                          name)
+    var seasonIdentifierString: String? {
+        guard let episodeId = Int(identifier),
+              let seasonId = Int(season.identifier) else {
+            return nil
         }
 
-        return name
+        return String(format: "S%02dE%02d",
+                      seasonId,
+                      episodeId)
+    }
+
+    var displayName: String {
+        guard let seasonIdentifier = seasonIdentifierString else {
+            return name
+        }
+
+        return "\(seasonIdentifier) - \(name)"
     }
 }
 

@@ -28,8 +28,8 @@ class DvrShowsCollectionViewModel: NSObject {
     }
 
     func configure(_ collectionView: UICollectionView) {
-        collectionView.register(UINib(nibName: DvrShowCollectionViewCell.identifier, bundle: nil),
-                                forCellWithReuseIdentifier: DvrShowCollectionViewCell.identifier)
+        collectionView.register(UINib(nibName: DvrShowCollectionViewCell.reuseIdentifier, bundle: nil),
+                                forCellWithReuseIdentifier: DvrShowCollectionViewCell.reuseIdentifier)
 
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.headerReferenceSize = CGSize(width: collectionView.bounds.width, height: 30)
@@ -48,7 +48,7 @@ extension DvrShowsCollectionViewModel: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let show = shows?[indexPath.item],
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DvrShowCollectionViewCell.identifier,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DvrShowCollectionViewCell.reuseIdentifier,
                                                                           for: indexPath) as? DvrShowCollectionViewCell else {
             return UICollectionViewCell()
         }
