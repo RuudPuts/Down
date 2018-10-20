@@ -52,9 +52,7 @@ extension SettingsTableViewModel: UITableViewDataSource {
     }
 
     private func makeCellModel(for applicationType: DownApplicationType) -> SettingsApplicationCellModel {
-        let application = Down.persistence.load(type: applicationType)
-
-        return SettingsApplicationCellModel(applicationType: applicationType, isConfigured: application != nil)
+        return SettingsApplicationCellModel(applicationType: applicationType)
     }
 }
 
@@ -67,7 +65,7 @@ extension SettingsTableViewModel: UITableViewDelegate {
 
         let type = datasource[section].applicationType
         headerView.viewModel = TableHeaderViewModel(title: viewModel.title(for: type),
-                                                    icon: AssetProvider.icons.for(type))
+                                                    icon: viewModel.icon(for: type))
 
         return view
     }
@@ -77,6 +75,11 @@ extension SettingsTableViewModel: UITableViewDelegate {
         let application = Down.persistence.load(type: applicationType) ?? makeApplication(ofType: applicationType)
 
         router?.settingsRouter.showSettings(for: application)
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let type = datasource[indexPath.section].applications[indexPath.row]
+        cell.style(as: .selectableCell(application: type))
     }
 
     private func makeApplication(ofType type: DownApplicationType) -> ApiApplication {

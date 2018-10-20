@@ -32,14 +32,21 @@ class DownloadRouter: ChildRouter {
     
     func start() {
         navigationController.viewControllers = [
-            parent.decorate(viewController: viewControllerFactory.makeDownloadRoot())
+            parent.decorate(viewControllerFactory.makeDownloadRoot())
         ]
     }
 
     func showDetail(of item: DownloadItem) {
-        let vc = parent.decorate(viewController: viewControllerFactory.makeDownloadItemDetail())
+        let vc = parent.decorate(viewControllerFactory.makeDownloadItemDetail())
         guard let viewController = vc as? DownloadItemDetailViewController else {
             return
+        }
+
+        if let queueItem = item as? DownloadQueueItem {
+            viewController.viewModel = parent.decorate(DownloadQueueItemDetailViewModel(queueItem: queueItem))
+        }
+        else if let historyItem = item as? DownloadHistoryItem {
+            viewController.viewModel = parent.decorate(DownloadHistoryItemDetailViewModel(historyItem: historyItem))
         }
 
         navigationController.pushViewController(viewController, animated: true)

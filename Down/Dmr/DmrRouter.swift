@@ -35,7 +35,7 @@ class DmrRouter: ChildRouter {
     }
 
     func decorate(viewController vc: UIViewController) -> UIViewController {
-        let viewController = parent.decorate(viewController: vc)
+        let viewController = parent.decorate(vc)
 
         if var dmrInteracting = viewController as? DmrApplicationInteracting {
             dmrInteracting.application = application

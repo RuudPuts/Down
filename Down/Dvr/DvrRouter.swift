@@ -31,11 +31,11 @@ class DvrRouter: ChildRouter {
     }
     
     func start() {
-        navigationController.viewControllers = [parent.decorate(viewController: viewControllerFactory.makeDvrRoot())]
+        navigationController.viewControllers = [parent.decorate(viewControllerFactory.makeDvrRoot())]
     }
     
     func showDetail(of show: DvrShow) {
-        let vc = parent.decorate(viewController: viewControllerFactory.makeDvrDetail())
+        let vc = parent.decorate(viewControllerFactory.makeDvrDetail())
         guard let viewController = vc as? DvrShowDetailViewController else {
             return
         }
@@ -45,7 +45,7 @@ class DvrRouter: ChildRouter {
     }
 
     func showAddShow() {
-        let vc = parent.decorate(viewController: viewControllerFactory.makeDvrAddShow())
+        let vc = parent.decorate(viewControllerFactory.makeDvrAddShow())
         guard let viewController = vc as? DvrAddShowViewController else {
             return
         }

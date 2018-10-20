@@ -68,6 +68,48 @@ extension ViewStyling where ViewType == UILabel {
     }
 }
 
+// MARK: - Download specific
+
+extension ViewStyling where ViewType == UILabel {
+    static func queueItemStatusLabel(_ status: DownloadQueueItem.State) -> ViewStyling {
+        return ViewStyling {
+            switch status {
+            case .unknown:
+                $0.textColor = Stylesheet.Colors.white
+            case .queued:
+                $0.textColor = Stylesheet.Colors.blue
+            case .grabbing:
+                $0.textColor = Stylesheet.Colors.purple
+            case .downloading:
+                $0.textColor = Stylesheet.Colors.green
+            }
+        }
+    }
+
+    static func historyItemStatusLabel(_ status: DownloadHistoryItem.State) -> ViewStyling {
+        return ViewStyling {
+            switch status {
+            case .unknown:
+                $0.textColor = Stylesheet.Colors.white
+            case .queued:
+                $0.textColor = Stylesheet.Colors.blue
+            case .verifying:
+                $0.textColor = Stylesheet.Colors.purple
+            case .repairing:
+                $0.textColor = Stylesheet.Colors.purple
+            case .extracting:
+                $0.textColor = Stylesheet.Colors.purple
+            case .postProcessing:
+                $0.textColor = Stylesheet.Colors.orange
+            case .failed:
+                $0.textColor = Stylesheet.Colors.red
+            case .completed:
+                $0.textColor = Stylesheet.Colors.green
+            }
+        }
+    }
+}
+
 // MARK: - Dvr specific
 
 extension ViewStyling where ViewType == UILabel {

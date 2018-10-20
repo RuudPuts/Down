@@ -105,14 +105,10 @@ extension DvrShowsCollectionViewModel {
     }
 
     func fetchPoster(for show: DvrShow) {
-        guard let collectionView = collectionView else {
-            return
-        }
-
         interactorFactory
             .makeShowPosterInteractor(for: application!, show: show)
             .observe()
-            .subscribe(onNext: { $0
+            .subscribe(onNext: {
                 self.imageCache.setObject($0, forKey: show.identifier as NSString)
                 self.collectionView?.reloadItems(at: [self.indexPath(for: show)])
             })

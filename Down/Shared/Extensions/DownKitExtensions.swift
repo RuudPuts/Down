@@ -8,6 +8,17 @@
 
 import DownKit
 
+extension Quality {
+    var displayString: String {
+        switch self {
+        case .hd1080p: return "1080P"
+        case .hd720p: return "720P"
+        case .hdtv: return "HD TV"
+        case .unknown: return ""
+        }
+    }
+}
+
 extension DownloadItem {
     var displayName: String {
         if let episode = dvrEpisode,
@@ -24,13 +35,28 @@ extension DownloadItem {
     }
 }
 
-extension Quality {
-    var displayString: String {
+extension DownloadQueueItem.State {
+    var displayName: String {
         switch self {
-        case .hd1080p: return "1080P"
-        case .hd720p: return "720P"
-        case .hdtv: return "HD TV"
-        case .unknown: return ""
+        case .queued: return "Queued"
+        case .grabbing: return "Fetching NZB"
+        case .downloading: return "Downloading"
+        case .unknown: return String()
+        }
+    }
+}
+
+extension DownloadHistoryItem.State {
+    var displayName: String {
+        switch self {
+        case .queued: return "Queued"
+        case .verifying: return "Verifying"
+        case .repairing: return "Repairing"
+        case .extracting: return "Extracting"
+        case .postProcessing: return "Processing"
+        case .failed: return "Failed"
+        case .completed: return "Completed"
+        case .unknown: return String()
         }
     }
 }
@@ -42,6 +68,20 @@ extension DvrShowStatus {
         case .ended: return "Ended"
         case .unknown: return ""
         }
+    }
+}
+
+extension DvrEpisode {
+    var displayName: String {
+        if let episodeId = Int(identifier),
+            let seasonId = Int(season.identifier) {
+            return String(format: "S%02dE%02d - %@",
+                          seasonId,
+                          episodeId,
+                          name)
+        }
+
+        return name
     }
 }
 

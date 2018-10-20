@@ -22,7 +22,7 @@ class SettingsRouter: ChildRouter {
     }
 
     func start() {
-        let viewController = parent.decorate(viewController: viewControllerFactory.makeSettings())
+        let viewController = parent.decorate(viewControllerFactory.makeSettings())
         guard let settingsViewController = viewController as? SettingsViewController else {
             fatalError()
         }
@@ -32,7 +32,7 @@ class SettingsRouter: ChildRouter {
     }
 
     func showSettings(for application: ApiApplication) {
-        let viewController = parent.decorate(viewController: viewControllerFactory.makeApplicationSettings(for: application))
+        let viewController = parent.decorate(viewControllerFactory.makeApplicationSettings(for: application))
 
         navigationController.pushViewController(viewController, animated: true)
     }

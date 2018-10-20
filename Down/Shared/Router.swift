@@ -61,6 +61,7 @@ class Router {
         }
 
         let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.navigationBar.style(as: .defaultNavigationBar)
         viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain,
                                                                           target: self,
                                                                           action: #selector(closePresentedViewController))
@@ -82,34 +83,34 @@ class Router {
         }
     }
 
-    func decorate(viewController: UIViewController) -> UIViewController {
-        if var routingViewController = viewController as? Routing {
-            routingViewController.router = self
+    func decorate<Type: Any>(_ object: Type) -> Type {
+        if var routing = object as? Routing {
+            routing.router = self
         }
 
-        if var databaseConuming = viewController as? DatabaseConsuming {
+        if var databaseConuming = object as? DatabaseConsuming {
             databaseConuming.database = database
         }
 
-        if var apiInteracting = viewController as? ApiApplicationInteracting {
+        if var apiInteracting = object as? ApiApplicationInteracting {
             apiInteracting.apiInteractorFactory = ApiApplicationInteractorFactory()
         }
 
-        if var downloadInteracting = viewController as? DownloadApplicationInteracting {
+        if var downloadInteracting = object as? DownloadApplicationInteracting {
             if let application = downloadRouter?.application {
                 downloadInteracting.downloadApplication = application
             }
             downloadInteracting.downloadInteractorFactory = DownloadInteractorFactory(dvrDatabase: database)
         }
 
-        if var dvrInteracting = viewController as? DvrApplicationInteracting {
+        if var dvrInteracting = object as? DvrApplicationInteracting {
             if let application = dvrRouter?.application {
                 dvrInteracting.dvrApplication = application
             }
             dvrInteracting.dvrInteractorFactory = DvrInteractorFactory(database: database)
         }
 
-        return viewController
+        return object
     }
 }
 
@@ -182,6 +183,7 @@ extension Router {
         let application = Down.persistence.load(type: .sabnzbd) as? DownloadApplication
 
         let navigationController = UINavigationController()
+        navigationController.navigationBar.style(as: .defaultNavigationBar)
         downloadRouter = DownloadRouter(parent: self,
                                         application: application,
                                         viewControllerFactory: viewControllerFactory,
@@ -203,6 +205,7 @@ extension Router {
         let application = Down.persistence.load(type: .sickbeard) as? DvrApplication
 
         let navigationController = UINavigationController()
+        navigationController.navigationBar.style(as: .defaultNavigationBar)
         dvrRouter = DvrRouter(parent: self,
                               application: application,
                               viewControllerFactory: viewControllerFactory,
@@ -224,6 +227,7 @@ extension Router {
         let application = Down.persistence.load(type: .couchpotato) as? DmrApplication
 
         let navigationController = UINavigationController()
+        navigationController.navigationBar.style(as: .defaultNavigationBar)
         dmrRouter = DmrRouter(parent: self,
                               application: application,
                               viewControllerFactory: viewControllerFactory,

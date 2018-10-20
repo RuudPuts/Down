@@ -32,4 +32,9 @@ class SettingsViewModel {
         case .dmr: return "Movie indexers"
         }
     }
+
+    func icon(for type: ApiApplicationType) -> UIImage? {
+        return nil
+//        return AssetProvider.icons.for(type)
+    }
 }

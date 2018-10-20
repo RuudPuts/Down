@@ -17,3 +17,23 @@ extension UITableView {
         register(UINib(nibName: nib, bundle: Bundle.main), forHeaderFooterViewReuseIdentifier: nib)
     }
 }
+
+extension UITableView {
+    func setHeaderView(_ headerView: UIView) {
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        tableHeaderView = headerView
+
+        headerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        headerView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        headerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    }
+    
+    func layoutHeaderView() {
+        guard let headerView = tableHeaderView else {
+            return
+        }
+
+        headerView.layoutIfNeeded()
+        tableHeaderView = headerView
+    }
+}

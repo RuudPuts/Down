@@ -36,6 +36,7 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
         createAddShowsButton()
         applyStyling()
         applyViewModel()
+        viewModel.refreshShowCache()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -77,10 +78,6 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
     func applyViewModel() {
         viewModel.shows
             .subscribe(onNext: {
-//                if $0.count == 0 {
-//                    self.viewModel.refreshShowCache()
-//                }
-
                 self.collectionViewModel.shows = $0
                 self.collectionView.reloadData()
             })
