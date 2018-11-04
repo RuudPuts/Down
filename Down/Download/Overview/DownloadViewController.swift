@@ -51,7 +51,7 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
 
     func applyStyling() {
         view.style(as: .backgroundView)
-        tableView.style(as: .defaultTableView)
+        tableView.style(as: .cardTableView)
         headerView.style(as: .headerView(for: downloadApplication.downType))
     }
     

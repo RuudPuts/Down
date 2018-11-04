@@ -9,9 +9,13 @@
 import UIKit
 
 extension ViewStyling where ViewType == UITableView {
-    static var `defaultTableView` = ViewStyling {
-        $0.separatorStyle = .none
+    static var defaultTableView = ViewStyling {
         $0.sectionHeaderHeight = 40
         $0.separatorColor = Stylesheet.Colors.Backgrounds.lightBlue
+    }
+
+    static var cardTableView = ViewStyling {
+        $0.style(as: .defaultTableView)
+        $0.separatorStyle = .none
     }
 }

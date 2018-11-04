@@ -58,6 +58,7 @@ class DownloadItemDetailViewController: UIViewController & Routing & DownloadApp
 
     func applyStyling() {
         view.style(as: .backgroundView)
+        tableView.style(as: .defaultTableView)
         titleLabel.style(as: .boldTitleLabel)
         subtitleLabel.style(as: .titleLabel)
         statusLabel.style(as: .detailLabel)
