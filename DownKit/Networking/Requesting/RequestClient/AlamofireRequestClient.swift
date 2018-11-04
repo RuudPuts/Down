@@ -46,10 +46,6 @@ public class AlamofireRequestClient: RequestClient {
 
 extension Request {
     func asAlamofireRequest() -> DataRequest? {
-        guard let url = URL.fromHost(host: self.url) else {
-            return nil
-        }
-
         var parameters: [String: Any] = [:]
         if let authData = formAuthenticationData, authenticationMethod == .form {
             parameters[authData.fieldName.username] = authData.fieldValue.username

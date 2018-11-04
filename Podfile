@@ -24,7 +24,8 @@ target 'Down' do
   pod 'RxDataSources', '~> 3.1'
 
   pod 'SkyFloatingLabelTextField', '~> 3.6'
-  pod "CircleProgressView", '~> 1.1'
+  pod 'CircleProgressView', '~> 1.1'
+  pod 'Kingfisher', '4.9' 
 
   target 'DownTests' do
     inherit! :search_paths

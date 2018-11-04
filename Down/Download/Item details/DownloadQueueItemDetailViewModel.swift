@@ -9,6 +9,8 @@
 import DownKit
 
 class DownloadQueueItemDetailViewModel: DownloadItemDetailViewModel {
+    var dvrRequestBuilder: DvrRequestBuilding
+    
     var queueItem: DownloadQueueItem
     var downloadItem: DownloadItem {
         return queueItem
@@ -20,8 +22,9 @@ class DownloadQueueItemDetailViewModel: DownloadItemDetailViewModel {
     var dvrApplication: DvrApplication!
     var dvrInteractorFactory: DvrInteractorProducing!
 
-    init(queueItem: DownloadQueueItem) {
+    init(queueItem: DownloadQueueItem, dvrRequestBuilder: DvrRequestBuilding) {
         self.queueItem = queueItem
+        self.dvrRequestBuilder = dvrRequestBuilder
     }
 
     var subtitle: String? {

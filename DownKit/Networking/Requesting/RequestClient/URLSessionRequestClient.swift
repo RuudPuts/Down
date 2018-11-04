@@ -45,10 +45,6 @@ extension URLSession: RequestClient {
 
 extension Request {
     func asUrlRequest() -> URLRequest? {
-        guard let url = URL.fromHost(host: self.url) else {
-            return nil
-        }
-
         var request = URLRequest(url: url)
         request.httpMethod = self.method.rawValue
 
@@ -90,7 +86,7 @@ extension Request {
 }
 
 extension URL {
-    static func fromHost(host: String) -> URL? {
+    static func from(host: String) -> URL? {
         if !host.hasPrefix("http://") && !host.hasPrefix("https://") {
             return URL(string: "http://\(host)")
         }

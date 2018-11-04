@@ -9,6 +9,7 @@
 import UIKit
 import DownKit
 import CircleProgressView
+import Kingfisher
 
 import RxSwift
 import RxCocoa
@@ -82,18 +83,7 @@ class DownloadItemDetailViewController: UIViewController & Routing & DownloadApp
         progressView.isHidden = !viewModel.itemHasProgress
         retryButton.isHidden = !viewModel.itemCanRetry
 
-        let headerImage = viewModel
-            .fetchHeaderImage()
-
-        headerImage
-            .drive(headerImageView.rx.image)
-            .disposed(by: viewModelDisposeBag)
-
-        headerImage
-            .map { $0 == nil }
-            .startWith(true)
-            .drive(headerImageView.rx.isHidden)
-            .disposed(by: viewModelDisposeBag)
+        headerImageView.kf.setImage(with: viewModel.headerImageUrl)
 
         bindFooterButtons()
         tableView.reloadData()

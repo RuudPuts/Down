@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class DvrShowsCollectionViewModel: NSObject {
-    var interactorFactory: DvrInteractorProducing
+    var requestBuilder: DvrRequestBuilding
     var shows: [DvrShow]?
     var imageCache = NSCache<NSString, UIImage>()
     weak var collectionView: UICollectionView?
@@ -20,11 +20,11 @@ class DvrShowsCollectionViewModel: NSObject {
     weak var application: DvrApplication?
     let disposeBag = DisposeBag()
 
-    init(collectionView: UICollectionView, router: DvrRouter?, application: DvrApplication?, interactorFactory: DvrInteractorProducing) {
+    init(collectionView: UICollectionView, router: DvrRouter?, application: DvrApplication?, requestBuilder: DvrRequestBuilding) {
         self.collectionView = collectionView
         self.router = router
         self.application = application
-        self.interactorFactory = interactorFactory
+        self.requestBuilder = requestBuilder
     }
 
     func configure(_ collectionView: UICollectionView) {
@@ -37,7 +37,6 @@ class DvrShowsCollectionViewModel: NSObject {
 
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.prefetchDataSource = self
     }
 }
 
@@ -54,7 +53,7 @@ extension DvrShowsCollectionViewModel: UICollectionViewDataSource {
         }
 
         cell.viewModel = DvrShowCellModel(title: show.name,
-                                          image: image(for: show))
+                                          imageUrl: requestBuilder.url(for: .fetchPoster(show)))
 
         return cell
     }
@@ -77,42 +76,9 @@ extension DvrShowsCollectionViewModel: UICollectionViewDelegate, UICollectionVie
     }
 }
 
-extension DvrShowsCollectionViewModel: UICollectionViewDataSourcePrefetching {
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        indexPaths.forEach {
-            guard let show = shows?[$0.item] else {
-                return
-            }
-
-            _ = image(for: show)
-        }
-    }
-}
-
 extension DvrShowsCollectionViewModel {
     func indexPath(for show: DvrShow) -> IndexPath {
         return IndexPath(item: shows?.index(of: show) ?? NSNotFound, section: 0)
-    }
-
-    func image(for show: DvrShow) -> UIImage {
-        if let image = imageCache.object(forKey: show.identifier as NSString) {
-            return image
-        }
-
-        fetchPoster(for: show)
-
-        return UIImage()
-    }
-
-    func fetchPoster(for show: DvrShow) {
-        interactorFactory
-            .makeShowPosterInteractor(for: application!, show: show)
-            .observe()
-            .subscribe(onNext: {
-                self.imageCache.setObject($0, forKey: show.identifier as NSString)
-                self.collectionView?.reloadItems(at: [self.indexPath(for: show)])
-            })
-            .disposed(by: disposeBag)
     }
 }
 

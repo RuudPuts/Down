@@ -13,6 +13,7 @@ import UIKit
 class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationInteracting {
     var dvrApplication: DvrApplication!
     var dvrInteractorFactory: DvrInteractorProducing!
+    var dvrRequestBuilder: DvrRequestBuilding!
     var router: Router?
 
     @IBOutlet weak var headerView: DvrShowHeaderView?
@@ -25,9 +26,6 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
         didSet {
             configureTableView()
             configureHeaderView()
-
-            checkShowBanner()
-            checkShowPoster()
         }
     }
 
@@ -49,7 +47,13 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
     }
 
     func configureHeaderView() {
-        headerView?.viewModel = DvrShowHeaderViewModel(show: show!)
+        guard let show = show else {
+            return
+        }
+
+        headerView?.viewModel = DvrShowHeaderViewModel(show: show,
+                                                       bannerUrl: dvrRequestBuilder.url(for: .fetchBanner(show)),
+                                                       posterUrl: dvrRequestBuilder.url(for: .fetchPoster(show)))
     }
 
     func configureTableView() {
@@ -60,33 +64,5 @@ class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationIn
         tableViewModel = DvrShowDetailsTableViewModel(show: show, application: dvrApplication)
         tableView?.dataSource = tableViewModel
         tableView?.delegate = tableViewModel
-    }
-
-    func checkShowBanner() {
-        guard let show = show, AssetStorage.banner(for: show) == nil else {
-            return
-        }
-
-        dvrInteractorFactory
-            .makeShowBannerInteractor(for: dvrApplication, show: show)
-            .observe()
-            .subscribe(onNext: { _ in
-                self.configureHeaderView()
-            })
-            .disposed(by: disposeBag)
-    }
-
-    func checkShowPoster() {
-        guard let show = show, AssetStorage.poster(for: show) == nil else {
-            return
-        }
-
-        dvrInteractorFactory
-            .makeShowPosterInteractor(for: dvrApplication, show: show)
-            .observe()
-            .subscribe(onNext: { _ in
-                self.configureHeaderView()
-            })
-            .disposed(by: disposeBag)
     }
 }

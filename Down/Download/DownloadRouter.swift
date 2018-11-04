@@ -42,11 +42,14 @@ class DownloadRouter: ChildRouter {
             return
         }
 
+        let builder = ApplicationAdditionsFactory().makeDvrRequestBuilder(for: parent.dvrRouter.application!)
         if let queueItem = item as? DownloadQueueItem {
-            viewController.viewModel = parent.decorate(DownloadQueueItemDetailViewModel(queueItem: queueItem))
+            viewController.viewModel = parent.decorate(DownloadQueueItemDetailViewModel(queueItem: queueItem,
+                                                                                        dvrRequestBuilder: builder))
         }
         else if let historyItem = item as? DownloadHistoryItem {
-            viewController.viewModel = parent.decorate(DownloadHistoryItemDetailViewModel(historyItem: historyItem))
+            viewController.viewModel = parent.decorate(DownloadHistoryItemDetailViewModel(historyItem: historyItem,
+                                                                                          dvrRequestBuilder: builder))
         }
 
         navigationController.pushViewController(viewController, animated: true)

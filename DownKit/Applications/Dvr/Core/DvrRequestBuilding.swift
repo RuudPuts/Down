@@ -9,6 +9,7 @@
 public protocol DvrRequestBuilding: ApiApplicationRequestBuilding {
     func specification(for apiCall: DvrApplicationCall) -> RequestSpecification?
     func make(for apiCall: DvrApplicationCall) throws -> Request
+    func url(for apiCall: DvrApplicationCall) -> URL?
 }
 
 extension DvrRequestBuilding {
@@ -18,5 +19,13 @@ extension DvrRequestBuilding {
         }
 
         return make(from: spec)
+    }
+
+    func url(for apiCall: DvrApplicationCall) -> URL? {
+        guard let request = try? make(for: apiCall) else {
+            return nil
+        }
+
+        return request.url
     }
 }

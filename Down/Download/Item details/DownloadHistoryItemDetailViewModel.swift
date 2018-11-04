@@ -9,6 +9,8 @@
 import DownKit
 
 class DownloadHistoryItemDetailViewModel: DownloadItemDetailViewModel {
+    var dvrRequestBuilder: DvrRequestBuilding
+
     var historyItem: DownloadHistoryItem
     var downloadItem: DownloadItem {
         return historyItem
@@ -20,8 +22,9 @@ class DownloadHistoryItemDetailViewModel: DownloadItemDetailViewModel {
     var dvrApplication: DvrApplication!
     var dvrInteractorFactory: DvrInteractorProducing!
 
-    init(historyItem: DownloadHistoryItem) {
+    init(historyItem: DownloadHistoryItem, dvrRequestBuilder: DvrRequestBuilding) {
         self.historyItem = historyItem
+        self.dvrRequestBuilder = dvrRequestBuilder
     }
 
     var subtitle: String? {

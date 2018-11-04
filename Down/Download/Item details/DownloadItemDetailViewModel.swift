@@ -12,10 +12,13 @@ import RxSwift
 import RxCocoa
 
 protocol DownloadItemDetailViewModel: DownloadApplicationInteracting, DvrApplicationInteracting {
+    var dvrRequestBuilder: DvrRequestBuilding { get }
+
     var title: String { get }
     var subtitle: String? { get }
     var statusText: String { get }
     var statusStyle: ViewStyling<UILabel> { get }
+    var headerImageUrl: URL? { get }
 
     var downloadItem: DownloadItem { get }
     func makeItemRows() -> [DownloadItemDetailRow]
@@ -30,16 +33,12 @@ extension DownloadItemDetailViewModel {
         return downloadItem.displayName
     }
 
-    func fetchHeaderImage() -> Driver<UIImage?> {
+    var headerImageUrl: URL? {
         guard let show = downloadItem.dvrEpisode?.show else {
-            return Single.just(nil).asDriver(onErrorJustReturn: nil)
+            return nil
         }
-
-        return dvrInteractorFactory
-            .makeShowPosterInteractor(for: dvrApplication, show: show)
-            .observe()
-            .map { $0 as UIImage?}
-            .asDriver(onErrorJustReturn: nil)
+        
+        return dvrRequestBuilder.url(for: .fetchPoster(show))
     }
 
     var detailRows: [[DownloadItemDetailRow]] {

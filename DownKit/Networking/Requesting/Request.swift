@@ -10,7 +10,7 @@ import Foundation
 
 public class Request {
     var method: Method
-    var url: String
+    var url: URL
     var authenticationMethod: AuthenticationMethod
     var basicAuthenticationData: BasicAuthenticationData?
     var formAuthenticationData: FormAuthenticationData?
@@ -22,7 +22,7 @@ public class Request {
         case delete
     }
     
-    init(url: String,
+    init(url: URL,
          method: Method,
          authenticationMethod: AuthenticationMethod = .none,
          basicAuthenticationData: BasicAuthenticationData? = nil,
@@ -45,7 +45,7 @@ public class Request {
 
         let url = "\(host)/\(path)".inject(parameters: parameters ?? [:])
 
-        self.init(url: url,
+        self.init(url: URL.from(host: url)!,
                   method: method,
                   authenticationMethod: authenticationMethod,
                   basicAuthenticationData: basicAuthenticationData,

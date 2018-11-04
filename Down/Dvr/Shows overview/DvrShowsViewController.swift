@@ -14,6 +14,7 @@ import UIKit
 class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
     var dvrApplication: DvrApplication!
     var dvrInteractorFactory: DvrInteractorProducing!
+    var dvrRequestBuilder: DvrRequestBuilding!
     var database: DownDatabase!
     var router: Router?
 
@@ -27,7 +28,7 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
     lazy var collectionViewModel = DvrShowsCollectionViewModel(collectionView: collectionView,
                                                                router: router?.dvrRouter,
                                                                application: dvrApplication,
-                                                               interactorFactory: dvrInteractorFactory)
+                                                               requestBuilder: dvrRequestBuilder)
     
     override func viewDidLoad() {
         super.viewDidLoad()

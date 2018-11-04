@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 import DownKit
 import RealmSwift
 
@@ -21,8 +22,8 @@ class DvrShowHeaderView: DesignableView {
 
     var viewModel: DvrShowHeaderViewModel! {
         didSet {
-            bannerImageView.image = viewModel?.banner
-            posterImageView.image = viewModel?.poster
+            bannerImageView.kf.setImage(with: viewModel.bannerUrl)
+            posterImageView.kf.setImage(with: viewModel.posterUrl)
             nameLabel.text = viewModel?.name
             networkLabel.text = viewModel?.airingOn
             statusLabel.text = viewModel?.status.displayString
@@ -52,8 +53,8 @@ class DvrShowHeaderView: DesignableView {
 }
 
 struct DvrShowHeaderViewModel {
-    let banner: UIImage?
-    let poster: UIImage?
+    let bannerUrl: URL?
+    let posterUrl: URL?
     let name: String
     let network: String
     let airTime: String
@@ -64,9 +65,9 @@ struct DvrShowHeaderViewModel {
         return "Airs \(airTime) on \(network)"
     }
 
-    init(show: DvrShow) {
-        banner = AssetStorage.banner(for: show)
-        poster = AssetStorage.poster(for: show)
+    init(show: DvrShow, bannerUrl: URL?, posterUrl: URL?) {
+        self.bannerUrl = bannerUrl
+        self.posterUrl = posterUrl
         name = show.name
         network = show.network
         airTime = show.airTime

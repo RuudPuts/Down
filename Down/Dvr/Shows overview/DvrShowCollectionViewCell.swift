@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class DvrShowCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var textLabel: UILabel!
@@ -16,7 +17,7 @@ class DvrShowCollectionViewCell: UICollectionViewCell {
     var viewModel: DvrShowCellModel? {
         didSet {
             textLabel.text = viewModel?.title
-            imageView.image = viewModel?.image
+            imageView.kf.setImage(with: viewModel?.imageUrl)
         }
     }
 
@@ -30,5 +31,5 @@ class DvrShowCollectionViewCell: UICollectionViewCell {
 
 struct DvrShowCellModel {
     var title: String
-    var image: UIImage
+    var imageUrl: URL?
 }
