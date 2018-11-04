@@ -110,7 +110,7 @@ extension SabNZBdResponseParser {
         let progress = parseHistoryProgress(for: state, actionLine: json["action_line"].stringValue)
         let finishDate = Date(timeIntervalSince1970: json["completed"].doubleValue)
 
-        return DownloadHistoryItem(identifier: json["id"].stringValue,
+        return DownloadHistoryItem(identifier: json["nzo_id"].stringValue,
                                    name: json["nzb_name"].stringValue,
                                    category: json["category"].stringValue,
                                    sizeMb: sizeMb,

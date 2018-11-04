@@ -41,7 +41,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     
                     beforeEach {
                         do {
-                            result = try sut.parse(response, forCall: .queue)
+                            result = try sut.parse(response, forKey: .queue)
                         }
                         catch {
                             parseError = error as? ParseError
@@ -60,7 +60,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 context("from succesful response") {
                     beforeEach {
                         response.data = Data(fromJsonFile: "sabnzbd_success")
-                        result = try? sut.parse(response, forCall: .queue)
+                        result = try? sut.parse(response, forKey: .queue)
                     }
                     
                     it("parses the json's data") {
@@ -74,7 +74,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     beforeEach {
                         do {
                             response.data = Data(fromJsonFile: "sabnzbd_error")
-                            result = try sut.parse(response, forCall: .queue)
+                            result = try sut.parse(response, forKey: .queue)
                         }
                         catch {
                             parseError = error as? ParseError
@@ -96,7 +96,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     beforeEach {
                         do {
                             response.data = "invalid response".data(using: .utf8)
-                            result = try sut.parse(response, forCall: .queue)
+                            result = try sut.parse(response, forKey: .queue)
                         }
                         catch {
                             parseError = error as? ParseError
