@@ -19,12 +19,21 @@ public class DvrSeason: Object {
         self.init()
         self.identifier = identifier
         self.show = show
-        
-        self.episodes = List<DvrEpisode>(episodes.map {
+
+
+        setEpisodes(episodes)
+    }
+
+    func setEpisodes(_ newEpisodes: [DvrEpisode]) {
+        let episodes = List<DvrEpisode>()
+
+        newEpisodes.forEach {
             $0.show = show
             $0.season = self
-            return $0
-        })
+            episodes.append($0)
+        }
+
+        self.episodes = episodes
     }
     
     override public static func primaryKey() -> String? {

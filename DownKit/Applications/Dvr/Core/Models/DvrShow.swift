@@ -23,11 +23,19 @@ public class DvrShow: Object {
         self.name = name
     }
     
-    public func setSeasons(_ seasons: [DvrSeason]) {
-        self.seasons = List<DvrSeason>(seasons.map {
+    public func setSeasons(_ newSeasons: [DvrSeason]) {
+        let seasons = List<DvrSeason>()
+
+        newSeasons.forEach {
             $0.show = self
-            return $0
-        })
+            $0.episodes.forEach {
+                $0.show = self
+            }
+
+            seasons.append($0)
+        }
+
+        self.seasons = seasons
     }
     
     override public static func primaryKey() -> String? {
