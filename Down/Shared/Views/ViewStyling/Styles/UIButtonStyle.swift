@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DownKit
 
 extension ViewStyling where ViewType == UIButton {
     static var defaultButton = ViewStyling {

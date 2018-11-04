@@ -9,8 +9,9 @@
 import DownKit
 import UIKit
 
-class Router {    
+class Router {
     let window: UIWindow
+    let dependencies: DownDependencies
     let viewControllerFactory: ViewControllerProducing
     let database: DownDatabase
     
@@ -21,8 +22,9 @@ class Router {
     
     var tabBarController: UITabBarController?
     
-    init(window: UIWindow, viewControllerFactory: ViewControllerProducing, database: DownDatabase = RealmDatabase.default) {
+    init(window: UIWindow, dependencies: DownDependencies, viewControllerFactory: ViewControllerProducing, database: DownDatabase = RealmDatabase.default) {
         self.window = window
+        self.dependencies = dependencies
         self.viewControllerFactory = viewControllerFactory
         self.database = database
     }
@@ -180,7 +182,7 @@ extension Router {
     }
 
     func makeDownloadRouter() {
-        let application = Down.persistence.load(type: .sabnzbd) as? DownloadApplication
+        let application = dependencies.persistence.load(type: .sabnzbd) as? DownloadApplication
 
         let navigationController = UINavigationController()
         navigationController.navigationBar.style(as: .defaultNavigationBar)
@@ -202,7 +204,7 @@ extension Router {
     }
 
     func makeDvrRouter() {
-        let application = Down.persistence.load(type: .sickbeard) as? DvrApplication
+        let application = dependencies.persistence.load(type: .sickbeard) as? DvrApplication
 
         let navigationController = UINavigationController()
         navigationController.navigationBar.style(as: .defaultNavigationBar)
@@ -224,7 +226,7 @@ extension Router {
     }
 
     func makeDmrRouter() {
-        let application = Down.persistence.load(type: .couchpotato) as? DmrApplication
+        let application = dependencies.persistence.load(type: .couchpotato) as? DmrApplication
 
         let navigationController = UINavigationController()
         navigationController.navigationBar.style(as: .defaultNavigationBar)

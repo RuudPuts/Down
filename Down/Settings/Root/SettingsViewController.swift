@@ -9,6 +9,9 @@
 import UIKit
 
 class SettingsViewController: UIViewController & Routing {
+    typealias Dependencies = ApplicationPersistenceDependency
+    var dependencies: Dependencies!
+
     var router: Router?
     var viewModel: SettingsViewModel!
     var tableViewModel: SettingsTableViewModel?
@@ -57,7 +60,7 @@ class SettingsViewController: UIViewController & Routing {
     }
 
     func configureTableView() {
-        tableViewModel = SettingsTableViewModel(viewModel: viewModel, router: router)
+        tableViewModel = SettingsTableViewModel(dependencies: dependencies, viewModel: viewModel, router: router)
         tableViewModel?.prepare(tableView: tableView)
 
         tableView.dataSource = tableViewModel

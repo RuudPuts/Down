@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DownKit
 
 class SettingsApplicationCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!

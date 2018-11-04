@@ -6,13 +6,11 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-import DownKit
-
-protocol DownApplication {
-    var type: DownApplicationType { get }
+public protocol DownApplication {
+    var downType: DownApplicationType { get }
 }
 
-enum DownApplicationType: String {
+public enum DownApplicationType: String {
     case sabnzbd
     case sickbeard
     case couchpotato
@@ -28,14 +26,14 @@ enum DownApplicationType: String {
 
 // Note on the extensions below. Yes they look odd, but I have to map the types them.
 
-extension ApiApplication {
+public extension ApiApplication {
     var downType: DownApplicationType {
-        return (self as! DownApplication).type
+        return (self as! DownApplication).downType
     }
 }
 
 extension DownloadApplication: DownApplication {
-    var type: DownApplicationType {
+    public var downType: DownApplicationType {
         switch downloadType {
         case .sabnzbd: return .sabnzbd
         }
@@ -43,7 +41,7 @@ extension DownloadApplication: DownApplication {
 }
 
 extension DvrApplication: DownApplication {
-    var type: DownApplicationType {
+    public var downType: DownApplicationType {
         switch dvrType {
         case .sickbeard: return .sickbeard
         }
@@ -51,7 +49,7 @@ extension DvrApplication: DownApplication {
 }
 
 extension DmrApplication: DownApplication {
-    var type: DownApplicationType {
+    public var downType: DownApplicationType {
         switch dmrType {
         case .couchpotato: return .couchpotato
         }

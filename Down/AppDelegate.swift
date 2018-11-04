@@ -21,8 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow()
 
+        let dependencies = DownDependencies(persistence: UserDefaults.standard)
         let factory = ViewControllerFactory()
-        router = Router(window: window!, viewControllerFactory: factory)
+        router = Router(window: window!, dependencies: dependencies, viewControllerFactory: factory)
         router.start()
 
         NSLog(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "")

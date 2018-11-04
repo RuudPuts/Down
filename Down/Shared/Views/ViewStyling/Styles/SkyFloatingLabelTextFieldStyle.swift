@@ -6,6 +6,7 @@
 //  Copyright © 2018 Ruud Puts. All rights reserved.
 //
 
+import DownKit
 import SkyFloatingLabelTextField
 
 extension ViewStyling where ViewType == SkyFloatingLabelTextField {

@@ -108,7 +108,7 @@ extension DownloadViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.style(as: .selectableCell(application: downloadApplication.type))
+        cell.style(as: .selectableCell(application: downloadApplication.downType))
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

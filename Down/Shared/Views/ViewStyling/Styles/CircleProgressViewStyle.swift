@@ -6,6 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import DownKit
 import CircleProgressView
 
 extension ViewStyling where ViewType == CircleProgressView {
