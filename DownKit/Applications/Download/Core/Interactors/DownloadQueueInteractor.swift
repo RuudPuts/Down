@@ -8,20 +8,18 @@
 
 import RxSwift
 
-public final class DownloadQueueInteractor: RequestGatewayInteracting, DatabaseConsuming {
+public final class DownloadQueueInteractor: RequestGatewayInteracting, Depending {
+    public typealias Dependencies = DatabaseDependency
+    public let dependencies: DatabaseDependency
+
     public typealias Gateway = DownloadQueueGateway
     public typealias Element = Gateway.ResultType
     
     public var gateway: Gateway
-    public var database: DownDatabase!
 
-    public init(gateway: Gateway) {
+    public init(dependencies: Dependencies, gateway: Gateway) {
+        self.dependencies = dependencies
         self.gateway = gateway
-    }
-
-    convenience init(gateway: Gateway, database: DownDatabase) {
-        self.init(gateway: gateway)
-        self.database = database
     }
     
     public func observe() -> Observable<DownloadQueue> {
@@ -36,7 +34,7 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting, DatabaseC
                     return Observable.just([])
                 }
 
-                return Observable.zip(items.map { $0.match(with: self.database) })
+                return Observable.zip(items.map { $0.match(with: self.dependencies.database) })
             }
             .map { _ in queue }
     }

@@ -82,10 +82,6 @@ class Router {
     }
 
     func decorate<Type: Any>(_ object: Type) -> Type {
-        if var databaseConuming = object as? DatabaseConsuming {
-            databaseConuming.database = dependencies.database
-        }
-
         if var apiInteracting = object as? ApiApplicationInteracting {
             apiInteracting.apiInteractorFactory = ApiApplicationInteractorFactory()
         }
@@ -94,7 +90,7 @@ class Router {
             if let application = downloadRouter?.application {
                 downloadInteracting.downloadApplication = application
             }
-            downloadInteracting.downloadInteractorFactory = DownloadInteractorFactory(dvrDatabase: dependencies.database)
+            downloadInteracting.downloadInteractorFactory = DownloadInteractorFactory(dependencies: dependencies)
         }
 
         if var dvrInteracting = object as? DvrApplicationInteracting {

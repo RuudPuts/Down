@@ -11,7 +11,3 @@ public typealias DownDatabase = Database & DvrDatabase
 public protocol Database {
     func transact(block: @escaping () -> Void)
 }
-
-public protocol DatabaseConsuming {
-    var database: DownDatabase! { get set }
-}

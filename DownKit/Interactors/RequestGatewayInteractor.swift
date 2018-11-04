@@ -12,7 +12,6 @@ public protocol RequestGatewayInteracting: ObservableInteractor where Element ==
     associatedtype Gateway: RequestGateway
     
     var gateway: Gateway { get }
-    init(gateway: Gateway)
 }
 
 extension RequestGatewayInteracting {
