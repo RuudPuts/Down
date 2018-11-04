@@ -63,7 +63,8 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
     }
 
     func createAddShowsButton() {
-        let toolbar = ButtonToolbar()        
+        let toolbar = ButtonToolbar()
+        toolbar.insets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 6)
         toolbar
             .addButton(title: "Add show", style: .successButton)
             .rx.tap
