@@ -21,6 +21,6 @@ DerivedData
 *.gcno
 *.gcda
 
-Carthage
+Pods
 
 *.generated.swift
