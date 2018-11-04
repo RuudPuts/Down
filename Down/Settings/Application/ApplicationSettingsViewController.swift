@@ -13,14 +13,15 @@ import RxSwiftExt
 import DownKit
 import SkyFloatingLabelTextField
 
-class ApplicationSettingsViewController: UIViewController & Routing & ApiApplicationInteracting, DvrApplicationInteracting {
+class ApplicationSettingsViewController: UIViewController & Depending & ApiApplicationInteracting, DvrApplicationInteracting {
+    typealias Dependencies = RouterDependency
+    let dependencies: Dependencies
+
     var apiApplication: ApiApplication!
     var apiInteractorFactory: ApiApplicationInteractorProducing!
     var dvrApplication: DvrApplication!
     var dvrInteractorFactory: DvrInteractorProducing!
 
-    var router: Router?
-//    var settingsChangeActions: [ApplicationSettingsChangedAction]?
     let disposeBag = DisposeBag()
 
     lazy var viewModel = ApplicationSettingsViewModel(application: apiApplication,
@@ -32,6 +33,16 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
     @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var apiKeyTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var saveButton: UIButton!
+
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,19 +132,19 @@ class ApplicationSettingsViewController: UIViewController & Routing & ApiApplica
 
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         viewModel.save()
-        router?.store(application: self.apiApplication)
+        dependencies.router.store(application: self.apiApplication)
 
         viewModel.updateApplicationCache()
             .subscribe(onCompleted: { [weak self] in
                 guard let `self` = self else { return }
 
-                self.router?.restartRouter(type: self.apiApplication.type)
-                self.router?.close(viewController: self)
+                self.dependencies.router.restartRouter(type: self.apiApplication.type)
+                self.dependencies.router.close(viewController: self)
             })
             .disposed(by: disposeBag)
     }
 
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
-        router?.close(viewController: self)
+        dependencies.router.close(viewController: self)
     }
 }

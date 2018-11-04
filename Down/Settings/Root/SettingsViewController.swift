@@ -8,15 +8,27 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController & Routing {
-    typealias Dependencies = ApplicationPersistenceDependency
-    var dependencies: Dependencies!
+class SettingsViewController: UIViewController {
+    typealias Dependencies = ApplicationPersistenceDependency & RouterDependency
+    let dependencies: Dependencies!
 
-    var router: Router?
-    var viewModel: SettingsViewModel!
-    var tableViewModel: SettingsTableViewModel?
+    var viewModel: SettingsViewModel
+    var tableViewModel: SettingsTableViewModel
 
     @IBOutlet weak var tableView: UITableView!
+
+    init(dependencies: Dependencies, viewModel: SettingsViewModel) {
+        self.dependencies = dependencies
+        self.viewModel = viewModel
+        self.tableViewModel = SettingsTableViewModel(dependencies: dependencies,
+                                                     viewModel: viewModel)
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,8 +72,7 @@ class SettingsViewController: UIViewController & Routing {
     }
 
     func configureTableView() {
-        tableViewModel = SettingsTableViewModel(dependencies: dependencies, viewModel: viewModel, router: router)
-        tableViewModel?.prepare(tableView: tableView)
+        tableViewModel.prepare(tableView: tableView)
 
         tableView.dataSource = tableViewModel
         tableView.delegate = tableViewModel

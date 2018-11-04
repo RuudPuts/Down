@@ -10,11 +10,10 @@ import DownKit
 import RxSwift
 import UIKit
 
-class DvrShowDetailViewController: UIViewController & Routing & DvrApplicationInteracting {
+class DvrShowDetailViewController: UIViewController & DvrApplicationInteracting {
     var dvrApplication: DvrApplication!
     var dvrInteractorFactory: DvrInteractorProducing!
     var dvrRequestBuilder: DvrRequestBuilding!
-    var router: Router?
 
     @IBOutlet weak var headerView: DvrShowHeaderView?
     @IBOutlet weak var tableView: UITableView?

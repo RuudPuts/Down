@@ -12,8 +12,6 @@ import UIKit
 class Router {
     let window: UIWindow
     let dependencies: DownDependencies
-    let viewControllerFactory: ViewControllerProducing
-    let database: DownDatabase
     
     var downloadRouter: DownloadRouter!
     var dvrRouter: DvrRouter!
@@ -22,11 +20,9 @@ class Router {
     
     var tabBarController: UITabBarController?
     
-    init(window: UIWindow, dependencies: DownDependencies, viewControllerFactory: ViewControllerProducing, database: DownDatabase = RealmDatabase.default) {
+    init(dependencies: DownDependencies, window: UIWindow) {
         self.window = window
         self.dependencies = dependencies
-        self.viewControllerFactory = viewControllerFactory
-        self.database = database
     }
     
     func start() {
@@ -86,12 +82,8 @@ class Router {
     }
 
     func decorate<Type: Any>(_ object: Type) -> Type {
-        if var routing = object as? Routing {
-            routing.router = self
-        }
-
         if var databaseConuming = object as? DatabaseConsuming {
-            databaseConuming.database = database
+            databaseConuming.database = dependencies.database
         }
 
         if var apiInteracting = object as? ApiApplicationInteracting {
@@ -102,14 +94,14 @@ class Router {
             if let application = downloadRouter?.application {
                 downloadInteracting.downloadApplication = application
             }
-            downloadInteracting.downloadInteractorFactory = DownloadInteractorFactory(dvrDatabase: database)
+            downloadInteracting.downloadInteractorFactory = DownloadInteractorFactory(dvrDatabase: dependencies.database)
         }
 
         if var dvrInteracting = object as? DvrApplicationInteracting {
             if let application = dvrRouter?.application {
                 dvrInteracting.dvrApplication = application
             }
-            dvrInteracting.dvrInteractorFactory = DvrInteractorFactory(database: database)
+            dvrInteracting.dvrInteractorFactory = DvrInteractorFactory(database: dependencies.database)
         }
 
         return object
@@ -188,9 +180,9 @@ extension Router {
         navigationController.navigationBar.style(as: .defaultNavigationBar)
         downloadRouter = DownloadRouter(parent: self,
                                         application: application,
-                                        viewControllerFactory: viewControllerFactory,
+                                        viewControllerFactory: dependencies.viewControllerFactory,
                                         navigationController: navigationController,
-                                        database: database)
+                                        database: dependencies.database)
     }
 
     func startDownloadRouter() -> UIViewController? {
@@ -210,9 +202,9 @@ extension Router {
         navigationController.navigationBar.style(as: .defaultNavigationBar)
         dvrRouter = DvrRouter(parent: self,
                               application: application,
-                              viewControllerFactory: viewControllerFactory,
+                              viewControllerFactory: dependencies.viewControllerFactory,
                               navigationController: navigationController,
-                              database: database)
+                              database: dependencies.database)
     }
 
     func startDvrRouter() -> UIViewController? {
@@ -232,9 +224,9 @@ extension Router {
         navigationController.navigationBar.style(as: .defaultNavigationBar)
         dmrRouter = DmrRouter(parent: self,
                               application: application,
-                              viewControllerFactory: viewControllerFactory,
+                              viewControllerFactory: dependencies.viewControllerFactory,
                               navigationController: navigationController,
-                              database: database)
+                              database: dependencies.database)
     }
 
     func startDmrRouter() -> UIViewController? {
@@ -249,16 +241,12 @@ extension Router {
 
     func startSettingsRouter() -> UIViewController {
         settingsRouter = SettingsRouter(parent: self,
-                                        viewControllerFactory: viewControllerFactory,
+                                        viewControllerFactory: dependencies.viewControllerFactory,
                                         navigationController: UINavigationController())
         settingsRouter.start()
 
         return settingsRouter.navigationController
     }
-}
-
-protocol Routing {
-    var router: Router? { get set }
 }
 
 protocol ChildRouter {

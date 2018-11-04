@@ -10,41 +10,49 @@ import UIKit
 import DownKit
 
 protocol ViewControllerProducing {
-    func makeSettings() -> UIViewController
+    func makeSettings(viewModel: SettingsViewModel) -> UIViewController
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController
 
-    func makeDownloadRoot() -> UIViewController
+    func makeDownloadOverview() -> UIViewController
     func makeDownloadItemDetail() -> UIViewController
 
-    func makeDvrRoot() -> UIViewController
+    func makeDvrShows() -> UIViewController
     func makeDvrDetail() -> UIViewController
     func makeDvrAddShow() -> UIViewController
 
     func makeDmrRoot() -> UIViewController
 }
 
-class ViewControllerFactory: ViewControllerProducing {
-    func makeSettings() -> UIViewController {
-        return SettingsViewController()
+class ViewControllerFactory: ViewControllerProducing, Depending {
+    typealias Dependencies = AllDownDependencies
+    let dependencies: Dependencies
+
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+    }
+
+    func makeSettings(viewModel: SettingsViewModel) -> UIViewController {
+        return SettingsViewController(dependencies: dependencies,
+                                      viewModel: viewModel)
     }
 
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController {
-        let viewController = ApplicationSettingsViewController()
+        let viewController = ApplicationSettingsViewController(dependencies: dependencies)
         viewController.apiApplication = application
 
         return viewController
     }
 
-    func makeDownloadRoot() -> UIViewController {
-        return DownloadViewController()
+    func makeDownloadOverview() -> UIViewController {
+        return DownloadViewController(dependencies: dependencies)
     }
 
     func makeDownloadItemDetail() -> UIViewController {
-        return DownloadItemDetailViewController()
+        return DownloadItemDetailViewController(dependencies: dependencies)
     }
 
-    func makeDvrRoot() -> UIViewController {
-        return DvrShowsViewController()
+    func makeDvrShows() -> UIViewController {
+        return DvrShowsViewController(dependencies: dependencies)
     }
 
     func makeDvrDetail() -> UIViewController {
@@ -52,7 +60,7 @@ class ViewControllerFactory: ViewControllerProducing {
     }
 
     func makeDvrAddShow() -> UIViewController {
-        return DvrAddShowViewController()
+        return DvrAddShowViewController(dependencies: dependencies)
     }
 
     func makeDmrRoot() -> UIViewController {

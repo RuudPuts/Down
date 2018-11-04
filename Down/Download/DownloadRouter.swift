@@ -32,7 +32,7 @@ class DownloadRouter: ChildRouter {
     
     func start() {
         navigationController.viewControllers = [
-            parent.decorate(viewControllerFactory.makeDownloadRoot())
+            parent.decorate(viewControllerFactory.makeDownloadOverview())
         ]
     }
 

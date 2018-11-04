@@ -12,11 +12,12 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class DownloadViewController: UIViewController & Routing & DatabaseConsuming & DownloadApplicationInteracting {
+class DownloadViewController: UIViewController & Depending & DownloadApplicationInteracting {
+    typealias Dependencies = RouterDependency
+    let dependencies: Dependencies
+
     var downloadApplication: DownloadApplication!
     var downloadInteractorFactory: DownloadInteractorProducing!
-    var database: DownDatabase!
-    var router: Router?
     let disposeBag = DisposeBag()
 
     @IBOutlet weak var headerView: ApplicationHeaderView!
@@ -25,6 +26,16 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
     
     lazy var viewModel = DownloadViewModel(queueInteractor: downloadInteractorFactory.makeQueueInteractor(for: downloadApplication),
                                            historyInteractor: downloadInteractorFactory.makeHistoryInteractor(for: downloadApplication))
+
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +127,7 @@ extension DownloadViewController: UITableViewDelegate {
             return
         }
 
-        router?.downloadRouter.showDetail(of: item)
+        dependencies.router.downloadRouter.showDetail(of: item)
     }
 }
 

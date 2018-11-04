@@ -8,8 +8,13 @@
 
 import DownKit
 
-class DownDependencies: ApplicationPersistenceDependency {
+class DownDependencies: AllDownDependencies {
     var persistence: ApplicationPersisting
+    var viewControllerFactory: ViewControllerProducing!
+    var router: Router!
+
+    // DownKit
+    var database: DownDatabase
 
     // router
     // applications
@@ -18,11 +23,33 @@ class DownDependencies: ApplicationPersistenceDependency {
     // dvr interacting
     // dmr interacting
 
-    init(persistence: ApplicationPersisting) {
-        self.persistence = persistence
+    init() {
+        persistence = UserDefaults.standard
+        database = RealmDatabase.default
+    }
+
+    static func recursiveInit() -> DownDependencies {
+        let dependencies = DownDependencies()
+
+        dependencies.viewControllerFactory = ViewControllerFactory(dependencies: dependencies)
+
+        return dependencies
     }
 }
 
+typealias AllDownDependencies = DownKitDependencies
+    & ApplicationPersistenceDependency
+    & ViewControllerFactoryDependency
+    & RouterDependency
+
 protocol ApplicationPersistenceDependency {
     var persistence: ApplicationPersisting { get }
+}
+
+protocol ViewControllerFactoryDependency {
+    var viewControllerFactory: ViewControllerProducing! { get }
+}
+
+protocol RouterDependency {
+    var router: Router! { get set }
 }

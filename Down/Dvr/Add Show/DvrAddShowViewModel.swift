@@ -9,17 +9,19 @@
 import DownKit
 import RxSwift
 
-struct DvrAddShowViewModel {
+struct DvrAddShowViewModel{//: Depending {
+//    typealias Dependencies = DatabaseDependency
+//    let dependencies: Dependencies
+
     var title = R.string.localizable.dvr_screen_add_show_title()
 
     let application: DvrApplication
-    let database: DvrDatabase
     let interactorFactory: DvrInteractorProducing
     let disposeBag = DisposeBag()
     
-    init(application: DvrApplication, database: DvrDatabase, interactorFactory: DvrInteractorProducing) {
+    init(/*dependencies: Dependencies, */application: DvrApplication, interactorFactory: DvrInteractorProducing) {
+//        self.dependencies = dependencies
         self.application = application
-        self.database = database
         self.interactorFactory = interactorFactory
     }
 

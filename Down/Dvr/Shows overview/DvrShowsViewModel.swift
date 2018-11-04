@@ -10,18 +10,20 @@ import DownKit
 import RxSwift
 import RxDataSources
 
-class DvrShowsViewModel {
+class DvrShowsViewModel: Depending {
+    typealias Dependencies = DatabaseDependency
+    let dependencies: Dependencies
+
     let refreshCacheInteractor: DvrRefreshShowCacheInteractor
-    let database: DvrDatabase
     let disposeBag = DisposeBag()
     
-    init(database: DvrDatabase, refreshCacheInteractor: DvrRefreshShowCacheInteractor) {
-        self.database = database
+    init(dependencies: Dependencies, refreshCacheInteractor: DvrRefreshShowCacheInteractor) {
+        self.dependencies = dependencies
         self.refreshCacheInteractor = refreshCacheInteractor
     }
 
     var shows: Observable<[DvrShow]> {
-        return database
+        return dependencies.database
             .fetchShows()
             .map {
                 return $0.sorted(by: { $0.name < $1.name })

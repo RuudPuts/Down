@@ -22,13 +22,10 @@ class SettingsRouter: ChildRouter {
     }
 
     func start() {
-        let viewController = parent.decorate(viewControllerFactory.makeSettings())
-        guard let settingsViewController = viewController as? SettingsViewController else {
-            fatalError()
-        }
-        settingsViewController.viewModel = SettingsViewModel(showWelcomeMessage: true)
+        let viewModel = SettingsViewModel(showWelcomeMessage: true)
+        let viewController = parent.decorate(viewControllerFactory.makeSettings(viewModel: viewModel))
 
-        navigationController.viewControllers = [settingsViewController]
+        navigationController.viewControllers = [viewController]
     }
 
     func showSettings(for application: ApiApplication) {

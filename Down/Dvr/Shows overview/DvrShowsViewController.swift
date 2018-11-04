@@ -11,25 +11,36 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
+class DvrShowsViewController: UIViewController & DvrApplicationInteracting {
+    typealias Dependencies = RouterDependency & DatabaseDependency
+    let dependencies: Dependencies
+
     var dvrApplication: DvrApplication!
     var dvrInteractorFactory: DvrInteractorProducing!
     var dvrRequestBuilder: DvrRequestBuilding!
-    var database: DownDatabase!
-    var router: Router?
 
     let disposeBag = DisposeBag()
 
     @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var collectionView: UICollectionView!
 
-    lazy var viewModel = DvrShowsViewModel(database: database,
+    lazy var viewModel = DvrShowsViewModel(dependencies: dependencies,
                                            refreshCacheInteractor: dvrInteractorFactory.makeShowCacheRefreshInteractor(for: dvrApplication))
-    lazy var collectionViewModel = DvrShowsCollectionViewModel(collectionView: collectionView,
-                                                               router: router?.dvrRouter,
+    lazy var collectionViewModel = DvrShowsCollectionViewModel(dependencies: dependencies,
+                                                               collectionView: collectionView,
                                                                application: dvrApplication,
                                                                requestBuilder: dvrRequestBuilder)
-    
+
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -70,7 +81,7 @@ class DvrShowsViewController: UIViewController & Routing & DatabaseConsuming & D
             .addButton(title: "Add show", style: .successButton)
             .rx.tap
             .subscribe(onNext: { _ in
-                self.router?.dvrRouter.showAddShow()
+                self.dependencies.router.dvrRouter.showAddShow()
             })
             .disposed(by: disposeBag)
 

@@ -11,9 +11,8 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class DmrStatusViewController: UIViewController & Routing & DmrApplicationInteracting {
+class DmrStatusViewController: UIViewController & DmrApplicationInteracting {
     var application: DmrApplication!
-    var router: Router?
 
     let disposeBag = DisposeBag()
 

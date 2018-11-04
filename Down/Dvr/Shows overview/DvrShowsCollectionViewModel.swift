@@ -11,18 +11,20 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-class DvrShowsCollectionViewModel: NSObject {
+class DvrShowsCollectionViewModel: NSObject, Depending {
+    typealias Dependencies = RouterDependency
+    let dependencies: Dependencies
+
     var requestBuilder: DvrRequestBuilding
     var shows: [DvrShow]?
     var imageCache = NSCache<NSString, UIImage>()
     weak var collectionView: UICollectionView?
-    weak var router: DvrRouter?
     weak var application: DvrApplication?
     let disposeBag = DisposeBag()
 
-    init(collectionView: UICollectionView, router: DvrRouter?, application: DvrApplication?, requestBuilder: DvrRequestBuilding) {
+    init(dependencies: Dependencies, collectionView: UICollectionView, application: DvrApplication?, requestBuilder: DvrRequestBuilding) {
+        self.dependencies = dependencies
         self.collectionView = collectionView
-        self.router = router
         self.application = application
         self.requestBuilder = requestBuilder
     }
@@ -72,7 +74,7 @@ extension DvrShowsCollectionViewModel: UICollectionViewDelegate, UICollectionVie
             return
         }
 
-        router?.showDetail(of: show)
+        dependencies.router.dvrRouter.showDetail(of: show)
     }
 }
 

@@ -14,18 +14,16 @@ struct SettingsSectionModel {
 }
 
 class SettingsTableViewModel: NSObject {
-    typealias Dependencies = ApplicationPersistenceDependency
+    typealias Dependencies = ApplicationPersistenceDependency & RouterDependency
     let dependencies: Dependencies
     
     let viewModel: SettingsViewModel
     let datasource: [SettingsSectionModel]
-    var router: Router?
 
-    init(dependencies: Dependencies, viewModel: SettingsViewModel, router: Router?) {
+    init(dependencies: Dependencies, viewModel: SettingsViewModel) {
         self.dependencies = dependencies
         self.viewModel = viewModel
         self.datasource = viewModel.datasource
-        self.router = router
     }
 
     func prepare(tableView: UITableView) {
@@ -79,7 +77,7 @@ extension SettingsTableViewModel: UITableViewDelegate {
         let applicationType = datasource[indexPath.section].applications[indexPath.row]
         let application = dependencies.persistence.load(type: applicationType) ?? makeApplication(ofType: applicationType)
 
-        router?.settingsRouter.showSettings(for: application)
+        dependencies.router.settingsRouter.showSettings(for: application)
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

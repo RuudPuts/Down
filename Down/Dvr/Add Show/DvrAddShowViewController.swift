@@ -12,20 +12,31 @@ import RxCocoa
 import UIKit
 import SkyFloatingLabelTextField
 
-class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming & DvrApplicationInteracting {
+class DvrAddShowViewController: UIViewController & Depending, DvrApplicationInteracting {
+    typealias Dependencies = RouterDependency// & DatabaseDependency
+    let dependencies: Dependencies
+
     var dvrApplication: DvrApplication!
     var dvrInteractorFactory: DvrInteractorProducing!
-    var database: DownDatabase!
-    var router: Router?
 
     @IBOutlet weak var searchTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var tableView: UITableView!
 
     let disposeBag = DisposeBag()
 
-    lazy var viewModel = DvrAddShowViewModel(application: dvrApplication,
-                                             database: database,
+    lazy var viewModel = DvrAddShowViewModel(/*dependencies: dependencies,*/
+                                             application: dvrApplication,
                                              interactorFactory: dvrInteractorFactory)
+
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +80,7 @@ class DvrAddShowViewController: UIViewController & Routing & DatabaseConsuming &
                 self.viewModel
                     .add(show: $0)
                     .subscribe(onNext: { _ in
-                        self.router?.close(viewController: self)
+                        self.dependencies.router.close(viewController: self)
                     })
                     .disposed(by: self.disposeBag)
             })

@@ -14,7 +14,10 @@ import Kingfisher
 import RxSwift
 import RxCocoa
 
-class DownloadItemDetailViewController: UIViewController & Routing & DownloadApplicationInteracting & DvrApplicationInteracting {
+class DownloadItemDetailViewController: UIViewController & Depending & DownloadApplicationInteracting & DvrApplicationInteracting {
+    typealias Dependencies = RouterDependency
+    let dependencies: Dependencies
+
     var downloadApplication: DownloadApplication!
     var downloadInteractorFactory: DownloadInteractorProducing!
 
@@ -27,7 +30,6 @@ class DownloadItemDetailViewController: UIViewController & Routing & DownloadApp
         }
     }
     var tableViewController: DownloadItemDetailTableViewController?
-    var router: Router?
 
     @IBOutlet weak var headerImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -40,6 +42,16 @@ class DownloadItemDetailViewController: UIViewController & Routing & DownloadApp
 
     private var viewModelDisposeBag = DisposeBag()
     private var footerDisposeBag = DisposeBag()
+
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +116,7 @@ class DownloadItemDetailViewController: UIViewController & Routing & DownloadApp
                     return
                 }
 
-                self.router?.close(viewController: self)
+                self.dependencies.router.close(viewController: self)
             })
             .disposed(by: footerDisposeBag)
     }

@@ -126,6 +126,7 @@
 		42384A74216152A5004A0349 /* DmrApplicationInteracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A73216152A5004A0349 /* DmrApplicationInteracting.swift */; };
 		4239553C218F5D7000B7E40F /* DownDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4239553B218F5D7000B7E40F /* DownDependencies.swift */; };
 		4239553E218F5DE200B7E40F /* DownApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BF74220F6A527000C3A4A /* DownApplication.swift */; };
+		42395540218F651300B7E40F /* DownKitDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4239553F218F651300B7E40F /* DownKitDependencies.swift */; };
 		423A5503216913A100CC558A /* ButtonToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A5502216913A100CC558A /* ButtonToolbar.swift */; };
 		423A5505216917A800CC558A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A5504216917A800CC558A /* UICollectionViewExtensions.swift */; };
 		4243527A20FA8FB800A729E1 /* DvrShowDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */; };
@@ -447,6 +448,7 @@
 		42384A712161525B004A0349 /* DmrRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmrRouter.swift; sourceTree = "<group>"; };
 		42384A73216152A5004A0349 /* DmrApplicationInteracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmrApplicationInteracting.swift; sourceTree = "<group>"; };
 		4239553B218F5D7000B7E40F /* DownDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownDependencies.swift; sourceTree = "<group>"; };
+		4239553F218F651300B7E40F /* DownKitDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownKitDependencies.swift; sourceTree = "<group>"; };
 		423A5502216913A100CC558A /* ButtonToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonToolbar.swift; sourceTree = "<group>"; };
 		423A5504216917A800CC558A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
 		4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrShowDetailViewController.xib; sourceTree = "<group>"; };
@@ -658,6 +660,7 @@
 			isa = PBXGroup;
 			children = (
 				42E49DC8214458C600F8491B /* DownKit.swift */,
+				4239553F218F651300B7E40F /* DownKitDependencies.swift */,
 				426BF74220F6A527000C3A4A /* DownApplication.swift */,
 				4221DA6720D18450003950CF /* Applications */,
 				422BE6C320D6D4CE00DDDF37 /* Interactors */,
@@ -2273,6 +2276,7 @@
 				422BE6C720D6D4FB00DDDF37 /* ObservableInteractor.swift in Sources */,
 				4227B76D20DB0AF200603528 /* DvrSeason.swift in Sources */,
 				4243529720FABE1000A729E1 /* ApiApplicationInteractorFactory.swift in Sources */,
+				42395540218F651300B7E40F /* DownKitDependencies.swift in Sources */,
 				422BE6C520D6D4E600DDDF37 /* RequestGatewayInteractor.swift in Sources */,
 				422BE6C020D6CC6500DDDF37 /* DvrRequestGateway.swift in Sources */,
 				428FCD5F212209BE00C0371D /* DownloadHistoryItem.swift in Sources */,

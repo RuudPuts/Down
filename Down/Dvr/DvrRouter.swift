@@ -31,7 +31,7 @@ class DvrRouter: ChildRouter {
     }
     
     func start() {
-        let vc = parent.decorate(viewControllerFactory.makeDvrRoot())
+        let vc = parent.decorate(viewControllerFactory.makeDvrShows())
 
         (vc as? DvrShowsViewController)?.dvrRequestBuilder = ApplicationAdditionsFactory().makeDvrRequestBuilder(for: application!)
 
