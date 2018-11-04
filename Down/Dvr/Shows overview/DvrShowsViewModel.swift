@@ -11,15 +11,13 @@ import RxSwift
 import RxDataSources
 
 class DvrShowsViewModel: Depending {
-    typealias Dependencies = DatabaseDependency
+    typealias Dependencies = DatabaseDependency & DvrInteractorFactoryDependency
     let dependencies: Dependencies
 
-    let refreshCacheInteractor: DvrRefreshShowCacheInteractor
     let disposeBag = DisposeBag()
     
-    init(dependencies: Dependencies, refreshCacheInteractor: DvrRefreshShowCacheInteractor) {
+    init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.refreshCacheInteractor = refreshCacheInteractor
     }
 
     var shows: Observable<[DvrShow]> {
@@ -31,7 +29,8 @@ class DvrShowsViewModel: Depending {
     }
 
     func refreshShowCache() {
-        refreshCacheInteractor
+        dependencies.dvrInteractorFactory
+            .makeShowCacheRefreshInteractor(for: dependencies.dvrApplication)
             .observe()
             .subscribe()
             .disposed(by: disposeBag)

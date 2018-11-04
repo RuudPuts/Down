@@ -13,49 +13,42 @@ protocol DvrRouting {
     var dvrRouter: DvrRouter? { get set }
 }
 
-class DvrRouter: ChildRouter {
-    var parent: Router
+class DvrRouter: ChildRouter, Depending {
+    typealias Dependencies = RouterDependency & DvrApplicationDependency
+    let dependencies: Dependencies
+
     var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController
-    var database: DownDatabase
-    var application: DvrApplication?
 
-    init(parent: Router, application: DvrApplication?, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
-        self.parent = parent
-        self.application = application
+    init(dependencies: Dependencies, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController) {
+        self.dependencies = dependencies
+
         self.viewControllerFactory = viewControllerFactory
         self.navigationController = navigationController
-        self.database = database
 
         configureTabBarItem()
     }
     
     func start() {
-        let vc = parent.decorate(viewControllerFactory.makeDvrShows())
-
-        (vc as? DvrShowsViewController)?.dvrRequestBuilder = ApplicationAdditionsFactory().makeDvrRequestBuilder(for: application!)
-
-        navigationController.viewControllers = [vc]
+        navigationController.viewControllers = [viewControllerFactory.makeDvrShows()]
     }
     
     func showDetail(of show: DvrShow) {
-        let vc = parent.decorate(viewControllerFactory.makeDvrDetail())
+        let vc = viewControllerFactory.makeDvrDetail(show: show)
         guard let viewController = vc as? DvrShowDetailViewController else {
             return
         }
 
-        viewController.dvrRequestBuilder = ApplicationAdditionsFactory().makeDvrRequestBuilder(for: application!)
-        viewController.show = show
         navigationController.pushViewController(viewController, animated: true)
     }
 
     func showAddShow() {
-        let vc = parent.decorate(viewControllerFactory.makeDvrAddShow())
+        let vc = viewControllerFactory.makeDvrAddShow()
         guard let viewController = vc as? DvrAddShowViewController else {
             return
         }
 
-        parent.present(viewController, inNavigationController: true, animated: true)
+        dependencies.router.present(viewController, inNavigationController: true, animated: true)
     }
 }
 

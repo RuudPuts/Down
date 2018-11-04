@@ -24,7 +24,7 @@ class DvrEpisodeCell: UITableViewCell {
         }
     }
 
-    func applyStyling() {
+    private func applyStyling() {
         nameLabel.style(as: .titleLabel)
         airLabel.style(as: .detailLabel)
         statusLabel.style(as: .detailLabel)

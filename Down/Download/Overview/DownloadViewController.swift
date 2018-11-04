@@ -12,23 +12,20 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class DownloadViewController: UIViewController & Depending & DownloadApplicationInteracting {
-    typealias Dependencies = RouterDependency
+class DownloadViewController: UIViewController & Depending {
+    typealias Dependencies = RouterDependency & DownloadApplicationDependency
     let dependencies: Dependencies
-
-    var downloadApplication: DownloadApplication!
-    var downloadInteractorFactory: DownloadInteractorProducing!
-    let disposeBag = DisposeBag()
 
     @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var statusView: DownloadQueueStatusView!
     @IBOutlet weak var tableView: UITableView!
-    
-    lazy var viewModel = DownloadViewModel(queueInteractor: downloadInteractorFactory.makeQueueInteractor(for: downloadApplication),
-                                           historyInteractor: downloadInteractorFactory.makeHistoryInteractor(for: downloadApplication))
 
-    init(dependencies: Dependencies) {
+    private let disposeBag = DisposeBag()
+    private let viewModel: DownloadViewModel
+
+    init(dependencies: Dependencies, viewModel: DownloadViewModel) {
         self.dependencies = dependencies
+        self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -63,7 +60,7 @@ class DownloadViewController: UIViewController & Depending & DownloadApplication
     func applyStyling() {
         view.style(as: .backgroundView)
         tableView.style(as: .cardTableView)
-        headerView.style(as: .headerView(for: downloadApplication.downType))
+        headerView.style(as: .headerView(for: dependencies.downloadApplication.downType))
     }
     
     func configureTableView() {
@@ -119,7 +116,7 @@ extension DownloadViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.style(as: .selectableCell(application: downloadApplication.downType))
+        cell.style(as: .selectableCell(application: dependencies.downloadApplication.downType))
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

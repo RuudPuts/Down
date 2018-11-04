@@ -10,7 +10,10 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-class ApplicationSettingsViewModel {
+class ApplicationSettingsViewModel: Depending {
+    typealias Dependencies = ApiApplicationDependency & ApiApplicationInteractorFactoryDependency & DvrInteractorFactoryDependency & ApplicationPersistenceDependency
+    let dependencies: Dependencies
+
     var host = BehaviorRelay<String?>(value: nil)
     var username = BehaviorRelay<String?>(value: nil)
     var password = BehaviorRelay<String?>(value: nil)
@@ -19,17 +22,14 @@ class ApplicationSettingsViewModel {
     var authenticationRequired = BehaviorRelay<Bool>(value: false)
 
     private var application: ApiApplication
-    private var apiInteractorFactory: ApiApplicationInteractorProducing
-    private var dvrInteractorFactory: DvrInteractorProducing
     private let disposeBag = DisposeBag()
 
-    init(application: ApiApplication, apiInteractorFactory: ApiApplicationInteractorProducing, dvrInteractorFactory: DvrInteractorProducing) {
+    init(dependencies: Dependencies, application: ApiApplication) {
+        self.dependencies = dependencies
         self.application = application
-        self.apiInteractorFactory = apiInteractorFactory
-        self.dvrInteractorFactory = dvrInteractorFactory
 
-        host.accept(application.host)
-        apiKey.accept(application.apiKey)
+        host.accept(dependencies.apiApplication.host)
+        apiKey.accept(dependencies.apiApplication.apiKey)
     }
 
     func login(host: String, credentials: UsernamePassword? = nil) -> Observable<LoginResult> {
@@ -40,7 +40,7 @@ class ApplicationSettingsViewModel {
         var applicationCopy = application.copy() as! ApiApplication
         applicationCopy.host = host
 
-        return apiInteractorFactory
+        return dependencies.apiInteractorFactory
             .makeLoginInteractor(for: applicationCopy, credentials: credentials)
             .observe()
             .do(onNext: { result in
@@ -69,7 +69,7 @@ class ApplicationSettingsViewModel {
         var applicationCopy = application.copy() as! ApiApplication
         applicationCopy.host = host.value!
 
-        return apiInteractorFactory
+        return dependencies.apiInteractorFactory
             .makeApiKeyInteractor(for: applicationCopy, credentials: credentials)
             .observe()
             .do(onNext: {
@@ -96,7 +96,7 @@ class ApplicationSettingsViewModel {
                     return Disposables.create()
                 }
 
-                self.dvrInteractorFactory
+                self.dependencies.dvrInteractorFactory
                     .makeShowCacheRefreshInteractor(for: dvrApplication)
                     .observe()
                     .subscribe(onNext: { _ in
@@ -118,6 +118,6 @@ class ApplicationSettingsViewModel {
 
         application.host = host
         application.apiKey = apiKey
-        UserDefaults.standard.store(application)
+        dependencies.persistence.store(application)
     }
 }

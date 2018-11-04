@@ -11,9 +11,7 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-protocol DownloadItemDetailViewModel: DownloadApplicationInteracting, DvrApplicationInteracting {
-    var dvrRequestBuilder: DvrRequestBuilding { get }
-
+protocol DownloadItemDetailViewModel {
     var title: String { get }
     var subtitle: String? { get }
     var statusText: String { get }
@@ -31,14 +29,6 @@ protocol DownloadItemDetailViewModel: DownloadApplicationInteracting, DvrApplica
 extension DownloadItemDetailViewModel {
     var title: String {
         return downloadItem.displayName
-    }
-
-    var headerImageUrl: URL? {
-        guard let show = downloadItem.dvrEpisode?.show else {
-            return nil
-        }
-        
-        return dvrRequestBuilder.url(for: .fetchPoster(show))
     }
 
     var detailRows: [[DownloadItemDetailRow]] {
@@ -65,10 +55,14 @@ extension DownloadItemDetailViewModel {
 //            DownloadItemDetailRow(key: .episodePlot, value: episode.plot)
         ]
     }
+}
 
-    func deleteDownloadItem() -> Observable<Bool> {
-        return downloadInteractorFactory
-            .makeDeleteItemInteractor(for: downloadApplication, item: downloadItem)
+extension DownloadItemDetailViewModel {
+    typealias DeleteItemDependencies = DownloadInteractorFactoryDependency
+
+    func deleteDownloadItem(dependencies: DeleteItemDependencies) -> Observable<Bool> {
+        return dependencies.downloadInteractorFactory
+            .makeDeleteItemInteractor(for: dependencies.downloadApplication, item: downloadItem)
             .observe()
     }
 }

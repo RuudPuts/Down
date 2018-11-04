@@ -10,19 +10,19 @@ import DownKit
 import RxSwift
 import RxDataSources
 
-struct DownloadViewModel {
-    var refreshInterval: TimeInterval = 2
+struct DownloadViewModel: Depending {
+    typealias Dependencies = DownloadInteractorFactoryDependency & DownloadApplicationDependency
+    let dependencies: Dependencies
 
-    let queueInteractor: DownloadQueueInteractor
-    let historyInteractor: DownloadHistoryInteractor
-    let disposeBag = DisposeBag()
+    private var refreshInterval: TimeInterval = 2
+
+    private let disposeBag = DisposeBag()
     
     let queueData = Variable(DownloadQueue())
     let sectionsData: Variable<[TableSectionData]> = Variable([])
     
-    init(queueInteractor: DownloadQueueInteractor, historyInteractor: DownloadHistoryInteractor) {
-        self.queueInteractor = queueInteractor
-        self.historyInteractor = historyInteractor
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
 
         startRefreshing()
     }
@@ -46,14 +46,17 @@ private extension DownloadViewModel {
     }
 
     func refreshQueue() -> Observable<[DownloadItem]> {
-        return queueInteractor
+        return dependencies.downloadInteractorFactory
+            .makeQueueInteractor(for: dependencies.downloadApplication)
             .observe()
             .do(onNext: { self.queueData.value = $0 })
             .map { $0.items }
     }
 
     func refreshHistory() -> Observable<[DownloadItem]> {
-        return historyInteractor.observe()
+        return dependencies.downloadInteractorFactory
+            .makeHistoryInteractor(for: dependencies.downloadApplication)
+            .observe()
     }
 
     func updateSectionData(queue: [DownloadItem]? = nil, history: [DownloadItem]? = nil) {

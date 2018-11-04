@@ -12,21 +12,21 @@ import RxSwift
 import RxCocoa
 
 class DvrShowsCollectionViewModel: NSObject, Depending {
-    typealias Dependencies = RouterDependency
+    typealias Dependencies = RouterDependency & DvrApplicationDependency & DvrRequestBuilderDependency
     let dependencies: Dependencies
 
-    var requestBuilder: DvrRequestBuilding
-    var shows: [DvrShow]?
-    var imageCache = NSCache<NSString, UIImage>()
-    weak var collectionView: UICollectionView?
-    weak var application: DvrApplication?
-    let disposeBag = DisposeBag()
+    var shows: [DvrShow]? {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
 
-    init(dependencies: Dependencies, collectionView: UICollectionView, application: DvrApplication?, requestBuilder: DvrRequestBuilding) {
+    private weak var collectionView: UICollectionView?
+    private let disposeBag = DisposeBag()
+
+    init(dependencies: Dependencies, collectionView: UICollectionView) {
         self.dependencies = dependencies
         self.collectionView = collectionView
-        self.application = application
-        self.requestBuilder = requestBuilder
     }
 
     func configure(_ collectionView: UICollectionView) {
@@ -54,8 +54,9 @@ extension DvrShowsCollectionViewModel: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
+        let imageUrl = dependencies.dvrRequestBuilder.url(for: .fetchPoster(show))
         cell.viewModel = DvrShowCellModel(title: show.name,
-                                          imageUrl: requestBuilder.url(for: .fetchPoster(show)))
+                                          imageUrl: imageUrl)
 
         return cell
     }

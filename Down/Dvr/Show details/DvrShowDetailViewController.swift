@@ -10,22 +10,32 @@ import DownKit
 import RxSwift
 import UIKit
 
-class DvrShowDetailViewController: UIViewController & DvrApplicationInteracting {
-    var dvrApplication: DvrApplication!
-    var dvrInteractorFactory: DvrInteractorProducing!
+class DvrShowDetailViewController: UIViewController, Depending {
+    typealias Dependencies = DvrShowDetailsTableViewModel.Dependencies
+    let dependencies: Dependencies
+
     var dvrRequestBuilder: DvrRequestBuilding!
 
     @IBOutlet weak var headerView: DvrShowHeaderView?
     @IBOutlet weak var tableView: UITableView?
 
-    private var tableViewModel: DvrShowDetailsTableViewModel?
+    private let show: DvrShow
+    private let tableViewModel: DvrShowDetailsTableViewModel
+
     private let disposeBag = DisposeBag()
 
-    var show: DvrShow? {
-        didSet {
-            configureTableView()
-            configureHeaderView()
-        }
+    init(dependencies: Dependencies, show: DvrShow) {
+        self.dependencies = dependencies
+        self.show = show
+
+        self.tableViewModel = DvrShowDetailsTableViewModel(dependencies: dependencies,
+                                                           show: show)
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -34,7 +44,7 @@ class DvrShowDetailViewController: UIViewController & DvrApplicationInteracting 
         applyStyling()
         configureHeaderView()
         configureTableView()
-        tableViewModel?.prepare(tableView: tableView!)
+        tableViewModel.prepare(tableView: tableView!)
     }
     
     func applyStyling() {
@@ -46,21 +56,12 @@ class DvrShowDetailViewController: UIViewController & DvrApplicationInteracting 
     }
 
     func configureHeaderView() {
-        guard let show = show else {
-            return
-        }
-
         headerView?.viewModel = DvrShowHeaderViewModel(show: show,
                                                        bannerUrl: dvrRequestBuilder.url(for: .fetchBanner(show)),
                                                        posterUrl: dvrRequestBuilder.url(for: .fetchPoster(show)))
     }
 
     func configureTableView() {
-        guard let show = show else {
-            return
-        }
-
-        tableViewModel = DvrShowDetailsTableViewModel(show: show, application: dvrApplication)
         tableView?.dataSource = tableViewModel
         tableView?.delegate = tableViewModel
     }

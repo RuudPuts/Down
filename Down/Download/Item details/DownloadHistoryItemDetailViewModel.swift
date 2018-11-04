@@ -8,27 +8,30 @@
 
 import DownKit
 
-class DownloadHistoryItemDetailViewModel: DownloadItemDetailViewModel {
-    var dvrRequestBuilder: DvrRequestBuilding
+class DownloadHistoryItemDetailViewModel: DownloadItemDetailViewModel, Depending {
+    typealias Dependencies = DvrRequestBuilderDependency
+    let dependencies: Dependencies
 
     var historyItem: DownloadHistoryItem
     var downloadItem: DownloadItem {
         return historyItem
     }
 
-    var downloadApplication: DownloadApplication!
-    var downloadInteractorFactory: DownloadInteractorProducing!
-
-    var dvrApplication: DvrApplication!
-    var dvrInteractorFactory: DvrInteractorProducing!
-
-    init(historyItem: DownloadHistoryItem, dvrRequestBuilder: DvrRequestBuilding) {
+    init(dependencies: Dependencies, historyItem: DownloadHistoryItem) {
+        self.dependencies = dependencies
         self.historyItem = historyItem
-        self.dvrRequestBuilder = dvrRequestBuilder
     }
 
     var subtitle: String? {
         return nil
+    }
+
+    var headerImageUrl: URL? {
+        guard let show = downloadItem.dvrEpisode?.show else {
+            return nil
+        }
+
+        return dependencies.dvrRequestBuilder.url(for: .fetchPoster(show))
     }
 
     var statusText: String {

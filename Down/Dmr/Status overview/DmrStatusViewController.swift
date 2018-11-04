@@ -11,12 +11,23 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class DmrStatusViewController: UIViewController & DmrApplicationInteracting {
-    var application: DmrApplication!
+class DmrStatusViewController: UIViewController & Depending {
+    public typealias Dependencies = DmrApplicationDependency
+    public let dependencies: Dependencies
 
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     @IBOutlet weak var headerView: ApplicationHeaderView!
+
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +50,8 @@ class DmrStatusViewController: UIViewController & DmrApplicationInteracting {
         }
     }
 
-    func applyStyling() {
+    private func applyStyling() {
         view.style(as: .backgroundView)
-        headerView.style(as: .headerView(for: application.downType))
+        headerView.style(as: .headerView(for: dependencies.dmrApplication.downType))
     }
 }

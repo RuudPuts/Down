@@ -14,22 +14,12 @@ import Kingfisher
 import RxSwift
 import RxCocoa
 
-class DownloadItemDetailViewController: UIViewController & Depending & DownloadApplicationInteracting & DvrApplicationInteracting {
-    typealias Dependencies = RouterDependency
+class DownloadItemDetailViewController: UIViewController & Depending {
+    typealias Dependencies = RouterDependency & DownloadInteractorFactoryDependency & DvrApplicationDependency
     let dependencies: Dependencies
 
-    var downloadApplication: DownloadApplication!
-    var downloadInteractorFactory: DownloadInteractorProducing!
-
-    var dvrApplication: DvrApplication!
-    var dvrInteractorFactory: DvrInteractorProducing!
-
-    var viewModel: DownloadItemDetailViewModel? {
-        didSet {
-            tableViewController = DownloadItemDetailTableViewController(dataModel: viewModel?.detailRows ?? [])
-        }
-    }
-    var tableViewController: DownloadItemDetailTableViewController?
+    private let viewModel: DownloadItemDetailViewModel
+    private let tableViewController: DownloadItemDetailTableViewController
 
     @IBOutlet weak var headerImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -43,8 +33,10 @@ class DownloadItemDetailViewController: UIViewController & Depending & DownloadA
     private var viewModelDisposeBag = DisposeBag()
     private var footerDisposeBag = DisposeBag()
 
-    init(dependencies: Dependencies) {
+    init(dependencies: Dependencies, viewModel: DownloadItemDetailViewModel) {
         self.dependencies = dependencies
+        self.viewModel = viewModel
+        tableViewController = DownloadItemDetailTableViewController(dataModel: viewModel.detailRows)
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -62,31 +54,26 @@ class DownloadItemDetailViewController: UIViewController & Depending & DownloadA
         applyStyling()
     }
 
-    func configureTableView() {
+    private func configureTableView() {
         tableView.tableFooterView = UIView()
         
-        tableViewController?.prepare(tableView: tableView)
+        tableViewController.prepare(tableView: tableView)
         tableView.dataSource = tableViewController
     }
 
-    func applyStyling() {
+    private func applyStyling() {
         view.style(as: .backgroundView)
         tableView.style(as: .defaultTableView)
         titleLabel.style(as: .boldTitleLabel)
         subtitleLabel.style(as: .titleLabel)
         statusLabel.style(as: .detailLabel)
-        progressView.style(as: .progressView(for: downloadApplication.downType))
-        retryButton.style(as: .applicationButton(dvrApplication.downType))
+        progressView.style(as: .progressView(for: dependencies.downloadApplication.downType))
+        retryButton.style(as: .applicationButton(dependencies.dvrApplication.downType))
         deleteButton.style(as: .deleteButton)
     }
 
-    func applyViewModel() {
+    private func applyViewModel() {
         viewModelDisposeBag = DisposeBag()
-
-        guard let viewModel = viewModel else {
-            tableView.reloadData()
-            return
-        }
 
         titleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
@@ -101,15 +88,11 @@ class DownloadItemDetailViewController: UIViewController & Depending & DownloadA
         tableView.reloadData()
     }
 
-    func bindFooterButtons() {
-        guard let viewModel = viewModel else {
-            return
-        }
-
+    private func bindFooterButtons() {
         deleteButton.rx.tap
             .asObservable()
             .flatMap { _ in
-                viewModel.deleteDownloadItem()
+                self.viewModel.deleteDownloadItem(dependencies: self.dependencies)
             }
             .subscribe(onNext: {
                 guard $0 else {

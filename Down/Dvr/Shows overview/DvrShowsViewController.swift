@@ -11,28 +11,24 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class DvrShowsViewController: UIViewController & DvrApplicationInteracting {
-    typealias Dependencies = RouterDependency & DatabaseDependency
+class DvrShowsViewController: UIViewController & Depending {
+    typealias Dependencies = DvrShowsCollectionViewModel.Dependencies & RouterDependency & DvrApplicationDependency
     let dependencies: Dependencies
-
-    var dvrApplication: DvrApplication!
-    var dvrInteractorFactory: DvrInteractorProducing!
-    var dvrRequestBuilder: DvrRequestBuilding!
-
-    let disposeBag = DisposeBag()
 
     @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var collectionView: UICollectionView!
 
-    lazy var viewModel = DvrShowsViewModel(dependencies: dependencies,
-                                           refreshCacheInteractor: dvrInteractorFactory.makeShowCacheRefreshInteractor(for: dvrApplication))
-    lazy var collectionViewModel = DvrShowsCollectionViewModel(dependencies: dependencies,
-                                                               collectionView: collectionView,
-                                                               application: dvrApplication,
-                                                               requestBuilder: dvrRequestBuilder)
+    private let viewModel: DvrShowsViewModel
+    private let collectionViewModel: DvrShowsCollectionViewModel
 
-    init(dependencies: Dependencies) {
+    private let disposeBag = DisposeBag()
+
+    init(dependencies: Dependencies, viewModel: DvrShowsViewModel) {
         self.dependencies = dependencies
+        self.viewModel = viewModel
+
+        collectionViewModel = DvrShowsCollectionViewModel(dependencies: dependencies,
+                                                          collectionView: collectionView)
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -65,16 +61,16 @@ class DvrShowsViewController: UIViewController & DvrApplicationInteracting {
         }
     }
 
-    func applyStyling() {
+    private func applyStyling() {
         view.style(as: .backgroundView)
-        headerView.style(as: .headerView(for: dvrApplication.downType))
+        headerView.style(as: .headerView(for: dependencies.dvrApplication.downType))
     }
 
-    func configureCollectionView() {
+    private func configureCollectionView() {
         collectionViewModel.configure(collectionView)
     }
 
-    func createAddShowsButton() {
+    private func createAddShowsButton() {
         let toolbar = ButtonToolbar()
         toolbar.insets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 6)
         toolbar
@@ -88,11 +84,10 @@ class DvrShowsViewController: UIViewController & DvrApplicationInteracting {
         collectionView.collectionHeaderView = toolbar
     }
 
-    func applyViewModel() {
+    private func applyViewModel() {
         viewModel.shows
             .subscribe(onNext: {
                 self.collectionViewModel.shows = $0
-                self.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
     }

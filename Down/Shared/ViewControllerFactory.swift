@@ -14,10 +14,10 @@ protocol ViewControllerProducing {
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController
 
     func makeDownloadOverview() -> UIViewController
-    func makeDownloadItemDetail() -> UIViewController
+    func makeDownloadItemDetail(viewModel: DownloadItemDetailViewModel) -> UIViewController
 
     func makeDvrShows() -> UIViewController
-    func makeDvrDetail() -> UIViewController
+    func makeDvrDetail(show: DvrShow) -> UIViewController
     func makeDvrAddShow() -> UIViewController
 
     func makeDmrRoot() -> UIViewController
@@ -37,33 +37,36 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
     }
 
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController {
-        let viewController = ApplicationSettingsViewController(dependencies: dependencies)
-        viewController.apiApplication = application
+        let viewController = ApplicationSettingsViewController(dependencies: dependencies,
+                                                               application: application)
 
         return viewController
     }
 
     func makeDownloadOverview() -> UIViewController {
-        return DownloadViewController(dependencies: dependencies)
+        return DownloadViewController(dependencies: dependencies,
+                                      viewModel: DownloadViewModel(dependencies: dependencies))
     }
 
-    func makeDownloadItemDetail() -> UIViewController {
-        return DownloadItemDetailViewController(dependencies: dependencies)
+    func makeDownloadItemDetail(viewModel: DownloadItemDetailViewModel) -> UIViewController {
+        return DownloadItemDetailViewController(dependencies: dependencies, viewModel: viewModel)
     }
 
     func makeDvrShows() -> UIViewController {
-        return DvrShowsViewController(dependencies: dependencies)
+        return DvrShowsViewController(dependencies: dependencies,
+                                      viewModel: DvrShowsViewModel(dependencies: dependencies))
     }
 
-    func makeDvrDetail() -> UIViewController {
-        return DvrShowDetailViewController()
+    func makeDvrDetail(show: DvrShow) -> UIViewController {
+        return DvrShowDetailViewController(dependencies: dependencies, show: show)
     }
 
     func makeDvrAddShow() -> UIViewController {
-        return DvrAddShowViewController(dependencies: dependencies)
+        return DvrAddShowViewController(dependencies: dependencies,
+                                        viewModel: DvrAddShowViewModel(dependencies: dependencies))
     }
 
     func makeDmrRoot() -> UIViewController {
-        return DmrStatusViewController()
+        return DmrStatusViewController(dependencies: dependencies)
     }
 }

@@ -38,7 +38,7 @@ class DownloadItemCell: UITableViewCell {
         applyStyling()
     }
 
-    func applyStyling() {
+    private func applyStyling() {
         style(as: .defaultCell)
         progressView.style(as: .defaultProgressView)
         if let viewModel = viewModel {

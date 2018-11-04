@@ -10,7 +10,7 @@ import RxSwift
 
 public final class DownloadQueueInteractor: RequestGatewayInteracting, Depending {
     public typealias Dependencies = DatabaseDependency
-    public let dependencies: DatabaseDependency
+    public let dependencies: Dependencies
 
     public typealias Gateway = DownloadQueueGateway
     public typealias Element = Gateway.ResultType

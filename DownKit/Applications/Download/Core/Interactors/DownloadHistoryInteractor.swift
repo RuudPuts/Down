@@ -10,7 +10,7 @@ import RxSwift
 
 public final class DownloadHistoryInteractor: RequestGatewayInteracting, Depending {
     public typealias Dependencies = DatabaseDependency
-    public let dependencies: DatabaseDependency
+    public let dependencies: Dependencies
 
     public typealias Gateway = DownloadHistoryGateway
     public typealias Element = Gateway.ResultType

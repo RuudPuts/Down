@@ -39,7 +39,7 @@ class DvrShowHeaderView: DesignableView {
         applyStyling()
     }
 
-    func applyStyling() {
+    private func applyStyling() {
         bannerOverlayView.style(as: .overlayView)
         nameLabel.style(as: .largeHeaderLabel)
         networkLabel.style(as: .titleLabel)

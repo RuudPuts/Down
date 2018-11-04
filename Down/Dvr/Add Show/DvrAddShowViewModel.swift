@@ -9,20 +9,16 @@
 import DownKit
 import RxSwift
 
-struct DvrAddShowViewModel{//: Depending {
-//    typealias Dependencies = DatabaseDependency
-//    let dependencies: Dependencies
+struct DvrAddShowViewModel: Depending {
+    typealias Dependencies = DvrApplicationDependency & DvrInteractorFactoryDependency
+    let dependencies: Dependencies
 
-    var title = R.string.localizable.dvr_screen_add_show_title()
+    let title = R.string.localizable.dvr_screen_add_show_title()
 
-    let application: DvrApplication
-    let interactorFactory: DvrInteractorProducing
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
-    init(/*dependencies: Dependencies, */application: DvrApplication, interactorFactory: DvrInteractorProducing) {
-//        self.dependencies = dependencies
-        self.application = application
-        self.interactorFactory = interactorFactory
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
     }
 
     func searchShows(query: String) -> Observable<[DvrShow]> {
@@ -30,14 +26,14 @@ struct DvrAddShowViewModel{//: Depending {
             return Observable.just([])
         }
 
-        return interactorFactory
-            .makeSearchShowsInteractor(for: application, query: query)
+        return dependencies.dvrInteractorFactory
+            .makeSearchShowsInteractor(for: dependencies.dvrApplication, query: query)
             .observe()
     }
 
     func add(show: DvrShow) -> Observable<DvrShow> {
-        return interactorFactory
-            .makeAddShowInteractor(for: application, show: show)
+        return dependencies.dvrInteractorFactory
+            .makeAddShowInteractor(for: dependencies.dvrApplication, show: show)
             .observe()
             .skip(1)
     }

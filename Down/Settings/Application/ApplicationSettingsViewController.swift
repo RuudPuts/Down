@@ -13,20 +13,14 @@ import RxSwiftExt
 import DownKit
 import SkyFloatingLabelTextField
 
-class ApplicationSettingsViewController: UIViewController & Depending & ApiApplicationInteracting, DvrApplicationInteracting {
-    typealias Dependencies = RouterDependency
+class ApplicationSettingsViewController: UIViewController & Depending {
+    typealias Dependencies = ApplicationSettingsViewModel.Dependencies & RouterDependency
     let dependencies: Dependencies
 
-    var apiApplication: ApiApplication!
-    var apiInteractorFactory: ApiApplicationInteractorProducing!
-    var dvrApplication: DvrApplication!
-    var dvrInteractorFactory: DvrInteractorProducing!
-
+    let application: ApiApplication
     let disposeBag = DisposeBag()
 
-    lazy var viewModel = ApplicationSettingsViewModel(application: apiApplication,
-                                                      apiInteractorFactory: apiInteractorFactory,
-                                                      dvrInteractorFactory: dvrInteractorFactory)
+    lazy var viewModel = ApplicationSettingsViewModel(dependencies: dependencies, application: application)
 
     @IBOutlet weak var hostTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var usernameTextField: SkyFloatingLabelTextField!
@@ -34,8 +28,9 @@ class ApplicationSettingsViewController: UIViewController & Depending & ApiAppli
     @IBOutlet weak var apiKeyTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var saveButton: UIButton!
 
-    init(dependencies: Dependencies) {
+    init(dependencies: Dependencies, application: ApiApplication) {
         self.dependencies = dependencies
+        self.application = application
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -57,10 +52,10 @@ class ApplicationSettingsViewController: UIViewController & Depending & ApiAppli
         saveButton.style(as: .successButton)
 
         [hostTextField, usernameTextField, passwordTextField, apiKeyTextField].forEach {
-            $0?.style(as: .textField(for: apiApplication.downType))
+            $0?.style(as: .textField(for: application.downType))
         }
 
-        navigationItem.titleView = UIImageView(image: AssetProvider.icons.for(apiApplication.downType))
+        navigationItem.titleView = UIImageView(image: AssetProvider.icons.for(application.downType))
     }
 
     func configureTextFields() {
@@ -132,13 +127,14 @@ class ApplicationSettingsViewController: UIViewController & Depending & ApiAppli
 
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         viewModel.save()
-        dependencies.router.store(application: self.apiApplication)
+
+//        dependencies.store(application: self.application)
 
         viewModel.updateApplicationCache()
             .subscribe(onCompleted: { [weak self] in
                 guard let `self` = self else { return }
 
-                self.dependencies.router.restartRouter(type: self.apiApplication.type)
+                self.dependencies.router.restartRouter(type: self.application.type)
                 self.dependencies.router.close(viewController: self)
             })
             .disposed(by: disposeBag)

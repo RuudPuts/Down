@@ -13,36 +13,24 @@ protocol DmrRouting {
     var dmrRouter: DmrRouter? { get set }
 }
 
-class DmrRouter: ChildRouter {
-    var parent: Router
+class DmrRouter: ChildRouter, Depending {
+    typealias Dependencies = RouterDependency & DmrApplicationDependency
+    let dependencies: Dependencies
+
     var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController
-    var database: DownDatabase
-    var application: DmrApplication?
 
-    init(parent: Router, application: DmrApplication?, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
-        self.parent = parent
-        self.application = application
+    init(dependencies: Dependencies, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController) {
+        self.dependencies = dependencies
+
         self.viewControllerFactory = viewControllerFactory
         self.navigationController = navigationController
-        self.database = database
 
         configureTabBarItem()
     }
 
     func start() {
-        navigationController.viewControllers = [decorate(viewController: viewControllerFactory.makeDmrRoot())]
-    }
-
-    func decorate(viewController vc: UIViewController) -> UIViewController {
-        let viewController = parent.decorate(vc)
-
-        if var dmrInteracting = viewController as? DmrApplicationInteracting {
-            dmrInteracting.application = application
-//            DmrInteracting.interactorFactory = DmrInteractorFactory(database: database)
-        }
-
-        return viewController
+        navigationController.viewControllers = [viewControllerFactory.makeDmrRoot()]
     }
 }
 

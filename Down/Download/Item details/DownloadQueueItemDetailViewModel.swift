@@ -8,9 +8,10 @@
 
 import DownKit
 
-class DownloadQueueItemDetailViewModel: DownloadItemDetailViewModel {
-    var dvrRequestBuilder: DvrRequestBuilding
-    
+class DownloadQueueItemDetailViewModel: DownloadItemDetailViewModel, Depending {
+    typealias Dependencies = DvrRequestBuilderDependency
+    let dependencies: Dependencies
+
     var queueItem: DownloadQueueItem
     var downloadItem: DownloadItem {
         return queueItem
@@ -22,13 +23,21 @@ class DownloadQueueItemDetailViewModel: DownloadItemDetailViewModel {
     var dvrApplication: DvrApplication!
     var dvrInteractorFactory: DvrInteractorProducing!
 
-    init(queueItem: DownloadQueueItem, dvrRequestBuilder: DvrRequestBuilding) {
+    init(dependencies: Dependencies, queueItem: DownloadQueueItem) {
+        self.dependencies = dependencies
         self.queueItem = queueItem
-        self.dvrRequestBuilder = dvrRequestBuilder
     }
 
     var subtitle: String? {
         return nil
+    }
+
+    var headerImageUrl: URL? {
+        guard let show = downloadItem.dvrEpisode?.show else {
+            return nil
+        }
+
+        return dependencies.dvrRequestBuilder.url(for: .fetchPoster(show))
     }
 
     var statusText: String {

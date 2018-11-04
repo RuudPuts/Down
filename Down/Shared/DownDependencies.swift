@@ -16,12 +16,18 @@ class DownDependencies: AllDownDependencies {
     // DownKit
     var database: DownDatabase
 
-    // router
-    // applications
-    // api interacting
-    // download interaccting
-    // dvr interacting
-    // dmr interacting
+    var apiApplication: ApiApplication!
+    var apiInteractorFactory: ApiApplicationInteractorProducing!
+
+    var downloadApplication: DownloadApplication!
+    var downloadInteractorFactory: DownloadInteractorProducing!
+
+    var dvrApplication: DvrApplication!
+    var dvrInteractorFactory: DvrInteractorProducing!
+    var dvrRequestBuilder: DvrRequestBuilding!
+
+    var dmrApplication: DmrApplication!
+    var dmrInteractorFactory: DmrInteractorProducing!
 
     init() {
         persistence = UserDefaults.standard

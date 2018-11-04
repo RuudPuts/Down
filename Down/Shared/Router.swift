@@ -80,42 +80,9 @@ class Router {
             navigationController.popViewController(animated: true)
         }
     }
-
-    func decorate<Type: Any>(_ object: Type) -> Type {
-        if var apiInteracting = object as? ApiApplicationInteracting {
-            apiInteracting.apiInteractorFactory = ApiApplicationInteractorFactory()
-        }
-
-        if var downloadInteracting = object as? DownloadApplicationInteracting {
-            if let application = downloadRouter?.application {
-                downloadInteracting.downloadApplication = application
-            }
-            downloadInteracting.downloadInteractorFactory = DownloadInteractorFactory(dependencies: dependencies)
-        }
-
-        if var dvrInteracting = object as? DvrApplicationInteracting {
-            if let application = dvrRouter?.application {
-                dvrInteracting.dvrApplication = application
-            }
-            dvrInteracting.dvrInteractorFactory = DvrInteractorFactory(database: dependencies.database)
-        }
-
-        return object
-    }
 }
 
 extension Router {
-    func store(application: ApiApplication) {
-        switch application.type {
-        case .download:
-            downloadRouter.application = application as? DownloadApplication
-        case .dvr:
-            dvrRouter.application = application as? DvrApplication
-        case .dmr:
-            dmrRouter.application = application as? DmrApplication
-        }
-    }
-
     private func childRouter(ofType type: ApiApplicationType) -> ChildRouter {
         switch type {
         case .download: return downloadRouter
@@ -170,21 +137,19 @@ extension Router {
     }
 
     func makeDownloadRouter() {
-        let application = dependencies.persistence.load(type: .sabnzbd) as? DownloadApplication
+//        let application = dependencies.persistence.load(type: .sabnzbd) as? DownloadApplication
 
         let navigationController = UINavigationController()
         navigationController.navigationBar.style(as: .defaultNavigationBar)
-        downloadRouter = DownloadRouter(parent: self,
-                                        application: application,
+        downloadRouter = DownloadRouter(dependencies: dependencies,
                                         viewControllerFactory: dependencies.viewControllerFactory,
-                                        navigationController: navigationController,
-                                        database: dependencies.database)
+                                        navigationController: navigationController)
     }
 
     func startDownloadRouter() -> UIViewController? {
-        guard downloadRouter.application != nil else {
-            return nil
-        }
+//        guard downloadRouter.application != nil else {
+//            return nil
+//        }
 
         downloadRouter.start()
 
@@ -192,21 +157,19 @@ extension Router {
     }
 
     func makeDvrRouter() {
-        let application = dependencies.persistence.load(type: .sickbeard) as? DvrApplication
+//        let application = dependencies.persistence.load(type: .sickbeard) as? DvrApplication
 
         let navigationController = UINavigationController()
         navigationController.navigationBar.style(as: .defaultNavigationBar)
-        dvrRouter = DvrRouter(parent: self,
-                              application: application,
+        dvrRouter = DvrRouter(dependencies: dependencies,
                               viewControllerFactory: dependencies.viewControllerFactory,
-                              navigationController: navigationController,
-                              database: dependencies.database)
+                              navigationController: navigationController)
     }
 
     func startDvrRouter() -> UIViewController? {
-        guard dvrRouter.application != nil else {
-            return nil
-        }
+//        guard dvrRouter.application != nil else {
+//            return nil
+//        }
 
         dvrRouter.start()
 
@@ -214,21 +177,19 @@ extension Router {
     }
 
     func makeDmrRouter() {
-        let application = dependencies.persistence.load(type: .couchpotato) as? DmrApplication
+//        let application = dependencies.persistence.load(type: .couchpotato) as? DmrApplication
 
         let navigationController = UINavigationController()
         navigationController.navigationBar.style(as: .defaultNavigationBar)
-        dmrRouter = DmrRouter(parent: self,
-                              application: application,
+        dmrRouter = DmrRouter(dependencies: dependencies,
                               viewControllerFactory: dependencies.viewControllerFactory,
-                              navigationController: navigationController,
-                              database: dependencies.database)
+                              navigationController: navigationController)
     }
 
     func startDmrRouter() -> UIViewController? {
-        guard dmrRouter.application != nil else {
-            return nil
-        }
+//        guard dmrRouter.application != nil else {
+//            return nil
+//        }
 
         dmrRouter.start()
 
@@ -246,7 +207,6 @@ extension Router {
 }
 
 protocol ChildRouter {
-    var parent: Router { get set }
     var navigationController: UINavigationController { get }
     var viewControllerFactory: ViewControllerProducing { get set }
 

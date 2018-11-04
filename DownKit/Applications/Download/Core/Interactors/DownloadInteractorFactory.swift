@@ -15,7 +15,7 @@ public protocol DownloadInteractorProducing {
 
 public class DownloadInteractorFactory: DownloadInteractorProducing, Depending {
     public typealias Dependencies = DatabaseDependency
-    public let dependencies: DatabaseDependency
+    public let dependencies: Dependencies
 
     var gatewayFactory: DownloadGatewayProducing
     

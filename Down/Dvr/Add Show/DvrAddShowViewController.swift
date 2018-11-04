@@ -12,24 +12,19 @@ import RxCocoa
 import UIKit
 import SkyFloatingLabelTextField
 
-class DvrAddShowViewController: UIViewController & Depending, DvrApplicationInteracting {
-    typealias Dependencies = RouterDependency// & DatabaseDependency
+class DvrAddShowViewController: UIViewController & Depending {
+    typealias Dependencies = RouterDependency & DvrApplicationDependency & DvrInteractorFactoryDependency
     let dependencies: Dependencies
-
-    var dvrApplication: DvrApplication!
-    var dvrInteractorFactory: DvrInteractorProducing!
 
     @IBOutlet weak var searchTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var tableView: UITableView!
 
-    let disposeBag = DisposeBag()
+    private let viewModel: DvrAddShowViewModel
+    private let disposeBag = DisposeBag()
 
-    lazy var viewModel = DvrAddShowViewModel(/*dependencies: dependencies,*/
-                                             application: dvrApplication,
-                                             interactorFactory: dvrInteractorFactory)
-
-    init(dependencies: Dependencies) {
+    init(dependencies: Dependencies, viewModel: DvrAddShowViewModel) {
         self.dependencies = dependencies
+        self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -53,7 +48,7 @@ class DvrAddShowViewController: UIViewController & Depending, DvrApplicationInte
         searchTextField.becomeFirstResponder()
     }
 
-    func configureSearchTextField() {
+    private func configureSearchTextField() {
         searchTextField.rx.text
             .skip(2)
             .debounce(0.3, scheduler: MainScheduler.instance)
@@ -71,7 +66,7 @@ class DvrAddShowViewController: UIViewController & Depending, DvrApplicationInte
             .disposed(by: disposeBag)
     }
 
-    func configureTableView() {
+    private func configureTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
@@ -87,13 +82,13 @@ class DvrAddShowViewController: UIViewController & Depending, DvrApplicationInte
             .disposed(by: disposeBag)
     }
 
-    func applyViewModel() {
+    private func applyViewModel() {
         title = viewModel.title
     }
 
-    func applyStyling() {
+    private func applyStyling() {
         view.style(as: .backgroundView)
-        searchTextField.style(as: .textField(for: dvrApplication.downType))
+        searchTextField.style(as: .textField(for: dependencies.dvrApplication.downType))
         navigationController?.navigationBar.style(as: .transparentNavigationBar)
     }
 }

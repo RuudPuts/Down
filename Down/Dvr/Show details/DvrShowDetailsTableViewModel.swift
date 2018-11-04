@@ -8,13 +8,15 @@
 
 import DownKit
 
-class DvrShowDetailsTableViewModel: NSObject {
-    let show: DvrShow
-    let application: DvrApplication
+class DvrShowDetailsTableViewModel: NSObject, Depending {
+    typealias Dependencies = DvrApplicationDependency
+    let dependencies: Dependencies
 
-    init(show: DvrShow, application: DvrApplication) {
+    let show: DvrShow
+
+    init(dependencies: Dependencies, show: DvrShow) {
+        self.dependencies = dependencies
         self.show = show
-        self.application = application
     }
 
     func prepare(tableView: UITableView) {
@@ -60,7 +62,7 @@ extension DvrShowDetailsTableViewModel: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.style(as: .defaultCell)
-        cell.style(as: .selectableCell(application: application.downType))
+        cell.style(as: .selectableCell(application: dependencies.dvrApplication.downType))
     }
 }
 

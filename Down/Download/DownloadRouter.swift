@@ -13,46 +13,45 @@ protocol DownloadRouting {
     var downloadRouter: DownloadRouter? { get set }
 }
 
-class DownloadRouter: ChildRouter {
-    var parent: Router
+class DownloadRouter: ChildRouter, Depending {
+    typealias Dependencies = DownloadQueueItemDetailViewModel.Dependencies
+        & RouterDependency
+        & DownloadApplicationDependency
+        & DatabaseDependency
+    let dependencies: Dependencies
+
     var viewControllerFactory: ViewControllerProducing
     var navigationController: UINavigationController
-    var database: DownDatabase
-    var application: DownloadApplication?
 
-    init(parent: Router, application: DownloadApplication?, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController, database: DownDatabase) {
-        self.parent = parent
-        self.application = application
+    init(dependencies: Dependencies, viewControllerFactory: ViewControllerProducing, navigationController: UINavigationController) {
+        self.dependencies = dependencies
+
         self.viewControllerFactory = viewControllerFactory
         self.navigationController = navigationController
-        self.database = database
 
         configureTabBarItem()
     }
     
     func start() {
         navigationController.viewControllers = [
-            parent.decorate(viewControllerFactory.makeDownloadOverview())
+            viewControllerFactory.makeDownloadOverview()
         ]
     }
 
     func showDetail(of item: DownloadItem) {
-        let vc = parent.decorate(viewControllerFactory.makeDownloadItemDetail())
-        guard let viewController = vc as? DownloadItemDetailViewController else {
-            return
-        }
-
-        let builder = ApplicationAdditionsFactory().makeDvrRequestBuilder(for: parent.dvrRouter.application!)
+        var viewModel: DownloadItemDetailViewModel
         if let queueItem = item as? DownloadQueueItem {
-            viewController.viewModel = parent.decorate(DownloadQueueItemDetailViewModel(queueItem: queueItem,
-                                                                                        dvrRequestBuilder: builder))
+            viewModel = DownloadQueueItemDetailViewModel(dependencies: dependencies, queueItem: queueItem)
         }
         else if let historyItem = item as? DownloadHistoryItem {
-            viewController.viewModel = parent.decorate(DownloadHistoryItemDetailViewModel(historyItem: historyItem,
-                                                                                          dvrRequestBuilder: builder))
+            viewModel = DownloadHistoryItemDetailViewModel(dependencies: dependencies, historyItem: historyItem)
+        }
+        else {
+            fatalError("Unkown DownloadItemType")
         }
 
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.pushViewController(viewControllerFactory.makeDownloadItemDetail(viewModel: viewModel),
+                                                animated: true)
     }
 }
 
