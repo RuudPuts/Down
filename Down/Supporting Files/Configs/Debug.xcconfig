@@ -1,4 +1,4 @@
-#include "Pods-Down.debug.xcconfig"
+#include "Pods/Target Support Files/Pods-Down/Pods-Down.debug.xcconfig"
 
 DEVELOPMENT_TEAM = 3GH9A2WM8V
 PROVISIONING_PROFILE_SPECIFIER = com.ruudputs.Down Development

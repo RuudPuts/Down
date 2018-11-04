@@ -2705,7 +2705,7 @@
 		};
 		426A799C20D1810200797AE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F123D1535CA5482D5A066185 /* Pods-Down.debug.xcconfig */;
+			baseConfigurationReference = 425357C620F2B10E005BC238 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;

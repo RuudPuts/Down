@@ -11,11 +11,14 @@ struct ViewStyling<ViewType> {
 }
 
 extension UIView {
-    func style<T>(as styling: ViewStyling<T>) {
+    @discardableResult
+    func style<T>(as styling: ViewStyling<T>) -> Self {
         guard let view = self as? T else {
-            return
+            return self
         }
 
         styling.style(view)
+
+        return self
     }
 }

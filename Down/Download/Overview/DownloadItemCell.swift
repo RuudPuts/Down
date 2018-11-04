@@ -18,15 +18,16 @@ class DownloadItemCell: UITableViewCell {
 
     @IBOutlet weak var progressView: CircleProgressView!
 
-    var viewModel: DownloadItemCellModel! {
+    var viewModel: DownloadItemCellModel? {
         didSet {
-            nameLabel?.text = viewModel.name
-            statusLabel?.text = viewModel.status
-            timeLabel?.text = viewModel.time
+            nameLabel?.text = viewModel?.name
+            statusLabel?.text = viewModel?.status
+            timeLabel?.text = viewModel?.time
 
-            progressView.isHidden = !viewModel.hasProgress
-            progressView.progress = viewModel.progress
+            progressView.isHidden = !(viewModel?.hasProgress ?? false)
+            progressView.progress = viewModel?.progress ?? 0
 
+            applyStyling()
             setNeedsLayout()
         }
     }
@@ -38,8 +39,17 @@ class DownloadItemCell: UITableViewCell {
     }
 
     func applyStyling() {
-        style(as: .downloadItem)
-        progressView.style(as: .progressView(for: .sabnzbd))
+        style(as: .defaultCell)
+        progressView.style(as: .defaultProgressView)
+        if let viewModel = viewModel {
+            progressView.style(as: .progressView(for: viewModel.applicationType))
+        }
+        containerView.style(as: .roundedContentView)
+
+        backgroundColor = .clear
+        nameLabel?.style(as: .titleLabel)
+        statusLabel?.style(as: .detailLabel)
+        timeLabel?.style(as: .detailLabel)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -55,21 +65,23 @@ struct DownloadItemCellModel {
     var time: String? = nil
     var hasProgress = false
     var progress = 0.0
+    var applicationType: DownApplicationType
 
-    init(item: DownloadItem) {
+    init(item: DownloadItem, applicationType: DownApplicationType) {
         name = item.displayName
         progress = item.progress / 100
+        self.applicationType = applicationType
     }
 
-    init(queueItem: DownloadQueueItem) {
-        self.init(item: queueItem)
+    init(queueItem: DownloadQueueItem, applicationType: DownApplicationType) {
+        self.init(item: queueItem, applicationType: applicationType)
         self.status = queueItem.state.displayName
         self.time = queueItem.remainingTime.displayString
         self.hasProgress = true
     }
 
-    init(historyItem: DownloadHistoryItem) {
-        self.init(item: historyItem)
+    init(historyItem: DownloadHistoryItem, applicationType: DownApplicationType) {
+        self.init(item: historyItem, applicationType: applicationType)
         self.status = historyItem.state.displayName
         self.time = historyItem.finishDate?.dateTimeString
         self.hasProgress = historyItem.state.hasProgress

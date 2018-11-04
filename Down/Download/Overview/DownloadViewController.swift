@@ -76,7 +76,7 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
             .disposed(by: disposeBag)
     }
 
-    let dataSource = RxTableViewSectionedReloadDataSource<TableSectionData>(configureCell: { (_, tableView, indexPath, item) -> UITableViewCell in
+    let dataSource = RxTableViewSectionedReloadDataSource<TableSectionData>(configureCell: { (a, tableView, indexPath, item) -> UITableViewCell in
         let cell = tableView.dequeueReusableCell(withIdentifier: DownloadItemCell.reuseIdentifier, for: indexPath)
         
         guard let itemCell = cell as? DownloadItemCell else {
@@ -84,10 +84,10 @@ class DownloadViewController: UIViewController & Routing & DatabaseConsuming & D
         }
 
         if let queueItem = item as? DownloadQueueItem {
-            itemCell.viewModel = DownloadItemCellModel(queueItem: queueItem)
+            itemCell.viewModel = DownloadItemCellModel(queueItem: queueItem, applicationType: .sabnzbd)
         }
         else if let historyItem = item as? DownloadHistoryItem {
-            itemCell.viewModel = DownloadItemCellModel(historyItem: historyItem)
+            itemCell.viewModel = DownloadItemCellModel(historyItem: historyItem, applicationType: .sabnzbd)
         }
 
         return cell

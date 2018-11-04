@@ -12,5 +12,6 @@ extension ViewStyling where ViewType == UITableView {
     static var `defaultTableView` = ViewStyling {
         $0.separatorStyle = .none
         $0.sectionHeaderHeight = 40
+        $0.separatorColor = Stylesheet.Colors.Backgrounds.lightBlue
     }
 }
