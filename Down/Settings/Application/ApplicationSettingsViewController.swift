@@ -14,7 +14,7 @@ import DownKit
 import SkyFloatingLabelTextField
 
 class ApplicationSettingsViewController: UIViewController & Depending {
-    typealias Dependencies = ApplicationSettingsViewModel.Dependencies & RouterDependency
+    typealias Dependencies = ApplicationSettingsViewModel.Dependencies & RouterDependency & ApplicationPersistenceDependency
     let dependencies: Dependencies
 
     let application: ApiApplication
@@ -128,7 +128,7 @@ class ApplicationSettingsViewController: UIViewController & Depending {
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         viewModel.save()
 
-//        dependencies.store(application: self.application)
+        dependencies.persistence.store(self.application)
 
         viewModel.updateApplicationCache()
             .subscribe(onCompleted: { [weak self] in
