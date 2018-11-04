@@ -30,8 +30,8 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - CircleProgressView (~> 1.1)
-  - R.swift
-  - R.swift.Library
+  - R.swift (~> 4.0)
+  - R.swift.Library (~> 4.0)
   - RealmSwift (~> 3.11)
   - RxBlocking (~> 4.3)
   - RxCocoa (~> 4.3)
@@ -77,6 +77,6 @@ SPEC CHECKSUMS:
   SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 90caba0fda3897c30c6c17cd0e813ea1a5d8880c
+PODFILE CHECKSUM: 262e9069b7e2faa2a5a44bd90aa14c1314af4c43
 
 COCOAPODS: 1.5.3

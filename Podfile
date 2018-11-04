@@ -11,13 +11,17 @@ def rxswift_test_pods
   pod 'RxBlocking', '~> 4.3'
 end
 
+def rswift_pods
+  pod 'R.swift', '~> 4.0'
+  pod 'R.swift.Library', '~> 4.0'
+end
+
 target 'Down' do
   use_frameworks!
 
   rxswift_pods
+  rswift_pods
   pod 'RxDataSources', '~> 3.1'
-  pod 'R.swift'
-  pod 'R.swift.Library'
 
   pod 'SkyFloatingLabelTextField', '~> 3.6'
   pod "CircleProgressView", '~> 1.1'
