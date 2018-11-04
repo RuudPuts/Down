@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public protocol DvrResponseParsing: ResponseParsing {
+public protocol DvrResponseParsing: ApiApplicationResponseParsing {
     func parseShows(from response: Response) throws -> [DvrShow]
     func parseShowDetails(from response: Response) throws -> DvrShow
     func parseSearchShows(from response: Response) throws -> [DvrShow]

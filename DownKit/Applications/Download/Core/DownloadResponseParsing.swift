@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public protocol DownloadResponseParsing: ResponseParsing {
+public protocol DownloadResponseParsing: ApiApplicationResponseParsing {
     func parseQueue(from response: Response) throws -> DownloadQueue
     func parseHistory(from response: Response) throws -> [DownloadItem]
     func parseDeleteItem(from response: Response) throws -> Bool

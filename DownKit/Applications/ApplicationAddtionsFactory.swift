@@ -27,41 +27,17 @@ public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
 
     public func makeApiApplicationRequestBuilder(for application: ApiApplication) -> ApiApplicationRequestBuilding {
         switch application.type {
-        case .download:
-            let downloadApplication = (application as! DownloadApplication)
-            switch(downloadApplication.downloadType) {
-            case .sabnzbd: return SabNZBdRequestBuilder(application: downloadApplication)
-            }
-        case .dvr:
-            let dvrApplication = (application as! DvrApplication)
-            switch(dvrApplication.dvrType) {
-            case .sickbeard: return SickbeardRequestBuilder(application: dvrApplication)
-            }
-        case .dmr:
-            let dmrApplication = (application as! DmrApplication)
-            switch(dmrApplication.dmrType) {
-            case .couchpotato: return CouchPotatoRequestBuilder(application: dmrApplication)
-            }
+        case .download: return makeDownloadRequestBuilder(for: application as! DownloadApplication)
+        case .dvr: return makeDvrRequestBuilder(for: application as! DvrApplication)
+        case .dmr: return makeDmrRequestBuilder(for: application as! DmrApplication)
         }
     }
 
     public func makeApiApplicationResponseParser(for application: ApiApplication) -> ApiApplicationResponseParsing {
         switch application.type {
-        case .download:
-            let downloadApplication = (application as! DownloadApplication)
-            switch(downloadApplication.downloadType) {
-            case .sabnzbd: return SabNZBdResponseParser()
-            }
-        case .dvr:
-            let dvrApplication = (application as! DvrApplication)
-            switch(dvrApplication.dvrType) {
-            case .sickbeard: return SickbeardResponseParser()
-            }
-        case .dmr:
-            let dmrApplication = (application as! DmrApplication)
-            switch(dmrApplication.dmrType) {
-            case .couchpotato: return CouchPotatoResponseParser()
-            }
+        case .download: return makeDownloadResponseParser(for: application as! DownloadApplication)
+        case .dvr: return makeDvrResponseParser(for: application as! DvrApplication)
+        case .dmr: return makeDmrResponseParser(for: application as! DmrApplication)
         }
     }
     

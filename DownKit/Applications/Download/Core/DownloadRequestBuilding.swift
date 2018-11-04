@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public protocol DownloadRequestBuilding: RequestBuilding {
+public protocol DownloadRequestBuilding: ApiApplicationRequestBuilding {
     //! So all RequestBuilding protocols will define these two methods.
     // Preferably this would be generic with an ApiCall associated type in RequestBuilding
     // But this will give RequestBuilding a Self requestrment

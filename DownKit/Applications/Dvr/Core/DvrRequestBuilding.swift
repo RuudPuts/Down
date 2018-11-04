@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public protocol DvrRequestBuilding: RequestBuilding {
+public protocol DvrRequestBuilding: ApiApplicationRequestBuilding {
     func specification(for apiCall: DvrApplicationCall) -> RequestSpecification?
     func make(for apiCall: DvrApplicationCall) throws -> Request
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public protocol DmrRequestBuilding: RequestBuilding {
+public protocol DmrRequestBuilding: ApiApplicationRequestBuilding {
     func specification(for apiCall: DmrApplicationCall) -> RequestSpecification?
     func make(for apiCall: DmrApplicationCall) throws -> Request
 }

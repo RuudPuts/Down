@@ -6,6 +6,6 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public protocol DmrResponseParsing: ResponseParsing {
+public protocol DmrResponseParsing: ApiApplicationResponseParsing {
     func parseMovies(from response: Response) throws -> [DmrMovie]
 }
