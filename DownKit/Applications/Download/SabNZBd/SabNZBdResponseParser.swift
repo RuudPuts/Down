@@ -31,7 +31,7 @@ class SabNZBdResponseParser: DownloadResponseParsing {
     }
 
     func parseDeleteItem(from response: Response) throws -> Bool {
-        return try parse(response, forKey: .delete).boolValue
+        return true
     }
 }
 
