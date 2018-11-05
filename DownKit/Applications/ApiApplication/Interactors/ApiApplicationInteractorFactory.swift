@@ -11,24 +11,25 @@ public protocol ApiApplicationInteractorProducing {
     func makeApiKeyInteractor(for application: ApiApplication, credentials: UsernamePassword?) -> ApiApplicationApiKeyInteractor
 }
 
-public class ApiApplicationInteractorFactory: ApiApplicationInteractorProducing {
-    var gatewayFactory: ApiApplicationGatewayProducing
-    
-    public init(gatewayFactory: ApiApplicationGatewayProducing = ApiApplicationGatewayFactory()) {
-        self.gatewayFactory = gatewayFactory
+public class ApiApplicationInteractorFactory: ApiApplicationInteractorProducing, Depending {
+    public typealias Dependencies = DatabaseDependency & ApiApplicationGatewayFactoryDependency
+    public let dependencies: Dependencies
+
+    public init(dependencies: Dependencies) {
+        self.dependencies = dependencies
     }
-    
+
     public func makeLoginInteractor(for application: ApiApplication, credentials: UsernamePassword?) -> ApiApplicationLoginInteractor {
-        let gateway = gatewayFactory.makeLoginGateway(for: application,
-                                                      credentials: credentials)
-        
+        let gateway = dependencies.apiGatewayFactory.makeLoginGateway(for: application,
+                                                                      credentials: credentials)
+
         return ApiApplicationLoginInteractor(gateway: gateway)
     }
-    
+
     public func makeApiKeyInteractor(for application: ApiApplication, credentials: UsernamePassword?) -> ApiApplicationApiKeyInteractor {
-        let gateway = gatewayFactory.makeApiKeyGateway(for: application,
-                                                       credentials: credentials)
-        
+        let gateway = dependencies.apiGatewayFactory.makeApiKeyGateway(for: application,
+                                                                       credentials: credentials)
+
         return ApiApplicationApiKeyInteractor(gateway: gateway)
     }
 }

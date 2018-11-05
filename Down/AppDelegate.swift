@@ -21,8 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow()
 
-        let dependencies = DownDependencies.recursiveInit()
-        router = Router(dependencies: dependencies, window: window!)
+        let dependencies = DownDependencies()
+        let viewControllerFactory = ViewControllerFactory(dependencies: dependencies)
+
+        router = Router(dependencies: dependencies, window: window!, viewControllerFactory: viewControllerFactory)
         dependencies.router = router
 
         router.start()

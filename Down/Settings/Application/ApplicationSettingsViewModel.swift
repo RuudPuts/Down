@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 class ApplicationSettingsViewModel: Depending {
-    typealias Dependencies = ApiApplicationDependency & ApiApplicationInteractorFactoryDependency & DvrInteractorFactoryDependency & ApplicationPersistenceDependency
+    typealias Dependencies = ApiApplicationInteractorFactoryDependency & DvrInteractorFactoryDependency & ApplicationPersistenceDependency
     let dependencies: Dependencies
 
     var host = BehaviorRelay<String?>(value: nil)
@@ -28,8 +28,8 @@ class ApplicationSettingsViewModel: Depending {
         self.dependencies = dependencies
         self.application = application
 
-        host.accept(dependencies.apiApplication.host)
-        apiKey.accept(dependencies.apiApplication.apiKey)
+        host.accept(application.host)
+        apiKey.accept(application.apiKey)
     }
 
     func login(host: String, credentials: UsernamePassword? = nil) -> Observable<LoginResult> {

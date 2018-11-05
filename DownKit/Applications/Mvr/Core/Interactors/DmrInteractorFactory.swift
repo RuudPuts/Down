@@ -9,5 +9,11 @@
 public protocol DmrInteractorProducing {
 }
 
-public class DmrInteractorFactory: DmrInteractorProducing {
+public class DmrInteractorFactory: DmrInteractorProducing, Depending {
+    public typealias Dependencies = DatabaseDependency & DmrGatewayFactoryDependency
+    public let dependencies: Dependencies
+
+    public init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+    }
 }

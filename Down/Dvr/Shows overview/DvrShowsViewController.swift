@@ -19,16 +19,13 @@ class DvrShowsViewController: UIViewController & Depending {
     @IBOutlet weak var collectionView: UICollectionView!
 
     private let viewModel: DvrShowsViewModel
-    private let collectionViewModel: DvrShowsCollectionViewModel
+    private var collectionViewModel: DvrShowsCollectionViewModel!
 
     private let disposeBag = DisposeBag()
 
     init(dependencies: Dependencies, viewModel: DvrShowsViewModel) {
         self.dependencies = dependencies
         self.viewModel = viewModel
-
-        collectionViewModel = DvrShowsCollectionViewModel(dependencies: dependencies,
-                                                          collectionView: collectionView)
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,6 +36,10 @@ class DvrShowsViewController: UIViewController & Depending {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
+        collectionViewModel = DvrShowsCollectionViewModel(dependencies: dependencies,
+                                                          collectionView: collectionView)
 
         configureCollectionView()
         createAddShowsButton()

@@ -14,30 +14,27 @@ public protocol DownloadInteractorProducing {
 }
 
 public class DownloadInteractorFactory: DownloadInteractorProducing, Depending {
-    public typealias Dependencies = DatabaseDependency
+    public typealias Dependencies = DatabaseDependency & DownloadGatewayFactoryDependency
     public let dependencies: Dependencies
-
-    var gatewayFactory: DownloadGatewayProducing
     
-    public init(dependencies: Dependencies, gatewayFactory: DownloadGatewayProducing = DownloadGatewayFactory()) {
+    public init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.gatewayFactory = gatewayFactory
     }
     
     public func makeQueueInteractor(for application: DownloadApplication) -> DownloadQueueInteractor {
-        let gateway = gatewayFactory.makeQueueGateway(for: application)
+        let gateway = dependencies.downloadGatewayFactory.makeQueueGateway(for: application)
         
         return DownloadQueueInteractor(dependencies: dependencies, gateway: gateway)
     }
     
     public func makeHistoryInteractor(for application: DownloadApplication) -> DownloadHistoryInteractor {
-        let gateway = gatewayFactory.makeHistoryGateway(for: application)
+        let gateway = dependencies.downloadGatewayFactory.makeHistoryGateway(for: application)
         
         return DownloadHistoryInteractor(dependencies: dependencies, gateway: gateway)
     }
 
     public func makeDeleteItemInteractor(for application: DownloadApplication, item: DownloadItem) -> DownloadDeleteItemInteractor {
-        let gateway = gatewayFactory.makeDeleteItemGateway(for: application, item: item)
+        let gateway = dependencies.downloadGatewayFactory.makeDeleteItemGateway(for: application, item: item)
 
         return DownloadDeleteItemInteractor(gateway: gateway)
     }

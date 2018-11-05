@@ -11,22 +11,23 @@ public protocol ApiApplicationGatewayProducing {
     func makeApiKeyGateway(for application: ApiApplication, credentials: UsernamePassword?) -> ApiApplicationApiKeyGateway
 }
 
-public class ApiApplicationGatewayFactory: ApiApplicationGatewayProducing {
-    var additionsFactory: ApplicationAdditionsProducing
-    
-    public init(additionsFactory: ApplicationAdditionsProducing = ApplicationAdditionsFactory()) {
-        self.additionsFactory = additionsFactory
+public class ApiApplicationGatewayFactory: ApiApplicationGatewayProducing, Depending {
+    public typealias Dependencies = ApplicationAdditionsFactoryDependency
+    public let dependencies: Dependencies
+
+    public init(dependencies: Dependencies) {
+        self.dependencies = dependencies
     }
     
     public func makeLoginGateway(for application: ApiApplication, credentials: UsernamePassword?) -> ApiApplicationLoginGateway {
-        return ApiApplicationLoginGateway(builder: additionsFactory.makeApiApplicationRequestBuilder(for: application),
-                                          parser: additionsFactory.makeApiApplicationResponseParser(for: application),
+        return ApiApplicationLoginGateway(builder: dependencies.applicationAdditionsFactory.makeApiApplicationRequestBuilder(for: application),
+                                          parser: dependencies.applicationAdditionsFactory.makeApiApplicationResponseParser(for: application),
                                           credentials: credentials)
     }
     
     public func makeApiKeyGateway(for application: ApiApplication, credentials: UsernamePassword?) -> ApiApplicationApiKeyGateway {
-        return ApiApplicationApiKeyGateway(builder: additionsFactory.makeApiApplicationRequestBuilder(for: application),
-                                           parser: additionsFactory.makeApiApplicationResponseParser(for: application),
+        return ApiApplicationApiKeyGateway(builder: dependencies.applicationAdditionsFactory.makeApiApplicationRequestBuilder(for: application),
+                                           parser: dependencies.applicationAdditionsFactory.makeApiApplicationResponseParser(for: application),
                                            credentials: credentials)
     }
 }

@@ -12,6 +12,7 @@ import UIKit
 class Router {
     let window: UIWindow
     let dependencies: DownDependencies
+    let viewControllerFactory: ViewControllerFactory
     
     var downloadRouter: DownloadRouter!
     var dvrRouter: DvrRouter!
@@ -20,9 +21,10 @@ class Router {
     
     var tabBarController: UITabBarController?
     
-    init(dependencies: DownDependencies, window: UIWindow) {
+    init(dependencies: DownDependencies, window: UIWindow, viewControllerFactory: ViewControllerFactory) {
         self.window = window
         self.dependencies = dependencies
+        self.viewControllerFactory = viewControllerFactory
     }
     
     func start() {
@@ -147,7 +149,7 @@ extension Router {
         }
 
         downloadRouter = DownloadRouter(dependencies: dependencies,
-                                        viewControllerFactory: dependencies.viewControllerFactory,
+                                        viewControllerFactory: viewControllerFactory,
                                         navigationController: makeNavigationController())
         downloadRouter.start()
 
@@ -160,7 +162,7 @@ extension Router {
         }
 
         dvrRouter = DvrRouter(dependencies: dependencies,
-                              viewControllerFactory: dependencies.viewControllerFactory,
+                              viewControllerFactory: viewControllerFactory,
                               navigationController: makeNavigationController())
         dvrRouter.start()
 
@@ -174,7 +176,7 @@ extension Router {
 
 
         dmrRouter = DmrRouter(dependencies: dependencies,
-                              viewControllerFactory: dependencies.viewControllerFactory,
+                              viewControllerFactory: viewControllerFactory,
                               navigationController: makeNavigationController())
         dmrRouter.start()
 
@@ -183,7 +185,7 @@ extension Router {
 
     func startSettingsRouter() -> UIViewController {
         settingsRouter = SettingsRouter(parent: self,
-                                        viewControllerFactory: dependencies.viewControllerFactory,
+                                        viewControllerFactory: viewControllerFactory,
                                         navigationController: UINavigationController())
         settingsRouter.start()
 

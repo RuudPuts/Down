@@ -14,42 +14,41 @@ public protocol DvrInteractorProducing {
     func makeAddShowInteractor(for application: DvrApplication, show: DvrShow) -> DvrAddShowInteractor
 }
 
-public class DvrInteractorFactory: DvrInteractorProducing {
-    var database: DvrDatabase
-    var gatewayFactory: DvrGatewayProducing
-    
-    public init(database: DvrDatabase, gatewayFactory: DvrGatewayProducing = DvrGatewayFactory()) {
-        self.gatewayFactory = gatewayFactory
-        self.database = database
+public class DvrInteractorFactory: DvrInteractorProducing, Depending {
+    public typealias Dependencies = DatabaseDependency & DvrGatewayFactoryDependency
+    public let dependencies: Dependencies
+
+    public init(dependencies: Dependencies) {
+        self.dependencies = dependencies
     }
     
     public func makeShowListInteractor(for application: DvrApplication) -> DvrShowListInteractor {
-        let gateway = gatewayFactory.makeShowListGateway(for: application)
+        let gateway = dependencies.dvrGatewayFactory.makeShowListGateway(for: application)
         
         return DvrShowListInteractor(gateway: gateway)
     }
     
     public func makeShowDetailsInteractor(for application: DvrApplication, show: DvrShow) -> DvrShowDetailsInteractor {
-        let gateway = gatewayFactory.makeShowDetailsGateway(for: application, show: show)
+        let gateway = dependencies.dvrGatewayFactory.makeShowDetailsGateway(for: application, show: show)
         
         return DvrShowDetailsInteractor(gateway: gateway)
     }
     
     public func makeShowCacheRefreshInteractor(for application: DvrApplication) -> DvrRefreshShowCacheInteractor {
-        return DvrRefreshShowCacheInteractor(application: application, interactors: self, database: database)
+        return DvrRefreshShowCacheInteractor(application: application, interactors: self, database: dependencies.database)
     }
 
     public func makeSearchShowsInteractor(for application: DvrApplication, query: String) -> DvrSearchShowsInteractor {
-        let gateway = gatewayFactory.makeSearchShowsGateway(for: application, query: query)
+        let gateway = dependencies.dvrGatewayFactory.makeSearchShowsGateway(for: application, query: query)
 
         return DvrSearchShowsInteractor(gateway: gateway)
     }
 
     public func makeAddShowInteractor(for application: DvrApplication, show: DvrShow) -> DvrAddShowInteractor {
-        let gateway = gatewayFactory.makeAddShowGateway(for: application, show: show)
+        let gateway = dependencies.dvrGatewayFactory.makeAddShowGateway(for: application, show: show)
         let showDetailsInteractor = makeShowDetailsInteractor(for: application, show: show)
         let interactors = (addShow: gateway, showDetails: showDetailsInteractor)
 
-        return DvrAddShowInteractor(interactors: interactors, database: database)
+        return DvrAddShowInteractor(interactors: interactors, database: dependencies.database)
     }
 }

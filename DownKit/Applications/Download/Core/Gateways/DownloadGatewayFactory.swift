@@ -12,26 +12,27 @@ public protocol DownloadGatewayProducing {
     func makeDeleteItemGateway(for application: DownloadApplication, item: DownloadItem) -> DownloadDeleteItemGateway
 }
 
-public class DownloadGatewayFactory: DownloadGatewayProducing {
-    var additionsFactory: ApplicationAdditionsProducing
+public class DownloadGatewayFactory: DownloadGatewayProducing, Depending {
+    public typealias Dependencies = ApplicationAdditionsFactoryDependency
+    public let dependencies: Dependencies
     
-    public init(additionsFactory: ApplicationAdditionsProducing = ApplicationAdditionsFactory()) {
-        self.additionsFactory = additionsFactory
+    public init(dependencies: Dependencies) {
+        self.dependencies = dependencies
     }
     
     public func makeQueueGateway(for application: DownloadApplication) -> DownloadQueueGateway {
-        return DownloadQueueGateway(builder: additionsFactory.makeDownloadRequestBuilder(for: application),
-                                    parser: additionsFactory.makeDownloadResponseParser(for: application))
+        return DownloadQueueGateway(builder: dependencies.applicationAdditionsFactory.makeDownloadRequestBuilder(for: application),
+                                    parser: dependencies.applicationAdditionsFactory.makeDownloadResponseParser(for: application))
     }
     
     public func makeHistoryGateway(for application: DownloadApplication) -> DownloadHistoryGateway {
-        return DownloadHistoryGateway(builder: additionsFactory.makeDownloadRequestBuilder(for: application),
-                                      parser: additionsFactory.makeDownloadResponseParser(for: application))
+        return DownloadHistoryGateway(builder: dependencies.applicationAdditionsFactory.makeDownloadRequestBuilder(for: application),
+                                      parser: dependencies.applicationAdditionsFactory.makeDownloadResponseParser(for: application))
     }
 
     public func makeDeleteItemGateway(for application: DownloadApplication, item: DownloadItem) -> DownloadDeleteItemGateway {
-        return DownloadDeleteItemGateway(builder: additionsFactory.makeDownloadRequestBuilder(for: application),
-                                         parser: additionsFactory.makeDownloadResponseParser(for: application),
+        return DownloadDeleteItemGateway(builder: dependencies.applicationAdditionsFactory.makeDownloadRequestBuilder(for: application),
+                                         parser: dependencies.applicationAdditionsFactory.makeDownloadResponseParser(for: application),
                                          item: item)
     }
 }

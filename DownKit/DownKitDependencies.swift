@@ -12,13 +12,17 @@ public protocol Depending {
 }
 
 public typealias DownKitDependencies = DatabaseDependency
-    & ApiApplicationDependency
+    & ApplicationAdditionsFactoryDependency
+    & ApiApplicationGatewayFactoryDependency
     & ApiApplicationInteractorFactoryDependency
     & DownloadApplicationDependency
+    & DownloadGatewayFactoryDependency
     & DownloadInteractorFactoryDependency
     & DvrApplicationDependency
+    & DvrGatewayFactoryDependency
     & DvrInteractorFactoryDependency
     & DvrRequestBuilderDependency
+    & DmrGatewayFactoryDependency
     & DmrApplicationDependency
     & DmrInteractorFactoryDependency
 
@@ -26,16 +30,24 @@ public protocol DatabaseDependency {
     var database: DownDatabase { get set }
 }
 
-public protocol ApiApplicationDependency {
-    var apiApplication: ApiApplication! { get set }
+public protocol ApplicationAdditionsFactoryDependency {
+    var applicationAdditionsFactory: ApplicationAdditionsProducing { get set }
 }
 
-public protocol ApiApplicationInteractorFactoryDependency: ApiApplicationDependency {
+public protocol ApiApplicationGatewayFactoryDependency {
+    var apiGatewayFactory: ApiApplicationGatewayProducing! { get set }
+}
+
+public protocol ApiApplicationInteractorFactoryDependency {
     var apiInteractorFactory: ApiApplicationInteractorProducing! { get set }
 }
 
 public protocol DownloadApplicationDependency {
     var downloadApplication: DownloadApplication! { get set }
+}
+
+public protocol DownloadGatewayFactoryDependency {
+    var downloadGatewayFactory: DownloadGatewayProducing! { get set }
 }
 
 public protocol DownloadInteractorFactoryDependency: DownloadApplicationDependency {
@@ -44,6 +56,10 @@ public protocol DownloadInteractorFactoryDependency: DownloadApplicationDependen
 
 public protocol DvrApplicationDependency {
     var dvrApplication: DvrApplication! { get set }
+}
+
+public protocol DvrGatewayFactoryDependency {
+    var dvrGatewayFactory: DvrGatewayProducing! { get set }
 }
 
 public protocol DvrInteractorFactoryDependency: DvrApplicationDependency {
@@ -56,6 +72,10 @@ public protocol DvrRequestBuilderDependency: DvrApplicationDependency {
 
 public protocol DmrApplicationDependency {
     var dmrApplication: DmrApplication! { get set }
+}
+
+public protocol DmrGatewayFactoryDependency {
+    var dmrGatewayFactory: DmrGatewayProducing! { get set }
 }
 
 public protocol DmrInteractorFactoryDependency: DmrApplicationDependency {
