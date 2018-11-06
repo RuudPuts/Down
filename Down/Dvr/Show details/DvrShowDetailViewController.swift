@@ -11,10 +11,8 @@ import RxSwift
 import UIKit
 
 class DvrShowDetailViewController: UIViewController, Depending {
-    typealias Dependencies = DvrShowDetailsTableViewModel.Dependencies
+    typealias Dependencies = DvrShowDetailsTableViewModel.Dependencies & DvrRequestBuilderDependency
     let dependencies: Dependencies
-
-    var dvrRequestBuilder: DvrRequestBuilding!
 
     @IBOutlet weak var headerView: DvrShowHeaderView?
     @IBOutlet weak var tableView: UITableView?
@@ -56,9 +54,12 @@ class DvrShowDetailViewController: UIViewController, Depending {
     }
 
     func configureHeaderView() {
+        let bannerUrl = dependencies.dvrRequestBuilder.url(for: .fetchBanner(show))
+        let posterUrl = dependencies.dvrRequestBuilder.url(for: .fetchPoster(show))
+
         headerView?.viewModel = DvrShowHeaderViewModel(show: show,
-                                                       bannerUrl: dvrRequestBuilder.url(for: .fetchBanner(show)),
-                                                       posterUrl: dvrRequestBuilder.url(for: .fetchPoster(show)))
+                                                       bannerUrl: bannerUrl,
+                                                       posterUrl: posterUrl)
     }
 
     func configureTableView() {
