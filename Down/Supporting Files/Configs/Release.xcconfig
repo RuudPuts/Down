@@ -1,0 +1,5 @@
+#include "Pods/Target Support Files/Pods-Down/Pods-Down.release.xcconfig"
+
+DEVELOPMENT_TEAM = 3GH9A2WM8V
+PROVISIONING_PROFILE_SPECIFIER = com.ruudputs.Down AdHoc
+

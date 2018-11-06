@@ -127,6 +127,7 @@
 		42395542218F745600B7E40F /* DmrInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42395541218F745600B7E40F /* DmrInteractorFactory.swift */; };
 		423A5503216913A100CC558A /* ButtonToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A5502216913A100CC558A /* ButtonToolbar.swift */; };
 		423A5505216917A800CC558A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A5504216917A800CC558A /* UICollectionViewExtensions.swift */; };
+		423F201521922B50009879EC /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 423F201421922B50009879EC /* Release.xcconfig */; };
 		4243527A20FA8FB800A729E1 /* DvrShowDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */; };
 		4243527C20FA8FE700A729E1 /* DownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527B20FA8FE700A729E1 /* DownloadViewController.xib */; };
 		4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527F20FA936C00A729E1 /* DownloadItemCell.xib */; };
@@ -447,6 +448,7 @@
 		42395541218F745600B7E40F /* DmrInteractorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmrInteractorFactory.swift; sourceTree = "<group>"; };
 		423A5502216913A100CC558A /* ButtonToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonToolbar.swift; sourceTree = "<group>"; };
 		423A5504216917A800CC558A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
+		423F201421922B50009879EC /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrShowDetailViewController.xib; sourceTree = "<group>"; };
 		4243527B20FA8FE700A729E1 /* DownloadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadViewController.xib; sourceTree = "<group>"; };
 		4243527F20FA936C00A729E1 /* DownloadItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadItemCell.xib; sourceTree = "<group>"; };
@@ -1339,6 +1341,7 @@
 			isa = PBXGroup;
 			children = (
 				425357C620F2B10E005BC238 /* Debug.xcconfig */,
+				423F201421922B50009879EC /* Release.xcconfig */,
 			);
 			path = Configs;
 			sourceTree = "<group>";
@@ -1946,6 +1949,7 @@
 				4221DA4E20D181F2003950CF /* Assets.xcassets in Resources */,
 				4243527C20FA8FE700A729E1 /* DownloadViewController.xib in Resources */,
 				4221DA4D20D181F2003950CF /* LaunchScreen.storyboard in Resources */,
+				423F201521922B50009879EC /* Release.xcconfig in Resources */,
 				428FCD81212350DE00C0371D /* OpenSans-BoldItalic.ttf in Resources */,
 				428FCD82212350DE00C0371D /* OpenSans-ExtraBold.ttf in Resources */,
 				428FCD84212350DE00C0371D /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -2709,7 +2713,7 @@
 		};
 		426A799D20D1810200797AE5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 556857A786412D4429B21D5C /* Pods-Down.release.xcconfig */;
+			baseConfigurationReference = 423F201421922B50009879EC /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
