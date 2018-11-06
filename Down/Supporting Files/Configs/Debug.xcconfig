@@ -1,4 +1,6 @@
 #include "Pods/Target Support Files/Pods-Down/Pods-Down.debug.xcconfig"
+#include "Down/Supporting Files/Configs/Down.xcconfig"
 
 DEVELOPMENT_TEAM = 3GH9A2WM8V
+CODE_SIGN_IDENTITY = iPhone Developer
 PROVISIONING_PROFILE_SPECIFIER = com.ruudputs.Down Development
