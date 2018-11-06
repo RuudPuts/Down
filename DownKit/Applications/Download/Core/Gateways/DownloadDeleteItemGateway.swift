@@ -10,7 +10,6 @@ import RxSwift
 
 public class DownloadDeleteItemGateway: DownloadRequestGateway {
     public var executor: RequestExecuting
-    public var disposeBag = DisposeBag()
 
     var builder: DownloadRequestBuilding
     var parser: DownloadResponseParsing

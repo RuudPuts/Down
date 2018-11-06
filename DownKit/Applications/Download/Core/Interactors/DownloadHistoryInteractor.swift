@@ -30,7 +30,9 @@ public final class DownloadHistoryInteractor: RequestGatewayInteracting, Dependi
                     return Observable.just([])
                 }
 
-                return Observable.zip(items.map { $0.match(with: self.dependencies.database) })
+                return Observable.zip(items.map {
+                    $0.match(with: self.dependencies.database)
+                })
             }
     }
 }

@@ -12,7 +12,6 @@ public protocol RequestGateway {
     associatedtype ResultType
 
     var executor: RequestExecuting { get }
-    var disposeBag: DisposeBag { get } //! remove!!
 
     func makeRequest() throws -> Request
     func parse(response: Response) throws -> ResultType
@@ -22,29 +21,20 @@ public protocol RequestGateway {
 
 extension RequestGateway {
     public func observe() -> Observable<ResultType> {
-        return Observable.create { observer in
-            let request: Request
-            do {
-                request = try self.makeRequest()
-            }
-            catch {
-                observer.onError(error)
+        let request: Request
+        do {
+            request = try self.makeRequest()
+        }
+        catch {
+            return Observable.create {
+                $0.onError(error)
+
                 return Disposables.create()
             }
-
-            self.executor
-                .execute(request)
-                .subscribe(onNext: {
-                    do {
-                        observer.onNext(try self.parse(response: $0))
-                    }
-                    catch {
-                        observer.onError(error)
-                    }
-                })
-                .disposed(by: self.disposeBag)
-
-            return Disposables.create()
         }
+
+        return self.executor
+                .execute(request)
+                .map { try self.parse(response: $0) }
     }
 }

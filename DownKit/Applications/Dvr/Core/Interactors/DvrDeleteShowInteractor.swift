@@ -13,10 +13,7 @@ public class DvrDeleteShowInteractor: RequestGatewayInteracting {
     public typealias Element = Gateway.ResultType
     public var gateway: Gateway
 
-    var subject: Variable<Bool> = Variable(false)
-
     var database: DvrDatabase!
-    let disposeBag = DisposeBag()
 
     public required init(gateway: Gateway) {
         self.gateway = gateway

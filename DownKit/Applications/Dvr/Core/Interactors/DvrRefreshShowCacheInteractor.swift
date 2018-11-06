@@ -16,7 +16,6 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
 
     var application: DvrApplication!
     var database: DvrDatabase!
-    let disposeBag = DisposeBag()
     
     public required init(interactors: Interactors) {
         self.interactors = interactors

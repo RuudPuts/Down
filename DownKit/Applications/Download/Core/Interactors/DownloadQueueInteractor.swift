@@ -34,7 +34,9 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting, Depending
                     return Observable.just([])
                 }
 
-                return Observable.zip(items.map { $0.match(with: self.dependencies.database) })
+                return Observable.zip(items.map {
+                    $0.match(with: self.dependencies.database)
+                })
             }
             .map { _ in queue }
     }

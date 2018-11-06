@@ -10,7 +10,6 @@ import RxSwift
 
 public class ApiApplicationApiKeyGateway: ApiApplicationRequestGateway {
     public var executor: RequestExecuting
-    public var disposeBag = DisposeBag()
     
     var builder: ApiApplicationRequestBuilding
     var parser: ApiApplicationResponseParsing

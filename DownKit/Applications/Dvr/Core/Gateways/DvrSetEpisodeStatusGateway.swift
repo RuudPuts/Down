@@ -10,7 +10,6 @@ import RxSwift
 
 public class DvrSetEpisodeStatusGateway: DvrRequestGateway {
     public var executor: RequestExecuting
-    public var disposeBag = DisposeBag()
 
     var builder: DvrRequestBuilding
     var parser: DvrResponseParsing

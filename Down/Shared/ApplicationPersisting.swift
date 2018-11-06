@@ -20,7 +20,6 @@ extension UserDefaults: ApplicationPersisting {
             return nil
         }
 
-        //! hmmmm, I need this evil somewhere...
         switch type {
         case .sabnzbd:
             return DownloadApplication(type: .sabnzbd, host: host, apiKey: apiKey)

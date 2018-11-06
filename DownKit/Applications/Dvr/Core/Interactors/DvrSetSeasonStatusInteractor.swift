@@ -13,10 +13,8 @@ public class DvrSetSeasonStatusInteractor: CompoundInteractor {
     public var interactors: Interactors
 
     public typealias Element = DvrShowDetailsInteractor.Element
-    var subject: Variable<Element> = Variable(DvrShow())
 
     var database: DvrDatabase!
-    let disposeBag = DisposeBag()
 
     public required init(interactors: Interactors) {
         self.interactors = interactors
@@ -28,24 +26,18 @@ public class DvrSetSeasonStatusInteractor: CompoundInteractor {
     }
 
     public func observe() -> Observable<DvrShow> {
-        interactors.setStatus
+        return interactors.setStatus
             .observe()
-            .subscribe(onNext: { _ in
-                let show = self.interactors.setStatus.season.show!
-                self.refreshShowDetails(show: show)
-            })
-            .disposed(by: disposeBag)
-
-        return subject.asObservable()
+            .flatMap { _ in self.refreshShowDetails() }
     }
 
-    private func refreshShowDetails(show: DvrShow) {
-        interactors.showDetails
+    private func refreshShowDetails() -> Observable<DvrShow> {
+        let show = self.interactors.setStatus.season.show!
+
+        return interactors.showDetails
             .setShow(show)
-            .subscribe(onNext: {
+            .do(onNext: {
                 $0.store(in: self.database)
-                self.subject.value = $0
             })
-            .disposed(by: disposeBag)
     }
 }

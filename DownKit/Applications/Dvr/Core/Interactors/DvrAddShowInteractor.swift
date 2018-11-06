@@ -14,10 +14,8 @@ public class DvrAddShowInteractor: CompoundInteractor {
     public var interactors: Interactors
     
     public typealias Element = DvrShowDetailsInteractor.Element
-    var subject: Variable<Element> = Variable(DvrShow())
     
     var database: DvrDatabase!
-    let disposeBag = DisposeBag()
     
     public required init(interactors: Interactors) {
         self.interactors = interactors
@@ -29,28 +27,21 @@ public class DvrAddShowInteractor: CompoundInteractor {
     }
     
     public func observe() -> Observable<DvrShow> {
-        interactors.addShow
+        return interactors.addShow
             .observe()
-            //! This is a bit odd, the interactor will either finish or error
-            .subscribe(onNext: { _ in
-                self.refreshShowDetails(show: self.interactors.addShow.show)
-            })
-            .disposed(by: disposeBag)
-        
-        return subject.asObservable()
+            .flatMap { _ in self.refreshShowDetails() }
     }
-    
-    private func refreshShowDetails(show: DvrShow) {
-        interactors.showDetails
+
+    private func refreshShowDetails() -> Observable<DvrShow> {
+        let show = interactors.addShow.show!
+
+        return interactors.showDetails
             .setShow(show)
-            .retry(.delayed(maxCount: 5, time: 1))
-            .subscribe(onNext: {
+            .do(onNext: {
                 //! Again this line is sickbeard specific. Won't hurt others but shouldn't be here.
                 $0.identifier = show.identifier
-                
+
                 $0.store(in: self.database)
-                self.subject.value = $0
             })
-            .disposed(by: disposeBag)
     }
 }

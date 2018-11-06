@@ -9,7 +9,6 @@
 import RealmSwift
 
 public class DmrMovie: Object {
-    @objc dynamic var key = UUID().uuidString
     @objc public dynamic var identifier = String(NSNotFound)
     @objc public dynamic var imdb_id = ""
     @objc public dynamic var name = ""
@@ -23,6 +22,6 @@ public class DmrMovie: Object {
     
     override public static func primaryKey() -> String? {
         //! Should 'identifier' be the primary key?
-        return "key"
+        return "identifier"
     }
 }

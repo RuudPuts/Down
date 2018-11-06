@@ -15,9 +15,7 @@ public class DownloadItem {
     public let sizeMb: Double
     public let progress: Double
     public var dvrEpisode: DvrEpisode?
-    
-    let disposeBag = DisposeBag()
-    
+        
     public init(identifier: String, name: String, category: String, sizeMb: Double, progress: Double) {
         self.identifier = identifier
         self.name = name
@@ -33,33 +31,24 @@ extension DownloadItem {
             return Observable.just(self)
         }
 
-        return Observable<DownloadItem>.create { observer in
-            let nameComponents = self.name.components(separatedBy: seasonEpisodeString)
-                .first!
-                .components(separatedBy: ".")
-                .filter { $0.count > 0}
+        let nameComponents = self.name.components(separatedBy: seasonEpisodeString)
+            .first!
+            .components(separatedBy: ".")
+            .filter { !$0.isEmpty }
 
-            database
-                .fetchShow(matching: nameComponents)
-                .subscribe { event in
-                    switch event {
-                    case .success(let show):
-                        self.dvrEpisode = show
-                            .seasons.first(where: {
-                                $0.identifier == String(seasonIdentifier)
-                            })?
-                            .episodes.first(where: {
-                                $0.identifier == String(episodeIdentifier)
-                            })
-                    default: break
-                    }
-
-                    observer.onNext(self)
-                }
-                .disposed(by: self.disposeBag)
-
-                return Disposables.create()
-        }
+        return database
+            .fetchShow(matching: nameComponents)
+            .do(onNext: { show in
+                self.dvrEpisode = show
+                    .seasons.first(where: {
+                        $0.identifier == String(seasonIdentifier)
+                    })?
+                    .episodes.first(where: {
+                        $0.identifier == String(episodeIdentifier)
+                    })
+            })
+            .asObservable()
+            .map { _ in self }
     }
     
     // swiftlint:disable large_tuple
