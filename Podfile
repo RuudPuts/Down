@@ -28,6 +28,9 @@ target 'Down' do
   rswift_pods
   pod 'RxDataSources', '~> 3.1'
 
+  pod 'Fabric', '~> 1.8'
+  pod 'Crashlytics', '~> 3.11'
+
   pod 'SkyFloatingLabelTextField', '~> 3.6'
   pod 'CircleProgressView', '~> 1.1'
   pod 'Kingfisher', '4.9' 
