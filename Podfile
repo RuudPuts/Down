@@ -16,6 +16,11 @@ def rswift_pods
   pod 'R.swift.Library', '~> 4.0'
 end
 
+def quick_nimble_pods
+  pod 'Quick', '~> 1.3'
+  pod 'Nimble', '~> 7.2'
+end
+
 target 'Down' do
   use_frameworks!
 
@@ -30,6 +35,7 @@ target 'Down' do
   target 'DownTests' do
     inherit! :search_paths
     
+    quick_nimble_pods
     rxswift_test_pods
   end
 end
@@ -46,6 +52,7 @@ target 'DownKit' do
   target 'DownKitTests' do
     inherit! :search_paths
     
+    quick_nimble_pods
     rxswift_test_pods
   end
 end
