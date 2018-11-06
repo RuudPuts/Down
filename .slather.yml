@@ -3,4 +3,4 @@ coverage_service: cobertura_xml
 xcodeproj: Down.xcodeproj
 scheme: DownKit
 ignore:
-- Carthage/*
+- Pods/*

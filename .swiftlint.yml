@@ -6,4 +6,4 @@ disabled_rules:
 - trailing_whitespace
 - nesting
 excluded:
-- Carthage
+- Pods

@@ -1,14 +1,14 @@
 language: swift
 os: osx
-osx_image: xcode9.3
+osx_image: xcode9.4
 cache:
   directories:
-  - Carthage
+  - Pods
 env:
   global:
   - LC_CTYPE=en_US.UTF-8
   - LANG=en_US.UTF-8
-  - PROJECT=Down.xcodeproj
+  - PROJECT=Down.xcworkspace
   - SCHEME=Down
   - CC_TEST_REPORTER_ID=4074485b984af5323f0806408b43441628bc6f72f523b89c5338f87ae807820a
   matrix:
@@ -21,7 +21,7 @@ before_script:
 before_install:
   - gem install activesupport -N
   - gem install slather --no-rdoc
-  - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
+  - pod install
 script:
   - set -o pipefail
   - xcodebuild clean test -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" | xcpretty
