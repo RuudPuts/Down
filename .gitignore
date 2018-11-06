@@ -28,6 +28,7 @@ xcuserdata/
 *.dSYM.zip
 *.dSYM
 *.generated.swift
+*.mobileprovision
 
 ## Playgrounds
 timeline.xctimeline
@@ -77,3 +78,4 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+

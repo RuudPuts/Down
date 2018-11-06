@@ -23,8 +23,7 @@ before_install:
   - gem install slather --no-rdoc
   - pod install
 script:
-  - set -o pipefail
-  - xcodebuild clean test -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" | xcpretty
+  - fastlane test
 after_script:
   - slather
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

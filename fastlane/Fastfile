@@ -1,0 +1,39 @@
+default_platform :ios
+
+output_folder = (ENV["WORKSPACE"] || Dir.pwd + '/..') + "/Artifacts"
+build_number = ENV["BUILD_NUMBER"]
+
+platform :ios do
+  desc "Create new build"
+  lane :build do |options|
+    sigh(adhoc: true, output_path: 'fastlane')
+    gym(scheme: 'Down', configuration: options[:configuration], export_method: 'ad-hoc', output_directory: output_folder)
+  end
+
+  desc "Test app and create coverage report"
+  lane :test do
+    scan(scheme: 'Down', code_coverage: true, output_directory: output_folder)
+    slather(proj: 'Down.xcodeproj', cobertura_xml: true, output_directory: output_folder) unless is_ci?
+  end
+
+  desc "Submit a new Beta Build to Crashlytics"
+  lane :beta do
+    sigh(adhoc: true, output_path: 'fastlane')
+    increment_build_number
+    build(configuration: 'Release')
+    upload_beta
+  end
+
+  desc "Uploads a new build to Crashlytics"
+  private_lane :upload_beta do
+    crashlytics(
+      ipa_path: 'Artifacts/Down.ipa', 
+      notes_path: 'fastlane/release_notes.txt', 
+      groups: 'DownBeta',
+      api_token: 'fd7501efa3a9abb16103f351213d7b72ff764052', 
+      build_secret: 'f2769c1a542364cb5281af857c1220006aa4a2d2d658d426988f0d0ba596dfa8'
+    )
+
+    upload_symbols_to_crashlytics(dsym_path: output_folder + "/Down.app.dSYM.zip")
+  end
+end
