@@ -126,8 +126,9 @@ class ApplicationSettingsViewController: UIViewController & Depending {
     }
 
     @IBAction func saveButtonTapped(_ sender: UIButton) {
+        sender.isEnabled = false
+        
         viewModel.save()
-
         dependencies.persistence.store(self.application)
 
         viewModel.updateApplicationCache()
