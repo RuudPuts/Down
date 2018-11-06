@@ -81,7 +81,7 @@ class Router {
 }
 
 extension Router {
-    private func childRouter(ofType type: ApiApplicationType) -> ChildRouter {
+    private func childRouter(ofType type: ApiApplicationType) -> ChildRouter? {
         switch type {
         case .download: return downloadRouter
         case .dvr: return dvrRouter
@@ -95,7 +95,11 @@ extension Router {
     }
 
     private func routerStarted(type: ApiApplicationType) -> Bool {
-        return !childRouter(ofType: type).navigationController.viewControllers.isEmpty
+        guard let router = childRouter(ofType: type) else {
+            return false
+        }
+
+        return !router.navigationController.viewControllers.isEmpty
     }
 
     private func stopRouter(type: ApiApplicationType) {
@@ -103,7 +107,7 @@ extension Router {
             return
         }
 
-        childRouter(ofType: type).stop()
+        childRouter(ofType: type)?.stop()
 
         if let index = ApiApplicationType.allValues.index(of: type) {
             tabBarController?.viewControllers?.remove(at: index)
