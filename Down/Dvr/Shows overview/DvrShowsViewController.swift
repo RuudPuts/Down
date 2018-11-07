@@ -42,7 +42,7 @@ class DvrShowsViewController: UIViewController & Depending {
                                                           collectionView: collectionView)
 
         configureCollectionView()
-        createAddShowsButton()
+//        createAddShowsButton()
         applyStyling()
         applyViewModel()
         viewModel.refreshShowCache()

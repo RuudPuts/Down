@@ -52,18 +52,14 @@ class DvrAddShowViewController: UIViewController & Depending {
         searchTextField.rx.text
             .skip(2)
             .debounce(0.3, scheduler: MainScheduler.instance)
-            .subscribe(onNext: { query in
-                self.viewModel
-                    .searchShows(query: query ?? "")
-                    .bind(to: self.tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
-                        cell.textLabel?.text = show.name
+            .flatMap { self.viewModel.searchShows(query: $0 ?? "") }
+            .bind(to: self.tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
+                cell.textLabel?.text = show.name
 
-                        cell.backgroundColor = .clear
-                        cell.textLabel?.style(as: .headerLabel)
-                    }
-                    .disposed(by: self.disposeBag)
-            })
-            .disposed(by: disposeBag)
+                cell.backgroundColor = .clear
+                cell.textLabel?.style(as: .headerLabel)
+            }
+            .disposed(by: self.disposeBag)
     }
 
     private func configureTableView() {
@@ -71,17 +67,14 @@ class DvrAddShowViewController: UIViewController & Depending {
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         tableView.rx.modelSelected(DvrShow.self)
-            .subscribe(onNext: {
+            .do(onNext: { _ in
                 if let indexPath = self.tableView.indexPathForSelectedRow {
                     self.tableView.deselectRow(at: indexPath, animated: true)
                 }
-
-                self.viewModel
-                    .add(show: $0)
-                    .subscribe(onNext: { _ in
-                        self.dependencies.router.close(viewController: self)
-                    })
-                    .disposed(by: self.disposeBag)
+            })
+            .flatMap { self.viewModel.add(show: $0) }
+            .subscribe(onNext: { _ in
+                self.dependencies.router.close(viewController: self)
             })
             .disposed(by: disposeBag)
 

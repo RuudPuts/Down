@@ -37,6 +37,7 @@ public class DvrAddShowInteractor: CompoundInteractor {
 
         return interactors.showDetails
             .setShow(show)
+            .retry(.delayed(maxCount: 5, time: 1))
             .do(onNext: {
                 //! Again this line is sickbeard specific. Won't hurt others but shouldn't be here.
                 $0.identifier = show.identifier
