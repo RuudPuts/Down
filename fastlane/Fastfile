@@ -4,6 +4,10 @@ output_folder = (ENV["WORKSPACE"] || Dir.pwd + '/..') + "/Artifacts"
 build_number = ENV["BUILD_NUMBER"]
 
 platform :ios do
+  before_all do
+    xcversion(version: "9.4.1")
+  end
+
   desc "Create new build"
   lane :build do |options|
     sigh(adhoc: true, output_path: 'fastlane')
