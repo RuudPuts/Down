@@ -219,6 +219,9 @@
 		429B01D220F5324E00BCDA0F /* ApiApplicationGatewayFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D020F5324D00BCDA0F /* ApiApplicationGatewayFactory.swift */; };
 		429B01D320F5324E00BCDA0F /* ApiApplicationRequestGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */; };
 		429B01D520F53DBC00BCDA0F /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D420F53DBC00BCDA0F /* Authentication.swift */; };
+		429E06E6219386330072A57B /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429E06E5219386330072A57B /* ErrorHandler.swift */; };
+		429E06EE21938A6E0072A57B /* SickgearResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429E06EC21938A6E0072A57B /* SickgearResponseParser.swift */; };
+		429E06EF21938A6E0072A57B /* SickgearRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429E06ED21938A6E0072A57B /* SickgearRequestBuilder.swift */; };
 		429F0A4D2115F654005582B6 /* sickbeard_addshow.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A3F2115F408005582B6 /* sickbeard_addshow.json */; };
 		429F0A4E2115F654005582B6 /* sickbeard_error.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A3D2115F408005582B6 /* sickbeard_error.json */; };
 		429F0A4F2115F654005582B6 /* sickbeard_searchshows.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A402115F409005582B6 /* sickbeard_searchshows.json */; };
@@ -540,6 +543,9 @@
 		429B01D020F5324D00BCDA0F /* ApiApplicationGatewayFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactory.swift; sourceTree = "<group>"; };
 		429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationRequestGateway.swift; sourceTree = "<group>"; };
 		429B01D420F53DBC00BCDA0F /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		429E06E5219386330072A57B /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		429E06EC21938A6E0072A57B /* SickgearResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickgearResponseParser.swift; sourceTree = "<group>"; };
+		429E06ED21938A6E0072A57B /* SickgearRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickgearRequestBuilder.swift; sourceTree = "<group>"; };
 		429F0A3B2115F115005582B6 /* sickbeard_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sickbeard_success.json; sourceTree = "<group>"; };
 		429F0A3D2115F408005582B6 /* sickbeard_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_error.json; sourceTree = "<group>"; };
 		429F0A3E2115F408005582B6 /* sickbeard_showdetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_showdetails.json; sourceTree = "<group>"; };
@@ -738,6 +744,7 @@
 			children = (
 				4221DAA020D18496003950CF /* Core */,
 				4221DA6E20D18450003950CF /* Sickbeard */,
+				429E06EB21938A580072A57B /* Sickgear */,
 			);
 			path = Dvr;
 			sourceTree = "<group>";
@@ -1433,6 +1440,7 @@
 				4239553B218F5D7000B7E40F /* DownDependencies.swift */,
 				4221DA4F20D183B5003950CF /* Router.swift */,
 				42FB9037210114DA007B01DB /* ApplicationPersisting.swift */,
+				429E06E5219386330072A57B /* ErrorHandler.swift */,
 				42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */,
 				4284C720213327FD00F21B91 /* TableSectionData.swift */,
 				42D58EF0211A0AAA00F3454A /* Extensions */,
@@ -1605,6 +1613,15 @@
 				428FCD7121234EF200C0371D /* OpenSans-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		429E06EB21938A580072A57B /* Sickgear */ = {
+			isa = PBXGroup;
+			children = (
+				429E06ED21938A6E0072A57B /* SickgearRequestBuilder.swift */,
+				429E06EC21938A6E0072A57B /* SickgearResponseParser.swift */,
+			);
+			path = Sickgear;
 			sourceTree = "<group>";
 		};
 		429F0A3A2115F0F2005582B6 /* Mock data */ = {
@@ -2243,6 +2260,7 @@
 				4254177F2166A12D00D273FA /* UIImageResizeExtension.swift in Sources */,
 				422BE6BA20D6C41100DDDF37 /* ApplicationAddtionsFactory.swift in Sources */,
 				42BF4E8A20D1B5990088AAF6 /* StringExtensions.swift in Sources */,
+				429E06EE21938A6E0072A57B /* SickgearResponseParser.swift in Sources */,
 				427D605820DF00D50017AE42 /* DownloadHistoryInteractor.swift in Sources */,
 				4227B7AB20DC589500603528 /* DownloadRequestBuilding.swift in Sources */,
 				42E49DC9214458C600F8491B /* DownKit.swift in Sources */,
@@ -2259,6 +2277,7 @@
 				42723A5520D82652000445C3 /* DvrDatabaseStoring.swift in Sources */,
 				4202D5AB211398EB00ED1859 /* DvrSearchShowsGateway.swift in Sources */,
 				427D605620DED6B30017AE42 /* DownloadQueue.swift in Sources */,
+				429E06EF21938A6E0072A57B /* SickgearRequestBuilder.swift in Sources */,
 				422BE6D420D6E40900DDDF37 /* DvrShowDetailsGateway.swift in Sources */,
 				4227B76F20DB0B0000603528 /* DvrEpisode.swift in Sources */,
 				4263A18720E1B74F008F7E40 /* ApiApplicationApiKeyInteractor.swift in Sources */,
@@ -2390,6 +2409,7 @@
 				4243528920FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift in Sources */,
 				426BF74120F6A2CB000C3A4A /* AssetProvider.swift in Sources */,
 				428FCD632122143E00C0371D /* UITableViewCellStyle.swift in Sources */,
+				429E06E6219386330072A57B /* ErrorHandler.swift in Sources */,
 				4284C7252133442800F21B91 /* SkyFloatingLabelTextFieldStyle.swift in Sources */,
 				4288011421209280007552FD /* ViewStyling.swift in Sources */,
 				4239553C218F5D7000B7E40F /* DownDependencies.swift in Sources */,
@@ -2502,11 +2522,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 7;
+				DYLIB_CURRENT_VERSION = 9;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = DownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2530,11 +2550,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 7;
+				DYLIB_CURRENT_VERSION = 9;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = DownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

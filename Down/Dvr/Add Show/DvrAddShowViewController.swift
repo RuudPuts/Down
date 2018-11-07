@@ -13,8 +13,11 @@ import UIKit
 import SkyFloatingLabelTextField
 
 class DvrAddShowViewController: UIViewController & Depending {
-    typealias Dependencies = RouterDependency & DvrApplicationDependency & DvrInteractorFactoryDependency
     let dependencies: Dependencies
+    typealias Dependencies = RouterDependency
+        & DvrApplicationDependency
+        & DvrInteractorFactoryDependency
+        & ErrorHandlerDependency
 
     @IBOutlet weak var searchTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var tableView: UITableView!
@@ -74,8 +77,12 @@ class DvrAddShowViewController: UIViewController & Depending {
             })
             .flatMap { self.viewModel.add(show: $0) }
             .subscribe(onNext: { _ in
-                self.dependencies.router.close(viewController: self)
-            })
+                    self.dependencies.router.close(viewController: self)
+                },
+                onError: {
+                    self.dependencies.errorHandler.handle(error: $0, type: .dvr_addShow, source: self)
+                }
+            )
             .disposed(by: disposeBag)
 
         tableView.rx.willDisplayCell

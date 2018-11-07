@@ -56,12 +56,14 @@ public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
     public func makeDvrRequestBuilder(for application: DvrApplication) -> DvrRequestBuilding {
         switch application.dvrType {
         case .sickbeard: return SickbeardRequestBuilder(application: application)
+        case .sickgear: return SickgearRequestBuilder(application: application)
         }
     }
     
     public func makeDvrResponseParser(for application: DvrApplication) -> DvrResponseParsing {
         switch application.dvrType {
         case .sickbeard: return SickbeardResponseParser()
+        case .sickgear: return SickgearResponseParser()
         }
     }
 

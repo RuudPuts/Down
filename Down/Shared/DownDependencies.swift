@@ -11,6 +11,7 @@ import DownKit
 class DownDependencies: AllDownDependencies {
     var persistence: ApplicationPersisting
     var router: Router!
+    var errorHandler: ErrorHandling
 
     // DownKit
     var database: DownDatabase
@@ -35,7 +36,8 @@ class DownDependencies: AllDownDependencies {
 
     init() {
         persistence = UserDefaults.standard
-        database = RealmDatabase.default
+        database = RealmDatabase()
+        errorHandler = ErrorHandler()
 
         applicationAdditionsFactory = ApplicationAdditionsFactory()
 
@@ -74,6 +76,7 @@ class DownDependencies: AllDownDependencies {
 typealias AllDownDependencies = DownKitDependencies
     & ApplicationPersistenceDependency
     & RouterDependency
+    & ErrorHandlerDependency
 
 protocol ApplicationPersistenceDependency {
     var persistence: ApplicationPersisting { get }
@@ -81,4 +84,8 @@ protocol ApplicationPersistenceDependency {
 
 protocol RouterDependency {
     var router: Router! { get set }
+}
+
+protocol ErrorHandlerDependency {
+    var errorHandler: ErrorHandling { get set }
 }

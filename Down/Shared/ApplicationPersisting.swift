@@ -25,6 +25,8 @@ extension UserDefaults: ApplicationPersisting {
             return DownloadApplication(type: .sabnzbd, host: host, apiKey: apiKey)
         case .sickbeard:
             return DvrApplication(type: .sickbeard, host: host, apiKey: apiKey)
+        case .sickgear:
+            return DvrApplication(type: .sickgear, host: host, apiKey: apiKey)
         case .couchpotato:
             return DmrApplication(type: .couchpotato, host: host, apiKey: apiKey)
         }

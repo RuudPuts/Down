@@ -35,6 +35,13 @@ struct DvrAddShowViewModel: Depending {
         return dependencies.dvrInteractorFactory
             .makeAddShowInteractor(for: dependencies.dvrApplication, show: show)
             .observe()
+            .do(onNext: { _ in
+
+            })
             .skip(1)
+            .do(onNext: { _ in
+
+            })
+            .debug()
     }
 }

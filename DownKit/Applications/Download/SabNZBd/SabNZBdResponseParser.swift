@@ -38,8 +38,9 @@ class SabNZBdResponseParser: DownloadResponseParsing {
 extension SabNZBdResponseParser: ApiApplicationResponseParsing {
     func parseLoggedIn(from response: Response) throws -> LoginResult {
         //! Might want to check http response code 😅
-        return try parse(response)
-            .range(of: "<form class=\"form-signin\" action=\"./\" method=\"post\">") == nil ? .success : .authenticationRequired
+        let loginFormStart = "<form class=\"form-signin\" action=\"./\" method=\"post\">"
+
+        return try parse(response).range(of: loginFormStart) == nil ? .success : .authenticationRequired
     }
 
     func parseApiKey(from response: Response) throws -> String? {

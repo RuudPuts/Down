@@ -81,9 +81,7 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
         )
         }
     }
-}
-
-extension SickbeardRequestBuilder: ApiApplicationRequestBuilding {
+    
     func specification(for apiCall: ApiApplicationCall, credentials: UsernamePassword? = nil) -> RequestSpecification? {
         switch apiCall {
         case .login: return RequestSpecification(

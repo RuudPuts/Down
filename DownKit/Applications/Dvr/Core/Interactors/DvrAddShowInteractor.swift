@@ -30,6 +30,9 @@ public class DvrAddShowInteractor: CompoundInteractor {
         return interactors.addShow
             .observe()
             .flatMap { _ in self.refreshShowDetails() }
+            .do(onNext: { _ in
+                
+            })
     }
 
     private func refreshShowDetails() -> Observable<DvrShow> {
