@@ -10,7 +10,6 @@ import RealmSwift
 import RxSwift
 
 public class RealmDatabase: DownDatabase {
-    public static let `default` = RealmDatabase()
     var realm: Realm!
     
     public init(realm: Realm? = nil) {

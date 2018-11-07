@@ -90,6 +90,7 @@ extension SettingsTableViewModel: UITableViewDelegate {
         switch type {
         case .sabnzbd: return DownloadApplication(type: .sabnzbd, host: "", apiKey: "")
         case .sickbeard: return DvrApplication(type: .sickbeard, host: "", apiKey: "")
+        case .sickgear: return DvrApplication(type: .sickgear, host: "", apiKey: "")
         case .couchpotato: return DmrApplication(type: .couchpotato, host: "", apiKey: "")
         }
     }

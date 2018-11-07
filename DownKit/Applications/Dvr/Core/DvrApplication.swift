@@ -27,6 +27,7 @@ public class DvrApplication: ApiApplication {
 
 public enum DvrApplicationType: String {
     case sickbeard = "Sickbeard"
+    case sickgear = "Sickgear"
 }
 
 public enum DvrApplicationCall {

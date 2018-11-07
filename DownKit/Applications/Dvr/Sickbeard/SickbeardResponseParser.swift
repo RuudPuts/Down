@@ -71,6 +71,31 @@ class SickbeardResponseParser: DvrResponseParsing {
 
         return true
     }
+
+    func parseLoggedIn(from response: Response) throws -> LoginResult {
+        if response.statusCode >= 400 && response.statusCode < 500 {
+            return .authenticationRequired
+        }
+
+        if response.statusCode >= 200 && response.statusCode < 400 {
+            return .success
+        }
+
+        return .failed
+    }
+
+    func parseApiKey(from response: Response) throws -> String? {
+        guard response.statusCode == StatusCodes.success.rawValue else {
+            return nil
+        }
+
+        let result: String = try parse(response)
+        guard let keyRange = result.range(of: "id=\"api_key\"") else {
+            return nil
+        }
+
+        return String(result[keyRange.upperBound...]).components(matching: "[a-zA-Z0-9]{32}")?.first
+    }
 }
 
 private extension SickbeardResponseParser {
@@ -124,33 +149,6 @@ private extension SickbeardResponseParser {
         case "Ended": return .ended
         default: return .unknown
         }
-    }
-}
-
-extension SickbeardResponseParser: ApiApplicationResponseParsing {
-    func parseLoggedIn(from response: Response) throws -> LoginResult {
-        if response.statusCode >= 400 && response.statusCode < 500 {
-            return .authenticationRequired
-        }
-
-        if response.statusCode >= 200 && response.statusCode < 400 {
-            return .success
-        }
-
-        return .failed
-    }
-
-    func parseApiKey(from response: Response) throws -> String? {
-        guard response.statusCode == StatusCodes.success.rawValue else {
-            return nil
-        }
-
-        let result: String = try parse(response)
-        guard let keyRange = result.range(of: "id=\"api_key\"") else {
-            return nil
-        }
-
-        return String(result[keyRange.upperBound...]).components(matching: "[a-zA-Z0-9]{32}")?.first
     }
 }
 

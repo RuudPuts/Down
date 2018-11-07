@@ -14,7 +14,7 @@ struct Stylesheet {
         static func primaryColor(for type: DownApplicationType) -> UIColor {
             switch type {
             case .sabnzbd: return UIColor(red: 0.97, green: 0.78, blue: 0, alpha: 1)
-            case .sickbeard: return UIColor(red: 0.15, green: 0.68, blue: 0.38, alpha: 1)
+            case .sickbeard, .sickgear: return UIColor(red: 0.15, green: 0.68, blue: 0.38, alpha: 1)
             case .couchpotato: return UIColor(red: 0.21, green: 0.6, blue: 0.86, alpha: 1)
             }
         }
@@ -22,7 +22,7 @@ struct Stylesheet {
         static func secondaryColor(for type: DownApplicationType) -> UIColor {
             switch type {
             case .sabnzbd: return UIColor(red: 0.94, green: 0.73, blue: 0.1, alpha: 1)
-            case .sickbeard: return UIColor(red: 0.11, green: 0.62, blue: 0.37, alpha: 1)
+            case .sickbeard, .sickgear: return UIColor(red: 0.11, green: 0.62, blue: 0.37, alpha: 1)
             case .couchpotato: return UIColor(red: 0.18, green: 0.5, blue: 0.71, alpha: 1)
             }
         }

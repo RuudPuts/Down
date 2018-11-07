@@ -13,12 +13,14 @@ public protocol DownApplication {
 public enum DownApplicationType: String {
     case sabnzbd
     case sickbeard
+    case sickgear
     case couchpotato
 
     var displayName: String {
         switch self {
         case .sabnzbd: return "SabNZBd"
         case .sickbeard: return "Sickbeard"
+        case .sickgear: return "Sickgear"
         case .couchpotato: return "CouchPotato"
         }
     }
@@ -44,6 +46,7 @@ extension DvrApplication: DownApplication {
     public var downType: DownApplicationType {
         switch dvrType {
         case .sickbeard: return .sickbeard
+        case .sickgear: return .sickgear
         }
     }
 }
