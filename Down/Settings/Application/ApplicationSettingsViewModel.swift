@@ -33,7 +33,7 @@ class ApplicationSettingsViewModel: Depending {
     }
 
     func login(host: String, credentials: UsernamePassword? = nil) -> Observable<LoginResult> {
-        self.host.accept(host)
+        self.host.accept(host.trimmingCharacters(in: .whitespaces))
         self.username.accept(credentials?.username)
         self.password.accept(credentials?.password)
 
