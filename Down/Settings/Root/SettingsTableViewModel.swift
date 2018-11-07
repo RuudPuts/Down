@@ -78,6 +78,7 @@ extension SettingsTableViewModel: UITableViewDelegate {
         let application = dependencies.persistence.load(type: applicationType) ?? makeApplication(ofType: applicationType)
 
         dependencies.router.settingsRouter.showSettings(for: application)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

@@ -72,6 +72,10 @@ class DvrAddShowViewController: UIViewController & Depending {
         tableView.tableFooterView = UIView()
         tableView.rx.modelSelected(DvrShow.self)
             .subscribe(onNext: {
+                if let indexPath = self.tableView.indexPathForSelectedRow {
+                    self.tableView.deselectRow(at: indexPath, animated: true)
+                }
+
                 self.viewModel
                     .add(show: $0)
                     .subscribe(onNext: { _ in
@@ -79,6 +83,18 @@ class DvrAddShowViewController: UIViewController & Depending {
                     })
                     .disposed(by: self.disposeBag)
             })
+            .disposed(by: disposeBag)
+
+        tableView.rx.willDisplayCell
+            .subscribe { event in
+                switch event {
+                case .next(let cell, _):
+                    let type = self.dependencies.dvrApplication.downType
+                    cell.style(as: .selectableCell(application: type))
+                default:
+                    break
+                }
+            }
             .disposed(by: disposeBag)
     }
 
