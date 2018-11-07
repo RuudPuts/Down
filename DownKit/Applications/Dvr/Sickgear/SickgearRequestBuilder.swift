@@ -12,6 +12,7 @@ class SickgearRequestBuilder: SickbeardRequestBuilder {
         case .login: return RequestSpecification(
             host: application.host,
             path: "login",
+            method: .post,
             authenticationMethod: .form,
             formAuthenticationData: makeAuthenticationData(with: credentials))
         default:
