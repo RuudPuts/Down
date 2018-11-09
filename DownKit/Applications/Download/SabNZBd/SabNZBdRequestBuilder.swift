@@ -52,22 +52,11 @@ extension SabNZBdRequestBuilder: ApiApplicationRequestBuilding {
             host: application.host,
             path: "sabnzbd/login",
             authenticationMethod: .form,
-            formAuthenticationData: makeAuthenticationData(with: credentials)
+            formAuthenticationData: makeDefaultFormAuthenticationData(with: credentials)
         )
         case .apiKey: return RequestSpecification(
             host: application.host,
             path: "config/general"
         )}
-    }
-
-    private func makeAuthenticationData(with credentials: UsernamePassword?) -> FormAuthenticationData? {
-        guard let credentials = credentials else {
-            return nil
-        }
-
-        return FormAuthenticationData(
-            fieldName: (username: "username", password: "password"),
-            fieldValue: credentials
-        )
     }
 }

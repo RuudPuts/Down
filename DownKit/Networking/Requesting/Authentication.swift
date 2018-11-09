@@ -14,15 +14,4 @@ public enum AuthenticationMethod {
 
 public typealias UsernamePassword = (username: String, password: String)
 public typealias BasicAuthenticationData = UsernamePassword
-
-public struct FormAuthenticationData {
-    let fieldName: UsernamePassword
-    let fieldValue: UsernamePassword
-}
-
-extension FormAuthenticationData: Equatable {
-    public static func == (lhs: FormAuthenticationData, rhs: FormAuthenticationData) -> Bool {
-        return lhs.fieldName == rhs.fieldName
-            && rhs.fieldValue == rhs.fieldValue
-    }
-}
+public typealias FormAuthenticationData = [String: String]

@@ -46,7 +46,8 @@ extension URLSession: RequestClient {
 extension Request {
     func asUrlRequest() -> URLRequest? {
         var request = URLRequest(url: url)
-        request.httpMethod = self.method.rawValue
+        request.httpMethod = method.rawValue
+        request.allHTTPHeaderFields = headers
 
         switch authenticationMethod {
         case .none:
@@ -72,15 +73,16 @@ extension Request {
     }
 
     func configureFormAuthentication(for request: inout URLRequest) {
-        guard let fieldName = formAuthenticationData?.fieldName,
-              let fieldValue = formAuthenticationData?.fieldValue,
-              let authData = ("\(fieldName.username)=\(fieldValue.username)&"
-                  + "\(fieldName.password)=\(fieldValue.password)").data(using: .utf8) else {
+        guard let authData = formAuthenticationData else {
             return
         }
 
+        let requestBody = authData
+            .map { "\($0)=\($1)" }
+            .joined(separator: "&")
+
         request.httpMethod = Method.post.rawValue
-        request.httpBody = authData
+        request.httpBody = requestBody.data(using: .utf8)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
     }
 }

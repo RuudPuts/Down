@@ -7,12 +7,16 @@
 //
 
 class SickgearRequestBuilder: SickbeardRequestBuilder {
+    let authCookieKey = "_xsrf"
+    let authCookieValue = "sickgear"
+
     override func specification(for apiCall: ApiApplicationCall, credentials: UsernamePassword? = nil) -> RequestSpecification? {
         switch apiCall {
         case .login: return RequestSpecification(
             host: application.host,
             path: "login",
             method: .post,
+            headers: ["Cookie": "\(authCookieKey)=\(authCookieValue)"],
             authenticationMethod: .form,
             formAuthenticationData: makeAuthenticationData(with: credentials))
         default:
@@ -21,13 +25,12 @@ class SickgearRequestBuilder: SickbeardRequestBuilder {
     }
 
     private func makeAuthenticationData(with credentials: UsernamePassword?) -> FormAuthenticationData? {
-        guard let credentials = credentials else {
+        guard var authData = makeDefaultFormAuthenticationData(with: credentials) else {
             return nil
         }
 
-        return FormAuthenticationData(
-            fieldName: (username: "username", password: "password"),
-            fieldValue: credentials
-        )
+        authData[authCookieKey] = authCookieValue
+
+        return authData
     }
 }
