@@ -15,17 +15,17 @@ class DownloadInteractorFactorySpec: QuickSpec {
         describe("DownloadInteractorFactory") {
             var sut: DownloadInteractorFactory!
             var application: DownloadApplication!
-            var database: DvrDatabaseMock!
+            var dependenciesStub: DownKitDependenciesStub!
             
             beforeEach {
-                database = DvrDatabaseMock()
-                sut = DownloadInteractorFactory(dvrDatabase: database)
+                dependenciesStub = DownKitDependenciesStub()
+                sut = DownloadInteractorFactory(dependencies: dependenciesStub)
                 application = DownloadApplication(type: .sabnzbd, host: "host", apiKey: "apikey")
             }
             
             afterEach {
                 application = nil
-                database = nil
+                dependenciesStub = nil
                 sut = nil
             }
             
@@ -43,10 +43,6 @@ class DownloadInteractorFactorySpec: QuickSpec {
                 it("sets the queue gateway") {
                     expect(interactor.gateway).to(beAnInstanceOf(DownloadQueueGateway.self))
                 }
-
-                it("sets the database") {
-                    expect(interactor.database) === database
-                }
             }
             
             context("history interactor") {
@@ -62,10 +58,6 @@ class DownloadInteractorFactorySpec: QuickSpec {
 
                 it("sets the history gateway") {
                     expect(interactor.gateway).to(beAnInstanceOf(DownloadHistoryGateway.self))
-                }
-                
-                it("sets the database") {
-                    expect(interactor.database) === database
                 }
             }
         }

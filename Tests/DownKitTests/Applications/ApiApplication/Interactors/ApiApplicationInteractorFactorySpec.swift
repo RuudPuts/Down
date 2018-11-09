@@ -15,15 +15,20 @@ class ApiApplicationInteractorFactorySpec: QuickSpec {
         describe("ApiApplicationInteractorFactory") {
             var sut: ApiApplicationInteractorFactory!
             var application: ApiApplication!
+            var dependenciesStub: DownKitDependenciesStub!
 
             beforeEach {
-                sut = ApiApplicationInteractorFactory()
+                dependenciesStub = DownKitDependenciesStub()
+                dependenciesStub.applicationAdditionsFactory = ApplicationAdditionsFactory()
+                sut = ApiApplicationInteractorFactory(dependencies: dependenciesStub)
+                
                 application = DownloadApplication(type: .sabnzbd, host: "", apiKey: "")
             }
 
             afterEach {
                 application = nil
                 sut = nil
+                dependenciesStub = nil
             }
 
             context("login interactor") {

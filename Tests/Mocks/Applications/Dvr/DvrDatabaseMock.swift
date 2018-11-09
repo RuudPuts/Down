@@ -9,32 +9,7 @@
 @testable import DownKit
 import RxSwift
 
-class DvrDatabaseMock: DvrDatabase {
-    struct Stubs {
-        var fetchShows = [DvrShow]()
-        var fetchShowsMatchingNameComponents = DvrShow()
-    }
-    
-    struct Captures {
-        var storeShow: Show?
-        var deleteShow: Show?
-        var fetchShows: Bool?
-        var fetchShowsMatching: FetchShowsMatching?
-        
-        struct Show {
-            var show: DvrShow
-        }
-
-        struct FetchShowsMatching {
-            var nameComponents: [String]
-        }
-    }
-    
-    var stubs = Stubs()
-    var captures = Captures()
-    
-    // DvrDatabase
-    
+extension DownDatabaseMock { // DvrDatabase
     func store(show: DvrShow) {
         captures.storeShow = Captures.Show(show: show)
     }
@@ -42,18 +17,14 @@ class DvrDatabaseMock: DvrDatabase {
     func delete(show: DvrShow) {
         captures.deleteShow = Captures.Show(show: show)
     }
-    
+
     func fetchShows() -> Observable<[DvrShow]> {
         captures.fetchShows = true
         return Observable.just(stubs.fetchShows)
     }
-    
+
     func fetchShow(matching nameComponents: [String]) -> Maybe<DvrShow> {
         captures.fetchShowsMatching = Captures.FetchShowsMatching(nameComponents: nameComponents)
         return Maybe.just(stubs.fetchShowsMatchingNameComponents)
-    }
-    
-    func transact(block: @escaping () -> Void) {
-        block()
     }
 }

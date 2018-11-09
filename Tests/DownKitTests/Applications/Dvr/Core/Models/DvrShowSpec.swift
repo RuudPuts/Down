@@ -14,7 +14,7 @@ class DvrShowSpec: QuickSpec {
     override func spec() {
         describe("DvrShow") {
             var sut: DvrShow!
-            var database: DvrDatabaseMock!
+            var database: DownDatabaseMock!
             
             afterEach {
                 database = nil
@@ -33,7 +33,7 @@ class DvrShowSpec: QuickSpec {
                 
                 context("database storing") {
                     beforeEach {
-                        database = DvrDatabaseMock()
+                        database = DownDatabaseMock()
                         
                         sut.store(in: database)
                     }
@@ -56,7 +56,7 @@ class DvrShowSpec: QuickSpec {
                 
                 context("database storing") {
                     beforeEach {
-                        database = DvrDatabaseMock()
+                        database = DownDatabaseMock()
                         
                         sut.store(in: database)
                     }

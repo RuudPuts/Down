@@ -247,6 +247,10 @@
 		42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */; };
 		42BA6F2A20FFC2F5001CA926 /* URLSessionRequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BA6F2920FFC2F5001CA926 /* URLSessionRequestClient.swift */; };
 		42BA6F2C20FFC31E001CA926 /* AlamofireRequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BA6F2B20FFC31E001CA926 /* AlamofireRequestClient.swift */; };
+		42BD57DC21960DB100F1D7E0 /* DownKitDependenciesStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BD57DA21960D9100F1D7E0 /* DownKitDependenciesStub.swift */; };
+		42BD57E021960FCA00F1D7E0 /* DownDatabaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BD57DD21960E5000F1D7E0 /* DownDatabaseMock.swift */; };
+		42BD57E3219617EB00F1D7E0 /* URLStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BD57E12196173900F1D7E0 /* URLStub.swift */; };
+		42BD57E521961B8E00F1D7E0 /* RequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BD57E421961B8E00F1D7E0 /* RequestStub.swift */; };
 		42BE70C521693BED004167C3 /* DownloadItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BE70C321693BED004167C3 /* DownloadItemDetailViewController.swift */; };
 		42BE70C621693BED004167C3 /* DownloadItemDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42BE70C421693BED004167C3 /* DownloadItemDetailViewController.xib */; };
 		42BE70C821693C05004167C3 /* DownloadItemDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BE70C721693C05004167C3 /* DownloadItemDetailViewModel.swift */; };
@@ -259,14 +263,6 @@
 		42BF4E9620D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9520D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift */; };
 		42D58EF2211A0ACD00F3454A /* UIViewConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */; };
 		42D58EF4211A155100F3454A /* DownloadQueueStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D58EF3211A155100F3454A /* DownloadQueueStatusView.xib */; };
-		42D77BC620E456EB00FA1ACA /* DvrDatabaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B77C20DC2CDC00603528 /* DvrDatabaseMock.swift */; };
-		42D77BC720E456EB00FA1ACA /* DvrRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */; };
-		42D77BC820E456EB00FA1ACA /* DvrResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAAB20D1860D003950CF /* DvrResponseParsingMock.swift */; };
-		42D77BC920E456EB00FA1ACA /* RequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340C820D2FF9300CB2D7A /* RequestBuildingMock.swift */; };
-		42D77BCA20E456EB00FA1ACA /* RequestExecutingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340C620D2FD0A00CB2D7A /* RequestExecutingMock.swift */; };
-		42D77BCB20E456EB00FA1ACA /* RequestClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */; };
-		42D77BCC20E456EB00FA1ACA /* ResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221DAA720D1860D003950CF /* ResponseParsingMock.swift */; };
-		42D77BCD20E456EB00FA1ACA /* RequestGatewayMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340BF20D2FB2500CB2D7A /* RequestGatewayMock.swift */; };
 		42E014762135CC18006D550D /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E014752135CC18006D550D /* DateExtensions.swift */; };
 		42E014782135DA9D006D550D /* DvrShowHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E014772135DA9D006D550D /* DvrShowHeaderView.swift */; };
 		42E0147A2135DACD006D550D /* DvrShowHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42E014792135DACD006D550D /* DvrShowHeaderView.xib */; };
@@ -572,6 +568,10 @@
 		42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		42BA6F2920FFC2F5001CA926 /* URLSessionRequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionRequestClient.swift; sourceTree = "<group>"; };
 		42BA6F2B20FFC31E001CA926 /* AlamofireRequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireRequestClient.swift; sourceTree = "<group>"; };
+		42BD57DA21960D9100F1D7E0 /* DownKitDependenciesStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownKitDependenciesStub.swift; sourceTree = "<group>"; };
+		42BD57DD21960E5000F1D7E0 /* DownDatabaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownDatabaseMock.swift; sourceTree = "<group>"; };
+		42BD57E12196173900F1D7E0 /* URLStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLStub.swift; sourceTree = "<group>"; };
+		42BD57E421961B8E00F1D7E0 /* RequestStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStub.swift; sourceTree = "<group>"; };
 		42BE70C321693BED004167C3 /* DownloadItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItemDetailViewController.swift; sourceTree = "<group>"; };
 		42BE70C421693BED004167C3 /* DownloadItemDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadItemDetailViewController.xib; sourceTree = "<group>"; };
 		42BE70C721693C05004167C3 /* DownloadItemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItemDetailViewModel.swift; sourceTree = "<group>"; };
@@ -818,6 +818,9 @@
 		4221DAA320D1860D003950CF /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				42BD57DA21960D9100F1D7E0 /* DownKitDependenciesStub.swift */,
+				42BD57E12196173900F1D7E0 /* URLStub.swift */,
+				42BD57E421961B8E00F1D7E0 /* RequestStub.swift */,
 				4221DAA820D1860D003950CF /* Applications */,
 				4221DAA420D1860D003950CF /* Networking */,
 			);
@@ -846,6 +849,7 @@
 			isa = PBXGroup;
 			children = (
 				422BE6D920D6FE9200DDDF37 /* ApplicationAdditionsProducingMock.swift */,
+				42BD57DD21960E5000F1D7E0 /* DownDatabaseMock.swift */,
 				424FBD3F210F937B00885D8B /* ApiApplication */,
 				4227B7B220DD8EDC00603528 /* Download */,
 				4221DAA920D1860D003950CF /* Dvr */,
@@ -1803,7 +1807,6 @@
 				4221DA3020D1819F003950CF /* Sources */,
 				4221DA3120D1819F003950CF /* Frameworks */,
 				4221DA3220D1819F003950CF /* Resources */,
-				4221DAD720D186EE003950CF /* Copy Carthage frameworks */,
 				912F8BC285ED4E93FCA9629F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -1848,7 +1851,6 @@
 				426A798E20D1810200797AE5 /* Sources */,
 				426A798F20D1810200797AE5 /* Frameworks */,
 				426A799020D1810200797AE5 /* Resources */,
-				4221DAD620D186E9003950CF /* Copy Carthage frameworks */,
 				382B5CF2D05458A02D4E510E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -2028,46 +2030,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DownTests/Pods-DownTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		4221DAD620D186E9003950CF /* Copy Carthage frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
-			);
-			name = "Copy Carthage frameworks";
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Quick.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Nimble.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxTest.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-		4221DAD720D186EE003950CF /* Copy Carthage frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
-			);
-			name = "Copy Carthage frameworks";
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Quick.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Nimble.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 		423F201721923973009879EC /* Run Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2341,6 +2303,7 @@
 				4227B77D20DC2CDC00603528 /* DvrDatabaseMock.swift in Sources */,
 				428340BB20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift in Sources */,
 				42B16D5720D5A2E90027ED1C /* DvrInteractorFactorySpec.swift in Sources */,
+				42BD57E521961B8E00F1D7E0 /* RequestStub.swift in Sources */,
 				427D605420DED3E30017AE42 /* SabNZBdResponseParserSpec.swift in Sources */,
 				4227B7B620DD8EDC00603528 /* DownloadResponseParsingMock.swift in Sources */,
 				421D06CF21123C5D005DC78D /* ApiApplicationResponseParsingMock.swift in Sources */,
@@ -2367,9 +2330,11 @@
 				428340C920D2FF9300CB2D7A /* RequestBuildingMock.swift in Sources */,
 				42BF4E9620D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift in Sources */,
 				424FBD45210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift in Sources */,
+				42BD57E021960FCA00F1D7E0 /* DownDatabaseMock.swift in Sources */,
 				4227B78820DC423300603528 /* RequestGatewayInteractorSpec.swift in Sources */,
 				428340C020D2FB2500CB2D7A /* RequestGatewayMock.swift in Sources */,
 				421D06D121123D5B005DC78D /* ApiApplicationSpec.swift in Sources */,
+				42BD57E3219617EB00F1D7E0 /* URLStub.swift in Sources */,
 				4227B78020DC305600603528 /* DvrShowSpec.swift in Sources */,
 				422BE6E220D7038100DDDF37 /* DvrGatewayFactorySpec.swift in Sources */,
 				427D605020DED3E30017AE42 /* DownloadQueueGatewaySpec.swift in Sources */,
@@ -2387,6 +2352,7 @@
 				42384A6221613E0B004A0349 /* CouchPotatoResponseParserSpec.swift in Sources */,
 				422CEE0C20D52B8700EF0A16 /* RequestClientMock.swift in Sources */,
 				42BF4E9420D2501A0088AAF6 /* DvrShowListGatewaySpec.swift in Sources */,
+				42BD57DC21960DB100F1D7E0 /* DownKitDependenciesStub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2467,15 +2433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42D77BC620E456EB00FA1ACA /* DvrDatabaseMock.swift in Sources */,
-				42D77BCC20E456EB00FA1ACA /* ResponseParsingMock.swift in Sources */,
-				42D77BCA20E456EB00FA1ACA /* RequestExecutingMock.swift in Sources */,
 				422BE6D620D6F51200DDDF37 /* DownTests.swift in Sources */,
-				42D77BCD20E456EB00FA1ACA /* RequestGatewayMock.swift in Sources */,
-				42D77BC720E456EB00FA1ACA /* DvrRequestBuildingMock.swift in Sources */,
-				42D77BC920E456EB00FA1ACA /* RequestBuildingMock.swift in Sources */,
-				42D77BCB20E456EB00FA1ACA /* RequestClientMock.swift in Sources */,
-				42D77BC820E456EB00FA1ACA /* DvrResponseParsingMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

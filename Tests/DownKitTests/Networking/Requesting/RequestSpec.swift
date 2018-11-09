@@ -28,7 +28,7 @@ class RequestSpec: QuickSpec {
                 }
                 
                 it("stores the url") {
-                    expect(sut.url) == "http://myapi.com/testcommand?apikey=testkey"
+                    expect(sut.url) == URL(string: "http://myapi.com/testcommand?apikey=testkey")
                 }
             }
             
@@ -36,7 +36,7 @@ class RequestSpec: QuickSpec {
                 var urlRequest: URLRequest?
                 
                 beforeEach {
-                    sut = Request(url: "https://google.com", method: .get)
+                    sut = Request.defaultStub
                     urlRequest = sut.asUrlRequest()
                 }
                 
@@ -49,26 +49,11 @@ class RequestSpec: QuickSpec {
                 }
                 
                 it("sets the url") {
-                    expect(urlRequest?.url?.absoluteString) == sut.url
+                    expect(urlRequest?.url) == sut.url
                 }
                 
                 it("sets the request method") {
                     expect(urlRequest?.httpMethod?.lowercased()) == sut.method.rawValue
-                }
-                
-                context("request with invalid parameters") {
-                    beforeEach {
-                        sut = Request(url: "invalid url", method: .get)
-                        urlRequest = sut.asUrlRequest()
-                    }
-                    
-                    afterEach {
-                        urlRequest = nil
-                    }
-                    
-                    it("fails") {
-                        expect(urlRequest).to(beNil())
-                    }
                 }
             }
         }

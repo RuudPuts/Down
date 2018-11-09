@@ -46,3 +46,9 @@ public enum DownloadApplicationCall {
         }
     }
 }
+
+extension DownloadApplicationCall: Equatable {
+    public static func == (lhs: DownloadApplicationCall, rhs: DownloadApplicationCall) -> Bool {
+        return lhs.stringValue == rhs.stringValue
+    }
+}

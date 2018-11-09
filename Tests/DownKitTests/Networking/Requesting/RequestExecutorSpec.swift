@@ -31,34 +31,12 @@ class RequestExecutorSpec: QuickSpec {
                 requestClient = nil
             }
             
-            context("execute invalid request") {
-                var result: MaterializedSequenceResult<Response>!
-                
-                beforeEach {
-                    request = Request(url: "some invalid url", method: .get)
-                    sut = RequestExecutor()
-                    
-                    result = sut
-                        .execute(request)
-                        .toBlocking()
-                        .materialize()
-                }
-                
-                afterEach {
-                    result = nil
-                }
-                
-                it("throws invalid request error") {
-                    expect(result.error as? RequestClientError) == .invalidRequest
-                }
-            }
-            
             context("succesfull client execution") {
                 var response: Response!
                 var result: Response!
                 
                 beforeEach {
-                    request = Request(url: "https://google.com", method: .get)
+                    request = Request.defaultStub
                     
                     response = Response(data: nil, statusCode: 418, headers: [:])
                     requestClient.stubs.execute.response = response
@@ -88,7 +66,7 @@ class RequestExecutorSpec: QuickSpec {
                 var error: RequestClientError!
                 
                 beforeEach {
-                    request = Request(url: "https://google.com", method: .get)
+                    request = Request.defaultStub
                     
                     error = .generic(message: "test failure")
                     requestClient.stubs.execute.error = error

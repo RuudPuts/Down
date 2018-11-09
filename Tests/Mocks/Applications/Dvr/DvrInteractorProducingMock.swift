@@ -15,8 +15,6 @@ class DvrInteractorProducingMock {
         var makeShowCacheRefreshInteractor: DvrRefreshShowCacheInteractor.Interactors?
         var makeSearchShowsInteractor: DvrSearchShowsGateway?
         var makeAddShowInteractor: DvrAddShowInteractor.Interactors?
-        var makeShowBannerInteractor: DvrFetchBannerGateway?
-        var makeShowPosterInteractor: DvrFetchPosterGateway?
     }
 
     struct Captures {
@@ -37,7 +35,7 @@ extension DvrInteractorProducingMock: DvrInteractorProducing {
     }
 
     func makeShowCacheRefreshInteractor(for application: DvrApplication) -> DvrRefreshShowCacheInteractor {
-        return DvrRefreshShowCacheInteractor(application: application, interactors: stubs.makeShowCacheRefreshInteractor!, database: DvrDatabaseMock())
+        return DvrRefreshShowCacheInteractor(application: application, interactors: stubs.makeShowCacheRefreshInteractor!, database: DownDatabaseMock())
     }
 
     func makeSearchShowsInteractor(for application: DvrApplication, query: String) -> DvrSearchShowsInteractor {
@@ -46,13 +44,5 @@ extension DvrInteractorProducingMock: DvrInteractorProducing {
 
     func makeAddShowInteractor(for application: DvrApplication, show: DvrShow) -> DvrAddShowInteractor {
         return DvrAddShowInteractor(interactors: stubs.makeAddShowInteractor!)
-    }
-
-    func makeShowBannerInteractor(for application: DvrApplication, show: DvrShow) -> DvrShowBannerInteractor {
-        return DvrShowBannerInteractor(gateway: stubs.makeShowBannerInteractor!)
-    }
-
-    func makeShowPosterInteractor(for application: DvrApplication, show: DvrShow) -> DvrShowPosterInteractor {
-        return DvrShowPosterInteractor(gateway: stubs.makeShowPosterInteractor!)
     }
 }

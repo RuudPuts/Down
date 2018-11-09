@@ -47,7 +47,7 @@ class DvrShowDetailsGatewaySpec: QuickSpec {
                 var result: Request!
 
                 beforeEach {
-                    request = Request(url: "http://myapi/show_details", method: .get)
+                    request = Request.defaultStub
                     requestBuilder.stubs.make = request
                     result = try? sut.makeRequest()
                 }

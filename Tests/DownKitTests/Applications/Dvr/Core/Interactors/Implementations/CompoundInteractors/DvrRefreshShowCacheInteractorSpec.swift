@@ -18,14 +18,14 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
             var sut: DvrRefreshShowCacheInteractor!
 
             var application: DvrApplication!
-            var database: DvrDatabaseMock!
+            var database: DownDatabaseMock!
             var interactorFactory: DvrInteractorProducingMock!
 
             var fetchedShows: [DvrShow]!
             
             beforeEach {
                 application = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
-                database = DvrDatabaseMock()
+                database = DownDatabaseMock()
                 interactorFactory = DvrInteractorProducingMock()
 
                 sut = DvrRefreshShowCacheInteractor(application: application,
@@ -224,15 +224,18 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
 
     func makeShow(withEpisodeAiringOn airDate: Date) -> DvrShow {
         let show = DvrShow(identifier: "1", name: "Show1")
-        show.seasons = List<DvrSeason>([
+
+        let seasons = List<DvrSeason>()
+        seasons.append(
             DvrSeason(identifier: "1",
                       episodes: [
-                        DvrEpisode(identifier: "1",
-                                   name: "Episode 1",
-                                   airdate: airDate)
+                          DvrEpisode(identifier: "1",
+                                     name: "Episode 1",
+                                     airdate: airDate)
                       ],
                       show: show)
-            ])
+        )
+        show.seasons = seasons
 
         return show
     }

@@ -17,17 +17,15 @@ class DownloadGatewayFactorySpec: QuickSpec {
     override func spec() {
         describe("DownloadGatewayFactory") {
             var sut: DownloadGatewayFactory!
-            var application: DownloadApplication!
-            var additionsFactory: ApplicationAdditionsProducingMock!
+            var dependenciesStub: DownKitDependenciesStub!
             
             beforeEach {
-                application = DownloadApplication(type: .sabnzbd, host: "host", apiKey: "key")
-                additionsFactory = ApplicationAdditionsProducingMock()
-                sut = DownloadGatewayFactory(additionsFactory: additionsFactory)
+                dependenciesStub = DownKitDependenciesStub()
+                sut = DownloadGatewayFactory(dependencies: dependenciesStub)
             }
             
             afterEach {
-                application = nil
+                dependenciesStub = nil
                 sut = nil
             }
             
@@ -35,7 +33,7 @@ class DownloadGatewayFactorySpec: QuickSpec {
                 var gateway: DownloadQueueGateway!
                 
                 beforeEach {
-                    gateway = sut.makeQueueGateway(for: application)
+                    gateway = sut.makeQueueGateway(for: dependenciesStub.downloadApplication)
                 }
                 
                 afterEach {
@@ -47,11 +45,13 @@ class DownloadGatewayFactorySpec: QuickSpec {
                 }
                 
                 it("makes the request builder") {
-                    expect(additionsFactory.captures.makeDownloadRequestBuilder?.application) === application
+                    let capturedApplication = dependenciesStub.applicationAdditionsFactoryMock.captures.makeDownloadRequestBuilder?.application
+                    expect(capturedApplication) === dependenciesStub.downloadApplication
                 }
             
                 it("makes the response parser") {
-                    expect(additionsFactory.captures.makeDownloadResponseParser?.application) === application
+                    let capturedApplication = dependenciesStub.applicationAdditionsFactoryMock.captures.makeDownloadResponseParser?.application
+                    expect(capturedApplication) === dependenciesStub.downloadApplication
                 }
             }
             
@@ -59,7 +59,7 @@ class DownloadGatewayFactorySpec: QuickSpec {
                 var gateway: DownloadHistoryGateway!
                 
                 beforeEach {
-                    gateway = sut.makeHistoryGateway(for: application)
+                    gateway = sut.makeHistoryGateway(for: dependenciesStub.downloadApplication)
                 }
                 
                 afterEach {
@@ -71,11 +71,13 @@ class DownloadGatewayFactorySpec: QuickSpec {
                 }
                 
                 it("makes the request builder") {
-                    expect(additionsFactory.captures.makeDownloadRequestBuilder?.application) === application
+                    let capturedApplication = dependenciesStub.applicationAdditionsFactoryMock.captures.makeDownloadRequestBuilder?.application
+                    expect(capturedApplication) === dependenciesStub.downloadApplication
                 }
                 
                 it("makes the response parser") {
-                    expect(additionsFactory.captures.makeDownloadResponseParser?.application) === application
+                    let capturedApplication = dependenciesStub.applicationAdditionsFactoryMock.captures.makeDownloadResponseParser?.application
+                    expect(capturedApplication) === dependenciesStub.downloadApplication
                 }
             }
         }

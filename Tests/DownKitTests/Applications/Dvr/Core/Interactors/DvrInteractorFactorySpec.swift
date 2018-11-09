@@ -20,17 +20,17 @@ class DvrInteractorFactorySpec: QuickSpec {
         describe("DvrInteractorFactory") {
             var sut: DvrInteractorFactory!
             var application: DvrApplication!
-            var database: DvrDatabaseMock!
+            var dependenciesStub: DownKitDependenciesStub!
             
             beforeEach {
-                database = DvrDatabaseMock()
-                sut = DvrInteractorFactory(database: database)
+                dependenciesStub = DownKitDependenciesStub()
+                sut = DvrInteractorFactory(dependencies: dependenciesStub)
                 application = DvrApplication(type: .sickbeard, host: "host", apiKey: "apikey")
             }
             
             afterEach {
                 application = nil
-                database = nil
+                dependenciesStub = nil
                 sut = nil
             }
             
@@ -89,7 +89,7 @@ class DvrInteractorFactorySpec: QuickSpec {
                 }
                 
                 it("sets the database") {
-                    expect(interactor.database) === database
+                    expect(interactor.database) === dependenciesStub.database
                 }
             }
 
@@ -139,7 +139,7 @@ class DvrInteractorFactorySpec: QuickSpec {
                 }
 
                 it("sets the database") {
-                    expect(interactor.database) === database
+                    expect(interactor.database) === dependenciesStub.database
                 }
             }
         }

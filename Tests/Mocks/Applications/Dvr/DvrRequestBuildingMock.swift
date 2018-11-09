@@ -16,14 +16,26 @@ class DvrRequestBuildingMock: DvrRequestBuilding {
 
     struct Captures {
         var make: Make?
+        var makeCredentials: MakeCredentials?
         var specification: Specification?
+        var specificationCredentials: SpecificationCredentials?
 
         struct Make {
             var call: DvrApplicationCall
         }
 
+        struct MakeCredentials {
+            var call: ApiApplicationCall
+            var credentials: UsernamePassword?
+        }
+
         struct Specification {
             var call: DvrApplicationCall
+        }
+
+        struct SpecificationCredentials {
+            var call: ApiApplicationCall
+            var credentials: UsernamePassword?
         }
     }
 
@@ -45,6 +57,20 @@ class DvrRequestBuildingMock: DvrRequestBuilding {
     }
 
     func specification(for apiCall: DvrApplicationCall) -> RequestSpecification? {
+        return stubs.specification
+    }
+
+    // ApiApplicationRequestBuilding
+
+    func make(for apiCall: ApiApplicationCall, credentials: UsernamePassword?) throws -> Request {
+        captures.makeCredentials = Captures.MakeCredentials(call: apiCall, credentials: credentials)
+
+        return stubs.make!
+    }
+
+    func specification(for apiCall: ApiApplicationCall, credentials: UsernamePassword?) -> RequestSpecification? {
+        captures.specificationCredentials = Captures.SpecificationCredentials(call: apiCall, credentials: credentials)
+
         return stubs.specification
     }
 }

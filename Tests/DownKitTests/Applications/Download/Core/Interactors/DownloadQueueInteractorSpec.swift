@@ -21,26 +21,26 @@ class DownloadQueueInteractorSpec: QuickSpec {
             var builder: DownloadRequestBuildingMock!
             var parser: DownloadResponseParsingMock!
             var executor: RequestExecutingMock!
-            var database: DvrDatabaseMock!
+            var dependenciesStub: DownKitDependenciesStub!
 
             beforeEach {
                 application = DownloadApplication(type: .sabnzbd, host: "host", apiKey: "key")
                 builder = DownloadRequestBuildingMock(application: application)
                 parser = DownloadResponseParsingMock()
                 executor = RequestExecutingMock()
-                database = DvrDatabaseMock()
+                dependenciesStub = DownKitDependenciesStub()
 
                 gateway = DownloadQueueGateway(builder: builder,
                                                parser: parser,
                                                executor: executor)
-                sut = DownloadQueueInteractor(gateway: gateway, database: database)
+                sut = DownloadQueueInteractor(dependencies: dependenciesStub, gateway: gateway)
             }
 
             afterEach {
                 sut = nil
                 gateway = nil
 
-                database = nil
+                dependenciesStub = nil
                 executor = nil
                 parser = nil
                 builder = nil
@@ -51,6 +51,7 @@ class DownloadQueueInteractorSpec: QuickSpec {
                 var item: DownloadItem!
 
                 beforeEach {
+                    builder.stubs.make = Request.defaultStub
                     item = DownloadItem(identifier: "test_item", name: "test.item.S01E01", category: "", sizeMb: 0, progress: 0)
                     parser.stubs.parseQueue = DownloadQueue(items: [item])
 
@@ -70,7 +71,7 @@ class DownloadQueueInteractorSpec: QuickSpec {
                 }
 
                 it("matches the items with the database") {
-                    expect(database.captures.fetchShowsMatching?.nameComponents) == ["test", "item"]
+                    expect(dependenciesStub.databaseMock.captures.fetchShowsMatching?.nameComponents) == ["test", "item"]
                 }
             }
         }

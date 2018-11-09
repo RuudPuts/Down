@@ -14,17 +14,15 @@ class DvrGatewayFactorySpec: QuickSpec {
     override func spec() {
         describe("DvrGatewayFactory") {
             var sut: DvrGatewayFactory!
-            var application: DvrApplication!
-            var additionsFactory: ApplicationAdditionsProducingMock!
+            var dependenciesStub: DownKitDependenciesStub!
             
             beforeEach {
-                application = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
-                additionsFactory = ApplicationAdditionsProducingMock()
-                sut = DvrGatewayFactory(additionsFactory: additionsFactory)
+                dependenciesStub = DownKitDependenciesStub()
+                sut = DvrGatewayFactory(dependencies: dependenciesStub)
             }
             
             afterEach {
-                application = nil
+                dependenciesStub = nil
                 sut = nil
             }
             
@@ -32,7 +30,7 @@ class DvrGatewayFactorySpec: QuickSpec {
                 var gateway: DvrShowListGateway!
                 
                 beforeEach {
-                    gateway = sut.makeShowListGateway(for: application)
+                    gateway = sut.makeShowListGateway(for: dependenciesStub.dvrApplication)
                 }
                 
                 afterEach {
@@ -44,11 +42,13 @@ class DvrGatewayFactorySpec: QuickSpec {
                 }
                 
                 it("makes the request builder") {
-                    expect(additionsFactory.captures.makeDvrRequestBuilder?.application) === application
+                    let capturedApplication = dependenciesStub.applicationAdditionsFactoryMock.captures.makeDvrRequestBuilder?.application
+                    expect(capturedApplication) === dependenciesStub.dvrApplication
                 }
             
                 it("makes the response parser") {
-                    expect(additionsFactory.captures.makeDvrResponseParser?.application) === application
+                    let capturedApplication = dependenciesStub.applicationAdditionsFactoryMock.captures.makeDvrResponseParser?.application
+                    expect(capturedApplication) === dependenciesStub.dvrApplication
                 }
             }
             
@@ -58,7 +58,7 @@ class DvrGatewayFactorySpec: QuickSpec {
                 
                 beforeEach {
                     show = DvrShow(identifier: "1", name: "show")
-                    gateway = sut.makeShowDetailsGateway(for: application, show: show)
+                    gateway = sut.makeShowDetailsGateway(for: dependenciesStub.dvrApplication, show: show)
                 }
                 
                 afterEach {
@@ -69,13 +69,15 @@ class DvrGatewayFactorySpec: QuickSpec {
                 it("makes the gateway") {
                     expect(gateway).toNot(beNil())
                 }
-                
+
                 it("makes the request builder") {
-                    expect(additionsFactory.captures.makeDvrRequestBuilder?.application) === application
+                    let capturedApplication = dependenciesStub.applicationAdditionsFactoryMock.captures.makeDvrRequestBuilder?.application
+                    expect(capturedApplication) === dependenciesStub.dvrApplication
                 }
-                
+
                 it("makes the response parser") {
-                    expect(additionsFactory.captures.makeDvrResponseParser?.application) === application
+                    let capturedApplication = dependenciesStub.applicationAdditionsFactoryMock.captures.makeDvrResponseParser?.application
+                    expect(capturedApplication) === dependenciesStub.dvrApplication
                 }
                 
                 it("sets the show") {

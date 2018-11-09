@@ -46,7 +46,7 @@ class DownloadHistoryGatewaySpec: QuickSpec {
                 var result: Request!
 
                 beforeEach {
-                    request = Request(url: "http://myapi/history", method: .get)
+                    request = Request.defaultStub
                     requestBuilder.stubs.make = request
                     result = try? sut.makeRequest()
                 }

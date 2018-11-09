@@ -50,6 +50,7 @@ class DvrShowDetailsInteractorSpec: QuickSpec {
                 var show: DvrShow!
                 
                 beforeEach {
+                    builder.stubs.make = Request.defaultStub
                     show = DvrShow(identifier: "1234", name: "TextShow")
                     _ = sut.setShow(show)
                 }

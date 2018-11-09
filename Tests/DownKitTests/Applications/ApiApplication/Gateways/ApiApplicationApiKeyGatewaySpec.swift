@@ -46,7 +46,7 @@ class ApiApplicationApiKeyGatewaySpec: QuickSpec {
                 var result: Request!
 
                 beforeEach {
-                    request = Request(url: "http://myapi/apikey", method: .get)
+                    request = Request.defaultStub
                     requestBuilder.stubs.make = request
                     result = try? sut.makeRequest()
                 }

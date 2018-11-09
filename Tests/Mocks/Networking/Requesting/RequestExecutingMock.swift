@@ -11,7 +11,7 @@ import RxSwift
 
 class RequestExecutingMock: RequestExecuting {
     struct Stubs {
-        var request = Request(url: "", method: .get)
+        var request = Request(url: URL(string: "https://down.io")!, method: .get)
         var execute = Observable<Response>.just(
             Response(data: nil, statusCode: 0, headers: [:])
         )

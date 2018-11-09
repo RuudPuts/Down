@@ -10,20 +10,32 @@
 
 class DownloadRequestBuildingMock: DownloadRequestBuilding {
     struct Stubs {
-        var make = Request(url: "", method: .get)
+        var make: Request?
         var specification: RequestSpecification?
     }
     
     struct Captures {
         var make: Make?
+        var makeCredentials: MakeCredentials?
         var specification: Specification?
+        var specificationCredentials: SpecificationCredentials?
 
         struct Make {
             var call: DownloadApplicationCall
         }
 
+        struct MakeCredentials {
+            var call: ApiApplicationCall
+            var credentials: UsernamePassword?
+        }
+
         struct Specification {
             var call: DownloadApplicationCall
+        }
+
+        struct SpecificationCredentials {
+            var call: ApiApplicationCall
+            var credentials: UsernamePassword?
         }
     }
     
@@ -41,10 +53,24 @@ class DownloadRequestBuildingMock: DownloadRequestBuilding {
     func make(for apiCall: DownloadApplicationCall) throws -> Request {
         captures.make = Captures.Make(call: apiCall)
 
-        return stubs.make
+        return stubs.make!
     }
     
     func specification(for apiCall: DownloadApplicationCall) -> RequestSpecification? {
+        return stubs.specification
+    }
+
+    // ApiApplicationRequestBuilding
+
+    func make(for apiCall: ApiApplicationCall, credentials: UsernamePassword?) throws -> Request {
+        captures.makeCredentials = Captures.MakeCredentials(call: apiCall, credentials: credentials)
+
+        return stubs.make!
+    }
+
+    func specification(for apiCall: ApiApplicationCall, credentials: UsernamePassword?) -> RequestSpecification? {
+        captures.specificationCredentials = Captures.SpecificationCredentials(call: apiCall, credentials: credentials)
+
         return stubs.specification
     }
 }

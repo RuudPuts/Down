@@ -18,16 +18,17 @@ class ApiApplicationGatewayFactorySpec: QuickSpec {
         describe("ApiApplicationGatewayFactory") {
             var sut: ApiApplicationGatewayFactory!
             var application: ApiApplicationMock!
-            var additionsFactory: ApplicationAdditionsProducingMock!
+            var dependenciesStub: DownKitDependenciesStub!
             
             beforeEach {
                 application = ApiApplicationMock()
-                additionsFactory = ApplicationAdditionsProducingMock()
-                sut = ApiApplicationGatewayFactory(additionsFactory: additionsFactory)
+                dependenciesStub = DownKitDependenciesStub()
+                sut = ApiApplicationGatewayFactory(dependencies: dependenciesStub)
             }
             
             afterEach {
                 application = nil
+                dependenciesStub = nil
                 sut = nil
             }
             
@@ -47,11 +48,11 @@ class ApiApplicationGatewayFactorySpec: QuickSpec {
                 }
                 
                 it("makes the request builder") {
-                    expect(additionsFactory.captures.makeApiApplicationRequestBuilder?.application) === application
+                    expect(dependenciesStub.applicationAdditionsFactoryMock.captures.makeApiApplicationRequestBuilder?.application) === application
                 }
             
                 it("makes the response parser") {
-                    expect(additionsFactory.captures.makeApiApplicationResponseParser?.application) === application
+                    expect(dependenciesStub.applicationAdditionsFactoryMock.captures.makeApiApplicationResponseParser?.application) === application
                 }
             }
             
@@ -71,11 +72,11 @@ class ApiApplicationGatewayFactorySpec: QuickSpec {
                 }
                 
                 it("makes the request builder") {
-                    expect(additionsFactory.captures.makeApiApplicationRequestBuilder?.application) === application
+                    expect(dependenciesStub.applicationAdditionsFactoryMock.captures.makeApiApplicationRequestBuilder?.application) === application
                 }
                 
                 it("makes the response parser") {
-                    expect(additionsFactory.captures.makeApiApplicationResponseParser?.application) === application
+                    expect(dependenciesStub.applicationAdditionsFactoryMock.captures.makeApiApplicationResponseParser?.application) === application
                 }
             }
         }
