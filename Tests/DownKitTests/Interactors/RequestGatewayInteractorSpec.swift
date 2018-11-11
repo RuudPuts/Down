@@ -10,6 +10,7 @@
 import RxSwift
 import Quick
 import Nimble
+import RxNimble
 
 class RequestGatewayInteractorSpec: QuickSpec {
     override func spec() {
@@ -29,18 +30,10 @@ class RequestGatewayInteractorSpec: QuickSpec {
             }
             
             context("observing") {
-                var result: Any!
-                
+                var result: Observable<Int>!
+
                 beforeEach {
-                    do {
-                        result = try sut
-                            .observe()
-                            .toBlocking()
-                            .first()
-                    }
-                    catch {
-                        fail("Failed to execute gateway: \(error.localizedDescription)")
-                    }
+                    result = sut.observe().map { $0 as! Int }
                 }
                 
                 afterEach {
@@ -48,7 +41,7 @@ class RequestGatewayInteractorSpec: QuickSpec {
                 }
                 
                 it("executes the gateway") {
-                    expect(result as? Int) == 0
+                    expect(result).first == 0
                 }
             }
         }

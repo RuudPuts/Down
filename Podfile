@@ -19,6 +19,7 @@ end
 def quick_nimble_pods
   pod 'Quick', '~> 1.3.0'
   pod 'Nimble', '~> 7.3.0'
+  pod 'RxNimble', '~> 4.4.0'
 end
 
 target 'Down' do

@@ -11,6 +11,7 @@ import RxSwift
 import RxBlocking
 import Quick
 import Nimble
+import RxNimble
 
 class RequestExecutorSpec: QuickSpec {
     // swiftlint:disable function_body_length
@@ -33,7 +34,7 @@ class RequestExecutorSpec: QuickSpec {
             
             context("succesfull client execution") {
                 var response: Response!
-                var result: Response!
+                var result: Observable<Response>!
                 
                 beforeEach {
                     request = Request.defaultStub
@@ -41,23 +42,16 @@ class RequestExecutorSpec: QuickSpec {
                     response = Response(data: nil, statusCode: 418, headers: [:])
                     requestClient.stubs.execute.response = response
                     
-                    do {
-                        result = try sut
-                            .execute(request)
-                            .toBlocking()
-                            .first()
-                    }
-                    catch {
-                        fail("Failed to execute: \(error.localizedDescription)")
-                    }
+                    result = sut.execute(request)
                 }
                 
                 afterEach {
+                    result = nil
                     response = nil
                 }
                 
                 it("sends response to observable") {
-                    expect(result) === response
+                    expect(result).first.to(equal(response))
                 }
             }
             

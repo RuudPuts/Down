@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public class Response {
+public struct Response: Equatable {
     public var data: Data?
     var statusCode: Int
     var headers: [String: String]?
@@ -17,7 +17,7 @@ public class Response {
         self.headers = headers
     }
 
-    convenience init() {
+    init() {
         self.init(data: nil, statusCode: 0, headers: nil)
     }
 }

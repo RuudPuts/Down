@@ -11,6 +11,7 @@ import RxSwift
 import RealmSwift
 import Quick
 import Nimble
+import RxNimble
 
 class DvrRefreshShowCacheInteractorSpec: QuickSpec {
     override func spec() {
@@ -45,7 +46,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
 
             describe("updating the cache") {
                 var storedShows: [DvrShow]!
-                var result: [DvrShow]!
+                var result: Observable<[DvrShow]>!
 
                 afterEach {
                     result = nil
@@ -69,9 +70,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                         ]
                         database.stubs.fetchShows = storedShows
 
-                        result = try? sut.processDeletedShows(fetchedShows)
-                            .toBlocking()
-                            .first() ?? []
+                        result = sut.processDeletedShows(fetchedShows)
                     }
 
                     afterEach {
@@ -83,7 +82,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                     }
 
                     it("returns fetched shows") {
-                        expect(result) == fetchedShows
+                        expect(result).first == fetchedShows
                     }
                 }
 
@@ -105,9 +104,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                             ]
                             database.stubs.fetchShows = storedShows
 
-                            result = try? sut.determineShowsToRefresh(fetchedShows)
-                                .toBlocking()
-                                .first() ?? []
+                            result = sut.determineShowsToRefresh(fetchedShows)
                         }
 
                         afterEach {
@@ -115,7 +112,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                         }
 
                         it("returns the new show to refresh") {
-                            expect(result) == [newShow]
+                            expect(result).first == [newShow]
                         }
                     }
 
@@ -137,9 +134,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                                 ]
                                 database.stubs.fetchShows = storedShows
 
-                                result = try? sut.determineShowsToRefresh(fetchedShows)
-                                    .toBlocking()
-                                    .first() ?? []
+                                result = sut.determineShowsToRefresh(fetchedShows)
                             }
 
                             afterEach {
@@ -147,7 +142,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                             }
 
                             it("returns the show to refresh") {
-                                expect(result) == [showToUpdate]
+                                expect(result).first == [showToUpdate]
                             }
                         }
 
@@ -168,9 +163,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                                 ]
                                 database.stubs.fetchShows = storedShows
 
-                                result = try? sut.determineShowsToRefresh(fetchedShows)
-                                    .toBlocking()
-                                    .first() ?? []
+                                result = sut.determineShowsToRefresh(fetchedShows)
                             }
 
                             afterEach {
@@ -178,7 +171,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                             }
 
                             it("returns no shows to refresh") {
-                                expect(result) == []
+                                expect(result).first == []
                             }
                         }
 
@@ -199,9 +192,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                                 ]
                                 database.stubs.fetchShows = storedShows
 
-                                result = try? sut.determineShowsToRefresh(fetchedShows)
-                                    .toBlocking()
-                                    .first() ?? []
+                                result = sut.determineShowsToRefresh(fetchedShows)
                             }
 
                             afterEach {
@@ -209,7 +200,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                             }
 
                             it("returns no shows to refresh") {
-                                expect(result) == []
+                                expect(result).first == []
                             }
                         }
                     }

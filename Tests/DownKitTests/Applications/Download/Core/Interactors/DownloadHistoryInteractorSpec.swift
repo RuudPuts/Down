@@ -55,15 +55,10 @@ class DownloadHistoryInteractorSpec: QuickSpec {
                     item = DownloadItem(identifier: "test_item", name: "test.item.S01E01", category: "", sizeMb: 0, progress: 0)
                     parser.stubs.parseHistory = [item]
 
-                    do {
-                        _ = try sut
-                            .observe()
-                            .toBlocking()
-                            .first()
-                    }
-                    catch {
-                        fail("Failed to execute gateway: \(error.localizedDescription)")
-                    }
+                    _ = sut
+                        .observe()
+                        .toBlocking()
+                        .materialize()
                 }
 
                 afterEach {
