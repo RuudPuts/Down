@@ -21,7 +21,7 @@ before_script:
 before_install:
   - gem install activesupport -N
   - gem install slather --no-rdoc
-  - pod install
+  - pod install --repo-update
 script:
   - fastlane test
 after_script:
