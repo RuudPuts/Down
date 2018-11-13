@@ -24,7 +24,7 @@ extension ApiApplication {
     }
 }
 
-public enum ApiApplicationType {
+public enum ApiApplicationType: String {
     case download
     case dvr
     case dmr
