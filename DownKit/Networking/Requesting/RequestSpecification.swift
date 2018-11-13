@@ -12,7 +12,7 @@ public struct RequestSpecification {
 
     let method: Request.Method
     let parameters: [String: String]?
-    let headers: Request.Headers?
+    var headers: Request.Headers?
 
     let authenticationMethod: AuthenticationMethod
     let basicAuthenticationData: BasicAuthenticationData?

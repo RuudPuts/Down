@@ -16,16 +16,6 @@ public class AlamofireRequestClient: RequestClient {
         manager.delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
             print("REDIRECT")
             print("  Request: \(request)")
-
-            var request = request
-            if let cookieStorage = session.configuration.httpCookieStorage,
-               let responseUrl = response.url,
-               let cookies = cookieStorage.cookies(for: responseUrl) {
-                cookies.forEach {
-                    request.setValue("Cookie", forHTTPHeaderField: "\($0.name)=\($0.value)")
-                }
-            }
-
             print("     \(request.allHTTPHeaderFields)")
             print("  Response: \(response)")
             print("     \(response.allHeaderFields)")
@@ -54,6 +44,7 @@ public class AlamofireRequestClient: RequestClient {
                 }
 
                 observable.onNext(Response(
+                    request: request,
                     data: data,
                     statusCode: response.statusCode,
                     headers: response.allHeaderFields as? [String: String]
@@ -72,19 +63,11 @@ extension Request {
             parameters = authData
         }
 
-        var cookiedHeaders = headers ?? [:]
-        if let cookieStorage = URLSession.shared.configuration.httpCookieStorage,
-            let cookies = cookieStorage.cookies(for: url) {
-            cookies.forEach {
-                cookiedHeaders["Cookie"] = "\($0.name)=\"\($0.value)\";"
-            }
-        }
-
         let method = HTTPMethod(rawValue: self.method.rawValue.uppercased())!
         var request = Alamofire.request(url.absoluteString,
                                         method: method,
                                         parameters: parameters,
-                                        headers: cookiedHeaders)
+                                        headers: headers)
 
         if let authData = basicAuthenticationData, authenticationMethod == .basic {
             request = request.authenticate(user: authData.username, password: authData.password)

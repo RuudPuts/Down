@@ -11,6 +11,7 @@
 		4202D5A72113905D00ED1859 /* DvrAddShowGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */; };
 		4202D5A92113920E00ED1859 /* DvrAddShowInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5A82113920E00ED1859 /* DvrAddShowInteractor.swift */; };
 		4202D5AB211398EB00ED1859 /* DvrSearchShowsGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */; };
+		42089D31219B52C80032320E /* CookieBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42089D30219B52C80032320E /* CookieBag.swift */; };
 		420C28292163E1ED0088259C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C28272163E1ED0088259C /* SettingsViewController.swift */; };
 		420C282A2163E1ED0088259C /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420C28282163E1ED0088259C /* SettingsViewController.xib */; };
 		420C282C2163E1FD0088259C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C282B2163E1FD0088259C /* SettingsViewModel.swift */; };
@@ -328,6 +329,7 @@
 		4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAddShowGateway.swift; sourceTree = "<group>"; };
 		4202D5A82113920E00ED1859 /* DvrAddShowInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrAddShowInteractor.swift; sourceTree = "<group>"; };
 		4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrSearchShowsGateway.swift; sourceTree = "<group>"; };
+		42089D30219B52C80032320E /* CookieBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieBag.swift; sourceTree = "<group>"; };
 		420C28272163E1ED0088259C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		420C28282163E1ED0088259C /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		420C282B2163E1FD0088259C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -770,6 +772,7 @@
 		4221DA7720D18450003950CF /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				42089D30219B52C80032320E /* CookieBag.swift */,
 				4221DA7F20D18450003950CF /* Requesting */,
 				4221DA7820D18450003950CF /* Responses */,
 				4221DA5C20D18450003950CF /* Gateways */,
@@ -2248,6 +2251,7 @@
 				4227B7A720DC589500603528 /* DownloadHistoryGateway.swift in Sources */,
 				4221DA8420D18450003950CF /* RequestGateway.swift in Sources */,
 				429B01D520F53DBC00BCDA0F /* Authentication.swift in Sources */,
+				42089D31219B52C80032320E /* CookieBag.swift in Sources */,
 				4227B7A520DC589500603528 /* DownloadRequestGateway.swift in Sources */,
 				42395542218F745600B7E40F /* DmrInteractorFactory.swift in Sources */,
 				4202D5A92113920E00ED1859 /* DvrAddShowInteractor.swift in Sources */,

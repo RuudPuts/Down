@@ -11,14 +11,12 @@ import RxSwift
 extension URLSession: RequestClient {
     public func execute(_ request: Request) -> Observable<Response> {
         return Observable.create { observable in
-            guard let request = request.asUrlRequest() else {
+            guard let urlRequest = request.asUrlRequest() else {
                 observable.onError(RequestClientError.invalidRequest)
                 return Disposables.create()
             }
 
-            NSLog("Request: \(request.debugDescription)")
-
-            self.dataTask(with: request) { (data, response, error) in
+            self.dataTask(with: urlRequest) { (data, response, error) in
                 guard error == nil else {
                     return observable.onError(RequestClientError.generic(message: error!.localizedDescription))
                 }
@@ -32,6 +30,7 @@ extension URLSession: RequestClient {
                 }
 
                 observable.onNext(Response(
+                    request: request,
                     data: data,
                     statusCode: httpResponse.statusCode,
                     headers: httpResponse.allHeaderFields as? [String: String]

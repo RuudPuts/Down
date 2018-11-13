@@ -7,18 +7,16 @@
 //
 
 public class Response {
+    let request: Request
     public var data: Data?
-    var statusCode: Int
-    var headers: [String: String]?
+    let statusCode: Int
+    let headers: [String: String]?
 
-    init(data: Data?, statusCode: Int, headers: [String: String]?) {
+    init(request: Request, data: Data?, statusCode: Int, headers: [String: String]?) {
+        self.request = request
         self.data = data
         self.statusCode = statusCode
         self.headers = headers
-    }
-
-    convenience init() {
-        self.init(data: nil, statusCode: 0, headers: nil)
     }
 }
 
