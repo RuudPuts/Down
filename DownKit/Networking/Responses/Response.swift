@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-public class Response: Equatable {
+public class Response {
     let request: Request
     public var data: Data?
     let statusCode: Int
@@ -17,6 +17,15 @@ public class Response: Equatable {
         self.data = data
         self.statusCode = statusCode
         self.headers = headers
+    }
+}
+
+extension Response: Equatable {
+    public static func == (lhs: Response, rhs: Response) -> Bool {
+        return lhs.request == rhs.request
+            && lhs.data == rhs.data
+            && lhs.statusCode == rhs.statusCode
+            && lhs.headers == rhs.headers
     }
 }
 

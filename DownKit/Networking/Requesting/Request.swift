@@ -62,6 +62,8 @@ public class Request {
 
 extension Request: Equatable {
     public static func == (lhs: Request, rhs: Request) -> Bool {
-        return lhs.url == rhs.url && lhs.method == rhs.method
+        return lhs.url == rhs.url
+            && lhs.method == rhs.method
+            && lhs.headers == rhs.headers
     }
 }

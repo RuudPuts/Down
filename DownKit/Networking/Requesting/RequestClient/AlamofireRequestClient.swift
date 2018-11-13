@@ -10,18 +10,7 @@ import RxSwift
 import Alamofire
 
 public class AlamofireRequestClient: RequestClient {
-    public init() {
-        let manager = Alamofire.SessionManager.default
-
-        manager.delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
-            print("REDIRECT")
-            print("  Request: \(request)")
-            print("     \(request.allHTTPHeaderFields)")
-            print("  Response: \(response)")
-            print("     \(response.allHeaderFields)")
-            return request
-        }
-    }
+    public init() { }
 
     public func execute(_ request: Request) -> Observable<Response> {
         return Observable.create { observable in
