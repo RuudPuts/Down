@@ -9,8 +9,11 @@
 import Foundation
 
 public class Request {
+    typealias Headers = [String: String]
+
     var method: Method
     var url: URL
+    var headers: Headers?
     var authenticationMethod: AuthenticationMethod
     var basicAuthenticationData: BasicAuthenticationData?
     var formAuthenticationData: FormAuthenticationData?
@@ -24,12 +27,14 @@ public class Request {
     
     init(url: URL,
          method: Method,
+         headers: Headers? = nil,
          authenticationMethod: AuthenticationMethod = .none,
          basicAuthenticationData: BasicAuthenticationData? = nil,
          formAuthenticationData: FormAuthenticationData? = nil) {
 
         self.url = url
         self.method = method
+        self.headers = headers
         self.authenticationMethod = authenticationMethod
         self.basicAuthenticationData = basicAuthenticationData
         self.formAuthenticationData = formAuthenticationData
@@ -37,8 +42,9 @@ public class Request {
 
     convenience init(host: String,
                      path: String,
-                     method: Method,
                      parameters: [String: String]?,
+                     method: Method,
+                     headers: Headers? = nil,
                      authenticationMethod: AuthenticationMethod = .none,
                      basicAuthenticationData: BasicAuthenticationData? = nil,
                      formAuthenticationData: FormAuthenticationData? = nil) {
@@ -47,6 +53,7 @@ public class Request {
 
         self.init(url: URL.from(host: url)!,
                   method: method,
+                  headers: headers,
                   authenticationMethod: authenticationMethod,
                   basicAuthenticationData: basicAuthenticationData,
                   formAuthenticationData: formAuthenticationData)

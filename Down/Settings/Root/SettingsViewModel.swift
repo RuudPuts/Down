@@ -17,8 +17,8 @@ class SettingsViewModel {
 
     let datasource: [SettingsSectionModel] = [
         SettingsSectionModel(applicationType: .download, applications: [.sabnzbd]),
-        SettingsSectionModel(applicationType: .dvr, applications: [.sickgear]),
-//        SettingsSectionModel(applicationType: .dmr, applications: [.couchpotato]),
+        SettingsSectionModel(applicationType: .dvr, applications: [.sickbeard, .sickgear]),
+        SettingsSectionModel(applicationType: .dmr, applications: [.couchpotato]),
     ]
 
     init(showWelcomeMessage: Bool) {

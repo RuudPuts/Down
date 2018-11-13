@@ -12,16 +12,20 @@ public struct RequestSpecification {
 
     let method: Request.Method
     let parameters: [String: String]?
+    var headers: Request.Headers?
 
     let authenticationMethod: AuthenticationMethod
     let basicAuthenticationData: BasicAuthenticationData?
     let formAuthenticationData: FormAuthenticationData?
 
-    init(host: String = "", path: String = "", method: Request.Method = .get, parameters: [String: String] = [:], authenticationMethod: AuthenticationMethod = .none, basicAuthenticationData: BasicAuthenticationData? = nil, formAuthenticationData: FormAuthenticationData? = nil) {
+    init(host: String = "", path: String = "", method: Request.Method = .get,
+         parameters: [String: String]? = nil, headers: [String: String]? = nil,
+         authenticationMethod: AuthenticationMethod = .none, basicAuthenticationData: BasicAuthenticationData? = nil, formAuthenticationData: FormAuthenticationData? = nil) {
         self.host = host
         self.path = path
         self.method = method
         self.parameters = parameters
+        self.headers = headers
         self.authenticationMethod = authenticationMethod
         self.basicAuthenticationData = basicAuthenticationData
         self.formAuthenticationData = formAuthenticationData
@@ -30,15 +34,13 @@ public struct RequestSpecification {
 
 extension RequestSpecification: Equatable {
     public static func == (lhs: RequestSpecification, rhs: RequestSpecification) -> Bool {
-        let defaultUsernamePassword = ("","")
-        let defaultFormData = FormAuthenticationData(fieldName: defaultUsernamePassword, fieldValue: defaultUsernamePassword)
-
         return lhs.host == rhs.host
             && lhs.path == rhs.path
             && lhs.method == rhs.method
             && lhs.parameters == rhs.parameters
+            && lhs.headers == rhs.headers
             && lhs.authenticationMethod == rhs.authenticationMethod
-            && lhs.basicAuthenticationData ?? defaultUsernamePassword == rhs.basicAuthenticationData ?? defaultUsernamePassword
-            && lhs.formAuthenticationData ?? defaultFormData == rhs.formAuthenticationData ?? defaultFormData
+            && lhs.basicAuthenticationData ?? ("","") == rhs.basicAuthenticationData ?? ("","")
+            && lhs.formAuthenticationData == rhs.formAuthenticationData
     }
 }

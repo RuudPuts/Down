@@ -1,23 +1,26 @@
 //
-//  SickbeardResponseParser.swift
-//  Down
+//  SickgearResponseParser.swift
+//  DownKit
 //
-//  Created by Ruud Puts on 16/05/2018.
+//  Created by Ruud Puts on 08/11/2018.
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-import SwiftyJSON
-
 class SickgearResponseParser: SickbeardResponseParser {
     override func parseLoggedIn(from response: Response) throws -> LoginResult {
-        //! Might want to check http response code 😅
-        guard let data = response.data else {
-            throw ParseError.noData
+        let result = try super.parseLoggedIn(from: response)
+
+        if result == .authenticationRequired, response.sessionCookie != nil {
+            return .success
         }
 
-        let response = String(data: data, encoding: .utf8) ?? ""
-        let loginFormStart = "<div class=\"login\">"
+        return result
+    }
+}
 
-        return response.range(of: loginFormStart) == nil ? .success : .authenticationRequired
+private extension Response {
+    var sessionCookie: HTTPCookie? {
+        return CookieBag.cookie(for: request.url,
+                                startingWith: SickgearRequestBuilder.sessionCookiePrefix)
     }
 }

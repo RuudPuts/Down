@@ -41,9 +41,9 @@ class DownDependencies: AllDownDependencies {
 
         applicationAdditionsFactory = ApplicationAdditionsFactory()
 
-        reloadApplication(.download)
-        reloadApplication(.dvr)
-        reloadApplication(.dmr)
+        ApiApplicationType.allValues.forEach {
+            reloadApplication($0)
+        }
 
         apiGatewayFactory = ApiApplicationGatewayFactory(dependencies: self)
         apiInteractorFactory = ApiApplicationInteractorFactory(dependencies: self)
@@ -59,16 +59,18 @@ class DownDependencies: AllDownDependencies {
     }
 
     func reloadApplication(_ type: ApiApplicationType) {
+        let application = persistence.load(type: type)
+
         switch type {
-        case .download: downloadApplication = persistence.load(type: .sabnzbd) as? DownloadApplication
+        case .download: downloadApplication = application as? DownloadApplication
         case .dvr:
             dvrRequestBuilder = nil
-            dvrApplication = persistence.load(type: .sickbeard) as? DvrApplication
+            dvrApplication = application as? DvrApplication
 
             if let application = dvrApplication {
                 dvrRequestBuilder = applicationAdditionsFactory.makeDvrRequestBuilder(for: application)
             }
-        case .dmr: dmrApplication = persistence.load(type: .couchpotato) as? DmrApplication
+        case .dmr: dmrApplication = application as? DmrApplication
         }
     }
 }

@@ -10,7 +10,18 @@ import RxSwift
 import Alamofire
 
 public class AlamofireRequestClient: RequestClient {
-    public init() {}
+    public init() {
+        let manager = Alamofire.SessionManager.default
+
+        manager.delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
+            print("REDIRECT")
+            print("  Request: \(request)")
+            print("     \(request.allHTTPHeaderFields)")
+            print("  Response: \(response)")
+            print("     \(response.allHeaderFields)")
+            return request
+        }
+    }
 
     public func execute(_ request: Request) -> Observable<Response> {
         return Observable.create { observable in
@@ -33,6 +44,7 @@ public class AlamofireRequestClient: RequestClient {
                 }
 
                 observable.onNext(Response(
+                    request: request,
                     data: data,
                     statusCode: response.statusCode,
                     headers: response.allHeaderFields as? [String: String]
@@ -46,14 +58,16 @@ public class AlamofireRequestClient: RequestClient {
 
 extension Request {
     func asAlamofireRequest() -> DataRequest? {
-        var parameters: [String: Any] = [:]
+        var parameters: [String: Any]?
         if let authData = formAuthenticationData, authenticationMethod == .form {
-            parameters[authData.fieldName.username] = authData.fieldValue.username
-            parameters[authData.fieldName.password] = authData.fieldValue.password
+            parameters = authData
         }
 
         let method = HTTPMethod(rawValue: self.method.rawValue.uppercased())!
-        var request = Alamofire.request(url.absoluteString, method: method, parameters: parameters)
+        var request = Alamofire.request(url.absoluteString,
+                                        method: method,
+                                        parameters: parameters,
+                                        headers: headers)
 
         if let authData = basicAuthenticationData, authenticationMethod == .basic {
             request = request.authenticate(user: authData.username, password: authData.password)

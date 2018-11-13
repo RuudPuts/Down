@@ -127,6 +127,7 @@ class ApplicationSettingsViewController: UIViewController & Depending {
 
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         sender.isEnabled = false
+        sender.setTitle("Preparing cache...", for: .normal)
         
         viewModel.save()
         dependencies.persistence.store(self.application)

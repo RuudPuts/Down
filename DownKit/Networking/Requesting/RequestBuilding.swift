@@ -18,12 +18,24 @@ extension RequestBuilding {
         return Request(
             host: spec.host,
             path: spec.path,
-            method: spec.method,
             parameters: spec.parameters,
+            method: spec.method,
+            headers: spec.headers,
             authenticationMethod: spec.authenticationMethod,
             basicAuthenticationData: spec.basicAuthenticationData,
             formAuthenticationData: spec.formAuthenticationData
         )
+    }
+
+    func makeDefaultFormAuthenticationData(with credentials: UsernamePassword?) -> FormAuthenticationData? {
+        guard let credentials = credentials else {
+            return nil
+        }
+
+        return [
+            "username": credentials.username,
+            "password": credentials.password
+        ]
     }
 }
 

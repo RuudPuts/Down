@@ -11,14 +11,12 @@ import RxSwift
 extension URLSession: RequestClient {
     public func execute(_ request: Request) -> Observable<Response> {
         return Observable.create { observable in
-            guard let request = request.asUrlRequest() else {
+            guard let urlRequest = request.asUrlRequest() else {
                 observable.onError(RequestClientError.invalidRequest)
                 return Disposables.create()
             }
 
-            NSLog("Request: \(request.debugDescription)")
-
-            self.dataTask(with: request) { (data, response, error) in
+            self.dataTask(with: urlRequest) { (data, response, error) in
                 guard error == nil else {
                     return observable.onError(RequestClientError.generic(message: error!.localizedDescription))
                 }
@@ -32,6 +30,7 @@ extension URLSession: RequestClient {
                 }
 
                 observable.onNext(Response(
+                    request: request,
                     data: data,
                     statusCode: httpResponse.statusCode,
                     headers: httpResponse.allHeaderFields as? [String: String]
@@ -46,7 +45,8 @@ extension URLSession: RequestClient {
 extension Request {
     func asUrlRequest() -> URLRequest? {
         var request = URLRequest(url: url)
-        request.httpMethod = self.method.rawValue
+        request.httpMethod = method.rawValue
+        request.allHTTPHeaderFields = headers
 
         switch authenticationMethod {
         case .none:
@@ -72,15 +72,16 @@ extension Request {
     }
 
     func configureFormAuthentication(for request: inout URLRequest) {
-        guard let fieldName = formAuthenticationData?.fieldName,
-              let fieldValue = formAuthenticationData?.fieldValue,
-              let authData = ("\(fieldName.username)=\(fieldValue.username)&"
-                  + "\(fieldName.password)=\(fieldValue.password)").data(using: .utf8) else {
+        guard let authData = formAuthenticationData else {
             return
         }
 
+        let requestBody = authData
+            .map { "\($0)=\($1)" }
+            .joined(separator: "&")
+
         request.httpMethod = Method.post.rawValue
-        request.httpBody = authData
+        request.httpBody = requestBody.data(using: .utf8)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
     }
 }

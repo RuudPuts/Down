@@ -37,7 +37,7 @@ extension CouchPotatoRequestBuilder: ApiApplicationRequestBuilding {
             path: "login/?next=%2F",
             method: .post,
             authenticationMethod: .form,
-            formAuthenticationData: makeAuthenticationData(with: credentials)
+            formAuthenticationData: makeDefaultFormAuthenticationData(with: credentials)
         )
         case .apiKey:
             let username = credentials?.username ?? ""
@@ -52,16 +52,5 @@ extension CouchPotatoRequestBuilder: ApiApplicationRequestBuilding {
                 ]
             )
         }
-    }
-
-    private func makeAuthenticationData(with credentials: UsernamePassword?) -> FormAuthenticationData? {
-        guard let credentials = credentials else {
-            return nil
-        }
-
-        return FormAuthenticationData(
-            fieldName: (username: "username", password: "password"),
-            fieldValue: credentials
-        )
     }
 }

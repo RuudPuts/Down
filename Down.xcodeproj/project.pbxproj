@@ -11,6 +11,7 @@
 		4202D5A72113905D00ED1859 /* DvrAddShowGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */; };
 		4202D5A92113920E00ED1859 /* DvrAddShowInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5A82113920E00ED1859 /* DvrAddShowInteractor.swift */; };
 		4202D5AB211398EB00ED1859 /* DvrSearchShowsGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */; };
+		42089D31219B52C80032320E /* CookieBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42089D30219B52C80032320E /* CookieBag.swift */; };
 		420C28292163E1ED0088259C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C28272163E1ED0088259C /* SettingsViewController.swift */; };
 		420C282A2163E1ED0088259C /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420C28282163E1ED0088259C /* SettingsViewController.xib */; };
 		420C282C2163E1FD0088259C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C282B2163E1FD0088259C /* SettingsViewModel.swift */; };
@@ -127,7 +128,6 @@
 		42395542218F745600B7E40F /* DmrInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42395541218F745600B7E40F /* DmrInteractorFactory.swift */; };
 		423A5503216913A100CC558A /* ButtonToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A5502216913A100CC558A /* ButtonToolbar.swift */; };
 		423A5505216917A800CC558A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A5504216917A800CC558A /* UICollectionViewExtensions.swift */; };
-		423F201521922B50009879EC /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 423F201421922B50009879EC /* Release.xcconfig */; };
 		4243527A20FA8FB800A729E1 /* DvrShowDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */; };
 		4243527C20FA8FE700A729E1 /* DownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527B20FA8FE700A729E1 /* DownloadViewController.xib */; };
 		4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527F20FA936C00A729E1 /* DownloadItemCell.xib */; };
@@ -147,6 +147,7 @@
 		424FBD45210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD42210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift */; };
 		425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */; };
 		4254177F2166A12D00D273FA /* UIImageResizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42223882213454F900F73619 /* UIImageResizeExtension.swift */; };
+		425AE6AC2194DB200005830D /* SickgearResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AE6AB2194DB200005830D /* SickgearResponseParser.swift */; };
 		4263A18120E1B72A008F7E40 /* ApiApplicationLoginGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18020E1B72A008F7E40 /* ApiApplicationLoginGateway.swift */; };
 		4263A18320E1B739008F7E40 /* ApiApplicationLoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18220E1B739008F7E40 /* ApiApplicationLoginInteractor.swift */; };
 		4263A18520E1B745008F7E40 /* ApiApplicationApiKeyGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18420E1B745008F7E40 /* ApiApplicationApiKeyGateway.swift */; };
@@ -220,7 +221,6 @@
 		429B01D320F5324E00BCDA0F /* ApiApplicationRequestGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */; };
 		429B01D520F53DBC00BCDA0F /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D420F53DBC00BCDA0F /* Authentication.swift */; };
 		429E06E6219386330072A57B /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429E06E5219386330072A57B /* ErrorHandler.swift */; };
-		429E06EE21938A6E0072A57B /* SickgearResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429E06EC21938A6E0072A57B /* SickgearResponseParser.swift */; };
 		429E06EF21938A6E0072A57B /* SickgearRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429E06ED21938A6E0072A57B /* SickgearRequestBuilder.swift */; };
 		429F0A4D2115F654005582B6 /* sickbeard_addshow.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A3F2115F408005582B6 /* sickbeard_addshow.json */; };
 		429F0A4E2115F654005582B6 /* sickbeard_error.json in Resources */ = {isa = PBXBuildFile; fileRef = 429F0A3D2115F408005582B6 /* sickbeard_error.json */; };
@@ -325,6 +325,7 @@
 		4202D5A62113905D00ED1859 /* DvrAddShowGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAddShowGateway.swift; sourceTree = "<group>"; };
 		4202D5A82113920E00ED1859 /* DvrAddShowInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrAddShowInteractor.swift; sourceTree = "<group>"; };
 		4202D5AA211398EB00ED1859 /* DvrSearchShowsGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrSearchShowsGateway.swift; sourceTree = "<group>"; };
+		42089D30219B52C80032320E /* CookieBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieBag.swift; sourceTree = "<group>"; };
 		420C28272163E1ED0088259C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		420C28282163E1ED0088259C /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		420C282B2163E1FD0088259C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -468,6 +469,7 @@
 		424FBD42210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationRequestBuildingMock.swift; sourceTree = "<group>"; };
 		425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueueStatusView.swift; sourceTree = "<group>"; };
 		425357C620F2B10E005BC238 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		425AE6AB2194DB200005830D /* SickgearResponseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickgearResponseParser.swift; sourceTree = "<group>"; };
 		4263A18020E1B72A008F7E40 /* ApiApplicationLoginGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGateway.swift; sourceTree = "<group>"; };
 		4263A18220E1B739008F7E40 /* ApiApplicationLoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginInteractor.swift; sourceTree = "<group>"; };
 		4263A18420E1B745008F7E40 /* ApiApplicationApiKeyGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationApiKeyGateway.swift; sourceTree = "<group>"; };
@@ -540,7 +542,6 @@
 		429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationRequestGateway.swift; sourceTree = "<group>"; };
 		429B01D420F53DBC00BCDA0F /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		429E06E5219386330072A57B /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
-		429E06EC21938A6E0072A57B /* SickgearResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickgearResponseParser.swift; sourceTree = "<group>"; };
 		429E06ED21938A6E0072A57B /* SickgearRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickgearRequestBuilder.swift; sourceTree = "<group>"; };
 		429F0A3B2115F115005582B6 /* sickbeard_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sickbeard_success.json; sourceTree = "<group>"; };
 		429F0A3D2115F408005582B6 /* sickbeard_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sickbeard_error.json; sourceTree = "<group>"; };
@@ -771,6 +772,7 @@
 		4221DA7720D18450003950CF /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				42089D30219B52C80032320E /* CookieBag.swift */,
 				4221DA7F20D18450003950CF /* Requesting */,
 				4221DA7820D18450003950CF /* Responses */,
 				4221DA5C20D18450003950CF /* Gateways */,
@@ -1623,7 +1625,7 @@
 			isa = PBXGroup;
 			children = (
 				429E06ED21938A6E0072A57B /* SickgearRequestBuilder.swift */,
-				429E06EC21938A6E0072A57B /* SickgearResponseParser.swift */,
+				425AE6AB2194DB200005830D /* SickgearResponseParser.swift */,
 			);
 			path = Sickgear;
 			sourceTree = "<group>";
@@ -1971,7 +1973,6 @@
 				4221DA4E20D181F2003950CF /* Assets.xcassets in Resources */,
 				4243527C20FA8FE700A729E1 /* DownloadViewController.xib in Resources */,
 				4221DA4D20D181F2003950CF /* LaunchScreen.storyboard in Resources */,
-				423F201521922B50009879EC /* Release.xcconfig in Resources */,
 				428FCD81212350DE00C0371D /* OpenSans-BoldItalic.ttf in Resources */,
 				428FCD82212350DE00C0371D /* OpenSans-ExtraBold.ttf in Resources */,
 				428FCD84212350DE00C0371D /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -2216,6 +2217,7 @@
 				4227B7A720DC589500603528 /* DownloadHistoryGateway.swift in Sources */,
 				4221DA8420D18450003950CF /* RequestGateway.swift in Sources */,
 				429B01D520F53DBC00BCDA0F /* Authentication.swift in Sources */,
+				42089D31219B52C80032320E /* CookieBag.swift in Sources */,
 				4227B7A520DC589500603528 /* DownloadRequestGateway.swift in Sources */,
 				42395542218F745600B7E40F /* DmrInteractorFactory.swift in Sources */,
 				4202D5A92113920E00ED1859 /* DvrAddShowInteractor.swift in Sources */,
@@ -2226,7 +2228,6 @@
 				4254177F2166A12D00D273FA /* UIImageResizeExtension.swift in Sources */,
 				422BE6BA20D6C41100DDDF37 /* ApplicationAddtionsFactory.swift in Sources */,
 				42BF4E8A20D1B5990088AAF6 /* StringExtensions.swift in Sources */,
-				429E06EE21938A6E0072A57B /* SickgearResponseParser.swift in Sources */,
 				427D605820DF00D50017AE42 /* DownloadHistoryInteractor.swift in Sources */,
 				4227B7AB20DC589500603528 /* DownloadRequestBuilding.swift in Sources */,
 				42E49DC9214458C600F8491B /* DownKit.swift in Sources */,
@@ -2281,6 +2282,7 @@
 				422BE6C720D6D4FB00DDDF37 /* ObservableInteractor.swift in Sources */,
 				4227B76D20DB0AF200603528 /* DvrSeason.swift in Sources */,
 				4243529720FABE1000A729E1 /* ApiApplicationInteractorFactory.swift in Sources */,
+				425AE6AC2194DB200005830D /* SickgearResponseParser.swift in Sources */,
 				42395540218F651300B7E40F /* DownKitDependencies.swift in Sources */,
 				422BE6C520D6D4E600DDDF37 /* RequestGatewayInteractor.swift in Sources */,
 				422BE6C020D6CC6500DDDF37 /* DvrRequestGateway.swift in Sources */,
