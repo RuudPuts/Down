@@ -11,6 +11,11 @@ def rxswift_test_pods
   pod 'RxBlocking', '~> 4.3.0'
 end
 
+def realm_pods
+  pod 'RealmSwift', '~> 3.11.0'
+  pod 'RxRealm', '~> 0.7.0'
+end
+
 def rswift_pods
   pod 'R.swift', '~> 4.0.0'
   pod 'R.swift.Library', '~> 4.0.0'
@@ -48,9 +53,9 @@ target 'DownKit' do
   use_frameworks!
 
   rxswift_pods
+  realm_pods  
   pod 'Alamofire', '~> 4.7.0'
   pod 'SwiftyJSON', '~> 4.2.0'
-  pod 'RealmSwift', '~> 3.11.0'
   pod 'SwiftHash', '~> 2.0.0'
 
   target 'DownKitTests' do
