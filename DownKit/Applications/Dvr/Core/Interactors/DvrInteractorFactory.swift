@@ -10,8 +10,13 @@ public protocol DvrInteractorProducing {
     func makeShowListInteractor(for application: DvrApplication) -> DvrShowListInteractor
     func makeShowDetailsInteractor(for application: DvrApplication, show: DvrShow) -> DvrShowDetailsInteractor
     func makeShowCacheRefreshInteractor(for application: DvrApplication) -> DvrRefreshShowCacheInteractor
+
     func makeSearchShowsInteractor(for application: DvrApplication, query: String) -> DvrSearchShowsInteractor
     func makeAddShowInteractor(for application: DvrApplication, show: DvrShow) -> DvrAddShowInteractor
+    func makeDeleteShowInteractor(for application: DvrApplication, show: DvrShow) -> DvrDeleteShowInteractor
+
+    func makeSetEpisodeStatusInteractor(for application: DvrApplication, episode: DvrEpisode, status: DvrEpisodeStatus) -> DvrSetEpisodeStatusInteractor
+    func makeSetSeasonStatusInteractor(for application: DvrApplication, season: DvrSeason, status: DvrEpisodeStatus) -> DvrSetSeasonStatusInteractor
 }
 
 public class DvrInteractorFactory: DvrInteractorProducing, Depending {
@@ -50,5 +55,27 @@ public class DvrInteractorFactory: DvrInteractorProducing, Depending {
         let interactors = (addShow: gateway, showDetails: showDetailsInteractor)
 
         return DvrAddShowInteractor(interactors: interactors, database: dependencies.database)
+    }
+
+    public func makeDeleteShowInteractor(for application: DvrApplication, show: DvrShow) -> DvrDeleteShowInteractor {
+        let gateway = dependencies.dvrGatewayFactory.makeDeleteShowGateway(for: application, show: show)
+
+        return DvrDeleteShowInteractor(gateway: gateway, database: dependencies.database)
+    }
+
+    public func makeSetEpisodeStatusInteractor(for application: DvrApplication, episode: DvrEpisode, status: DvrEpisodeStatus) -> DvrSetEpisodeStatusInteractor {
+        let gateway = dependencies.dvrGatewayFactory.makeSetEpisodeStatusGateway(for: application, episode: episode, status: status)
+        let showDetailsInteractor = makeShowDetailsInteractor(for: application, show: episode.show)
+        let interactors = (setStatus: gateway, showDetails: showDetailsInteractor)
+        
+        return DvrSetEpisodeStatusInteractor(interactors: interactors, database: dependencies.database)
+    }
+
+    public func makeSetSeasonStatusInteractor(for application: DvrApplication, season: DvrSeason, status: DvrEpisodeStatus) -> DvrSetSeasonStatusInteractor {
+        let gateway = dependencies.dvrGatewayFactory.makeSetSeasonStatusGateway(for: application, season: season, status: status)
+        let showDetailsInteractor = makeShowDetailsInteractor(for: application, show: season.show)
+        let interactors = (setStatus: gateway, showDetails: showDetailsInteractor)
+
+        return DvrSetSeasonStatusInteractor(interactors: interactors, database: dependencies.database)
     }
 }

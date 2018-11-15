@@ -23,6 +23,13 @@ public class DvrSetEpisodeStatusGateway: DvrRequestGateway {
         self.parser = parser
     }
 
+    convenience init(episode: DvrEpisode, status: DvrEpisodeStatus, builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
+        self.init(builder: builder, parser: parser, executor: executor)
+
+        self.episode = episode
+        self.status = status
+    }
+
     public func makeRequest() throws -> Request {
         return try builder.make(for: .setEpisodeStatus(episode, status))
     }

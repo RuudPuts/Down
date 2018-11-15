@@ -10,7 +10,6 @@ platform :ios do
 
   desc "Create new build"
   lane :build do |options|
-    sigh(adhoc: true, output_path: 'fastlane')
     gym(scheme: 'Down', configuration: options[:configuration], export_method: 'ad-hoc', output_directory: output_folder)
   end
 

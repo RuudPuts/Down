@@ -23,6 +23,13 @@ public class DvrSetSeasonStatusGateway: DvrRequestGateway {
         self.parser = parser
     }
 
+    convenience init(season: DvrSeason, status: DvrEpisodeStatus, builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
+        self.init(builder: builder, parser: parser, executor: executor)
+
+        self.season = season
+        self.status = status
+    }
+
     public func makeRequest() throws -> Request {
         return try builder.make(for: .setSeasonStatus(season, status))
     }

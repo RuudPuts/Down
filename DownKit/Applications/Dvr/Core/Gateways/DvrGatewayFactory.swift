@@ -9,8 +9,13 @@
 public protocol DvrGatewayProducing {
     func makeShowListGateway(for application: DvrApplication) -> DvrShowListGateway
     func makeShowDetailsGateway(for application: DvrApplication, show: DvrShow) -> DvrShowDetailsGateway
+    
     func makeSearchShowsGateway(for application: DvrApplication, query: String) -> DvrSearchShowsGateway
     func makeAddShowGateway(for application: DvrApplication, show: DvrShow) -> DvrAddShowGateway
+    func makeDeleteShowGateway(for application: DvrApplication, show: DvrShow) -> DvrDeleteShowGateway
+
+    func makeSetEpisodeStatusGateway(for application: DvrApplication, episode: DvrEpisode, status: DvrEpisodeStatus) -> DvrSetEpisodeStatusGateway
+    func makeSetSeasonStatusGateway(for application: DvrApplication, season: DvrSeason, status: DvrEpisodeStatus) -> DvrSetSeasonStatusGateway
 }
 
 public class DvrGatewayFactory: DvrGatewayProducing, Depending {
@@ -42,5 +47,25 @@ public class DvrGatewayFactory: DvrGatewayProducing, Depending {
         return DvrAddShowGateway(show: show,
                                  builder: dependencies.applicationAdditionsFactory.makeDvrRequestBuilder(for: application),
                                  parser: dependencies.applicationAdditionsFactory.makeDvrResponseParser(for: application))
+    }
+
+    public func makeDeleteShowGateway(for application: DvrApplication, show: DvrShow) -> DvrDeleteShowGateway {
+        return DvrDeleteShowGateway(show: show,
+                                    builder: dependencies.applicationAdditionsFactory.makeDvrRequestBuilder(for: application),
+                                    parser: dependencies.applicationAdditionsFactory.makeDvrResponseParser(for: application))
+    }
+
+    public func makeSetEpisodeStatusGateway(for application: DvrApplication, episode: DvrEpisode, status: DvrEpisodeStatus) -> DvrSetEpisodeStatusGateway {
+        return DvrSetEpisodeStatusGateway(episode: episode,
+                                          status: status,
+                                          builder: dependencies.applicationAdditionsFactory.makeDvrRequestBuilder(for: application),
+                                          parser: dependencies.applicationAdditionsFactory.makeDvrResponseParser(for: application))
+    }
+
+    public func makeSetSeasonStatusGateway(for application: DvrApplication, season: DvrSeason, status: DvrEpisodeStatus) -> DvrSetSeasonStatusGateway {
+        return DvrSetSeasonStatusGateway(season: season,
+                                         status: status,
+                                         builder: dependencies.applicationAdditionsFactory.makeDvrRequestBuilder(for: application),
+                                         parser: dependencies.applicationAdditionsFactory.makeDvrResponseParser(for: application))
     }
 }

@@ -12,11 +12,11 @@ class DvrShowDetailsTableViewModel: NSObject, Depending {
     typealias Dependencies = DvrApplicationDependency
     let dependencies: Dependencies
 
-    let show: DvrShow
+    let viewModel: DvrShowDetailsViewModel
 
-    init(dependencies: Dependencies, show: DvrShow) {
+    init(dependencies: Dependencies, viewModel: DvrShowDetailsViewModel) {
         self.dependencies = dependencies
-        self.show = show
+        self.viewModel = viewModel
     }
 
     func prepare(tableView: UITableView) {
@@ -27,11 +27,11 @@ class DvrShowDetailsTableViewModel: NSObject, Depending {
 
 extension DvrShowDetailsTableViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return show.seasons.count
+        return viewModel.show.seasons.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return show.sortedSeasons[section].episodes.count
+        return viewModel.show.sortedSeasons[section].episodes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -40,7 +40,7 @@ extension DvrShowDetailsTableViewModel: UITableViewDataSource {
             return cell
         }
 
-        let episode = show.sortedSeasons[indexPath.section].sortedEpisodes[indexPath.row]
+        let episode = viewModel.show.sortedSeasons[indexPath.section].sortedEpisodes[indexPath.row]
         episodeCell.viewModel = DvrEpisodeCellModel(episode: episode)
 
         return cell
@@ -54,7 +54,7 @@ extension DvrShowDetailsTableViewModel: UITableViewDelegate {
             return nil
         }
 
-        let season = show.sortedSeasons[section]
+        let season = viewModel.show.sortedSeasons[section]
         headerView.viewModel = TableHeaderViewModel(title: "Season \(season.identifier)", icon: nil)
 
         return view

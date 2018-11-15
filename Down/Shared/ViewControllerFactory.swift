@@ -58,7 +58,10 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
     }
 
     func makeDvrDetail(show: DvrShow) -> UIViewController {
-        return DvrShowDetailViewController(dependencies: dependencies, show: show)
+        let viewModel = DvrShowDetailsViewModel(dependencies: dependencies, show: show)
+        
+        return DvrShowDetailViewController(dependencies: dependencies,
+                                           viewModel: viewModel)
     }
 
     func makeDvrAddShow() -> UIViewController {

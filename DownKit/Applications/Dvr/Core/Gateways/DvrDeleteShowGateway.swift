@@ -22,6 +22,11 @@ public class DvrDeleteShowGateway: DvrRequestGateway {
         self.parser = parser
     }
 
+    convenience init(show: DvrShow, builder: DvrRequestBuilding, parser: DvrResponseParsing, executor: RequestExecuting = RequestExecutor()) {
+        self.init(builder: builder, parser: parser, executor: executor)
+        self.show = show
+    }
+
     public func makeRequest() throws -> Request {
         return try builder.make(for: .deleteShow(show))
     }

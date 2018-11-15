@@ -147,6 +147,7 @@
 		424FBD45210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD42210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift */; };
 		425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */; };
 		4254177F2166A12D00D273FA /* UIImageResizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42223882213454F900F73619 /* UIImageResizeExtension.swift */; };
+		4259F195219DFC8C003C37AB /* DvrShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259F194219DFC8C003C37AB /* DvrShowDetailsViewModel.swift */; };
 		425AE6AC2194DB200005830D /* SickgearResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425AE6AB2194DB200005830D /* SickgearResponseParser.swift */; };
 		4263A18120E1B72A008F7E40 /* ApiApplicationLoginGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18020E1B72A008F7E40 /* ApiApplicationLoginGateway.swift */; };
 		4263A18320E1B739008F7E40 /* ApiApplicationLoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263A18220E1B739008F7E40 /* ApiApplicationLoginInteractor.swift */; };
@@ -469,6 +470,7 @@
 		424FBD42210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationRequestBuildingMock.swift; sourceTree = "<group>"; };
 		425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueueStatusView.swift; sourceTree = "<group>"; };
 		425357C620F2B10E005BC238 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		4259F194219DFC8C003C37AB /* DvrShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsViewModel.swift; sourceTree = "<group>"; };
 		425AE6AB2194DB200005830D /* SickgearResponseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickgearResponseParser.swift; sourceTree = "<group>"; };
 		4263A18020E1B72A008F7E40 /* ApiApplicationLoginGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGateway.swift; sourceTree = "<group>"; };
 		4263A18220E1B739008F7E40 /* ApiApplicationLoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginInteractor.swift; sourceTree = "<group>"; };
@@ -1536,6 +1538,7 @@
 		4284C738213432DE00F21B91 /* Show details */ = {
 			isa = PBXGroup;
 			children = (
+				4259F194219DFC8C003C37AB /* DvrShowDetailsViewModel.swift */,
 				4221DA5020D183B6003950CF /* DvrShowDetailViewController.swift */,
 				4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */,
 				424DDA82214591EF00588B48 /* DvrShowDetailsTableViewModel.swift */,
@@ -2429,6 +2432,7 @@
 				4284C723213331FE00F21B91 /* UITabBarStyle.swift in Sources */,
 				421752DC217BB1F80002F0C1 /* DownloadItemDetailRow.swift in Sources */,
 				4288011121209280007552FD /* Stylesheet.swift in Sources */,
+				4259F195219DFC8C003C37AB /* DvrShowDetailsViewModel.swift in Sources */,
 				428FCD652122204000C0371D /* UITableViewStyle.swift in Sources */,
 				427D606320E0325C0017AE42 /* DownloadRouter.swift in Sources */,
 				427D606B20E1A6BD0017AE42 /* DownloadItemCell.swift in Sources */,
@@ -2490,11 +2494,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 9;
+				DYLIB_CURRENT_VERSION = 10;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = DownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2518,11 +2522,11 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 9;
+				DYLIB_CURRENT_VERSION = 10;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = DownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
