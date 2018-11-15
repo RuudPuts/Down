@@ -9,7 +9,7 @@
 import RxSwift
 
 public protocol RequestClient {
-    func execute(_ request: Request) -> Observable<Response>
+    func execute(_ request: Request) -> Single<Response>
 }
 
 public enum RequestClientError: Error, Hashable {

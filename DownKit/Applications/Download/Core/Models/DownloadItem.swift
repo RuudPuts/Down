@@ -26,9 +26,9 @@ public class DownloadItem {
 }
 
 extension DownloadItem {
-    public func match(with database: DvrDatabase) -> Observable<DownloadItem> {
+    public func match(with database: DvrDatabase) -> Single<DownloadItem> {
         guard let (seasonIdentifier, episodeIdentifier, seasonEpisodeString) = seasonAndEpisode(in: name) else {
-            return Observable.just(self)
+            return Single.just(self)
         }
 
         let nameComponents = self.name.components(separatedBy: seasonEpisodeString)
@@ -48,6 +48,7 @@ extension DownloadItem {
                     })
             })
             .asObservable()
+            .asSingle()
             .map { _ in self }
     }
     

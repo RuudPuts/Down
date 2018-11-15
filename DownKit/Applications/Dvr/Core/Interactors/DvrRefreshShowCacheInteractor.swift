@@ -27,7 +27,7 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
         self.database = database
     }
     
-    public func observe() -> Observable<[DvrShow]> {
+    public func observe() -> Single<[DvrShow]> {
         return interactors
             .makeShowListInteractor(for: application)
             .observe()
@@ -36,7 +36,7 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
             .flatMap { self.refreshShowDetails($0) }
     }
 
-    func processDeletedShows(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
+    func processDeletedShows(_ shows: [DvrShow]) -> Single<[DvrShow]> {
         return Observable.zip([Observable.just(shows), database.fetchShows()])
             .map {
                 guard let fetchedShows = $0.first, let storedShows = $0.last,
@@ -52,9 +52,10 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
 
                 return shows
             }
+            .asSingle()
     }
 
-    func determineShowsToRefresh(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
+    func determineShowsToRefresh(_ shows: [DvrShow]) -> Single<[DvrShow]> {
         return Observable.zip([Observable.just(shows), database.fetchShows()])
             .map {
                 guard let fetchedShows = $0.first, let storedShows = $0.last else {
@@ -71,20 +72,21 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
                 }
 
                 return newShows + showsToRefresh
-        }
+            }
+            .asSingle()
     }
 
-    func refreshShowDetails(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
+    func refreshShowDetails(_ shows: [DvrShow]) -> Single<[DvrShow]> {
         let observables = shows.map {
             self.interactors
                 .makeShowDetailsInteractor(for: self.application, show: $0)
                 .observe()
                 .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-                .do(onNext: {
+                .do(onSuccess: {
                     $0.store(in: self.database)
                 })
             }
 
-        return Observable.zip(observables).observeOn(MainScheduler.instance)
+        return Single.zip(observables).observeOn(MainScheduler.instance)
     }
 }

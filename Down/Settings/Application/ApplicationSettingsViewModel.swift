@@ -32,7 +32,7 @@ class ApplicationSettingsViewModel: Depending {
         apiKey.accept(application.apiKey)
     }
 
-    func login(host: String, credentials: UsernamePassword? = nil) -> Observable<LoginResult> {
+    func login(host: String, credentials: UsernamePassword? = nil) -> Single<LoginResult> {
         self.host.accept(host.trimmingCharacters(in: .whitespaces))
         self.username.accept(credentials?.username)
         self.password.accept(credentials?.password)
@@ -65,26 +65,26 @@ class ApplicationSettingsViewModel: Depending {
                 })
     }
 
-    func fetchApiKey(credentials: UsernamePassword? = nil) -> Observable<String?> {
+    func fetchApiKey(credentials: UsernamePassword? = nil) -> Single<String?> {
         var applicationCopy = application.copy() as! ApiApplication
         applicationCopy.host = host.value!
 
         return dependencies.apiInteractorFactory
             .makeApiKeyInteractor(for: applicationCopy, credentials: credentials)
             .observe()
-            .do(onNext: {
-                    guard let apiKey = $0 else {
-                        NSLog("⚠️ Api key fetch was succesful, but no data was returend!")
-                        return
-                    }
+            .do(onSuccess: {
+                guard let apiKey = $0 else {
+                    NSLog("⚠️ Api key fetch was succesful, but no data was returend!")
+                    return
+                }
 
-                    NSLog("Api key: \(apiKey)")
-                    self.apiKey.accept(apiKey)
-                    self.authenticationRequired.accept(false)
-                },
-                 onError: { error in
-                    NSLog("ApiKey error: \(error)")
-                })
+                NSLog("Api key: \(apiKey)")
+                self.apiKey.accept(apiKey)
+                self.authenticationRequired.accept(false)
+            },
+            onError: { error in
+                NSLog("ApiKey error: \(error)")
+            })
     }
 
     func updateApplicationCache() -> Completable {
@@ -99,7 +99,7 @@ class ApplicationSettingsViewModel: Depending {
                 self.dependencies.dvrInteractorFactory
                     .makeShowCacheRefreshInteractor(for: dvrApplication)
                     .observe()
-                    .subscribe(onNext: { _ in
+                    .subscribe(onSuccess: { _ in
                         completable(.completed)
                     })
                     .disposed(by: self.disposeBag)

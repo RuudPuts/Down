@@ -37,7 +37,8 @@ struct DownloadViewModel: Depending {
 private extension DownloadViewModel {
     func startRefreshing() {
         let observables = [refreshQueue(), refreshHistory()]
-        Observable.zip(observables)
+        Single.zip(observables)
+            .asObservable()
             .withInterval(interval: refreshInterval)
             .subscribe(onNext: {
                 self.updateSectionData(queue: $0.first, history: $0.last)
@@ -45,15 +46,15 @@ private extension DownloadViewModel {
             .disposed(by: disposeBag)
     }
 
-    func refreshQueue() -> Observable<[DownloadItem]> {
+    func refreshQueue() -> Single<[DownloadItem]> {
         return dependencies.downloadInteractorFactory
             .makeQueueInteractor(for: dependencies.downloadApplication)
             .observe()
-            .do(onNext: { self.queueData.value = $0 })
+            .do(onSuccess: { self.queueData.value = $0 })
             .map { $0.items }
     }
 
-    func refreshHistory() -> Observable<[DownloadItem]> {
+    func refreshHistory() -> Single<[DownloadItem]> {
         return dependencies.downloadInteractorFactory
             .makeHistoryInteractor(for: dependencies.downloadApplication)
             .observe()

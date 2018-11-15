@@ -22,15 +22,15 @@ public final class DownloadHistoryInteractor: RequestGatewayInteracting, Dependi
         self.gateway = gateway
     }
     
-    public func observe() -> Observable<[DownloadItem]> {
+    public func observe() -> Single<[DownloadItem]> {
         return self.gateway
             .observe()
-            .flatMap { items -> Observable<[DownloadItem]> in
+            .flatMap { items -> Single<[DownloadItem]> in
                 guard items.count > 0 else {
-                    return Observable.just([])
+                    return Single.just([])
                 }
 
-                return Observable.zip(items.map {
+                return Single.zip(items.map {
                     $0.match(with: self.dependencies.database)
                 })
             }

@@ -60,7 +60,7 @@ extension DownloadItemDetailViewModel {
 extension DownloadItemDetailViewModel {
     typealias DeleteItemDependencies = DownloadInteractorFactoryDependency
 
-    func deleteDownloadItem(dependencies: DeleteItemDependencies) -> Observable<Bool> {
+    func deleteDownloadItem(dependencies: DeleteItemDependencies) -> Single<Bool> {
         return dependencies.downloadInteractorFactory
             .makeDeleteItemInteractor(for: dependencies.downloadApplication, item: downloadItem)
             .observe()

@@ -21,7 +21,7 @@ class DvrShowDetailsViewModel: Depending {
         self.show = show
     }
 
-    func deleteShow() -> Observable<Bool> {
+    func deleteShow() -> Single<Bool> {
         return dependencies.dvrInteractorFactory
             .makeDeleteShowInteractor(for: dependencies.dvrApplication, show: show)
             .observe()

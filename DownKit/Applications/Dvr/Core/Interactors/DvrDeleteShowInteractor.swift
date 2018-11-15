@@ -24,9 +24,9 @@ public class DvrDeleteShowInteractor: RequestGatewayInteracting {
         self.database = database
     }
     
-    public func observe() -> Observable<Bool> {
+    public func observe() -> Single<Bool> {
         return gateway.observe()
-            .do(onNext: {
+            .do(onSuccess: {
                 guard $0 else { return }
 
                 self.database.delete(show: self.gateway.show)

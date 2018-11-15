@@ -26,20 +26,19 @@ public class DvrAddShowInteractor: CompoundInteractor {
         self.database = database
     }
     
-    public func observe() -> Observable<DvrShow> {
+    public func observe() -> Single<DvrShow> {
         return interactors.addShow
             .observe()
             .flatMap { _ in self.refreshShowDetails() }
-            .do(onNext: { _ in
-                
-            })
     }
 
-    private func refreshShowDetails() -> Observable<DvrShow> {
+    private func refreshShowDetails() -> Single<DvrShow> {
         let show = interactors.addShow.show!
 
         return interactors.showDetails
             .setShow(show)
+            .observe()
+            .asObservable()
             .retry(.delayed(maxCount: 5, time: 1))
             .do(onNext: {
                 //! Again this line is sickbeard specific. Won't hurt others but shouldn't be here.
@@ -47,5 +46,6 @@ public class DvrAddShowInteractor: CompoundInteractor {
 
                 $0.store(in: self.database)
             })
+            .asSingle()
     }
 }

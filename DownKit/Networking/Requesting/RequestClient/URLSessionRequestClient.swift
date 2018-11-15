@@ -9,32 +9,32 @@
 import RxSwift
 
 extension URLSession: RequestClient {
-    public func execute(_ request: Request) -> Observable<Response> {
-        return Observable.create { observable in
+    public func execute(_ request: Request) -> Single<Response> {
+        return Single.create { observer in
             guard let urlRequest = request.asUrlRequest() else {
-                observable.onError(RequestClientError.invalidRequest)
+                observer(.error(RequestClientError.invalidRequest))
                 return Disposables.create()
             }
 
             self.dataTask(with: urlRequest) { (data, response, error) in
                 guard error == nil else {
-                    return observable.onError(RequestClientError.generic(message: error!.localizedDescription))
+                    return observer(.error(RequestClientError.generic(message: error!.localizedDescription)))
                 }
 
                 guard let httpResponse = response as? HTTPURLResponse else {
-                    return observable.onError(RequestClientError.invalidResponse)
+                    return observer(.error(RequestClientError.invalidResponse))
                 }
 
                 guard let data = data else {
-                    return observable.onError(RequestClientError.noData)
+                    return observer(.error(RequestClientError.noData))
                 }
 
-                observable.onNext(Response(
+                observer(.success(Response(
                     request: request,
                     data: data,
                     statusCode: httpResponse.statusCode,
                     headers: httpResponse.allHeaderFields as? [String: String]
-                ))
+                )))
             }.resume()
 
             return Disposables.create()

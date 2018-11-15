@@ -15,7 +15,7 @@ public protocol RequestGatewayInteracting: ObservableInteractor where Element ==
 }
 
 extension RequestGatewayInteracting {
-    public func observe() -> Observable<Gateway.ResultType> {
+    public func observe() -> Single<Gateway.ResultType> {
         return gateway.observe()
     }
 }

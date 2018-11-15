@@ -16,21 +16,17 @@ public protocol RequestGateway {
     func makeRequest() throws -> Request
     func parse(response: Response) throws -> ResultType
     
-    func observe() -> Observable<ResultType>
+    func observe() -> Single<ResultType>
 }
 
 extension RequestGateway {
-    public func observe() -> Observable<ResultType> {
-        let request: Request
+    public func observe() -> Single<ResultType> {
+        var request: Request
         do {
             request = try self.makeRequest()
         }
         catch {
-            return Observable.create {
-                $0.onError(error)
-
-                return Disposables.create()
-            }
+            return Single.error(error)
         }
 
         return self.executor

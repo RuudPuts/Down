@@ -25,18 +25,19 @@ public class DvrSetSeasonStatusInteractor: CompoundInteractor {
         self.database = database
     }
 
-    public func observe() -> Observable<DvrShow> {
+    public func observe() -> Single<DvrShow> {
         return interactors.setStatus
             .observe()
             .flatMap { _ in self.refreshShowDetails() }
     }
 
-    private func refreshShowDetails() -> Observable<DvrShow> {
+    private func refreshShowDetails() -> Single<DvrShow> {
         let show = self.interactors.setStatus.season.show!
 
         return interactors.showDetails
             .setShow(show)
-            .do(onNext: {
+            .observe()
+            .do(onSuccess: {
                 $0.store(in: self.database)
             })
     }

@@ -21,9 +21,9 @@ struct DvrAddShowViewModel: Depending {
         self.dependencies = dependencies
     }
 
-    func searchShows(query: String) -> Observable<[DvrShow]> {
+    func searchShows(query: String) -> Single<[DvrShow]> {
         guard query.count > 0 else {
-            return Observable.just([])
+            return Single.just([])
         }
 
         return dependencies.dvrInteractorFactory
@@ -31,17 +31,12 @@ struct DvrAddShowViewModel: Depending {
             .observe()
     }
 
-    func add(show: DvrShow) -> Observable<DvrShow> {
+    func add(show: DvrShow) -> Single<DvrShow> {
         return dependencies.dvrInteractorFactory
             .makeAddShowInteractor(for: dependencies.dvrApplication, show: show)
             .observe()
-            .do(onNext: { _ in
-
-            })
+            .asObservable()
             .skip(1)
-            .do(onNext: { _ in
-
-            })
-            .debug()
+            .asSingle()
     }
 }

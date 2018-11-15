@@ -22,19 +22,19 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting, Depending
         self.gateway = gateway
     }
     
-    public func observe() -> Observable<DownloadQueue> {
+    public func observe() -> Single<DownloadQueue> {
         var queue: DownloadQueue!
 
         return self.gateway
             .observe()
-            .do(onNext: { queue = $0 })
+            .do(onSuccess: { queue = $0 })
             .map { $0.items }
-            .flatMap { items -> Observable<[DownloadItem]> in
+            .flatMap { items -> Single<[DownloadItem]> in
                 guard items.count > 0 else {
-                    return Observable.just([])
+                    return Single.just([])
                 }
 
-                return Observable.zip(items.map {
+                return Single.zip(items.map {
                     $0.match(with: self.dependencies.database)
                 })
             }

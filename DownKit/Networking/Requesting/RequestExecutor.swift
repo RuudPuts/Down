@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 public protocol RequestExecuting {
-    func execute(_ request: Request) -> Observable<Response>
+    func execute(_ request: Request) -> Single<Response>
 }
 
 public class RequestExecutor: RequestExecuting {
@@ -20,7 +20,7 @@ public class RequestExecutor: RequestExecuting {
         self.requestClient = requestClient
     }
     
-    public func execute(_ request: Request) -> Observable<Response> {
+    public func execute(_ request: Request) -> Single<Response> {
         return requestClient.execute(request)
     }
 }

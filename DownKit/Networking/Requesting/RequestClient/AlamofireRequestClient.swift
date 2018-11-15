@@ -12,32 +12,32 @@ import Alamofire
 public class AlamofireRequestClient: RequestClient {
     public init() { }
 
-    public func execute(_ request: Request) -> Observable<Response> {
-        return Observable.create { observable in
+    public func execute(_ request: Request) -> Single<Response> {
+        return Single.create { observer in
             guard let alamofireRequest = request.asAlamofireRequest() else {
-                observable.onError(RequestClientError.invalidRequest)
+                observer(.error(RequestClientError.invalidRequest))
                 return Disposables.create()
             }
 
             alamofireRequest.responseData { handler in
                 guard handler.error == nil else {
-                    return observable.onError(RequestClientError.generic(message: handler.error!.localizedDescription))
+                    return observer(.error(RequestClientError.generic(message: handler.error!.localizedDescription)))
                 }
 
                 guard let response = handler.response else {
-                    return observable.onError(RequestClientError.invalidResponse)
+                    return observer(.error(RequestClientError.invalidResponse))
                 }
 
                 guard let data = handler.data else {
-                    return observable.onError(RequestClientError.noData)
+                    return observer(.error(RequestClientError.noData))
                 }
 
-                observable.onNext(Response(
+                observer(.success(Response(
                     request: request,
                     data: data,
                     statusCode: response.statusCode,
                     headers: response.allHeaderFields as? [String: String]
-                ))
+                )))
             }
 
             return Disposables.create()
