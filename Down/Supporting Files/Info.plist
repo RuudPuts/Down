@@ -60,5 +60,19 @@
 	<dict>
 	<key>NSAllowsArbitraryLoads</key><true/>
 	</dict>
+    <key>Fabric</key>
+    <dict>
+        <key>APIKey</key>
+        <string>fd7501efa3a9abb16103f351213d7b72ff764052</string>
+        <key>Kits</key>
+        <array>
+            <dict>
+                <key>KitInfo</key>
+                <dict/>
+                <key>KitName</key>
+                <string>Crashlytics</string>
+            </dict>
+        </array>
+    </dict>
 </dict>
 </plist>

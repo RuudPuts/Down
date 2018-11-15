@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard NSClassFromString("XCTest") == nil else {
             return true
         }
+
+        Fabric.with([Crashlytics.self])
 
         window = UIWindow()
 
