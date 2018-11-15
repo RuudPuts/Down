@@ -30,14 +30,14 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3hH-Rl-r2B">
-                    <rect key="frame" x="0.0" y="226" width="375" height="401"/>
+                    <rect key="frame" x="0.0" y="226" width="375" height="385"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eZ3-U0-3f1">
-                    <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                    <rect key="frame" x="8" y="619" width="359" height="40"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UaF-1l-95K">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                            <rect key="frame" x="0.0" y="0.0" width="359" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="GCQ-wK-idA"/>
                             </constraints>
@@ -50,13 +50,13 @@
             <constraints>
                 <constraint firstItem="pKP-2Y-w8q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-44" id="0nW-ee-G2g"/>
                 <constraint firstItem="pKP-2Y-w8q" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="9IZ-vA-z9X"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eZ3-U0-3f1" secondAttribute="bottom" id="BSM-J0-Qd5"/>
-                <constraint firstItem="eZ3-U0-3f1" firstAttribute="top" secondItem="3hH-Rl-r2B" secondAttribute="bottom" id="IAD-bc-pjA"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eZ3-U0-3f1" secondAttribute="bottom" constant="8" id="BSM-J0-Qd5"/>
+                <constraint firstItem="eZ3-U0-3f1" firstAttribute="top" secondItem="3hH-Rl-r2B" secondAttribute="bottom" constant="8" id="IAD-bc-pjA"/>
                 <constraint firstItem="3hH-Rl-r2B" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cAD-Tg-z4D"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eZ3-U0-3f1" secondAttribute="trailing" id="hiw-JS-sta"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eZ3-U0-3f1" secondAttribute="trailing" constant="8" id="hiw-JS-sta"/>
                 <constraint firstItem="pKP-2Y-w8q" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="kxX-Eg-BHm"/>
                 <constraint firstItem="3hH-Rl-r2B" firstAttribute="top" secondItem="pKP-2Y-w8q" secondAttribute="bottom" id="lK5-FQ-y3u"/>
-                <constraint firstItem="eZ3-U0-3f1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="mN5-vf-oPw"/>
+                <constraint firstItem="eZ3-U0-3f1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="mN5-vf-oPw"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="3hH-Rl-r2B" secondAttribute="trailing" id="tAh-Be-xTT"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

@@ -44,6 +44,7 @@ class DvrShowDetailViewController: UIViewController, Depending {
         configureHeaderView()
         configureTableView()
         tableViewModel.prepare(tableView: tableView!)
+        bindFooterButtons()
     }
     
     func applyStyling() {
