@@ -11,20 +11,28 @@ import RealmSwift
 import RxRealm
 
 public class RealmDatabase: DownDatabase {
-    public init() {}
-
+    var realm: Realm!
+    
+    public init(realm: Realm? = nil) {
+        if let realm = realm {
+            self.realm = realm
+        }
+        else {
+            self.realm = try! Realm()
+        }
+    }
+    
     public func transact(block: @escaping () -> Void) {
-//        DispatchQueue.main.async {
+        DispatchQueue.main.async {
             block()
-//        }
+        }
     }
     
     public func store(show: DvrShow) {
         transact {
             // swiftlint:disable force_try
-            let realm = try! Realm()
-            try! realm.write {
-                realm.add(show, update: true)
+            try! self.realm.write {
+                self.realm.add(show, update: true)
             }
         }
     }
@@ -32,31 +40,29 @@ public class RealmDatabase: DownDatabase {
     public func delete(show: DvrShow) {
         transact {
             // swiftlint:disable force_try
-            let realm = try! Realm()
-            try! realm.write {
-                realm.delete(show)
+            try! self.realm.write {
+                self.realm.delete(show)
             }
         }
     }
     
     public func fetchShows() -> Observable<[DvrShow]> {
-        let realm = try! Realm()
+        let shows = self.realm.objects(DvrShow.self)
 
-        return Observable.array(from: realm.objects(DvrShow.self))
+        return Observable.array(from: shows)
     }
     
     public func fetchShow(matching nameComponents: [String]) -> Maybe<DvrShow> {
         return Maybe.create { observer in
             self.transact {
                 var matches: Results<DvrShow>?
-
-                let realm = try! Realm()
+                
                 for component in nameComponents {
                     let componentFilter = "name contains[c] '\(component)'"
                     
                     var componentMatches = matches
                     if componentMatches == nil {
-                        componentMatches = realm.objects(DvrShow.self)
+                        componentMatches = self.realm.objects(DvrShow.self)
                             .filter(componentFilter)
                     }
                     else {
