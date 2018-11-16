@@ -26,6 +26,7 @@ class DvrShowCollectionViewCell: UICollectionViewCell {
 
         containerView.style(as: .roundedContentView)
         textLabel.style(as: .titleLabel)
+                 .style(as: .scalingTextLabel)
     }
 }
 

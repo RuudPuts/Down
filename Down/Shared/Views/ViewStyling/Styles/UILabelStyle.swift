@@ -51,6 +51,13 @@ extension ViewStyling where ViewType == UILabel {
 }
 
 extension ViewStyling where ViewType == UILabel {
+    static var scalingTextLabel = ViewStyling {
+        $0.adjustsFontSizeToFitWidth = true
+        $0.minimumScaleFactor = 0.8
+    }
+}
+
+extension ViewStyling where ViewType == UILabel {
     static func qualityLabel(_ quality: Quality) -> ViewStyling {
         return ViewStyling {
             $0.style(as: .roundedView($0.bounds.midY))
