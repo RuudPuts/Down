@@ -31,12 +31,14 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
         return interactors
             .makeShowListInteractor(for: application)
             .observe()
+            .asObservable()
             .flatMap { self.processDeletedShows($0) }
             .flatMap { self.determineShowsToRefresh($0) }
             .flatMap { self.refreshShowDetails($0) }
+            .asSingle()
     }
 
-    func processDeletedShows(_ shows: [DvrShow]) -> Single<[DvrShow]> {
+    func processDeletedShows(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
         return Observable.zip([Observable.just(shows), database.fetchShows()])
             .map {
                 guard let fetchedShows = $0.first, let storedShows = $0.last,
@@ -52,10 +54,9 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
 
                 return shows
             }
-            .asSingle()
     }
 
-    func determineShowsToRefresh(_ shows: [DvrShow]) -> Single<[DvrShow]> {
+    func determineShowsToRefresh(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
         return Observable.zip([Observable.just(shows), database.fetchShows()])
             .map {
                 guard let fetchedShows = $0.first, let storedShows = $0.last else {
@@ -73,10 +74,9 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
 
                 return newShows + showsToRefresh
             }
-            .asSingle()
     }
 
-    func refreshShowDetails(_ shows: [DvrShow]) -> Single<[DvrShow]> {
+    func refreshShowDetails(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
         let observables = shows.map {
             self.interactors
                 .makeShowDetailsInteractor(for: self.application, show: $0)
@@ -85,8 +85,10 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
                 .do(onSuccess: {
                     $0.store(in: self.database)
                 })
+                .observeOn(MainScheduler.instance)
+                .asObservable()
             }
 
-        return Single.zip(observables).observeOn(MainScheduler.instance)
+        return Observable.zip(observables)
     }
 }

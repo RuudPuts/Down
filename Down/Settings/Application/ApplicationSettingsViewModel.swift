@@ -43,7 +43,7 @@ class ApplicationSettingsViewModel: Depending {
         return dependencies.apiInteractorFactory
             .makeLoginInteractor(for: applicationCopy, credentials: credentials)
             .observe()
-            .do(onNext: { result in
+            .do(onSuccess: { result in
                     NSLog("Login result: \(result)")
                     switch result {
                     case .success:
