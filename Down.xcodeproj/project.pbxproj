@@ -1825,6 +1825,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 426A799B20D1810200797AE5 /* Build configuration list for PBXNativeTarget "Down" */;
 			buildPhases = (
+				F864179F21A03742006C03A1 /* Generate R File */,
 				8B47AB3386A0F09B7788EFB7 /* [CP] Check Pods Manifest.lock */,
 				426A797A20D1810100797AE5 /* Sources */,
 				426A797B20D1810100797AE5 /* Frameworks */,
@@ -2059,7 +2060,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exit 0\n\nif which swiftlint >/dev/null; then\n    swiftlint\nfi";
+			shellScript = "exit 0\n\nif which swiftlint >/dev/null; then\n    swiftlint\nfi\n";
 		};
 		45E8152B0C1EF10F11E84E1F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2230,6 +2231,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DownTests/Pods-DownTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F864179F21A03742006C03A1 /* Generate R File */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate R File";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
