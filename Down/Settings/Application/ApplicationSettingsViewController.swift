@@ -71,16 +71,21 @@ class ApplicationSettingsViewController: UIViewController & Depending {
             .drive(passwordTextField.rx.isHidden)
             .disposed(by: disposeBag)
 
-        viewModel.host.asDriver()
+        viewModel
+            .host
+            .asDriver()
             .drive(hostTextField.rx.text)
             .disposed(by: disposeBag)
 
-        viewModel.apiKey.asDriver()
+        viewModel
+            .apiKey
+            .asDriver()
             .drive(apiKeyTextField.rx.text)
             .disposed(by: disposeBag)
 
-        [hostTextField, usernameTextField, passwordTextField].forEach {
-            $0.rx.text
+        [hostTextField, usernameTextField, passwordTextField].forEach { textField in
+            textField?.delegate = self
+            textField?.rx.text
                 .skip(2)
                 .debounce(0.3, scheduler: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] _ in
@@ -144,5 +149,23 @@ class ApplicationSettingsViewController: UIViewController & Depending {
 
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         dependencies.router.close(viewController: self)
+    }
+}
+
+extension ApplicationSettingsViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let illegalCharacterSet = CharacterSet.whitespacesAndNewlines
+        
+        if string.rangeOfCharacter(from: illegalCharacterSet) != nil,
+            let replaceStart = textField.position(from: textField.beginningOfDocument, offset: range.location),
+            let replaceEnd = textField.position(from: replaceStart, offset: range.length),
+            let textRange = textField.textRange(from: replaceStart, to: replaceEnd) {
+            
+            // replace current content with stripped content
+            let strippedString = string.components(separatedBy: illegalCharacterSet).joined()
+            textField.replace(textRange, withText: strippedString)
+            return false
+        }
+        return true
     }
 }
