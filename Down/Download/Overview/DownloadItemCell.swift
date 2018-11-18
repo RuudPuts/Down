@@ -44,7 +44,6 @@ class DownloadItemCell: UITableViewCell {
         if let viewModel = viewModel {
             progressView.style(as: .progressView(for: viewModel.applicationType))
         }
-        containerView.style(as: .roundedContentView)
 
         backgroundColor = .clear
         nameLabel?.style(as: .titleLabel)
