@@ -1,6 +1,6 @@
 language: swift
 os: osx
-osx_image: xcode9.4
+osx_image: xcode10.1
 cache:
   directories:
   - Pods
@@ -12,7 +12,7 @@ env:
   - SCHEME=Down
   - CC_TEST_REPORTER_ID=4074485b984af5323f0806408b43441628bc6f72f523b89c5338f87ae807820a
   matrix:
-    - DESTINATION="OS=11.3,name=iPhone X"
+    - DESTINATION="OS=12.1,name=iPhone XS"
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
