@@ -56,11 +56,11 @@ extension UIView {
 }
 
 private extension UIView {
-    func constraint(withAttribute attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
+    func constraint(withAttribute attribute: NSLayoutConstraint.Attribute) -> NSLayoutConstraint? {
         return constraints.first { $0.firstAttribute == attribute }
     }
 
-    func constraint(withAttribute attribute: NSLayoutAttribute, toView view: UIView) -> NSLayoutConstraint? {
+    func constraint(withAttribute attribute: NSLayoutConstraint.Attribute, toView view: UIView) -> NSLayoutConstraint? {
         return constraints.first { $0.firstAttribute == attribute && $0.secondItem as? UIView == view }
     }
 }
