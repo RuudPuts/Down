@@ -9,6 +9,12 @@
 import SwiftyJSON
 
 class SickbeardResponseParser: DvrResponseParsing {
+    var application: ApiApplication
+
+    required init(application: ApiApplication) {
+        self.application = application
+    }
+
     func parseShows(from response: Response) throws -> [DvrShow] {
         return try parse(response)
             .dictionary?.map {

@@ -10,13 +10,21 @@
 
 class ApiApplicationResponseParsingMock: ApiApplicationResponseParsing {
     struct Stubs {
+        var application: ApiApplication!
+
         var parseLogin = LoginResult.failed
         var parseApiKey: String?
     }
     
     struct Captures {
+        var `init`: Init?
+
         var parseLogin: Parse?
         var parseApiKey: Parse?
+
+        struct Init {
+            let application: ApiApplication
+        }
         
         struct Parse {
             let response: Response
@@ -25,6 +33,20 @@ class ApiApplicationResponseParsingMock: ApiApplicationResponseParsing {
     
     var stubs = Stubs()
     var captures = Captures()
+
+    var application: ApiApplication {
+        return stubs.application
+    }
+
+    required init(application: ApiApplication) {
+        captures.init = Captures.Init(application: application)
+    }
+
+    convenience init() {
+        self.init(application: ApiApplicationMock())
+
+        stubs.application = application
+    }
     
     // ApiApplicationResponseParsing
 

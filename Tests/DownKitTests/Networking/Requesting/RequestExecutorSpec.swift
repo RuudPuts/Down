@@ -42,7 +42,7 @@ class RequestExecutorSpec: QuickSpec {
                     response = Response(data: nil, statusCode: 418, headers: [:])
                     requestClient.stubs.execute.response = response
                     
-                    result = sut.execute(request)
+                    result = sut.execute(request).asObservable()
                 }
                 
                 afterEach {

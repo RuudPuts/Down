@@ -11,12 +11,12 @@ import RxSwift
 
 class RequestGatewayMock: RequestGateway {
     var executor: RequestExecuting = RequestExecutingMock()
-    var disposeBag: DisposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
 
     struct Stubs {
         var request: Request?
         var parse: Any?
-        var observe: Observable<Any> = Observable.just(0)
+        var observe: Single<Any> = Single.just(0)
     }
 
     struct Captures {
@@ -41,7 +41,7 @@ class RequestGatewayMock: RequestGateway {
         return stubs.parse!
     }
     
-    func observe() -> Observable<Any> {
+    func observe() -> Single<Any> {
         return stubs.observe
     }
 }

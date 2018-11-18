@@ -10,6 +10,8 @@
 
 class DownloadResponseParsingMock: DownloadResponseParsing {
     struct Stubs {
+        var application: ApiApplication!
+
         var parseQueue = DownloadQueue()
         var parseHistory: [DownloadItem]?
         var parseDeleteItem = false
@@ -19,12 +21,18 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
     }
     
     struct Captures {
+        var `init`: Init?
+
         var parseQueue: Parse?
         var parseHistory: Parse?
         var parseDeleteItem: Parse?
 
         var parseLogin: Parse?
         var parseApiKey: Parse?
+
+        struct Init {
+            let application: ApiApplication
+        }
 
         struct Parse {
             let response: Response
@@ -33,6 +41,20 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
     
     var stubs = Stubs()
     var captures = Captures()
+
+    var application: ApiApplication {
+        return stubs.application
+    }
+
+    required init(application: ApiApplication) {
+        captures.init = Captures.Init(application: application)
+    }
+
+    convenience init() {
+        self.init(application: ApiApplicationMock())
+
+        stubs.application = application
+    }
     
     // DownloadResponseParsing
     

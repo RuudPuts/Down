@@ -7,13 +7,11 @@
 //
 
 public class Response {
-    let request: Request
     public var data: Data?
     let statusCode: Int
     let headers: [String: String]?
 
-    init(request: Request, data: Data?, statusCode: Int, headers: [String: String]?) {
-        self.request = request
+    init(data: Data?, statusCode: Int, headers: [String: String]?) {
         self.data = data
         self.statusCode = statusCode
         self.headers = headers
@@ -22,8 +20,7 @@ public class Response {
 
 extension Response: Equatable {
     public static func == (lhs: Response, rhs: Response) -> Bool {
-        return lhs.request == rhs.request
-            && lhs.data == rhs.data
+        return lhs.data == rhs.data
             && lhs.statusCode == rhs.statusCode
             && lhs.headers == rhs.headers
     }

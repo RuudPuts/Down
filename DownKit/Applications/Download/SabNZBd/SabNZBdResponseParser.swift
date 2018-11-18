@@ -8,7 +8,13 @@
 
 import SwiftyJSON
 
-class SabNZBdResponseParser: DownloadResponseParsing {    
+class SabNZBdResponseParser: DownloadResponseParsing {
+    var application: ApiApplication
+
+    required init(application: ApiApplication) {
+        self.application = application
+    }
+    
     func parseQueue(from response: Response) throws -> DownloadQueue {
         let json = try parse(response, forKey: .queue)
         

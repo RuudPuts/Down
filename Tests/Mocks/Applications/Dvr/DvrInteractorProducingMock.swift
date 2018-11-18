@@ -10,11 +10,16 @@
 
 class DvrInteractorProducingMock {
     struct Stubs {
+        var database: DownDatabase = DownDatabaseMock()
+
         var showListInteractor: DvrShowListGateway?
         var makeShowDetailsInteractor: DvrShowDetailsGateway?
         var makeShowCacheRefreshInteractor: DvrRefreshShowCacheInteractor.Interactors?
         var makeSearchShowsInteractor: DvrSearchShowsGateway?
         var makeAddShowInteractor: DvrAddShowInteractor.Interactors?
+        var makeDeleteShowInteractor: DvrDeleteShowGateway?
+        var makeSetEpisodeStatusInteractor: DvrSetEpisodeStatusInteractor.Interactors?
+        var makeSetSeasonStatusInteractor: DvrSetSeasonStatusInteractor.Interactors?
     }
 
     struct Captures {
@@ -35,7 +40,7 @@ extension DvrInteractorProducingMock: DvrInteractorProducing {
     }
 
     func makeShowCacheRefreshInteractor(for application: DvrApplication) -> DvrRefreshShowCacheInteractor {
-        return DvrRefreshShowCacheInteractor(application: application, interactors: stubs.makeShowCacheRefreshInteractor!, database: DownDatabaseMock())
+        return DvrRefreshShowCacheInteractor(application: application, interactors: stubs.makeShowCacheRefreshInteractor!, database: stubs.database)
     }
 
     func makeSearchShowsInteractor(for application: DvrApplication, query: String) -> DvrSearchShowsInteractor {
@@ -44,5 +49,17 @@ extension DvrInteractorProducingMock: DvrInteractorProducing {
 
     func makeAddShowInteractor(for application: DvrApplication, show: DvrShow) -> DvrAddShowInteractor {
         return DvrAddShowInteractor(interactors: stubs.makeAddShowInteractor!)
+    }
+
+    func makeDeleteShowInteractor(for application: DvrApplication, show: DvrShow) -> DvrDeleteShowInteractor {
+        return DvrDeleteShowInteractor(gateway: stubs.makeDeleteShowInteractor!, database: stubs.database)
+    }
+
+    func makeSetEpisodeStatusInteractor(for application: DvrApplication, episode: DvrEpisode, status: DvrEpisodeStatus) -> DvrSetEpisodeStatusInteractor {
+        return DvrSetEpisodeStatusInteractor(interactors: stubs.makeSetEpisodeStatusInteractor!, database: stubs.database)
+    }
+
+    func makeSetSeasonStatusInteractor(for application: DvrApplication, season: DvrSeason, status: DvrEpisodeStatus) -> DvrSetSeasonStatusInteractor {
+        return DvrSetSeasonStatusInteractor(interactors: stubs.makeSetSeasonStatusInteractor!, database: stubs.database)
     }
 }

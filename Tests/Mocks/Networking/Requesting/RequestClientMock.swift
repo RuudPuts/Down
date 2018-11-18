@@ -23,16 +23,16 @@ class RequestClientMock: RequestClient {
     
     // RequestClient
 
-    func execute(_ request: Request) -> Observable<Response> {
-        return Observable<Response>.create { observer in
+    func execute(_ request: Request) -> Single<Response> {
+        return Single<Response>.create { observer in
             if let error = self.stubs.execute.error {
-                observer.onError(error)
+                observer(.error(error))
             }
             else if let response = self.stubs.execute.response {
-                observer.onNext(response)
+                observer(.success(response))
             }
             else {
-                NSLog("!!! RequestClientMock executed without stubs")
+                fatalError("RequestClientMock executed without stubs")
             }
 
             return Disposables.create()

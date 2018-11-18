@@ -20,8 +20,8 @@ class SabNZBdResponseParserSpec: QuickSpec {
             var response: Response!
             
             beforeEach {
-                sut = SabNZBdResponseParser()
-                response = Response()
+                sut = SabNZBdResponseParser(application: ApiApplicationMock())
+                response = Response.defaultStub
             }
             
             afterEach {

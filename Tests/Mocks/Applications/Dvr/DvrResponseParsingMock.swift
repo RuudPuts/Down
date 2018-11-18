@@ -10,6 +10,8 @@
 
 class DvrResponseParsingMock: DvrResponseParsing {
     struct Stubs {
+        var application: ApiApplication!
+        
         var parseShows: [DvrShow]?
         var parseShowDetails: DvrShow?
         var parseSearchShows: [DvrShow]?
@@ -23,6 +25,8 @@ class DvrResponseParsingMock: DvrResponseParsing {
     }
     
     struct Captures {
+        var `init`: Init?
+
         var parseShows: Parse?
         var parseShowDetails: Parse?
         var parseSearchShows: Parse?
@@ -30,6 +34,10 @@ class DvrResponseParsingMock: DvrResponseParsing {
         var parseDeleteShow: Parse?
         var parseSetEpisodeStatus: Parse?
         var parseSetSeasonStatus: Parse?
+
+        struct Init {
+            let application: ApiApplication
+        }
 
         var parseLogin: Parse?
         var parseApiKey: Parse?
@@ -41,6 +49,20 @@ class DvrResponseParsingMock: DvrResponseParsing {
     
     var stubs = Stubs()
     var captures = Captures()
+
+    var application: ApiApplication {
+        return stubs.application
+    }
+
+    required init(application: ApiApplication) {
+        captures.init = Captures.Init(application: application)
+    }
+
+    convenience init() {
+        self.init(application: ApiApplicationMock())
+
+        stubs.application = application
+    }
     
     // DvrResponseParsing
     

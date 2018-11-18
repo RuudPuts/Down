@@ -9,6 +9,12 @@
 import SwiftyJSON
 
 class CouchPotatoResponseParser: DmrResponseParsing {
+    var application: ApiApplication
+
+    required init(application: ApiApplication) {
+        self.application = application
+    }
+
     func parseMovies(from response: Response) throws -> [DmrMovie] {
         return try parse(response)["movies"]
             .array?.map {

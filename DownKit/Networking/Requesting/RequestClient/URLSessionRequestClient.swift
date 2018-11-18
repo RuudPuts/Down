@@ -30,7 +30,6 @@ extension URLSession: RequestClient {
                 }
 
                 observer(.success(Response(
-                    request: request,
                     data: data,
                     statusCode: httpResponse.statusCode,
                     headers: httpResponse.allHeaderFields as? [String: String]

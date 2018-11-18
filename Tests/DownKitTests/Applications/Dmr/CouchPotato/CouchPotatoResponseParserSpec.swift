@@ -20,8 +20,8 @@ class CouchPotatoResponseParserSpec: QuickSpec {
             var response: Response!
             
             beforeEach {
-                sut = CouchPotatoResponseParser()
-                response = Response()
+                sut = CouchPotatoResponseParser(application: ApiApplicationMock())
+                response = Response.defaultStub
             }
             
             afterEach {

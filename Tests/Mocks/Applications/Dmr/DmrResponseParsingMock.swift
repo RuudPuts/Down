@@ -10,6 +10,8 @@
 
 class DmrResponseParsingMock: DmrResponseParsing {
     struct Stubs {
+        var application: ApiApplication!
+
         var parseMovies: [DmrMovie]?
 
         var parseLogin = LoginResult.failed
@@ -17,10 +19,16 @@ class DmrResponseParsingMock: DmrResponseParsing {
     }
     
     struct Captures {
+        var `init`: Init?
+
         var parseMovies: Parse?
 
         var parseLogin: Parse?
         var parseApiKey: Parse?
+
+        struct Init {
+            let application: ApiApplication
+        }
         
         struct Parse {
             let response: Response
@@ -29,6 +37,20 @@ class DmrResponseParsingMock: DmrResponseParsing {
     
     var stubs = Stubs()
     var captures = Captures()
+
+    var application: ApiApplication {
+        return stubs.application
+    }
+
+    required init(application: ApiApplication) {
+        captures.init = Captures.Init(application: application)
+    }
+
+    convenience init() {
+        self.init(application: ApiApplicationMock())
+
+        stubs.application = application
+    }
     
     // DmrResponseParsing
     

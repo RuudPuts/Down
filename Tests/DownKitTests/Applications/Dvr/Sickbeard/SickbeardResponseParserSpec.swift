@@ -20,8 +20,8 @@ class SickbeardResponseParserSpec: QuickSpec {
             var response: Response!
             
             beforeEach {
-                sut = SickbeardResponseParser()
-                response = Response()
+                sut = SickbeardResponseParser(application: ApiApplicationMock())
+                response = Response.defaultStub
             }
             
             afterEach {

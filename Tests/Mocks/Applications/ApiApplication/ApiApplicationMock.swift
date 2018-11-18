@@ -14,8 +14,8 @@ class ApiApplicationMock: ApiApplication {
         var name = "ApiApplication"
         var host = "ApiHost"
         var apiKey = "ApiKey"
-        var requestBuilder: RequestBuilding = RequestBuildingMock(application: DownloadApplication(type: .sabnzbd, host: "", apiKey: ""))
-        var responseParser: ResponseParsing = ResponseParsingMock()
+        var requestBuilder: RequestBuilding?
+        var responseParser: ResponseParsing?
     }
     
     struct Captures {
@@ -32,13 +32,6 @@ class ApiApplicationMock: ApiApplication {
     var stubs = Stubs()
     var captures = Captures()
     
-    convenience init() {
-        self.init(host: "ApiHost", apiKey: "ApiKey")
-        
-        stubs.host = host
-        stubs.apiKey = apiKey
-    }
-    
     // ApiApplication
     var type: ApiApplicationType { return stubs.type }
     var name: String { return stubs.name }
@@ -50,11 +43,23 @@ class ApiApplicationMock: ApiApplication {
         get { return stubs.apiKey }
         set { captures.host = host }
     }
-    var requestBuilder: RequestBuilding { return stubs.requestBuilder }
-    var responseParser: ResponseParsing { return stubs.responseParser }
+
+    var requestBuilder: RequestBuilding {
+        return stubs.requestBuilder!
+    }
+    var responseParser: ResponseParsing {
+        return stubs.responseParser!
+    }
     
     required init(host: String, apiKey: String) {
         captures.init = Captures.Init(host: host, apiKey: apiKey)
+    }
+
+    convenience init() {
+        self.init(host: "ApiHost", apiKey: "ApiKey")
+
+        stubs.host = host
+        stubs.apiKey = apiKey
     }
 
     func copy() -> Any {

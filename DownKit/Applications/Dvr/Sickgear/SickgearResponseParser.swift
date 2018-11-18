@@ -10,7 +10,7 @@ class SickgearResponseParser: SickbeardResponseParser {
     override func parseLoggedIn(from response: Response) throws -> LoginResult {
         let result = try super.parseLoggedIn(from: response)
 
-        if result == .authenticationRequired, response.sessionCookie != nil {
+        if result == .authenticationRequired, application.sessionCookie != nil {
             return .success
         }
 
@@ -18,9 +18,13 @@ class SickgearResponseParser: SickbeardResponseParser {
     }
 }
 
-private extension Response {
+private extension ApiApplication {
     var sessionCookie: HTTPCookie? {
-        return CookieBag.cookie(for: request.url,
+        guard let hostUrl = URL.from(host: host) else {
+            return nil
+        }
+
+        return CookieBag.cookie(for: hostUrl,
                                 startingWith: SickgearRequestBuilder.sessionCookiePrefix)
     }
 }

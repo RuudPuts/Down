@@ -8,4 +8,14 @@
 
 @testable import DownKit
 
-class ResponseParsingMock: ResponseParsing { }
+class ResponseParsingMock: ResponseParsing {
+    var application: ApiApplication
+
+    required init(application: ApiApplication) {
+        self.application = application
+    }
+
+    convenience init() {
+        self.init(application: ApiApplicationMock())
+    }
+}

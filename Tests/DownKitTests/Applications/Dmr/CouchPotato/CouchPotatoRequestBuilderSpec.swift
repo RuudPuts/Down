@@ -55,8 +55,8 @@ class CouchPotatoRequestBuilderSpec: QuickSpec {
 
                     beforeEach {
                         credentials = ("username", "password")
-                        expectedFormData = FormAuthenticationData(fieldName: ("username", "password"),
-                                                                  fieldValue: credentials)
+                        expectedFormData = ["username": credentials.username,
+                                            "password": credentials.password]
 
                         result = sut.specification(for: .login, credentials: credentials)
                     }

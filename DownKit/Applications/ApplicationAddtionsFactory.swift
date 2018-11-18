@@ -49,7 +49,7 @@ public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
     
     public func makeDownloadResponseParser(for application: DownloadApplication) -> DownloadResponseParsing {
         switch application.downloadType {
-        case .sabnzbd: return SabNZBdResponseParser()
+        case .sabnzbd: return SabNZBdResponseParser(application: application)
         }
     }
     
@@ -62,8 +62,8 @@ public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
     
     public func makeDvrResponseParser(for application: DvrApplication) -> DvrResponseParsing {
         switch application.dvrType {
-        case .sickbeard: return SickbeardResponseParser()
-        case .sickgear: return SickgearResponseParser()
+        case .sickbeard: return SickbeardResponseParser(application: application)
+        case .sickgear: return SickgearResponseParser(application: application)
         }
     }
 
@@ -75,7 +75,7 @@ public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
 
     public func makeDmrResponseParser(for application: DmrApplication) -> DmrResponseParsing {
         switch application.dmrType {
-        case .couchpotato: return CouchPotatoResponseParser()
+        case .couchpotato: return CouchPotatoResponseParser(application: application)
         }
     }
 }

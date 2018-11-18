@@ -23,8 +23,8 @@ class RequestSpec: QuickSpec {
                 beforeEach {
                     sut = Request(host: "http://myapi.com",
                                   path: "{command}?apikey={apikey}",
-                                  method: .get,
-                                  parameters: ["apikey": "testkey", "command": "testcommand"])
+                                  parameters: ["apikey": "testkey", "command": "testcommand"],
+                                  method: .get)
                 }
                 
                 it("stores the url") {

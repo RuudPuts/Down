@@ -7,6 +7,9 @@
 //
 
 public protocol ResponseParsing {
+    var application: ApiApplication { get }
+    init(application: ApiApplication)
+    
     func parseImage(from response: Response) throws -> UIImage
 }
 

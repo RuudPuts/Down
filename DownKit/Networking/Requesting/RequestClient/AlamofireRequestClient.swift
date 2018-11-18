@@ -33,7 +33,6 @@ public class AlamofireRequestClient: RequestClient {
                 }
 
                 observer(.success(Response(
-                    request: request,
                     data: data,
                     statusCode: response.statusCode,
                     headers: response.allHeaderFields as? [String: String]
