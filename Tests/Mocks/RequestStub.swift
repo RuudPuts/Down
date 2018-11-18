@@ -10,5 +10,7 @@ import Foundation
 @testable import DownKit
 
 extension Request {
-    static var defaultStub = Request(url: URL.defaultStub, method: .get)
+    static var defaultStub: Request {
+        return Request(url: URL.defaultStub, method: .get)
+    }
 }

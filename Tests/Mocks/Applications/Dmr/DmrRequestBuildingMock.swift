@@ -10,6 +10,8 @@
 
 class DmrRequestBuildingMock: DmrRequestBuilding {
     struct Stubs {
+        var application: ApiApplication!
+
         var make: Request?
         var specification: RequestSpecification?
     }
@@ -42,13 +44,15 @@ class DmrRequestBuildingMock: DmrRequestBuilding {
     var stubs = Stubs()
     var captures = Captures()
 
-    // DmrRequestBuilding
-
-    var application: ApiApplication
+    var application: ApiApplication {
+        return stubs.application
+    }
 
     required init(application: ApiApplication) {
-        self.application = application
+        stubs.application = application
     }
+
+    // DmrRequestBuilding
 
     func make(for apiCall: DmrApplicationCall) throws -> Request {
         captures.make = Captures.Make(call: apiCall)

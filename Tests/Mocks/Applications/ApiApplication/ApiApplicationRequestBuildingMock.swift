@@ -10,6 +10,8 @@
 
 class ApiApplicationRequestBuildingMock: ApiApplicationRequestBuilding {
     struct Stubs {
+        var application: ApiApplication!
+
         var make: Request?
         var specification: RequestSpecification?
     }
@@ -31,14 +33,20 @@ class ApiApplicationRequestBuildingMock: ApiApplicationRequestBuilding {
     
     var stubs = Stubs()
     var captures = Captures()
-    
-    // ApiApplicationRequestBuilding
 
-    var application: ApiApplication
+    var application: ApiApplication {
+        return stubs.application
+    }
 
     required init(application: ApiApplication) {
-        self.application = application
+        stubs.application = application
     }
+
+    convenience init() {
+        self.init(application: ApiApplicationMock())
+    }
+    
+    // ApiApplicationRequestBuilding
 
     func make(for apiCall: ApiApplicationCall, credentials: UsernamePassword?) throws -> Request {
         captures.make = Captures.Make(call: apiCall, credentials: credentials)

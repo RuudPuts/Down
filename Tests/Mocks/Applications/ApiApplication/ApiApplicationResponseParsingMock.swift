@@ -40,12 +40,12 @@ class ApiApplicationResponseParsingMock: ApiApplicationResponseParsing {
 
     required init(application: ApiApplication) {
         captures.init = Captures.Init(application: application)
+
+        stubs.application = application
     }
 
     convenience init() {
         self.init(application: ApiApplicationMock())
-
-        stubs.application = application
     }
     
     // ApiApplicationResponseParsing

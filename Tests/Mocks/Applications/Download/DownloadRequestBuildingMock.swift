@@ -10,6 +10,8 @@
 
 class DownloadRequestBuildingMock: DownloadRequestBuilding {
     struct Stubs {
+        var application: ApiApplication!
+
         var make: Request?
         var specification: RequestSpecification?
     }
@@ -41,14 +43,16 @@ class DownloadRequestBuildingMock: DownloadRequestBuilding {
     
     var stubs = Stubs()
     var captures = Captures()
-    
-    // DownloadRequestBuilding
 
-    var application: ApiApplication
+    var application: ApiApplication {
+        return stubs.application
+    }
 
     required init(application: ApiApplication) {
-        self.application = application
+        stubs.application = application
     }
+    
+    // DownloadRequestBuilding
 
     func make(for apiCall: DownloadApplicationCall) throws -> Request {
         captures.make = Captures.Make(call: apiCall)

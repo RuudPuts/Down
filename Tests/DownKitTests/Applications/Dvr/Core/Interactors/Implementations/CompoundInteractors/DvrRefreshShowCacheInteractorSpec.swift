@@ -27,7 +27,9 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
             beforeEach {
                 application = DvrApplication(type: .sickbeard, host: "host", apiKey: "key")
                 database = DownDatabaseMock()
+
                 interactorFactory = DvrInteractorProducingMock()
+                interactorFactory.stubs.database = database
 
                 sut = DvrRefreshShowCacheInteractor(application: application,
                                                     interactors: interactorFactory,
@@ -78,6 +80,8 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
                     }
 
                     it("deletes the last stored show") {
+                        _ = try? result.toBlocking().first()
+
                         expect(database.captures.deleteShow?.show) == storedShows.last
                     }
 

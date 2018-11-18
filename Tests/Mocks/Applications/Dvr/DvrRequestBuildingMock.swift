@@ -10,6 +10,8 @@
 
 class DvrRequestBuildingMock: DvrRequestBuilding {
     struct Stubs {
+        var application: ApiApplication!
+
         var make: Request?
         var specification: RequestSpecification?
     }
@@ -42,13 +44,15 @@ class DvrRequestBuildingMock: DvrRequestBuilding {
     var stubs = Stubs()
     var captures = Captures()
 
-    // DvrRequestBuilding
-
-    var application: ApiApplication
+    var application: ApiApplication {
+        return stubs.application
+    }
 
     required init(application: ApiApplication) {
-        self.application = application
+        stubs.application = application
     }
+
+    // DvrRequestBuilding
 
     func make(for apiCall: DvrApplicationCall) throws -> Request {
         captures.make = Captures.Make(call: apiCall)

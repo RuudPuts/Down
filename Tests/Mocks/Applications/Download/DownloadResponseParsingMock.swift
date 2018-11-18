@@ -48,12 +48,12 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
 
     required init(application: ApiApplication) {
         captures.init = Captures.Init(application: application)
+
+        stubs.application = application
     }
 
     convenience init() {
         self.init(application: ApiApplicationMock())
-
-        stubs.application = application
     }
     
     // DownloadResponseParsing
