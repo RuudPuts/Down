@@ -1880,17 +1880,20 @@
 				TargetAttributes = {
 					4221DA2B20D1819F003950CF = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1010;
 					};
 					4221DA3320D1819F003950CF = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1010;
 						TestTargetID = 426A797D20D1810100797AE5;
 					};
 					426A797D20D1810100797AE5 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1010;
 					};
 					426A799120D1810200797AE5 = {
 						CreatedOnToolsVersion = 9.4;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1010;
 						TestTargetID = 426A797D20D1810100797AE5;
 					};
 				};
@@ -2530,6 +2533,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.DownKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2557,6 +2561,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.DownKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2576,6 +2581,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.DownKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Down.app/Down";
 			};
 			name = Debug;
@@ -2593,6 +2599,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.DownKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Down.app/Down";
 			};
 			name = Release;
@@ -2728,6 +2735,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -2744,6 +2752,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.Down;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -2763,6 +2772,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.DownTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Down.app/Down";
 			};
 			name = Debug;
@@ -2782,6 +2792,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruudputs.DownTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Down.app/Down";
 			};
 			name = Release;
