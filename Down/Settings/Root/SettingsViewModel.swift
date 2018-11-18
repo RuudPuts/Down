@@ -8,33 +8,60 @@
 
 import DownKit
 
-class SettingsViewModel {
-    var title: String {
-        return showWelcomeMessage ? "Down" : "Settings"
+import RxSwift
+import RxCocoa
+
+class SettingsViewModel: Depending {
+    typealias Dependencies = ApplicationPersistenceDependency & RouterDependency
+    let dependencies: Dependencies
+
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
     }
-    var showWelcomeMessage: Bool
-    var welcomeMessage = "Welcome to Down!\n\nTo get started configure your downloader and indexers below"
+}
 
-    let datasource: [SettingsSectionModel] = [
-        SettingsSectionModel(applicationType: .download, applications: [.sabnzbd]),
-        SettingsSectionModel(applicationType: .dvr, applications: [.sickbeard, .sickgear]),
-        SettingsSectionModel(applicationType: .dmr, applications: [.couchpotato]),
-    ]
-
-    init(showWelcomeMessage: Bool) {
-        self.showWelcomeMessage = showWelcomeMessage
+extension SettingsViewModel: ReactiveTransforming {
+    struct Input {
+        let itemSelected: ControlEvent<IndexPath>
     }
 
-    func title(for type: ApiApplicationType) -> String {
-        switch type {
-        case .download: return "Downloaders"
-        case .dvr: return "TV Show indexers"
-        case .dmr: return "Movie indexers"
+    struct Output {
+        let title: Driver<String>
+        let welcomeMessage: Driver<String>
+
+        let applications: Driver<[SettingsSectionModel]>
+
+        let navigateToDetails: Driver<Void>
+    }
+
+    func transform(input: SettingsViewModel.Input) -> SettingsViewModel.Output {
+        let showWelcomeMessageDriver = Driver.just(!dependencies.persistence.anyApplicationConfigured)
+        let titleDriver = showWelcomeMessageDriver.map { $0 ? "Down" : "Settings" }
+        let welcomeMessageDriver: Driver<String> = showWelcomeMessageDriver.map {
+            guard $0 else { return String() }
+
+            return "Welcome to Down!\n\nTo get started configure your downloader and indexers below"
         }
-    }
 
-    func icon(for type: ApiApplicationType) -> UIImage? {
-        return nil
-//        return AssetProvider.icons.for(type)
+        let applicationsDriver = Driver.just([
+            SettingsSectionModel(applicationType: .download, title: "Downloaders", applications: [.sabnzbd]),
+            SettingsSectionModel(applicationType: .dvr, title: "Show indexers", applications: [.sickbeard, .sickgear]),
+            SettingsSectionModel(applicationType: .dmr, title: "Movie indexers", applications: [.couchpotato]),
+            ])
+
+        let navigateToDetailsDriver = input.itemSelected
+            .withLatestFrom(applicationsDriver) { indexPath, sections in
+                return sections[indexPath.section].applications[indexPath.row]
+            }
+            .map { self.dependencies.persistence.load(type: $0) ?? self.dependencies.persistence.makeApplication(ofType: $0) }
+            .do(onNext: { self.dependencies.router.settingsRouter.showSettings(for: $0) })
+            .map { _ in Void() }
+            .asDriver(onErrorJustReturn: Void())
+
+
+        return Output(title: titleDriver,
+                        welcomeMessage: welcomeMessageDriver,
+                        applications: applicationsDriver,
+                        navigateToDetails: navigateToDetailsDriver)
     }
 }

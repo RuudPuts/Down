@@ -22,8 +22,7 @@ class SettingsRouter: ChildRouter {
     }
 
     func start() {
-        let viewModel = SettingsViewModel(showWelcomeMessage: true)
-        let viewController = viewControllerFactory.makeSettings(viewModel: viewModel)
+        let viewController = viewControllerFactory.makeSettings()
 
         navigationController.viewControllers = [viewController]
     }

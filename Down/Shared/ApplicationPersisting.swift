@@ -9,12 +9,24 @@
 import DownKit
 
 protocol ApplicationPersisting {
+    func makeApplication(ofType type: DownApplicationType) -> ApiApplication
     func load(type: ApiApplicationType) -> ApiApplication?
     func load(type: DownApplicationType) -> ApiApplication?
     func store(_ application: ApiApplication)
+
+    var anyApplicationConfigured: Bool { get }
 }
 
 extension UserDefaults: ApplicationPersisting {
+    func makeApplication(ofType type: DownApplicationType) -> ApiApplication {
+        switch type {
+        case .sabnzbd: return DownloadApplication(type: .sabnzbd, host: "", apiKey: "")
+        case .sickbeard: return DvrApplication(type: .sickbeard, host: "", apiKey: "")
+        case .sickgear: return DvrApplication(type: .sickgear, host: "", apiKey: "")
+        case .couchpotato: return DmrApplication(type: .couchpotato, host: "", apiKey: "")
+        }
+    }
+
     func load(type: ApiApplicationType) -> ApiApplication? {
         guard let rawActiveType = object(forKey: activeStorageKey(for: type)) as? String,
               let activeType = DownApplicationType.init(rawValue: rawActiveType) else {
@@ -47,6 +59,12 @@ extension UserDefaults: ApplicationPersisting {
         set(application.host, forKey: "\(application.downType.rawValue)_host")
         set(application.apiKey, forKey: "\(application.downType.rawValue)_apikey")
         synchronize()
+    }
+
+    var anyApplicationConfigured: Bool {
+        return !ApiApplicationType.allValues
+            .compactMap { load(type: $0)}
+            .isEmpty
     }
 }
 

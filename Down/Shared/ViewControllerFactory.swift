@@ -10,11 +10,11 @@ import UIKit
 import DownKit
 
 protocol ViewControllerProducing {
-    func makeSettings(viewModel: SettingsViewModel) -> UIViewController
+    func makeSettings() -> UIViewController
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController
 
     func makeDownloadOverview() -> UIViewController
-    func makeDownloadItemDetail(viewModel: DownloadItemDetailViewModel) -> UIViewController
+    func makeDownloadItemDetail(for item: DownloadItem) -> UIViewController
 
     func makeDvrShows() -> UIViewController
     func makeDvrDetail(show: DvrShow) -> UIViewController
@@ -31,9 +31,10 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
         self.dependencies = dependencies
     }
 
-    func makeSettings(viewModel: SettingsViewModel) -> UIViewController {
-        return SettingsViewController(dependencies: dependencies,
-                                      viewModel: viewModel)
+    func makeSettings() -> UIViewController {
+        let viewModel = SettingsViewModel(dependencies: dependencies)
+
+        return SettingsViewController(dependencies: dependencies, viewModel: viewModel)
     }
 
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController {
@@ -48,7 +49,18 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
                                       viewModel: DownloadViewModel(dependencies: dependencies))
     }
 
-    func makeDownloadItemDetail(viewModel: DownloadItemDetailViewModel) -> UIViewController {
+    func makeDownloadItemDetail(for item: DownloadItem) -> UIViewController {
+        var viewModel: DownloadItemDetailViewModel
+        if let queueItem = item as? DownloadQueueItem {
+            viewModel = DownloadQueueItemDetailViewModel(dependencies: dependencies, queueItem: queueItem)
+        }
+        else if let historyItem = item as? DownloadHistoryItem {
+            viewModel = DownloadHistoryItemDetailViewModel(dependencies: dependencies, historyItem: historyItem)
+        }
+        else {
+            fatalError("Unkown DownloadItemType")
+        }
+
         return DownloadItemDetailViewController(dependencies: dependencies, viewModel: viewModel)
     }
 

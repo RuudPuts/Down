@@ -271,6 +271,7 @@
 		42E49DCB21445B1000F8491B /* DownKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E49DCA21445B1000F8491B /* DownKitExtensions.swift */; };
 		42FB90392101154C007B01DB /* ApplicationPersisting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FB9037210114DA007B01DB /* ApplicationPersisting.swift */; };
 		42FC9B0B21A17BDE00910968 /* ResponseStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC9B0921A17B8900910968 /* ResponseStub.swift */; };
+		42FC9B0D21A1AA2D00910968 /* ReactiveBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */; };
 		8B0BAC3DC3E9B869CF494C68 /* Pods_DownKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975275C9B320A539BA6E7DF3 /* Pods_DownKitTests.framework */; };
 		C73B22B67696E91D9CB49A98 /* Pods_DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 497F217F594A83B2A5B832AB /* Pods_DownKit.framework */; };
 		D37FE9EF8A48A5DBB7152B57 /* Pods_DownTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71C3AF3CEF63C0D48D75B255 /* Pods_DownTests.framework */; };
@@ -594,6 +595,7 @@
 		42E49DCA21445B1000F8491B /* DownKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownKitExtensions.swift; sourceTree = "<group>"; };
 		42FB9037210114DA007B01DB /* ApplicationPersisting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPersisting.swift; sourceTree = "<group>"; };
 		42FC9B0921A17B8900910968 /* ResponseStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseStub.swift; sourceTree = "<group>"; };
+		42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveBindable.swift; sourceTree = "<group>"; };
 		497F217F594A83B2A5B832AB /* Pods_DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54CBAD4555DC1F82BA951C40 /* Pods-DownKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DownKitTests/Pods-DownKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		604B7933DBB4E952EC34F12B /* Pods_Down.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Down.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1465,6 +1467,7 @@
 				429E06E5219386330072A57B /* ErrorHandler.swift */,
 				42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */,
 				4284C720213327FD00F21B91 /* TableSectionData.swift */,
+				42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */,
 				42D58EF0211A0AAA00F3454A /* Extensions */,
 				428801152120976D007552FD /* Views */,
 			);
@@ -2410,6 +2413,7 @@
 				42384A722161525B004A0349 /* DmrRouter.swift in Sources */,
 				4284C721213327FD00F21B91 /* TableSectionData.swift in Sources */,
 				421752DE217BB3DF0002F0C1 /* ReusableCell.swift in Sources */,
+				42FC9B0D21A1AA2D00910968 /* ReactiveBindable.swift in Sources */,
 				420C282E2163EBA40088259C /* SettingsTableViewModel.swift in Sources */,
 				42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,

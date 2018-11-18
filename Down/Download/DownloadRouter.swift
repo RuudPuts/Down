@@ -39,19 +39,8 @@ class DownloadRouter: ChildRouter, Depending {
     }
 
     func showDetail(of item: DownloadItem) {
-        var viewModel: DownloadItemDetailViewModel
-        if let queueItem = item as? DownloadQueueItem {
-            viewModel = DownloadQueueItemDetailViewModel(dependencies: dependencies, queueItem: queueItem)
-        }
-        else if let historyItem = item as? DownloadHistoryItem {
-            viewModel = DownloadHistoryItemDetailViewModel(dependencies: dependencies, historyItem: historyItem)
-        }
-        else {
-            fatalError("Unkown DownloadItemType")
-        }
-
-        navigationController.pushViewController(viewControllerFactory.makeDownloadItemDetail(viewModel: viewModel),
-                                                animated: true)
+        let viewController = viewControllerFactory.makeDownloadItemDetail(for: item)
+        navigationController.pushViewController(viewController, animated: true)
     }
 }
 

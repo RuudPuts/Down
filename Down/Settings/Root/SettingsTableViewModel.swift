@@ -7,28 +7,43 @@
 //
 
 import DownKit
+import RxSwift
+import RxCocoa
 
 struct SettingsSectionModel {
     let applicationType: ApiApplicationType
+    let title: String
     let applications: [DownApplicationType]
 }
 
 class SettingsTableViewModel: NSObject {
-    typealias Dependencies = ApplicationPersistenceDependency & RouterDependency
-    let dependencies: Dependencies
-    
-    let viewModel: SettingsViewModel
-    let datasource: [SettingsSectionModel]
+    private let viewModel: SettingsViewModel
 
-    init(dependencies: Dependencies, viewModel: SettingsViewModel) {
-        self.dependencies = dependencies
+    private weak var tableView: UITableView?
+    fileprivate var datasource = [SettingsSectionModel]() {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
+
+    init(viewModel: SettingsViewModel) {
         self.viewModel = viewModel
-        self.datasource = viewModel.datasource
     }
 
     func prepare(tableView: UITableView) {
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.registerCell(nibName: SettingsApplicationCell.reuseIdentifier)
         tableView.registerHeaderFooter(nibName: TableHeaderView.reuseIdentifier)
+
+        self.tableView = tableView
+    }
+}
+
+extension Reactive where Base: SettingsTableViewModel {
+    var datasource: Binder<[SettingsSectionModel]> {
+        return Binder(base) { tableModel, datasource in
+            tableModel.datasource = datasource
+        }
     }
 }
 
@@ -66,32 +81,13 @@ extension SettingsTableViewModel: UITableViewDelegate {
             return nil
         }
 
-        let type = datasource[section].applicationType
-        headerView.viewModel = TableHeaderViewModel(title: viewModel.title(for: type),
-                                                    icon: viewModel.icon(for: type))
+        headerView.viewModel = TableHeaderViewModel(title: datasource[section].title, icon: nil)
 
         return view
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let applicationType = datasource[indexPath.section].applications[indexPath.row]
-        let application = dependencies.persistence.load(type: applicationType) ?? makeApplication(ofType: applicationType)
-
-        dependencies.router.settingsRouter.showSettings(for: application)
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let type = datasource[indexPath.section].applications[indexPath.row]
         cell.style(as: .selectableCell(application: type))
-    }
-
-    private func makeApplication(ofType type: DownApplicationType) -> ApiApplication {
-        switch type {
-        case .sabnzbd: return DownloadApplication(type: .sabnzbd, host: "", apiKey: "")
-        case .sickbeard: return DvrApplication(type: .sickbeard, host: "", apiKey: "")
-        case .sickgear: return DvrApplication(type: .sickgear, host: "", apiKey: "")
-        case .couchpotato: return DmrApplication(type: .couchpotato, host: "", apiKey: "")
-        }
     }
 }
