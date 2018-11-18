@@ -12,8 +12,7 @@ protocol ReactiveBindable {
     associatedtype Input
     associatedtype Output
 
-    var input: Input { get }
-    var output: Output { get }
+    func transform(input: Input) -> Output
 }
 
 protocol ReactiveBinding {
@@ -23,17 +22,3 @@ protocol ReactiveBinding {
 
     func makeInput() -> Bindable.Input
 }
-
-protocol ReactiveTransforming {
-    associatedtype Input
-    associatedtype Output
-
-    func transform(input: Input) -> Output
-}
-
-protocol ReactiveTransformingBinding {
-    associatedtype Bindable: ReactiveTransforming
-
-    func bind(to bindable: Bindable)
-}
-

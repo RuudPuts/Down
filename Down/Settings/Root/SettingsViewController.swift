@@ -72,7 +72,7 @@ class SettingsViewController: UIViewController {
     }
 }
 
-extension SettingsViewController: ReactiveTransformingBinding {
+extension SettingsViewController: ReactiveBinding {
     typealias Bindable = SettingsViewModel
 
     func bind(to viewModel: SettingsViewModel) {

@@ -8,7 +8,6 @@
 
 import DownKit
 import RxSwift
-import RxDataSources
 
 class DvrShowsViewModel: Depending {
     typealias Dependencies = DatabaseDependency & DvrInteractorFactoryDependency

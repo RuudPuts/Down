@@ -32,7 +32,6 @@ target 'Down' do
 
   rxswift_pods
   rswift_pods
-  pod 'RxDataSources', '~> 3.1.0'
 
   pod 'Fabric', '~> 1.8.0'
   pod 'Crashlytics', '~> 3.11.0'

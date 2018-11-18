@@ -31,6 +31,7 @@ public final class DownloadHistoryInteractor: RequestGatewayInteracting, Dependi
                 }
 
                 return Single.zip(items.map {
+                    //! There's a bug here when the database doesn't find a match
                     $0.match(with: self.dependencies.database)
                 })
             }

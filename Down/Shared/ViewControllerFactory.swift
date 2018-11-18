@@ -13,7 +13,7 @@ protocol ViewControllerProducing {
     func makeSettings() -> UIViewController
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController
 
-    func makeDownloadOverview() -> UIViewController
+    func makeDownloadStatus() -> UIViewController
     func makeDownloadItemDetail(for item: DownloadItem) -> UIViewController
 
     func makeDvrShows() -> UIViewController
@@ -44,9 +44,9 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
         return viewController
     }
 
-    func makeDownloadOverview() -> UIViewController {
-        return DownloadViewController(dependencies: dependencies,
-                                      viewModel: DownloadViewModel(dependencies: dependencies))
+    func makeDownloadStatus() -> UIViewController {
+        return DownloadStatusViewController(dependencies: dependencies,
+                                      viewModel: DownloadStatusViewModel(dependencies: dependencies))
     }
 
     func makeDownloadItemDetail(for item: DownloadItem) -> UIViewController {

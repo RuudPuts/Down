@@ -34,7 +34,7 @@ class DownloadRouter: ChildRouter, Depending {
     
     func start() {
         navigationController.viewControllers = [
-            viewControllerFactory.makeDownloadOverview()
+            viewControllerFactory.makeDownloadStatus()
         ]
     }
 

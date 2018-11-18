@@ -20,7 +20,7 @@ class SettingsViewModel: Depending {
     }
 }
 
-extension SettingsViewModel: ReactiveTransforming {
+extension SettingsViewModel: ReactiveBindable {
     struct Input {
         let itemSelected: ControlEvent<IndexPath>
     }
