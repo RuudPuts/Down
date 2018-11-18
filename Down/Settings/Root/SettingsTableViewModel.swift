@@ -31,7 +31,7 @@ class SettingsTableViewModel: NSObject {
     }
 
     func prepare(tableView: UITableView) {
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.registerCell(nibName: SettingsApplicationCell.reuseIdentifier)
         tableView.registerHeaderFooter(nibName: TableHeaderView.reuseIdentifier)
 

@@ -82,6 +82,11 @@ extension SettingsViewController: ReactiveTransformingBinding {
             .drive(rx.title)
             .disposed(by: disposeBag)
 
+        output.title
+            .do(onNext: { _ in self.navigationController?.tabBarItem.title = nil })
+            .drive()
+            .disposed(by: disposeBag)
+
         output.welcomeMessage
             .filter { !$0.isEmpty }
             .drive(welcomeMessageLabel.rx.text)
