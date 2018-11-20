@@ -39,7 +39,6 @@ class DvrAddShowViewController: UIViewController & Depending {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureSearchTextField()
         configureTableView()
         applyStyling()
         applyViewModel()
@@ -51,40 +50,22 @@ class DvrAddShowViewController: UIViewController & Depending {
         searchTextField.becomeFirstResponder()
     }
 
-    private func configureSearchTextField() {
-        searchTextField.rx.text
-            .skip(2)
-            .debounce(0.3, scheduler: MainScheduler.instance)
-            .flatMap { self.viewModel.searchShows(query: $0 ?? "") }
-            .bind(to: self.tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (_, show, cell) in
-                cell.textLabel?.text = show.name
+    private func applyViewModel() {
+        title = viewModel.title
 
-                cell.backgroundColor = .clear
-                cell.textLabel?.style(as: .headerLabel)
-            }
-            .disposed(by: self.disposeBag)
+        bind(to: viewModel)
+    }
+
+    private func applyStyling() {
+        view.style(as: .backgroundView)
+        navigationController?.navigationBar.style(as: .transparentNavigationBar)
+        searchTextField.style(as: .textField(for: dependencies.dvrApplication.downType))
+        tableView.style(as: .defaultTableView)
     }
 
     private func configureTableView() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.rx.modelSelected(DvrShow.self)
-            .do(onNext: { _ in
-                if let indexPath = self.tableView.indexPathForSelectedRow {
-                    self.tableView.deselectRow(at: indexPath, animated: true)
-                }
-            })
-            .flatMap { self.viewModel.add(show: $0) }
-            .subscribe(onNext: { _ in
-                    self.dependencies.router.close(viewController: self)
-                },
-                onError: {
-                    self.dependencies.errorHandler.handle(error: $0, type: .dvr_addShow, source: self)
-                }
-            )
-            .disposed(by: disposeBag)
-
+        
         tableView.rx.willDisplayCell
             .subscribe { event in
                 switch event {
@@ -97,14 +78,51 @@ class DvrAddShowViewController: UIViewController & Depending {
             }
             .disposed(by: disposeBag)
     }
+}
 
-    private func applyViewModel() {
-        title = viewModel.title
+extension DvrAddShowViewController: ReactiveBinding {
+    typealias Bindable = DvrAddShowViewModel
+
+    func bind(to viewModel: DvrAddShowViewModel) {
+        let output = viewModel.transform(input: makeInput())
+
+        output.searchResults
+            .drive(self.tableView.rx.items) { (_, _, show) in
+                let cell = UITableViewCell()
+                cell.textLabel?.text = show.name
+                cell.backgroundColor = .clear
+                cell.textLabel?.style(as: .headerLabel)
+
+                return cell
+            }
+            .disposed(by: self.disposeBag)
+
+
+        output.showAdded
+            .map { _ in self.tableView.indexPathForSelectedRow }
+            .unwrap()
+            .subscribe(onNext: { self.tableView.deselectRow(at: $0, animated: true) })
+            .disposed(by: disposeBag)
+
+        output.showAdded
+            .subscribe(
+                onNext: { _ in
+                    self.dependencies.router.close(viewController: self)
+                },
+                onError: {
+                    self.dependencies.errorHandler.handle(error: $0, type: .dvr_addShow, source: self)
+                }
+            )
+            .disposed(by: disposeBag)
     }
 
-    private func applyStyling() {
-        view.style(as: .backgroundView)
-        searchTextField.style(as: .textField(for: dependencies.dvrApplication.downType))
-        navigationController?.navigationBar.style(as: .transparentNavigationBar)
+    func makeInput() -> DvrAddShowViewModel.Input {
+        let showSelected = tableView.rx.itemSelected
+        let searchFieldText = searchTextField.rx.text
+            .asDriver()
+            .debounce(0.3)
+            .map { $0 ?? "" }
+
+        return DvrAddShowViewModel.Input(searchQuery: searchFieldText, showSelected: showSelected)
     }
 }

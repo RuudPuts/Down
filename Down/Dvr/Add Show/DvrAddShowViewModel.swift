@@ -8,6 +8,7 @@
 
 import DownKit
 import RxSwift
+import RxCocoa
 
 struct DvrAddShowViewModel: Depending {
     typealias Dependencies = DvrApplicationDependency & DvrInteractorFactoryDependency
@@ -20,23 +21,38 @@ struct DvrAddShowViewModel: Depending {
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
+}
 
-    func searchShows(query: String) -> Single<[DvrShow]> {
-        guard query.count > 0 else {
-            return Single.just([])
-        }
-
-        return dependencies.dvrInteractorFactory
-            .makeSearchShowsInteractor(for: dependencies.dvrApplication, query: query)
-            .observe()
+extension DvrAddShowViewModel: ReactiveBindable {
+    struct Input {
+        let searchQuery: Driver<String>
+        let showSelected: ControlEvent<IndexPath>
     }
 
-    func add(show: DvrShow) -> Single<DvrShow> {
-        return dependencies.dvrInteractorFactory
-            .makeAddShowInteractor(for: dependencies.dvrApplication, show: show)
-            .observe()
-            .asObservable()
-            .skip(1)
-            .asSingle()
+    struct Output {
+        let searchResults: Driver<[DvrShow]>
+        let showAdded: Observable<DvrShow>
+    }
+
+    func transform(input: Input) -> Output {
+        let searchResultsDriver = input.searchQuery
+            .flatMap {
+                self.dependencies.dvrInteractorFactory
+                    .makeSearchShowsInteractor(for: self.dependencies.dvrApplication, query: $0)
+                    .observe()
+                    .asDriver(onErrorJustReturn: [])
+            }
+
+        let showAddedDriver = input.showSelected
+            .withLatestFrom(searchResultsDriver) { indexPath, searchResults in
+                searchResults[indexPath.row]
+            }
+            .flatMap {
+                self.dependencies.dvrInteractorFactory
+                    .makeAddShowInteractor(for: self.dependencies.dvrApplication, show: $0)
+                    .observe()
+            }
+
+        return Output(searchResults: searchResultsDriver, showAdded: showAddedDriver)
     }
 }
