@@ -12,7 +12,7 @@ import CircleProgressView
 extension ViewStyling where ViewType == CircleProgressView {
     static var `defaultProgressView` = ViewStyling {
         $0.backgroundColor = .clear
-        $0.centerFillColor = Stylesheet.Colors.Backgrounds.lightBlue
+        $0.centerFillColor = .clear
         $0.trackBackgroundColor = Stylesheet.Colors.Backgrounds.darkBlue
         $0.trackFillColor = UIColor.white.withAlphaComponent(0.8)
 

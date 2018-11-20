@@ -13,11 +13,8 @@ protocol DownloadRouting {
     var downloadRouter: DownloadRouter? { get set }
 }
 
-class DownloadRouter: ChildRouter, Depending {
-    typealias Dependencies = DownloadQueueItemDetailViewModel.Dependencies
-        & RouterDependency
-        & DownloadApplicationDependency
-        & DatabaseDependency
+class DownloadRouter: ChildRouter {
+    typealias Dependencies = DownloadApplicationDependency
     let dependencies: Dependencies
 
     var viewControllerFactory: ViewControllerProducing

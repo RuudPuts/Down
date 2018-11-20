@@ -46,16 +46,10 @@ class DownloadQueueStatusView: DesignableView {
 }
 
 extension Reactive where Base: DownloadQueueStatusView {
-    var queue: ControlProperty<DownloadQueue?> {
-        let source: Observable<DownloadQueue?> = Observable.deferred { [weak statusView = self.base as DownloadQueueStatusView] () -> Observable<DownloadQueue?> in
-            return Observable.just(statusView?.queue)
-        }
-
-        let bindingObserver = Binder(self.base) { (statusView, queue: DownloadQueue?) in
+    var queue: Binder<DownloadQueue?> {
+        return Binder(base) { statusView, queue in
             statusView.queue = queue
         }
-
-        return ControlProperty(values: source, valueSink: bindingObserver)
     }
 }
 

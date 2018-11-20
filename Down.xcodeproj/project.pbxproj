@@ -19,8 +19,6 @@
 		420C28302163ED0E0088259C /* SettingsApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C282F2163ED0E0088259C /* SettingsApplicationCell.swift */; };
 		420C28322163F58D0088259C /* SettingsApplicationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420C28312163F58D0088259C /* SettingsApplicationCell.xib */; };
 		420E2E5A21A1F045000891C8 /* DownloadStatusTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E2E5921A1F045000891C8 /* DownloadStatusTableController.swift */; };
-		421752D8217BB1BC0002F0C1 /* DownloadQueueItemDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752D7217BB1BC0002F0C1 /* DownloadQueueItemDetailViewModel.swift */; };
-		421752DA217BB1D20002F0C1 /* DownloadHistoryItemDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752D9217BB1D20002F0C1 /* DownloadHistoryItemDetailViewModel.swift */; };
 		421752DC217BB1F80002F0C1 /* DownloadItemDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */; };
 		421752DE217BB3DF0002F0C1 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DD217BB3DF0002F0C1 /* ReusableCell.swift */; };
 		421752E2217BB6D20002F0C1 /* KeyValueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 421752E1217BB6D20002F0C1 /* KeyValueTableViewCell.xib */; };
@@ -146,6 +144,7 @@
 		424FBD3E210F927600885D8B /* ApiApplicationInteractorFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD32210F90D100885D8B /* ApiApplicationInteractorFactorySpec.swift */; };
 		424FBD44210F937B00885D8B /* ApiApplicationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD41210F937B00885D8B /* ApiApplicationMock.swift */; };
 		424FBD45210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD42210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift */; };
+		42510F9E21A493FA00F721F1 /* CircleProgressViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510F9D21A493FA00F721F1 /* CircleProgressViewExtensions.swift */; };
 		425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */; };
 		4254177F2166A12D00D273FA /* UIImageResizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42223882213454F900F73619 /* UIImageResizeExtension.swift */; };
 		4259F195219DFC8C003C37AB /* DvrShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259F194219DFC8C003C37AB /* DvrShowDetailsViewModel.swift */; };
@@ -336,8 +335,6 @@
 		420C282F2163ED0E0088259C /* SettingsApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsApplicationCell.swift; sourceTree = "<group>"; };
 		420C28312163F58D0088259C /* SettingsApplicationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsApplicationCell.xib; sourceTree = "<group>"; };
 		420E2E5921A1F045000891C8 /* DownloadStatusTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadStatusTableController.swift; sourceTree = "<group>"; };
-		421752D7217BB1BC0002F0C1 /* DownloadQueueItemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueueItemDetailViewModel.swift; sourceTree = "<group>"; };
-		421752D9217BB1D20002F0C1 /* DownloadHistoryItemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadHistoryItemDetailViewModel.swift; sourceTree = "<group>"; };
 		421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItemDetailRow.swift; sourceTree = "<group>"; };
 		421752DD217BB3DF0002F0C1 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
 		421752E1217BB6D20002F0C1 /* KeyValueTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyValueTableViewCell.xib; sourceTree = "<group>"; };
@@ -471,6 +468,7 @@
 		424FBD36210F90D800885D8B /* ApiApplicationApiKeyGatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationApiKeyGatewaySpec.swift; sourceTree = "<group>"; };
 		424FBD41210F937B00885D8B /* ApiApplicationMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationMock.swift; sourceTree = "<group>"; };
 		424FBD42210F937B00885D8B /* ApiApplicationRequestBuildingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationRequestBuildingMock.swift; sourceTree = "<group>"; };
+		42510F9D21A493FA00F721F1 /* CircleProgressViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressViewExtensions.swift; sourceTree = "<group>"; };
 		425357C120F2A468005BC238 /* DownloadQueueStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueueStatusView.swift; sourceTree = "<group>"; };
 		425357C620F2B10E005BC238 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4259F194219DFC8C003C37AB /* DvrShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -1714,8 +1712,6 @@
 				42BE70C321693BED004167C3 /* DownloadItemDetailViewController.swift */,
 				42BE70C421693BED004167C3 /* DownloadItemDetailViewController.xib */,
 				42BE70C721693C05004167C3 /* DownloadItemDetailViewModel.swift */,
-				421752D7217BB1BC0002F0C1 /* DownloadQueueItemDetailViewModel.swift */,
-				421752D9217BB1D20002F0C1 /* DownloadHistoryItemDetailViewModel.swift */,
 				421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */,
 				42335DC52171DA970048BB56 /* DownloadItemDetailTableViewController.swift */,
 			);
@@ -1755,13 +1751,14 @@
 		42D58EF0211A0AAA00F3454A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				42510F9D21A493FA00F721F1 /* CircleProgressViewExtensions.swift */,
 				42BE70CD21693E06004167C3 /* CollectionExtensions.swift */,
 				42E014752135CC18006D550D /* DateExtensions.swift */,
+				42E49DCA21445B1000F8491B /* DownKitExtensions.swift */,
+				421752DD217BB3DF0002F0C1 /* ReusableCell.swift */,
 				423A5504216917A800CC558A /* UICollectionViewExtensions.swift */,
 				4235075F21249866005343CD /* UITableViewExtensions.swift */,
 				42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */,
-				421752DD217BB3DF0002F0C1 /* ReusableCell.swift */,
-				42E49DCA21445B1000F8491B /* DownKitExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2431,9 +2428,7 @@
 				428FCD61212212B600C0371D /* UIViewStyle.swift in Sources */,
 				4284C72721334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift in Sources */,
 				42BE70C521693BED004167C3 /* DownloadItemDetailViewController.swift in Sources */,
-				421752DA217BB1D20002F0C1 /* DownloadHistoryItemDetailViewModel.swift in Sources */,
 				427D606120E0325C0017AE42 /* DownloadStatusViewController.swift in Sources */,
-				421752D8217BB1BC0002F0C1 /* DownloadQueueItemDetailViewModel.swift in Sources */,
 				42BE70D02169835B004167C3 /* KeyValueTableViewCell.swift in Sources */,
 				42384A6F216151CC004A0349 /* DmrStatusViewController.swift in Sources */,
 				424DDA83214591EF00588B48 /* DvrShowDetailsTableViewModel.swift in Sources */,
@@ -2456,6 +2451,7 @@
 				42335DC62171DA970048BB56 /* DownloadItemDetailTableViewController.swift in Sources */,
 				4288011321209280007552FD /* ApplicationHeaderViewStyle.swift in Sources */,
 				42D58EF2211A0ACD00F3454A /* UIViewConstraints.swift in Sources */,
+				42510F9E21A493FA00F721F1 /* CircleProgressViewExtensions.swift in Sources */,
 				427D606920E19A660017AE42 /* DownloadStatusViewModel.swift in Sources */,
 				421D83A72107A2BC008BEB2F /* R.generated.swift in Sources */,
 				42350762212499BD005343CD /* TableHeaderView.swift in Sources */,

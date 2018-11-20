@@ -11,58 +11,143 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-protocol DownloadItemDetailViewModel {
-    var title: String { get }
-    var subtitle: String? { get }
-    var statusText: String { get }
-    var statusStyle: ViewStyling<UILabel> { get }
-    var headerImageUrl: URL? { get }
+struct DownloadItemDetailViewModel: Depending {
+    typealias Dependencies = DownloadInteractorFactoryDependency & DvrRequestBuilderDependency
+    let dependencies: Dependencies
 
-    var downloadItem: DownloadItem { get }
-    func makeItemRows() -> [DownloadItemDetailRow]
-    var detailRows: [[DownloadItemDetailRow]] { get }
+    let item: DownloadItem
 
-    var itemHasProgress: Bool { get }
-    var itemCanRetry: Bool { get }
+    init(dependencies: Dependencies, item: DownloadItem) {
+        self.dependencies = dependencies
+        self.item = item
+    }
 }
 
-extension DownloadItemDetailViewModel {
-    var title: String {
-        return downloadItem.displayName
+extension DownloadItemDetailViewModel: ReactiveBindable {
+    struct Input {
+        let deleteButtonTapped: ControlEvent<Void>
     }
 
-    var detailRows: [[DownloadItemDetailRow]] {
-        var sections = [makeItemRows()]
-
-        if let dvrShowRows = makeDvrEpisodeRows() {
-            sections.append(dvrShowRows)
-        }
-
-        return sections
+    struct Output {
+        let refinedItem: Driver<RefinedItem>
+        let itemDeleted: Observable<Bool>
     }
 
-    private func makeDvrEpisodeRows() -> [DownloadItemDetailRow]? {
-        guard let episode = downloadItem.dvrEpisode,
-              let show = downloadItem.dvrEpisode?.show else {
-            return nil
-        }
+    func transform(input: Input) -> Output {
+        let refinedItem = RefinedItem.from(item: item, withDvrRequestBuilder: dependencies.dvrRequestBuilder)
+        let refinedItemDriver = Driver<RefinedItem>.just(refinedItem)
 
-        return [
-            DownloadItemDetailRow(key: .showName, value: show.name),
-            DownloadItemDetailRow(key: .episodeNumber, value: episode.seasonIdentifierString ?? "-"),
-            DownloadItemDetailRow(key: .episodeName, value: episode.name),
-            DownloadItemDetailRow(key: .episodeAirdate, value: episode.airdate?.dateString ?? "-"),
-//            DownloadItemDetailRow(key: .episodePlot, value: episode.plot)
-        ]
+        let itemDeletedDriver = input.deleteButtonTapped
+            .flatMap { _ in
+                self.dependencies.downloadInteractorFactory
+                    .makeDeleteItemInteractor(for: self.dependencies.downloadApplication, item: self.item)
+                    .observe()
+            }
+
+        return Output(refinedItem: refinedItemDriver, itemDeleted: itemDeletedDriver)
     }
 }
 
 extension DownloadItemDetailViewModel {
-    typealias DeleteItemDependencies = DownloadInteractorFactoryDependency
+    struct RefinedItem {
+        let title: String
+        let subtitle: String?
 
-    func deleteDownloadItem(dependencies: DeleteItemDependencies) -> Single<Bool> {
-        return dependencies.downloadInteractorFactory
-            .makeDeleteItemInteractor(for: dependencies.downloadApplication, item: downloadItem)
-            .observe()
+        let headerImageUrl: URL?
+
+        let statusText: String
+        let statusStyle: ViewStyling<UILabel> //! UIKit in view model
+
+        let hasProgress: Bool
+        let progress: Double
+        let canRetry: Bool
+
+        let detailSections: [[DownloadItemDetailRow]]
+
+        static func from(item: DownloadItem, withDvrRequestBuilder requestBuilder: DvrRequestBuilding) -> RefinedItem {
+            if let queueItem = item as? DownloadQueueItem {
+                return RefinedItem.from(queueItem: queueItem, withDvrRequestBuilder: requestBuilder)
+            }
+            else if let historyItem = item as? DownloadHistoryItem {
+                return RefinedItem.from(historyItem: historyItem, withDvrRequestBuilder: requestBuilder)
+            }
+            else {
+                fatalError("Unkown DownloadItemType")
+            }
+        }
+
+        static func from(queueItem: DownloadQueueItem, withDvrRequestBuilder requestBuilder: DvrRequestBuilding) -> RefinedItem {
+            var headerImageUrl: URL?
+            if let show = queueItem.dvrEpisode?.show {
+                headerImageUrl = requestBuilder.url(for: .fetchPoster(show))
+            }
+
+            let detailSections = [
+                    [
+                        DownloadItemDetailRow(key: .nzbname, value: queueItem.name),
+                        DownloadItemDetailRow(key: .status, value: queueItem.state.displayName),
+                        DownloadItemDetailRow(key: .totalSize, value: "\(queueItem.sizeMb)"),
+                        DownloadItemDetailRow(key: .sizeLeft, value: "\(queueItem.sizeMb)"),
+                        DownloadItemDetailRow(key: .timeLeft, value: "\(queueItem.sizeMb)")
+                    ],
+                    makeDvrEpisodeRows(for: queueItem)
+                ].compactMap { $0 }
+
+            return RefinedItem(title: queueItem.displayName,
+                               subtitle: nil,
+                               headerImageUrl: headerImageUrl,
+                               statusText: queueItem.state.displayName,
+                               statusStyle: .queueItemStatusLabel(queueItem.state),
+                               hasProgress: true,
+                               progress: queueItem.progress,
+                               canRetry: false,
+                               detailSections: detailSections)
+        }
+
+        static func from(historyItem: DownloadHistoryItem, withDvrRequestBuilder requestBuilder: DvrRequestBuilding) -> RefinedItem {
+            var headerImageUrl: URL?
+            if let show = historyItem.dvrEpisode?.show {
+                headerImageUrl = requestBuilder.url(for: .fetchPoster(show))
+            }
+
+            var detailRows = [
+                DownloadItemDetailRow(key: .nzbname, value: historyItem.name),
+                DownloadItemDetailRow(key: .status, value: historyItem.state.displayName),
+                DownloadItemDetailRow(key: .totalSize, value: "\(historyItem.sizeMb)")
+            ]
+
+            if let finishDate = historyItem.finishDate, historyItem.state == .completed {
+                detailRows.append(DownloadItemDetailRow(key: .completedTime, value: finishDate.dateTimeString))
+            }
+
+            let detailSections = [detailRows, makeDvrEpisodeRows(for: historyItem)].compactMap { $0 }
+
+            let canRetry = historyItem.state == .failed && historyItem.dvrEpisode != nil
+
+            return RefinedItem(title: historyItem.displayName,
+                               subtitle: nil,
+                               headerImageUrl: headerImageUrl,
+                               statusText: historyItem.state.displayName,
+                               statusStyle: .historyItemStatusLabel(historyItem.state),
+                               hasProgress: historyItem.state.hasProgress,
+                               progress: historyItem.progress,
+                               canRetry: canRetry,
+                               detailSections: detailSections)
+        }
+
+        private static func makeDvrEpisodeRows(for item: DownloadItem) -> [DownloadItemDetailRow]? {
+            guard let episode = item.dvrEpisode,
+                let show = item.dvrEpisode?.show else {
+                    return nil
+            }
+
+            return [
+                DownloadItemDetailRow(key: .showName, value: show.name),
+                DownloadItemDetailRow(key: .episodeNumber, value: episode.seasonIdentifierString ?? "-"),
+                DownloadItemDetailRow(key: .episodeName, value: episode.name),
+                DownloadItemDetailRow(key: .episodeAirdate, value: episode.airdate?.dateString ?? "-"),
+//                DownloadItemDetailRow(key: .episodePlot, value: episode.plot)
+            ]
+        }
     }
 }

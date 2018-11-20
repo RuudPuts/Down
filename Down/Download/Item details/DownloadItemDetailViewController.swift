@@ -30,13 +30,12 @@ class DownloadItemDetailViewController: UIViewController & Depending {
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
 
-    private var viewModelDisposeBag = DisposeBag()
-    private var footerDisposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
 
     init(dependencies: Dependencies, viewModel: DownloadItemDetailViewModel) {
         self.dependencies = dependencies
         self.viewModel = viewModel
-        tableViewController = DownloadItemDetailTableViewController(dataModel: viewModel.detailRows)
+        tableViewController = DownloadItemDetailTableViewController()
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -50,8 +49,8 @@ class DownloadItemDetailViewController: UIViewController & Depending {
         title = "Details"
 
         configureTableView()
-        applyViewModel()
         applyStyling()
+        bind(to: viewModel)
     }
 
     private func configureTableView() {
@@ -71,36 +70,77 @@ class DownloadItemDetailViewController: UIViewController & Depending {
         retryButton.style(as: .applicationButton(dependencies.dvrApplication.downType))
         deleteButton.style(as: .deleteButton)
     }
+}
 
-    private func applyViewModel() {
-        viewModelDisposeBag = DisposeBag()
+extension DownloadItemDetailViewController: ReactiveBinding {
+    typealias Bindable = DownloadItemDetailViewModel
 
-        titleLabel.text = viewModel.title
-        subtitleLabel.text = viewModel.subtitle
-        statusLabel.text = viewModel.statusText
-        statusLabel.style(as: viewModel.statusStyle)
-        progressView.isHidden = !viewModel.itemHasProgress
-        retryButton.isHidden = !viewModel.itemCanRetry
+    func bind(to viewModel: DownloadItemDetailViewModel) {
+        let output = viewModel.transform(input: makeInput())
 
-        headerImageView.kf.setImage(with: viewModel.headerImageUrl)
+        output.refinedItem
+            .map { $0.title }
+            .drive(titleLabel.rx.text)
+            .disposed(by: disposeBag)
 
-        bindFooterButtons()
-        tableView.reloadData()
-    }
+        output.refinedItem
+            .map { $0.subtitle }
+            .drive(subtitleLabel.rx.text)
+            .disposed(by: disposeBag)
 
-    private func bindFooterButtons() {
-        deleteButton.rx.tap
-            .asObservable()
-            .flatMap { _ in
-                self.viewModel.deleteDownloadItem(dependencies: self.dependencies)
-            }
-            .subscribe(onNext: {
-                guard $0 else {
-                    return
-                }
+        output.refinedItem
+            .map { $0.statusText }
+            .drive(statusLabel.rx.text)
+            .disposed(by: disposeBag)
 
+        output.refinedItem
+            .map { $0.statusStyle }
+            .do(onNext: { self.statusLabel.style(as: $0) })
+            .drive()
+            .disposed(by: disposeBag)
+
+        output.refinedItem
+            .map { !$0.hasProgress }
+            .drive(progressView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        output.refinedItem
+            .map { $0.progress }
+            .drive(progressView.rx.progress)
+            .disposed(by: disposeBag)
+
+        output.refinedItem
+            .map { !$0.canRetry }
+            .drive(retryButton.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        output.refinedItem
+            .map { $0.headerImageUrl }
+            .do(onNext: { self.headerImageView.kf.setImage(with: $0) })
+            .drive()
+            .disposed(by: disposeBag)
+
+        output.refinedItem
+            .map { $0.detailSections }
+            .drive(tableViewController.rx.dataModel)
+            .disposed(by: disposeBag)
+
+        output.refinedItem
+            .do(onNext: { _ in self.tableView.reloadData() })
+            .drive()
+            .disposed(by: disposeBag)
+
+        output.itemDeleted
+            .filter { $0 }
+            .subscribe(onNext: { _ in
                 self.dependencies.router.close(viewController: self)
             })
-            .disposed(by: footerDisposeBag)
+            .disposed(by: disposeBag)
+    }
+
+    func makeInput() -> DownloadItemDetailViewModel.Input {
+        let deleteButtonTapped = deleteButton.rx.tap
+
+        return DownloadItemDetailViewModel.Input(deleteButtonTapped: deleteButtonTapped)
     }
 }

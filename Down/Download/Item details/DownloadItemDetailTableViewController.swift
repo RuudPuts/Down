@@ -6,7 +6,7 @@ import RxCocoa
 class DownloadItemDetailTableViewController: NSObject {
     var dataModel: [[DownloadItemDetailRow]]
 
-    init(dataModel: [[DownloadItemDetailRow]]) {
+    init(dataModel: [[DownloadItemDetailRow]] = []) {
         self.dataModel = dataModel
     }
 }
@@ -14,6 +14,14 @@ class DownloadItemDetailTableViewController: NSObject {
 extension DownloadItemDetailTableViewController {
     func prepare(tableView: UITableView) {
         tableView.registerCell(nibName: KeyValueTableViewCell.reuseIdentifier)
+    }
+}
+
+extension Reactive where Base: DownloadItemDetailTableViewController {
+    var dataModel: Binder<[[DownloadItemDetailRow]]> {
+        return Binder(base) { tableController, dataModel in
+            tableController.dataModel = dataModel
+        }
     }
 }
 

@@ -50,16 +50,7 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
     }
 
     func makeDownloadItemDetail(for item: DownloadItem) -> UIViewController {
-        var viewModel: DownloadItemDetailViewModel
-        if let queueItem = item as? DownloadQueueItem {
-            viewModel = DownloadQueueItemDetailViewModel(dependencies: dependencies, queueItem: queueItem)
-        }
-        else if let historyItem = item as? DownloadHistoryItem {
-            viewModel = DownloadHistoryItemDetailViewModel(dependencies: dependencies, historyItem: historyItem)
-        }
-        else {
-            fatalError("Unkown DownloadItemType")
-        }
+        let viewModel = DownloadItemDetailViewModel(dependencies: dependencies, item: item)
 
         return DownloadItemDetailViewController(dependencies: dependencies, viewModel: viewModel)
     }

@@ -14,7 +14,7 @@ protocol DvrRouting {
 }
 
 class DvrRouter: ChildRouter, Depending {
-    typealias Dependencies = RouterDependency & DvrApplicationDependency
+    typealias Dependencies = RouterDependency
     let dependencies: Dependencies
 
     var viewControllerFactory: ViewControllerProducing

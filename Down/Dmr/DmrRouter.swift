@@ -14,7 +14,7 @@ protocol DmrRouting {
 }
 
 class DmrRouter: ChildRouter, Depending {
-    typealias Dependencies = RouterDependency & DmrApplicationDependency
+    typealias Dependencies = RouterDependency
     let dependencies: Dependencies
 
     var viewControllerFactory: ViewControllerProducing
