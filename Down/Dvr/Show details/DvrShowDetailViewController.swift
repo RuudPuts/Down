@@ -14,22 +14,20 @@ class DvrShowDetailViewController: UIViewController, Depending {
     typealias Dependencies = DvrShowDetailsViewModel.Dependencies & DvrRequestBuilderDependency & RouterDependency
     let dependencies: Dependencies
 
-    @IBOutlet weak var headerView: DvrShowHeaderView?
-    @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var headerView: DvrShowHeaderView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var deleteButton: UIButton!
 
     private let viewModel: DvrShowDetailsViewModel
     private let tableViewModel: DvrShowDetailsTableViewModel
 
-    private let viewModelDisposeBag = DisposeBag()
-    private var footerDisposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     init(dependencies: Dependencies, viewModel: DvrShowDetailsViewModel) {
         self.dependencies = dependencies
         self.viewModel = viewModel
 
-        self.tableViewModel = DvrShowDetailsTableViewModel(dependencies: dependencies,
-                                                           viewModel: viewModel)
+        self.tableViewModel = DvrShowDetailsTableViewModel(dependencies: dependencies)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -41,10 +39,8 @@ class DvrShowDetailViewController: UIViewController, Depending {
         super.viewDidLoad()
 
         applyStyling()
-        configureHeaderView()
         configureTableView()
-        tableViewModel.prepare(tableView: tableView!)
-        bindFooterButtons()
+        bind(to: viewModel)
     }
     
     func applyStyling() {
@@ -56,24 +52,39 @@ class DvrShowDetailViewController: UIViewController, Depending {
 
         deleteButton.style(as: .deleteButton)
     }
-
-    func configureHeaderView() {
-        headerView?.viewModel = DvrShowHeaderViewModel(show: viewModel.show,
-                                                       bannerUrl: viewModel.bannerUrl,
-                                                       posterUrl: viewModel.posterUrl)
-    }
-
     func configureTableView() {
-        tableView?.dataSource = tableViewModel
-        tableView?.delegate = tableViewModel
-    }
+        tableViewModel.prepare(tableView: tableView!)
 
-    private func bindFooterButtons() {
-        deleteButton.rx.tap
-            .asObservable()
-            .flatMap { _ in
-                self.viewModel.deleteShow()
-            }
+        tableView.dataSource = tableViewModel
+        tableView.delegate = tableViewModel
+    }
+}
+
+extension DvrShowDetailViewController: ReactiveBinding {
+    typealias Bindable = DvrShowDetailsViewModel
+
+    func bind(to viewModel: DvrShowDetailsViewModel) {
+        let output = viewModel.transform(input: makeInput())
+
+        output.refinedShow
+            .do(onNext: { show in
+                self.headerView?.configure(with: show)
+            })
+            .drive()
+            .disposed(by: disposeBag)
+
+        output.refinedShow
+            .drive(tableViewModel.rx.refinedShow)
+            .disposed(by: disposeBag)
+
+        output.refinedShow
+            .do(onNext: { _ in
+                self.tableView.reloadData()
+            })
+            .drive()
+            .disposed(by: disposeBag)
+
+        output.showDeleted
             .subscribe(onNext: {
                 guard $0 else {
                     return
@@ -81,6 +92,12 @@ class DvrShowDetailViewController: UIViewController, Depending {
 
                 self.dependencies.router.close(viewController: self)
             })
-            .disposed(by: footerDisposeBag)
+            .disposed(by: disposeBag)
+    }
+
+    func makeInput() -> DvrShowDetailsViewModel.Input {
+        let deleteButtonTapped = deleteButton.rx.tap
+
+        return DvrShowDetailsViewModel.Input(deleteShow: deleteButtonTapped)
     }
 }

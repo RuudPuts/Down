@@ -14,45 +14,25 @@ class DvrEpisodeCell: UITableViewCell {
     @IBOutlet weak var airLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
 
-    var viewModel: DvrEpisodeCellModel! {
-        didSet {
-            nameLabel?.text = viewModel.title
-            airLabel?.text = viewModel.airingOn
-            statusLabel?.text = viewModel.status.displayString
-
-            applyStyling()
-        }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        applyStyling()
     }
 
     private func applyStyling() {
         nameLabel.style(as: .titleLabel)
         airLabel.style(as: .detailLabel)
         statusLabel.style(as: .detailLabel)
-
-        if let viewModel = viewModel {
-            statusLabel.style(as: .episodeStatusLabel(viewModel.status))
-        }
     }
 }
 
-struct DvrEpisodeCellModel {
-    var identifier: String
-    var name: String
-    var airdate: Date?
-    var status: DvrEpisodeStatus
+extension DvrEpisodeCell {
+    func configure(with episode: DvrShowDetailsViewModel.RefinedEpisode) {
+        nameLabel.text = episode.title
+        airLabel.text = episode.airingOn
+        statusLabel.text = episode.status.displayString
 
-    init(episode: DvrEpisode) {
-        identifier = episode.identifier
-        name = episode.name
-        airdate = episode.airdate
-        status = episode.status
-    }
-
-    var title: String {
-        return "\(identifier). \(name)"
-    }
-
-    var airingOn: String {
-        return airdate?.dateString ?? R.string.localizable.dvr_episode_unaired()
+        statusLabel.style(as: .episodeStatusLabel(episode.status))
     }
 }
