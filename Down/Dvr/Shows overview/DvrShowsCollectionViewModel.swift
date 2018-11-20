@@ -42,6 +42,14 @@ class DvrShowsCollectionViewModel: NSObject, Depending {
     }
 }
 
+extension Reactive where Base: DvrShowsCollectionViewModel {
+    var shows: Binder<[DvrShow]> {
+        return Binder(base) { collectionViewModel, shows in
+            collectionViewModel.shows = shows
+        }
+    }
+}
+
 extension DvrShowsCollectionViewModel: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return shows?.count ?? 0

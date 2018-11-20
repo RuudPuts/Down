@@ -44,8 +44,7 @@ class DvrShowsViewController: UIViewController & Depending {
         configureCollectionView()
         createAddShowsButton()
         applyStyling()
-        applyViewModel()
-        viewModel.refreshShowCache()
+        bind(to: viewModel)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -84,12 +83,20 @@ class DvrShowsViewController: UIViewController & Depending {
 
         collectionView.collectionHeaderView = toolbar
     }
+}
 
-    private func applyViewModel() {
-        viewModel.shows
-            .subscribe(onNext: {
-                self.collectionViewModel.shows = $0
-            })
+extension DvrShowsViewController: ReactiveBinding {
+    typealias Bindable = DvrShowsViewModel
+
+    func bind(to viewModel: DvrShowsViewModel) {
+        let output = viewModel.transform(input: makeInput())
+
+        output.shows
+            .drive(collectionViewModel.rx.shows)
             .disposed(by: disposeBag)
+    }
+
+    func makeInput() -> DvrShowsViewModel.Input {
+        return DvrShowsViewModel.Input()
     }
 }

@@ -8,6 +8,7 @@
 
 import DownKit
 import RxSwift
+import RxCocoa
 
 class DvrShowsViewModel: Depending {
     typealias Dependencies = DatabaseDependency & DvrInteractorFactoryDependency
@@ -18,20 +19,21 @@ class DvrShowsViewModel: Depending {
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
+}
 
-    var shows: Observable<[DvrShow]> {
-        return dependencies.database
-            .fetchShows()
-            .map {
-                return $0.sorted(by: { $0.name < $1.name })
-            }
+extension DvrShowsViewModel: ReactiveBindable {
+    struct Input { }
+
+    struct Output {
+        let shows: Driver<[DvrShow]>
     }
 
-    func refreshShowCache() {
-        dependencies.dvrInteractorFactory
-            .makeShowCacheRefreshInteractor(for: dependencies.dvrApplication)
-            .observe()
-            .subscribe()
-            .disposed(by: disposeBag)
+    func transform(input: Input) -> Output {
+        let showsDriver = dependencies.database
+            .fetchShows()
+            .map { $0.sorted(by: { $0.name < $1.name }) }
+            .asDriver(onErrorJustReturn: [])
+
+        return Output(shows: showsDriver)
     }
 }
