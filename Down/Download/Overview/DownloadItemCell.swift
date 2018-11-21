@@ -15,22 +15,7 @@ class DownloadItemCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-
     @IBOutlet weak var progressView: CircleProgressView!
-
-    var viewModel: DownloadItemCellModel? {
-        didSet {
-            nameLabel?.text = viewModel?.name
-            statusLabel?.text = viewModel?.status
-            timeLabel?.text = viewModel?.time
-
-            progressView.isHidden = !(viewModel?.hasProgress ?? false)
-            progressView.progress = viewModel?.progress ?? 0
-
-            applyStyling()
-            setNeedsLayout()
-        }
-    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,10 +26,6 @@ class DownloadItemCell: UITableViewCell {
     private func applyStyling() {
         style(as: .defaultCell)
         progressView.style(as: .defaultProgressView)
-        if let viewModel = viewModel {
-            progressView.style(as: .progressView(for: viewModel.applicationType))
-        }
-
         backgroundColor = .clear
         nameLabel?.style(as: .titleLabel)
         statusLabel?.style(as: .detailLabel)
@@ -58,31 +39,32 @@ class DownloadItemCell: UITableViewCell {
     }
 }
 
-struct DownloadItemCellModel {
-    var name: String
-    var status: String? = nil
-    var time: String? = nil
-    var hasProgress = false
-    var progress = 0.0
-    var applicationType: DownApplicationType
+extension DownloadItemCell {
+    func configure(with application: DownloadApplication, andItem item: DownloadItem) {
+        progressView.style(as: .progressView(for: application.downType))
 
-    init(item: DownloadItem, applicationType: DownApplicationType) {
-        name = item.displayName
-        progress = item.progress / 100
-        self.applicationType = applicationType
+        nameLabel?.text = item.displayName
+        progressView.progress = item.progress / 100
+
+        if let queueItem = item as? DownloadQueueItem {
+            configure(with: application, andItem: queueItem)
+        }
+        else if let historyItem = item as? DownloadHistoryItem {
+            configure(with: application, andItem: historyItem)
+        }
     }
 
-    init(queueItem: DownloadQueueItem, applicationType: DownApplicationType) {
-        self.init(item: queueItem, applicationType: applicationType)
-        self.status = queueItem.state.displayName
-        self.time = queueItem.remainingTime.displayString
-        self.hasProgress = true
+    private func configure(with application: DownloadApplication, andItem item: DownloadQueueItem) {
+        progressView.isHidden = false
+
+        statusLabel.text = item.state.displayName
+        timeLabel.text = item.remainingTime.displayString
     }
 
-    init(historyItem: DownloadHistoryItem, applicationType: DownApplicationType) {
-        self.init(item: historyItem, applicationType: applicationType)
-        self.status = historyItem.state.displayName
-        self.time = historyItem.finishDate?.dateTimeString
-        self.hasProgress = historyItem.state.hasProgress
+    private func configure(with application: DownloadApplication, andItem item: DownloadHistoryItem) {
+        progressView.isHidden = item.state.hasProgress
+
+        statusLabel.text = item.state.displayName
+        timeLabel.text = item.finishDate?.dateTimeString
     }
 }

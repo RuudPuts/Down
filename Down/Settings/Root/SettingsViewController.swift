@@ -114,7 +114,9 @@ extension SettingsViewController: ReactiveBinding {
             .disposed(by: disposeBag)
 
         output.navigateToDetails
-            .drive()
+            .subscribe(onNext: {
+                self.dependencies.router.settingsRouter.showSettings(for: $0)
+            })
             .disposed(by: disposeBag)
 
         output.navigateToDetails

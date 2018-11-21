@@ -87,7 +87,7 @@ extension DvrAddShowViewController: ReactiveBinding {
         let output = viewModel.transform(input: makeInput())
 
         output.searchResults
-            .drive(self.tableView.rx.items) { (_, _, show) in
+            .drive(tableView.rx.items) { (_, _, show) in
                 let cell = UITableViewCell()
                 cell.textLabel?.text = show.name
                 cell.backgroundColor = .clear
@@ -95,8 +95,7 @@ extension DvrAddShowViewController: ReactiveBinding {
 
                 return cell
             }
-            .disposed(by: self.disposeBag)
-
+            .disposed(by: disposeBag)
 
         output.showAdded
             .map { _ in self.tableView.indexPathForSelectedRow }

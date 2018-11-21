@@ -59,15 +59,8 @@ extension DownloadStatusTableController: UITableViewDataSource {
         }
 
         let item = datasource[indexPath.section].items[indexPath.row]
-        let applicationType = dependencies.downloadApplication.downType
-
-        if let queueItem = item as? DownloadQueueItem {
-            itemCell.viewModel = DownloadItemCellModel(queueItem: queueItem, applicationType: applicationType)
-        }
-        else if let historyItem = item as? DownloadHistoryItem {
-            itemCell.viewModel = DownloadItemCellModel(historyItem: historyItem, applicationType: applicationType)
-        }
-
+        itemCell.configure(with: dependencies.downloadApplication, andItem: item)
+        
         return cell
     }
 }

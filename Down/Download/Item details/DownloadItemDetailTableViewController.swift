@@ -43,7 +43,7 @@ extension DownloadItemDetailTableViewController: UITableViewDataSource {
         }
 
         let rowData = dataModel[indexPath.section][indexPath.row]
-        keyValueCell.viewModel = rowData
+        keyValueCell.configure(with: rowData)
 
         return keyValueCell
     }

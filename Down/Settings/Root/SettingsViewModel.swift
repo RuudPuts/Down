@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class SettingsViewModel: Depending {
-    typealias Dependencies = ApplicationPersistenceDependency & RouterDependency
+    typealias Dependencies = ApplicationPersistenceDependency
     let dependencies: Dependencies
 
     init(dependencies: Dependencies) {
@@ -31,7 +31,7 @@ extension SettingsViewModel: ReactiveBindable {
 
         let applications: Driver<[SettingsSectionModel]>
 
-        let navigateToDetails: Driver<Void>
+        let navigateToDetails: Observable<ApiApplication>
     }
 
     func transform(input: SettingsViewModel.Input) -> SettingsViewModel.Output {
@@ -47,17 +47,13 @@ extension SettingsViewModel: ReactiveBindable {
             SettingsSectionModel(applicationType: .download, title: "Downloaders", applications: [.sabnzbd]),
             SettingsSectionModel(applicationType: .dvr, title: "Show indexers", applications: [.sickbeard, .sickgear]),
             SettingsSectionModel(applicationType: .dmr, title: "Movie indexers", applications: [.couchpotato]),
-            ])
+        ])
 
         let navigateToDetailsDriver = input.itemSelected
             .withLatestFrom(applicationsDriver) { indexPath, sections in
                 return sections[indexPath.section].applications[indexPath.row]
             }
             .map { self.dependencies.persistence.load(type: $0) ?? self.dependencies.persistence.makeApplication(ofType: $0) }
-            .do(onNext: { self.dependencies.router.settingsRouter.showSettings(for: $0) })
-            .map { _ in Void() }
-            .asDriver(onErrorJustReturn: Void())
-
 
         return Output(title: titleDriver,
                         welcomeMessage: welcomeMessageDriver,
