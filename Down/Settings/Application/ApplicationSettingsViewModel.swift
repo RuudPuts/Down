@@ -10,67 +10,132 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-class ApplicationSettingsViewModel: Depending {
+struct ApplicationSettingsViewModel: Depending {
     typealias Dependencies = ApiApplicationInteractorFactoryDependency & DvrInteractorFactoryDependency & ApplicationPersistenceDependency
     let dependencies: Dependencies
 
-    var host = BehaviorRelay<String?>(value: nil)
-    var username = BehaviorRelay<String?>(value: nil)
-    var password = BehaviorRelay<String?>(value: nil)
-    var apiKey = BehaviorRelay<String?>(value: nil)
-
-    var authenticationRequired = BehaviorRelay<Bool>(value: false)
-
     private var application: ApiApplication
-    private let disposeBag = DisposeBag()
 
     init(dependencies: Dependencies, application: ApiApplication) {
         self.dependencies = dependencies
         self.application = application
+    }
+}
 
-        host.accept(application.host)
-        apiKey.accept(application.apiKey)
+extension ApplicationSettingsViewModel: ReactiveBindable {
+    private typealias LoginInputTuple = (application: ApiApplication, credentials: UsernamePassword?)
+
+    struct Input {
+        let host: Driver<String>
+        let username: Driver<String>
+        let password: Driver<String>
+        let apiKey: Driver<String>
+
+        let saveButtonTapped: ControlEvent<Void>
     }
 
-    func login(host: String, credentials: UsernamePassword? = nil) -> Single<LoginResult> {
-        self.host.accept(host.trimmingCharacters(in: .whitespaces))
-        self.username.accept(credentials?.username)
-        self.password.accept(credentials?.password)
+    struct Output {
+        let loginResult: Driver<LoginResult>
+        let apiKey: Driver<String?>
 
-        var applicationCopy = application.copy() as! ApiApplication
-        applicationCopy.host = host
+        let settingsSaved: Driver<Bool>
+    }
 
+    func transform(input: Input) -> Output {
+        // wil this work? host might not be set without api key
+//        let observableApplication = Driver.zip([input.host, input.apiKey])
+//            .map { input -> ApiApplication in
+//                var application = self.application.copy() as! ApiApplication
+//
+//                application.host = input.first ?? ""
+//                application.apiKey = input.last ?? ""
+//
+//                return application
+//            }
+
+        let observableApplication = input.host
+            .map { host -> ApiApplication in
+                var application = self.application.copy() as! ApiApplication
+                application.host = host
+
+                return application
+            }
+            .debug("Application")
+
+        let credentialsDriver = Driver.zip([input.username, input.password])
+            .map { input -> UsernamePassword? in
+                guard let username = input.first, username.count > 0,
+                      let password = input.last, password.count > 0 else {
+                    return nil
+                }
+
+                return (username: username, password: password)
+            }
+
+
+        let hostChangedLoginDriver = observableApplication
+            .withLatestFrom(credentialsDriver) { application, credentials in
+                return (application: application, credentials: credentials)
+            }
+            .debug("HostChanged")
+
+        let credentialsChangedLoginDriver = credentialsDriver
+            .withLatestFrom(observableApplication) { credentials, application in
+                return (application: application, credentials: credentials)
+            }
+
+        let loginObservable = Driver<LoginInputTuple>.merge([hostChangedLoginDriver, credentialsChangedLoginDriver])
+            .asObservable()
+            .flatMap {
+                self.login(for: $0.application, withCredentials: $0.credentials)
+            }
+            .debug("Login")
+
+        let apiKeyObservable = loginObservable
+            .filter { $0 == .success }
+            .withLatestFrom(credentialsDriver) { _, credentials in
+                return (application: self.application, credentials: credentials)
+            }
+            .withLatestFrom(observableApplication) { input, application in
+                return (application: application, credentials: input.credentials)
+            }
+            .flatMap {
+                self.fetchApiKey(for: $0.application, withCredentials: $0.credentials)
+            }
+
+        let applicationSavedDriver = input.saveButtonTapped
+            .withLatestFrom(observableApplication) { _, application in
+                return application
+            }
+            .do(onNext: {
+                self.dependencies.persistence.store($0)
+            })
+
+        let settingsSavedDriver = applicationSavedDriver
+            .flatMap { self.updateCache(for: $0)}
+            .asDriver(onErrorJustReturn: true)
+
+        return Output(loginResult: loginObservable.asDriver(onErrorJustReturn: .failed),
+                      apiKey: apiKeyObservable.asDriver(onErrorJustReturn: nil),
+                      settingsSaved: settingsSavedDriver)
+    }
+
+    func login(for application: ApiApplication, withCredentials credentials: UsernamePassword?) -> Single<LoginResult> {
         return dependencies.apiInteractorFactory
-            .makeLoginInteractor(for: applicationCopy, credentials: credentials)
+            .makeLoginInteractor(for: application, credentials: credentials)
             .observe()
             .do(onSuccess: { result in
                     NSLog("Login result: \(result)")
-                    switch result {
-                    case .success:
-                        self.host.accept(host)
-                        self.fetchApiKey(credentials: credentials)
-                            .subscribe()
-                            .disposed(by: self.disposeBag)
-                        break
-                    case .authenticationRequired:
-                        let authenticationRequired = (self.apiKey.value ?? "").isEmpty
-                        self.authenticationRequired.accept(authenticationRequired)
-                        break
-                    default: break
-                    }
                 },
                 onError: { error in
                     NSLog("Login error: \(error)")
-                    self.authenticationRequired.accept(false)
-                })
+                }
+            )
     }
 
-    func fetchApiKey(credentials: UsernamePassword? = nil) -> Single<String?> {
-        var applicationCopy = application.copy() as! ApiApplication
-        applicationCopy.host = host.value!
-
+    func fetchApiKey(for application: ApiApplication, withCredentials credentials: UsernamePassword?) -> Single<String?> {
         return dependencies.apiInteractorFactory
-            .makeApiKeyInteractor(for: applicationCopy, credentials: credentials)
+            .makeApiKeyInteractor(for: application, credentials: credentials)
             .observe()
             .do(onSuccess: {
                 guard let apiKey = $0 else {
@@ -79,45 +144,20 @@ class ApplicationSettingsViewModel: Depending {
                 }
 
                 NSLog("Api key: \(apiKey)")
-                self.apiKey.accept(apiKey)
-                self.authenticationRequired.accept(false)
             },
             onError: { error in
                 NSLog("ApiKey error: \(error)")
             })
     }
 
-    func updateApplicationCache() -> Completable {
-        return Completable.create { completable in
-            switch self.application.type {
-            case .dvr:
-                guard let dvrApplication = self.application as? DvrApplication else {
-                    completable(.completed)
-                    return Disposables.create()
-                }
-
-                self.dependencies.dvrInteractorFactory
-                    .makeShowCacheRefreshInteractor(for: dvrApplication)
-                    .observe()
-                    .subscribe(onSuccess: { _ in
-                        completable(.completed)
-                    })
-                    .disposed(by: self.disposeBag)
-            default:
-                completable(.completed)
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    func save() {
-        guard let host = self.host.value, let apiKey = self.apiKey.value else {
-            return
+    func updateCache(for application: ApiApplication) -> Single<Bool> {
+        guard let dvrApplication = application as? DvrApplication else {
+            return Single.just(true)
         }
 
-        application.host = host
-        application.apiKey = apiKey
-        dependencies.persistence.store(application)
+        return dependencies.dvrInteractorFactory
+            .makeShowCacheRefreshInteractor(for: dvrApplication)
+            .observe()
+            .map { _ in true }
     }
 }

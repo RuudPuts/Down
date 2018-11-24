@@ -117,10 +117,7 @@ extension DvrAddShowViewController: ReactiveBinding {
 
     func makeInput() -> DvrAddShowViewModel.Input {
         let showSelected = tableView.rx.itemSelected
-        let searchFieldText = searchTextField.rx.text
-            .asDriver()
-            .debounce(0.3)
-            .map { $0 ?? "" }
+        let searchFieldText = searchTextField.rx.textDriver
 
         return DvrAddShowViewModel.Input(searchQuery: searchFieldText, showSelected: showSelected)
     }

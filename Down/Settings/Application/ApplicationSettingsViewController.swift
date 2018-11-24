@@ -44,6 +44,7 @@ class ApplicationSettingsViewController: UIViewController & Depending {
 
         applyStyling()
         configureTextFields()
+        bind(to: viewModel)
     }
 
     func applyStyling() {
@@ -59,92 +60,9 @@ class ApplicationSettingsViewController: UIViewController & Depending {
     }
 
     func configureTextFields() {
-        let hideFieldsDriver = viewModel.authenticationRequired
-            .asDriver()
-            .map { !$0 }
-
-        hideFieldsDriver
-            .drive(usernameTextField.rx.isHidden)
-            .disposed(by: disposeBag)
-
-        hideFieldsDriver
-            .drive(passwordTextField.rx.isHidden)
-            .disposed(by: disposeBag)
-
-        viewModel
-            .host
-            .asDriver()
-            .drive(hostTextField.rx.text)
-            .disposed(by: disposeBag)
-
-        viewModel
-            .apiKey
-            .asDriver()
-            .drive(apiKeyTextField.rx.text)
-            .disposed(by: disposeBag)
-
-        [hostTextField, usernameTextField, passwordTextField].forEach { textField in
+        [hostTextField, usernameTextField, passwordTextField, apiKeyTextField].forEach { textField in
             textField?.delegate = self
-            textField?.rx.text
-                .skip(2)
-                .debounce(0.3, scheduler: MainScheduler.instance)
-                .subscribe(onNext: { [weak self] _ in
-                    guard let `self` = self else { return }
-                    
-                    // Text needs to be subscribed to the view model as well..
-                    // Should the text directly bind to the view model's variables?
-                    // And make it do the perform login below?
-                    self.performLogin()
-                })
-                .disposed(by: disposeBag)
         }
-
-        apiKeyTextField.rx.text
-            .skip(2)
-            .debounce(0.3, scheduler: MainScheduler.instance)
-            .subscribe(onNext: {
-                self.viewModel.apiKey.accept($0)
-            })
-            .disposed(by: disposeBag)
-    }
-
-    func performLogin() {
-        guard let host = hostTextField.text, host.count > 0 else {
-            return
-        }
-
-        var credentials: UsernamePassword?
-        if let username = usernameTextField.text, username.count > 0,
-           let password = passwordTextField.text, password.count > 0 {
-            credentials = (username: username, password: password)
-        }
-
-        viewModel.login(host: host, credentials: credentials)
-            .subscribe()
-            .disposed(by: disposeBag)
-    }
-
-    func fetchApiKey() {
-        viewModel.fetchApiKey()
-            .subscribe()
-            .disposed(by: disposeBag)
-    }
-
-    @IBAction func saveButtonTapped(_ sender: UIButton) {
-        sender.isEnabled = false
-        sender.setTitle("Preparing cache...", for: .normal)
-        
-        viewModel.save()
-        dependencies.persistence.store(self.application)
-
-        viewModel.updateApplicationCache()
-            .subscribe(onCompleted: { [weak self] in
-                guard let `self` = self else { return }
-
-                self.dependencies.router.restartRouter(type: self.application.type)
-                self.dependencies.router.close(viewController: self)
-            })
-            .disposed(by: disposeBag)
     }
 
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
@@ -167,5 +85,56 @@ extension ApplicationSettingsViewController: UITextFieldDelegate {
             return false
         }
         return true
+    }
+}
+
+extension ApplicationSettingsViewController: ReactiveBinding {
+    typealias Bindable = ApplicationSettingsViewModel
+
+    func bind(to viewModel: ApplicationSettingsViewModel) {
+        let output = viewModel.transform(input: makeInput())
+
+        [usernameTextField, passwordTextField].forEach { textField in
+            output.loginResult
+                .map { $0 != .authenticationRequired }
+                .startWith(true)
+                .asDriver(onErrorRecover: { error in
+                    return Driver.just(true)
+                })
+                .debug("LoginResult")
+                .drive(textField.rx.isHidden)
+                .disposed(by: disposeBag)
+        }
+
+        output.apiKey
+            .asDriver(onErrorJustReturn: nil)
+            .drive(apiKeyTextField.rx.text)
+            .disposed(by: disposeBag)
+
+//        sender.isEnabled = isSaving
+//        sender.setTitle(isSaving ? "Preparing cache..." : "Save", for: .normal)
+
+        output.settingsSaved
+            .filter { $0 }
+            .do(onNext: { _ in
+                self.dependencies.router.restartRouter(type: self.application.type)
+                self.dependencies.router.close(viewController: self)
+            })
+            .drive()
+            .disposed(by: disposeBag)
+    }
+
+    func makeInput() -> ApplicationSettingsViewModel.Input {
+        let hostDriver = hostTextField.rx.textDriver
+        let usernameDriver = usernameTextField.rx.textDriver
+        let passwordDriver = passwordTextField.rx.textDriver
+        let apiKeyDriver = apiKeyTextField.rx.textDriver
+        let saveButtonTap = saveButton.rx.tap
+
+        return ApplicationSettingsViewModel.Input(host: hostDriver,
+                                                  username: usernameDriver,
+                                                  password: passwordDriver,
+                                                  apiKey: apiKeyDriver,
+                                                  saveButtonTapped: saveButtonTap)
     }
 }
