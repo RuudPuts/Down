@@ -3,7 +3,6 @@ inhibit_all_warnings!
 
 def rxswift_pods
   pod 'RxSwift', '~> 4.4.0'
-  pod 'RxCocoa', '~> 4.4.0'
   pod 'RxSwiftExt', '~> 3.4.0'
 end
 
@@ -31,6 +30,8 @@ target 'Down' do
   use_frameworks!
 
   rxswift_pods
+  pod 'RxCocoa', '~> 4.4.0'
+
   rswift_pods
 
   pod 'Fabric', '~> 1.8.0'
