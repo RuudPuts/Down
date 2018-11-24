@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Result
 
 public protocol RequestGateway {
     associatedtype ResultType
@@ -31,6 +32,6 @@ extension RequestGateway {
 
         return self.executor
                 .execute(request)
-                .map { try self.parse(response: $0) }
+                .map { try self.parse(response: $0.value!) }
     }
 }

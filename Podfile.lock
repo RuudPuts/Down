@@ -15,6 +15,7 @@ PODS:
   - Realm/Headers (3.11.2)
   - RealmSwift (3.11.2):
     - Realm (= 3.11.2)
+  - Result (4.0.0)
   - RxAtomic (4.4.0)
   - RxBlocking (4.4.0):
     - RxAtomic (~> 4.4)
@@ -57,6 +58,7 @@ DEPENDENCIES:
   - R.swift (~> 4.0.0)
   - R.swift.Library (~> 4.0.0)
   - RealmSwift (~> 3.11.0)
+  - Result (~> 4.0.0)
   - RxBlocking (~> 4.4.0)
   - RxCocoa (~> 4.4.0)
   - RxNimble (~> 4.4.0)
@@ -80,6 +82,7 @@ SPEC REPOS:
     - R.swift.Library
     - Realm
     - RealmSwift
+    - Result
     - RxAtomic
     - RxBlocking
     - RxCocoa
@@ -103,6 +106,7 @@ SPEC CHECKSUMS:
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
   Realm: 864477d028db77f7c5a0cba64a4892ad53db128a
   RealmSwift: 12b8262fc08020b47de4fd88eb3d5c9425b34ec7
+  Result: 7645bb3f50c2ce726dd0ff2fa7b6f42bbe6c3713
   RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
   RxBlocking: 138ad53217434444d6eeeb4fb406a45431d92e31
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
@@ -114,6 +118,6 @@ SPEC CHECKSUMS:
   SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: e4bc8a463abe4e0504918685b01007a31a6bdc2a
+PODFILE CHECKSUM: 0fa27ba2cce90ee65a6d2fec4a255e97cf02cbc7
 
 COCOAPODS: 1.5.3

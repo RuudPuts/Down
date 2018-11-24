@@ -7,33 +7,34 @@
 //
 
 import RxSwift
+import Result
 
 extension URLSession: RequestClient {
-    public func execute(_ request: Request) -> Single<Response> {
+    public func execute(_ request: Request) -> RequestExecutionResult {
         return Single.create { observer in
             guard let urlRequest = request.asUrlRequest() else {
-                observer(.error(RequestClientError.invalidRequest))
+                observer(.success(.failure(RequestExecutorError.invalidRequest)))
                 return Disposables.create()
             }
 
             self.dataTask(with: urlRequest) { (data, response, error) in
                 guard error == nil else {
-                    return observer(.error(RequestClientError.generic(message: error!.localizedDescription)))
+                    return observer(.success(.failure(RequestExecutorError.generic(message: error!.localizedDescription))))
                 }
 
                 guard let httpResponse = response as? HTTPURLResponse else {
-                    return observer(.error(RequestClientError.invalidResponse))
+                    return observer(.success(.failure(RequestExecutorError.invalidResponse)))
                 }
 
                 guard let data = data else {
-                    return observer(.error(RequestClientError.noData))
+                    return observer(.success(.failure(RequestExecutorError.noData)))
                 }
 
-                observer(.success(Response(
+                observer(.success(.success(Response(
                     data: data,
                     statusCode: httpResponse.statusCode,
                     headers: httpResponse.allHeaderFields as? [String: String]
-                )))
+                ))))
             }.resume()
 
             return Disposables.create()

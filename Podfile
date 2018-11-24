@@ -53,6 +53,7 @@ target 'DownKit' do
 
   rxswift_pods
   realm_pods  
+  pod 'Result', '~> 4.0.0'
   pod 'Alamofire', '~> 4.7.0'
   pod 'SwiftyJSON', '~> 4.2.0'
   pod 'SwiftHash', '~> 2.0.0'
