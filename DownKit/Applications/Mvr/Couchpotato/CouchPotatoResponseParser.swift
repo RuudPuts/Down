@@ -61,7 +61,7 @@ extension CouchPotatoResponseParser: ApiApplicationResponseParsing {
 extension CouchPotatoResponseParser {
     func parse(_ response: Response) throws -> JSON {
         guard let data = response.data else {
-            throw ParseError.noData
+            throw ResponseParsingError.noData
         }
         
         var json: JSON
@@ -70,7 +70,7 @@ extension CouchPotatoResponseParser {
         }
         catch {
             print("CouchPotato parse error: \(error)")
-            throw ParseError.invalidJson
+            throw ResponseParsingError.invalidJson
         }
 
         try validate(json)
@@ -80,7 +80,7 @@ extension CouchPotatoResponseParser {
 
     func validate(_ json: JSON) throws {
         guard json["success"].boolValue else {
-            throw ParseError.api(message: "")
+            throw ResponseParsingError.api(message: "")
         }
     }
 }

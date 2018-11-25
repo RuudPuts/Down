@@ -32,7 +32,7 @@ class SickbeardResponseParser: DvrResponseParsing {
         let seasonsData = data["show.seasons"]["data"]
         
         guard showData != JSON.null && seasonsData != JSON.null else {
-            throw ParseError.missingData
+            throw ResponseParsingError.missingData
         }
         
         let show = parseShow(from: showData, keymap: ParseShowListKeyMapping.self)
@@ -161,7 +161,7 @@ private extension SickbeardResponseParser {
 extension SickbeardResponseParser {
     func parse(_ response: Response) throws -> JSON {
         guard let data = response.data else {
-            throw ParseError.noData
+            throw ResponseParsingError.noData
         }
         
         var json: JSON
@@ -170,7 +170,7 @@ extension SickbeardResponseParser {
         }
         catch {
             print("Sickbeard parse error: \(error)")
-            throw ParseError.invalidJson
+            throw ResponseParsingError.invalidJson
         }
 
         try validate(json)
@@ -181,7 +181,7 @@ extension SickbeardResponseParser {
     func validate(_ json: JSON) throws {
         let data = json["data"]
         guard json["result"].string == "success" else {
-            throw ParseError.api(message: data.stringValue)
+            throw ResponseParsingError.api(message: data.stringValue)
         }
 
         // Check for any chained command and their results
@@ -196,7 +196,7 @@ extension SickbeardResponseParser {
             .filter { $0 != JSON.null }
             .forEach {
                 guard $0["result"].string == "success" else {
-                    throw ParseError.api(message: $0["message"].stringValue)
+                    throw ResponseParsingError.api(message: $0["message"].stringValue)
                 }
             }
     }

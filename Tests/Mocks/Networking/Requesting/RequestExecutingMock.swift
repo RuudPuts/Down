@@ -8,11 +8,12 @@
 
 @testable import DownKit
 import RxSwift
+import Result
 
 class RequestExecutingMock: RequestExecuting {
     struct Stubs {
         var request = Request.defaultStub
-        var execute = Single.just(Response.defaultStub)
+        var execute: Result<Response, DownKitError> = .success(Response.defaultStub)
     }
     
     struct Captures {
@@ -27,9 +28,9 @@ class RequestExecutingMock: RequestExecuting {
     var captures = Captures()
     
     // RequestExecuting
-    
-    func execute(_ request: Request) -> Single<Response> {
+
+    func execute(_ request: Request) -> RequestExecutionResult {
         captures.execute = Captures.Execute(request: request)
-        return stubs.execute
+        return Single.just(stubs.execute)
     }
 }

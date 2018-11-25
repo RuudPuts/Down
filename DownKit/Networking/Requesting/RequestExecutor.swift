@@ -11,16 +11,9 @@ import RxCocoa
 import Result
 
 public protocol RequestExecuting {
-    typealias RequestExecutionResult = Single<Result<Response, RequestExecutorError>>
+    typealias RequestExecutionResult = Single<Result<Response, DownKitError>>
 
     func execute(_ request: Request) -> RequestExecutionResult
-}
-
-public enum RequestExecutorError: Error, Hashable {
-    case generic(message: String)
-    case invalidRequest
-    case invalidResponse
-    case noData
 }
 
 public class RequestExecutor: RequestExecuting {

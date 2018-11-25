@@ -37,14 +37,14 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 }
                 
                 context("without data") {
-                    var parseError: ParseError!
+                    var parseError: ResponseParsingError!
                     
                     beforeEach {
                         do {
                             result = try sut.parse(response, forKey: .queue)
                         }
                         catch {
-                            parseError = error as? ParseError
+                            parseError = error as? ResponseParsingError
                         }
                     }
                     
@@ -53,7 +53,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     }
                     
                     it("throws no data error") {
-                        expect(parseError) == ParseError.noData
+                        expect(parseError) == ResponseParsingError.noData
                     }
                 }
                 
@@ -69,7 +69,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 }
 
                 context("from failure response") {
-                    var parseError: ParseError!
+                    var parseError: ResponseParsingError!
 
                     beforeEach {
                         do {
@@ -77,7 +77,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                             result = try sut.parse(response, forKey: .queue)
                         }
                         catch {
-                            parseError = error as? ParseError
+                            parseError = error as? ResponseParsingError
                         }
                     }
 
@@ -86,12 +86,12 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     }
 
                     it("throws api error") {
-                        expect(parseError) == ParseError.api(message: "not implemented")
+                        expect(parseError) == ResponseParsingError.api(message: "not implemented")
                     }
                 }
 
                 context("from invalid response") {
-                    var parseError: ParseError!
+                    var parseError: ResponseParsingError!
 
                     beforeEach {
                         do {
@@ -99,7 +99,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                             result = try sut.parse(response, forKey: .queue)
                         }
                         catch {
-                            parseError = error as? ParseError
+                            parseError = error as? ResponseParsingError
                         }
                     }
 
@@ -108,7 +108,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     }
 
                     it("throws invalid json error") {
-                        expect(parseError) == ParseError.invalidJson
+                        expect(parseError) == ResponseParsingError.invalidJson
                     }
                 }
             }

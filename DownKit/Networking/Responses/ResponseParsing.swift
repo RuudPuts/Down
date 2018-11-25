@@ -13,14 +13,6 @@ public protocol ResponseParsing {
     func parseImage(from response: Response) throws -> UIImage
 }
 
-enum ParseError: Error, Hashable {
-    case noData
-    case invalidData
-    case invalidJson
-    case api(message: String)
-    case missingData
-}
-
 struct ParsedResult<Type> {
     let data: Type?
     let error: String?
@@ -29,7 +21,7 @@ struct ParsedResult<Type> {
 extension ResponseParsing {
     func parse(_ response: Response) throws -> String {
         guard let data = response.data else {
-            throw ParseError.noData
+            throw ResponseParsingError.noData
         }
 
         return String(data: data, encoding: .utf8) ?? ""
@@ -37,7 +29,7 @@ extension ResponseParsing {
 
     func parseImage(from response: Response) throws -> UIImage {
         guard let data = response.data, let image = UIImage(data: data) else {
-            throw ParseError.invalidData
+            throw ResponseParsingError.invalidData
         }
 
         return image

@@ -273,6 +273,7 @@
 		42FB90392101154C007B01DB /* ApplicationPersisting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FB9037210114DA007B01DB /* ApplicationPersisting.swift */; };
 		42FC9B0B21A17BDE00910968 /* ResponseStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC9B0921A17B8900910968 /* ResponseStub.swift */; };
 		42FC9B0D21A1AA2D00910968 /* ReactiveBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */; };
+		42FEEFA621AB1508002530C8 /* DownKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FEEFA521AB1508002530C8 /* DownKitError.swift */; };
 		8B0BAC3DC3E9B869CF494C68 /* Pods_DownKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975275C9B320A539BA6E7DF3 /* Pods_DownKitTests.framework */; };
 		C73B22B67696E91D9CB49A98 /* Pods_DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 497F217F594A83B2A5B832AB /* Pods_DownKit.framework */; };
 		D37FE9EF8A48A5DBB7152B57 /* Pods_DownTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71C3AF3CEF63C0D48D75B255 /* Pods_DownTests.framework */; };
@@ -583,6 +584,7 @@
 		42BE70C721693C05004167C3 /* DownloadItemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItemDetailViewModel.swift; sourceTree = "<group>"; };
 		42BE70CD21693E06004167C3 /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		42BE70CF2169835B004167C3 /* KeyValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueTableViewCell.swift; sourceTree = "<group>"; };
+		42BF101221A9EB7D0017B524 /* Down.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Down.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		42BF4E8420D19CF20088AAF6 /* DvrRequestBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuilding.swift; sourceTree = "<group>"; };
 		42BF4E8920D1B5990088AAF6 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		42BF4E8C20D1B5BC0088AAF6 /* StringSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSpec.swift; sourceTree = "<group>"; };
@@ -598,6 +600,7 @@
 		42FB9037210114DA007B01DB /* ApplicationPersisting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPersisting.swift; sourceTree = "<group>"; };
 		42FC9B0921A17B8900910968 /* ResponseStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseStub.swift; sourceTree = "<group>"; };
 		42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveBindable.swift; sourceTree = "<group>"; };
+		42FEEFA521AB1508002530C8 /* DownKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownKitError.swift; sourceTree = "<group>"; };
 		497F217F594A83B2A5B832AB /* Pods_DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54CBAD4555DC1F82BA951C40 /* Pods-DownKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DownKitTests/Pods-DownKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		604B7933DBB4E952EC34F12B /* Pods_Down.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Down.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -686,6 +689,7 @@
 			children = (
 				42E49DC8214458C600F8491B /* DownKit.swift */,
 				4239553F218F651300B7E40F /* DownKitDependencies.swift */,
+				42FEEFA521AB1508002530C8 /* DownKitError.swift */,
 				426BF74220F6A527000C3A4A /* DownApplication.swift */,
 				4221DA6720D18450003950CF /* Applications */,
 				422BE6C320D6D4CE00DDDF37 /* Interactors */,
@@ -1417,6 +1421,7 @@
 		426A797520D1810100797AE5 = {
 			isa = PBXGroup;
 			children = (
+				42BF101221A9EB7D0017B524 /* Down.playground */,
 				426A798020D1810100797AE5 /* Down */,
 				4221DA2D20D1819F003950CF /* DownKit */,
 				42D77BC020E4567300FA1ACA /* Tests */,
@@ -2079,12 +2084,13 @@
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
 				"${BUILT_PRODUCTS_DIR}/RxNimble/RxNimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxResult/RxResult.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftHash/SwiftHash.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -2097,12 +2103,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxNimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxResult.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -2158,15 +2165,16 @@
 				"${BUILT_PRODUCTS_DIR}/CircleProgressView/CircleProgressView.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxResult/RxResult.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftHash/SwiftHash.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -2176,15 +2184,16 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CircleProgressView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxResult.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -2304,6 +2313,7 @@
 				4263A18320E1B739008F7E40 /* ApiApplicationLoginInteractor.swift in Sources */,
 				4221DA9820D18450003950CF /* Response.swift in Sources */,
 				42723A5020D81C8D000445C3 /* DvrShowDetailsInteractor.swift in Sources */,
+				42FEEFA621AB1508002530C8 /* DownKitError.swift in Sources */,
 				4227B77820DB160500603528 /* RealmDatabase.swift in Sources */,
 				42384A4921612641004A0349 /* DmrMovie.swift in Sources */,
 				422CEE1120D55AD200EF0A16 /* RequestClient.swift in Sources */,

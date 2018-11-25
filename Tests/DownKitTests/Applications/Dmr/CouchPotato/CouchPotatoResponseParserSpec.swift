@@ -37,14 +37,14 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                 }
                 
                 context("without data") {
-                    var parseError: ParseError!
+                    var parseError: ResponseParsingError!
                     
                     beforeEach {
                         do {
                             result = try sut.parse(response)
                         }
                         catch {
-                            parseError = error as? ParseError
+                            parseError = error as? ResponseParsingError
                         }
                     }
                     
@@ -53,7 +53,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                     }
                     
                     it("throws no data error") {
-                        expect(parseError) == ParseError.noData
+                        expect(parseError) == ResponseParsingError.noData
                     }
                 }
                 
@@ -69,7 +69,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                 }
                 
                 context("from failure response") {
-                    var parseError: ParseError!
+                    var parseError: ResponseParsingError!
                     
                     beforeEach {
                         do {
@@ -77,7 +77,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                             result = try sut.parse(response)
                         }
                         catch {
-                            parseError = error as? ParseError
+                            parseError = error as? ResponseParsingError
                         }
                     }
                     
@@ -86,12 +86,12 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                     }
                     
                     it("throws api error") {
-                        expect(parseError) == ParseError.api(message: "")
+                        expect(parseError) == ResponseParsingError.api(message: "")
                     }
                 }
 
                 context("from invalid response") {
-                    var parseError: ParseError!
+                    var parseError: ResponseParsingError!
                     
                     beforeEach {
                         do {
@@ -99,7 +99,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                             result = try sut.parse(response)
                         }
                         catch {
-                            parseError = error as? ParseError
+                            parseError = error as? ResponseParsingError
                         }
                     }
                     
@@ -108,7 +108,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                     }
                     
                     it("throws invalid json error") {
-                        expect(parseError) == ParseError.invalidJson
+                        expect(parseError) == ResponseParsingError.invalidJson
                     }
                 }
             }

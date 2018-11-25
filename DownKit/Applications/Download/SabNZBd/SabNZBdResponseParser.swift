@@ -63,7 +63,7 @@ extension SabNZBdResponseParser: ApiApplicationResponseParsing {
 extension SabNZBdResponseParser {
     func parse(_ response: Response, forKey key: SabNZBdResponseKey) throws -> JSON {
         guard let data = response.data else {
-            throw ParseError.noData
+            throw ResponseParsingError.noData
         }
         
         var json: JSON
@@ -72,11 +72,11 @@ extension SabNZBdResponseParser {
         }
         catch {
             print("SabNZBd parse error: \(error)")
-            throw ParseError.invalidJson
+            throw ResponseParsingError.invalidJson
         }
         
         guard json["status"].bool ?? true else {
-            throw ParseError.api(message: json["error"].string ?? "")
+            throw ResponseParsingError.api(message: json["error"].string ?? "")
         }
         
         return json[key.rawValue]

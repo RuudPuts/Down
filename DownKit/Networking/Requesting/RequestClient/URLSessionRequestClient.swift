@@ -13,21 +13,21 @@ extension URLSession: RequestClient {
     public func execute(_ request: Request) -> RequestExecutionResult {
         return Single.create { observer in
             guard let urlRequest = request.asUrlRequest() else {
-                observer(.success(.failure(RequestExecutorError.invalidRequest)))
+                observer(.success(.failure(.requestExecuting(.invalidRequest))))
                 return Disposables.create()
             }
 
             self.dataTask(with: urlRequest) { (data, response, error) in
                 guard error == nil else {
-                    return observer(.success(.failure(RequestExecutorError.generic(message: error!.localizedDescription))))
+                    return observer(.success(.failure(.requestExecuting(.generic(message: error!.localizedDescription)))))
                 }
 
                 guard let httpResponse = response as? HTTPURLResponse else {
-                    return observer(.success(.failure(RequestExecutorError.invalidResponse)))
+                    return observer(.success(.failure(.requestExecuting(.invalidResponse))))
                 }
 
                 guard let data = data else {
-                    return observer(.success(.failure(RequestExecutorError.noData)))
+                    return observer(.success(.failure(.requestExecuting(.noData))))
                 }
 
                 observer(.success(.success(Response(

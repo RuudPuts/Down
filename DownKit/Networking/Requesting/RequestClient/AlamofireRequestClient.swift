@@ -16,21 +16,21 @@ public class AlamofireRequestClient: RequestClient {
     public func execute(_ request: Request) -> RequestExecutionResult {
         return Single.create { observer in
             guard let alamofireRequest = request.asAlamofireRequest() else {
-                observer(.success(.failure(.invalidRequest)))
+                observer(.success(.failure(.requestExecuting(.invalidRequest))))
                 return Disposables.create()
             }
 
             alamofireRequest.responseData { handler in
                 guard handler.error == nil else {
-                    return observer(.success(.failure(.generic(message: handler.error!.localizedDescription))))
+                    return observer(.success(.failure(.requestExecuting(.generic(message: handler.error!.localizedDescription)))))
                 }
 
                 guard let response = handler.response else {
-                    return observer(.success(.failure(.invalidResponse)))
+                    return observer(.success(.failure(.requestExecuting(.invalidResponse))))
                 }
 
                 guard let data = handler.data else {
-                    return observer(.success(.failure(.noData)))
+                    return observer(.success(.failure(.requestExecuting(.noData))))
                 }
 
                 observer(.success(.success(Response(
