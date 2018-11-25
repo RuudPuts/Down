@@ -34,6 +34,6 @@ public class DvrAddShowGateway: DvrRequestGateway {
     }
 
     public func parse(response: Response) throws -> Bool {
-        return try parser.parseAddShow(from: response)
+        return parser.parseAddShow(from: response).value!
     }
 }

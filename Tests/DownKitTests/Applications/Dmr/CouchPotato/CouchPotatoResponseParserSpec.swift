@@ -11,6 +11,7 @@ import Quick
 import Nimble
 import RealmSwift
 import SwiftyJSON
+import Result
 
 class CouchPotatoResponseParserSpec: QuickSpec {
     // swiftlint:disable function_body_length
@@ -30,85 +31,52 @@ class CouchPotatoResponseParserSpec: QuickSpec {
             }
             
             context("parse Response") {
-                var result: JSON!
+                var result: Result<JSON, DownKitError>!
                 
                 afterEach {
                     result = nil
                 }
                 
                 context("without data") {
-                    var parseError: ResponseParsingError!
-                    
                     beforeEach {
-                        do {
-                            result = try sut.parse(response)
-                        }
-                        catch {
-                            parseError = error as? ResponseParsingError
-                        }
-                    }
-                    
-                    afterEach {
-                        parseError = nil
+                        result = sut.parse(response)
                     }
                     
                     it("throws no data error") {
-                        expect(parseError) == ResponseParsingError.noData
+                        expect(result.error) == .responseParsing(.noData)
                     }
                 }
                 
                 context("from succesful response") {
                     beforeEach {
                         response.data = Data(fromJsonFile: "couchpotato_success")
-                        result = try? sut.parse(response)
+                        result = sut.parse(response)
                     }
                     
                     it("parses the json's data") {
-                        expect(result) == ["success": true]
+                        expect(result.value) == ["success": true]
                     }
                 }
                 
-                context("from failure response") {
-                    var parseError: ResponseParsingError!
-                    
+                context("from failure response") {                    
                     beforeEach {
-                        do {
-                            response.data = Data(fromJsonFile: "couchpotato_error")
-                            result = try sut.parse(response)
-                        }
-                        catch {
-                            parseError = error as? ResponseParsingError
-                        }
-                    }
-                    
-                    afterEach {
-                        parseError = nil
+                        response.data = Data(fromJsonFile: "couchpotato_error")
+                        result = sut.parse(response)
                     }
                     
                     it("throws api error") {
-                        expect(parseError) == ResponseParsingError.api(message: "")
+                        expect(result.error) == .responseParsing(.api(message: ""))
                     }
                 }
 
                 context("from invalid response") {
-                    var parseError: ResponseParsingError!
-                    
                     beforeEach {
-                        do {
-                            response.data = "invalid response".data(using: .utf8)
-                            result = try sut.parse(response)
-                        }
-                        catch {
-                            parseError = error as? ResponseParsingError
-                        }
-                    }
-                    
-                    afterEach {
-                        parseError = nil
+                        response.data = "invalid response".data(using: .utf8)
+                        result = sut.parse(response)
                     }
                     
                     it("throws invalid json error") {
-                        expect(parseError) == ResponseParsingError.invalidJson
+                        expect(result.error) == .responseParsing(.invalidJson)
                     }
                 }
             }
@@ -118,7 +86,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
 
                 beforeEach {
                     response.data = Data(fromJsonFile: "couchpotato_apikey")
-                    result = try! sut.parseApiKey(from: response)
+                    result = sut.parseApiKey(from: response).value ?? nil
                 }
 
                 afterEach {
@@ -135,7 +103,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                 
                 beforeEach {
                     response.data = Data(fromJsonFile: "couchpotato_movielist")
-                    result = try? sut.parseMovies(from: response)
+                    result = sut.parseMovies(from: response).value
                 }
                 
                 afterEach {

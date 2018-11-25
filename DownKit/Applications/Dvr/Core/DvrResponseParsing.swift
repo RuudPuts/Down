@@ -6,12 +6,14 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import Result
+
 public protocol DvrResponseParsing: ApiApplicationResponseParsing {
-    func parseShows(from response: Response) throws -> [DvrShow]
-    func parseShowDetails(from response: Response) throws -> DvrShow
-    func parseSearchShows(from response: Response) throws -> [DvrShow]
-    func parseAddShow(from response: Response) throws -> Bool
-    func parseDeleteShow(from response: Response) throws -> Bool
-    func parseSetEpisodeStatus(from response: Response) throws -> Bool
-    func parseSetSeasonStatus(from response: Response) throws -> Bool
+    func parseShows(from response: Response) -> Result<[DvrShow], DownKitError>
+    func parseShowDetails(from response: Response) -> Result<DvrShow, DownKitError>
+    func parseSearchShows(from response: Response) -> Result<[DvrShow], DownKitError>
+    func parseAddShow(from response: Response) -> Result<Bool, DownKitError>
+    func parseDeleteShow(from response: Response) -> Result<Bool, DownKitError>
+    func parseSetEpisodeStatus(from response: Response) -> Result<Bool, DownKitError>
+    func parseSetSeasonStatus(from response: Response) -> Result<Bool, DownKitError>
 }

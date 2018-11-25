@@ -34,6 +34,6 @@ public class ApiApplicationApiKeyGateway: ApiApplicationRequestGateway {
     }
 
     public func parse(response: Response) throws -> String? {
-        return try parser.parseApiKey(from: response)
+        return parser.parseApiKey(from: response).value!
     }
 }

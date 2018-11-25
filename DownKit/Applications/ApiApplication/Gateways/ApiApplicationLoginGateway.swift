@@ -36,7 +36,7 @@ public class ApiApplicationLoginGateway: ApiApplicationRequestGateway {
     }
 
     public func parse(response: Response) throws -> LoginResult {
-        return try parser.parseLoggedIn(from: response)
+        return parser.parseLoggedIn(from: response).value!
     }
 }
 

@@ -35,6 +35,6 @@ public class DvrSetSeasonStatusGateway: DvrRequestGateway {
     }
 
     public func parse(response: Response) throws -> Bool {
-        return try parser.parseSetSeasonStatus(from: response)
+        return parser.parseSetSeasonStatus(from: response).value!
     }
 }

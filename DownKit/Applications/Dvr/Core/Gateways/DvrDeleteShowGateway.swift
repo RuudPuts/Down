@@ -32,6 +32,6 @@ public class DvrDeleteShowGateway: DvrRequestGateway {
     }
 
     public func parse(response: Response) throws -> Bool {
-        return try parser.parseDeleteShow(from: response)
+        return parser.parseDeleteShow(from: response).value!
     }
 }

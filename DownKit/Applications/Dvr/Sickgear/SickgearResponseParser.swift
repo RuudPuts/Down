@@ -6,15 +6,19 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import Result
+
 class SickgearResponseParser: SickbeardResponseParser {
-    override func parseLoggedIn(from response: Response) throws -> LoginResult {
-        let result = try super.parseLoggedIn(from: response)
+    override func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
+        let result = super.parseLoggedIn(from: response)
 
-        if result == .authenticationRequired, application.sessionCookie != nil {
-            return .success
+        return result.map {
+            if $0 == .authenticationRequired, application.sessionCookie != nil {
+                return .success
+            }
+
+            return $0
         }
-
-        return result
     }
 }
 

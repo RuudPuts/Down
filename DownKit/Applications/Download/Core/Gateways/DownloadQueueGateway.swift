@@ -25,6 +25,6 @@ public class DownloadQueueGateway: DownloadRequestGateway {
     }
 
     public func parse(response: Response) throws -> DownloadQueue {
-        return try parser.parseQueue(from: response)
+        return parser.parseQueue(from: response).value!
     }
 }

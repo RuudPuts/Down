@@ -7,6 +7,7 @@
 //
 
 @testable import DownKit
+import Result
 
 class DvrResponseParsingMock: DvrResponseParsing {
     struct Stubs {
@@ -66,50 +67,50 @@ class DvrResponseParsingMock: DvrResponseParsing {
     
     // DvrResponseParsing
     
-    func parseShows(from response: Response) -> [DvrShow] {
+    func parseShows(from response: Response) -> Result<[DvrShow], DownKitError> {
         captures.parseShows = Captures.Parse(response: response)
-        return stubs.parseShows ?? []
+        return .success(stubs.parseShows ?? [])
     }
     
-    func parseShowDetails(from response: Response) -> DvrShow {
+    func parseShowDetails(from response: Response) -> Result<DvrShow, DownKitError> {
         captures.parseShowDetails = Captures.Parse(response: response)
-        return stubs.parseShowDetails ?? DvrShow()
+        return .success(stubs.parseShowDetails ?? DvrShow())
     }
 
-    func parseSearchShows(from response: Response) throws -> [DvrShow] {
+    func parseSearchShows(from response: Response) -> Result<[DvrShow], DownKitError> {
         captures.parseSearchShows = Captures.Parse(response: response)
-        return stubs.parseSearchShows ?? []
+        return .success(stubs.parseSearchShows ?? [])
     }
 
-    func parseAddShow(from response: Response) throws -> Bool {
+    func parseAddShow(from response: Response) -> Result<Bool, DownKitError> {
         captures.parseAddShow = Captures.Parse(response: response)
-        return stubs.parseAddShow
+        return .success(stubs.parseAddShow)
     }
 
-    func parseDeleteShow(from response: Response) throws -> Bool {
+    func parseDeleteShow(from response: Response) -> Result<Bool, DownKitError> {
         captures.parseDeleteShow = Captures.Parse(response: response)
-        return stubs.parseDeleteShow
+        return .success(stubs.parseDeleteShow)
     }
 
-    func parseSetEpisodeStatus(from response: Response) throws -> Bool {
+    func parseSetEpisodeStatus(from response: Response) -> Result<Bool, DownKitError> {
         captures.parseSetEpisodeStatus = Captures.Parse(response: response)
-        return stubs.parseSetEpisodeStatus
+        return .success(stubs.parseSetEpisodeStatus)
     }
 
-    func parseSetSeasonStatus(from response: Response) throws -> Bool {
+    func parseSetSeasonStatus(from response: Response) -> Result<Bool, DownKitError> {
         captures.parseSetSeasonStatus = Captures.Parse(response: response)
-        return stubs.parseSetSeasonStatus
+        return .success(stubs.parseSetSeasonStatus)
     }
 
     // ApiApplicationResponseParsing
 
-    func parseLoggedIn(from response: Response) throws -> LoginResult {
+    func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
         captures.parseLogin = Captures.Parse(response: response)
-        return stubs.parseLogin
+        return .success(stubs.parseLogin)
     }
 
-    func parseApiKey(from response: Response) throws -> String? {
+    func parseApiKey(from response: Response) -> Result<String?, DownKitError> {
         captures.parseApiKey = Captures.Parse(response: response)
-        return stubs.parseApiKey
+        return .success(stubs.parseApiKey)
     }
 }

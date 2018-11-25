@@ -32,6 +32,10 @@ extension RequestGateway {
 
         return self.executor
                 .execute(request)
-                .map { try self.parse(response: $0.value!) }
+                .map { result in
+                    let parsed = try self.parse(response: result.value!)
+
+                    return parsed
+                }
     }
 }

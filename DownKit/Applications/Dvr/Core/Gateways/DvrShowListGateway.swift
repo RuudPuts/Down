@@ -25,6 +25,6 @@ public class DvrShowListGateway: DvrRequestGateway {
     }
 
     public func parse(response: Response) throws -> [DvrShow] {
-        return try parser.parseShows(from: response)
+        return parser.parseShows(from: response).value!
     }
 }

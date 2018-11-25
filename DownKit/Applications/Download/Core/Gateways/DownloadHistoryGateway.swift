@@ -25,6 +25,6 @@ public class DownloadHistoryGateway: DownloadRequestGateway {
     }
 
     public func parse(response: Response) throws -> [DownloadItem] {
-        return try parser.parseHistory(from: response)
+        return parser.parseHistory(from: response).value!
     }
 }

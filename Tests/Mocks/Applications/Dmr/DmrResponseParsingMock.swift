@@ -7,6 +7,7 @@
 //
 
 @testable import DownKit
+import Result
 
 class DmrResponseParsingMock: DmrResponseParsing {
     struct Stubs {
@@ -54,20 +55,20 @@ class DmrResponseParsingMock: DmrResponseParsing {
     
     // DmrResponseParsing
     
-    func parseMovies(from response: Response) -> [DmrMovie] {
+    func parseMovies(from response: Response) -> Result<[DmrMovie], DownKitError> {
         captures.parseMovies = Captures.Parse(response: response)
-        return stubs.parseMovies ?? []
+        return .success(stubs.parseMovies ?? [])
     }
 
     // ApiApplicationResponseParsing
 
-    func parseLoggedIn(from response: Response) throws -> LoginResult {
+    func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
         captures.parseLogin = Captures.Parse(response: response)
-        return stubs.parseLogin
+        return .success(stubs.parseLogin)
     }
 
-    func parseApiKey(from response: Response) throws -> String? {
+    func parseApiKey(from response: Response) -> Result<String?, DownKitError> {
         captures.parseApiKey = Captures.Parse(response: response)
-        return stubs.parseApiKey
+        return .success(stubs.parseApiKey)
     }
 }

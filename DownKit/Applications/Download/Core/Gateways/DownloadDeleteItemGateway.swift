@@ -31,6 +31,6 @@ public class DownloadDeleteItemGateway: DownloadRequestGateway {
     }
 
     public func parse(response: Response) throws -> Bool {
-        return try parser.parseDeleteItem(from: response)
+        return parser.parseDeleteItem(from: response).value!
     }
 }
