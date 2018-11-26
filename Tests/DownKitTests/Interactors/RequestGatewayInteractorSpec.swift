@@ -20,7 +20,7 @@ class RequestGatewayInteractorSpec: QuickSpec {
             
             beforeEach {
                 gateway = RequestGatewayMock()
-                gateway.stubs.observe = Single.just(1337)
+                gateway.stubs.observe = 1337
                 sut = RequestGatewayInteractor(gateway: gateway)
             }
             

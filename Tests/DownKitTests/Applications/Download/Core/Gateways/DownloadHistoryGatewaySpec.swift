@@ -11,6 +11,7 @@ import RxBlocking
 import RxSwift
 import Quick
 import Nimble
+import Result
 
 class DownloadHistoryGatewaySpec: QuickSpec {
     // swiftlint:disable function_body_length
@@ -76,7 +77,7 @@ class DownloadHistoryGatewaySpec: QuickSpec {
                     historyItems = [DownloadItem(identifier: "1", name: "QueueItem", category: "", sizeMb: 0, progress: 0)]
                     responseParser.stubs.parseHistory = historyItems
 
-                    result = try! sut.parse(response: response)
+                    result = sut.parse(response: response).value
                 }
 
                 afterEach {

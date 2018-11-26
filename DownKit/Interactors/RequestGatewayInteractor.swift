@@ -7,16 +7,17 @@
 //
 
 import RxSwift
+import Result
 
-public protocol RequestGatewayInteracting: ObservableInteractor where Element == Gateway.ResultType {
+public protocol RequestGatewayInteracting: ObservableInteractor where Element == Gateway.Element {
     associatedtype Gateway: RequestGateway
     
     var gateway: Gateway { get }
 }
 
 extension RequestGatewayInteracting {
-    public func observe() -> Single<Gateway.ResultType> {
-        return gateway.observe()
+    public func observe() -> Single<Gateway.Element> {
+        return gateway.observe().map { $0.value! }
     }
 }
 

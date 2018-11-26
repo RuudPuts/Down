@@ -13,7 +13,7 @@ public final class DownloadHistoryInteractor: RequestGatewayInteracting, Dependi
     public let dependencies: Dependencies
 
     public typealias Gateway = DownloadHistoryGateway
-    public typealias Element = Gateway.ResultType
+    public typealias Element = Gateway.Element
     
     public var gateway: Gateway
 
@@ -24,7 +24,7 @@ public final class DownloadHistoryInteractor: RequestGatewayInteracting, Dependi
     
     public func observe() -> Single<[DownloadItem]> {
         return self.gateway
-            .observe()
+            .observe().map { $0.value! }
             .flatMap { items -> Single<[DownloadItem]> in
                 guard items.count > 0 else {
                     return Single.just([])

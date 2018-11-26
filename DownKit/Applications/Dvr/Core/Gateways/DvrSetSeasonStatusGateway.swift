@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Result
 
 public class DvrSetSeasonStatusGateway: DvrRequestGateway {
     public var executor: RequestExecuting
@@ -34,7 +35,7 @@ public class DvrSetSeasonStatusGateway: DvrRequestGateway {
         return try builder.make(for: .setSeasonStatus(season, status))
     }
 
-    public func parse(response: Response) throws -> Bool {
-        return parser.parseSetSeasonStatus(from: response).value!
+    public func parse(response: Response) -> Result<Bool, DownKitError> {
+        return parser.parseSetSeasonStatus(from: response)
     }
 }

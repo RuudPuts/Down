@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Result
 
 public class ApiApplicationLoginGateway: ApiApplicationRequestGateway {
     public var executor: RequestExecuting
@@ -35,8 +36,8 @@ public class ApiApplicationLoginGateway: ApiApplicationRequestGateway {
         return try builder.make(for: .login, credentials: credentials)
     }
 
-    public func parse(response: Response) throws -> LoginResult {
-        return parser.parseLoggedIn(from: response).value!
+    public func parse(response: Response) -> Result<LoginResult, DownKitError> {
+        return parser.parseLoggedIn(from: response)
     }
 }
 

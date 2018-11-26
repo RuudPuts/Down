@@ -10,7 +10,7 @@ import RxSwift
 
 public class DvrDeleteShowInteractor: RequestGatewayInteracting {
     public typealias Gateway = DvrDeleteShowGateway
-    public typealias Element = Gateway.ResultType
+    public typealias Element = Gateway.Element
     public var gateway: Gateway
 
     var database: DvrDatabase!
@@ -25,7 +25,7 @@ public class DvrDeleteShowInteractor: RequestGatewayInteracting {
     }
     
     public func observe() -> Single<Bool> {
-        return gateway.observe()
+        return gateway.observe().map { $0.value! }
             .do(onSuccess: {
                 guard $0 else { return }
 

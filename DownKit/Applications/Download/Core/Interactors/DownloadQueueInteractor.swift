@@ -13,7 +13,7 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting, Depending
     public let dependencies: Dependencies
 
     public typealias Gateway = DownloadQueueGateway
-    public typealias Element = Gateway.ResultType
+    public typealias Element = Gateway.Element
     
     public var gateway: Gateway
 
@@ -26,7 +26,7 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting, Depending
         var queue: DownloadQueue!
 
         return self.gateway
-            .observe()
+            .observe().map { $0.value! }
             .do(onSuccess: { queue = $0 })
             .map { $0.items }
             .flatMap { items -> Single<[DownloadItem]> in

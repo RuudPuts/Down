@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Result
 
 public class ApiApplicationApiKeyGateway: ApiApplicationRequestGateway {
     public var executor: RequestExecuting
@@ -33,7 +34,7 @@ public class ApiApplicationApiKeyGateway: ApiApplicationRequestGateway {
         return try builder.make(for: .apiKey, credentials: credentials)
     }
 
-    public func parse(response: Response) throws -> String? {
-        return parser.parseApiKey(from: response).value!
+    public func parse(response: Response) -> Result<String?, DownKitError> {
+        return parser.parseApiKey(from: response)
     }
 }

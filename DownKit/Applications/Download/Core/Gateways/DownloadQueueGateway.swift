@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Result
 
 public class DownloadQueueGateway: DownloadRequestGateway {
     public var executor: RequestExecuting
@@ -24,7 +25,7 @@ public class DownloadQueueGateway: DownloadRequestGateway {
         return try builder.make(for: .queue)
     }
 
-    public func parse(response: Response) throws -> DownloadQueue {
-        return parser.parseQueue(from: response).value!
+    public func parse(response: Response) -> Result<DownloadQueue, DownKitError> {
+        return parser.parseQueue(from: response)
     }
 }
