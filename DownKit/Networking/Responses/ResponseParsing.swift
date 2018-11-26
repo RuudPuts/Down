@@ -12,7 +12,7 @@ public protocol ResponseParsing {
     var application: ApiApplication { get }
     init(application: ApiApplication)
     
-    func parseImage(from response: Response) throws -> UIImage
+    func parseImage(from response: Response) -> Result<UIImage, DownKitError>
 }
 
 struct ParsedResult<Type> {
@@ -29,11 +29,11 @@ extension ResponseParsing {
         return .success(String(data: data, encoding: .utf8) ?? "")
     }
 
-    func parseImage(from response: Response) throws -> UIImage {
+    func parseImage(from response: Response) -> Result<UIImage, DownKitError> {
         guard let data = response.data, let image = UIImage(data: data) else {
-            throw ResponseParsingError.invalidData
+            return .failure(.responseParsing(.invalidData))
         }
 
-        return image
+        return .success(image)
     }
 }
