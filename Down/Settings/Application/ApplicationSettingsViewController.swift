@@ -101,18 +101,29 @@ extension ApplicationSettingsViewController: ReactiveBinding {
                 .asDriver(onErrorRecover: { error in
                     return Driver.just(true)
                 })
-                .debug("LoginResult")
                 .drive(textField.rx.isHidden)
                 .disposed(by: disposeBag)
         }
+
+        output.host
+            .asDriver(onErrorJustReturn: nil)
+            .drive(hostTextField.rx.text)
+            .disposed(by: disposeBag)
 
         output.apiKey
             .asDriver(onErrorJustReturn: nil)
             .drive(apiKeyTextField.rx.text)
             .disposed(by: disposeBag)
 
-//        sender.isEnabled = isSaving
-//        sender.setTitle(isSaving ? "Preparing cache..." : "Save", for: .normal)
+        output.isSaving
+            .map { !$0 }
+            .bind(to: saveButton.rx.isEnabled )
+            .disposed(by: disposeBag)
+
+        output.isSaving
+            .map { $0 ? "Preparing cache..." : "Save" }
+            .bind(to: saveButton.rx.title(for: .normal) )
+            .disposed(by: disposeBag)
 
         output.settingsSaved
             .filter { $0 }
@@ -120,7 +131,7 @@ extension ApplicationSettingsViewController: ReactiveBinding {
                 self.dependencies.router.restartRouter(type: self.application.type)
                 self.dependencies.router.close(viewController: self)
             })
-            .drive()
+            .subscribe()
             .disposed(by: disposeBag)
     }
 
