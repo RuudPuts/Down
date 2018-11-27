@@ -19,9 +19,10 @@ class DownloadStatusViewController: UIViewController & Depending {
     @IBOutlet weak var statusView: DownloadQueueStatusView!
     @IBOutlet weak var tableView: UITableView!
 
-    private let disposeBag = DisposeBag()
     private let viewModel: DownloadStatusViewModel
     private let tableController: DownloadStatusTableController
+
+    private var disposeBag: DisposeBag!
 
     init(dependencies: Dependencies, viewModel: DownloadStatusViewModel) {
         self.dependencies = dependencies
@@ -40,17 +41,18 @@ class DownloadStatusViewController: UIViewController & Depending {
 
         applyStyling()
         configureTableView()
-        bind(to: viewModel)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        bind(to: viewModel)
 
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        disposeBag = nil
 
         if let navigationController = navigationController,
             navigationController.viewControllers.count > 1 {
@@ -77,6 +79,8 @@ extension DownloadStatusViewController: ReactiveBinding {
     typealias Bindable = DownloadStatusViewModel
 
     func bind(to viewModel: DownloadStatusViewModel) {
+        disposeBag = DisposeBag()
+
         let output = viewModel.transform(input: makeInput())
 
         output.queue
