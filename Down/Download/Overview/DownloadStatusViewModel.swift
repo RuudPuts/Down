@@ -36,6 +36,7 @@ extension DownloadStatusViewModel: ReactiveBindable {
         let queueDriver = dependencies.downloadInteractorFactory
             .makeQueueInteractor(for: dependencies.downloadApplication)
             .observe()
+            .map { $0.value! }
             .asDriver(onErrorJustReturn: DownloadQueue())
 
         let queueItemsDriver = queueDriver.map { $0.items }
@@ -43,6 +44,7 @@ extension DownloadStatusViewModel: ReactiveBindable {
         let historyDriver = dependencies.downloadInteractorFactory
             .makeHistoryInteractor(for: dependencies.downloadApplication)
             .observe()
+            .map { $0.value! }
             .asDriver(onErrorJustReturn: [])
 
         let sectionsDriver = Driver.zip([queueItemsDriver, historyDriver])

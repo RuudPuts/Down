@@ -20,13 +20,7 @@ class DvrShowDetailsViewModel: Depending {
         self.dependencies = dependencies
         self.show = show
     }
-
-    func deleteShow() -> Single<Bool> {
-        return dependencies.dvrInteractorFactory
-            .makeDeleteShowInteractor(for: dependencies.dvrApplication, show: show)
-            .observe()
-    }
-
+    
     var bannerUrl: URL? {
         return dependencies.dvrRequestBuilder.url(for: .fetchBanner(show))
     }
@@ -57,6 +51,7 @@ extension DvrShowDetailsViewModel: ReactiveBindable {
                 self.dependencies.dvrInteractorFactory
                     .makeDeleteShowInteractor(for: self.dependencies.dvrApplication, show: self.show)
                     .observe()
+                    .map { $0.value! }
             }
 
         return Output(refinedShow: refinedShowDriver, showDeleted: showDeletedDriver)

@@ -11,17 +11,18 @@ import Result
 
 public protocol RequestGateway {
     associatedtype Element
+    typealias ResultType = Result<Element, DownKitError>
 
     var executor: RequestExecuting { get }
 
     func makeRequest() throws -> Request
-    func parse(response: Response) -> Result<Element, DownKitError>
-    
-    func observe() -> Single<Result<Element, DownKitError>>
+    func parse(response: Response) -> ResultType
+
+    func observe() -> Single<ResultType>
 }
 
 extension RequestGateway {
-    public func observe() -> Single<Result<Element, DownKitError>> {
+    public func observe() -> Single<ResultType> {
         var request: Request
         do {
             request = try self.makeRequest()
@@ -31,11 +32,11 @@ extension RequestGateway {
         }
 
         return self.executor
-                .execute(request)
-                .map {
-                    $0.flatMap {
-                        self.parse(response: $0)
-                    }
+            .execute(request)
+            .map {
+                $0.flatMap {
+                    self.parse(response: $0)
                 }
+            }
     }
 }

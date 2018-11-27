@@ -124,6 +124,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
         return dependencies.apiInteractorFactory
             .makeLoginInteractor(for: application, credentials: credentials)
             .observe()
+            .map { $0.value! }
             .do(onSuccess: { result in
                     NSLog("Login result: \(result)")
                 },
@@ -137,6 +138,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
         return dependencies.apiInteractorFactory
             .makeApiKeyInteractor(for: application, credentials: credentials)
             .observe()
+            .map { $0.value! }
             .do(onSuccess: {
                 guard let apiKey = $0 else {
                     NSLog("⚠️ Api key fetch was succesful, but no data was returend!")

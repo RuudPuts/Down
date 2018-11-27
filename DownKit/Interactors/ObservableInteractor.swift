@@ -7,9 +7,10 @@
 //
 
 import RxSwift
+import Result
 
 public protocol ObservableInteractor {
     associatedtype Element
     
-    func observe() -> Single<Element>
+    func observe() -> Single<Result<Element, DownKitError>>
 }

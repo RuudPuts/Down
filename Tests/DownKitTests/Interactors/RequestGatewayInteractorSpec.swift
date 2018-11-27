@@ -34,7 +34,7 @@ class RequestGatewayInteractorSpec: QuickSpec {
 
                 beforeEach {
                     result = sut.observe()
-                        .map { $0 as! Int }
+                        .map { $0.value as! Int }
                         .asObservable()
                 }
                 

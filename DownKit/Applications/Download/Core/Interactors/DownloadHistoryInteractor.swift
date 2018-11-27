@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Result
 
 public final class DownloadHistoryInteractor: RequestGatewayInteracting, Depending {
     public typealias Dependencies = DatabaseDependency
@@ -22,18 +23,18 @@ public final class DownloadHistoryInteractor: RequestGatewayInteracting, Dependi
         self.gateway = gateway
     }
     
-    public func observe() -> Single<[DownloadItem]> {
+    public func observe() -> Single<Gateway.ResultType> {
         return self.gateway
-            .observe().map { $0.value! }
-            .flatMap { items -> Single<[DownloadItem]> in
-                guard items.count > 0 else {
-                    return Single.just([])
+            .observe()
+            .flatMap { result -> Single<Result<[DownloadItem], DownKitError>> in
+                guard let items = result.value, items.count > 0 else {
+                    return Single.just(.success([]))
                 }
 
                 return Single.zip(items.map {
-                    //! There's a bug here when the database doesn't find a match
-                    $0.match(with: self.dependencies.database)
-                })
+                        $0.match(with: self.dependencies.database)
+                    })
+                    .map { .success($0) }
             }
     }
 }

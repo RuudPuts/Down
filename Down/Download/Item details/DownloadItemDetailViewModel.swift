@@ -43,6 +43,7 @@ extension DownloadItemDetailViewModel: ReactiveBindable {
                     .makeDeleteItemInteractor(for: self.dependencies.downloadApplication, item: self.item)
                     .observe()
             }
+            .map { $0.value! }
 
         return Output(refinedItem: refinedItemDriver, itemDeleted: itemDeletedDriver)
     }

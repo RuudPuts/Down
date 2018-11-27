@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxSwiftExt
+import Result
 
 public class DvrAddShowInteractor: CompoundInteractor {
     public typealias Interactors = (addShow: DvrAddShowGateway, showDetails: DvrShowDetailsInteractor)
@@ -26,13 +27,13 @@ public class DvrAddShowInteractor: CompoundInteractor {
         self.database = database
     }
     
-    public func observe() -> Single<DvrShow> {
+    public func observe() -> Single<DvrShowDetailsInteractor.Gateway.ResultType> {
         return interactors.addShow
             .observe()
             .flatMap { _ in self.refreshShowDetails() }
     }
 
-    private func refreshShowDetails() -> Single<DvrShow> {
+    private func refreshShowDetails() -> Single<DvrShowDetailsInteractor.Gateway.ResultType> {
         let show = interactors.addShow.show!
 
         return interactors.showDetails
@@ -40,7 +41,7 @@ public class DvrAddShowInteractor: CompoundInteractor {
             .observe()
             .asObservable()
             .retry(.delayed(maxCount: 5, time: 1))
-            .do(onNext: {
+            .do(onSuccess: {
                 //! Again this line is sickbeard specific. Won't hurt others but shouldn't be here.
                 $0.identifier = show.identifier
 

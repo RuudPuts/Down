@@ -13,11 +13,13 @@ public protocol RequestGatewayInteracting: ObservableInteractor where Element ==
     associatedtype Gateway: RequestGateway
     
     var gateway: Gateway { get }
+
+    func observe() -> Single<Gateway.ResultType>
 }
 
 extension RequestGatewayInteracting {
-    public func observe() -> Single<Gateway.Element> {
-        return gateway.observe().map { $0.value! }
+    public func observe() -> Single<Gateway.ResultType> {
+        return gateway.observe()
     }
 }
 

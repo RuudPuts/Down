@@ -40,6 +40,7 @@ extension DvrAddShowViewModel: ReactiveBindable {
                 self.dependencies.dvrInteractorFactory
                     .makeSearchShowsInteractor(for: self.dependencies.dvrApplication, query: $0)
                     .observe()
+                    .map { $0.value! }
                     .asDriver(onErrorJustReturn: [])
             }
 
@@ -52,6 +53,7 @@ extension DvrAddShowViewModel: ReactiveBindable {
                     .makeAddShowInteractor(for: self.dependencies.dvrApplication, show: $0)
                     .observe()
             }
+            .map { $0.value! }
 
         return Output(searchResults: searchResultsDriver, showAdded: showAddedDriver)
     }
