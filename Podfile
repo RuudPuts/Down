@@ -15,6 +15,11 @@ def realm_pods
   pod 'RxRealm', '~> 0.7.0'
 end
 
+def result_pods
+  pod 'Result', '~> 4.0.0'
+  pod 'RxResult', :git => 'https://github.com/RuudPuts/RxResult.git', :branch => 'swift4'
+end
+
 def rswift_pods
   pod 'R.swift', '~> 4.0.0'
   pod 'R.swift.Library', '~> 4.0.0'
@@ -31,7 +36,8 @@ target 'Down' do
 
   rxswift_pods
   pod 'RxCocoa', '~> 4.4.0'
-
+  
+  result_pods
   rswift_pods
 
   pod 'Fabric', '~> 1.8.0'
@@ -53,7 +59,9 @@ target 'DownKit' do
   use_frameworks!
 
   rxswift_pods
-  realm_pods  
+  realm_pods
+  result_pods
+
   pod 'Alamofire', '~> 4.7.0'
   pod 'SwiftyJSON', '~> 4.2.0'
   pod 'SwiftHash', '~> 2.0.0'
@@ -65,7 +73,6 @@ target 'DownKit' do
     rxswift_test_pods
   end
 end
-
 
 post_install do |installer|
 

@@ -7,6 +7,7 @@
 //
 
 import SwiftyJSON
+import Result
 
 class SickbeardResponseParser: DvrResponseParsing {
     var application: ApiApplication
@@ -15,24 +16,28 @@ class SickbeardResponseParser: DvrResponseParsing {
         self.application = application
     }
 
-    func parseShows(from response: Response) throws -> [DvrShow] {
-        return try parse(response)
-            .dictionary?.map {
+    func parseShows(from response: Response) -> Result<[DvrShow], DownKitError> {
+        return parse(response).map {
+            $0.dictionary?.map {
                 var json = $0.value
                 json["id"].stringValue = $0.key
                 
                 return parseShow(from: json, keymap: ParseShowListKeyMapping.self)
             }
             ?? []
+        }
     }
     
-    func parseShowDetails(from response: Response) throws -> DvrShow {
-        let data = try parse(response)
+    func parseShowDetails(from response: Response) -> Result<DvrShow, DownKitError> {
+        guard let data = parse(response).value else {
+            return .failure(.responseParsing(.noData))
+        }
+
         let showData = data["show"]["data"]
         let seasonsData = data["show.seasons"]["data"]
         
         guard showData != JSON.null && seasonsData != JSON.null else {
-            throw ParseError.missingData
+            return .failure(.responseParsing(.missingData))
         }
         
         let show = parseShow(from: showData, keymap: ParseShowListKeyMapping.self)
@@ -42,65 +47,67 @@ class SickbeardResponseParser: DvrResponseParsing {
                 episodes: parseEpisodes(from: $0.value),
                 show: show
             )}
+            .sorted(by: { Int($0.identifier)! > Int($1.identifier)! })
         show.setSeasons(seasons ?? [])
         
-        return show
+        return .success(show)
     }
 
-    func parseSearchShows(from response: Response) throws -> [DvrShow] {
-        return try parse(response)["results"]
-            .array?.map { data in
-                parseShow(from: data, keymap: ParseSearchShowsKeyMapping.self)
-            } ?? []
+    func parseSearchShows(from response: Response) -> Result<[DvrShow], DownKitError> {
+        return parse(response).map {
+            $0["results"].array?
+                .map { data in
+                    parseShow(from: data, keymap: ParseSearchShowsKeyMapping.self)
+                }
+            ?? []
+        }
     }
 
-    func parseAddShow(from response: Response) throws -> Bool {
-        _ = try parse(response)
-
-        return true
+    func parseAddShow(from response: Response) -> Result<Bool, DownKitError> {
+        //! Does this work if an error is already returned?
+        // If an error does occur, this should return false
+        return parse(response).map { _ in true }
     }
 
-    func parseDeleteShow(from response: Response) throws -> Bool {
-        _ = try parse(response)
-
-        return true
+    func parseDeleteShow(from response: Response) -> Result<Bool, DownKitError> {
+        return parse(response).map { _ in true }
     }
 
-    func parseSetEpisodeStatus(from response: Response) throws -> Bool {
-        _ = try parse(response)
-
-        return true
+    func parseSetEpisodeStatus(from response: Response) -> Result<Bool, DownKitError> {
+        return parse(response).map { _ in true }
     }
 
-    func parseSetSeasonStatus(from response: Response) throws -> Bool {
-        _ = try parse(response)
-
-        return true
+    func parseSetSeasonStatus(from response: Response) -> Result<Bool, DownKitError> {
+        return parse(response).map { _ in true }
     }
 
-    func parseLoggedIn(from response: Response) throws -> LoginResult {
+    func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
         if response.statusCode >= 400 && response.statusCode < 500 {
-            return .authenticationRequired
+            return .success(.authenticationRequired)
         }
 
         if response.statusCode >= 200 && response.statusCode < 400 {
-            return .success
+            return .success(.success)
         }
 
-        return .failed
+        return .success(.failed)
     }
 
-    func parseApiKey(from response: Response) throws -> String? {
+    func parseApiKey(from response: Response) -> Result<String?, DownKitError> {
         guard response.statusCode == StatusCodes.success.rawValue else {
-            return nil
+            return .success(nil)
         }
 
-        let result: String = try parse(response)
-        guard let keyRange = result.range(of: "id=\"api_key\"") else {
-            return nil
-        }
+        let result: Result<String, DownKitError> = parse(response)
 
-        return String(result[keyRange.upperBound...]).components(matching: "[a-zA-Z0-9]{32}")?.first
+        return result.map {
+            guard let keyRange = $0.range(of: "id=\"api_key\"") else {
+                return nil
+            }
+
+            let apiKeyPart = String($0[keyRange.upperBound...])
+            return apiKeyPart.components(matching: "[a-zA-Z0-9]{32}")?.first
+        }
     }
 }
 
@@ -138,6 +145,7 @@ private extension SickbeardResponseParser {
                 status: status
             )
         } ?? []
+        .sorted(by: { Int($0.identifier)! > Int($1.identifier)! })
     }
 
     func parseQuality(from json: JSON) -> Quality {
@@ -159,9 +167,9 @@ private extension SickbeardResponseParser {
 }
 
 extension SickbeardResponseParser {
-    func parse(_ response: Response) throws -> JSON {
+    func parse(_ response: Response) -> Result<JSON, DownKitError> {
         guard let data = response.data else {
-            throw ParseError.noData
+            return .failure(.responseParsing(.noData))
         }
         
         var json: JSON
@@ -170,35 +178,31 @@ extension SickbeardResponseParser {
         }
         catch {
             print("Sickbeard parse error: \(error)")
-            throw ParseError.invalidJson
+            return .failure(.responseParsing(.invalidJson))
         }
-
-        try validate(json)
         
-        return json["data"]
+        return validate(json).map { $0["data"] }
     }
 
-    func validate(_ json: JSON) throws {
+    func validate(_ json: JSON) -> Result<JSON, DownKitError> {
         let data = json["data"]
         guard json["result"].string == "success" else {
-            throw ParseError.api(message: data.stringValue)
+            return .failure(.responseParsing(.api(message: data.stringValue)))
         }
-
-        // Check for any chained command and their results
-        try data.dictionary?
+        
+        let errors = data.dictionary?
             .map({ (key, value) -> JSON in
-                guard value["data"] != JSON.null else {
-                    return JSON.null
-                }
-
                 return data[key]
             })
-            .filter { $0 != JSON.null }
-            .forEach {
-                guard $0["result"].string == "success" else {
-                    throw ParseError.api(message: $0["message"].stringValue)
-                }
-            }
+            .filter { $0["result"] != JSON.null }
+            .filter { $0["result"].string != "success" }
+            .compactMap { $0["message"].stringValue }
+
+        if let error = errors?.first {
+            return .failure(.responseParsing(.api(message: error)))
+        }
+
+        return .success(json)
     }
 }
 

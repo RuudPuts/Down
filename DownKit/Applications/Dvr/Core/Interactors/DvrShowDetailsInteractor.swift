@@ -7,10 +7,12 @@
 //
 
 import RxSwift
+import Result
+import RxResult
 
 public final class DvrShowDetailsInteractor: RequestGatewayInteracting {
     public typealias Gateway = DvrShowDetailsGateway
-    public typealias Element = Gateway.ResultType
+    public typealias Element = Gateway.Element
     public var gateway: Gateway
     
     public init(gateway: Gateway) {
@@ -22,10 +24,11 @@ public final class DvrShowDetailsInteractor: RequestGatewayInteracting {
         
         return self
     }
-
-    public func observe() -> Single<DvrShow> {
+    public func observe() -> Single<Gateway.ResultType> {
         return gateway
             .observe()
+            .asObservable()
             .do(onSuccess: { $0.identifier = self.gateway.show.identifier })
+            .asSingle()
     }
 }

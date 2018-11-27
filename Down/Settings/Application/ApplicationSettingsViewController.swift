@@ -125,10 +125,10 @@ extension ApplicationSettingsViewController: ReactiveBinding {
     }
 
     func makeInput() -> ApplicationSettingsViewModel.Input {
-        let hostDriver = hostTextField.rx.textDriver
-        let usernameDriver = usernameTextField.rx.textDriver
-        let passwordDriver = passwordTextField.rx.textDriver
-        let apiKeyDriver = apiKeyTextField.rx.textDriver
+        let hostDriver = hostTextField.rx.debouncedText
+        let usernameDriver = usernameTextField.rx.debouncedText
+        let passwordDriver = passwordTextField.rx.debouncedText
+        let apiKeyDriver = apiKeyTextField.rx.debouncedText
         let saveButtonTap = saveButton.rx.tap
 
         return ApplicationSettingsViewModel.Input(host: hostDriver,

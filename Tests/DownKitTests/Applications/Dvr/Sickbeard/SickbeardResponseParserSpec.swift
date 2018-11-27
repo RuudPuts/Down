@@ -11,6 +11,7 @@ import Quick
 import Nimble
 import RealmSwift
 import SwiftyJSON
+import Result
 
 class SickbeardResponseParserSpec: QuickSpec {
     // swiftlint:disable function_body_length
@@ -30,107 +31,63 @@ class SickbeardResponseParserSpec: QuickSpec {
             }
             
             context("parse Response") {
-                var result: JSON!
+                var result: Result<JSON, DownKitError>!
                 
                 afterEach {
                     result = nil
                 }
                 
                 context("without data") {
-                    var parseError: ParseError!
-                    
                     beforeEach {
-                        do {
-                            result = try sut.parse(response)
-                        }
-                        catch {
-                            parseError = error as? ParseError
-                        }
-                    }
-                    
-                    afterEach {
-                        parseError = nil
+                        result = sut.parse(response)
                     }
                     
                     it("throws no data error") {
-                        expect(parseError) == ParseError.noData
+                        expect(result.error) == .responseParsing(.noData)
                     }
                 }
                 
                 context("from succesful response") {
                     beforeEach {
                         response.data = Data(fromJsonFile: "sickbeard_success")
-                        result = try? sut.parse(response)
+                        result = sut.parse(response)
                     }
                     
                     it("parses the json's data") {
-                        expect(result) == ["api_version": 4]
+                        expect(result.value) == ["api_version": 4]
                     }
                 }
                 
                 context("from failure response") {
-                    var parseError: ParseError!
-                    
                     beforeEach {
-                        do {
-                            response.data = Data(fromJsonFile: "sickbeard_error")
-                            result = try sut.parse(response)
-                        }
-                        catch {
-                            parseError = error as? ParseError
-                        }
+                        response.data = Data(fromJsonFile: "sickbeard_error")
+                        result = sut.parse(response)
                     }
-                    
-                    afterEach {
-                        parseError = nil
-                    }
-                    
+
                     it("throws api error") {
-                        expect(parseError) == ParseError.api(message: "No such cmd: ''")
+                        expect(result.error) == .responseParsing(.api(message: "No such cmd: ''"))
                     }
                 }
 
                 context("from chained command failure response") {
-                    var parseError: ParseError!
-
                     beforeEach {
-                        do {
-                            response.data = Data(fromJsonFile: "sickbeard_error_chainedcommand")
-                            result = try sut.parse(response)
-                        }
-                        catch {
-                            parseError = error as? ParseError
-                        }
-                    }
-
-                    afterEach {
-                        parseError = nil
+                        response.data = Data(fromJsonFile: "sickbeard_error_chainedcommand")
+                        result = sut.parse(response)
                     }
 
                     it("throws api error") {
-                        expect(parseError) == ParseError.api(message: "Show not found")
+                        expect(result.error) == .responseParsing(.api(message: "Show not found"))
                     }
                 }
-                
+
                 context("from invalid response") {
-                    var parseError: ParseError!
-                    
                     beforeEach {
-                        do {
-                            response.data = "invalid response".data(using: .utf8)
-                            result = try sut.parse(response)
-                        }
-                        catch {
-                            parseError = error as? ParseError
-                        }
+                        response.data = "invalid response".data(using: .utf8)
+                        result = sut.parse(response)
                     }
-                    
-                    afterEach {
-                        parseError = nil
-                    }
-                    
+
                     it("throws invalid json error") {
-                        expect(parseError) == ParseError.invalidJson
+                        expect(result.error) == .responseParsing(.invalidJson)
                     }
                 }
             }
@@ -140,7 +97,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 
                 beforeEach {
                     response.data = Data(fromJsonFile: "sickbeard_showlist")
-                    result = try? sut.parseShows(from: response)
+                    result = sut.parseShows(from: response).value
                 }
                 
                 afterEach {
@@ -169,7 +126,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 
                 beforeEach {
                     response.data = Data(fromJsonFile: "sickbeard_showdetails")
-                    result = try? sut.parseShowDetails(from: response)
+                    result = sut.parseShowDetails(from: response).value
                 }
                 
                 afterEach {
@@ -208,7 +165,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     expect(result.seasons.first?.episodes.map { $0.name } ?? []) == ["Amy's Choice", "Unaired: New episode"]
                 }
                 
-                it("parses an episode's airdate") {
+                it("parses the second episode as aired") {
                     let expectedComponents = DateComponents(year: 2010,
                                                             month: 5,
                                                             day: 15,
@@ -223,7 +180,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     expect(components) == expectedComponents
                 }
 
-                it("parses an unaired episode date") {
+                it("parses the second episode as unaired") {
                     expect(result.seasons.first?.episodes.last?.airdate).to(beNil())
                 }
                 
@@ -241,7 +198,7 @@ class SickbeardResponseParserSpec: QuickSpec {
 
                 beforeEach {
                     response.data = Data(fromJsonFile: "sickbeard_searchshows")
-                    result = try? sut.parseSearchShows(from: response)
+                    result = sut.parseSearchShows(from: response).value
                 }
 
                 afterEach {
@@ -274,7 +231,7 @@ class SickbeardResponseParserSpec: QuickSpec {
 
                 beforeEach {
                     response.data = Data(fromJsonFile: "sickbeard_addshow")
-                    result = try? sut.parseAddShow(from: response)
+                    result = sut.parseAddShow(from: response).value
                 }
 
                 afterEach {

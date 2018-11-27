@@ -6,11 +6,13 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import UIKit
+import SkyFloatingLabelTextField
+
 import DownKit
 import RxSwift
 import RxCocoa
-import UIKit
-import SkyFloatingLabelTextField
+import RxResult
 
 class DvrAddShowViewController: UIViewController & Depending {
     let dependencies: Dependencies
@@ -87,6 +89,7 @@ extension DvrAddShowViewController: ReactiveBinding {
         let output = viewModel.transform(input: makeInput())
 
         output.searchResults
+            .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items) { (_, _, show) in
                 let cell = UITableViewCell()
                 cell.textLabel?.text = show.name
@@ -104,21 +107,23 @@ extension DvrAddShowViewController: ReactiveBinding {
             .disposed(by: disposeBag)
 
         output.showAdded
-            .subscribe(
-                onNext: { _ in
+            .do(
+                onSuccess: { _ in
                     self.dependencies.router.close(viewController: self)
                 },
-                onError: {
+                onFailure: {
                     self.dependencies.errorHandler.handle(error: $0, type: .dvr_addShow, source: self)
                 }
             )
+            .subscribe()
             .disposed(by: disposeBag)
     }
 
     func makeInput() -> DvrAddShowViewModel.Input {
         let showSelected = tableView.rx.itemSelected
-        let searchFieldText = searchTextField.rx.textDriver
+        let searchFieldText = searchTextField.rx.debouncedText
 
-        return DvrAddShowViewModel.Input(searchQuery: searchFieldText, showSelected: showSelected)
+        return DvrAddShowViewModel.Input(searchQuery: searchFieldText,
+                                         showSelected: showSelected)
     }
 }

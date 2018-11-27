@@ -7,6 +7,7 @@
 //
 
 import SwiftyJSON
+import Result
 
 class SabNZBdResponseParser: DownloadResponseParsing {
     var application: ApiApplication
@@ -15,55 +16,78 @@ class SabNZBdResponseParser: DownloadResponseParsing {
         self.application = application
     }
     
-    func parseQueue(from response: Response) throws -> DownloadQueue {
-        let json = try parse(response, forKey: .queue)
-        
-        let items = json["slots"].array?.map { parseQueueItem(from: $0) }
-        let speed = parseMb(from: json["speed"])
-        let remainingTime = DateFormatter.timeFormatter()
-                                .date(from: json["timeleft"].stringValue)?
-                                .inSeconds
-        
-        return DownloadQueue(speedMb: speed,
-                             remainingTime: remainingTime ?? 0,
-                             remainingMb: json["mbleft"].doubleValue,
-                             items: items ?? [])
+    func parseQueue(from response: Response) -> Result<DownloadQueue, DownKitError> {
+//        let json = parse(response, forKey: .queue).value ?? JSON.null
+//
+//        let items = json["slots"].array?.map { parseQueueItem(from: $0) }
+//        let speed = parseMb(from: json["speed"])
+//        let remainingTime = DateFormatter.timeFormatter()
+//                                .date(from: json["timeleft"].stringValue)?
+//                                .inSeconds
+//
+//        let parsedQueue = DownloadQueue(speedMb: speed,
+//                                        remainingTime: remainingTime ?? 0,
+//                                        remainingMb: json["mbleft"].doubleValue,
+//                                        items: items ?? [])
+//
+//        return .success(parsedQueue)
+
+        return parse(response, forKey: .queue).map {
+            let items = $0["slots"].array?.map { parseQueueItem(from: $0) }
+            let speed = parseMb(from: $0["speed"])
+            let remainingTime = DateFormatter.timeFormatter()
+                                    .date(from: $0["timeleft"].stringValue)?
+                                    .inSeconds
+
+            return DownloadQueue(speedMb: speed,
+                                 remainingTime: remainingTime ?? 0,
+                                 remainingMb: $0["mbleft"].doubleValue,
+                                 items: items ?? [])
+        }
     }
     
-    func parseHistory(from response: Response) throws -> [DownloadItem] {
-        return try parse(response, forKey: .history)["slots"].array?.map {
-            parseHistoryItem(from: $0)
-        } ?? []
+    func parseHistory(from response: Response) -> Result<[DownloadItem], DownKitError> {
+        return parse(response, forKey: .history).map {
+            $0["slots"].array?
+                .map {
+                    parseHistoryItem(from: $0)
+                }
+            ?? []
+        }
     }
 
-    func parseDeleteItem(from response: Response) throws -> Bool {
-        return true
+    func parseDeleteItem(from response: Response) -> Result<Bool, DownKitError> {
+        return .success(true)
     }
 }
 
 extension SabNZBdResponseParser: ApiApplicationResponseParsing {
-    func parseLoggedIn(from response: Response) throws -> LoginResult {
+    func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
         //! Might want to check http response code 😅
         let loginFormStart = "<form class=\"form-signin\" action=\"./\" method=\"post\">"
 
-        return try parse(response).range(of: loginFormStart) == nil ? .success : .authenticationRequired
+        return parse(response).map {
+            $0.range(of: loginFormStart) == nil ? .success : .authenticationRequired
+        }
     }
 
-    func parseApiKey(from response: Response) throws -> String? {
+    func parseApiKey(from response: Response)  -> Result<String?, DownKitError> {
         //! Might want to check http response code 😅
-        let result = try parse(response)
-        guard let keyRange = result.range(of: "id=\"apikey\"") else {
-            return nil
-        }
+        return parse(response).map {
+            guard let keyRange = $0.range(of: "id=\"apikey\"") else {
+                return nil
+            }
 
-        return String(result[keyRange.upperBound...]).components(matching: "[a-zA-Z0-9]{32}")?.first
+            let apiKeyPart = String($0[keyRange.upperBound...])
+            return apiKeyPart.components(matching: "[a-zA-Z0-9]{32}")?.first
+        }
     }
 }
 
 extension SabNZBdResponseParser {
-    func parse(_ response: Response, forKey key: SabNZBdResponseKey) throws -> JSON {
+    func parse(_ response: Response, forKey key: SabNZBdResponseKey) -> Result<JSON, DownKitError> {
         guard let data = response.data else {
-            throw ParseError.noData
+            return .failure(.responseParsing(.noData))
         }
         
         var json: JSON
@@ -72,14 +96,14 @@ extension SabNZBdResponseParser {
         }
         catch {
             print("SabNZBd parse error: \(error)")
-            throw ParseError.invalidJson
+            return .failure(.responseParsing(.invalidJson))
         }
         
         guard json["status"].bool ?? true else {
-            throw ParseError.api(message: json["error"].string ?? "")
+            return .failure(.responseParsing(.api(message: json["error"].string ?? "")))
         }
         
-        return json[key.rawValue]
+        return .success(json[key.rawValue])
     }
 
     func parseQueueItem(from json: JSON) -> DownloadQueueItem {

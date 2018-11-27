@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Result
 
 public class DownloadHistoryGateway: DownloadRequestGateway {
     public var executor: RequestExecuting
@@ -24,7 +25,7 @@ public class DownloadHistoryGateway: DownloadRequestGateway {
         return try builder.make(for: .history)
     }
 
-    public func parse(response: Response) throws -> [DownloadItem] {
-        return try parser.parseHistory(from: response)
+    public func parse(response: Response) -> Result<[DownloadItem], DownKitError> {
+        return parser.parseHistory(from: response)
     }
 }

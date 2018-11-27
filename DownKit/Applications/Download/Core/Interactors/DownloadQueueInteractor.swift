@@ -7,13 +7,14 @@
 //
 
 import RxSwift
+import Result
 
 public final class DownloadQueueInteractor: RequestGatewayInteracting, Depending {
     public typealias Dependencies = DatabaseDependency
     public let dependencies: Dependencies
 
     public typealias Gateway = DownloadQueueGateway
-    public typealias Element = Gateway.ResultType
+    public typealias Element = Gateway.Element
     
     public var gateway: Gateway
 
@@ -22,15 +23,15 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting, Depending
         self.gateway = gateway
     }
     
-    public func observe() -> Single<DownloadQueue> {
-        var queue: DownloadQueue!
+    public func observe() -> Single<Gateway.ResultType> {
+        var result: Gateway.ResultType!
 
         return self.gateway
             .observe()
-            .do(onSuccess: { queue = $0 })
-            .map { $0.items }
-            .flatMap { items -> Single<[DownloadItem]> in
-                guard items.count > 0 else {
+            .do(onSuccess: { result = $0 })
+            .map { $0.map { $0.items } }
+            .flatMap { result -> Single<[DownloadItem]> in
+                guard let items = result.value, items.count > 0 else {
                     return Single.just([])
                 }
 
@@ -38,6 +39,6 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting, Depending
                     $0.match(with: self.dependencies.database)
                 })
             }
-            .map { _ in queue }
+            .map { _ in result }
     }
 }

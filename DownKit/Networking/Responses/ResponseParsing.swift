@@ -6,19 +6,13 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import Result
+
 public protocol ResponseParsing {
     var application: ApiApplication { get }
     init(application: ApiApplication)
     
-    func parseImage(from response: Response) throws -> UIImage
-}
-
-enum ParseError: Error, Hashable {
-    case noData
-    case invalidData
-    case invalidJson
-    case api(message: String)
-    case missingData
+    func parseImage(from response: Response) -> Result<UIImage, DownKitError>
 }
 
 struct ParsedResult<Type> {
@@ -27,19 +21,19 @@ struct ParsedResult<Type> {
 }
 
 extension ResponseParsing {
-    func parse(_ response: Response) throws -> String {
+    func parse(_ response: Response) -> Result<String, DownKitError> {
         guard let data = response.data else {
-            throw ParseError.noData
+            return .failure(.responseParsing(.noData))
         }
 
-        return String(data: data, encoding: .utf8) ?? ""
+        return .success(String(data: data, encoding: .utf8) ?? "")
     }
 
-    func parseImage(from response: Response) throws -> UIImage {
+    func parseImage(from response: Response) -> Result<UIImage, DownKitError> {
         guard let data = response.data, let image = UIImage(data: data) else {
-            throw ParseError.invalidData
+            return .failure(.responseParsing(.invalidData))
         }
 
-        return image
+        return .success(image)
     }
 }

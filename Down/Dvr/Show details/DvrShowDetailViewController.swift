@@ -9,9 +9,13 @@
 import DownKit
 import RxSwift
 import UIKit
+import RxResult
 
 class DvrShowDetailViewController: UIViewController, Depending {
-    typealias Dependencies = DvrShowDetailsViewModel.Dependencies & DvrRequestBuilderDependency & RouterDependency
+    typealias Dependencies = DvrShowDetailsViewModel.Dependencies
+        & DvrRequestBuilderDependency
+        & RouterDependency
+        & ErrorHandlerDependency
     let dependencies: Dependencies
 
     @IBOutlet weak var headerView: DvrShowHeaderView!
@@ -85,13 +89,20 @@ extension DvrShowDetailViewController: ReactiveBinding {
             .disposed(by: disposeBag)
 
         output.showDeleted
-            .subscribe(onNext: {
-                guard $0 else {
-                    return
-                }
+            .do(
+                onSuccess: {
+                    //! Shouldn't this return void by now?
+                    guard $0 else { return }
 
-                self.dependencies.router.close(viewController: self)
-            })
+                    self.dependencies.router.close(viewController: self)
+                },
+                onFailure: {
+                    self.dependencies.errorHandler.handle(error: $0,
+                                                          type: .dvr_deleteShow,
+                                                          source: self)
+                }
+            )
+            .subscribe()
             .disposed(by: disposeBag)
     }
 

@@ -7,15 +7,17 @@
 //
 
 import RxSwift
+import Result
 
 public protocol RequestGateway {
-    associatedtype ResultType
+    associatedtype Element
+    typealias ResultType = Result<Element, DownKitError>
 
     var executor: RequestExecuting { get }
 
     func makeRequest() throws -> Request
-    func parse(response: Response) throws -> ResultType
-    
+    func parse(response: Response) -> ResultType
+
     func observe() -> Single<ResultType>
 }
 
@@ -30,7 +32,11 @@ extension RequestGateway {
         }
 
         return self.executor
-                .execute(request)
-                .map { try self.parse(response: $0) }
+            .execute(request)
+            .map {
+                $0.flatMap {
+                    self.parse(response: $0)
+                }
+            }
     }
 }

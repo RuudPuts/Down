@@ -11,9 +11,9 @@ import RxSwift
 import RxCocoa
 
 extension Reactive where Base: UITextField {
-    var textDriver: Driver<String> {
-        return text.asDriver()
-            .debounce(0.3)
+    var debouncedText: Observable<String> {
+        return text.asObservable()
+            .debounce(0.3, scheduler: MainScheduler.instance)
             .map { $0 ?? "" }
     }
 }

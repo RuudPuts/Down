@@ -7,10 +7,12 @@
 //
 
 import RxSwift
+import Result
+import RxResult
 
 public class DvrDeleteShowInteractor: RequestGatewayInteracting {
     public typealias Gateway = DvrDeleteShowGateway
-    public typealias Element = Gateway.ResultType
+    public typealias Element = Gateway.Element
     public var gateway: Gateway
 
     var database: DvrDatabase!
@@ -24,12 +26,15 @@ public class DvrDeleteShowInteractor: RequestGatewayInteracting {
         self.database = database
     }
     
-    public func observe() -> Single<Bool> {
-        return gateway.observe()
+    public func observe() -> Single<Gateway.ResultType> {
+        return gateway
+            .observe()
+            .asObservable()
             .do(onSuccess: {
                 guard $0 else { return }
 
                 self.database.delete(show: self.gateway.show)
             })
+            .asSingle()
     }
 }

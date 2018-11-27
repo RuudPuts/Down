@@ -8,6 +8,7 @@
 
 @testable import DownKit
 import RxSwift
+import Result
 
 class RequestGatewayMock: RequestGateway {
     var executor: RequestExecuting = RequestExecutingMock()
@@ -16,7 +17,7 @@ class RequestGatewayMock: RequestGateway {
     struct Stubs {
         var request: Request?
         var parse: Any?
-        var observe: Single<Any> = Single.just(0)
+        var observe: Any?
     }
 
     struct Captures {
@@ -36,12 +37,12 @@ class RequestGatewayMock: RequestGateway {
         return stubs.request!
     }
 
-    func parse(response: Response) throws -> Any {
+    func parse(response: Response) -> Result<Any, DownKitError> {
         captures.parse = Captures.Parse(response: response)
-        return stubs.parse!
+        return .success(stubs.parse!)
     }
     
-    func observe() -> Single<Any> {
-        return stubs.observe
+    func observe() -> Single<Result<Any, DownKitError>> {
+        return Single.just(.success(stubs.observe!))
     }
 }

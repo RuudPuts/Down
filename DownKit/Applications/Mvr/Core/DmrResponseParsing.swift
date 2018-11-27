@@ -6,6 +6,8 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import Result
+
 public protocol DmrResponseParsing: ApiApplicationResponseParsing {
-    func parseMovies(from response: Response) throws -> [DmrMovie]
+    func parseMovies(from response: Response) -> Result<[DmrMovie], DownKitError>
 }

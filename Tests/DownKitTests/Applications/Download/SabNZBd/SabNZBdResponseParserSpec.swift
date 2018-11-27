@@ -11,6 +11,7 @@ import Quick
 import Nimble
 import RealmSwift
 import SwiftyJSON
+import Result
 
 class SabNZBdResponseParserSpec: QuickSpec {
     // swiftlint:disable function_body_length
@@ -30,85 +31,52 @@ class SabNZBdResponseParserSpec: QuickSpec {
             }
             
             context("parse Response") {
-                var result: JSON!
+                var result: Result<JSON, DownKitError>!
                 
                 afterEach {
                     result = nil
                 }
                 
                 context("without data") {
-                    var parseError: ParseError!
-                    
                     beforeEach {
-                        do {
-                            result = try sut.parse(response, forKey: .queue)
-                        }
-                        catch {
-                            parseError = error as? ParseError
-                        }
-                    }
-                    
-                    afterEach {
-                        parseError = nil
+                        result = sut.parse(response, forKey: .queue)
                     }
                     
                     it("throws no data error") {
-                        expect(parseError) == ParseError.noData
+                        expect(result.error) == .responseParsing(.noData)
                     }
                 }
                 
                 context("from succesful response") {
                     beforeEach {
                         response.data = Data(fromJsonFile: "sabnzbd_success")
-                        result = try? sut.parse(response, forKey: .queue)
+                        result = sut.parse(response, forKey: .queue)
                     }
 
                     it("parses the json's data") {
-                        expect(result) == ["version": "2.0.0"]
+                        expect(result.value) == ["version": "2.0.0"]
                     }
                 }
 
                 context("from failure response") {
-                    var parseError: ParseError!
-
                     beforeEach {
-                        do {
-                            response.data = Data(fromJsonFile: "sabnzbd_error")
-                            result = try sut.parse(response, forKey: .queue)
-                        }
-                        catch {
-                            parseError = error as? ParseError
-                        }
-                    }
-
-                    afterEach {
-                        parseError = nil
+                        response.data = Data(fromJsonFile: "sabnzbd_error")
+                        result = sut.parse(response, forKey: .queue)
                     }
 
                     it("throws api error") {
-                        expect(parseError) == ParseError.api(message: "not implemented")
+                        expect(result.error) == .responseParsing(.api(message: "not implemented"))
                     }
                 }
 
                 context("from invalid response") {
-                    var parseError: ParseError!
-
                     beforeEach {
-                        do {
-                            response.data = "invalid response".data(using: .utf8)
-                            result = try sut.parse(response, forKey: .queue)
-                        }
-                        catch {
-                            parseError = error as? ParseError
-                        }
-                    }
-
-                    afterEach {
-                        parseError = nil
+                        response.data = "invalid response".data(using: .utf8)
+                        result = sut.parse(response, forKey: .queue)
                     }
 
                     it("throws invalid json error") {
-                        expect(parseError) == ParseError.invalidJson
+                        expect(result.error) == .responseParsing(.invalidJson)
                     }
                 }
             }
@@ -118,7 +86,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
 
                 beforeEach {
                     response.data = Data(fromJsonFile: "sabnzbd_queue")
-                    result = try? sut.parseQueue(from: response)
+                    result = sut.parseQueue(from: response).value
                 }
 
                 afterEach {
@@ -147,7 +115,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
 
                 beforeEach {
                     response.data = Data(fromJsonFile: "sabnzbd_history")
-                    result = try? sut.parseHistory(from: response)
+                    result = sut.parseHistory(from: response).value
                 }
 
                 afterEach {

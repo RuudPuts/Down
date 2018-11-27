@@ -11,6 +11,7 @@ import RxBlocking
 import RxSwift
 import Quick
 import Nimble
+import Result
 
 class DownloadQueueGatewaySpec: QuickSpec {
     // swiftlint:disable function_body_length
@@ -76,7 +77,7 @@ class DownloadQueueGatewaySpec: QuickSpec {
                     queue = DownloadQueue(speedMb: 0, remainingTime: 0, remainingMb: 0, items: [])
                     responseParser.stubs.parseQueue = queue
 
-                    result = try! sut.parse(response: response)
+                    result = sut.parse(response: response).value
                 }
 
                 afterEach {

@@ -8,9 +8,12 @@
 
 import RxSwift
 import RxCocoa
+import Result
 
 public protocol RequestExecuting {
-    func execute(_ request: Request) -> Single<Response>
+    typealias RequestExecutionResult = Single<Result<Response, DownKitError>>
+
+    func execute(_ request: Request) -> RequestExecutionResult
 }
 
 public class RequestExecutor: RequestExecuting {
@@ -20,7 +23,7 @@ public class RequestExecutor: RequestExecuting {
         self.requestClient = requestClient
     }
     
-    public func execute(_ request: Request) -> Single<Response> {
+    public func execute(_ request: Request) -> RequestExecutionResult {
         return requestClient.execute(request)
     }
 }

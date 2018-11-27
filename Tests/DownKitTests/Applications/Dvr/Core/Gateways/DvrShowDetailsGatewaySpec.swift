@@ -11,6 +11,7 @@ import RxBlocking
 import RxSwift
 import Quick
 import Nimble
+import Result
 
 class DvrShowDetailsGatewaySpec: QuickSpec {
     // swiftlint:disable function_body_length
@@ -77,7 +78,7 @@ class DvrShowDetailsGatewaySpec: QuickSpec {
                     updatedShow = DvrShow(identifier: "1", name: "UpdatedShow")
                     responseParser.stubs.parseShowDetails = updatedShow
 
-                    result = try! sut.parse(response: response)
+                    result = sut.parse(response: response).value
                 }
 
                 afterEach {

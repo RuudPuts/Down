@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Result
 
 public class DvrShowDetailsGateway: DvrRequestGateway {
     public var executor: RequestExecuting
@@ -31,7 +32,7 @@ public class DvrShowDetailsGateway: DvrRequestGateway {
         return try builder.make(for: .showDetails(show))
     }
 
-    public func parse(response: Response) throws -> DvrShow {
-        return try parser.parseShowDetails(from: response)
+    public func parse(response: Response) -> Result<DvrShow, DownKitError> {
+        return parser.parseShowDetails(from: response)
     }
 }

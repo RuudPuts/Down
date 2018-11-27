@@ -8,35 +8,36 @@
 
 import RxSwift
 import Alamofire
+import Result
 
 public class AlamofireRequestClient: RequestClient {
     public init() { }
 
-    public func execute(_ request: Request) -> Single<Response> {
+    public func execute(_ request: Request) -> RequestExecutionResult {
         return Single.create { observer in
             guard let alamofireRequest = request.asAlamofireRequest() else {
-                observer(.error(RequestClientError.invalidRequest))
+                observer(.success(.failure(.requestExecuting(.invalidRequest))))
                 return Disposables.create()
             }
 
             alamofireRequest.responseData { handler in
                 guard handler.error == nil else {
-                    return observer(.error(RequestClientError.generic(message: handler.error!.localizedDescription)))
+                    return observer(.success(.failure(.requestExecuting(.generic(message: handler.error!.localizedDescription)))))
                 }
 
                 guard let response = handler.response else {
-                    return observer(.error(RequestClientError.invalidResponse))
+                    return observer(.success(.failure(.requestExecuting(.invalidResponse))))
                 }
 
                 guard let data = handler.data else {
-                    return observer(.error(RequestClientError.noData))
+                    return observer(.success(.failure(.requestExecuting(.noData))))
                 }
 
-                observer(.success(Response(
+                observer(.success(.success(Response(
                     data: data,
                     statusCode: response.statusCode,
                     headers: response.allHeaderFields as? [String: String]
-                )))
+                ))))
             }
 
             return Disposables.create()

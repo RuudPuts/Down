@@ -13,13 +13,14 @@ import Kingfisher
 
 import RxSwift
 import RxCocoa
+import RxResult
 
 class DownloadItemDetailViewController: UIViewController & Depending {
-    typealias Dependencies = RouterDependency & DownloadInteractorFactoryDependency & DvrApplicationDependency
+    typealias Dependencies = RouterDependency
+        & DownloadInteractorFactoryDependency
+        & DvrApplicationDependency
+        & ErrorHandlerDependency
     let dependencies: Dependencies
-
-    private let viewModel: DownloadItemDetailViewModel
-    private let tableViewController: DownloadItemDetailTableViewController
 
     @IBOutlet weak var headerImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -29,6 +30,9 @@ class DownloadItemDetailViewController: UIViewController & Depending {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
+
+    private let viewModel: DownloadItemDetailViewModel
+    private let tableViewController: DownloadItemDetailTableViewController
 
     private var disposeBag = DisposeBag()
 
@@ -131,10 +135,20 @@ extension DownloadItemDetailViewController: ReactiveBinding {
             .disposed(by: disposeBag)
 
         output.itemDeleted
-            .filter { $0 }
-            .subscribe(onNext: { _ in
-                self.dependencies.router.close(viewController: self)
-            })
+            .do(
+                onSuccess: {
+                    //! Shouldn't this return void by now?
+                    guard $0 else { return }
+
+                    self.dependencies.router.close(viewController: self)
+                },
+                onFailure: {
+                    self.dependencies.errorHandler.handle(error: $0,
+                                                          type: .download_deleteItem,
+                                                          source: self)
+                }
+            )
+            .subscribe()
             .disposed(by: disposeBag)
     }
 

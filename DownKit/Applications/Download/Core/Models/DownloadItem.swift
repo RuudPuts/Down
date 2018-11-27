@@ -36,6 +36,7 @@ extension DownloadItem {
             .components(separatedBy: ".")
             .filter { !$0.isEmpty }
 
+        //! There's a bug here when the database doesn't find a match, the observable doesn't seem to complete
         return database
             .fetchShow(matching: nameComponents)
             .do(onNext: { show in
