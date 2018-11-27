@@ -8,6 +8,7 @@
 
 import DownKit
 import RxSwift
+import RxSwiftExt
 import RxCocoa
 
 struct DownloadStatusViewModel: Depending {
@@ -36,7 +37,8 @@ extension DownloadStatusViewModel: ReactiveBindable {
         let queueDriver = dependencies.downloadInteractorFactory
             .makeQueueInteractor(for: dependencies.downloadApplication)
             .observe()
-            .map { $0.value! }
+            .asObservable()
+            .map { $0.value }.unwrap()
             .asDriver(onErrorJustReturn: DownloadQueue())
 
         let queueItemsDriver = queueDriver.map { $0.items }
@@ -44,7 +46,7 @@ extension DownloadStatusViewModel: ReactiveBindable {
         let historyDriver = dependencies.downloadInteractorFactory
             .makeHistoryInteractor(for: dependencies.downloadApplication)
             .observe()
-            .map { $0.value! }
+            .map { $0.value ?? [] }
             .asDriver(onErrorJustReturn: [])
 
         let sectionsDriver = Driver.zip([queueItemsDriver, historyDriver])

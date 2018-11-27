@@ -10,6 +10,7 @@ import UIKit
 import DownKit
 import RxSwift
 import RxCocoa
+import Result
 
 struct DownloadItemDetailViewModel: Depending {
     typealias Dependencies = DownloadInteractorFactoryDependency & DvrRequestBuilderDependency
@@ -30,7 +31,7 @@ extension DownloadItemDetailViewModel: ReactiveBindable {
 
     struct Output {
         let refinedItem: Driver<RefinedItem>
-        let itemDeleted: Observable<Bool>
+        let itemDeleted: Observable<Result<Bool, DownKitError>>
     }
 
     func transform(input: Input) -> Output {
@@ -43,7 +44,6 @@ extension DownloadItemDetailViewModel: ReactiveBindable {
                     .makeDeleteItemInteractor(for: self.dependencies.downloadApplication, item: self.item)
                     .observe()
             }
-            .map { $0.value! }
 
         return Output(refinedItem: refinedItemDriver, itemDeleted: itemDeletedDriver)
     }

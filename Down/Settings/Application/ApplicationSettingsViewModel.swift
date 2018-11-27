@@ -9,6 +9,7 @@
 import DownKit
 import RxSwift
 import RxCocoa
+import RxResult
 
 struct ApplicationSettingsViewModel: Depending {
     typealias Dependencies = ApiApplicationInteractorFactoryDependency & DvrInteractorFactoryDependency & ApplicationPersistenceDependency
@@ -26,10 +27,10 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
     private typealias LoginInputTuple = (application: ApiApplication, credentials: UsernamePassword?)
 
     struct Input {
-        let host: Driver<String>
-        let username: Driver<String>
-        let password: Driver<String>
-        let apiKey: Driver<String>
+        let host: Observable<String>
+        let username: Observable<String>
+        let password: Observable<String>
+        let apiKey: Observable<String>
 
         let saveButtonTapped: ControlEvent<Void>
     }
@@ -62,7 +63,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
             }
             .debug("Application")
 
-        let credentialsDriver = Driver.zip([input.username, input.password])
+        let credentialsDriver = Observable.zip([input.username, input.password])
             .map { input -> UsernamePassword? in
                 guard let username = input.first, username.count > 0,
                       let password = input.last, password.count > 0 else {
@@ -84,7 +85,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 return (application: application, credentials: credentials)
             }
 
-        let loginObservable = Driver<LoginInputTuple>.merge([hostChangedLoginDriver, credentialsChangedLoginDriver])
+        let loginObservable = Observable<LoginInputTuple>.merge([hostChangedLoginDriver, credentialsChangedLoginDriver])
             .asObservable()
             .flatMap {
                 self.login(for: $0.application, withCredentials: $0.credentials)
@@ -124,14 +125,17 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
         return dependencies.apiInteractorFactory
             .makeLoginInteractor(for: application, credentials: credentials)
             .observe()
-            .map { $0.value! }
-            .do(onSuccess: { result in
+            .asObservable()
+            .do(
+                onSuccess: { result in
                     NSLog("Login result: \(result)")
                 },
-                onError: { error in
+                onFailure: { error in
                     NSLog("Login error: \(error)")
                 }
             )
+            .map { $0.value ?? .failed }
+            .asSingle()
     }
 
     func fetchApiKey(for application: ApiApplication, withCredentials credentials: UsernamePassword?) -> Single<String?> {
