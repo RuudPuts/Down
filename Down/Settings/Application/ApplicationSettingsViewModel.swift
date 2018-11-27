@@ -104,8 +104,14 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 self.fetchApiKey(for: $0.application, withCredentials: $0.credentials)
             }
 
+        let latestApiKey = Observable.merge(apiKeyObservable.unwrap(), input.apiKey).debug("LatestApiKey")
+
         let settingsSavedDriver = input.saveButtonTapped
-            .withLatestFrom(observableApplication) { _, application in
+            .withLatestFrom(observableApplication)
+            .withLatestFrom(latestApiKey) { application, apiKey in
+                var application = application
+                application.apiKey = apiKey
+                
                 return application
             }
             .do(onNext: {
