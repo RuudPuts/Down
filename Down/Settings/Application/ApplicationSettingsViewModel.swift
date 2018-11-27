@@ -104,15 +104,13 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 self.fetchApiKey(for: $0.application, withCredentials: $0.credentials)
             }
 
-        let applicationSavedDriver = input.saveButtonTapped
+        let settingsSavedDriver = input.saveButtonTapped
             .withLatestFrom(observableApplication) { _, application in
                 return application
             }
             .do(onNext: {
                 self.dependencies.persistence.store($0)
             })
-
-        let settingsSavedDriver = applicationSavedDriver
             .flatMap { self.updateCache(for: $0)}
             .asDriver(onErrorJustReturn: true)
 

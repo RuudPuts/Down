@@ -11,7 +11,7 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-class SettingsViewModel: Depending {
+struct SettingsViewModel: Depending {
     typealias Dependencies = ApplicationPersistenceDependency
     let dependencies: Dependencies
 

@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import Result
 
-class DvrShowDetailsViewModel: Depending {
+struct DvrShowDetailsViewModel: Depending {
     typealias Dependencies = DvrInteractorFactoryDependency & DvrRequestBuilderDependency
     let dependencies: Dependencies
 
