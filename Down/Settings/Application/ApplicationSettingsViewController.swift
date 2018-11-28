@@ -53,7 +53,7 @@ class ApplicationSettingsViewController: UIViewController & Depending {
         saveButton.style(as: .successButton)
 
         [hostTextField, usernameTextField, passwordTextField, apiKeyTextField].forEach {
-            $0?.style(as: .textField(for: application.downType))
+            $0?.style(as: .floatingLabelTextField(for: application.downType))
         }
 
         navigationItem.titleView = UIImageView(image: AssetProvider.icons.for(application.downType))

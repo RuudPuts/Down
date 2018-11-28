@@ -218,6 +218,7 @@
 		428FCD84212350DE00C0371D /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 428FCD6F21234EF200C0371D /* OpenSans-SemiboldItalic.ttf */; };
 		428FCD85212350DE00C0371D /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 428FCD7021234EF200C0371D /* OpenSans-ExtraBoldItalic.ttf */; };
 		428FCD86212350DE00C0371D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 428FCD7121234EF200C0371D /* OpenSans-Regular.ttf */; };
+		4298F81521AF243500CBD4F3 /* UITextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4298F81421AF243500CBD4F3 /* UITextFieldStyle.swift */; };
 		429B01CF20F52B7400BCDA0F /* ApiApplicationResponseParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01CE20F52B7400BCDA0F /* ApiApplicationResponseParsing.swift */; };
 		429B01D220F5324E00BCDA0F /* ApiApplicationGatewayFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D020F5324D00BCDA0F /* ApiApplicationGatewayFactory.swift */; };
 		429B01D320F5324E00BCDA0F /* ApiApplicationRequestGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */; };
@@ -543,6 +544,7 @@
 		428FCD7021234EF200C0371D /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		428FCD7121234EF200C0371D /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		428FCD7221234EF200C0371D /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		4298F81421AF243500CBD4F3 /* UITextFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldStyle.swift; sourceTree = "<group>"; };
 		429B01CE20F52B7400BCDA0F /* ApiApplicationResponseParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationResponseParsing.swift; sourceTree = "<group>"; };
 		429B01D020F5324D00BCDA0F /* ApiApplicationGatewayFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactory.swift; sourceTree = "<group>"; };
 		429B01D120F5324D00BCDA0F /* ApiApplicationRequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationRequestGateway.swift; sourceTree = "<group>"; };
@@ -1591,15 +1593,16 @@
 			children = (
 				4288010F21209280007552FD /* ApplicationHeaderViewStyle.swift */,
 				4235075D21248BEC005343CD /* CircleProgressViewStyle.swift */,
+				4284C72621334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift */,
 				4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */,
 				4235076521249B9E005343CD /* TableHeaderViewStyle.swift */,
-				4284C72621334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift */,
 				4284C72821334D7000F21B91 /* UIButtonStyle.swift */,
 				428FCD6621234E3E00C0371D /* UILabelStyle.swift */,
 				424DDA7E2144718400588B48 /* UINavigationBarStyle.swift */,
 				4284C722213331FD00F21B91 /* UITabBarStyle.swift */,
 				428FCD622122143D00C0371D /* UITableViewCellStyle.swift */,
 				428FCD642122203F00C0371D /* UITableViewStyle.swift */,
+				4298F81421AF243500CBD4F3 /* UITextFieldStyle.swift */,
 				428FCD60212212B600C0371D /* UIViewStyle.swift */,
 			);
 			path = Styles;
@@ -2430,6 +2433,7 @@
 				423A5503216913A100CC558A /* ButtonToolbar.swift in Sources */,
 				429F0A602116371E005582B6 /* DvrShowsViewModel.swift in Sources */,
 				420C28292163E1ED0088259C /* SettingsViewController.swift in Sources */,
+				4298F81521AF243500CBD4F3 /* UITextFieldStyle.swift in Sources */,
 				4243528920FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift in Sources */,
 				426BF74120F6A2CB000C3A4A /* AssetProvider.swift in Sources */,
 				428FCD632122143E00C0371D /* UITableViewCellStyle.swift in Sources */,
