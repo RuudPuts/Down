@@ -72,7 +72,10 @@ extension DvrShowsCollectionViewModel: UICollectionViewDataSource {
 
 extension DvrShowsCollectionViewModel: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = round(collectionView.bounds.width / 3)
+        let estimatedWidth: CGFloat = 170
+        let itemsPerRow = max(3, floor(collectionView.bounds.width / estimatedWidth))
+
+        let width = collectionView.bounds.width / itemsPerRow
         return CGSize(width: width, height: width * 1.7)
     }
 
