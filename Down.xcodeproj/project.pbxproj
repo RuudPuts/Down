@@ -20,6 +20,11 @@
 		420C28322163F58D0088259C /* SettingsApplicationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420C28312163F58D0088259C /* SettingsApplicationCell.xib */; };
 		420CD79621B1CABF0086FBFA /* DateExtensionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420CD79421B1CA140086FBFA /* DateExtensionsSpec.swift */; };
 		420CD7A221B1D0C00086FBFA /* SickgearRequestBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420CD79821B1D0C00086FBFA /* SickgearRequestBuilderSpec.swift */; };
+		420CD7AC21B1E73E0086FBFA /* sabnzbd_apikey.html in Resources */ = {isa = PBXBuildFile; fileRef = 420CD7AB21B1E73E0086FBFA /* sabnzbd_apikey.html */; };
+		420CD7AE21B1E8660086FBFA /* sickbeard_apikey.html in Resources */ = {isa = PBXBuildFile; fileRef = 420CD7AD21B1E8660086FBFA /* sickbeard_apikey.html */; };
+		420CD7B021B1EB0F0086FBFA /* sabnzbd_login.html in Resources */ = {isa = PBXBuildFile; fileRef = 420CD7AF21B1EB0F0086FBFA /* sabnzbd_login.html */; };
+		420CD7B221B1ED650086FBFA /* couchpotato_login.html in Resources */ = {isa = PBXBuildFile; fileRef = 420CD7B121B1ED650086FBFA /* couchpotato_login.html */; };
+		420CD7B421B1F5C20086FBFA /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420CD7B321B1F5C20086FBFA /* DataExtensions.swift */; };
 		420E2E5A21A1F045000891C8 /* DownloadStatusTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E2E5921A1F045000891C8 /* DownloadStatusTableController.swift */; };
 		421752DC217BB1F80002F0C1 /* DownloadItemDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */; };
 		421752DE217BB3DF0002F0C1 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DD217BB3DF0002F0C1 /* ReusableCell.swift */; };
@@ -340,6 +345,11 @@
 		420C28312163F58D0088259C /* SettingsApplicationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsApplicationCell.xib; sourceTree = "<group>"; };
 		420CD79421B1CA140086FBFA /* DateExtensionsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensionsSpec.swift; sourceTree = "<group>"; };
 		420CD79821B1D0C00086FBFA /* SickgearRequestBuilderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickgearRequestBuilderSpec.swift; sourceTree = "<group>"; };
+		420CD7AB21B1E73E0086FBFA /* sabnzbd_apikey.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = sabnzbd_apikey.html; sourceTree = "<group>"; };
+		420CD7AD21B1E8660086FBFA /* sickbeard_apikey.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = sickbeard_apikey.html; sourceTree = "<group>"; };
+		420CD7AF21B1EB0F0086FBFA /* sabnzbd_login.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = sabnzbd_login.html; sourceTree = "<group>"; };
+		420CD7B121B1ED650086FBFA /* couchpotato_login.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = couchpotato_login.html; sourceTree = "<group>"; };
+		420CD7B321B1F5C20086FBFA /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
 		420E2E5921A1F045000891C8 /* DownloadStatusTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadStatusTableController.swift; sourceTree = "<group>"; };
 		421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItemDetailRow.swift; sourceTree = "<group>"; };
 		421752DD217BB3DF0002F0C1 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
@@ -1303,8 +1313,8 @@
 			isa = PBXGroup;
 			children = (
 				42384A5D21613E0B004A0349 /* Mock data */,
-				42384A5B21613E0B004A0349 /* CouchPotatoResponseParserSpec.swift */,
 				42384A5C21613E0B004A0349 /* CouchPotatoRequestBuilderSpec.swift */,
+				42384A5B21613E0B004A0349 /* CouchPotatoResponseParserSpec.swift */,
 			);
 			path = CouchPotato;
 			sourceTree = "<group>";
@@ -1312,6 +1322,7 @@
 		42384A5D21613E0B004A0349 /* Mock data */ = {
 			isa = PBXGroup;
 			children = (
+				420CD7B121B1ED650086FBFA /* couchpotato_login.html */,
 				42384A6721614487004A0349 /* couchpotato_apikey.json */,
 				42384A5E21613E0B004A0349 /* couchpotato_error.json */,
 				42384A5F21613E0B004A0349 /* couchpotato_movielist.json */,
@@ -1646,6 +1657,8 @@
 		428801172120AF85007552FD /* Mock data */ = {
 			isa = PBXGroup;
 			children = (
+				420CD7AF21B1EB0F0086FBFA /* sabnzbd_login.html */,
+				420CD7AB21B1E73E0086FBFA /* sabnzbd_apikey.html */,
 				4288011C2120AFD3007552FD /* sabnzbd_error.json */,
 				4288011A2120AFD2007552FD /* sabnzbd_history.json */,
 				4288011B2120AFD3007552FD /* sabnzbd_success.json */,
@@ -1683,6 +1696,7 @@
 		429F0A3A2115F0F2005582B6 /* Mock data */ = {
 			isa = PBXGroup;
 			children = (
+				420CD7AD21B1E8660086FBFA /* sickbeard_apikey.html */,
 				429F0A3F2115F408005582B6 /* sickbeard_addshow.json */,
 				429F0A3D2115F408005582B6 /* sickbeard_error.json */,
 				429F0A6721174B42005582B6 /* sickbeard_error_chainedcommand.json */,
@@ -1763,6 +1777,7 @@
 			children = (
 				42BF4E8C20D1B5BC0088AAF6 /* StringExtensionsSpec.swift */,
 				422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */,
+				420CD7B321B1F5C20086FBFA /* DataExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1966,7 +1981,10 @@
 			files = (
 				429F0A6821174B42005582B6 /* sickbeard_error_chainedcommand.json in Resources */,
 				42384A6521613E0B004A0349 /* couchpotato_movielist.json in Resources */,
+				420CD7B021B1EB0F0086FBFA /* sabnzbd_login.html in Resources */,
 				4288011E2120AFD3007552FD /* sabnzbd_success.json in Resources */,
+				420CD7AE21B1E8660086FBFA /* sickbeard_apikey.html in Resources */,
+				420CD7B221B1ED650086FBFA /* couchpotato_login.html in Resources */,
 				42384A6621613E0B004A0349 /* couchpotato_success.json in Resources */,
 				4288011D2120AFD3007552FD /* sabnzbd_history.json in Resources */,
 				4288011F2120AFD3007552FD /* sabnzbd_error.json in Resources */,
@@ -1976,6 +1994,7 @@
 				429F0A4D2115F654005582B6 /* sickbeard_addshow.json in Resources */,
 				429F0A522115F654005582B6 /* sickbeard_success.json in Resources */,
 				42384A6421613E0B004A0349 /* couchpotato_error.json in Resources */,
+				420CD7AC21B1E73E0086FBFA /* sabnzbd_apikey.html in Resources */,
 				429F0A512115F654005582B6 /* sickbeard_showlist.json in Resources */,
 				429F0A4E2115F654005582B6 /* sickbeard_error.json in Resources */,
 				429F0A4F2115F654005582B6 /* sickbeard_searchshows.json in Resources */,
@@ -2403,6 +2422,7 @@
 				42384A5321613063004A0349 /* DmrDatabaseMock.swift in Sources */,
 				427D604F20DED3E30017AE42 /* DownloadGatewayFactorySpec.swift in Sources */,
 				422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */,
+				420CD7B421B1F5C20086FBFA /* DataExtensions.swift in Sources */,
 				4221DABB20D1860E003950CF /* ResponseParsingMock.swift in Sources */,
 				420CD7A221B1D0C00086FBFA /* SickgearRequestBuilderSpec.swift in Sources */,
 				4227B78520DC3BB200603528 /* RealmDatabaseSpec.swift in Sources */,

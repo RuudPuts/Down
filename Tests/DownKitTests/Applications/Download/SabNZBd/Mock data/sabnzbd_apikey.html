@@ -1,0 +1,638 @@
+
+
+
+
+
+
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <title>
+            SABnzbd Config
+            -
+            General
+
+
+
+
+
+
+
+
+
+        </title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="apple-mobile-web-app-title" content="SABnzbd" />
+
+        <link rel="apple-touch-icon" sizes="76x76" href="../../staticcfg/ico/apple-touch-icon-76x76-precomposed.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="../../staticcfg/ico/apple-touch-icon-120x120-precomposed.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="../../staticcfg/ico/apple-touch-icon-152x152-precomposed.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="../../staticcfg/ico/apple-touch-icon-180x180-precomposed.png" />
+        <link rel="apple-touch-icon" sizes="192x192" href="../../staticcfg/ico/android-192x192.png" />
+
+        <link rel="stylesheet" type="text/css" href="../../staticcfg/bootstrap/css/bootstrap.min.css?v=2.0.0" />
+        <link rel="stylesheet" type="text/css" href="../../staticcfg/css/style.css?p=45052" />
+        <link rel="shortcut icon" href="../../staticcfg/ico/favicon.ico?v=2.0.0" />
+
+        <script type="text/javascript">
+            // Keeping track of the form state
+            var formHasChanged = false;
+            var formWasSubmitted = false;
+
+            // Information we need
+            var sabSession = '10480f3fd315c42728be2893595ede4a';
+            var rootURL = '../../'
+            var folderBrowseUrl = '../../tapi?mode=browse&output=json&apikey=10480f3fd315c42728be2893595ede4a';
+            var folderSeperator = '/'
+
+            // Translations
+            var configTranslate = new Object();
+            configTranslate.browseText = "Browse";
+            configTranslate.saveChanges = "Save Changes";
+            configTranslate.saving = "Saving..";
+            configTranslate.failed = "Failed";
+            configTranslate.explainRestart = "This will restart SABnzbd.<br />Use it when you think the program has a stability problem.<br />Downloading will be paused before the restart and resume afterwards.<br />If authentication is enabled, you will need to login again.";
+            configTranslate.wizzardRestart = "Restarting SABnzbd...";
+            configTranslate.needRestart = "Changes will require a SABnzbd restart! <br />If authentication is enabled, you will need to login again.".replace(/\<br(\s*\/|)\>/g, '\n');
+            configTranslate.buttonRestart = "Restart";
+            configTranslate.confirmLeave = "Changes have not been saved, and will be lost.";
+            configTranslate.searchPages = ['General', 'Folders', 'Switches', 'Sorting', 'Notifications', 'Special']
+            </script>
+        <script type="text/javascript" src="../../staticcfg/js/jquery-3.1.1.min.js?v=2.0.0"></script>
+        <script type="text/javascript" src="../../staticcfg/bootstrap/js/bootstrap.min.js?v=2.0.0"></script>
+        <script type="text/javascript" src="../../staticcfg/js/script.js?v=2.0.0"></script>
+        <script type="text/javascript">
+            // Set default functions for the autocomplete everywhere
+            $.extend($.fn.typeahead.defaults, {
+                     source: function (query, process) {
+                     // If there's no seperator, it must be a relative path
+                     if(query.split(folderSeperator).length < 2 && this.$element.data('initialdir')) {
+                     query  = this.$element.data('initialdir') + folderSeperator + query;
+                     }
+                     // Get info from the API
+                     return $.get(folderBrowseUrl + '&compact=1&term=' + query, function (data) {
+                                  return process(data);
+                                  });
+                     },
+                     updater: function(item) {
+                     // Is it a relative path?
+                     if(item.indexOf(this.$element.data('initialdir')) === 0) {
+                     // Remove start
+                     return item.replace(this.$element.data('initialdir')+folderSeperator, '');
+                     }
+                     // Full path
+                     return item
+                     }
+                     })
+
+                     // to top right away
+                     if(window.location.hash) {
+                         scroll(0,0);
+                         // void some browsers issue
+                         setTimeout(function() { scroll(0,0); }, 1);
+                     }
+        </script>
+    </head>
+
+    <body class="General">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-logo navbar-logo-small" href="../../" title="Home">
+                        <svg viewBox="0 0 608 608" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M630.988 320.63V188.324h99.863v-35.62l110.197 101.773L730.85 356.25v-35.62h-99.86z" fill="none" stroke-width="16.62" stroke="#000" transform="matrix(0 2.665 -2.7482 0 1003.016 -1657.67)"/><path d="M121.86 23.913h363.604v266.135h97.89l-279.69 293.667L23.97 290.048h97.89V23.913z" fill="#FFB300"/><path d="M303.664 583.797L122.274 23.975h362.78l-181.39 559.822z" fill="#FFCA28"/><path d="M200.157 512.87H50.46v-31.503h88.824v-27.95H50.46v-90.48h149.697V394.2h-88.823v27.95h88.823v90.718zm88.823-31.503h27.95v-27.95h-27.95v27.95zm88.824 31.503H228.107v-90.718h88.823v-27.95h-88.823v-31.266h149.697V512.87zm88.823-31.503h27.95v-87.165h-27.95v87.165zm-60.874 31.503V303.72h60.874v59.216h88.823V512.87H405.753z" fill="none" stroke-width="45.004" stroke-linecap="round" stroke="#000"/><path d="M200.157 512.87H50.46v-31.503h88.824v-27.95H50.46v-90.48h149.697V394.2h-88.823v27.95h88.823v90.718zm88.823-31.503h27.95v-27.95h-27.95v27.95zm88.824 31.503H228.107v-90.718h88.823v-27.95h-88.823v-31.266h149.697V512.87zm88.823-31.503h27.95v-87.165h-27.95v87.165zm-60.874 31.503V303.72h60.874v59.216h88.823V512.87H405.753z" fill="#fff" fill-rule="nonzero"/></svg>
+                    </a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="../../config/general/" class="active">
+                                <span class="glyphicon glyphicon-cog"></span>
+                                <strong>General</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../config/folders/" >
+                                <span class="glyphicon glyphicon-folder-open"></span>
+                                <strong>Folders</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../config/server/" >
+                                <span class="glyphicon glyphicon-sort"></span>
+                                <strong>Servers</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../config/categories/" >
+                                <span class="glyphicon glyphicon-tag"></span>
+                                <strong>Categories</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../config/switches/" >
+                                <span class="glyphicon glyphicon-check"></span>
+                                <strong>Switches</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../config/sorting/" >
+                                <span class="glyphicon glyphicon-sort-by-alphabet"></span>
+                                <strong>Sorting</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../config/notify/" >
+                                <span class="glyphicon glyphicon-comment"></span>
+                                <strong>Notifications</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../config/scheduling/" >
+                                <span class="glyphicon glyphicon-time"></span>
+                                <strong>Scheduling</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../config/rss/" >
+                                <svg class="rss-icon-svg" viewBox="0 0 8 8">
+                                    <rect class="rss-button" width="8" height="8" />
+                                    <circle class="rss-symbol" cx="2" cy="6" r="1" />
+                                    <path class="rss-symbol" d="m 1,4 a 3,3 0 0 1 3,3 h 1 a 4,4 0 0 0 -4,-4 z" />
+                                    <path class="rss-symbol" d="m 1,2 a 5,5 0 0 1 5,5 h 1 a 6,6 0 0 0 -6,-6 z" />
+                                </svg>
+                                <strong>RSS</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../config/special/" >
+                                <span class="glyphicon glyphicon-education"></span>
+                                <strong>Special</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://sabnzbd.org/wiki/configuration/2.0/general" target="_blank">
+                                <span class="glyphicon glyphicon-question-sign"></span>
+                                <strong>Help</strong>
+                            </a>
+                        </li>
+                        <li class="dropdown" id="search-menu">
+                            <a data-toggle="dropdown" href="#">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <strong><span class="glyphicon glyphicon-search"></span></strong>
+                            </a>
+                            <ul class="dropdown-menu" id="search-dropdown">
+                                <li>
+                                    <form onsubmit="return false">
+                                        <input type="text" name="config-search" id="search-box" placeholder="Search" onkeyup="doConfigSearch(this)">
+                                            </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="content" class="container">
+            <!-- Content start -->
+
+
+            <div class="colmask">
+                <form action="saveGeneral" method="post" name="fullform" class="fullform" autocomplete="off" novalidate>
+                    <input type="hidden" id="session" name="session" value="10480f3fd315c42728be2893595ede4a" />
+                    <input type="hidden" id="ajax" name="ajax" value=1 />
+                    <div class="section">
+                        <div class="col2">
+                            <h3>SABnzbd Web Server <a href="https://sabnzbd.org/wiki/configuration/2.0/general" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a></h3>
+                            <p><b>Changes will require a SABnzbd restart!</b></p>
+                        </div><!-- /col2 -->
+                        <div class="col1">
+                            <fieldset>
+                                <div class="field-pair">
+                                    <label class="config" for="host">SABnzbd Host</label>
+                                    <input type="text" name="host" id="host" value="0.0.0.0" />
+                                    <span class="desc">Host SABnzbd should listen on.</span>
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="port">SABnzbd Port</label>
+                                    <input type="number" name="port" id="port" value="8080" size="8" data-original="8080" />
+                                    <span class="desc">Port SABnzbd should listen on.</span>
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="enable_https">Enable HTTPS</label>
+                                    <input type="checkbox" name="enable_https" id="enable_https" value="1" />
+                                    <span class="desc">Enable accessing the interface from a HTTPS address.</span>
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="web_dir">Web interface</label>
+                                    <select name="web_dir" id="web_dir">
+
+
+                                        <option value="Glitter - Default" selected="selected">Glitter - Default</option>
+
+
+
+                                        <option value="Glitter - Night">Glitter - Night</option>
+
+
+
+                                        <option value="Plush - gold">Plush - gold</option>
+
+
+
+                                        <option value="smpl - black">smpl - black</option>
+
+
+
+                                        <option value="smpl - white">smpl - white</option>
+
+
+                                    </select>
+                                    <span class="desc">Choose a skin.&nbsp;&nbsp;<a href="http://192.168.2.100:8080/sabnzbd/">http://192.168.2.100:8080/sabnzbd/</a></span>
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="language">Language</label>
+                                    <select name="language" id="language" class="select">
+
+
+                                        <option value="da">Dansk</option>
+
+
+
+                                        <option value="de">Deutsch</option>
+
+
+
+                                        <option value="en" selected="selected">English</option>
+
+
+
+                                        <option value="es">Español, castellano</option>
+
+
+
+                                        <option value="fr">Français</option>
+
+
+
+                                        <option value="nl">Nederlands</option>
+
+
+
+                                        <option value="nb">Norsk bokmål</option>
+
+
+
+                                        <option value="pl">Polski</option>
+
+
+
+                                        <option value="pt_BR">Português Brasileiro</option>
+
+
+
+                                        <option value="ro">Româna</option>
+
+
+
+                                        <option value="fi">Suomi</option>
+
+
+
+                                        <option value="sv">Svenska</option>
+
+
+
+                                        <option value="ru">русский язык</option>
+
+
+
+                                        <option value="sr">српски</option>
+
+
+
+                                        <option value="zh_CN">简体中文</option>
+
+
+                                    </select>
+                                    <span class="desc">Select a web interface language.</span>
+                                    <div class="alert alert-info alert-translate">
+                                        Help us translate SABnzbd in your language! <br/>Add untranslated texts or improved existing translations here: <a href="https://sabnzbd.org/wiki/translate" target="_blank" class="alert-link">https://sabnzbd.org/wiki/translate</a>
+                                    </div>
+                                </div>
+                                <div class="field-pair advanced-settings">
+                                    <h5 class="darkred nomargin">Default Base Folder: <span class="path">/Users/Ruud/Library/Application Support/SABnzbd/admin</span></h5>
+                                </div>
+                                <div class="field-pair advanced-settings">
+                                    <label class="config" for="https_port">HTTPS Port</label>
+                                    <input type="number" name="https_port" id="https_port" value="9090" size="8" data-original="9090" />
+                                    <span class="desc">If empty, the SABnzbd Port set above will listen to HTTPS.</span>
+                                </div>
+                                <div class="field-pair advanced-settings">
+                                    <label class="config" for="https_cert">HTTPS Certificate</label>
+                                    <input type="text" name="https_cert" id="https_cert" value="server.cert" />
+                                    <button class="btn btn-default generate_cert" title="Generate new self-signed certificate and key. Requires SABnzbd restart!" >
+                                        <span class="glyphicon glyphicon-repeat"></span>
+                                    </button>
+                                    <span class="desc">File name or path to HTTPS Certificate.</span>
+                                </div>
+                                <div class="field-pair advanced-settings">
+                                    <label class="config" for="https_key">HTTPS Key</label>
+                                    <input type="text" name="https_key" id="https_key" value="server.key" />
+                                    <button class="btn btn-default generate_cert" title="Generate new self-signed certificate and key. Requires SABnzbd restart!" >
+                                        <span class="glyphicon glyphicon-repeat"></span>
+                                    </button>
+                                    <span class="desc">File name or path to HTTPS Key.</span>
+                                </div>
+                                <div class="field-pair advanced-settings">
+                                    <label class="config" for="https_chain">HTTPS Chain Certificates</label>
+                                    <input type="text" name="https_chain" id="https_chain" value="" />
+                                    <span class="desc">File name or path to HTTPS Chain.</span>
+                                </div>
+                                <div class="field-pair">
+                                    <button class="btn btn-default saveButton"><span class="glyphicon glyphicon-ok"></span> Save Changes</button>
+                                    <button class="btn btn-default sabnzbd_restart"><span class="glyphicon glyphicon-refresh"></span> Restart SABnzbd</button>
+                                    <button class="btn btn-default advancedButton enable_https_options"><span class="glyphicon glyphicon-cog"></span> Advanced</button>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="col2">
+                            <h3>Security <a href="https://sabnzbd.org/wiki/configuration/2.0/general" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a></h3>
+                            <p><b>Changes will require a SABnzbd restart!</b></p>
+                        </div><!-- /col2 -->
+                        <div class="col1">
+                            <fieldset>
+                                <!-- Tricks to avoid browser auto-fill, fixed on-submit with javascript -->
+                                <div class="field-pair">
+                                    <label class="config" for="45052_wu">SABnzbd Username</label>
+                                    <input type="text" name="45052_wu" id="45052_wu" value="ruud" data-hide="username" />
+                                    <span class="desc">Optional authentication username.</span>
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="45052_wp">SABnzbd Password</label>
+                                    <input type="text" name="45052_wp" id="45052_wp" value="********" data-hide="password" />
+                                    <span class="desc">Optional authentication password.</span>
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="inet_exposure">External internet access</label>
+                                    <select name="inet_exposure" id="inet_exposure" class="select">
+                                        <optgroup label="API">
+                                            <option value="0" selected="selected">No access</option>
+                                            <option value="1" >Add NZB files </option>
+                                            <option value="2" >API (no Config)</option>
+                                            <option value="3" >Full API</option>
+                                        </optgroup>
+                                        <optgroup label="Full API &amp; Web interface">
+                                            <option value="4" >Full Web interface</option>
+                                            <option value="5" >Full Web interface - Only external access requires login</option>
+                                        </optgroup>
+                                    </select>
+                                    <span class="desc">You can set access rights for systems outside your local network.<br><span class="label label-warning">WARNING</span> Requires List of local network ranges to be defined.</span>
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="local_ranges">List of local network ranges</label>
+                                    <input type="text" name="local_ranges" id="local_ranges" value="" />
+                                    <span class="desc">All local network addresses start with these prefixes (often &quot;192.168.1.&quot;)</span>
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="apikey">API Key</label>
+                                    <input type="text" id="apikey" class="fileBrowserField" value="10480f3fd315c42728be2893595ede4a" readonly />
+                                    <button class="btn btn-default show_qrcode" title="API Key QR Code" rel="10480f3fd315c42728be2893595ede4a" ><span class="glyphicon glyphicon-qrcode"></span></button>
+                                    <button class="btn btn-default generate_key" id="generate_new_apikey" title="Generate New Key"><span class="glyphicon glyphicon-repeat"></span></button>
+                                    <span class="desc">This key will give 3rd party programs full access to SABnzbd.</span>
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="nzbkey">NZB Key</label>
+                                    <input type="text" id="nzbkey" class="fileBrowserField" value="10480f3fd315c42728be2893595ede4a" readonly />
+                                    <button class="btn btn-default show_qrcode" title="API Key QR Code" rel="10480f3fd315c42728be2893595ede4a" ><span class="glyphicon glyphicon-qrcode"></span></button>
+                                    <button class="btn btn-default generate_key" id="generate_new_nzbkey" title="Generate New Key"><span class="glyphicon glyphicon-repeat"></span></button>
+                                    <span class="desc">This key will allow 3rd party programs to add NZBs to SABnzbd.</span>
+                                </div>
+                                <div class="field-pair">
+                                    <button class="btn btn-default saveButton"><span class="glyphicon glyphicon-ok"></span> Save Changes</button>
+                                </div>
+                            </fieldset>
+                        </div><!-- /col1 -->
+                    </div><!-- /section -->
+                    <div class="section">
+                        <div class="col2">
+                            <h3>Switches <a href="https://sabnzbd.org/wiki/configuration/2.0/general" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a></h3>
+                        </div><!-- /col2 -->
+                        <div class="col1">
+                            <fieldset>
+                                <div class="field-pair">
+                                    <label class="config" for="auto_browser">Launch Browser on Startup</label>
+                                    <input type="checkbox" name="auto_browser" id="auto_browser" value="1"  />
+                                    <span class="desc">Launch the default web browser when starting SABnzbd.</span>
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="check_new_rel">Check for New Release</label>
+                                    <select name="check_new_rel" id="check_new_rel">
+                                        <option value="0"  >off</option>
+                                        <option value="1" selected="selected" >on</option>
+                                        <option value="2"  >Also test releases</option>
+                                    </select>
+                                    <span class="desc">Weekly check for new SABnzbd release.</span>
+                                </div>
+                                <div class="field-pair ">
+                                    <label class="config" for="enable_https_verification">HTTPS certificate verification</label>
+                                    <input type="checkbox" name="enable_https_verification" id="enable_https_verification" value="1"   />
+                                    <span class="desc">Verify certificates when connecting to indexers and RSS-sources using HTTPS.</span>
+                                </div>
+                                <div class="field-pair">
+                                    <button class="btn btn-default saveButton"><span class="glyphicon glyphicon-ok"></span> Save Changes</button>
+                                </div>
+                            </fieldset>
+                        </div><!-- /col1 -->
+                    </div><!-- /section -->
+                    <div class="section">
+                        <div class="col2">
+                            <h3>Tuning <a href="https://sabnzbd.org/wiki/configuration/2.0/general#toc2" target="_blank"><span class="glyphicon glyphicon-question-sign"></span></a></h3>
+                        </div><!-- /col2 -->
+                        <div class="col1">
+                            <fieldset>
+                                <div class="field-pair value-and-select">
+                                    <label class="config" for="bandwidth_max_value">Maximum line speed</label>
+                                    <input type="number" name="bandwidth_max_value" id="bandwidth_max_value" class="smaller_input" />
+                                    <select name="bandwidth_max_dropdown" id="bandwidth_max_dropdown">
+                                        <option value="">B/s</option>
+                                        <option value="K">KB/s</option>
+                                        <option value="M" selected>MB/s</option>
+                                    </select>
+                                    <input type="hidden" name="bandwidth_max" id="bandwidth_max" value="100M" />
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="bandwidth_perc">Percentage of line speed</label>
+                                    <input type="number" name="bandwidth_perc" id="bandwidth_perc" value="0" step="10" min="0" max="100"/>
+                                    <span class="desc">Which percentage of the linespeed should SABnzbd use, e.g. 50</span>
+                                </div>
+                                <div class="field-pair">
+                                    <label class="config" for="cache_limit">Article Cache Limit</label>
+                                    <input type="text" name="cache_limit" id="cache_limit" value="450M" class="smaller_input" />
+                                    <span class="desc">Cache articles in memory to reduce disk access.<br /><i>In bytes, optionally follow with K,M,G. For example: &quot;256M&quot; or &quot;512M&quot;</i></span>
+                                </div>
+                                <div class="field-pair">
+                                    <button class="btn btn-default saveButton"><span class="glyphicon glyphicon-ok"></span> Save Changes</button>
+                                </div>
+                            </fieldset>
+                        </div><!-- /col1 -->
+                    </div><!-- /section -->
+
+                </form>
+            </div><!-- /colmask -->
+
+            <div class="modal fade" id="modal_qr">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <!-- For the QR code -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                $(document).ready(function(){
+                                  // Show the message about translating when it's non-English
+                                  function hideOrShowTranslate() {
+                                  if($('#language').val() == 'en') {
+                                  $('.alert-translate').hide()
+                                  } else {
+                                  $('.alert-translate').show()
+                                  }
+                                  }
+                                  $('#language').on('change', hideOrShowTranslate)
+                                  hideOrShowTranslate()
+
+                                  $('#apikey, #nzbkey').click(function () { $(this).select() });
+
+                                  $('#generate_new_apikey').click(function () {
+                                                                  if (confirm("Are you sure?")) {
+                                                                  $.ajax({
+                                                                         type: "POST",
+                                                                         url: "../../tapi",
+                                                                         data: {mode:'config', name:'set_apikey', apikey: $('#apikey').val()},
+                                                                         success: function(msg){
+                                                                         $('#apikey').val(msg);
+                                                                         document.location = document.location;
+                                                                         }
+                                                                         });
+                                                                  }
+                                                                  });
+                                  $('#generate_new_nzbkey').click(function () {
+                                                                  if (confirm("Are you sure?")) {
+                                                                  $.ajax({
+                                                                         type: "POST",
+                                                                         url: "../../tapi",
+                                                                         data: { mode:'config', name:'set_nzbkey', apikey: $('#apikey').val() },
+                                                                         success: function(msg){
+                                                                         $('#nzbkey').val(msg);
+                                                                         document.location = document.location;
+                                                                         }
+                                                                         });
+                                                                  }
+                                                                  });
+
+                                  $('.show_qrcode').click(function (e) {
+                                                          // Show in modal
+                                                          $('#modal_qr .modal-dialog').width(330)
+                                                          $('#modal_qr .modal-body').html('').qrcode({
+                                                                                                     "size": 280,
+                                                                                                     "color": "#3a3",
+                                                                                                     "text": $(this).attr('rel')
+                                                                                                     });
+                                                          $('#modal_qr').modal('show');
+
+                                                          // No save on this button click
+                                                          e.preventDefault();
+                                                          });
+
+                                  $('.generate_cert').click(function(e) {
+                                                            if(!confirm('Generate new self-signed certificate and key. Requires SABnzbd restart!')) {
+                                                            return;
+                                                            }
+
+                                                            // Submit request and then restart
+                                                            $.ajax({
+                                                                   type: "POST",
+                                                                   url: "../../tapi",
+                                                                   data: { mode: 'config', name: 'regenerate_certs', apikey: $('#apikey').val() },
+                                                                   success: function(msg) {
+                                                                   do_restart()
+                                                                   }
+                                                                   });
+
+                                                            e.preventDefault();
+                                                            })
+
+                                  // Only allow re-generate if default certs
+                                  if($('#https_cert').val() != 'server.cert') {
+                                  $('.generate_cert').attr('disabled', 'disabled')
+                                  }
+
+                                  // Parse the text
+                                  var bandwidthLimit = $('#bandwidth_max').val()
+                                  if(bandwidthLimit) {
+                                  var bandwithLimitNumber = parseFloat(bandwidthLimit)
+                                  var bandwithLimitText = bandwidthLimit.replace(/[^a-zA-Z]+/g, '');
+                                  $('#bandwidth_max_value').val(bandwithLimitNumber)
+                                  $('#bandwidth_max_dropdown').val(bandwithLimitText)
+                                  }
+
+
+                                  // Update the value
+                                  $('#bandwidth_max_value, #bandwidth_max_dropdown').on('change', function() {
+                                                                                        $('#bandwidth_max').val($('#bandwidth_max_value').val() + $('#bandwidth_max_dropdown').val())
+                                                                                        })
+
+                                  });
+                </script>
+
+
+            <!-- Content end -->
+            <div class="clearfix"></div>
+
+            <!-- Filebrowser modal -->
+            <div class="modal fade" id="filebrowser_modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <!---->
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="show_hidden_folders"> <span>System Folders</span>
+                                        </label>
+                            </div>
+                            <!---->
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                            <button type="button" class="btn btn-default" id="filebrowser_modal_accept"><span class="glyphicon glyphicon-ok"></span> Accept</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div>
+        <div class="main-restarting modal-backdrop fade in" style="display: none;">
+            <div>
+                <strong><span class="glyphicon glyphicon-retweet"></span> Restarting SABnzbd...</strong><br />
+                <small><span class="restarting-url"></span><span class="dotOne">.</span><span class="dotTwo">.</span><span class="dotThree">.</span></small>
+            </div>
+        </div>
+    </body>
+</html>

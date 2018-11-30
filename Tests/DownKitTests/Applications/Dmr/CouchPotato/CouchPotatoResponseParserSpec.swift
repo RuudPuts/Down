@@ -49,7 +49,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                 
                 context("from succesful response") {
                     beforeEach {
-                        response.data = Data(fromJsonFile: "couchpotato_success")
+                        response.data = Data(fromFile: "couchpotato_success")
                         result = sut.parse(response)
                     }
                     
@@ -60,7 +60,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                 
                 context("from failure response") {                    
                     beforeEach {
-                        response.data = Data(fromJsonFile: "couchpotato_error")
+                        response.data = Data(fromFile: "couchpotato_error")
                         result = sut.parse(response)
                     }
                     
@@ -81,61 +81,98 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                 }
             }
 
-            context("parse api key response") {
-                var result: String?
+            context("dmv application response parser") {
+                context("parse movie list response") {
+                    var result: [DmrMovie]!
 
-                beforeEach {
-                    response.data = Data(fromJsonFile: "couchpotato_apikey")
-                    result = sut.parseApiKey(from: response).value ?? nil
-                }
+                    beforeEach {
+                        response.data = Data(fromFile: "couchpotato_movielist")
+                        result = sut.parseMovies(from: response).value
+                    }
 
-                afterEach {
-                    result = nil
-                }
+                    afterEach {
+                        result = nil
+                    }
 
-                it("parses the key") {
-                    expect(result) == "API+KEY"
+                    it("parses 1 movie") {
+                        expect(result.count) == 1
+                    }
+
+                    it("parses the movie's id") {
+                        expect(result.first?.identifier) == "3e14133df6df4036b18e62ef75e4014f"
+                    }
+
+                    it("parses the movie's imdb id") {
+                        expect(result.first?.imdb_id) == "tt1179933"
+                    }
+
+                    it("parses the movie's name") {
+                        expect(result.first?.name) == "10 Cloverfield Lane"
+                    }
                 }
             }
-            
-            context("parse movie list response") {
-                var result: [DmrMovie]!
-                
-                beforeEach {
-                    response.data = Data(fromJsonFile: "couchpotato_movielist")
-                    result = sut.parseMovies(from: response).value
-                }
-                
-                afterEach {
-                    result = nil
-                }
-                
-                it("parses 1 movie") {
-                    expect(result.count) == 1
-                }
-                
-                it("parses the movie's id") {
-                    expect(result.first?.identifier) == "3e14133df6df4036b18e62ef75e4014f"
+
+            context("api application response parser") {
+                context("parse login response") {
+                    var result: LoginResult!
+
+                    afterEach {
+                        result = nil
+                    }
+
+                    context("succesful login") {
+                        beforeEach {
+                            response = Response(data: Data(fromFile: "couchpotato_apikey"),
+                                                statusCode: 200, headers: nil)
+                            result = sut.parseLoggedIn(from: response).value
+                        }
+
+                        it("returns success") {
+                            expect(result) == .success
+                        }
+                    }
+
+                    context("failed login by statuscode") {
+                        beforeEach {
+                            response = Response(data: nil, statusCode: 400, headers: nil)
+                            result = sut.parseLoggedIn(from: response).value
+                        }
+
+                        it("returns authentication required") {
+                            expect(result) == .authenticationRequired
+                        }
+                    }
+
+                    context("failed login by body") {
+                        beforeEach {
+                            response = Response(data: Data(fromFile: "couchpotato_login", extension: "html"),
+                                                statusCode: 200, headers: nil)
+                            result = sut.parseLoggedIn(from: response).value
+                        }
+
+                        it("returns authentication required") {
+                            expect(result) == .authenticationRequired
+                        }
+                    }
                 }
 
-                it("parses the movie's imdb id") {
-                    expect(result.first?.imdb_id) == "tt1179933"
-                }
-                
-                it("parses the movie's name") {
-                    expect(result.first?.name) == "10 Cloverfield Lane"
+                context("parse api key response") {
+                    var result: String?
+
+                    beforeEach {
+                        response.data = Data(fromFile: "couchpotato_apikey")
+                        result = sut.parseApiKey(from: response).value ?? nil
+                    }
+
+                    afterEach {
+                        result = nil
+                    }
+
+                    it("parses the key") {
+                        expect(result) == "API+KEY"
+                    }
                 }
             }
         }
-    }
-}
-
-private extension Data {
-    init(fromJsonFile filename: String) {
-        let bundle = Bundle(for: CouchPotatoResponseParserSpec.self)
-        let filePath = bundle.path(forResource: filename, ofType: "json")!
-
-        // swiftlint:disable force_try
-        try! self.init(contentsOf: URL(fileURLWithPath: filePath))
     }
 }

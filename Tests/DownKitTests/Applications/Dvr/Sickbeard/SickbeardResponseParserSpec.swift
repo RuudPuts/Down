@@ -49,7 +49,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 
                 context("from succesful response") {
                     beforeEach {
-                        response.data = Data(fromJsonFile: "sickbeard_success")
+                        response.data = Data(fromFile: "sickbeard_success")
                         result = sut.parse(response)
                     }
                     
@@ -60,7 +60,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 
                 context("from failure response") {
                     beforeEach {
-                        response.data = Data(fromJsonFile: "sickbeard_error")
+                        response.data = Data(fromFile: "sickbeard_error")
                         result = sut.parse(response)
                     }
 
@@ -71,7 +71,7 @@ class SickbeardResponseParserSpec: QuickSpec {
 
                 context("from chained command failure response") {
                     beforeEach {
-                        response.data = Data(fromJsonFile: "sickbeard_error_chainedcommand")
+                        response.data = Data(fromFile: "sickbeard_error_chainedcommand")
                         result = sut.parse(response)
                     }
 
@@ -91,167 +91,206 @@ class SickbeardResponseParserSpec: QuickSpec {
                     }
                 }
             }
-            
-            context("parse show list response") {
-                var result: [DvrShow]!
-                
-                beforeEach {
-                    response.data = Data(fromJsonFile: "sickbeard_showlist")
-                    result = sut.parseShows(from: response).value
+
+            context("dvr application response parser") {
+                context("parse show list response") {
+                    var result: [DvrShow]!
+
+                    beforeEach {
+                        response.data = Data(fromFile: "sickbeard_showlist")
+                        result = sut.parseShows(from: response).value
+                    }
+
+                    afterEach {
+                        result = nil
+                    }
+
+                    it("parses 1 show") {
+                        expect(result.count) == 1
+                    }
+
+                    it("parses the show's id") {
+                        expect(result.first?.identifier) == "78804"
+                    }
+
+                    it("parses the show's name") {
+                        expect(result.first?.name) == "Doctor Who (2005)"
+                    }
+
+                    it("parses the show's quality") {
+                        expect(result.first?.quality) == Quality.hd720p
+                    }
                 }
-                
+
+                context("parse show details response") {
+                    var result: DvrShow!
+
+                    beforeEach {
+                        response.data = Data(fromFile: "sickbeard_showdetails")
+                        result = sut.parseShowDetails(from: response).value
+                    }
+
+                    afterEach {
+                        result = nil
+                    }
+
+                    it("sets partial show identifier") {
+                        expect(result.identifier) == DvrShow.partialIdentifier
+                    }
+
+                    it("parses the show's name") {
+                        expect(result.name) == "Doctor Who (2005)"
+                    }
+
+                    it("parses the show's quality") {
+                        expect(result.quality) == Quality.hd720p
+                    }
+
+                    it("parses 1 season") {
+                        expect(result.seasons.count) == 1
+                    }
+
+                    it("parses the season's id") {
+                        expect(result.seasons.first?.identifier) == "5"
+                    }
+
+                    it("parses 2 episodes") {
+                        expect(result.seasons.first?.episodes.count) == 2
+                    }
+
+                    it("parses the episode's identifiers") {
+                        expect(result.seasons.first?.episodes.map { $0.identifier } ?? []) == ["7", "13"]
+                    }
+
+                    it("parses the episode's name") {
+                        expect(result.seasons.first?.episodes.map { $0.name } ?? []) == ["Amy's Choice", "Unaired: New episode"]
+                    }
+
+                    it("parses the second episode as aired") {
+                        let expectedComponents = DateComponents(year: 2010,
+                                                                month: 5,
+                                                                day: 15,
+                                                                hour: 0,
+                                                                minute: 0,
+                                                                second: 0)
+
+                        let components = Calendar.current
+                            .dateComponents([.year, .month, .day, .hour, .minute, .second],
+                                            from: result.seasons.first?.episodes.first?.airdate ?? Date())
+
+                        expect(components) == expectedComponents
+                    }
+
+                    it("parses the second episode as unaired") {
+                        expect(result.seasons.first?.episodes.last?.airdate).to(beNil())
+                    }
+
+                    it("parses the episode's quality") {
+                        expect(result.seasons.first?.episodes.map { $0.quality } ?? []) == [.unknown, .unknown]
+                    }
+
+                    it("parses the episode's status") {
+                        expect(result.seasons.first?.episodes.map { $0.status } ?? []) == [.ignored, .ignored]
+                    }
+                }
+
+                context("parse search shows response") {
+                    var result: [DvrShow]!
+
+                    beforeEach {
+                        response.data = Data(fromFile: "sickbeard_searchshows")
+                        result = sut.parseSearchShows(from: response).value
+                    }
+
+                    afterEach {
+                        result = nil
+                    }
+
+                    it("parses 2 shows") {
+                        expect(result.count) == 2
+                    }
+
+                    it("parses the first show's id") {
+                        expect(result.first?.identifier) == "70336"
+                    }
+
+                    it("parses the first show's name") {
+                        expect(result.first?.name) == "The Tonight Show with Jay Leno"
+                    }
+
+                    it("parses the second show's id") {
+                        expect(result.last?.identifier) == "113921"
+                    }
+
+                    it("parses the second show's name") {
+                        expect(result.last?.name) == "The Jay Leno Show"
+                    }
+                }
+
+                context("parse add show response") {
+                    var result: Bool!
+
+                    beforeEach {
+                        response.data = Data(fromFile: "sickbeard_addshow")
+                        result = sut.parseAddShow(from: response).value
+                    }
+
+                    afterEach {
+                        result = nil
+                    }
+
+                    it("adds the show succesfully") {
+                        expect(result) == true
+                    }
+                }
+            }
+
+            context("parse login response") {
+                var result: LoginResult!
+
                 afterEach {
                     result = nil
                 }
-                
-                it("parses 1 show") {
-                    expect(result.count) == 1
+
+                context("succesful login") {
+                    beforeEach {
+                        response = Response(data: nil, statusCode: 200, headers: nil)
+                        result = sut.parseLoggedIn(from: response).value
+                    }
+
+                    it("returns success") {
+                        expect(result) == .success
+                    }
                 }
-                
-                it("parses the show's id") {
-                    expect(result.first?.identifier) == "78804"
-                }
-                
-                it("parses the show's name") {
-                    expect(result.first?.name) == "Doctor Who (2005)"
-                }
-                
-                it("parses the show's quality") {
-                    expect(result.first?.quality) == Quality.hd720p
+
+                context("failed login") {
+                    beforeEach {
+                        response = Response(data: nil, statusCode: 400, headers: nil)
+                        result = sut.parseLoggedIn(from: response).value
+                    }
+
+                    it("returns authentication required") {
+                        expect(result) == .authenticationRequired
+                    }
                 }
             }
             
-            context("parse show details response") {
-                var result: DvrShow!
-                
-                beforeEach {
-                    response.data = Data(fromJsonFile: "sickbeard_showdetails")
-                    result = sut.parseShowDetails(from: response).value
-                }
-                
-                afterEach {
-                    result = nil
-                }
-                
-                it("sets partial show identifier") {
-                    expect(result.identifier) == DvrShow.partialIdentifier
-                }
-                
-                it("parses the show's name") {
-                    expect(result.name) == "Doctor Who (2005)"
-                }
-                
-                it("parses the show's quality") {
-                    expect(result.quality) == Quality.hd720p
-                }
-                
-                it("parses 1 season") {
-                    expect(result.seasons.count) == 1
-                }
-                
-                it("parses the season's id") {
-                    expect(result.seasons.first?.identifier) == "5"
-                }
-                
-                it("parses 2 episodes") {
-                    expect(result.seasons.first?.episodes.count) == 2
-                }
-                
-                it("parses the episode's identifiers") {
-                    expect(result.seasons.first?.episodes.map { $0.identifier } ?? []) == ["7", "13"]
-                }
-                
-                it("parses the episode's name") {
-                    expect(result.seasons.first?.episodes.map { $0.name } ?? []) == ["Amy's Choice", "Unaired: New episode"]
-                }
-                
-                it("parses the second episode as aired") {
-                    let expectedComponents = DateComponents(year: 2010,
-                                                            month: 5,
-                                                            day: 15,
-                                                            hour: 0,
-                                                            minute: 0,
-                                                            second: 0)
-
-                    let components = Calendar.current
-                        .dateComponents([.year, .month, .day, .hour, .minute, .second],
-                                        from: result.seasons.first?.episodes.first?.airdate ?? Date())
-
-                    expect(components) == expectedComponents
-                }
-
-                it("parses the second episode as unaired") {
-                    expect(result.seasons.first?.episodes.last?.airdate).to(beNil())
-                }
-                
-                it("parses the episode's quality") {
-                    expect(result.seasons.first?.episodes.map { $0.quality } ?? []) == [.unknown, .unknown]
-                }
-                
-                it("parses the episode's status") {
-                    expect(result.seasons.first?.episodes.map { $0.status } ?? []) == [.ignored, .ignored]
-                }
-            }
-
-            context("parse search shows response") {
-                var result: [DvrShow]!
+            context("parse api key response") {
+                var result: String?
 
                 beforeEach {
-                    response.data = Data(fromJsonFile: "sickbeard_searchshows")
-                    result = sut.parseSearchShows(from: response).value
+                    response.data = Data(fromFile: "sickbeard_apikey", extension: "html")
+                    result = sut.parseApiKey(from: response).value ?? nil
                 }
 
                 afterEach {
                     result = nil
                 }
 
-                it("parses 2 shows") {
-                    expect(result.count) == 2
-                }
-
-                it("parses the first show's id") {
-                    expect(result.first?.identifier) == "70336"
-                }
-
-                it("parses the first show's name") {
-                    expect(result.first?.name) == "The Tonight Show with Jay Leno"
-                }
-
-                it("parses the second show's id") {
-                    expect(result.last?.identifier) == "113921"
-                }
-
-                it("parses the second show's name") {
-                    expect(result.last?.name) == "The Jay Leno Show"
-                }
-            }
-
-            context("parse add show response") {
-                var result: Bool!
-
-                beforeEach {
-                    response.data = Data(fromJsonFile: "sickbeard_addshow")
-                    result = sut.parseAddShow(from: response).value
-                }
-
-                afterEach {
-                    result = nil
-                }
-
-                it("adds the show succesfully") {
-                    expect(result) == true
+                it("parses the key") {
+                    expect(result) == "fc1dcf900e17ac641624502b2b26b4fa"
                 }
             }
         }
-    }
-}
-
-private extension Data {
-    init(fromJsonFile filename: String) {
-        let bundle = Bundle(for: SickbeardResponseParserSpec.self)
-        let filePath = bundle.path(forResource: filename, ofType: "json")!
-
-        // swiftlint:disable force_try
-        try! self.init(contentsOf: URL(fileURLWithPath: filePath))
     }
 }

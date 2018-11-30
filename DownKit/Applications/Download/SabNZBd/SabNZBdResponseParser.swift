@@ -63,7 +63,6 @@ class SabNZBdResponseParser: DownloadResponseParsing {
 
 extension SabNZBdResponseParser: ApiApplicationResponseParsing {
     func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
-        //! Might want to check http response code 😅
         let loginFormStart = "<form class=\"form-signin\" action=\"./\" method=\"post\">"
 
         return parse(response).map {
@@ -72,7 +71,6 @@ extension SabNZBdResponseParser: ApiApplicationResponseParsing {
     }
 
     func parseApiKey(from response: Response)  -> Result<String?, DownKitError> {
-        //! Might want to check http response code 😅
         return parse(response).map {
             guard let keyRange = $0.range(of: "id=\"apikey\"") else {
                 return nil
@@ -226,3 +224,13 @@ private extension Date {
         return TimeInterval(components.hour! * 3600 + components.minute! * 60 + components.second!)
     }
 }
+
+/*
+ < HTTP/1.1 303 See Other
+ < Content-Length: 60
+ < Vary: Accept-Encoding
+ < Server: CherryPy/8.1.2
+ < Location: /login/
+ < Date: Fri, 30 Nov 2018 21:05:29 GMT
+ < Content-Type: text/html;charset=utf-8
+ */

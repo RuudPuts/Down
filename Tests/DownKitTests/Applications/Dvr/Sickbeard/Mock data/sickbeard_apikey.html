@@ -1,0 +1,439 @@
+
+
+
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <title>Sick Beard - alpha development - Config - General</title>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+                <meta name="robots" content="noindex">
+                    <!--[if lt IE 9]>
+                     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+                     <![endif]-->
+
+                    <link rel="shortcut icon" href="/images/ico/favicon.ico">
+                        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/ico/apple-touch-icon-144x144-precomposed.png">
+                            <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/ico/apple-touch-icon-114x114-precomposed.png">
+                                <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/ico/apple-touch-icon-72x72-precomposed.png">
+                                    <link rel="apple-touch-icon-precomposed" href="/images/ico/apple-touch-icon-57x57-precomposed.png">
+
+                                        <link rel="stylesheet" href="/css/lib/bootstrap.css?45665"/>
+                                        <link rel="stylesheet" href="/css/lib/jquery.pnotify.default.css?45665" />
+                                        <link rel="stylesheet" href="/css/lib/jquery-ui-1.11.2.custom.css?45665" />
+                                        <link rel="stylesheet" href="/css/lib/jquery.qtip.css?45665"/>
+                                        <link rel="stylesheet" href="/css/style.css?45665"/>
+
+                                        <style>
+                                            <!--
+                                            #contentWrapper { background: url("/images/bg.png") repeat 0 0 transparent; }
+
+                                            [class^="icon-"], [class*=" icon-"] { background-image: url("/images/glyphicons-halflings.png"); }
+                                            .icon-white { background-image: url("/images/glyphicons-halflings-white.png"); }
+                                            .dropdown-menu li > a:hover > [class^="icon-"], .dropdown-menu li > a:hover > [class*=" icon-"] { background-image: url("/images/glyphicons-halflings-white.png"); }
+                                            [class^="icon16-"], [class*=" icon16-"] { background-image: url("/images/glyphicons-config.png"); }
+
+                                            .ui-autocomplete-loading { background: white url("/images/loading16.gif") right center no-repeat; }
+                                            .browserDialog.busy .ui-dialog-buttonpane { background: url("/images/loading.gif") 10px 50% no-repeat !important; }
+                                            .ui-dialog, .ui-dialog-buttonpane { background: #eceadf url("/css/lib/images/ui-bg_fine-grain_10_eceadf_60x60.png") 50% 50% repeat !important; }
+                                            .ui-accordion-content, .ui-tabs-panel { background: #ededed !important; background-image: none !important; }
+
+                                            .ui-widget-content { background: #dcdcdc url("/css/lib/images/ui-bg_highlight-soft_75_dcdcdc_1x100.png") 50% top repeat-x; }
+                                            .ui-widget-header { background: #ffffff url("/css/lib/images/ui-bg_flat_0_ffffff_40x100.png") 50% 50% repeat-x; }
+
+                                            .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { background: #efefef url("/css/lib/images/ui-bg_highlight-soft_75_efefef_1x100.png") 50% 50% repeat-x; }
+                                            .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { background: #dddddd url("/css/lib/images/ui-bg_highlight-soft_75_dddddd_1x100.png") 50% 50% repeat-x; }
+                                            .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { background: #dfdfdf url("/css/lib/images/ui-bg_inset-soft_75_dfdfdf_1x100.png") 50% 50% repeat-x; }
+
+                                            .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight { background: #fbf9ee url("/css/lib/images/ui-bg_glass_55_fbf9ee_1x400.png") 50% 50% repeat-x; }
+                                            .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error { background: #fef1ec url("/css/lib/images/ui-bg_glass_95_fef1ec_1x400.png") 50% 50% repeat-x; }
+
+                                            .ui-icon, .ui-widget-content .ui-icon { background-image: url("/css/lib/images/ui-icons_222222_256x240.png"); }
+                                            .ui-widget-header .ui-icon { background-image: url("/css/lib/images/ui-icons_222222_256x240.png"); }
+                                            .ui-state-default .ui-icon { background-image: url("/css/lib/images/ui-icons_8c291d_256x240.png"); }
+                                            .ui-state-hover .ui-icon, .ui-state-focus .ui-icon { background-image: url("/css/lib/images/ui-icons_222222_256x240.png"); }
+                                            .ui-state-active .ui-icon { background-image: url("/css/lib/images/ui-icons_8c291d_256x240.png"); }
+                                            .ui-state-highlight .ui-icon { background-image: url("/css/lib/images/ui-icons_2e83ff_256x240.png"); }
+                                            .ui-state-error .ui-icon, .ui-state-error-text .ui-icon { background-image: url("/css/lib/images/ui-icons_cd0a0a_256x240.png"); }
+
+                                            .ui-widget-overlay { background: #aaaaaa url("/css/lib/images/ui-bg_flat_0_aaaaaa_40x100.png") 50% 50% repeat-x; }
+                                            .ui-widget-shadow { background: #000000 url("/css/lib/images/ui-bg_flat_0_000000_40x100.png") 50% 50% repeat-x; }
+
+                                            //-->
+                                            </style>
+
+                                        <script src="/js/lib/jquery-1.7.2.min.js?45665"></script>
+                                        <script src="/js/lib/bootstrap.min.js?45665"></script>
+                                        <script src="/js/lib/jquery-ui-1.11.2.custom.min.js?45665"></script>
+                                        <script src="/js/lib/jquery.cookie.js?45665"></script>
+                                        <script src="/js/lib/jquery.selectboxes.min.js?45665"></script>
+                                        <script src="/js/lib/jquery.tablesorter-2.17.8.min.js?45665"></script>
+                                        <script src="/js/lib/jquery.tablesorter.widgets-2.17.8.min.js?45665"></script>
+                                        <script src="/js/lib/jquery.qtip-2012-04-26.min.js?45665"></script>
+                                        <script src="/js/lib/jquery.pnotify-1.2.2.min.js?45665"></script>
+                                        <script src="/js/lib/jquery.form-3.50.js?45665"></script>
+                                        <script>
+                                            <!--
+                                            sbRoot = ""; // needed for browser.js & ajaxNotifications.js
+                                            //HTML for scrolltopcontrol, which is auto wrapped in DIV w/ ID="topcontrol"
+                                            top_image_html = '<img src="/images/top.gif" width="31" height="11" alt="Jump to top" />';
+                                            //-->
+                                            </script>
+                                        <script src="/js/lib/jquery.scrolltopcontrol-1.1.js?45665"></script>
+                                        <script src="/js/browser.js?45665"></script>
+                                        <script src="/js/ajaxNotifications.js?45665"></script>
+                                        <script>
+                                            <!--
+                                            $(document).ready(function() {
+                                                              $("#NAVconfig").addClass("active");
+
+                                                              $("a.confirm").bind("click",function(e) {
+                                                                                  e.preventDefault();
+                                                                                  var target = $( this ).attr('href');
+                                                                                  if ( confirm("Are you sure you want to " + $(this).text() + "?") )
+                                                                                  location.href = target;
+                                                                                  return false;
+                                                                                  });
+
+                                                              });
+                                                              //-->
+                                            </script>
+    </head>
+
+    <body>
+        <header>
+            <div id="header">
+                <a name="top"></a>
+                <span id="logo"><a href="/home/" title="Sick Beard homepage"><img alt="Sick Beard" src="/images/sickbeard.png" width="150" height="72" /></a></span>
+                <span id="versiontext">alpha <a href="https://github.com/midgetspy/Sick-Beard/wiki/ChangeLog" rel="noreferrer" onclick="window.open('http://derefer.me/?' + this.href, '_blank'); return false;">development</a></span>
+            </div>
+
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+
+                        <!--
+                         <a class="brand" href="/home/" title="Sick Beard"><img alt="Sick Beard" src="/images/sickbeard.png" width="150" height="72" /></a>
+                         -->
+
+                        <div class="nav-collapse">
+                            <ul class="nav">
+                                <li class="divider-vertical"></li>
+                                <li id="NAVsystem" class="dropdown">
+                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#" onclick="return false;"><img src="/images/menu/system18.png" alt="" width="18" height="18" /> <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/manage/manageSearches/forceVersionCheck"><i class="icon-check"></i> Force Version Check</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/home/restart/?pid=45665" class="confirm"><i class="icon-repeat"></i> Restart</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/home/shutdown/?pid=45665" class="confirm"><i class="icon-off"></i> Shutdown</a></li>
+                                    </ul>
+                                </li>
+                                <li class="divider-vertical"></li>
+                                <li id="NAVhome" class="dropdown">
+                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="/home/">Home <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/home/"><i class="icon-home"></i> Home</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/home/addShows/"><i class="icon-plus-sign"></i> Add Shows</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/home/postprocess/"><i class="icon-random"></i> Manual Post-Processing</a></li>
+                                    </ul>
+                                </li>
+                                <li class="divider-vertical"></li>
+                                <li id="NAVcomingEpisodes">
+                                    <a href="/comingEpisodes/">Coming Episodes</a>
+                                </li>
+                                <li class="divider-vertical"></li>
+                                <li id="NAVhistory">
+                                    <a href="/history/">History</a>
+                                </li>
+                                <li class="divider-vertical"></li>
+                                <li id="NAVmanage" class="dropdown">
+                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="/manage/">Manage <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/manage/"><i class="icon-tasks"></i> Mass Update</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/manage/backlogOverview/"><i class="icon-retweet"></i> Backlog Overview</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/manage/manageSearches/"><i class="icon-search"></i> Manage Searches</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/manage/episodeStatuses/"><i class="icon-list-alt"></i> Episode Status Management</a></li>
+                                    </ul>
+                                </li>
+                                <li class="divider-vertical"></li>
+                                <li id="NAVconfig" class="dropdown">
+                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="/config/">Config <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/config/"><i class="icon-question-sign"></i> Help &amp; Info</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/config/general/"><i class="icon-cog"></i> General</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/config/search/"><i class="icon-cog"></i> Search Settings</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/config/providers/"><i class="icon-cog"></i> Search Providers</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/config/postProcessing/"><i class="icon-cog"></i> Post Processing</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/config/notifications/"><i class="icon-cog"></i> Notifications</a></li>
+                                    </ul>
+                                </li>
+                                <li class="divider-vertical"></li>
+                                <li id="NAVerrorlogs" class="dropdown">
+                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="/errorlogs/">Logs &amp; Errors (135) <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/errorlogs/"><i class="icon-file"></i> View Log (Errors)</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/errorlogs/viewlog/"><i class="icon-file"></i> View Log</a></li>
+                                    </ul>
+                                </li>
+                                <li class="divider-vertical"></li>
+                            </ul>
+                            <ul class="nav pull-right">
+                                <li>
+                                    <a id="navDonate" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=JA8M7VDY89SQ4" rel="noreferrer" onclick="window.open('http://derefer.me/?' + this.href); return false;"><img src="/images/paypal/btn_donate_LG.gif" alt="[donate]" height="26" width="92" /></a>
+                                </li>
+                            </ul>
+                        </div><!-- /nav-collapse -->
+
+                    </div><!-- /container -->
+                </div><!-- /navbar-inner -->
+            </div><!-- /navbar -->
+
+            <div id="SubMenu">
+                <span>
+                    <a href="/config/general/" >General</a>
+                    | <a href="/config/search/" >Search Settings</a>
+                    | <a href="/config/providers/" >Search Providers</a>
+                    | <a href="/config/postProcessing/" >Post Processing</a>
+                    | <a href="/config/notifications/" >Notifications</a>
+                </span>
+            </div>
+        </header>
+
+        <div id="contentWrapper">
+            <div id="content">
+                <h1 class="title">General Configuration</h1>
+
+                <script src="/js/config.js?45665"></script>
+
+                <div id="config">
+                    <div id="config-content">
+                        <h5>All non-absolute folder locations are relative to <span class="path">/Applications/Sickbeard</span></h5>
+
+                        <form id="configForm" action="saveGeneral" method="post">
+
+                            <div id="config-components">
+
+                                <div id="core-component-group1" class="component-group clearfix">
+
+                                    <div class="component-group-desc">
+                                        <h3>Misc</h3>
+                                        <p>Startup options.</p>
+                                        <p><b>Some options may require a manual restart to take effect.</b></p>
+                                    </div>
+
+                                    <fieldset class="component-group-list">
+                                        <div class="field-pair">
+                                            <input type="checkbox" name="launch_browser" id="launch_browser" />
+                                            <label class="clearfix" for="launch_browser">
+                                                <span class="component-title">Launch Browser</span>
+                                                <span class="component-desc">Should Sick Beard open its home page when started?</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="field-pair">
+                                            <input type="checkbox" name="version_notify" id="version_notify" checked="checked"/>
+                                            <label class="clearfix" for="version_notify">
+                                                <span class="component-title">Check for Update</span>
+                                                <span class="component-desc">Show notification about updates for Sick Beard if available.</span>
+                                            </label>
+                                            <label class="nocheck clearfix">
+                                                <span class="component-title">&nbsp;</span>
+                                                <span class="component-desc">Checking for updates runs on startup and every 12 hours.</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="field-pair">
+                                            <label class="nocheck clearfix" for="log_dir">
+                                                <span class="component-title">Logging Directory</span>
+                                                <input type="text" name="log_dir" id="log_dir" value="Logs" size="35" />
+                                            </label>
+                                        </div>
+
+                                        <input type="submit" class="btn config_submitter" value="Save Changes" />
+                                    </fieldset>
+                                </div><!-- /component-group1 //-->
+
+
+                                <div id="core-component-group2" class="component-group clearfix">
+
+                                    <div class="component-group-desc">
+                                        <h3>Web Interface</h3>
+                                        <p>It is recommended that you enable a username and password to secure Sick Beard from being tampered with remotely.</p>
+                                        <p><b>These options require a manual restart to take effect.</b></p>
+                                    </div>
+
+                                    <fieldset class="component-group-list">
+
+                                        <div class="field-pair">
+                                            <input type="checkbox" name="web_ipv6" id="web_ipv6" />
+                                            <label class="clearfix" for="web_ipv6">
+                                                <span class="component-title">Listen on IPv6</span>
+                                                <span class="component-desc">Allow Sick Beard to bind to any available IPv6 address?</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="field-pair">
+                                            <input type="checkbox" name="web_log" id="web_log" />
+                                            <label class="clearfix" for="web_log">
+                                                <span class="component-title">HTTP Logs</span>
+                                                <span class="component-desc">Have Sick Beard's web server (cherrypy) generate logs?</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="field-pair">
+                                            <label class="nocheck clearfix">
+                                                <span class="component-title">HTTP Port</span>
+                                                <input type="text" name="web_port" value="8081" size="10" />
+                                            </label>
+                                            <label class="nocheck clearfix">
+                                                <span class="component-title">&nbsp;</span>
+                                                <span class="component-desc">Web port that Sick Beard should listen on (eg. 8081)</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="field-pair">
+                                            <label class="nocheck clearfix">
+                                                <span class="component-title">HTTP Username</span>
+                                                <input type="text" name="web_username" value="" size="35" />
+                                            </label>
+                                            <label class="nocheck clearfix">
+                                                <span class="component-title">&nbsp;</span>
+                                                <span class="component-desc">Username for authentication (blank for none)</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="field-pair">
+                                            <label class="nocheck clearfix">
+                                                <span class="component-title">HTTP Password</span>
+                                                <input type="password" name="web_password" value="" size="35" />
+                                            </label>
+                                            <label class="nocheck clearfix">
+                                                <span class="component-title">&nbsp;</span>
+                                                <span class="component-desc">Password for authentication (blank for none)</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="field-pair">
+                                            <label class="clearfix">
+                                                <input type="checkbox" name="enable_https" class="enabler" id="enable_https" />
+                                                <span class="component-title">Enable HTTPS</span>
+                                                <span class="component-desc">Enable accessing the interface from a HTTPS address.</span>
+                                            </label>
+                                        </div>
+
+                                        <div id="content_enable_https">
+                                            <div class="field-pair">
+                                                <label class="nocheck clearfix">
+                                                    <span class="component-title">HTTPS Certificate</span>
+                                                    <input type="text" name="https_cert" value="server.crt" size="35" />
+                                                </label>
+                                                <label class="nocheck clearfix">
+                                                    <span class="component-title">&nbsp;</span>
+                                                    <span class="component-desc">File name or path to HTTPS Certificate.</span>
+                                                </label>
+                                            </div>
+
+                                            <div class="field-pair">
+                                                <label class="nocheck clearfix">
+                                                    <span class="component-title">HTTPS Key</span>
+                                                    <input type="text" name="https_key" value="server.key" size="35" />
+                                                </label>
+                                                <label class="nocheck clearfix">
+                                                    <span class="component-title">&nbsp;</span>
+                                                    <span class="component-desc">File name or path to HTTPS Key.</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <input type="submit" class="btn config_submitter" value="Save Changes" />
+                                    </fieldset>
+                                </div><!-- /component-group2 //-->
+
+                                <div id="core-component-group4" class="component-group clearfix">
+
+                                    <div class="component-group-desc">
+                                        <h3>API</h3>
+                                        <p>Allow 3rd party programs to interact with Sick-Beard.</p>
+                                    </div>
+
+                                    <fieldset class="component-group-list">
+                                        <div class="field-pair">
+                                            <input type="checkbox" name="use_api" class="enabler" id="use_api" checked="checked"/>
+                                            <label class="clearfix" for="use_api">
+                                                <span class="component-title">Enable API</span>
+                                                <span class="component-desc">Allow the use of the Sick-Beard API.</span>
+                                            </label>
+                                        </div>
+
+                                        <div id="content_use_api">
+                                            <div class="field-pair">
+                                                <label class="nocheck clearfix" for="api_key">
+                                                    <span class="component-title">API Key</span>
+                                                    <input type="text" name="api_key" id="api_key" value="fc1dcf900e17ac641624502b2b26b4fa" size="35" readonly="readonly" />
+                                                    <input type="button" class="btn" id="generate_new_apikey" value="Generate">
+                                                        </label>
+                                                <label class="nocheck clearfix">
+                                                    <span class="component-title">&nbsp;</span>
+                                                    <span class="component-desc">Used to give 3rd party programs limited access to Sick-Beard.</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <input type="submit" class="btn config_submitter" value="Save Changes" />
+                                    </fieldset>
+                                </div><!-- /component-group4 //-->
+
+                                <div class="component-group-save">
+                                    <input type="submit" class="btn config_submitter" value="Save Changes" />
+                                </div><br />
+
+                            </div><!-- /config-components -->
+
+                        </form>
+                    </div></div>
+
+                <script>
+                    <!--
+                    jQuery('#log_dir').fileBrowser({ title: 'Select Log Directory' });
+                    //-->
+                    </script>
+
+            </div> <!-- /content -->
+        </div> <!-- /contentWrapper -->
+
+        <footer>
+            <div class="container footer">
+
+
+
+
+
+
+
+
+                <b>173 shows</b> (67 active) | <b>7882</b> (+1146 snatched)<b> / 12778</b> episodes downloaded
+                <br />
+                <b>Search</b>: 0:58:26 |
+                <b>Backlog</b>: 2018-12-17
+            </div> <!-- /container footer -->
+        </footer>
+    </body>
+</html>

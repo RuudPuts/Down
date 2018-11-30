@@ -94,10 +94,6 @@ class SickbeardResponseParser: DvrResponseParsing {
     }
 
     func parseApiKey(from response: Response) -> Result<String?, DownKitError> {
-        guard response.statusCode == StatusCodes.success.rawValue else {
-            return .success(nil)
-        }
-
         let result: Result<String, DownKitError> = parse(response)
 
         return result.map {
@@ -255,3 +251,14 @@ struct ParseSearchShowsKeyMapping: ParseShowsKeyMaping {
     static var id = "tvdbid"
     static var name = "name"
 }
+
+
+/*
+ < HTTP/1.1 303 See Other
+ < Content-Length: 108
+ < Vary: Accept-Encoding
+ < Server: CherryPy/3.2.0rc1
+ < Location: http://192.168.2.100:8081/home/
+ < Date: Fri, 30 Nov 2018 21:05:53 GMT
+ < Content-Type: text/html;charset=utf-8
+ */

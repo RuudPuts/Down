@@ -49,7 +49,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 
                 context("from succesful response") {
                     beforeEach {
-                        response.data = Data(fromJsonFile: "sabnzbd_success")
+                        response.data = Data(fromFile: "sabnzbd_success")
                         result = sut.parse(response, forKey: .queue)
                     }
 
@@ -60,7 +60,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
 
                 context("from failure response") {
                     beforeEach {
-                        response.data = Data(fromJsonFile: "sabnzbd_error")
+                        response.data = Data(fromFile: "sabnzbd_error")
                         result = sut.parse(response, forKey: .queue)
                     }
 
@@ -81,61 +81,102 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 }
             }
 
-            describe("parse queue Response") {
-                var result: DownloadQueue!
+            context("download application response parser") {
+                describe("parse queue Response") {
+                    var result: DownloadQueue!
 
-                beforeEach {
-                    response.data = Data(fromJsonFile: "sabnzbd_queue")
-                    result = sut.parseQueue(from: response).value
+                    beforeEach {
+                        response.data = Data(fromFile: "sabnzbd_queue")
+                        result = sut.parseQueue(from: response).value
+                    }
+
+                    afterEach {
+                        result = nil
+                    }
+
+                    it("parses current speed") {
+                        expect(result.speedMb) == 31.7
+                    }
+
+                    it("parses time remaining") {
+                        expect(result.remainingTime) == 3855
+                    }
+
+                    it("parses current data remaining") {
+                        expect(result.remainingMb) == 487.70
+                    }
+
+                    it("parses 1 item") {
+                        expect(result.items.count) == 1
+                    }
                 }
 
-                afterEach {
-                    result = nil
-                }
+                describe("parse history Response") {
+                    var result: [DownloadItem]!
 
-                it("parses current speed") {
-                    expect(result.speedMb) == 31.7
-                }
+                    beforeEach {
+                        response.data = Data(fromFile: "sabnzbd_history")
+                        result = sut.parseHistory(from: response).value
+                    }
 
-                it("parses time remaining") {
-                    expect(result.remainingTime) == 3855
-                }
+                    afterEach {
+                        result = nil
+                    }
 
-                it("parses current data remaining") {
-                    expect(result.remainingMb) == 487.70
-                }
-
-                it("parses 1 item") {
-                    expect(result.items.count) == 1
+                    it("parses 1 item") {
+                        expect(result.count) == 1
+                    }
                 }
             }
 
-            describe("parse history Response") {
-                var result: [DownloadItem]!
+            context("parse login response") {
+                var result: LoginResult!
+
+                afterEach {
+                    result = nil
+                }
+
+                context("succesful login") {
+
+                    beforeEach {
+                        response.data = Data(fromFile: "sabnzbd_apikey", extension: "html")
+                        result = sut.parseLoggedIn(from: response).value
+                    }
+
+                    it("returns success") {
+                        expect(result) == .success
+                    }
+                }
+
+                context("failed login") {
+                    beforeEach {
+                        response.data = Data(fromFile: "sabnzbd_login", extension: "html")
+                        result = sut.parseLoggedIn(from: response).value
+                    }
+
+                    it("returns authentication required") {
+                        expect(result) == .authenticationRequired
+                    }
+                }
+            }
+
+            context("parse api key response") {
+                var result: String?
 
                 beforeEach {
-                    response.data = Data(fromJsonFile: "sabnzbd_history")
-                    result = sut.parseHistory(from: response).value
+                    response.data = Data(fromFile: "sabnzbd_apikey", extension: "html")
+                    result = sut.parseApiKey(from: response).value ?? nil
                 }
 
                 afterEach {
                     result = nil
                 }
 
-                it("parses 1 item") {
-                    expect(result.count) == 1
+                it("parses the key") {
+                    expect(result) == "10480f3fd315c42728be2893595ede4a"
                 }
             }
         }
     }
 }
 
-private extension Data {
-    init(fromJsonFile filename: String) {
-        let bundle = Bundle(for: SabNZBdResponseParserSpec.self)
-        let filePath = bundle.path(forResource: filename, ofType: "json")!
-
-        // swiftlint:disable force_try
-        try! self.init(contentsOf: URL(fileURLWithPath: filePath))
-    }
-}
