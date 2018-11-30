@@ -1,5 +1,5 @@
 //
-//  StringSpec.swift
+//  StringExtensions.swift
 //  DownKitTests
 //
 //  Created by Ruud Puts on 13/06/2018.
@@ -10,7 +10,7 @@
 import Quick
 import Nimble
 
-class StringSpec: QuickSpec {
+class StringExtensions: QuickSpec {
     override func spec() {
         describe("String") {
             var sut: String!

@@ -17,7 +17,6 @@ extension TimeInterval {
 extension Date {
     var dateString: String {
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
         formatter.dateFormat = "yyyy-MM-dd"
 
         return formatter.string(from: self)
@@ -27,7 +26,7 @@ extension Date {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         formatter.dateFormat = "HH:mm:ss"
-        if self.timeIntervalSinceReferenceDate < 3600 {
+        if timeIntervalSinceReferenceDate < 3600 {
             formatter.dateFormat = "mm:ss"
         }
 
