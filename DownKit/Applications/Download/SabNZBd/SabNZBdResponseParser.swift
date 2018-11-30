@@ -62,7 +62,26 @@ class SabNZBdResponseParser: DownloadResponseParsing {
 }
 
 extension SabNZBdResponseParser: ApiApplicationResponseParsing {
+    func validateServerHeader(in response: Response) -> Bool {
+
+        /*
+         < HTTP/1.1 303 See Other
+         < Content-Length: 60
+         < Vary: Accept-Encoding
+         < Server: CherryPy/8.1.2
+         < Location: /login/
+         < Date: Fri, 30 Nov 2018 21:05:29 GMT
+         < Content-Type: text/html;charset=utf-8
+         */
+
+        return response.headers?["Server"]?.matches("CherryPy\\/.*?") ?? false
+    }
+
     func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
+        guard validateServerHeader(in: response) else {
+            return .success(.failed)
+        }
+        
         let loginFormStart = "<form class=\"form-signin\" action=\"./\" method=\"post\">"
 
         return parse(response).map {
@@ -224,13 +243,3 @@ private extension Date {
         return TimeInterval(components.hour! * 3600 + components.minute! * 60 + components.second!)
     }
 }
-
-/*
- < HTTP/1.1 303 See Other
- < Content-Length: 60
- < Vary: Accept-Encoding
- < Server: CherryPy/8.1.2
- < Location: /login/
- < Date: Fri, 30 Nov 2018 21:05:29 GMT
- < Content-Type: text/html;charset=utf-8
- */

@@ -120,38 +120,67 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                         result = nil
                     }
 
-                    context("succesful login") {
-                        beforeEach {
-                            response = Response(data: Data(fromFile: "couchpotato_apikey"),
-                                                statusCode: 200, headers: nil)
-                            result = sut.parseLoggedIn(from: response).value
-                        }
+                    context("without valid server header") {
+                        context("succesful login") {
+                            beforeEach {
+                                response = Response(data: Data(fromFile: "couchpotato_apikey"),
+                                                    statusCode: 200,
+                                                    headers: nil)
+                                result = sut.parseLoggedIn(from: response).value
+                            }
 
-                        it("returns success") {
-                            expect(result) == .success
-                        }
-                    }
-
-                    context("failed login by statuscode") {
-                        beforeEach {
-                            response = Response(data: nil, statusCode: 400, headers: nil)
-                            result = sut.parseLoggedIn(from: response).value
-                        }
-
-                        it("returns authentication required") {
-                            expect(result) == .authenticationRequired
+                            it("returns failed") {
+                                expect(result) == .failed
+                            }
                         }
                     }
 
-                    context("failed login by body") {
+                    context("with valid server header") {
+                        var headers: [String: String]?
+
                         beforeEach {
-                            response = Response(data: Data(fromFile: "couchpotato_login", extension: "html"),
-                                                statusCode: 200, headers: nil)
-                            result = sut.parseLoggedIn(from: response).value
+                            headers = ["Server": "TornadoServer/Test"]
                         }
 
-                        it("returns authentication required") {
-                            expect(result) == .authenticationRequired
+                        afterEach {
+                            headers = nil
+                        }
+
+                        context("succesful login") {
+                            beforeEach {
+                                response = Response(data: Data(fromFile: "couchpotato_apikey"),
+                                                    statusCode: 200,
+                                                    headers: headers)
+                                result = sut.parseLoggedIn(from: response).value
+                            }
+
+                            it("returns success") {
+                                expect(result) == .success
+                            }
+                        }
+
+                        context("failed login by statuscode") {
+                            beforeEach {
+                                response = Response(data: nil, statusCode: 400, headers: headers)
+                                result = sut.parseLoggedIn(from: response).value
+                            }
+
+                            it("returns authentication required") {
+                                expect(result) == .authenticationRequired
+                            }
+                        }
+
+                        context("failed login by body") {
+                            beforeEach {
+                                response = Response(data: Data(fromFile: "couchpotato_login", extension: "html"),
+                                                    statusCode: 200,
+                                                    headers: headers)
+                                result = sut.parseLoggedIn(from: response).value
+                            }
+
+                            it("returns authentication required") {
+                                expect(result) == .authenticationRequired
+                            }
                         }
                     }
                 }

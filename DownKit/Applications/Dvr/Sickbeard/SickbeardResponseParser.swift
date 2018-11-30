@@ -81,7 +81,26 @@ class SickbeardResponseParser: DvrResponseParsing {
         return parse(response).map { _ in true }
     }
 
+    func validateServerHeader(in response: Response) -> Bool {
+
+        /*
+         < HTTP/1.1 303 See Other
+         < Content-Length: 108
+         < Vary: Accept-Encoding
+         < Server: CherryPy/3.2.0rc1
+         < Location: http://192.168.2.100:8081/home/
+         < Date: Fri, 30 Nov 2018 21:05:53 GMT
+         < Content-Type: text/html;charset=utf-8
+         */
+
+        return response.headers?["Server"]?.matches("CherryPy\\/.*?") ?? false
+    }
+
     func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
+        guard validateServerHeader(in: response) else {
+            return .success(.failed)
+        }
+
         if response.statusCode >= 400 && response.statusCode < 500 {
             return .success(.authenticationRequired)
         }
@@ -251,14 +270,3 @@ struct ParseSearchShowsKeyMapping: ParseShowsKeyMaping {
     static var id = "tvdbid"
     static var name = "name"
 }
-
-
-/*
- < HTTP/1.1 303 See Other
- < Content-Length: 108
- < Vary: Accept-Encoding
- < Server: CherryPy/3.2.0rc1
- < Location: http://192.168.2.100:8081/home/
- < Date: Fri, 30 Nov 2018 21:05:53 GMT
- < Content-Type: text/html;charset=utf-8
- */

@@ -136,26 +136,56 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     result = nil
                 }
 
-                context("succesful login") {
+                context("without valid server header") {
+                    context("succesful login") {
+                        beforeEach {
+                            response.data = Data(fromFile: "sabnzbd_apikey", extension: "html")
+                            result = sut.parseLoggedIn(from: response).value
+                        }
 
-                    beforeEach {
-                        response.data = Data(fromFile: "sabnzbd_apikey", extension: "html")
-                        result = sut.parseLoggedIn(from: response).value
-                    }
-
-                    it("returns success") {
-                        expect(result) == .success
+                        it("returns failed") {
+                            expect(result) == .failed
+                        }
                     }
                 }
 
-                context("failed login") {
+                context("with valid server header") {
+                    var headers: [String: String]?
+
                     beforeEach {
-                        response.data = Data(fromFile: "sabnzbd_login", extension: "html")
-                        result = sut.parseLoggedIn(from: response).value
+                        headers = ["Server": "CherryPy/Test"]
                     }
 
-                    it("returns authentication required") {
-                        expect(result) == .authenticationRequired
+                    afterEach {
+                        headers = nil
+                    }
+
+                    context("succesful login") {
+                        beforeEach {
+                            response = Response(data: Data(fromFile: "sabnzbd_apikey", extension: "html"),
+                                                statusCode: 200,
+                                                headers: headers)
+
+                            result = sut.parseLoggedIn(from: response).value
+                        }
+
+                        it("returns success") {
+                            expect(result) == .success
+                        }
+                    }
+
+                    context("failed login") {
+                        beforeEach {
+                            response = Response(data: Data(fromFile: "sabnzbd_login", extension: "html"),
+                                                statusCode: 400,
+                                                headers: headers)
+
+                            result = sut.parseLoggedIn(from: response).value
+                        }
+
+                        it("returns authentication required") {
+                            expect(result) == .authenticationRequired
+                        }
                     }
                 }
             }

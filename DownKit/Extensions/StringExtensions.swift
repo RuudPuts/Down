@@ -13,6 +13,18 @@ internal extension String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
+    func matches(_ regex: String) -> Bool {
+        do {
+            return try !NSRegularExpression(pattern: regex, options: [])
+                .matches(in: self, options: [], range: NSRange(location: 0, length: self.count))
+                .isEmpty
+        }
+        catch {
+            NSLog("Error while matching '\(regex)' to \(self):\n\t\(error.localizedDescription)")
+            return false
+        }
+    }
+
     func components(matching regex: String) -> [String]? {
         do {
             return try NSRegularExpression(pattern: regex, options: [])

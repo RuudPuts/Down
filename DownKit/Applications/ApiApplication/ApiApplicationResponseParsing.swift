@@ -11,4 +11,6 @@ import Result
 public protocol ApiApplicationResponseParsing: ResponseParsing {
     func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError>
     func parseApiKey(from response: Response) -> Result<String?, DownKitError>
+
+    func validateServerHeader(in response: Response) -> Bool
 }

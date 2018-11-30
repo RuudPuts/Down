@@ -17,6 +17,7 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
         var parseHistory: [DownloadItem]?
         var parseDeleteItem = false
 
+        var validateServerHeader = false
         var parseLogin = LoginResult.failed
         var parseApiKey: String?
     }
@@ -75,6 +76,10 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
     }
 
     // ApiApplicationResponseParsing
+
+    func validateServerHeader(in response: Response) -> Bool {
+        return stubs.validateServerHeader
+    }
 
     func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
         captures.parseLogin = Captures.Parse(response: response)

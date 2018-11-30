@@ -36,7 +36,26 @@ private extension CouchPotatoResponseParser {
 }
 
 extension CouchPotatoResponseParser: ApiApplicationResponseParsing {
+    func validateServerHeader(in response: Response) -> Bool {
+
+        /*
+         < HTTP/1.1 200 OK
+         < Content-Length: 9748
+         < Vary: Accept-Encoding
+         < Server: TornadoServer/4.1
+         < Etag: "8f836598fb5041239e612084f6491097abcaa534"
+         < Date: Fri, 30 Nov 2018 21:06:19 GMT
+         < Content-Type: text/html; charset=UTF-8
+         */
+
+        return response.headers?["Server"]?.matches("TornadoServer\\/.*?") ?? false
+    }
+
     func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
+        guard validateServerHeader(in: response) else {
+            return .success(.failed)
+        }
+
         if response.statusCode >= 400 && response.statusCode < 500 {
             return .success(.authenticationRequired)
         }
@@ -87,13 +106,3 @@ extension CouchPotatoResponseParser {
         return .success(json)
     }
 }
-
-/*
- < HTTP/1.1 200 OK
- < Content-Length: 9748
- < Vary: Accept-Encoding
- < Server: TornadoServer/4.1
- < Etag: "8f836598fb5041239e612084f6491097abcaa534"
- < Date: Fri, 30 Nov 2018 21:06:19 GMT
- < Content-Type: text/html; charset=UTF-8
- */

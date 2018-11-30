@@ -25,6 +25,7 @@
 		420CD7B021B1EB0F0086FBFA /* sabnzbd_login.html in Resources */ = {isa = PBXBuildFile; fileRef = 420CD7AF21B1EB0F0086FBFA /* sabnzbd_login.html */; };
 		420CD7B221B1ED650086FBFA /* couchpotato_login.html in Resources */ = {isa = PBXBuildFile; fileRef = 420CD7B121B1ED650086FBFA /* couchpotato_login.html */; };
 		420CD7B421B1F5C20086FBFA /* DataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420CD7B321B1F5C20086FBFA /* DataExtensions.swift */; };
+		420CD7B621B1FDD60086FBFA /* SickgearResponseParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420CD7B521B1FDD60086FBFA /* SickgearResponseParserSpec.swift */; };
 		420E2E5A21A1F045000891C8 /* DownloadStatusTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E2E5921A1F045000891C8 /* DownloadStatusTableController.swift */; };
 		421752DC217BB1F80002F0C1 /* DownloadItemDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */; };
 		421752DE217BB3DF0002F0C1 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DD217BB3DF0002F0C1 /* ReusableCell.swift */; };
@@ -350,6 +351,7 @@
 		420CD7AF21B1EB0F0086FBFA /* sabnzbd_login.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = sabnzbd_login.html; sourceTree = "<group>"; };
 		420CD7B121B1ED650086FBFA /* couchpotato_login.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = couchpotato_login.html; sourceTree = "<group>"; };
 		420CD7B321B1F5C20086FBFA /* DataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensions.swift; sourceTree = "<group>"; };
+		420CD7B521B1FDD60086FBFA /* SickgearResponseParserSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickgearResponseParserSpec.swift; sourceTree = "<group>"; };
 		420E2E5921A1F045000891C8 /* DownloadStatusTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadStatusTableController.swift; sourceTree = "<group>"; };
 		421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItemDetailRow.swift; sourceTree = "<group>"; };
 		421752DD217BB3DF0002F0C1 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 			isa = PBXGroup;
 			children = (
 				420CD79821B1D0C00086FBFA /* SickgearRequestBuilderSpec.swift */,
+				420CD7B521B1FDD60086FBFA /* SickgearResponseParserSpec.swift */,
 			);
 			path = Sickgear;
 			sourceTree = "<group>";
@@ -2410,6 +2413,7 @@
 				4221DABC20D1860E003950CF /* DvrResponseParsingMock.swift in Sources */,
 				428340B720D28D7400CB2D7A /* DvrRequestBuildingMock.swift in Sources */,
 				42384A5121613063004A0349 /* DmrRequestBuildingMock.swift in Sources */,
+				420CD7B621B1FDD60086FBFA /* SickgearResponseParserSpec.swift in Sources */,
 				427D605320DED3E30017AE42 /* SabNZBdRequestBuilderSpec.swift in Sources */,
 				42384A6321613E0B004A0349 /* CouchPotatoRequestBuilderSpec.swift in Sources */,
 				4227B7B520DD8EDC00603528 /* DownloadRequestBuildingMock.swift in Sources */,

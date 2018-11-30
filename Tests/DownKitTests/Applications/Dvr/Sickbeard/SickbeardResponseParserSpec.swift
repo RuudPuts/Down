@@ -252,25 +252,50 @@ class SickbeardResponseParserSpec: QuickSpec {
                     result = nil
                 }
 
-                context("succesful login") {
-                    beforeEach {
-                        response = Response(data: nil, statusCode: 200, headers: nil)
-                        result = sut.parseLoggedIn(from: response).value
-                    }
+                context("without valid server header") {
+                    context("succesful login") {
+                        beforeEach {
+                            response = Response(data: nil, statusCode: 200, headers: nil)
+                            result = sut.parseLoggedIn(from: response).value
+                        }
 
-                    it("returns success") {
-                        expect(result) == .success
+                        it("returns failed") {
+                            expect(result) == .failed
+                        }
                     }
                 }
 
-                context("failed login") {
+                context("with valid server header") {
+                    var headers: [String: String]?
+
                     beforeEach {
-                        response = Response(data: nil, statusCode: 400, headers: nil)
-                        result = sut.parseLoggedIn(from: response).value
+                        headers = ["Server": "CherryPy/Test"]
                     }
 
-                    it("returns authentication required") {
-                        expect(result) == .authenticationRequired
+                    afterEach {
+                        headers = nil
+                    }
+
+                    context("succesful login") {
+                        beforeEach {
+                            response = Response(data: nil, statusCode: 200, headers: headers)
+                            result = sut.parseLoggedIn(from: response).value
+                        }
+
+                        it("returns success") {
+                            expect(result) == .success
+                        }
+                    }
+
+                    context("failed login") {
+                        beforeEach {
+                            response = Response(data: nil, statusCode: 400, headers: headers)
+                            result = sut.parseLoggedIn(from: response).value
+                        }
+
+                        it("returns authentication required") {
+                            expect(result) == .authenticationRequired
+                        }
                     }
                 }
             }

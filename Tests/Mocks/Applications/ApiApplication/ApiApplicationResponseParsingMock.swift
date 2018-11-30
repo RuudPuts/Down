@@ -13,6 +13,7 @@ class ApiApplicationResponseParsingMock: ApiApplicationResponseParsing {
     struct Stubs {
         var application: ApiApplication!
 
+        var validateServerHeader = false
         var parseLogin = LoginResult.failed
         var parseApiKey: String?
     }
@@ -50,6 +51,10 @@ class ApiApplicationResponseParsingMock: ApiApplicationResponseParsing {
     }
     
     // ApiApplicationResponseParsing
+
+    func validateServerHeader(in response: Response) -> Bool {
+        return stubs.validateServerHeader
+    }
 
     func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
         captures.parseLogin = Captures.Parse(response: response)
