@@ -47,7 +47,7 @@ class SickbeardResponseParser: DvrResponseParsing {
                 episodes: parseEpisodes(from: $0.value),
                 show: show
             )}
-            .sorted(by: { Int($0.identifier)! > Int($1.identifier)! })
+            .sorted(by: { Int($0.identifier)! < Int($1.identifier)! })
         show.setSeasons(seasons ?? [])
         
         return .success(show)
@@ -145,7 +145,7 @@ private extension SickbeardResponseParser {
                 status: status
             )
         } ?? []
-        .sorted(by: { Int($0.identifier)! > Int($1.identifier)! })
+        .sorted(by: { Int($0.identifier)! < Int($1.identifier)! })
     }
 
     func parseQuality(from json: JSON) -> Quality {
