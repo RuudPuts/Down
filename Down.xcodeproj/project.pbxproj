@@ -19,6 +19,7 @@
 		420C28302163ED0E0088259C /* SettingsApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C282F2163ED0E0088259C /* SettingsApplicationCell.swift */; };
 		420C28322163F58D0088259C /* SettingsApplicationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420C28312163F58D0088259C /* SettingsApplicationCell.xib */; };
 		420CD79621B1CABF0086FBFA /* DateExtensionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420CD79421B1CA140086FBFA /* DateExtensionsSpec.swift */; };
+		420CD7A221B1D0C00086FBFA /* SickgearRequestBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420CD79821B1D0C00086FBFA /* SickgearRequestBuilderSpec.swift */; };
 		420E2E5A21A1F045000891C8 /* DownloadStatusTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E2E5921A1F045000891C8 /* DownloadStatusTableController.swift */; };
 		421752DC217BB1F80002F0C1 /* DownloadItemDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */; };
 		421752DE217BB3DF0002F0C1 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DD217BB3DF0002F0C1 /* ReusableCell.swift */; };
@@ -338,6 +339,7 @@
 		420C282F2163ED0E0088259C /* SettingsApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsApplicationCell.swift; sourceTree = "<group>"; };
 		420C28312163F58D0088259C /* SettingsApplicationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsApplicationCell.xib; sourceTree = "<group>"; };
 		420CD79421B1CA140086FBFA /* DateExtensionsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensionsSpec.swift; sourceTree = "<group>"; };
+		420CD79821B1D0C00086FBFA /* SickgearRequestBuilderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SickgearRequestBuilderSpec.swift; sourceTree = "<group>"; };
 		420E2E5921A1F045000891C8 /* DownloadStatusTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadStatusTableController.swift; sourceTree = "<group>"; };
 		421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItemDetailRow.swift; sourceTree = "<group>"; };
 		421752DD217BB3DF0002F0C1 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
@@ -694,6 +696,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		420CD79721B1D0C00086FBFA /* Sickgear */ = {
+			isa = PBXGroup;
+			children = (
+				420CD79821B1D0C00086FBFA /* SickgearRequestBuilderSpec.swift */,
+			);
+			path = Sickgear;
+			sourceTree = "<group>";
+		};
 		4221DA2D20D1819F003950CF /* DownKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -947,6 +957,7 @@
 			children = (
 				4221DAB620D1860E003950CF /* Core */,
 				4221DAB720D1860E003950CF /* Sickbeard */,
+				420CD79721B1D0C00086FBFA /* Sickgear */,
 			);
 			path = Dvr;
 			sourceTree = "<group>";
@@ -2393,6 +2404,7 @@
 				427D604F20DED3E30017AE42 /* DownloadGatewayFactorySpec.swift in Sources */,
 				422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */,
 				4221DABB20D1860E003950CF /* ResponseParsingMock.swift in Sources */,
+				420CD7A221B1D0C00086FBFA /* SickgearRequestBuilderSpec.swift in Sources */,
 				4227B78520DC3BB200603528 /* RealmDatabaseSpec.swift in Sources */,
 				428340C920D2FF9300CB2D7A /* RequestBuildingMock.swift in Sources */,
 				42BF4E9620D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift in Sources */,
