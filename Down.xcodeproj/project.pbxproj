@@ -278,6 +278,8 @@
 		42E0147A2135DACD006D550D /* DvrShowHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42E014792135DACD006D550D /* DvrShowHeaderView.xib */; };
 		42E49DC9214458C600F8491B /* DownKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E49DC8214458C600F8491B /* DownKit.swift */; };
 		42E49DCB21445B1000F8491B /* DownKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E49DCA21445B1000F8491B /* DownKitExtensions.swift */; };
+		42F6DA2121B2FDF00080E12B /* RxExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F6DA2021B2FDF00080E12B /* RxExtensions.swift */; };
+		42F6DA2321B2FE200080E12B /* RxExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F6DA2221B2FE200080E12B /* RxExtensions.swift */; };
 		42FB90392101154C007B01DB /* ApplicationPersisting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FB9037210114DA007B01DB /* ApplicationPersisting.swift */; };
 		42FC9B0B21A17BDE00910968 /* ResponseStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC9B0921A17B8900910968 /* ResponseStub.swift */; };
 		42FC9B0D21A1AA2D00910968 /* ReactiveBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */; };
@@ -613,6 +615,8 @@
 		42E014792135DACD006D550D /* DvrShowHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrShowHeaderView.xib; sourceTree = "<group>"; };
 		42E49DC8214458C600F8491B /* DownKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownKit.swift; sourceTree = "<group>"; };
 		42E49DCA21445B1000F8491B /* DownKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownKitExtensions.swift; sourceTree = "<group>"; };
+		42F6DA2021B2FDF00080E12B /* RxExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExtensions.swift; sourceTree = "<group>"; };
+		42F6DA2221B2FE200080E12B /* RxExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExtensions.swift; sourceTree = "<group>"; };
 		42FB9037210114DA007B01DB /* ApplicationPersisting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPersisting.swift; sourceTree = "<group>"; };
 		42FC9B0921A17B8900910968 /* ResponseStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseStub.swift; sourceTree = "<group>"; };
 		42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveBindable.swift; sourceTree = "<group>"; };
@@ -1771,6 +1775,7 @@
 				42BF4E8920D1B5990088AAF6 /* StringExtensions.swift */,
 				42723A1A20D7FBFA000445C3 /* ObservableExtensions.swift */,
 				42223882213454F900F73619 /* UIImageResizeExtension.swift */,
+				42F6DA2021B2FDF00080E12B /* RxExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1803,6 +1808,7 @@
 				42E014752135CC18006D550D /* DateExtensions.swift */,
 				42E49DCA21445B1000F8491B /* DownKitExtensions.swift */,
 				421752DD217BB3DF0002F0C1 /* ReusableCell.swift */,
+				42F6DA2221B2FE200080E12B /* RxExtensions.swift */,
 				423A5504216917A800CC558A /* UICollectionViewExtensions.swift */,
 				4235075F21249866005343CD /* UITableViewExtensions.swift */,
 				42750B7221A5E9CF00DBE989 /* UITextFieldExtensions.swift */,
@@ -2369,6 +2375,7 @@
 				426BF73C20F688CA000C3A4A /* RequestSpecification.swift in Sources */,
 				42335DA1216D445F0048BB56 /* DateExtensions.swift in Sources */,
 				4221DA8C20D18450003950CF /* ApiApplication.swift in Sources */,
+				42F6DA2121B2FDF00080E12B /* RxExtensions.swift in Sources */,
 				429B01D320F5324E00BCDA0F /* ApiApplicationRequestGateway.swift in Sources */,
 				4227B7A120DC589500603528 /* DownloadApplication.swift in Sources */,
 				4221DA9520D18450003950CF /* DvrResponseParsing.swift in Sources */,
@@ -2468,6 +2475,7 @@
 				4222388121343C7B00F73619 /* DvrShowsCollectionViewModel.swift in Sources */,
 				4221DA5820D183EA003950CF /* DvrShowsViewController.swift in Sources */,
 				42750B7321A5E9CF00DBE989 /* UITextFieldExtensions.swift in Sources */,
+				42F6DA2321B2FE200080E12B /* RxExtensions.swift in Sources */,
 				424DDA7F2144718500588B48 /* UINavigationBarStyle.swift in Sources */,
 				4221DA5420D183B6003950CF /* DvrShowDetailViewController.swift in Sources */,
 				42E014782135DA9D006D550D /* DvrShowHeaderView.swift in Sources */,

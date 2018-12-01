@@ -91,6 +91,11 @@ extension DvrShowsViewController: ReactiveBinding {
     func bind(to viewModel: DvrShowsViewModel) {
         let output = viewModel.transform(input: makeInput())
 
+        output.refreshShowCache
+            .debug()
+            .subscribe()
+            .disposed(by: disposeBag)
+
         output.shows
             .drive(collectionViewModel.rx.shows)
             .disposed(by: disposeBag)
