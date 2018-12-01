@@ -11,79 +11,67 @@ import RealmSwift
 import RxRealm
 
 public class RealmDatabase: DownDatabase {
-    var realm: Realm!
+    var configuration: Realm.Configuration
     
-    public init(realm: Realm? = nil) {
-        if let realm = realm {
-            self.realm = realm
-        }
-        else {
-            self.realm = try! Realm()
-        }
+    public init(configuration: Realm.Configuration = .defaultConfiguration) {
+        self.configuration = configuration
     }
-    
-    public func transact(block: @escaping () -> Void) {
-        DispatchQueue.main.async {
-            block()
-        }
+
+    private func makeRealm() -> Realm {
+        return try! Realm(configuration: self.configuration)
     }
-    
+
     public func store(show: DvrShow) {
-        transact {
-            // swiftlint:disable force_try
-            try! self.realm.write {
-                self.realm.add(show, update: true)
-            }
+        let realm = makeRealm()
+        try? realm.write {
+            realm.add(show, update: true)
         }
     }
 
     public func delete(show: DvrShow) {
-        transact {
-            // swiftlint:disable force_try
-            try! self.realm.write {
-                self.realm.delete(show)
-            }
+        let realm = makeRealm()
+        try? realm.write {
+            realm.delete(show)
         }
     }
     
     public func fetchShows() -> Observable<[DvrShow]> {
-        let shows = self.realm.objects(DvrShow.self)
+        let shows = makeRealm().objects(DvrShow.self)
 
         return Observable.array(from: shows)
     }
     
     public func fetchShow(matching nameComponents: [String]) -> Maybe<DvrShow> {
         return Maybe.create { observer in
-            self.transact {
-                var matches: Results<DvrShow>?
-                
-                for component in nameComponents {
-                    let componentFilter = "name contains[c] '\(component)'"
-                    
-                    var componentMatches = matches
-                    if componentMatches == nil {
-                        componentMatches = self.realm.objects(DvrShow.self)
-                            .filter(componentFilter)
-                    }
-                    else {
-                        componentMatches = matches?.filter(componentFilter)
-                    }
-                    
-                    if componentMatches?.count ?? 0 > 0 {
-                        matches = componentMatches
-                    }
-                    else if matches != nil {
-                        break
-                    }
-                }
-                
-                if let show = matches?.first {
-                    observer(.success(show))
+            let realm = self.makeRealm()
+            var matches: Results<DvrShow>?
+
+            for component in nameComponents {
+                let componentFilter = "name contains[c] '\(component)'"
+
+                var componentMatches = matches
+                if componentMatches == nil {
+                    componentMatches = realm.objects(DvrShow.self).filter(componentFilter)
                 }
                 else {
-                    observer(.completed)
+                    componentMatches = matches?.filter(componentFilter)
+                }
+
+                if componentMatches?.count ?? 0 > 0 {
+                    matches = componentMatches
+                }
+                else if matches != nil {
+                    break
                 }
             }
+
+            if let show = matches?.first {
+                observer(.success(show))
+            }
+            else {
+                observer(.completed)
+            }
+
             return Disposables.create()
         }
     }
