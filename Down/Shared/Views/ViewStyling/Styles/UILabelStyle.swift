@@ -69,7 +69,8 @@ extension ViewStyling where ViewType == UILabel {
                 $0.backgroundColor = Stylesheet.Colors.green
             case .hdtv:
                 $0.backgroundColor = Stylesheet.Colors.orange
-            case .unknown: break
+            case .unknown:
+                $0.backgroundColor = Stylesheet.Colors.blue
             }
         }
     }
@@ -138,14 +139,14 @@ extension ViewStyling where ViewType == UILabel {
             switch status {
             case .wanted:
                 $0.textColor = Stylesheet.Colors.red
-            case .skipped, .archived, .ignored:
+            case .skipped, .archived, .ignored, .unaired:
                 $0.textColor = Stylesheet.Colors.blue
             case .snatched:
                 $0.textColor = Stylesheet.Colors.purple
             case .downloaded:
                 $0.textColor = Stylesheet.Colors.green
             case .unknown:
-                break
+                $0.textColor = Stylesheet.Colors.white
             }
         }
     }
