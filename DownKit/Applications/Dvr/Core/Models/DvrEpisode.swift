@@ -41,6 +41,7 @@ public enum DvrEpisodeStatus: Int {
     case skipped
     case archived
     case ignored
+    case unaired
     case snatched
     case downloaded
 }

@@ -241,6 +241,7 @@ extension DvrEpisodeStatus {
         case .skipped: return "skipped"
         case .archived: return "archived"
         case .ignored: return "ignored"
+        case .unaired: return "unaired"
         case .snatched: return "snatched"
         case .downloaded: return "downloaded"
         }
