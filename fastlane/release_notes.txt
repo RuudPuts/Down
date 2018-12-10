@@ -1,7 +1,5 @@
-New
-- Show cache updates the first time the shows overview is opened
-
 Fixes
 
-- Wrong air date shown for show episodes
-- Add shows screen wouldn't function after error
+- Fixed dark circle shown on selection of download history item
+- 'Unaired' was missing as episode status
+- Unkown state for episode would be shown in the wrong color
