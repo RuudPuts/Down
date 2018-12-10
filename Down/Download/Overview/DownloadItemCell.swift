@@ -62,7 +62,7 @@ extension DownloadItemCell {
     }
 
     private func configure(with application: DownloadApplication, andItem item: DownloadHistoryItem) {
-        progressView.isHidden = item.state.hasProgress
+        progressView.isHidden = !item.state.hasProgress
 
         statusLabel.text = item.state.displayName
         timeLabel.text = item.finishDate?.dateTimeString
