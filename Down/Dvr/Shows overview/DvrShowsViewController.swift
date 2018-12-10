@@ -92,7 +92,6 @@ extension DvrShowsViewController: ReactiveBinding {
         let output = viewModel.transform(input: makeInput())
 
         output.refreshShowCache
-            .debug()
             .subscribe()
             .disposed(by: disposeBag)
 
