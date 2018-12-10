@@ -1,4 +1,8 @@
-Fixes
+Fixes (12)
+
+- Fixed wrong status shown for episode
+
+Fixes (13)
 
 - Fixed dark circle shown on selection of download history item
 - 'Unaired' was missing as episode status
