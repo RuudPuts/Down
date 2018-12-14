@@ -10,6 +10,7 @@ import DownKit
 import RxSwift
 import RxCocoa
 import Result
+import RxResult
 
 struct DvrAddShowViewModel: Depending {
     typealias Dependencies = DvrApplicationDependency & DvrInteractorFactoryDependency
@@ -32,7 +33,7 @@ extension DvrAddShowViewModel: ReactiveBindable {
 
     struct Output {
         let searchResults: Observable<[DvrShow]>
-        let showAdded: Observable<Result<DvrShow, DownKitError>>
+        let showAdded: Observable<Result<DvrShow, DownError>>
     }
 
     func transform(input: Input) -> Output {
@@ -41,6 +42,8 @@ extension DvrAddShowViewModel: ReactiveBindable {
                 self.dependencies.dvrInteractorFactory
                     .makeSearchShowsInteractor(for: self.dependencies.dvrApplication, query: $0)
                     .observe()
+                    .asObservable()
+                    .mapResult(DownError.self)
                     .map { $0.value ?? [] }
             }
 
@@ -52,6 +55,8 @@ extension DvrAddShowViewModel: ReactiveBindable {
                 self.dependencies.dvrInteractorFactory
                     .makeAddShowInteractor(for: self.dependencies.dvrApplication, show: $0)
                     .observe()
+                    .asObservable()
+                    .mapResult(DownError.self)
             }
 
         return Output(searchResults: searchResultsDriver, showAdded: showAddedDriver)

@@ -10,6 +10,7 @@ import DownKit
 import RxSwift
 import RxCocoa
 import Result
+import RxResult
 
 struct DvrShowDetailsViewModel: Depending {
     typealias Dependencies = DvrInteractorFactoryDependency & DvrRequestBuilderDependency
@@ -38,7 +39,7 @@ extension DvrShowDetailsViewModel: ReactiveBindable {
 
     struct Output {
         let refinedShow: Driver<RefinedShow>
-        let showDeleted: Observable<Result<Bool, DownKitError>>
+        let showDeleted: Observable<Result<Bool, DownError>>
     }
 
     func transform(input: Input) -> Output {
@@ -52,6 +53,8 @@ extension DvrShowDetailsViewModel: ReactiveBindable {
                 self.dependencies.dvrInteractorFactory
                     .makeDeleteShowInteractor(for: self.dependencies.dvrApplication, show: self.show)
                     .observe()
+                    .asObservable()
+                    .mapResult(DownError.self)
             }
 
         return Output(refinedShow: refinedShowDriver, showDeleted: showDeletedDriver)

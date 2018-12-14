@@ -11,7 +11,6 @@ import Quick
 import Nimble
 import RealmSwift
 import SwiftyJSON
-import Result
 
 class SickgearResponseParserSpec: QuickSpec {
     // swiftlint:disable function_body_length

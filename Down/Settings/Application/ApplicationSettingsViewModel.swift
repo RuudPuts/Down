@@ -123,16 +123,15 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
     func login(for application: ApiApplication, withCredentials credentials: UsernamePassword?) -> Single<LoginResult> {
         return dependencies.apiInteractorFactory
             .makeLoginInteractor(for: application, credentials: credentials)
-            .observe()
-            .asObservable()
-//            .do(
-//                onSuccess: { result in
-//                    NSLog("Login result: \(result)")
-//                },
-//                onFailure: { error in
-//                    NSLog("Login error: \(error)")
-//                }
-//            )
+            .observeResult()
+            .do(
+                onSuccess: { result in
+                    NSLog("Login result: \(result)")
+                },
+                onFailure: { error in
+                    NSLog("Login error: \(error)")
+                }
+            )
             .map { $0.value ?? .failed }
             .asSingle()
     }
@@ -140,21 +139,22 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
     func fetchApiKey(for application: ApiApplication, withCredentials credentials: UsernamePassword?) -> Single<String?> {
         return dependencies.apiInteractorFactory
             .makeApiKeyInteractor(for: application, credentials: credentials)
-            .observe()
+            .observeResult()
+            .do(
+                onSuccess: {
+                    guard let apiKey = $0 else {
+                        NSLog("⚠️ Api key fetch was succesful, but no data was returend!")
+                        return
+                    }
+
+                    NSLog("Api key: \(apiKey)")
+                },
+                onFailure: { error in
+                    NSLog("ApiKey error: \(error)")
+                }
+            )
             .map { $0.value ?? nil }
-//            .do(
-//                onSuccess: {
-//                    guard let apiKey = $0 else {
-//                        NSLog("⚠️ Api key fetch was succesful, but no data was returend!")
-//                        return
-//                    }
-//
-//                    NSLog("Api key: \(apiKey)")
-//                },
-//                onError: { error in
-//                    NSLog("ApiKey error: \(error)")
-//                }
-//            )
+            .asSingle()
     }
 
     func updateCache(for application: ApiApplication) -> Single<Bool> {
@@ -164,17 +164,16 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
 
         return dependencies.dvrInteractorFactory
             .makeShowCacheRefreshInteractor(for: dvrApplication)
-            .observe()
-            .asObservable()
-//            .do(
-//                onSuccess: { result in
-//                    NSLog("Cache result: \(result)")
-//                },
-//                onFailure: { error in
-//                    NSLog("Cache error: \(error)")
-//                }
-//            )
+            .observeResult()
+            .do(
+                onSuccess: { result in
+                    NSLog("Cache result: \(result)")
+                },
+                onFailure: { error in
+                    NSLog("Cache error: \(error)")
+                }
+            )
             .asSingle()
-            .map { _ in true }
+            .map { $0.error == nil }
     }
 }

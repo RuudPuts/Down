@@ -106,3 +106,12 @@ extension DvrEpisodeStatus {
         }
     }
 }
+
+extension ObservableInteractor {
+    func observeResult() -> Observable<Result<Element, DownError>> {
+        return observe()
+            .asObservable()
+            .mapResult(DownError.self)
+    }
+}
+

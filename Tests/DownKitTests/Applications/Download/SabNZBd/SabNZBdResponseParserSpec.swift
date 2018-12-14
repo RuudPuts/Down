@@ -11,7 +11,6 @@ import Quick
 import Nimble
 import RealmSwift
 import SwiftyJSON
-import Result
 
 class SabNZBdResponseParserSpec: QuickSpec {
     // swiftlint:disable function_body_length
