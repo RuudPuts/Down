@@ -60,7 +60,6 @@ target 'DownKit' do
 
   rxswift_pods
   realm_pods
-  result_pods
 
   pod 'Alamofire', '~> 4.7.0'
   pod 'SwiftyJSON', '~> 4.2.0'

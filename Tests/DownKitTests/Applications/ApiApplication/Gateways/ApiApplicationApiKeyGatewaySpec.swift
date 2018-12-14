@@ -11,7 +11,6 @@ import RxBlocking
 import RxSwift
 import Quick
 import Nimble
-import Result
 
 class ApiApplicationApiKeyGatewaySpec: QuickSpec {
     // swiftlint:disable function_body_length
@@ -74,7 +73,7 @@ class ApiApplicationApiKeyGatewaySpec: QuickSpec {
 
                     responseParser.stubs.parseApiKey = "API_KEY"
 
-                    result = sut.parse(response: response).value ?? nil
+                    result = try! sut.parse(response: response)
                 }
 
                 afterEach {

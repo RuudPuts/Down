@@ -7,8 +7,6 @@
 //
 
 import RxSwift
-import RxSwiftExt
-import Result
 
 public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableInteractor {
     public typealias Interactors = DvrInteractorProducing
@@ -29,16 +27,14 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
         self.database = database
     }
     
-    public func observe() -> Single<Result<[DvrShow], DownKitError>> {
+    public func observe() -> Single<[DvrShow]> {
         return interactors
             .makeShowListInteractor(for: application)
             .observe()
-            .map { $0.value ?? [] }
             .asObservable()
             .flatMap { self.processDeletedShows($0) }
             .flatMap { self.determineShowsToRefresh($0) }
             .flatMap { self.refreshShowDetails($0) }
-            .map { .success($0) }
             .asSingle()
     }
 
@@ -85,11 +81,9 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
             self.interactors
                 .makeShowDetailsInteractor(for: self.application, show: $0)
                 .observe()
-                .asObservable()
-                .map { $0.value }
-                .unwrap()
                 .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-                .do(onNext: { $0.store(in: self.database) })
+                .do(onSuccess: { $0.store(in: self.database) })
+                .asObservable()
                 .observeOn(MainScheduler.instance)
             }
 

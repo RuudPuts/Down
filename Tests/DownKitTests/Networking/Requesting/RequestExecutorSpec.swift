@@ -9,7 +9,6 @@
 @testable import DownKit
 import RxSwift
 import RxBlocking
-import Result
 import Quick
 import Nimble
 import RxNimble
@@ -35,7 +34,7 @@ class RequestExecutorSpec: QuickSpec {
             
             context("succesfull client execution") {
                 var response: Response!
-                var result: Observable<Result<Response, DownKitError>>!
+                var result: Observable<Response>!
                 
                 beforeEach {
                     request = Request.defaultStub
@@ -51,31 +50,34 @@ class RequestExecutorSpec: QuickSpec {
                     response = nil
                 }
                 
-                it("sends the response to observable") {
-                    expect(result.map { $0.value }).first.to(equal(response))
+                it("sends response to observable") {
+                    expect(result).first.to(equal(response))
                 }
             }
             
             context("failed client execution") {
-                var result: Observable<Result<Response, DownKitError>>!
-                var error: DownKitError!
+                var result: MaterializedSequenceResult<Response>!
+                var error: RequestClientError!
                 
                 beforeEach {
                     request = Request.defaultStub
                     
-                    error = .requestExecuting(.generic(message: "test failure"))
+                    error = .generic(message: "test failure")
                     requestClient.stubs.execute.error = error
                     
-                    result = sut.execute(request).asObservable()
+                    result = sut
+                        .execute(request)
+                        .toBlocking()
+                        .materialize()
                 }
                 
                 afterEach {
                     result = nil
                     error = nil
                 }
-
-                it("sends the error to observable") {
-                    expect(result.map { $0.error }).first.to(equal(error))
+                
+                it("sends error to observable") {
+                    expect(result.error as? RequestClientError) == error
                 }
             }
         }

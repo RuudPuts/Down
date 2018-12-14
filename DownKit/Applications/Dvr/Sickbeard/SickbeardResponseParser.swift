@@ -7,7 +7,6 @@
 //
 
 import SwiftyJSON
-import Result
 
 class SickbeardResponseParser: DvrResponseParsing {
     var application: ApiApplication
@@ -16,28 +15,24 @@ class SickbeardResponseParser: DvrResponseParsing {
         self.application = application
     }
 
-    func parseShows(from response: Response) -> Result<[DvrShow], DownKitError> {
-        return parse(response).map {
-            $0.dictionary?.map {
+    func parseShows(from response: Response) throws -> [DvrShow] {
+        return try parse(response)
+            .dictionary?.map {
                 var json = $0.value
                 json["id"].stringValue = $0.key
                 
                 return parseShow(from: json, keymap: ParseShowListKeyMapping.self)
             }
             ?? []
-        }
     }
     
-    func parseShowDetails(from response: Response) -> Result<DvrShow, DownKitError> {
-        guard let data = parse(response).value else {
-            return .failure(.responseParsing(.noData))
-        }
-
+    func parseShowDetails(from response: Response) throws -> DvrShow {
+        let data = try parse(response)
         let showData = data["show"]["data"]
         let seasonsData = data["show.seasons"]["data"]
         
         guard showData != JSON.null && seasonsData != JSON.null else {
-            return .failure(.responseParsing(.missingData))
+            throw ParseError.missingData
         }
         
         let show = parseShow(from: showData, keymap: ParseShowListKeyMapping.self)
@@ -48,81 +43,74 @@ class SickbeardResponseParser: DvrResponseParsing {
                 show: show
             )}
             .sorted(by: { Int($0.identifier)! < Int($1.identifier)! })
+        
         show.setSeasons(seasons ?? [])
         
-        return .success(show)
+        return show
     }
 
-    func parseSearchShows(from response: Response) -> Result<[DvrShow], DownKitError> {
-        return parse(response).map {
-            $0["results"].array?
-                .map { data in
-                    parseShow(from: data, keymap: ParseSearchShowsKeyMapping.self)
-                }
-            ?? []
-        }
+    func parseSearchShows(from response: Response) throws -> [DvrShow] {
+        return try parse(response)["results"]
+            .array?.map { data in
+                parseShow(from: data, keymap: ParseSearchShowsKeyMapping.self)
+            } ?? []
     }
 
-    func parseAddShow(from response: Response) -> Result<Bool, DownKitError> {
-        //! Does this work if an error is already returned?
-        // If an error does occur, this should return false
-        return parse(response).map { _ in true }
+    func parseAddShow(from response: Response) throws -> Bool {
+        _ = try parse(response)
+
+        return true
     }
 
-    func parseDeleteShow(from response: Response) -> Result<Bool, DownKitError> {
-        return parse(response).map { _ in true }
+    func parseDeleteShow(from response: Response) throws -> Bool {
+        _ = try parse(response)
+
+        return true
     }
 
-    func parseSetEpisodeStatus(from response: Response) -> Result<Bool, DownKitError> {
-        return parse(response).map { _ in true }
+    func parseSetEpisodeStatus(from response: Response) throws -> Bool {
+        _ = try parse(response)
+
+        return true
     }
 
-    func parseSetSeasonStatus(from response: Response) -> Result<Bool, DownKitError> {
-        return parse(response).map { _ in true }
+    func parseSetSeasonStatus(from response: Response) throws -> Bool {
+        _ = try parse(response)
+
+        return true
     }
 
     func validateServerHeader(in response: Response) -> Bool {
-
-        /*
-         < HTTP/1.1 303 See Other
-         < Content-Length: 108
-         < Vary: Accept-Encoding
-         < Server: CherryPy/3.2.0rc1
-         < Location: http://192.168.2.100:8081/home/
-         < Date: Fri, 30 Nov 2018 21:05:53 GMT
-         < Content-Type: text/html;charset=utf-8
-         */
-
         return response.headers?["Server"]?.matches("CherryPy\\/.*?") ?? false
     }
 
-    func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
+    func parseLoggedIn(from response: Response) throws -> LoginResult {
         guard validateServerHeader(in: response) else {
-            return .success(.failed)
+            return .failed
         }
 
         if response.statusCode >= 400 && response.statusCode < 500 {
-            return .success(.authenticationRequired)
+            return .authenticationRequired
         }
 
         if response.statusCode >= 200 && response.statusCode < 400 {
-            return .success(.success)
+            return .success
         }
 
-        return .success(.failed)
+        return .failed
     }
 
-    func parseApiKey(from response: Response) -> Result<String?, DownKitError> {
-        let result: Result<String, DownKitError> = parse(response)
-
-        return result.map {
-            guard let keyRange = $0.range(of: "id=\"api_key\"") else {
-                return nil
-            }
-
-            let apiKeyPart = String($0[keyRange.upperBound...])
-            return apiKeyPart.components(matching: "[a-zA-Z0-9]{32}")?.first
+    func parseApiKey(from response: Response) throws -> String? {
+        guard response.statusCode == StatusCodes.success.rawValue else {
+            return nil
         }
+
+        let result: String = try parse(response)
+        guard let keyRange = result.range(of: "id=\"api_key\"") else {
+            return nil
+        }
+
+        return String(result[keyRange.upperBound...]).components(matching: "[a-zA-Z0-9]{32}")?.first
     }
 }
 
@@ -182,9 +170,9 @@ private extension SickbeardResponseParser {
 }
 
 extension SickbeardResponseParser {
-    func parse(_ response: Response) -> Result<JSON, DownKitError> {
+    func parse(_ response: Response) throws -> JSON {
         guard let data = response.data else {
-            return .failure(.responseParsing(.noData))
+            throw ParseError.noData
         }
         
         var json: JSON
@@ -193,31 +181,35 @@ extension SickbeardResponseParser {
         }
         catch {
             print("Sickbeard parse error: \(error)")
-            return .failure(.responseParsing(.invalidJson))
+            throw ParseError.invalidJson
         }
+
+        try validate(json)
         
-        return validate(json).map { $0["data"] }
+        return json["data"]
     }
 
-    func validate(_ json: JSON) -> Result<JSON, DownKitError> {
+    func validate(_ json: JSON) throws {
         let data = json["data"]
         guard json["result"].string == "success" else {
-            return .failure(.responseParsing(.api(message: data.stringValue)))
+            throw ParseError.api(message: data.stringValue)
         }
-        
-        let errors = data.dictionary?
+
+        // Check for any chained command and their results
+        try data.dictionary?
             .map({ (key, value) -> JSON in
+                guard value["data"] != JSON.null else {
+                    return JSON.null
+                }
+
                 return data[key]
             })
-            .filter { $0["result"] != JSON.null }
-            .filter { $0["result"].string != "success" }
-            .compactMap { $0["message"].stringValue }
-
-        if let error = errors?.first {
-            return .failure(.responseParsing(.api(message: error)))
-        }
-
-        return .success(json)
+            .filter { $0 != JSON.null }
+            .forEach {
+                guard $0["result"].string == "success" else {
+                    throw ParseError.api(message: $0["message"].stringValue)
+                }
+            }
     }
 }
 

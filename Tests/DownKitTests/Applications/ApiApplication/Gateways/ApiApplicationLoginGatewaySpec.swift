@@ -11,7 +11,6 @@ import RxBlocking
 import RxSwift
 import Quick
 import Nimble
-import Result
 
 class ApiApplicationLoginGatewaySpec: QuickSpec {
     // swiftlint:disable function_body_length
@@ -77,7 +76,7 @@ class ApiApplicationLoginGatewaySpec: QuickSpec {
 
                     responseParser.stubs.parseLogin = .success
 
-                    result = sut.parse(response: response).value
+                    result = try! sut.parse(response: response)
                 }
 
                 afterEach {

@@ -7,7 +7,6 @@
 //
 
 @testable import DownKit
-import Result
 
 class ApiApplicationResponseParsingMock: ApiApplicationResponseParsing {
     struct Stubs {
@@ -56,13 +55,13 @@ class ApiApplicationResponseParsingMock: ApiApplicationResponseParsing {
         return stubs.validateServerHeader
     }
 
-    func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
+    func parseLoggedIn(from response: Response) throws -> LoginResult {
         captures.parseLogin = Captures.Parse(response: response)
-        return .success(stubs.parseLogin)
+        return stubs.parseLogin
     }
 
-    func parseApiKey(from response: Response) -> Result<String?, DownKitError> {
+    func parseApiKey(from response: Response) throws -> String? {
         captures.parseApiKey = Captures.Parse(response: response)
-        return .success(stubs.parseApiKey)
+        return stubs.parseApiKey
     }
 }

@@ -8,4 +8,13 @@
 
 import RxSwift
 
-public typealias RequestClient = RequestExecuting
+public protocol RequestClient {
+    func execute(_ request: Request) -> Single<Response>
+}
+
+public enum RequestClientError: Error, Hashable {
+    case generic(message: String)
+    case invalidRequest
+    case invalidResponse
+    case noData
+}

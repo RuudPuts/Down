@@ -7,7 +7,6 @@
 //
 
 import RxSwift
-import Result
 
 public class DownloadDeleteItemGateway: DownloadRequestGateway {
     public var executor: RequestExecuting
@@ -31,7 +30,7 @@ public class DownloadDeleteItemGateway: DownloadRequestGateway {
         return try builder.make(for: .delete(item: item))
     }
 
-    public func parse(response: Response) -> Result<Bool, DownKitError> {
-        return parser.parseDeleteItem(from: response)
+    public func parse(response: Response) throws -> Bool {
+        return try parser.parseDeleteItem(from: response)
     }
 }

@@ -6,11 +6,9 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-import Result
-
 public protocol ApiApplicationResponseParsing: ResponseParsing {
-    func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError>
-    func parseApiKey(from response: Response) -> Result<String?, DownKitError>
+    func parseLoggedIn(from response: Response) throws -> LoginResult
+    func parseApiKey(from response: Response) throws -> String?
 
     func validateServerHeader(in response: Response) -> Bool
 }

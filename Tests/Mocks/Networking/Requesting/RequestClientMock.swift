@@ -15,7 +15,7 @@ class RequestClientMock: RequestClient {
         
         struct Execute {
             var response: Response?
-            var error: DownKitError?
+            var error: Error?
         }
     }
     
@@ -23,13 +23,13 @@ class RequestClientMock: RequestClient {
     
     // RequestClient
 
-    func execute(_ request: Request) -> RequestExecutionResult {
-        return RequestExecutionResult.create { observer in
+    func execute(_ request: Request) -> Single<Response> {
+        return Single<Response>.create { observer in
             if let error = self.stubs.execute.error {
-                observer(.success(.failure(error)))
+                observer(.error(error))
             }
             else if let response = self.stubs.execute.response {
-                observer(.success(.success(response)))
+                observer(.success(response))
             }
             else {
                 fatalError("RequestClientMock executed without stubs")

@@ -20,7 +20,7 @@ class RequestGatewayInteractorSpec: QuickSpec {
             
             beforeEach {
                 gateway = RequestGatewayMock()
-                gateway.stubs.observe = 1337
+                gateway.stubs.observe = Single.just(1337)
                 sut = RequestGatewayInteractor(gateway: gateway)
             }
             
@@ -34,7 +34,7 @@ class RequestGatewayInteractorSpec: QuickSpec {
 
                 beforeEach {
                     result = sut.observe()
-                        .map { $0.value as! Int }
+                        .map { $0 as! Int }
                         .asObservable()
                 }
                 

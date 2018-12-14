@@ -7,8 +7,6 @@
 //
 
 import RxSwift
-import Result
-import RxResult
 
 public class DvrSetSeasonStatusInteractor: CompoundInteractor {
     public typealias Interactors = (setStatus: DvrSetSeasonStatusGateway, showDetails: DvrShowDetailsInteractor)
@@ -27,22 +25,20 @@ public class DvrSetSeasonStatusInteractor: CompoundInteractor {
         self.database = database
     }
 
-    public func observe() -> Single<DvrShowDetailsInteractor.Gateway.ResultType> {
+    public func observe() -> Single<DvrShow> {
         return interactors.setStatus
             .observe()
             .flatMap { _ in self.refreshShowDetails() }
     }
 
-    private func refreshShowDetails() -> Single<DvrShowDetailsInteractor.Gateway.ResultType> {
+    private func refreshShowDetails() -> Single<DvrShow> {
         let show = self.interactors.setStatus.season.show!
 
         return interactors.showDetails
             .setShow(show)
             .observe()
-            .asObservable()
             .do(onSuccess: {
                 $0.store(in: self.database)
             })
-            .asSingle()
     }
 }

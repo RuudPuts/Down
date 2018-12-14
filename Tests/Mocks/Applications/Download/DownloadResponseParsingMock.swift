@@ -7,7 +7,6 @@
 //
 
 @testable import DownKit
-import Result
 
 class DownloadResponseParsingMock: DownloadResponseParsing {
     struct Stubs {
@@ -60,19 +59,19 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
     
     // DownloadResponseParsing
     
-    func parseQueue(from response: Response) -> Result<DownloadQueue, DownKitError> {
+    func parseQueue(from response: Response) -> DownloadQueue {
         captures.parseQueue = Captures.Parse(response: response)
-        return .success(stubs.parseQueue)
+        return stubs.parseQueue
     }
     
-    func parseHistory(from response: Response) -> Result<[DownloadItem], DownKitError> {
+    func parseHistory(from response: Response) -> [DownloadItem] {
         captures.parseHistory = Captures.Parse(response: response)
-        return .success(stubs.parseHistory ?? [])
+        return stubs.parseHistory ?? []
     }
 
-    func parseDeleteItem(from response: Response) -> Result<Bool, DownKitError> {
+    func parseDeleteItem(from response: Response) throws -> Bool {
         captures.parseDeleteItem = Captures.Parse(response: response)
-        return .success(stubs.parseDeleteItem)
+        return stubs.parseDeleteItem
     }
 
     // ApiApplicationResponseParsing
@@ -81,13 +80,13 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
         return stubs.validateServerHeader
     }
 
-    func parseLoggedIn(from response: Response) -> Result<LoginResult, DownKitError> {
+    func parseLoggedIn(from response: Response) throws -> LoginResult {
         captures.parseLogin = Captures.Parse(response: response)
-        return .success(stubs.parseLogin)
+        return stubs.parseLogin
     }
 
-    func parseApiKey(from response: Response) -> Result<String?, DownKitError> {
+    func parseApiKey(from response: Response) throws -> String? {
         captures.parseApiKey = Captures.Parse(response: response)
-        return .success(stubs.parseApiKey)
+        return stubs.parseApiKey
     }
 }
