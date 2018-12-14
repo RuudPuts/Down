@@ -30,7 +30,7 @@ class SickbeardResponseParserSpec: QuickSpec {
             }
             
             context("parse Response") {
-                var result: Result<JSON, DownKitError>!
+                var result: JSON!
                 
                 afterEach {
                     result = nil
@@ -38,7 +38,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 
                 context("without data") {
                     beforeEach {
-                        result = sut.parse(response)
+                        result = try? sut.parse(response)
                     }
                     
                     it("throws no data error") {
@@ -49,7 +49,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 context("from succesful response") {
                     beforeEach {
                         response.data = Data(fromFile: "sickbeard_success")
-                        result = sut.parse(response)
+                        result = try? sut.parse(response)
                     }
                     
                     it("parses the json's data") {
@@ -60,7 +60,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 context("from failure response") {
                     beforeEach {
                         response.data = Data(fromFile: "sickbeard_error")
-                        result = sut.parse(response)
+                        result = try? sut.parse(response)
                     }
 
                     it("throws api error") {
@@ -71,7 +71,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 context("from chained command failure response") {
                     beforeEach {
                         response.data = Data(fromFile: "sickbeard_error_chainedcommand")
-                        result = sut.parse(response)
+                        result = try? sut.parse(response)
                     }
 
                     it("throws api error") {
@@ -82,7 +82,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                 context("from invalid response") {
                     beforeEach {
                         response.data = "invalid response".data(using: .utf8)
-                        result = sut.parse(response)
+                        result = try? sut.parse(response)
                     }
 
                     it("throws invalid json error") {
@@ -97,7 +97,7 @@ class SickbeardResponseParserSpec: QuickSpec {
 
                     beforeEach {
                         response.data = Data(fromFile: "sickbeard_showlist")
-                        result = sut.parseShows(from: response).value
+                        result = try? sut.parseShows(from: response)
                     }
 
                     afterEach {
@@ -126,7 +126,7 @@ class SickbeardResponseParserSpec: QuickSpec {
 
                     beforeEach {
                         response.data = Data(fromFile: "sickbeard_showdetails")
-                        result = sut.parseShowDetails(from: response).value
+                        result = try? sut.parseShowDetails(from: response)
                     }
 
                     afterEach {
@@ -198,7 +198,7 @@ class SickbeardResponseParserSpec: QuickSpec {
 
                     beforeEach {
                         response.data = Data(fromFile: "sickbeard_searchshows")
-                        result = sut.parseSearchShows(from: response).value
+                        result = try? sut.parseSearchShows(from: response)
                     }
 
                     afterEach {
@@ -231,7 +231,7 @@ class SickbeardResponseParserSpec: QuickSpec {
 
                     beforeEach {
                         response.data = Data(fromFile: "sickbeard_addshow")
-                        result = sut.parseAddShow(from: response).value
+                        result = try? sut.parseAddShow(from: response)
                     }
 
                     afterEach {
@@ -255,7 +255,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     context("succesful login") {
                         beforeEach {
                             response = Response(data: nil, statusCode: 200, headers: nil)
-                            result = sut.parseLoggedIn(from: response).value
+                            result = try? sut.parseLoggedIn(from: response)
                         }
 
                         it("returns failed") {
@@ -278,7 +278,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     context("succesful login") {
                         beforeEach {
                             response = Response(data: nil, statusCode: 200, headers: headers)
-                            result = sut.parseLoggedIn(from: response).value
+                            result = try? sut.parseLoggedIn(from: response)
                         }
 
                         it("returns success") {
@@ -289,7 +289,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     context("failed login") {
                         beforeEach {
                             response = Response(data: nil, statusCode: 400, headers: headers)
-                            result = sut.parseLoggedIn(from: response).value
+                            result = try? sut.parseLoggedIn(from: response)
                         }
 
                         it("returns authentication required") {
@@ -304,7 +304,7 @@ class SickbeardResponseParserSpec: QuickSpec {
 
                 beforeEach {
                     response.data = Data(fromFile: "sickbeard_apikey", extension: "html")
-                    result = sut.parseApiKey(from: response).value ?? nil
+                    result = try? sut.parseApiKey(from: response) ?? nil
                 }
 
                 afterEach {

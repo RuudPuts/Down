@@ -30,26 +30,37 @@ class SabNZBdResponseParserSpec: QuickSpec {
             }
             
             context("parse Response") {
-                var result: Result<JSON, DownKitError>!
+                var result: JSON!
                 
                 afterEach {
                     result = nil
                 }
                 
                 context("without data") {
+                    var parseError: ParseError!
+
                     beforeEach {
-                        result = sut.parse(response, forKey: .queue)
+                        do {
+                            result = try sut.parse(response, forKey: .queue)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
+                    }
+
+                    afterEach {
+                        parseError = nil
                     }
                     
                     it("throws no data error") {
-                        expect(result.error) == .responseParsing(.noData)
+                        expect(parseError) == .noData
                     }
                 }
                 
                 context("from succesful response") {
                     beforeEach {
                         response.data = Data(fromFile: "sabnzbd_success")
-                        result = sut.parse(response, forKey: .queue)
+                        result = try? sut.parse(response, forKey: .queue)
                     }
 
                     it("parses the json's data") {
@@ -60,7 +71,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 context("from failure response") {
                     beforeEach {
                         response.data = Data(fromFile: "sabnzbd_error")
-                        result = sut.parse(response, forKey: .queue)
+                        result = try? sut.parse(response, forKey: .queue)
                     }
 
                     it("throws api error") {
@@ -71,7 +82,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 context("from invalid response") {
                     beforeEach {
                         response.data = "invalid response".data(using: .utf8)
-                        result = sut.parse(response, forKey: .queue)
+                        result = try? sut.parse(response, forKey: .queue)
                     }
 
                     it("throws invalid json error") {
@@ -86,7 +97,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
 
                     beforeEach {
                         response.data = Data(fromFile: "sabnzbd_queue")
-                        result = sut.parseQueue(from: response).value
+                        result = try? sut.parseQueue(from: response)
                     }
 
                     afterEach {
@@ -115,7 +126,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
 
                     beforeEach {
                         response.data = Data(fromFile: "sabnzbd_history")
-                        result = sut.parseHistory(from: response).value
+                        result = try? sut.parseHistory(from: response)
                     }
 
                     afterEach {
@@ -139,7 +150,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     context("succesful login") {
                         beforeEach {
                             response.data = Data(fromFile: "sabnzbd_apikey", extension: "html")
-                            result = sut.parseLoggedIn(from: response).value
+                            result = try? sut.parseLoggedIn(from: response)
                         }
 
                         it("returns failed") {
@@ -165,7 +176,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                                                 statusCode: 200,
                                                 headers: headers)
 
-                            result = sut.parseLoggedIn(from: response).value
+                            result = try? sut.parseLoggedIn(from: response)
                         }
 
                         it("returns success") {
@@ -179,7 +190,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
                                                 statusCode: 400,
                                                 headers: headers)
 
-                            result = sut.parseLoggedIn(from: response).value
+                            result = try? sut.parseLoggedIn(from: response)
                         }
 
                         it("returns authentication required") {
@@ -194,7 +205,7 @@ class SabNZBdResponseParserSpec: QuickSpec {
 
                 beforeEach {
                     response.data = Data(fromFile: "sabnzbd_apikey", extension: "html")
-                    result = sut.parseApiKey(from: response).value ?? nil
+                    result = try? sut.parseApiKey(from: response) ?? nil
                 }
 
                 afterEach {

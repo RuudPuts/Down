@@ -7,11 +7,6 @@
 //
 
 import UIKit
-import DownKit
-
-import RxSwift
-import Result
-import RxResult
 
 enum ErrorSourceType {
     case download_deleteItem
@@ -37,17 +32,5 @@ class ErrorHandler: ErrorHandling {
         alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
 
         source.present(alert, animated: true, completion: nil)
-    }
-}
-
-enum DownError: Error, RxResultError {
-    case request(Error)
-    case unhandled(Error)
-
-    static func failure(from error: Error) -> DownError {
-        switch error.self {
-        case is RequestClientError: return .request(error)
-        default: return .unhandled(error)
-        }
     }
 }

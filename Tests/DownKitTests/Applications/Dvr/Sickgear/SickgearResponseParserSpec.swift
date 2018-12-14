@@ -40,7 +40,7 @@ class SickgearResponseParserSpec: QuickSpec {
                     context("succesful login") {
                         beforeEach {
                             response = Response(data: nil, statusCode: 200, headers: nil)
-                            result = sut.parseLoggedIn(from: response).value
+                            result = try? sut.parseLoggedIn(from: response)
                         }
 
                         it("returns failed") {
@@ -63,7 +63,7 @@ class SickgearResponseParserSpec: QuickSpec {
                     context("succesful login") {
                         beforeEach {
                             response = Response(data: nil, statusCode: 200, headers: headers)
-                            result = sut.parseLoggedIn(from: response).value
+                            result = try? sut.parseLoggedIn(from: response)
                         }
 
                         it("returns success") {
@@ -74,7 +74,7 @@ class SickgearResponseParserSpec: QuickSpec {
                     context("failed login") {
                         beforeEach {
                             response = Response(data: nil, statusCode: 400, headers: headers)
-                            result = sut.parseLoggedIn(from: response).value
+                            result = try? sut.parseLoggedIn(from: response)
                         }
 
                         it("returns authentication required") {

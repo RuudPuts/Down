@@ -7,6 +7,9 @@
 //
 
 import DownKit
+import RxSwift
+import Result
+import RxResult
 
 extension Quality {
     var displayString: String {

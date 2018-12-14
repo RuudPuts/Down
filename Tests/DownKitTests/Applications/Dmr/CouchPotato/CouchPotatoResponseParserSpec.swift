@@ -30,7 +30,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
             }
             
             context("parse Response") {
-                var result: Result<JSON, DownKitError>!
+                var result: JSON!
                 
                 afterEach {
                     result = nil
@@ -38,7 +38,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                 
                 context("without data") {
                     beforeEach {
-                        result = sut.parse(response)
+                        result = try? sut.parse(response)
                     }
                     
                     it("throws no data error") {
@@ -49,7 +49,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                 context("from succesful response") {
                     beforeEach {
                         response.data = Data(fromFile: "couchpotato_success")
-                        result = sut.parse(response)
+                        result = try? sut.parse(response)
                     }
                     
                     it("parses the json's data") {
@@ -60,7 +60,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                 context("from failure response") {                    
                     beforeEach {
                         response.data = Data(fromFile: "couchpotato_error")
-                        result = sut.parse(response)
+                        result = try? sut.parse(response)
                     }
                     
                     it("throws api error") {
@@ -71,7 +71,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                 context("from invalid response") {
                     beforeEach {
                         response.data = "invalid response".data(using: .utf8)
-                        result = sut.parse(response)
+                        result = try? sut.parse(response)
                     }
                     
                     it("throws invalid json error") {
@@ -86,7 +86,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
 
                     beforeEach {
                         response.data = Data(fromFile: "couchpotato_movielist")
-                        result = sut.parseMovies(from: response).value
+                        result = try? sut.parseMovies(from: response)
                     }
 
                     afterEach {
@@ -125,7 +125,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                                 response = Response(data: Data(fromFile: "couchpotato_apikey"),
                                                     statusCode: 200,
                                                     headers: nil)
-                                result = sut.parseLoggedIn(from: response).value
+                                result = try? sut.parseLoggedIn(from: response)
                             }
 
                             it("returns failed") {
@@ -150,7 +150,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                                 response = Response(data: Data(fromFile: "couchpotato_apikey"),
                                                     statusCode: 200,
                                                     headers: headers)
-                                result = sut.parseLoggedIn(from: response).value
+                                result = try? sut.parseLoggedIn(from: response)
                             }
 
                             it("returns success") {
@@ -161,7 +161,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                         context("failed login by statuscode") {
                             beforeEach {
                                 response = Response(data: nil, statusCode: 400, headers: headers)
-                                result = sut.parseLoggedIn(from: response).value
+                                result = try? sut.parseLoggedIn(from: response)
                             }
 
                             it("returns authentication required") {
@@ -174,7 +174,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
                                 response = Response(data: Data(fromFile: "couchpotato_login", extension: "html"),
                                                     statusCode: 200,
                                                     headers: headers)
-                                result = sut.parseLoggedIn(from: response).value
+                                result = try? sut.parseLoggedIn(from: response)
                             }
 
                             it("returns authentication required") {
@@ -189,7 +189,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
 
                     beforeEach {
                         response.data = Data(fromFile: "couchpotato_apikey")
-                        result = sut.parseApiKey(from: response).value ?? nil
+                        result = try? sut.parseApiKey(from: response) ?? nil
                     }
 
                     afterEach {
