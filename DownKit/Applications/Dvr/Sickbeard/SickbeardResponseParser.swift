@@ -42,7 +42,6 @@ class SickbeardResponseParser: DvrResponseParsing {
                 episodes: parseEpisodes(from: $0.value),
                 show: show
             )}
-            .sorted(by: { Int($0.identifier)! < Int($1.identifier)! })
         
         show.setSeasons(seasons ?? [])
         
@@ -101,10 +100,6 @@ class SickbeardResponseParser: DvrResponseParsing {
     }
 
     func parseApiKey(from response: Response) throws -> String? {
-        guard response.statusCode == StatusCodes.success.rawValue else {
-            return nil
-        }
-
         let result: String = try parse(response)
         guard let keyRange = result.range(of: "id=\"api_key\"") else {
             return nil
@@ -148,7 +143,6 @@ private extension SickbeardResponseParser {
                 status: status
             )
         } ?? []
-        .sorted(by: { Int($0.identifier)! < Int($1.identifier)! })
     }
 
     func parseQuality(from json: JSON) -> Quality {

@@ -29,70 +29,114 @@ class SickbeardResponseParserSpec: QuickSpec {
                 sut = nil
             }
             
-            context("parse Response") {
+            describe("parse Response") {
                 var result: JSON!
-                
+
                 afterEach {
                     result = nil
                 }
-                
+
                 context("without data") {
+                    var parseError: ParseError!
+
                     beforeEach {
-                        result = try? sut.parse(response)
+                        do {
+                            result = try sut.parse(response)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
                     }
-                    
+
+                    afterEach {
+                        parseError = nil
+                    }
+
                     it("throws no data error") {
-                        expect(result.error) == .responseParsing(.noData)
+                        expect(parseError) == ParseError.noData
                     }
                 }
-                
+
                 context("from succesful response") {
                     beforeEach {
                         response.data = Data(fromFile: "sickbeard_success")
                         result = try? sut.parse(response)
                     }
-                    
+
                     it("parses the json's data") {
-                        expect(result.value) == ["api_version": 4]
+                        expect(result) == ["api_version": 4]
                     }
                 }
-                
+
                 context("from failure response") {
+                    var parseError: ParseError!
+
                     beforeEach {
-                        response.data = Data(fromFile: "sickbeard_error")
-                        result = try? sut.parse(response)
+                        do {
+                            response.data = Data(fromFile: "sickbeard_error")
+                            result = try sut.parse(response)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
+                    }
+
+                    afterEach {
+                        parseError = nil
                     }
 
                     it("throws api error") {
-                        expect(result.error) == .responseParsing(.api(message: "No such cmd: ''"))
+                        expect(parseError) == ParseError.api(message: "No such cmd: ''")
                     }
                 }
 
                 context("from chained command failure response") {
+                    var parseError: ParseError!
+
                     beforeEach {
-                        response.data = Data(fromFile: "sickbeard_error_chainedcommand")
-                        result = try? sut.parse(response)
+                        do {
+                            response.data = Data(fromFile: "sickbeard_error_chainedcommand")
+                            result = try sut.parse(response)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
+                    }
+
+                    afterEach {
+                        parseError = nil
                     }
 
                     it("throws api error") {
-                        expect(result.error) == .responseParsing(.api(message: "Show not found"))
+                        expect(parseError) == ParseError.api(message: "Show not found")
                     }
                 }
 
                 context("from invalid response") {
+                    var parseError: ParseError!
+
                     beforeEach {
-                        response.data = "invalid response".data(using: .utf8)
-                        result = try? sut.parse(response)
+                        do {
+                            response.data = "invalid response".data(using: .utf8)
+                            result = try sut.parse(response)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
+                    }
+
+                    afterEach {
+                        parseError = nil
                     }
 
                     it("throws invalid json error") {
-                        expect(result.error) == .responseParsing(.invalidJson)
+                        expect(parseError) == ParseError.invalidJson
                     }
                 }
             }
 
-            context("dvr application response parser") {
-                context("parse show list response") {
+            describe("dvr application response parser") {
+                describe("parse show list response") {
                     var result: [DvrShow]!
 
                     beforeEach {
@@ -121,7 +165,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     }
                 }
 
-                context("parse show details response") {
+                describe("parse show details response") {
                     var result: DvrShow!
 
                     beforeEach {
@@ -193,7 +237,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     }
                 }
 
-                context("parse search shows response") {
+                describe("parse search shows response") {
                     var result: [DvrShow]!
 
                     beforeEach {
@@ -226,7 +270,7 @@ class SickbeardResponseParserSpec: QuickSpec {
                     }
                 }
 
-                context("parse add show response") {
+                describe("parse add show response") {
                     var result: Bool!
 
                     beforeEach {
@@ -244,75 +288,77 @@ class SickbeardResponseParserSpec: QuickSpec {
                 }
             }
 
-            context("parse login response") {
-                var result: LoginResult!
+            describe("api application response parser") {
+                describe("parse login response") {
+                    var result: LoginResult!
 
-                afterEach {
-                    result = nil
-                }
+                    afterEach {
+                        result = nil
+                    }
 
-                context("without valid server header") {
-                    context("succesful login") {
+                    context("without valid server header") {
+                        context("succesful login") {
+                            beforeEach {
+                                response = Response(data: nil, statusCode: 200, headers: nil)
+                                result = try? sut.parseLoggedIn(from: response)
+                            }
+
+                            it("returns failed") {
+                                expect(result) == .failed
+                            }
+                        }
+                    }
+
+                    context("with valid server header") {
+                        var headers: [String: String]?
+
                         beforeEach {
-                            response = Response(data: nil, statusCode: 200, headers: nil)
-                            result = try? sut.parseLoggedIn(from: response)
+                            headers = ["Server": "CherryPy/Test"]
                         }
 
-                        it("returns failed") {
-                            expect(result) == .failed
+                        afterEach {
+                            headers = nil
+                        }
+
+                        context("succesful login") {
+                            beforeEach {
+                                response = Response(data: nil, statusCode: 200, headers: headers)
+                                result = try? sut.parseLoggedIn(from: response)
+                            }
+
+                            it("returns success") {
+                                expect(result) == .success
+                            }
+                        }
+
+                        context("failed login") {
+                            beforeEach {
+                                response = Response(data: nil, statusCode: 400, headers: headers)
+                                result = try? sut.parseLoggedIn(from: response)
+                            }
+
+                            it("returns authentication required") {
+                                expect(result) == .authenticationRequired
+                            }
                         }
                     }
                 }
 
-                context("with valid server header") {
-                    var headers: [String: String]?
+                describe("parse api key response") {
+                    var result: String?
 
                     beforeEach {
-                        headers = ["Server": "CherryPy/Test"]
+                        response.data = Data(fromFile: "sickbeard_apikey", extension: "html")
+                        result = (try? sut.parseApiKey(from: response)) ?? nil
                     }
 
                     afterEach {
-                        headers = nil
+                        result = nil
                     }
 
-                    context("succesful login") {
-                        beforeEach {
-                            response = Response(data: nil, statusCode: 200, headers: headers)
-                            result = try? sut.parseLoggedIn(from: response)
-                        }
-
-                        it("returns success") {
-                            expect(result) == .success
-                        }
+                    it("parses the key") {
+                        expect(result) == "fc1dcf900e17ac641624502b2b26b4fa"
                     }
-
-                    context("failed login") {
-                        beforeEach {
-                            response = Response(data: nil, statusCode: 400, headers: headers)
-                            result = try? sut.parseLoggedIn(from: response)
-                        }
-
-                        it("returns authentication required") {
-                            expect(result) == .authenticationRequired
-                        }
-                    }
-                }
-            }
-            
-            context("parse api key response") {
-                var result: String?
-
-                beforeEach {
-                    response.data = Data(fromFile: "sickbeard_apikey", extension: "html")
-                    result = try? sut.parseApiKey(from: response) ?? nil
-                }
-
-                afterEach {
-                    result = nil
-                }
-
-                it("parses the key") {
-                    expect(result) == "fc1dcf900e17ac641624502b2b26b4fa"
                 }
             }
         }

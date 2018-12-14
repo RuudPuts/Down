@@ -31,51 +31,84 @@ class CouchPotatoResponseParserSpec: QuickSpec {
             
             context("parse Response") {
                 var result: JSON!
-                
+
                 afterEach {
                     result = nil
                 }
-                
+
                 context("without data") {
+                    var parseError: ParseError!
+
                     beforeEach {
-                        result = try? sut.parse(response)
+                        do {
+                            result = try sut.parse(response)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
                     }
-                    
+
+                    afterEach {
+                        parseError = nil
+                    }
+
                     it("throws no data error") {
-                        expect(result.error) == .responseParsing(.noData)
+                        expect(parseError) == ParseError.noData
                     }
                 }
-                
+
                 context("from succesful response") {
                     beforeEach {
                         response.data = Data(fromFile: "couchpotato_success")
                         result = try? sut.parse(response)
                     }
-                    
+
                     it("parses the json's data") {
-                        expect(result.value) == ["success": true]
+                        expect(result) == ["success": true]
                     }
                 }
-                
-                context("from failure response") {                    
+
+                context("from failure response") {
+                    var parseError: ParseError!
+
                     beforeEach {
-                        response.data = Data(fromFile: "couchpotato_error")
-                        result = try? sut.parse(response)
+                        do {
+                            response.data = Data(fromFile: "couchpotato_error")
+                            result = try sut.parse(response)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
                     }
-                    
+
+                    afterEach {
+                        parseError = nil
+                    }
+
                     it("throws api error") {
-                        expect(result.error) == .responseParsing(.api(message: ""))
+                        expect(parseError) == ParseError.api(message: "")
                     }
                 }
 
                 context("from invalid response") {
+                    var parseError: ParseError!
+
                     beforeEach {
-                        response.data = "invalid response".data(using: .utf8)
-                        result = try? sut.parse(response)
+                        do {
+                            response.data = "invalid response".data(using: .utf8)
+                            result = try sut.parse(response)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
                     }
-                    
+
+                    afterEach {
+                        parseError = nil
+                    }
+
                     it("throws invalid json error") {
-                        expect(result.error) == .responseParsing(.invalidJson)
+                        expect(parseError) == ParseError.invalidJson
                     }
                 }
             }
@@ -189,7 +222,7 @@ class CouchPotatoResponseParserSpec: QuickSpec {
 
                     beforeEach {
                         response.data = Data(fromFile: "couchpotato_apikey")
-                        result = try? sut.parseApiKey(from: response) ?? nil
+                        result = (try? sut.parseApiKey(from: response)) ?? nil
                     }
 
                     afterEach {

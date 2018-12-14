@@ -29,13 +29,13 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 sut = nil
             }
             
-            context("parse Response") {
+            describe("parse Response") {
                 var result: JSON!
-                
+
                 afterEach {
                     result = nil
                 }
-                
+
                 context("without data") {
                     var parseError: ParseError!
 
@@ -51,12 +51,12 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     afterEach {
                         parseError = nil
                     }
-                    
+
                     it("throws no data error") {
-                        expect(parseError) == .noData
+                        expect(parseError) == ParseError.noData
                     }
                 }
-                
+
                 context("from succesful response") {
                     beforeEach {
                         response.data = Data(fromFile: "sabnzbd_success")
@@ -64,34 +64,56 @@ class SabNZBdResponseParserSpec: QuickSpec {
                     }
 
                     it("parses the json's data") {
-                        expect(result.value) == ["version": "2.0.0"]
+                        expect(result) == ["version": "2.0.0"]
                     }
                 }
 
                 context("from failure response") {
+                    var parseError: ParseError!
+
                     beforeEach {
-                        response.data = Data(fromFile: "sabnzbd_error")
-                        result = try? sut.parse(response, forKey: .queue)
+                        do {
+                            response.data = Data(fromFile: "sabnzbd_error")
+                            result = try sut.parse(response, forKey: .queue)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
+                    }
+
+                    afterEach {
+                        parseError = nil
                     }
 
                     it("throws api error") {
-                        expect(result.error) == .responseParsing(.api(message: "not implemented"))
+                        expect(parseError) == ParseError.api(message: "not implemented")
                     }
                 }
 
                 context("from invalid response") {
+                    var parseError: ParseError!
+
                     beforeEach {
-                        response.data = "invalid response".data(using: .utf8)
-                        result = try? sut.parse(response, forKey: .queue)
+                        do {
+                            response.data = "invalid response".data(using: .utf8)
+                            result = try sut.parse(response, forKey: .queue)
+                        }
+                        catch {
+                            parseError = error as? ParseError
+                        }
+                    }
+
+                    afterEach {
+                        parseError = nil
                     }
 
                     it("throws invalid json error") {
-                        expect(result.error) == .responseParsing(.invalidJson)
+                        expect(parseError) == ParseError.invalidJson
                     }
                 }
             }
 
-            context("download application response parser") {
+            describe("download application response parser") {
                 describe("parse queue Response") {
                     var result: DownloadQueue!
 
@@ -139,81 +161,83 @@ class SabNZBdResponseParserSpec: QuickSpec {
                 }
             }
 
-            context("parse login response") {
-                var result: LoginResult!
+            describe("api application response parser") {
+                context("parse login response") {
+                    var result: LoginResult!
 
-                afterEach {
-                    result = nil
-                }
+                    afterEach {
+                        result = nil
+                    }
 
-                context("without valid server header") {
-                    context("succesful login") {
+                    context("without valid server header") {
+                        context("succesful login") {
+                            beforeEach {
+                                response.data = Data(fromFile: "sabnzbd_apikey", extension: "html")
+                                result = try? sut.parseLoggedIn(from: response)
+                            }
+
+                            it("returns failed") {
+                                expect(result) == .failed
+                            }
+                        }
+                    }
+
+                    context("with valid server header") {
+                        var headers: [String: String]?
+
                         beforeEach {
-                            response.data = Data(fromFile: "sabnzbd_apikey", extension: "html")
-                            result = try? sut.parseLoggedIn(from: response)
+                            headers = ["Server": "CherryPy/Test"]
                         }
 
-                        it("returns failed") {
-                            expect(result) == .failed
+                        afterEach {
+                            headers = nil
+                        }
+
+                        context("succesful login") {
+                            beforeEach {
+                                response = Response(data: Data(fromFile: "sabnzbd_apikey", extension: "html"),
+                                                    statusCode: 200,
+                                                    headers: headers)
+
+                                result = try? sut.parseLoggedIn(from: response)
+                            }
+
+                            it("returns success") {
+                                expect(result) == .success
+                            }
+                        }
+
+                        context("failed login") {
+                            beforeEach {
+                                response = Response(data: Data(fromFile: "sabnzbd_login", extension: "html"),
+                                                    statusCode: 400,
+                                                    headers: headers)
+
+                                result = try? sut.parseLoggedIn(from: response)
+                            }
+
+                            it("returns authentication required") {
+                                expect(result) == .authenticationRequired
+                            }
                         }
                     }
                 }
 
-                context("with valid server header") {
-                    var headers: [String: String]?
+                context("parse api key response") {
+                    var result: String?
 
                     beforeEach {
-                        headers = ["Server": "CherryPy/Test"]
+                        response.data = Data(fromFile: "sabnzbd_apikey", extension: "html")
+                        result = (try? sut.parseApiKey(from: response)) ?? nil
                     }
 
                     afterEach {
-                        headers = nil
+                        result = nil
                     }
 
-                    context("succesful login") {
-                        beforeEach {
-                            response = Response(data: Data(fromFile: "sabnzbd_apikey", extension: "html"),
-                                                statusCode: 200,
-                                                headers: headers)
-
-                            result = try? sut.parseLoggedIn(from: response)
-                        }
-
-                        it("returns success") {
-                            expect(result) == .success
-                        }
+                    it("parses the key") {
+                        expect(result) == "10480f3fd315c42728be2893595ede4a"
                     }
-
-                    context("failed login") {
-                        beforeEach {
-                            response = Response(data: Data(fromFile: "sabnzbd_login", extension: "html"),
-                                                statusCode: 400,
-                                                headers: headers)
-
-                            result = try? sut.parseLoggedIn(from: response)
-                        }
-
-                        it("returns authentication required") {
-                            expect(result) == .authenticationRequired
-                        }
-                    }
-                }
-            }
-
-            context("parse api key response") {
-                var result: String?
-
-                beforeEach {
-                    response.data = Data(fromFile: "sabnzbd_apikey", extension: "html")
-                    result = try? sut.parseApiKey(from: response) ?? nil
-                }
-
-                afterEach {
-                    result = nil
-                }
-
-                it("parses the key") {
-                    expect(result) == "10480f3fd315c42728be2893595ede4a"
                 }
             }
         }
