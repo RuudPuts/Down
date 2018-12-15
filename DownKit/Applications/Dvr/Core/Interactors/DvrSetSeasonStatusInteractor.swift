@@ -38,7 +38,7 @@ public class DvrSetSeasonStatusInteractor: CompoundInteractor {
             .setShow(show)
             .observe()
             .do(onSuccess: {
-                $0.store(in: self.database)
+                self.database.stores(shows: [$0])
             })
     }
 }

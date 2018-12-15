@@ -44,7 +44,7 @@ public class DvrAddShowInteractor: CompoundInteractor {
                 //! Again this line is sickbeard specific. Won't hurt others but shouldn't be here.
                 $0.identifier = show.identifier
 
-                $0.store(in: self.database)
+                self.database.stores(shows: [$0])
             })
             .asSingle()
     }

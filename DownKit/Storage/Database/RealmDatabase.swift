@@ -21,10 +21,12 @@ public class RealmDatabase: DownDatabase {
         return try! Realm(configuration: self.configuration)
     }
 
-    public func store(show: DvrShow) {
+    public func stores(shows: [DvrShow]) {
         let realm = makeRealm()
         try? realm.write {
-            realm.add(show, update: true)
+            shows.forEach {
+                realm.add($0, update: true)
+            }
         }
     }
 

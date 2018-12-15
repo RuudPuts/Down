@@ -81,12 +81,12 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
             self.interactors
                 .makeShowDetailsInteractor(for: self.application, show: $0)
                 .observe()
-                .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-                .do(onSuccess: { $0.store(in: self.database) })
                 .asObservable()
-                .observeOn(MainScheduler.instance)
             }
 
         return Observable.zip(observables)
+            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .do(onNext: { self.database.stores(shows: $0) })
+            .observeOn(MainScheduler.instance)
     }
 }
