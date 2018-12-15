@@ -27,6 +27,8 @@ class DvrAddShowViewController: UIViewController & Depending {
     private let viewModel: DvrAddShowViewModel
     private let disposeBag = DisposeBag()
 
+    private var addingShowAlert: UIAlertController?
+
     init(dependencies: Dependencies, viewModel: DvrAddShowViewModel) {
         self.dependencies = dependencies
         self.viewModel = viewModel
@@ -82,6 +84,21 @@ class DvrAddShowViewController: UIViewController & Depending {
     }
 }
 
+private extension DvrAddShowViewController {
+    func presentAddingShowAlert(for show: DvrShow) {
+        let alert = UIAlertController(title: "Adding '\(show.name)'", message: "Please wait while the show is being added", preferredStyle: .alert)
+
+        addingShowAlert = alert
+        present(alert, animated: true, completion: nil)
+    }
+
+    func dismissAddingShowAlert() {
+        addingShowAlert?.dismiss(animated: true, completion: {
+            self.addingShowAlert = nil
+        })
+    }
+}
+
 extension DvrAddShowViewController: ReactiveBinding {
     typealias Bindable = DvrAddShowViewModel
 
@@ -100,10 +117,19 @@ extension DvrAddShowViewController: ReactiveBinding {
             }
             .disposed(by: disposeBag)
 
+        output.addingShow
+            .subscribe(onNext: {
+                self.presentAddingShowAlert(for: $0)
+            })
+            .disposed(by: disposeBag)
+
         output.showAdded
             .map { _ in self.tableView.indexPathForSelectedRow }
             .unwrap()
-            .subscribe(onNext: { self.tableView.deselectRow(at: $0, animated: true) })
+            .subscribe(onNext: {
+                self.dismissAddingShowAlert()
+                self.tableView.deselectRow(at: $0, animated: true)
+            })
             .disposed(by: disposeBag)
 
         output.showAdded

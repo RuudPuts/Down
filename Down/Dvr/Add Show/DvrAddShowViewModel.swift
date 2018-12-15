@@ -33,6 +33,7 @@ extension DvrAddShowViewModel: ReactiveBindable {
 
     struct Output {
         let searchResults: Observable<[DvrShow]>
+        let addingShow: Observable<DvrShow>
         let showAdded: Observable<Result<DvrShow, DownError>>
     }
 
@@ -47,10 +48,12 @@ extension DvrAddShowViewModel: ReactiveBindable {
                     .map { $0.value ?? [] }
             }
 
-        let showAddedDriver = input.showSelected
+        let selectedShow = input.showSelected
             .withLatestFrom(searchResultsDriver) { indexPath, searchResults in
                 searchResults[indexPath.row]
             }
+
+        let showAddedDriver = selectedShow
             .flatMap {
                 self.dependencies.dvrInteractorFactory
                     .makeAddShowInteractor(for: self.dependencies.dvrApplication, show: $0)
@@ -59,6 +62,6 @@ extension DvrAddShowViewModel: ReactiveBindable {
                     .mapResult(DownError.self)
             }
 
-        return Output(searchResults: searchResultsDriver, showAdded: showAddedDriver)
+        return Output(searchResults: searchResultsDriver, addingShow: selectedShow, showAdded: showAddedDriver)
     }
 }
