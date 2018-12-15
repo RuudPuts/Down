@@ -27,7 +27,7 @@ struct DvrAddShowViewModel: Depending {
 
 extension DvrAddShowViewModel: ReactiveBindable {
     struct Input {
-        let searchQuery: Observable<String>
+        let searchQuery: Driver<String>
         let showSelected: ControlEvent<IndexPath>
     }
 
@@ -39,6 +39,7 @@ extension DvrAddShowViewModel: ReactiveBindable {
 
     func transform(input: Input) -> Output {
         let searchResultsDriver = input.searchQuery
+            .asObservable()
             .flatMap {
                 self.dependencies.dvrInteractorFactory
                     .makeSearchShowsInteractor(for: self.dependencies.dvrApplication, query: $0)
