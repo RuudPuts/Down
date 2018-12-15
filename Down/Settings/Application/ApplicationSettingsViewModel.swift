@@ -166,8 +166,8 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
             .makeShowCacheRefreshInteractor(for: dvrApplication)
             .observeResult()
             .do(
-                onSuccess: { result in
-                    NSLog("Cache result: \(result)")
+                onSuccess: { shows in
+                    NSLog("Cache updated: \(shows.count) shows")
                 },
                 onFailure: { error in
                     NSLog("Cache error: \(error)")
