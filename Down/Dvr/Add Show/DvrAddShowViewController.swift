@@ -112,7 +112,7 @@ extension DvrAddShowViewController: ReactiveBinding {
                     self.dependencies.router.close(viewController: self)
                 },
                 onFailure: {
-                    self.dependencies.errorHandler.handle(error: $0, type: .dvr_addShow, source: self)
+                    self.dependencies.errorHandler.handle(error: $0, action: .dvr_addShow, source: self)
                 }
             )
             .subscribe()

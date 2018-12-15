@@ -186,7 +186,7 @@ extension SickbeardResponseParser {
     func validate(_ json: JSON) throws {
         let data = json["data"]
         guard json["result"].string == "success" else {
-            throw ParseError.api(message: data.stringValue)
+            throw ParseError.api(message: json["message"].stringValue)
         }
 
         // Check for any chained command and their results
@@ -216,6 +216,7 @@ extension DvrEpisodeStatus {
         case DvrEpisodeStatus.ignored.sickbeardValue: return .ignored
         case DvrEpisodeStatus.snatched.sickbeardValue: return .snatched
         case DvrEpisodeStatus.downloaded.sickbeardValue: return .downloaded
+        case DvrEpisodeStatus.unaired.sickbeardValue: return .unaired
         default: return .unknown
         }
     }

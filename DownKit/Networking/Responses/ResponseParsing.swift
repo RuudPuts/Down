@@ -13,7 +13,7 @@ public protocol ResponseParsing {
     func parseImage(from response: Response) throws -> UIImage
 }
 
-enum ParseError: Error, Hashable {
+public enum ParseError: Error, Hashable {
     case noData
     case invalidData
     case invalidJson

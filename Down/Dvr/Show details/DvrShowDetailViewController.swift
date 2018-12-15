@@ -98,7 +98,7 @@ extension DvrShowDetailViewController: ReactiveBinding {
                 },
                 onFailure: {
                     self.dependencies.errorHandler.handle(error: $0,
-                                                          type: .dvr_deleteShow,
+                                                          action: .dvr_deleteShow,
                                                           source: self)
                 }
             )

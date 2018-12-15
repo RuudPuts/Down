@@ -144,7 +144,7 @@ extension DownloadItemDetailViewController: ReactiveBinding {
                 },
                 onFailure: {
                     self.dependencies.errorHandler.handle(error: $0,
-                                                          type: .download_deleteItem,
+                                                          action: .download_deleteItem,
                                                           source: self)
                 }
             )
