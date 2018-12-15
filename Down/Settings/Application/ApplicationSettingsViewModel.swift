@@ -167,7 +167,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
             .observeResult()
             .do(
                 onSuccess: { shows in
-                    NSLog("Cache updated: \(shows.count) shows")
+                    NSLog("Cache updated")
                 },
                 onFailure: { error in
                     NSLog("Cache error: \(error)")
