@@ -108,6 +108,7 @@
 		42350762212499BD005343CD /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42350761212499BD005343CD /* TableHeaderView.swift */; };
 		42350764212499C6005343CD /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42350763212499C6005343CD /* TableHeaderView.xib */; };
 		4235076621249B9E005343CD /* TableHeaderViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4235076521249B9E005343CD /* TableHeaderViewStyle.swift */; };
+		4237F7C221C6D1690005ED2D /* PagingViewControllerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4237F7C121C6D1690005ED2D /* PagingViewControllerStyle.swift */; };
 		42384A4621612641004A0349 /* MvrDatabaseStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A3B21612640004A0349 /* MvrDatabaseStoring.swift */; };
 		42384A4721612641004A0349 /* DmrApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A3C21612640004A0349 /* DmrApplication.swift */; };
 		42384A4821612641004A0349 /* DmrRequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42384A3D21612640004A0349 /* DmrRequestBuilding.swift */; };
@@ -444,6 +445,7 @@
 		42350761212499BD005343CD /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		42350763212499C6005343CD /* TableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
 		4235076521249B9E005343CD /* TableHeaderViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderViewStyle.swift; sourceTree = "<group>"; };
+		4237F7C121C6D1690005ED2D /* PagingViewControllerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewControllerStyle.swift; sourceTree = "<group>"; };
 		42384A3B21612640004A0349 /* MvrDatabaseStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MvrDatabaseStoring.swift; sourceTree = "<group>"; };
 		42384A3C21612640004A0349 /* DmrApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DmrApplication.swift; sourceTree = "<group>"; };
 		42384A3D21612640004A0349 /* DmrRequestBuilding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DmrRequestBuilding.swift; sourceTree = "<group>"; };
@@ -1632,6 +1634,7 @@
 				4288010F21209280007552FD /* ApplicationHeaderViewStyle.swift */,
 				4235075D21248BEC005343CD /* CircleProgressViewStyle.swift */,
 				4284C72621334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift */,
+				4237F7C121C6D1690005ED2D /* PagingViewControllerStyle.swift */,
 				4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */,
 				4235076521249B9E005343CD /* TableHeaderViewStyle.swift */,
 				4284C72821334D7000F21B91 /* UIButtonStyle.swift */,
@@ -2533,6 +2536,7 @@
 				4284C723213331FE00F21B91 /* UITabBarStyle.swift in Sources */,
 				421752DC217BB1F80002F0C1 /* DownloadItemDetailRow.swift in Sources */,
 				4288011121209280007552FD /* Stylesheet.swift in Sources */,
+				4237F7C221C6D1690005ED2D /* PagingViewControllerStyle.swift in Sources */,
 				4259F195219DFC8C003C37AB /* DvrShowDetailsViewModel.swift in Sources */,
 				428FCD652122204000C0371D /* UITableViewStyle.swift in Sources */,
 				427D606320E0325C0017AE42 /* DownloadRouter.swift in Sources */,

@@ -14,7 +14,9 @@ struct DvrShowsViewModel: Depending {
     typealias Dependencies = DatabaseDependency & DvrInteractorFactoryDependency
     let dependencies: Dependencies
 
-    let disposeBag = DisposeBag()
+    let title = "All shows"
+
+    private let disposeBag = DisposeBag()
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies

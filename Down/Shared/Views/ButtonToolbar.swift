@@ -36,21 +36,12 @@ class ButtonToolbar: UIView {
             $0.firstItem === self.stackView || $0.secondItem === self.stackView
         })
 
-        stackView.topAnchor
-            .constraint(equalTo: topAnchor, constant: insets.top)
-            .isActive = true
-
-        stackView.leadingAnchor
-            .constraint(equalTo: leadingAnchor, constant: insets.left)
-            .isActive = true
-
-        stackView.bottomAnchor
-            .constraint(equalTo: bottomAnchor, constant: insets.bottom)
-            .isActive = true
-
-        stackView.trailingAnchor
-            .constraint(equalTo: trailingAnchor, constant: -insets.right)
-            .isActive = true
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: insets.bottom),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -insets.right)
+        ])
     }
 
     func addButton(title: String, style: ViewStyling<UIButton>) -> UIButton {

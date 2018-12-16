@@ -22,3 +22,16 @@ extension UIView {
         return self
     }
 }
+
+extension UIViewController {
+    @discardableResult
+    func style<T>(as styling: ViewStyling<T>) -> Self {
+        guard let view = self as? T else {
+            return self
+        }
+
+        styling.style(view)
+
+        return self
+    }
+}

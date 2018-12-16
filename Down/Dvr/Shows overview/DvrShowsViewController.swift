@@ -27,6 +27,7 @@ class DvrShowsViewController: UIViewController & Depending {
         self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
+        title = viewModel.title
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +41,6 @@ class DvrShowsViewController: UIViewController & Depending {
                                                           collectionView: collectionView)
 
         configureCollectionView()
-        createAddShowsButton()
         applyStyling()
         bind(to: viewModel)
     }
@@ -51,9 +51,10 @@ class DvrShowsViewController: UIViewController & Depending {
 
     private func configureCollectionView() {
         collectionViewModel.configure(collectionView)
+        createCollectionHeaderView()
     }
 
-    private func createAddShowsButton() {
+    private func createCollectionHeaderView() {
         let toolbar = ButtonToolbar()
         toolbar.insets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 6)
         toolbar

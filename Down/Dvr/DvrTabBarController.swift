@@ -18,9 +18,12 @@ class DvrTabBarController: UIViewController & Depending {
     @IBOutlet weak var containerView: UIView!
 
     private let pagingViewController: FixedPagingViewController
+    private let viewControllers: [UIViewController]
 
     init(dependencies: Dependencies, viewControllers: [UIViewController]) {
+        self.viewControllers = viewControllers
         self.dependencies = dependencies
+
         pagingViewController = FixedPagingViewController(viewControllers: viewControllers)
         
         super.init(nibName: nil, bundle: nil)
@@ -35,6 +38,7 @@ class DvrTabBarController: UIViewController & Depending {
 
         applyStyling()
         showPagingController()
+        configurePagingController()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -53,7 +57,10 @@ class DvrTabBarController: UIViewController & Depending {
 
     private func applyStyling() {
         view.style(as: .backgroundView)
-        headerView.style(as: .headerView(for: dependencies.dvrApplication.downType))
+
+        let applicationType = dependencies.dvrApplication.downType
+        headerView.style(as: .headerView(for: applicationType))
+        pagingViewController.style(as: .pagingViewController(for: applicationType))
     }
 
     private func showPagingController() {
@@ -68,5 +75,16 @@ class DvrTabBarController: UIViewController & Depending {
             pagingViewController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             pagingViewController.view.topAnchor.constraint(equalTo: containerView.topAnchor)
         ])
+    }
+
+    private func configurePagingController() {
+        pagingViewController.delegate = self
+        pagingViewController.select(index: 1, animated: false)
+    }
+}
+
+extension DvrTabBarController: PagingViewControllerDelegate {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> PagingItem {
+        return PagingIndexItem(index: index, title: viewControllers[index].title ?? "")
     }
 }

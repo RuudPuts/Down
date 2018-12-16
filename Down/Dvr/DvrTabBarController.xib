@@ -29,9 +29,8 @@
                         <constraint firstAttribute="height" constant="70" id="yxL-MF-rLn"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JDi-lu-1oR">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDi-lu-1oR">
                     <rect key="frame" x="0.0" y="98" width="375" height="569"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -42,7 +41,7 @@
                 <constraint firstItem="JDi-lu-1oR" firstAttribute="bottom" secondItem="ykZ-uZ-v8c" secondAttribute="bottom" id="Umn-jl-42s"/>
                 <constraint firstItem="JDi-lu-1oR" firstAttribute="trailing" secondItem="ykZ-uZ-v8c" secondAttribute="trailing" id="WUM-Fo-SUD"/>
                 <constraint firstItem="8jB-Jt-Gwy" firstAttribute="top" secondItem="ykZ-uZ-v8c" secondAttribute="top" id="iYS-rJ-5qV"/>
-                <constraint firstItem="JDi-lu-1oR" firstAttribute="top" secondItem="8jB-Jt-Gwy" secondAttribute="bottom" constant="10" id="vcS-bW-UwK"/>
+                <constraint firstItem="JDi-lu-1oR" firstAttribute="top" secondItem="8jB-Jt-Gwy" secondAttribute="bottom" id="vcS-bW-UwK"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ykZ-uZ-v8c"/>
             <point key="canvasLocation" x="304.80000000000001" y="58.020989505247378"/>

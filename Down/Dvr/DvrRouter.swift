@@ -31,10 +31,16 @@ class DvrRouter: ChildRouter, Depending {
     }
     
     func start() {
+        let a = UIViewController()
+        a.title = "Airing soon"
+
+        let b = UIViewController()
+        b.title = "Recently aired"
+
         let viewControllers = [
-            UIViewController(),
+            a,
             viewControllerFactory.makeDvrShows(),
-            UIViewController()
+            b
         ]
 
         navigationController.viewControllers = [viewControllerFactory.makeDvrTabBar(viewControllers: viewControllers)]
