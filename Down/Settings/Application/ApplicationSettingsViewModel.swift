@@ -53,19 +53,18 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 return application
             }
 
+        let usernameChanged = input.username.withLatestFrom(input.password) { (username: $0, password: $1) }
+        let passwordChanged = input.password.withLatestFrom(input.username) { (username: $1, password: $0) }
 
-
-        
-        let credentialsDriver = Driver.zip([input.username, input.password])
+        let credentialsDriver = Driver.merge([usernameChanged, passwordChanged])
             .map { input -> UsernamePassword? in
-                guard let username = input.first, username.count > 0,
-                      let password = input.last, password.count > 0 else {
+                guard !input.username.isEmpty, !input.password.isEmpty else {
                     return nil
                 }
 
-                return (username: username, password: password)
+                return (username: input.username, password: input.password)
             }
-            .debug()
+            .asDriver(onErrorJustReturn: nil)
 
         let hostChangedObservable = observableApplication
             .withLatestFrom(credentialsDriver) { application, credentials in
@@ -77,9 +76,9 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 return (application: application, credentials: credentials)
             }
 
-        let loginObservable = Driver<LoginInputTuple>.merge([hostChangedObservable, credentialsChangedObservable])
+        let loginObservable = Driver.merge([hostChangedObservable, credentialsChangedObservable])
             .asObservable()
-            .flatMap {
+            .flatMapLatest {
                 self.login(for: $0.application, withCredentials: $0.credentials)
             }
             .asDriver(onErrorJustReturn: .failed)
@@ -93,7 +92,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 return (application: application, credentials: input.credentials)
             }
             .asObservable()
-            .flatMap {
+            .flatMapLatest {
                 self.fetchApiKey(for: $0.application, withCredentials: $0.credentials)
             }
             .startWith(application.apiKey)
@@ -137,10 +136,10 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
             .observeResult()
             .do(
                 onSuccess: { result in
-                    NSLog("Login result: \(result)")
+                    NSLog("Login result -> \(result)")
                 },
                 onFailure: { error in
-                    NSLog("Login error: \(error)")
+                    NSLog("Login error -> \(error)")
                 }
             )
             .map { $0.value ?? .failed }
@@ -154,14 +153,14 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
             .do(
                 onSuccess: {
                     guard let apiKey = $0 else {
-                        NSLog("⚠️ Api key fetch was succesful, but no data was returend!")
+                        NSLog("⚠️ -> Api key fetch was succesful, but no data was returend!")
                         return
                     }
 
-                    NSLog("Api key: \(apiKey)")
+                    NSLog("Api key -> \(apiKey)")
                 },
                 onFailure: { error in
-                    NSLog("ApiKey error: \(error)")
+                    NSLog("ApiKey error -> \(error)")
                 }
             )
             .map { $0.value ?? nil }
