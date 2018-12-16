@@ -4,11 +4,11 @@ import DownKit
 struct Stylesheet {
     struct Colors {
         struct Backgrounds {
-            static let lightGray = UIColor(red:0.29, green:0.29, blue:0.29, alpha:1.00)
-            static let darkGray = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.00)
+            static let lightGray = UIColor(red: 0.29, green: 0.29, blue: 0.29, alpha: 1.00)
+            static let darkGray = UIColor(red: 0.20, green: 0.20, blue: 0.20, alpha: 1.00)
 
-            static let lightBlue = UIColor(red:0.20, green:0.24, blue:0.30, alpha:1.00)
-            static let darkBlue = UIColor(red:0.11, green:0.14, blue:0.20, alpha:1.00)
+            static let lightBlue = UIColor(red: 0.20, green: 0.24, blue: 0.30, alpha: 1.00)
+            static let darkBlue = UIColor(red: 0.11, green: 0.14, blue: 0.20, alpha: 1.00)
         }
 
         static func primaryColor(for type: DownApplicationType) -> UIColor {
@@ -30,10 +30,10 @@ struct Stylesheet {
         static var black = UIColor.black
         static var white = UIColor.white
         static var green = UIColor(red: 0.25, green: 0.75, blue: 0.45, alpha: 1)
-        static var orange = UIColor(red:0.87, green:0.63, blue:0.31, alpha:1.00)
+        static var orange = UIColor(red: 0.87, green: 0.63, blue: 0.31, alpha: 1.00)
         static var red = UIColor(red: 0.84, green: 0.29, blue: 0.26, alpha: 1)
-        static var blue = UIColor(red:0.25, green:0.50, blue:0.71, alpha:1.00)
-        static var purple = UIColor(red:0.52, green:0.30, blue:0.66, alpha:1.00)
+        static var blue = UIColor(red: 0.25, green: 0.50, blue: 0.71, alpha: 1.00)
+        static var purple = UIColor(red: 0.52, green: 0.30, blue: 0.66, alpha: 1.00)
     }
 
     struct Fonts {

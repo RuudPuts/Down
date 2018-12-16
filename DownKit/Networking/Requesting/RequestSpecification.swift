@@ -40,7 +40,7 @@ extension RequestSpecification: Equatable {
             && lhs.parameters == rhs.parameters
             && lhs.headers == rhs.headers
             && lhs.authenticationMethod == rhs.authenticationMethod
-            && lhs.basicAuthenticationData ?? ("","") == rhs.basicAuthenticationData ?? ("","")
+            && lhs.basicAuthenticationData ?? ("", "") == rhs.basicAuthenticationData ?? ("", "")
             && lhs.formAuthenticationData == rhs.formAuthenticationData
     }
 }

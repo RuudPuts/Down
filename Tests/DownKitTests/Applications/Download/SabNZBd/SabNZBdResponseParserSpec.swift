@@ -242,5 +242,5 @@ class SabNZBdResponseParserSpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }
-

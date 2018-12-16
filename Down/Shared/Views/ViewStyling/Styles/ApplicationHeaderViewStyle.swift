@@ -12,7 +12,7 @@ import DownKit
 extension ViewStyling where ViewType == ApplicationHeaderView {
     static func headerView(for type: DownApplicationType) -> ViewStyling {
         return ViewStyling {
-            $0.imageView?.image = AssetProvider.icons.for(type)
+            $0.imageView?.image = AssetProvider.Icon.for(type)
         }
     }
 }

@@ -14,6 +14,7 @@ import Nimble
 import RxNimble
 
 class DvrRefreshShowCacheInteractorSpec: QuickSpec {
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("DvrRefreshShowCacheInteractor") {
             var sut: DvrRefreshShowCacheInteractor!
@@ -134,7 +135,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
 
                                 storedShows = [
                                     showToUpdate,
-                                    DvrShow(identifier: "2", name: "Show2"),
+                                    DvrShow(identifier: "2", name: "Show2")
                                 ]
                                 database.stubs.fetchShows = storedShows
 
@@ -163,7 +164,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
 
                                 storedShows = [
                                     showToUpdate,
-                                    DvrShow(identifier: "2", name: "Show2"),
+                                    DvrShow(identifier: "2", name: "Show2")
                                 ]
                                 database.stubs.fetchShows = storedShows
 
@@ -192,7 +193,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
 
                                 storedShows = [
                                     showToUpdate,
-                                    DvrShow(identifier: "2", name: "Show2"),
+                                    DvrShow(identifier: "2", name: "Show2")
                                 ]
                                 database.stubs.fetchShows = storedShows
 
@@ -216,6 +217,7 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 
     func makeShow(withEpisodeAiringOn airDate: Date) -> DvrShow {
         let show = DvrShow(identifier: "1", name: "Show1")

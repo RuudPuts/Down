@@ -31,4 +31,3 @@ extension UITextField {
         return value(forKey: "_clearButton") as? UIButton
     }
 }
-

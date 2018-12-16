@@ -46,7 +46,7 @@ extension SettingsViewModel: ReactiveBindable {
         let applicationsDriver = Driver.just([
             SettingsSectionModel(applicationType: .download, title: "Downloaders", applications: [.sabnzbd]),
             SettingsSectionModel(applicationType: .dvr, title: "Show indexers", applications: [.sickbeard, .sickgear]),
-            SettingsSectionModel(applicationType: .dmr, title: "Movie indexers", applications: [.couchpotato]),
+            SettingsSectionModel(applicationType: .dmr, title: "Movie indexers", applications: [.couchpotato])
         ])
 
         let navigateToDetailsDriver = input.itemSelected

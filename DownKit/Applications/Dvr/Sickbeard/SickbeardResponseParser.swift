@@ -112,7 +112,7 @@ class SickbeardResponseParser: DvrResponseParsing {
 private extension SickbeardResponseParser {
     func parseShow(from json: JSON, keymap: ParseShowsKeyMaping.Type) -> DvrShow {
         var identifier = json[keymap.id].stringValue
-        if identifier.count == 0 {
+        if identifier.isEmpty {
             identifier = DvrShow.partialIdentifier
         }
 

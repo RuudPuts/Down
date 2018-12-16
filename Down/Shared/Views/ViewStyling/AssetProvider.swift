@@ -10,7 +10,7 @@ import UIKit
 import DownKit
 
 class AssetProvider {
-    struct icons {
+    struct Icon {
         static func `for`(_ application: DownApplicationType) -> UIImage {
             return UIImage(named: "\(application.rawValue)_icon")!
         }

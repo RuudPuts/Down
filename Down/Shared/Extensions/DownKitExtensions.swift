@@ -117,4 +117,3 @@ extension ObservableInteractor {
             .mapResult(DownError.self)
     }
 }
-

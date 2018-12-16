@@ -47,7 +47,9 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
     func transform(input: Input) -> Output {
         let observableApplication = input.host
             .map { host -> ApiApplication in
+                // swiftlint:disable force_cast
                 var application = self.application.copy() as! ApiApplication
+                // swiftlint:enable force_cast
                 application.host = host
 
                 return application

@@ -178,7 +178,6 @@ extension Router {
             return nil
         }
 
-
         dmrRouter = DmrRouter(dependencies: dependencies,
                               viewControllerFactory: viewControllerFactory,
                               navigationController: makeNavigationController())

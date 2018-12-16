@@ -29,7 +29,7 @@ extension UserDefaults: ApplicationPersisting {
 
     func load(type: ApiApplicationType) -> ApiApplication? {
         guard let rawActiveType = object(forKey: activeStorageKey(for: type)) as? String,
-              let activeType = DownApplicationType.init(rawValue: rawActiveType) else {
+              let activeType = DownApplicationType(rawValue: rawActiveType) else {
             return nil
         }
 
@@ -63,7 +63,7 @@ extension UserDefaults: ApplicationPersisting {
 
     var anyApplicationConfigured: Bool {
         return !ApiApplicationType.allValues
-            .compactMap { load(type: $0)}
+            .compactMap { load(type: $0) }
             .isEmpty
     }
 }

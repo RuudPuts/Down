@@ -26,19 +26,23 @@ public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
     public init() {}
 
     public func makeApiApplicationRequestBuilder(for application: ApiApplication) -> ApiApplicationRequestBuilding {
+        // swiftlint:disable force_cast
         switch application.type {
         case .download: return makeDownloadRequestBuilder(for: application as! DownloadApplication)
         case .dvr: return makeDvrRequestBuilder(for: application as! DvrApplication)
         case .dmr: return makeDmrRequestBuilder(for: application as! DmrApplication)
         }
+        // swiftlint:enable force_cast
     }
 
     public func makeApiApplicationResponseParser(for application: ApiApplication) -> ApiApplicationResponseParsing {
+        // swiftlint:disable force_cast
         switch application.type {
         case .download: return makeDownloadResponseParser(for: application as! DownloadApplication)
         case .dvr: return makeDvrResponseParser(for: application as! DvrApplication)
         case .dmr: return makeDmrResponseParser(for: application as! DmrApplication)
         }
+        // swiftlint:enable force_cast
     }
     
     public func makeDownloadRequestBuilder(for application: DownloadApplication) -> DownloadRequestBuilding {

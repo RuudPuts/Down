@@ -43,7 +43,7 @@ class DateExtensionsSpec: QuickSpec {
 
                 context("less then an hour") {
                     beforeEach {
-                        sut = Date.init(timeIntervalSinceReferenceDate: 315)
+                        sut = Date(timeIntervalSinceReferenceDate: 315)
                         result = sut.timeString
                     }
 
@@ -54,7 +54,7 @@ class DateExtensionsSpec: QuickSpec {
 
                 context("more than an hour") {
                     beforeEach {
-                        sut = Date.init(timeIntervalSinceReferenceDate: 4505)
+                        sut = Date(timeIntervalSinceReferenceDate: 4505)
                         result = sut.timeString
                     }
 

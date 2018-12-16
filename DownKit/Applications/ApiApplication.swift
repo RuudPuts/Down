@@ -20,7 +20,7 @@ public protocol ApiApplication: Application, Copying {
 
 extension ApiApplication {
     var isConfigured: Bool {
-        return host.count > 0 && apiKey.count > 0
+        return !host.isEmpty && !apiKey.isEmpty
     }
 }
 

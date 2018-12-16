@@ -73,7 +73,7 @@ class ApiApplicationApiKeyGatewaySpec: QuickSpec {
 
                     responseParser.stubs.parseApiKey = "API_KEY"
 
-                    result = try! sut.parse(response: response)
+                    result = (try? sut.parse(response: response)) ?? nil
                 }
 
                 afterEach {
@@ -91,4 +91,5 @@ class ApiApplicationApiKeyGatewaySpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }

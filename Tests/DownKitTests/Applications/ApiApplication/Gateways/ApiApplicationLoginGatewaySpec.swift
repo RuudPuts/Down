@@ -76,7 +76,7 @@ class ApiApplicationLoginGatewaySpec: QuickSpec {
 
                     responseParser.stubs.parseLogin = .success
 
-                    result = try! sut.parse(response: response)
+                    result = try? sut.parse(response: response)
                 }
 
                 afterEach {

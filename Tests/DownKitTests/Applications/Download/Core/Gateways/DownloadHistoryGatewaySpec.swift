@@ -76,7 +76,7 @@ class DownloadHistoryGatewaySpec: QuickSpec {
                     historyItems = [DownloadItem(identifier: "1", name: "QueueItem", category: "", sizeMb: 0, progress: 0)]
                     responseParser.stubs.parseHistory = historyItems
 
-                    result = try! sut.parse(response: response)
+                    result = try? sut.parse(response: response)
                 }
 
                 afterEach {
@@ -95,4 +95,5 @@ class DownloadHistoryGatewaySpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }

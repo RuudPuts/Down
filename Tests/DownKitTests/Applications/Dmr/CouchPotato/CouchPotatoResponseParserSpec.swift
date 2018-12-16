@@ -236,4 +236,5 @@ class CouchPotatoResponseParserSpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }

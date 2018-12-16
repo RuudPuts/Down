@@ -10,14 +10,7 @@
 
 class DownKitDependenciesStub: DownKitDependencies {
     var database: DownDatabase
-    var databaseMock: DownDatabaseMock {
-        return database as! DownDatabaseMock
-    }
-
     var applicationAdditionsFactory: ApplicationAdditionsProducing
-    var applicationAdditionsFactoryMock: ApplicationAdditionsProducingMock {
-        return applicationAdditionsFactory as! ApplicationAdditionsProducingMock
-    }
 
     var apiGatewayFactory: ApiApplicationGatewayProducing!
     var apiInteractorFactory: ApiApplicationInteractorProducing!
@@ -56,4 +49,16 @@ class DownKitDependenciesStub: DownKitDependencies {
         dmrGatewayFactory = DmrGatewayFactory(dependencies: self)
         dmrInteractorFactory = DmrInteractorFactory(dependencies: self)
     }
+}
+
+extension DownKitDependenciesStub {
+    // swiftlint:disable force_cast
+    var databaseMock: DownDatabaseMock {
+        return database as! DownDatabaseMock
+    }
+
+    var applicationAdditionsFactoryMock: ApplicationAdditionsProducingMock {
+        return applicationAdditionsFactory as! ApplicationAdditionsProducingMock
+    }
+    // swiftlint:enable force_cast
 }

@@ -29,4 +29,3 @@ extension UICollectionViewCell: ReusableView {
         return String(describing: self)
     }
 }
-

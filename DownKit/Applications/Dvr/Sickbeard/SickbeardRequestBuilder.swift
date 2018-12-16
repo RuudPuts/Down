@@ -16,6 +16,7 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
         self.application = application
     }
 
+    // swiftlint:disable function_body_length
     func specification(for apiCall: DvrApplicationCall) -> RequestSpecification? {
         switch apiCall {
         case .showList: return RequestSpecification(
@@ -59,7 +60,7 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
             host: application.host,
             path: defaultPath + "cmd=show.delete&tvdbid={id}",
             parameters: defaultParameters.merging(["id": show.identifier], uniquingKeysWith: { $1 })
-        )
+            )
         case .setSeasonStatus(let season, let status): return RequestSpecification(
             host: application.host,
             path: defaultPath + "cmd=episode.setstatus&tvdbid={show_id}}&season={season_id}&status={status}",
@@ -68,7 +69,7 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
                     "season_id": season.identifier,
                     "status": status.sickbeardValue
                 ], uniquingKeysWith: { $1 })
-        )
+            )
         case .setEpisodeStatus(let episode, let status): return RequestSpecification(
             host: application.host,
             path: defaultPath + "cmd=episode.setstatus&tvdbid={show_id}&season&episode={episode_id}&status={status}",
@@ -78,9 +79,10 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
                     "episode_id": episode.identifier,
                     "status": status.sickbeardValue
                 ], uniquingKeysWith: { $1 })
-        )
+            )
         }
     }
+    // swiftlint:enable function_body_length
     
     func specification(for apiCall: ApiApplicationCall, credentials: UsernamePassword? = nil) -> RequestSpecification? {
         switch apiCall {

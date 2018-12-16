@@ -44,7 +44,7 @@ public class DvrAddShowInteractor: CompoundInteractor {
                 // Required for sickbeard / sickgear
                 $0.identifier = show.identifier
 
-                self.database.stores(shows: [$0])
+                self.database.store(shows: [$0])
             })
             .asSingle()
     }

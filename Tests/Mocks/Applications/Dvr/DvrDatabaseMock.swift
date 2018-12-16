@@ -10,8 +10,8 @@
 import RxSwift
 
 extension DownDatabaseMock { // DvrDatabase
-    func store(show: DvrShow) {
-        captures.storeShow = Captures.Show(show: show)
+    func store(shows: [DvrShow]) {
+        captures.storeShows = Captures.Shows(shows: shows)
     }
 
     func delete(show: DvrShow) {

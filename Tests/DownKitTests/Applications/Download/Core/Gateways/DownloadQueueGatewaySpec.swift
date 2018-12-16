@@ -76,7 +76,7 @@ class DownloadQueueGatewaySpec: QuickSpec {
                     queue = DownloadQueue(speedMb: 0, remainingTime: 0, remainingMb: 0, items: [])
                     responseParser.stubs.parseQueue = queue
 
-                    result = try! sut.parse(response: response)
+                    result = try? sut.parse(response: response)
                 }
 
                 afterEach {
@@ -95,4 +95,5 @@ class DownloadQueueGatewaySpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }

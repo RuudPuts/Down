@@ -30,10 +30,8 @@ let observable = Observable<Result<Int, DownKitError>>.create { observer in
     return Disposables.create()
 }
 
-
-
 observable
-    .map { $0.map { String($0) }}
+    .map { $0.map { String($0) } }
     .subscribeResult(
         onSuccess: { aaa in
             print("\(type(of: aaa)): \(aaa)")

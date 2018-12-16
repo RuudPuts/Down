@@ -48,7 +48,7 @@ extension CouchPotatoRequestBuilder: ApiApplicationRequestBuilding {
                 path: "getkey/?u={username}&p={password}",
                 parameters: [
                     "username": username.isEmpty ? username : MD5(username).lowercased(),
-                    "password": password.isEmpty ? password : MD5(password).lowercased(),
+                    "password": password.isEmpty ? password : MD5(password).lowercased()
                 ]
             )
         }

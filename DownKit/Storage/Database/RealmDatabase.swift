@@ -18,10 +18,12 @@ public class RealmDatabase: DownDatabase {
     }
 
     private func makeRealm() -> Realm {
+        // swiftlint:disable force_try
         return try! Realm(configuration: self.configuration)
+        // swiftlint:enable force_try
     }
 
-    public func stores(shows: [DvrShow]) {
+    public func store(shows: [DvrShow]) {
         let realm = makeRealm()
         try? realm.write {
             shows.forEach {

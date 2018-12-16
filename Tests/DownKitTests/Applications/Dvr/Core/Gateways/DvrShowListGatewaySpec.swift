@@ -76,7 +76,7 @@ class DvrShowListGatewaySpec: QuickSpec {
                     shows = [DvrShow(identifier: "1", name: "UpdatedShow")]
                     responseParser.stubs.parseShows = shows
 
-                    result = try! sut.parse(response: response)
+                    result = try? sut.parse(response: response)
                 }
 
                 afterEach {
@@ -95,4 +95,5 @@ class DvrShowListGatewaySpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }

@@ -54,7 +54,7 @@ extension DvrShowDetailsViewModel: ReactiveBindable {
                     .makeDeleteShowInteractor(for: self.dependencies.dvrApplication, show: self.show)
                     .observeResult()
             }
-            .map { $0.map { _ in }}
+            .map { $0.map { _ in } }
 
         return Output(refinedShow: refinedShowDriver, showDeleted: showDeletedDriver)
     }

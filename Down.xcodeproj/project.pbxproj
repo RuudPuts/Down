@@ -68,7 +68,6 @@
 		4227B77720DB160500603528 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B77520DB160500603528 /* Database.swift */; };
 		4227B77820DB160500603528 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B77620DB160500603528 /* RealmDatabase.swift */; };
 		4227B77D20DC2CDC00603528 /* DvrDatabaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B77C20DC2CDC00603528 /* DvrDatabaseMock.swift */; };
-		4227B78020DC305600603528 /* DvrShowSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B77F20DC305600603528 /* DvrShowSpec.swift */; };
 		4227B78220DC33CB00603528 /* DvrShowDetailsInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B78120DC33CB00603528 /* DvrShowDetailsInteractorSpec.swift */; };
 		4227B78520DC3BB200603528 /* RealmDatabaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B78420DC3BB200603528 /* RealmDatabaseSpec.swift */; };
 		4227B78820DC423300603528 /* RequestGatewayInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B78720DC423300603528 /* RequestGatewayInteractorSpec.swift */; };
@@ -400,7 +399,6 @@
 		4227B77520DB160500603528 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		4227B77620DB160500603528 /* RealmDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
 		4227B77C20DC2CDC00603528 /* DvrDatabaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrDatabaseMock.swift; sourceTree = "<group>"; };
-		4227B77F20DC305600603528 /* DvrShowSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowSpec.swift; sourceTree = "<group>"; };
 		4227B78120DC33CB00603528 /* DvrShowDetailsInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsInteractorSpec.swift; sourceTree = "<group>"; };
 		4227B78420DC3BB200603528 /* RealmDatabaseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabaseSpec.swift; sourceTree = "<group>"; };
 		4227B78720DC423300603528 /* RequestGatewayInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestGatewayInteractorSpec.swift; sourceTree = "<group>"; };
@@ -980,7 +978,6 @@
 		4221DAB620D1860E003950CF /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				4227B77E20DC304700603528 /* Models */,
 				42B16D5520D5A2C00027ED1C /* Interactors */,
 				42BF4E8E20D24FE50088AAF6 /* Gateways */,
 			);
@@ -1004,14 +1001,6 @@
 				4227B77620DB160500603528 /* RealmDatabase.swift */,
 			);
 			path = Database;
-			sourceTree = "<group>";
-		};
-		4227B77E20DC304700603528 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				4227B77F20DC305600603528 /* DvrShowSpec.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		4227B78320DC3B9A00603528 /* Database */ = {
@@ -1893,11 +1882,11 @@
 			buildPhases = (
 				8B47AB3386A0F09B7788EFB7 /* [CP] Check Pods Manifest.lock */,
 				F864179F21A03742006C03A1 /* Generate R File */,
+				42B16D4820D58A7C0027ED1C /* Run Swiftlint */,
 				426A797A20D1810100797AE5 /* Sources */,
 				426A797B20D1810100797AE5 /* Frameworks */,
 				426A797C20D1810100797AE5 /* Resources */,
 				4221DA4620D1819F003950CF /* Embed Frameworks */,
-				42B16D4820D58A7C0027ED1C /* Run Swiftlint */,
 				423F201721923973009879EC /* Run Fabric */,
 				A860E534A867AE55A46A3DAC /* [CP] Embed Pods Frameworks */,
 			);
@@ -2125,7 +2114,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exit 0\n\nif which swiftlint >/dev/null; then\n    swiftlint\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nfi\n";
 		};
 		45E8152B0C1EF10F11E84E1F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2446,7 +2435,6 @@
 				428340C020D2FB2500CB2D7A /* RequestGatewayMock.swift in Sources */,
 				421D06D121123D5B005DC78D /* ApiApplicationSpec.swift in Sources */,
 				42BD57E3219617EB00F1D7E0 /* URLStub.swift in Sources */,
-				4227B78020DC305600603528 /* DvrShowSpec.swift in Sources */,
 				42FC9B0B21A17BDE00910968 /* ResponseStub.swift in Sources */,
 				422BE6E220D7038100DDDF37 /* DvrGatewayFactorySpec.swift in Sources */,
 				427D605020DED3E30017AE42 /* DownloadQueueGatewaySpec.swift in Sources */,

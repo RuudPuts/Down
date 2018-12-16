@@ -30,11 +30,11 @@ class RequestGatewayInteractorSpec: QuickSpec {
             }
             
             context("observing") {
-                var result: Observable<Int>!
+                var result: Observable<Int?>!
 
                 beforeEach {
                     result = sut.observe()
-                        .map { $0 as! Int }
+                        .map { $0 as? Int }
                         .asObservable()
                 }
                 

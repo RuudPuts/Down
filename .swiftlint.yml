@@ -1,5 +1,12 @@
 statement_position:
   statement_mode: uncuddled_else
+
+opt_in_rules:
+- closure_spacing
+- empty_count
+- explicit_init
+- overridden_super_call
+- vertical_whitespace
 disabled_rules:
 - identifier_name
 - line_length
@@ -7,3 +14,5 @@ disabled_rules:
 - nesting
 excluded:
 - Pods
+- R.generated.swift
+- "*.playground"

@@ -26,7 +26,7 @@ public final class DownloadHistoryInteractor: RequestGatewayInteracting, Dependi
         return self.gateway
             .observe()
             .flatMap { items -> Single<[DownloadItem]> in
-                guard items.count > 0 else {
+                guard !items.isEmpty else {
                     return Single.just([])
                 }
 

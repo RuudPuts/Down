@@ -62,7 +62,7 @@ class ApplicationSettingsViewController: UIViewController & Depending {
             $0?.style(as: .floatingLabelTextField(for: application.downType))
         }
 
-        navigationItem.titleView = UIImageView(image: AssetProvider.icons.for(application.downType))
+        navigationItem.titleView = UIImageView(image: AssetProvider.Icon.for(application.downType))
     }
 
     func configureTextFields() {

@@ -30,7 +30,7 @@ public final class DownloadQueueInteractor: RequestGatewayInteracting, Depending
             .do(onSuccess: { queue = $0 })
             .map { $0.items }
             .flatMap { items -> Single<[DownloadItem]> in
-                guard items.count > 0 else {
+                guard !items.isEmpty else {
                     return Single.just([])
                 }
 

@@ -11,6 +11,7 @@ import Quick
 import Nimble
 
 class SickbeardRequestBuilderSpec: QuickSpec {
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("SickbeardRequestBuilder") {
             var sut: SickbeardRequestBuilder!
@@ -129,4 +130,5 @@ class SickbeardRequestBuilderSpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }

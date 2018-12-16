@@ -14,7 +14,6 @@ import Quick
 import Nimble
 
 class RealmDatabaseSpec: QuickSpec {
-    // swiftlint:disable function_body_length
     override func spec() {
         describe("RealmDatabase") {
             var sut: RealmDatabase!
@@ -38,12 +37,12 @@ class RealmDatabaseSpec: QuickSpec {
                     storedShows = nil
                 }
                 
-                context("storing show") {
+                context("storing shows") {
                     var show: DvrShow!
                     
                     beforeEach {
                         show = DvrShow(identifier: "1234", name: "TestShow")
-                        sut.store(show: show)
+                        sut.store(shows: [show])
                         storedShows = sut.fetchShows()
                     }
                     

@@ -20,7 +20,6 @@ public class DvrSeason: Object {
         self.identifier = identifier
         self.show = show
 
-
         setEpisodes(episodes)
     }
 

@@ -52,10 +52,8 @@ extension Request {
             break
         case .basic:
             configureBasicAuthentication(for: &request)
-            break
         case .form:
             configureFormAuthentication(for: &request)
-            break
         }
 
         return request

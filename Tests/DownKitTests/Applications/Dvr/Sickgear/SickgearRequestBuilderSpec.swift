@@ -11,6 +11,7 @@ import Quick
 import Nimble
 
 class SickgearRequestBuilderSpec: QuickSpec {
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("SickgearRequestBuilder") {
             var sut: SickgearRequestBuilder!
@@ -47,7 +48,7 @@ class SickgearRequestBuilderSpec: QuickSpec {
                         let expectedFormData = [
                             "username": credentials.username,
                             "password": credentials.password,
-                            "_xsrf": "sickgear",
+                            "_xsrf": "sickgear"
                         ]
 
                         expect(result) == RequestSpecification(host: application.host,
@@ -100,11 +101,12 @@ class SickgearRequestBuilderSpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }
 
 private extension HTTPCookie {
     convenience init?(url: URL, key: String, value: String) {
-        let properties: [HTTPCookiePropertyKey : Any] = [
+        let properties: [HTTPCookiePropertyKey: Any] = [
             .domain: url.absoluteString,
             .path: "/",
             .name: key,

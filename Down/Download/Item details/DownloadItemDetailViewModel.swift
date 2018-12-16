@@ -44,7 +44,7 @@ extension DownloadItemDetailViewModel: ReactiveBindable {
                     .makeDeleteItemInteractor(for: self.dependencies.downloadApplication, item: self.item)
                     .observeResult()
             }
-            .map { $0.map { _ in }}
+            .map { $0.map { _ in } }
 
         return Output(refinedItem: refinedItemDriver, itemDeleted: itemDeletedDriver)
     }
@@ -147,8 +147,7 @@ extension DownloadItemDetailViewModel {
                 DownloadItemDetailRow(key: .showName, value: show.name),
                 DownloadItemDetailRow(key: .episodeNumber, value: episode.seasonIdentifierString ?? "-"),
                 DownloadItemDetailRow(key: .episodeName, value: episode.name),
-                DownloadItemDetailRow(key: .episodeAirdate, value: episode.airdate?.dateString ?? "-"),
-//                DownloadItemDetailRow(key: .episodePlot, value: episode.plot)
+                DownloadItemDetailRow(key: .episodeAirdate, value: episode.airdate?.dateString ?? "-")
             ]
         }
     }

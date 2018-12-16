@@ -37,7 +37,6 @@ class DvrShowsViewController: UIViewController & Depending {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
         collectionViewModel = DvrShowsCollectionViewModel(dependencies: dependencies,
                                                           collectionView: collectionView)
 

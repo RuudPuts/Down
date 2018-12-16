@@ -13,7 +13,6 @@ import RealmSwift
 import SwiftyJSON
 
 class SickgearResponseParserSpec: QuickSpec {
-    // swiftlint:disable function_body_length
     override func spec() {
         describe("SickgearResponseParser") {
             var sut: SickgearResponseParser!

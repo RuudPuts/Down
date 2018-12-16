@@ -23,6 +23,6 @@ struct SettingsApplicationCellModel {
     var applicationType: DownApplicationType
 
     var icon: UIImage {
-        return AssetProvider.icons.for(applicationType)
+        return AssetProvider.Icon.for(applicationType)
     }
 }

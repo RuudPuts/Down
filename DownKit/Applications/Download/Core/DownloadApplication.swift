@@ -42,7 +42,7 @@ public enum DownloadApplicationCall {
         switch self {
         case .queue: return "queue"
         case .history: return "history"
-        case .delete(_): return "delete"
+        case .delete: return "delete"
         }
     }
 }
