@@ -9,7 +9,7 @@
 import Parchment
 import DownKit
 
-extension ViewStyling where ViewType: PagingViewController<PagingIndexItem> {
+extension ViewStyling where ViewType: FixedPagingViewController {
     static func pagingViewController(for applicationType: DownApplicationType) -> ViewStyling {
         return ViewStyling {
             $0.menuBackgroundColor = .clear

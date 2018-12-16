@@ -1,5 +1,5 @@
 //
-//  DvrTabBarController.swift
+//  PagingViewController.swift
 //  Down
 //
 //  Created by Ruud Puts on 16/12/2018.
@@ -10,19 +10,18 @@ import UIKit
 import Parchment
 import DownKit
 
-class DvrTabBarController: UIViewController & Depending {
-    typealias Dependencies = DvrShowsCollectionViewModel.Dependencies & RouterDependency & DvrApplicationDependency
-    let dependencies: Dependencies
+class PagingViewController: UIViewController {
 
     @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var containerView: UIView!
 
-    private let pagingViewController: FixedPagingViewController
+    private let application: ApiApplication
     private let viewControllers: [UIViewController]
+    private let pagingViewController: FixedPagingViewController
 
-    init(dependencies: Dependencies, viewControllers: [UIViewController]) {
+    init(viewControllers: [UIViewController], application: ApiApplication) {
         self.viewControllers = viewControllers
-        self.dependencies = dependencies
+        self.application = application
 
         pagingViewController = FixedPagingViewController(viewControllers: viewControllers)
         
@@ -58,7 +57,7 @@ class DvrTabBarController: UIViewController & Depending {
     private func applyStyling() {
         view.style(as: .backgroundView)
 
-        let applicationType = dependencies.dvrApplication.downType
+        let applicationType = application.downType
         headerView.style(as: .headerView(for: applicationType))
         pagingViewController.style(as: .pagingViewController(for: applicationType))
     }
@@ -83,8 +82,8 @@ class DvrTabBarController: UIViewController & Depending {
     }
 }
 
-extension DvrTabBarController: PagingViewControllerDelegate {
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> PagingItem {
+extension PagingViewController: PagingViewControllerDelegate {
+    func pagingViewController<T>(_ pagingViewController: Parchment.PagingViewController<T>, pagingItemForIndex index: Int) -> PagingItem {
         return PagingIndexItem(index: index, title: viewControllers[index].title ?? "")
     }
 }

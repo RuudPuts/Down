@@ -15,7 +15,7 @@ protocol DvrRouting {
 }
 
 class DvrRouter: ChildRouter, Depending {
-    typealias Dependencies = RouterDependency
+    typealias Dependencies = RouterDependency & DvrApplicationDependency
     let dependencies: Dependencies
 
     var viewControllerFactory: ViewControllerProducing
@@ -43,7 +43,12 @@ class DvrRouter: ChildRouter, Depending {
             b
         ]
 
-        navigationController.viewControllers = [viewControllerFactory.makeDvrTabBar(viewControllers: viewControllers)]
+        let pagingViewController = viewControllerFactory.makePagingViewController(
+            viewControllers: viewControllers,
+            application: dependencies.dvrApplication
+        )
+
+        navigationController.viewControllers = [pagingViewController]
     }
     
     func showDetail(of show: DvrShow) {

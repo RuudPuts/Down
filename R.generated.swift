@@ -336,10 +336,10 @@ struct R: Rswift.Validatable {
     static let dvrShowHeaderView = _R.nib._DvrShowHeaderView()
     /// Nib `DvrShowsViewController`.
     static let dvrShowsViewController = _R.nib._DvrShowsViewController()
-    /// Nib `DvrTabBarController`.
-    static let dvrTabBarController = _R.nib._DvrTabBarController()
     /// Nib `KeyValueTableViewCell`.
     static let keyValueTableViewCell = _R.nib._KeyValueTableViewCell()
+    /// Nib `PagingViewController`.
+    static let pagingViewController = _R.nib._PagingViewController()
     /// Nib `SettingsApplicationCell`.
     static let settingsApplicationCell = _R.nib._SettingsApplicationCell()
     /// Nib `SettingsViewController`.
@@ -412,14 +412,14 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.dvrShowsViewController)
     }
     
-    /// `UINib(name: "DvrTabBarController", in: bundle)`
-    static func dvrTabBarController(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.dvrTabBarController)
-    }
-    
     /// `UINib(name: "KeyValueTableViewCell", in: bundle)`
     static func keyValueTableViewCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.keyValueTableViewCell)
+    }
+    
+    /// `UINib(name: "PagingViewController", in: bundle)`
+    static func pagingViewController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.pagingViewController)
     }
     
     /// `UINib(name: "SettingsApplicationCell", in: bundle)`
@@ -719,23 +719,23 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _DvrTabBarController: Rswift.NibResourceType {
-      let bundle = R.hostingBundle
-      let name = "DvrTabBarController"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      fileprivate init() {}
-    }
-    
     struct _KeyValueTableViewCell: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "KeyValueTableViewCell"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> KeyValueTableViewCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? KeyValueTableViewCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _PagingViewController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "PagingViewController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
       fileprivate init() {}

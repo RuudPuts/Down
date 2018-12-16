@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DvrTabBarController" customModule="Down" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PagingViewController" customModule="Down" customModuleProvider="target">
             <connections>
                 <outlet property="containerView" destination="JDi-lu-1oR" id="aSL-w9-gSJ"/>
                 <outlet property="headerView" destination="8jB-Jt-Gwy" id="D8h-5m-Ndo"/>
@@ -30,7 +30,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDi-lu-1oR">
-                    <rect key="frame" x="0.0" y="98" width="375" height="569"/>
+                    <rect key="frame" x="0.0" y="90" width="375" height="577"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
