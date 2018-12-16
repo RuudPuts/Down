@@ -10,9 +10,6 @@
 import Quick
 import Nimble
 
-//! This test case perfectly shows the problems in the gateway factories
-//! Too much duplication
-
 class DownloadGatewayFactorySpec: QuickSpec {
     override func spec() {
         describe("DownloadGatewayFactory") {

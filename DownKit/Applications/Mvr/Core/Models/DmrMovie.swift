@@ -21,7 +21,6 @@ public class DmrMovie: Object {
     }
     
     override public static func primaryKey() -> String? {
-        //! Should 'identifier' be the primary key?
         return "identifier"
     }
 }

@@ -41,7 +41,7 @@ public class DvrAddShowInteractor: CompoundInteractor {
             .asObservable()
             .retry(.delayed(maxCount: 5, time: 1))
             .do(onNext: {
-                //! Again this line is sickbeard specific. Won't hurt others but shouldn't be here.
+                // Required for sickbeard / sickgear
                 $0.identifier = show.identifier
 
                 self.database.stores(shows: [$0])

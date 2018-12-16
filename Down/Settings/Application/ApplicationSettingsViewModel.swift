@@ -27,21 +27,21 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
     private typealias LoginInputTuple = (application: ApiApplication, credentials: UsernamePassword?)
 
     struct Input {
-        let host: Observable<String>
-        let username: Observable<String>
-        let password: Observable<String>
-        let apiKey: Observable<String>
+        let host: Driver<String>
+        let username: Driver<String>
+        let password: Driver<String>
+        let apiKey: Driver<String>
 
         let saveButtonTapped: ControlEvent<Void>
     }
 
     struct Output {
-        let loginResult: Observable<LoginResult>
-        let host: Observable<String?>
-        let apiKey: Observable<String?>
+        let loginResult: Driver<LoginResult>
+        let host: Driver<String?>
+        let apiKey: Driver<String?>
 
-        let isSaving: Observable<Bool>
-        let settingsSaved: Observable<Bool>
+        let isSaving: Driver<Bool>
+        let settingsSaved: Driver<Bool>
     }
 
     func transform(input: Input) -> Output {
@@ -53,7 +53,10 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 return application
             }
 
-        let credentialsDriver = Observable.zip([input.username, input.password])
+
+
+        
+        let credentialsDriver = Driver.zip([input.username, input.password])
             .map { input -> UsernamePassword? in
                 guard let username = input.first, username.count > 0,
                       let password = input.last, password.count > 0 else {
@@ -62,7 +65,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
 
                 return (username: username, password: password)
             }
-
+            .debug()
 
         let hostChangedObservable = observableApplication
             .withLatestFrom(credentialsDriver) { application, credentials in
@@ -74,11 +77,12 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 return (application: application, credentials: credentials)
             }
 
-        let loginObservable = Observable<LoginInputTuple>.merge([hostChangedObservable, credentialsChangedObservable])
+        let loginObservable = Driver<LoginInputTuple>.merge([hostChangedObservable, credentialsChangedObservable])
             .asObservable()
             .flatMap {
                 self.login(for: $0.application, withCredentials: $0.credentials)
             }
+            .asDriver(onErrorJustReturn: .failed)
 
         let apiKeyObservable = loginObservable
             .filter { $0 == .success }
@@ -88,13 +92,19 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
             .withLatestFrom(observableApplication) { input, application in
                 return (application: application, credentials: input.credentials)
             }
+            .asObservable()
             .flatMap {
                 self.fetchApiKey(for: $0.application, withCredentials: $0.credentials)
             }
             .startWith(application.apiKey)
+            .asDriver(onErrorJustReturn: nil)
 
         let isSavingSubject = BehaviorSubject(value: false)
-        let latestApiKey = Observable.merge(apiKeyObservable.unwrap(), input.apiKey)
+        let latestApiKey = Observable.merge(
+                apiKeyObservable.asObservable().unwrap(),
+                input.apiKey.asObservable()
+            )
+            .asDriver(onErrorJustReturn: "")
 
         let settingsSavedDriver = input.saveButtonTapped
             .withLatestFrom(observableApplication)
@@ -109,14 +119,15 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 self.dependencies.persistence.store($0)
             })
             .flatMap { self.updateCache(for: $0) }
+            .asDriver(onErrorJustReturn: false)
             .do(onNext: { _ in
                 isSavingSubject.onNext(false)
             })
 
         return Output(loginResult: loginObservable,
-                      host: Observable.just(application.host),
+                      host: Driver.just(application.host),
                       apiKey: apiKeyObservable,
-                      isSaving: isSavingSubject.asObservable(),
+                      isSaving: isSavingSubject.asDriver(onErrorJustReturn: false),
                       settingsSaved: settingsSavedDriver)
     }
 
@@ -157,6 +168,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
             .asSingle()
     }
 
+    //! show error to user if any
     func updateCache(for application: ApiApplication) -> Single<Bool> {
         guard let dvrApplication = application as? DvrApplication else {
             return Single.just(true)

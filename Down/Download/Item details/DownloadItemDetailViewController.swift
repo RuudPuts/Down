@@ -137,9 +137,6 @@ extension DownloadItemDetailViewController: ReactiveBinding {
         output.itemDeleted
             .do(
                 onSuccess: {
-                    //! Shouldn't this return void by now?
-                    guard $0 else { return }
-
                     self.dependencies.router.close(viewController: self)
                 },
                 onFailure: {

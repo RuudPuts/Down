@@ -39,7 +39,7 @@ extension DvrShowDetailsViewModel: ReactiveBindable {
 
     struct Output {
         let refinedShow: Driver<RefinedShow>
-        let showDeleted: Observable<Result<Bool, DownError>>
+        let showDeleted: Observable<Result<Void, DownError>>
     }
 
     func transform(input: Input) -> Output {
@@ -52,10 +52,9 @@ extension DvrShowDetailsViewModel: ReactiveBindable {
             .flatMap {
                 self.dependencies.dvrInteractorFactory
                     .makeDeleteShowInteractor(for: self.dependencies.dvrApplication, show: self.show)
-                    .observe()
-                    .asObservable()
-                    .mapResult(DownError.self)
+                    .observeResult()
             }
+            .map { $0.map { _ in }}
 
         return Output(refinedShow: refinedShowDriver, showDeleted: showDeletedDriver)
     }

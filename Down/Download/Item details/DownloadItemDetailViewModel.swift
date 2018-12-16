@@ -31,7 +31,7 @@ extension DownloadItemDetailViewModel: ReactiveBindable {
 
     struct Output {
         let refinedItem: Driver<RefinedItem>
-        let itemDeleted: Observable<Result<Bool, DownError>>
+        let itemDeleted: Observable<Result<Void, DownError>>
     }
 
     func transform(input: Input) -> Output {
@@ -44,6 +44,7 @@ extension DownloadItemDetailViewModel: ReactiveBindable {
                     .makeDeleteItemInteractor(for: self.dependencies.downloadApplication, item: self.item)
                     .observeResult()
             }
+            .map { $0.map { _ in }}
 
         return Output(refinedItem: refinedItemDriver, itemDeleted: itemDeletedDriver)
     }

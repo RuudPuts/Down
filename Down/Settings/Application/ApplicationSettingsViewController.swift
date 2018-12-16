@@ -18,7 +18,7 @@ class ApplicationSettingsViewController: UIViewController & Depending {
     let dependencies: Dependencies
 
     let application: ApiApplication
-    let disposeBag = DisposeBag()
+    var disposeBag: DisposeBag! = DisposeBag()
 
     lazy var viewModel = ApplicationSettingsViewModel(dependencies: dependencies, application: application)
 
@@ -45,6 +45,12 @@ class ApplicationSettingsViewController: UIViewController & Depending {
         applyStyling()
         configureTextFields()
         bind(to: viewModel)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        disposeBag = nil
     }
 
     func applyStyling() {
@@ -117,12 +123,12 @@ extension ApplicationSettingsViewController: ReactiveBinding {
 
         output.isSaving
             .map { !$0 }
-            .bind(to: saveButton.rx.isEnabled )
+            .drive(saveButton.rx.isEnabled )
             .disposed(by: disposeBag)
 
         output.isSaving
             .map { $0 ? "Preparing cache..." : "Save" }
-            .bind(to: saveButton.rx.title(for: .normal) )
+            .drive(saveButton.rx.title(for: .normal) )
             .disposed(by: disposeBag)
 
         output.settingsSaved
@@ -131,7 +137,7 @@ extension ApplicationSettingsViewController: ReactiveBinding {
                 self.dependencies.router.restartRouter(type: self.application.type)
                 self.dependencies.router.close(viewController: self)
             })
-            .subscribe()
+            .drive()
             .disposed(by: disposeBag)
     }
 
