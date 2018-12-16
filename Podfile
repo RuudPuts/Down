@@ -11,7 +11,7 @@ def rxswift_test_pods
 end
 
 def realm_pods
-  pod 'RealmSwift', '~> 3.11.0'
+  pod 'RealmSwift', '~> 3.13.0'
   pod 'RxRealm', '~> 0.7.0'
 end
 
@@ -40,12 +40,13 @@ target 'Down' do
   result_pods
   rswift_pods
 
-  pod 'Fabric', '~> 1.8.0'
-  pod 'Crashlytics', '~> 3.11.0'
+  pod 'Fabric', '~> 1.9.0'
+  pod 'Crashlytics', '~> 3.12.0'
 
   pod 'SkyFloatingLabelTextField', '~> 3.6.0'
   pod 'CircleProgressView', '~> 1.2.0'
   pod 'Kingfisher', '~> 4.10.0'
+  pod 'Parchment', '~> 1.5.0'
 
   target 'DownTests' do
     inherit! :search_paths

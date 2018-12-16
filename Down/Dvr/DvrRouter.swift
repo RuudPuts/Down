@@ -8,6 +8,7 @@
 
 import UIKit
 import DownKit
+import Parchment
 
 protocol DvrRouting {
     var dvrRouter: DvrRouter? { get set }
@@ -30,7 +31,13 @@ class DvrRouter: ChildRouter, Depending {
     }
     
     func start() {
-        navigationController.viewControllers = [viewControllerFactory.makeDvrShows()]
+        let viewControllers = [
+            UIViewController(),
+            viewControllerFactory.makeDvrShows(),
+            UIViewController()
+        ]
+
+        navigationController.viewControllers = [viewControllerFactory.makeDvrTabBar(viewControllers: viewControllers)]
     }
     
     func showDetail(of show: DvrShow) {

@@ -273,6 +273,8 @@
 		42BF4E9620D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BF4E9520D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift */; };
 		42D58EF2211A0ACD00F3454A /* UIViewConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */; };
 		42D58EF4211A155100F3454A /* DownloadQueueStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42D58EF3211A155100F3454A /* DownloadQueueStatusView.xib */; };
+		42DECE8A21C6C9760084BF83 /* DvrTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DECE8921C6C9760084BF83 /* DvrTabBarController.swift */; };
+		42DECE8C21C6CAC30084BF83 /* DvrTabBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42DECE8B21C6CAC30084BF83 /* DvrTabBarController.xib */; };
 		42E014762135CC18006D550D /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E014752135CC18006D550D /* DateExtensions.swift */; };
 		42E014782135DA9D006D550D /* DvrShowHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E014772135DA9D006D550D /* DvrShowHeaderView.swift */; };
 		42E0147A2135DACD006D550D /* DvrShowHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42E014792135DACD006D550D /* DvrShowHeaderView.xib */; };
@@ -608,6 +610,8 @@
 		42BF4E9520D250530088AAF6 /* DvrShowDetailsGatewaySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsGatewaySpec.swift; sourceTree = "<group>"; };
 		42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewConstraints.swift; sourceTree = "<group>"; };
 		42D58EF3211A155100F3454A /* DownloadQueueStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadQueueStatusView.xib; sourceTree = "<group>"; };
+		42DECE8921C6C9760084BF83 /* DvrTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrTabBarController.swift; sourceTree = "<group>"; };
+		42DECE8B21C6CAC30084BF83 /* DvrTabBarController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrTabBarController.xib; sourceTree = "<group>"; };
 		42E014752135CC18006D550D /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		42E014772135DA9D006D550D /* DvrShowHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowHeaderView.swift; sourceTree = "<group>"; };
 		42E014792135DACD006D550D /* DvrShowHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrShowHeaderView.xib; sourceTree = "<group>"; };
@@ -1528,6 +1532,8 @@
 			isa = PBXGroup;
 			children = (
 				427D605A20E02E2F0017AE42 /* DvrRouter.swift */,
+				42DECE8921C6C9760084BF83 /* DvrTabBarController.swift */,
+				42DECE8B21C6CAC30084BF83 /* DvrTabBarController.xib */,
 				4284C736213432C600F21B91 /* Shows overview */,
 				4284C738213432DE00F21B91 /* Show details */,
 				4284C737213432D700F21B91 /* Add Show */,
@@ -2030,6 +2036,7 @@
 				420C28322163F58D0088259C /* SettingsApplicationCell.xib in Resources */,
 				421D83AF2107A4A6008BEB2F /* Localizable.strings in Resources */,
 				42BE70C621693BED004167C3 /* DownloadItemDetailViewController.xib in Resources */,
+				42DECE8C21C6CAC30084BF83 /* DvrTabBarController.xib in Resources */,
 				4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */,
 				420C282A2163E1ED0088259C /* SettingsViewController.xib in Resources */,
 				4221DA4E20D181F2003950CF /* Assets.xcassets in Resources */,
@@ -2205,6 +2212,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Down/Pods-Down-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CircleProgressView/CircleProgressView.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/Parchment/Parchment.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
@@ -2224,6 +2232,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CircleProgressView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parchment.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
@@ -2506,6 +2515,7 @@
 				4235075E21248BEC005343CD /* CircleProgressViewStyle.swift in Sources */,
 				428FCD6721234E3E00C0371D /* UILabelStyle.swift in Sources */,
 				423A5505216917A800CC558A /* UICollectionViewExtensions.swift in Sources */,
+				42DECE8A21C6C9760084BF83 /* DvrTabBarController.swift in Sources */,
 				426BF73F20F6A19D000C3A4A /* ApplicationHeaderView.swift in Sources */,
 				42BE70CE21693E06004167C3 /* CollectionExtensions.swift in Sources */,
 				4235076621249B9E005343CD /* TableHeaderViewStyle.swift in Sources */,

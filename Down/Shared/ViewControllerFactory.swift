@@ -16,6 +16,7 @@ protocol ViewControllerProducing {
     func makeDownloadStatus() -> UIViewController
     func makeDownloadItemDetail(for item: DownloadItem) -> UIViewController
 
+    func makeDvrTabBar(viewControllers: [UIViewController]) -> UIViewController
     func makeDvrShows() -> UIViewController
     func makeDvrDetail(show: DvrShow) -> UIViewController
     func makeDvrAddShow() -> UIViewController
@@ -53,6 +54,10 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
         let viewModel = DownloadItemDetailViewModel(dependencies: dependencies, item: item)
 
         return DownloadItemDetailViewController(dependencies: dependencies, viewModel: viewModel)
+    }
+
+    func makeDvrTabBar(viewControllers: [UIViewController]) -> UIViewController {
+        return DvrTabBarController(dependencies: dependencies, viewControllers: viewControllers)
     }
 
     func makeDvrShows() -> UIViewController {

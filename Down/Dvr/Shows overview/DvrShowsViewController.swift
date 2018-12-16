@@ -6,16 +6,15 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import UIKit
 import DownKit
 import RxSwift
 import RxCocoa
-import UIKit
 
 class DvrShowsViewController: UIViewController & Depending {
     typealias Dependencies = DvrShowsCollectionViewModel.Dependencies & RouterDependency & DvrApplicationDependency
     let dependencies: Dependencies
 
-    @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var collectionView: UICollectionView!
 
     private let viewModel: DvrShowsViewModel
@@ -46,23 +45,8 @@ class DvrShowsViewController: UIViewController & Depending {
         bind(to: viewModel)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if let navigationController = navigationController,
-            navigationController.viewControllers.count > 1 {
-            navigationController.setNavigationBarHidden(false, animated: animated)
-        }
-    }
-
     private func applyStyling() {
         view.style(as: .backgroundView)
-        headerView.style(as: .headerView(for: dependencies.dvrApplication.downType))
     }
 
     private func configureCollectionView() {

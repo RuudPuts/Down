@@ -308,7 +308,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 17 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 18 nibs.
   struct nib {
     /// Nib `ApplicationHeaderView`.
     static let applicationHeaderView = _R.nib._ApplicationHeaderView()
@@ -336,6 +336,8 @@ struct R: Rswift.Validatable {
     static let dvrShowHeaderView = _R.nib._DvrShowHeaderView()
     /// Nib `DvrShowsViewController`.
     static let dvrShowsViewController = _R.nib._DvrShowsViewController()
+    /// Nib `DvrTabBarController`.
+    static let dvrTabBarController = _R.nib._DvrTabBarController()
     /// Nib `KeyValueTableViewCell`.
     static let keyValueTableViewCell = _R.nib._KeyValueTableViewCell()
     /// Nib `SettingsApplicationCell`.
@@ -408,6 +410,11 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "DvrShowsViewController", in: bundle)`
     static func dvrShowsViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrShowsViewController)
+    }
+    
+    /// `UINib(name: "DvrTabBarController", in: bundle)`
+    static func dvrTabBarController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.dvrTabBarController)
     }
     
     /// `UINib(name: "KeyValueTableViewCell", in: bundle)`
@@ -704,6 +711,17 @@ struct _R: Rswift.Validatable {
     struct _DvrShowsViewController: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "DvrShowsViewController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _DvrTabBarController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "DvrTabBarController"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
