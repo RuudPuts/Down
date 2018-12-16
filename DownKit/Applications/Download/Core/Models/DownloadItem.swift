@@ -38,18 +38,20 @@ extension DownloadItem {
 
         return database
             .fetchShow(matching: nameComponents)
-            .do(onNext: { show in
-                self.dvrEpisode = show
-                    .seasons.first(where: {
-                        $0.identifier == String(seasonIdentifier)
-                    })?
-                    .episodes.first(where: {
-                        $0.identifier == String(episodeIdentifier)
-                    })
-            })
+            .map {
+                $0?.seasons.first(where: {
+                    $0.identifier == String(seasonIdentifier)
+                })
+            }
+            .map {
+                $0?.episodes.first(where: {
+                    $0.identifier == String(episodeIdentifier)
+                })
+            }
+            .do(onSuccess: { self.dvrEpisode = $0 })
+            .map { _ in self }
             .asObservable()
             .asSingle()
-            .map { _ in self }
     }
     
     // swiftlint:disable large_tuple

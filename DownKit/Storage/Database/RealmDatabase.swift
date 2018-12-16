@@ -45,8 +45,8 @@ public class RealmDatabase: DownDatabase {
         return Observable.array(from: shows)
     }
     
-    public func fetchShow(matching nameComponents: [String]) -> Maybe<DvrShow> {
-        return Maybe.create { observer in
+    public func fetchShow(matching nameComponents: [String]) -> Single<DvrShow?> {
+        return Single.create { observer in
             let realm = self.makeRealm()
             var matches: Results<DvrShow>?
 
@@ -69,12 +69,7 @@ public class RealmDatabase: DownDatabase {
                 }
             }
 
-            if let show = matches?.first {
-                observer(.success(show))
-            }
-            else {
-                observer(.completed)
-            }
+            observer(.success(matches?.first))
 
             return Disposables.create()
         }
