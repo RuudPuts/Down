@@ -23,8 +23,8 @@ extension DownDatabaseMock { // DvrDatabase
         return Observable.just(stubs.fetchShows)
     }
 
-    func fetchShow(matching nameComponents: [String]) -> Maybe<DvrShow> {
+    func fetchShow(matching nameComponents: [String]) -> Single<DvrShow?> {
         captures.fetchShowsMatching = Captures.FetchShowsMatching(nameComponents: nameComponents)
-        return Maybe.just(stubs.fetchShowsMatchingNameComponents)
+        return Single.just(stubs.fetchShowsMatchingNameComponents)
     }
 }

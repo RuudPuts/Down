@@ -229,11 +229,11 @@ class SickbeardResponseParserSpec: QuickSpec {
                     }
 
                     it("parses the episode's quality") {
-                        expect(result.seasons.first?.episodes.map { $0.quality } ?? []) == [.unknown, .unknown]
+                        expect(result.seasons.first?.episodes.map { $0.quality } ?? []) == [.hd1080p, .hd720p]
                     }
 
                     it("parses the episode's status") {
-                        expect(result.seasons.first?.episodes.map { $0.status } ?? []) == [.ignored, .ignored]
+                        expect(result.seasons.first?.episodes.map { $0.status } ?? []) == [.downloaded, .ignored]
                     }
                 }
 

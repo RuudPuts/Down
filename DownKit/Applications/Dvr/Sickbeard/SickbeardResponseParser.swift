@@ -147,7 +147,7 @@ private extension SickbeardResponseParser {
 
     func parseQuality(from json: JSON) -> Quality {
         switch json.stringValue {
-        case "HD1080p": return .hd720p
+        case "HD1080p": return .hd1080p
         case "HD720p": return .hd720p
         case "HDTV": return .hdtv
         default: return .unknown

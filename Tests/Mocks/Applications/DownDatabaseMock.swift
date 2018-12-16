@@ -13,7 +13,7 @@ class DownDatabaseMock {
     struct Stubs {
         // DvrDatabase
         var fetchShows = [DvrShow]()
-        var fetchShowsMatchingNameComponents = DvrShow()
+        var fetchShowsMatchingNameComponents: DvrShow?
     }
 
     struct Captures {

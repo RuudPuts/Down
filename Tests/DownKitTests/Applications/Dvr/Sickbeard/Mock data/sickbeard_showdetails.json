@@ -43,13 +43,13 @@
                     "7": {
                         "airdate": "2010-05-15",
                         "name": "Amy's Choice",
-                        "quality": "N/A",
-                        "status": "Ignored"
+                        "quality": "HD1080p",
+                        "status": "Downloaded"
                     },
                     "13": {
                         "airdate": "",
                         "name": "Unaired: New episode",
-                        "quality": "N/A",
+                        "quality": "HD720p",
                         "status": "Ignored"
                     }
                 }
