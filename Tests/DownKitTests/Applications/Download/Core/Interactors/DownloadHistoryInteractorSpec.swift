@@ -12,6 +12,7 @@ import Quick
 import Nimble
 
 class DownloadHistoryInteractorSpec: QuickSpec {
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("DownloadHistoryInteractor") {
             var sut: DownloadHistoryInteractor!
@@ -71,4 +72,5 @@ class DownloadHistoryInteractorSpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }

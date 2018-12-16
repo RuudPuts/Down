@@ -78,6 +78,10 @@ class DownloadStatusViewController: UIViewController & Depending {
 extension DownloadStatusViewController: ReactiveBinding {
     typealias Bindable = DownloadStatusViewModel
 
+    func makeInput() -> DownloadStatusViewModel.Input {
+        return DownloadStatusViewModel.Input(itemSelected: tableView.rx.itemSelected)
+    }
+
     func bind(to viewModel: DownloadStatusViewModel) {
         disposeBag = DisposeBag()
 
@@ -94,9 +98,5 @@ extension DownloadStatusViewController: ReactiveBinding {
         output.navigateToDetails
             .subscribe(onNext: { self.dependencies.router.downloadRouter.showDetail(of: $0) })
             .disposed(by: disposeBag)
-    }
-
-    func makeInput() -> DownloadStatusViewModel.Input {
-        return DownloadStatusViewModel.Input(itemSelected: tableView.rx.itemSelected)
     }
 }

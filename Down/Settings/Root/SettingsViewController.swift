@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DownKit
 import RxSwift
 import RxCocoa
 import RxSwiftExt
@@ -75,24 +76,35 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: ReactiveBinding {
     typealias Bindable = SettingsViewModel
 
+    func makeInput() -> SettingsViewModel.Input {
+        return SettingsViewModel.Input(itemSelected: tableView.rx.itemSelected)
+    }
+
     func bind(to viewModel: SettingsViewModel) {
         let output = viewModel.transform(input: makeInput())
 
-        output.title
-            .drive(rx.title)
+        bindTitle(output.title)
+        bindWelcomeMessage(output.welcomeMessage)
+        bindTableSections(output.applications)
+        bindNavigation(output.navigateToDetails)
+    }
+
+    private func bindTitle(_ title: Driver<String>) {
+        title.drive(rx.title)
             .disposed(by: disposeBag)
 
-        output.title
-            .do(onNext: { _ in self.navigationController?.tabBarItem.title = nil })
+        title.do(onNext: { _ in self.navigationController?.tabBarItem.title = nil })
             .drive()
             .disposed(by: disposeBag)
+    }
 
-        output.welcomeMessage
+    private func bindWelcomeMessage(_ welcomeMessage: Driver<String>) {
+        welcomeMessage
             .filter { !$0.isEmpty }
             .drive(welcomeMessageLabel.rx.text)
             .disposed(by: disposeBag)
 
-        output.welcomeMessage
+        welcomeMessage
             .map { !$0.isEmpty }
             .do(onNext: { messageVisible in
                 if messageVisible {
@@ -108,26 +120,26 @@ extension SettingsViewController: ReactiveBinding {
             })
             .drive()
             .disposed(by: disposeBag)
+    }
 
-        output.applications
+    private func bindTableSections(_ sections: Driver<[SettingsSectionModel]>) {
+        sections
             .drive(tableViewModel.rx.datasource)
             .disposed(by: disposeBag)
+    }
 
-        output.navigateToDetails
+    private func bindNavigation(_ navigateToDetails: Observable<ApiApplication>) {
+        navigateToDetails
             .subscribe(onNext: {
                 self.dependencies.router.settingsRouter.showSettings(for: $0)
             })
             .disposed(by: disposeBag)
 
-        output.navigateToDetails
+        navigateToDetails
             .map { _ in self.tableView.indexPathForSelectedRow }
             .asObservable()
             .unwrap()
             .subscribe(onNext: { self.tableView.deselectRow(at: $0, animated: true) })
             .disposed(by: disposeBag)
-    }
-
-    func makeInput() -> SettingsViewModel.Input {
-        return SettingsViewModel.Input(itemSelected: tableView.rx.itemSelected)
     }
 }

@@ -102,6 +102,14 @@ private extension DvrAddShowViewController {
 extension DvrAddShowViewController: ReactiveBinding {
     typealias Bindable = DvrAddShowViewModel
 
+    func makeInput() -> DvrAddShowViewModel.Input {
+        let showSelected = tableView.rx.itemSelected
+        let searchFieldText = searchTextField.rx.debouncedText
+
+        return DvrAddShowViewModel.Input(searchQuery: searchFieldText,
+                                         showSelected: showSelected)
+    }
+
     func bind(to viewModel: DvrAddShowViewModel) {
         let output = viewModel.transform(input: makeInput())
 
@@ -143,13 +151,5 @@ extension DvrAddShowViewController: ReactiveBinding {
             )
             .subscribe()
             .disposed(by: disposeBag)
-    }
-
-    func makeInput() -> DvrAddShowViewModel.Input {
-        let showSelected = tableView.rx.itemSelected
-        let searchFieldText = searchTextField.rx.debouncedText
-
-        return DvrAddShowViewModel.Input(searchQuery: searchFieldText,
-                                         showSelected: showSelected)
     }
 }

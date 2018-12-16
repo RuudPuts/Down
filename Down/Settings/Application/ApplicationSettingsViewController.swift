@@ -14,6 +14,7 @@ import RxSwift
 import RxCocoa
 import RxSwiftExt
 import RxRealm
+import Result
 
 class ApplicationSettingsViewController: UIViewController & Depending {
     typealias Dependencies = ApplicationSettingsViewModel.Dependencies
@@ -102,41 +103,63 @@ extension ApplicationSettingsViewController: UITextFieldDelegate {
 extension ApplicationSettingsViewController: ReactiveBinding {
     typealias Bindable = ApplicationSettingsViewModel
 
+    func makeInput() -> ApplicationSettingsViewModel.Input {
+        let hostDriver = hostTextField.rx.debouncedText
+        let usernameDriver = usernameTextField.rx.debouncedText
+        let passwordDriver = passwordTextField.rx.debouncedText
+        let apiKeyDriver = apiKeyTextField.rx.debouncedText
+        let saveButtonTap = saveButton.rx.tap
+
+        return ApplicationSettingsViewModel.Input(
+            host: hostDriver,
+            username: usernameDriver,
+            password: passwordDriver,
+            apiKey: apiKeyDriver,
+            saveButtonTapped: saveButtonTap
+        )
+    }
+
     func bind(to viewModel: ApplicationSettingsViewModel) {
         let output = viewModel.transform(input: makeInput())
 
+        let authenticationRequired = output.loginResult
+            .map { $0 != .authenticationRequired }
+        bindTextFields(host: output.host, apiKey: output.apiKey,
+                       authenticationRequired: authenticationRequired)
+
+        bindIsSaving(output.isSaving)
+        bindSettingsSaved(output.settingsSaved)
+    }
+
+    private func bindTextFields(host: Driver<String?>, apiKey: Driver<String?>, authenticationRequired: Driver<Bool>) {
+        host.drive(hostTextField.rx.text)
+            .disposed(by: disposeBag)
+
+        apiKey.drive(apiKeyTextField.rx.text)
+            .disposed(by: disposeBag)
+
         [usernameTextField, passwordTextField].forEach { textField in
-            output.loginResult
-                .map { $0 != .authenticationRequired }
+            authenticationRequired
                 .startWith(true)
-                .asDriver(onErrorRecover: { error in
-                    return Driver.just(true)
-                })
                 .drive(textField.rx.isHidden)
                 .disposed(by: disposeBag)
         }
+    }
 
-        output.host
-            .asDriver(onErrorJustReturn: nil)
-            .drive(hostTextField.rx.text)
-            .disposed(by: disposeBag)
-
-        output.apiKey
-            .asDriver(onErrorJustReturn: nil)
-            .drive(apiKeyTextField.rx.text)
-            .disposed(by: disposeBag)
-
-        output.isSaving
+    private func bindIsSaving(_ isSaving: Driver<Bool>) {
+        isSaving
             .map { !$0 }
             .drive(saveButton.rx.isEnabled )
             .disposed(by: disposeBag)
 
-        output.isSaving
+        isSaving
             .map { $0 ? "Preparing cache..." : "Save" }
             .drive(saveButton.rx.title(for: .normal) )
             .disposed(by: disposeBag)
+    }
 
-        output.settingsSaved
+    private func bindSettingsSaved(_ settingsSaved: Driver<Result<Void, DownError>>) {
+        settingsSaved
             .asObservable()
             .do(
                 onSuccess: {
@@ -151,19 +174,5 @@ extension ApplicationSettingsViewController: ReactiveBinding {
             )
             .subscribe()
             .disposed(by: disposeBag)
-    }
-
-    func makeInput() -> ApplicationSettingsViewModel.Input {
-        let hostDriver = hostTextField.rx.debouncedText
-        let usernameDriver = usernameTextField.rx.debouncedText
-        let passwordDriver = passwordTextField.rx.debouncedText
-        let apiKeyDriver = apiKeyTextField.rx.debouncedText
-        let saveButtonTap = saveButton.rx.tap
-
-        return ApplicationSettingsViewModel.Input(host: hostDriver,
-                                                  username: usernameDriver,
-                                                  password: passwordDriver,
-                                                  apiKey: apiKeyDriver,
-                                                  saveButtonTapped: saveButtonTap)
     }
 }

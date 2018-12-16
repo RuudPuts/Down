@@ -14,6 +14,7 @@ import Quick
 import Nimble
 
 class DvrShowDetailsInteractorSpec: QuickSpec {
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("DvrShowDetailsInteractor") {
             var sut: DvrShowDetailsInteractor!
@@ -65,4 +66,5 @@ class DvrShowDetailsInteractorSpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }

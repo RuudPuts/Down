@@ -13,6 +13,7 @@ import Kingfisher
 
 import RxSwift
 import RxCocoa
+import Result
 import RxResult
 
 class DownloadItemDetailViewController: UIViewController & Depending {
@@ -79,62 +80,70 @@ class DownloadItemDetailViewController: UIViewController & Depending {
 extension DownloadItemDetailViewController: ReactiveBinding {
     typealias Bindable = DownloadItemDetailViewModel
 
+    func makeInput() -> DownloadItemDetailViewModel.Input {
+        let deleteButtonTapped = deleteButton.rx.tap
+
+        return DownloadItemDetailViewModel.Input(deleteButtonTapped: deleteButtonTapped)
+    }
+
     func bind(to viewModel: DownloadItemDetailViewModel) {
         let output = viewModel.transform(input: makeInput())
 
-        output.refinedItem
-            .map { $0.title }
+        bindHeaderView(output.refinedItem)
+        bindTableView(output.refinedItem)
+        bindItemDeleted(output.itemDeleted)
+    }
+
+    private func bindHeaderView(_ refinedItem: Driver<DownloadItemDetailViewModel.RefinedItem>) {
+        refinedItem.map { $0.title }
             .drive(titleLabel.rx.text)
             .disposed(by: disposeBag)
 
-        output.refinedItem
-            .map { $0.subtitle }
+        refinedItem.map { $0.subtitle }
             .drive(subtitleLabel.rx.text)
             .disposed(by: disposeBag)
 
-        output.refinedItem
-            .map { $0.statusText }
+        refinedItem.map { $0.statusText }
             .drive(statusLabel.rx.text)
             .disposed(by: disposeBag)
 
-        output.refinedItem
-            .map { $0.statusStyle }
+        refinedItem.map { $0.statusStyle }
             .do(onNext: { self.statusLabel.style(as: $0) })
             .drive()
             .disposed(by: disposeBag)
 
-        output.refinedItem
-            .map { !$0.hasProgress }
+        refinedItem.map { !$0.hasProgress }
             .drive(progressView.rx.isHidden)
             .disposed(by: disposeBag)
 
-        output.refinedItem
-            .map { $0.progress }
+        refinedItem.map { $0.progress }
             .drive(progressView.rx.progress)
             .disposed(by: disposeBag)
 
-        output.refinedItem
-            .map { !$0.canRetry }
-            .drive(retryButton.rx.isHidden)
-            .disposed(by: disposeBag)
-
-        output.refinedItem
-            .map { $0.headerImageUrl }
+        refinedItem.map { $0.headerImageUrl }
             .do(onNext: { self.headerImageView.kf.setImage(with: $0) })
             .drive()
             .disposed(by: disposeBag)
 
-        output.refinedItem
+        refinedItem.map { !$0.canRetry }
+            .drive(retryButton.rx.isHidden)
+            .disposed(by: disposeBag)
+    }
+
+    private func bindTableView(_ refinedItem: Driver<DownloadItemDetailViewModel.RefinedItem>) {
+        refinedItem
             .map { $0.detailSections }
             .drive(tableViewController.rx.dataModel)
             .disposed(by: disposeBag)
 
-        output.refinedItem
+        refinedItem
             .do(onNext: { _ in self.tableView.reloadData() })
             .drive()
             .disposed(by: disposeBag)
+    }
 
-        output.itemDeleted
+    private func bindItemDeleted(_ itemDeleted: Observable<Result<Void, DownError>>) {
+        itemDeleted
             .do(
                 onSuccess: {
                     self.dependencies.router.close(viewController: self)
@@ -147,11 +156,5 @@ extension DownloadItemDetailViewController: ReactiveBinding {
             )
             .subscribe()
             .disposed(by: disposeBag)
-    }
-
-    func makeInput() -> DownloadItemDetailViewModel.Input {
-        let deleteButtonTapped = deleteButton.rx.tap
-
-        return DownloadItemDetailViewModel.Input(deleteButtonTapped: deleteButtonTapped)
     }
 }

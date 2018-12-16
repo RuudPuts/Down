@@ -11,6 +11,7 @@ import Quick
 import Nimble
 
 class ApiApplicationGatewayFactorySpec: QuickSpec {
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("ApiApplicationGatewayFactory") {
             var sut: ApiApplicationGatewayFactory!
@@ -78,4 +79,5 @@ class ApiApplicationGatewayFactorySpec: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }

@@ -46,7 +46,37 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
     }
 
     func transform(input: Input) -> Output {
-        let observableApplication = input.host
+        let observableApplication = transformApplication(input.host)
+        let credentials = transformCredentials(username: input.username, password: input.password)
+
+        let loginResult = transformLogin(application: observableApplication, credentials: credentials)
+
+        let fetchedApiKey = transformFetchApiKey(
+                from: loginResult,
+                application: observableApplication,
+                credentials: credentials
+            )
+            .startWith(application.apiKey)
+
+        let latestApiKey = Observable.merge(
+                fetchedApiKey.asObservable().unwrap(),
+                input.apiKey.asObservable()
+            )
+            .asDriver(onErrorJustReturn: "")
+
+        let transformedSave = transformSaveSettings(from: input.saveButtonTapped,
+                                                    application: observableApplication,
+                                                    apiKey: latestApiKey)
+
+        return Output(loginResult: loginResult,
+                      host: Driver.just(application.host),
+                      apiKey: fetchedApiKey,
+                      isSaving: transformedSave.isSaving,
+                      settingsSaved: transformedSave.settingsSaved)
+    }
+
+    private func transformApplication(_ host: Driver<String>) -> Driver<ApiApplication> {
+        return host
             .map { host -> ApiApplication in
                 // swiftlint:disable force_cast
                 var application = self.application.copy() as! ApiApplication
@@ -55,11 +85,13 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
 
                 return application
             }
+    }
 
-        let usernameChanged = input.username.withLatestFrom(input.password) { (username: $0, password: $1) }
-        let passwordChanged = input.password.withLatestFrom(input.username) { (username: $1, password: $0) }
+    private func transformCredentials(username: Driver<String>, password: Driver<String>) -> Driver<UsernamePassword?> {
+        let usernameChanged = username.withLatestFrom(password) { (username: $0, password: $1) }
+        let passwordChanged = password.withLatestFrom(username) { (username: $1, password: $0) }
 
-        let credentialsDriver = Driver.merge([usernameChanged, passwordChanged])
+        return Driver.merge([usernameChanged, passwordChanged])
             .map { input -> UsernamePassword? in
                 guard !input.username.isEmpty, !input.password.isEmpty else {
                     return nil
@@ -68,49 +100,86 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 return (username: input.username, password: input.password)
             }
             .asDriver(onErrorJustReturn: nil)
+    }
 
-        let hostChangedObservable = observableApplication
-            .withLatestFrom(credentialsDriver) { application, credentials in
+    private func transformLogin(application: Driver<ApiApplication>, credentials: Driver<UsernamePassword?>) -> Driver<LoginResult> {
+        let hostChangedObservable = application
+            .withLatestFrom(credentials) { application, credentials in
                 return (application: application, credentials: credentials)
-            }
+        }
 
-        let credentialsChangedObservable = credentialsDriver
-            .withLatestFrom(observableApplication) { credentials, application in
+        let credentialsChangedObservable = credentials
+            .withLatestFrom(application) { credentials, application in
                 return (application: application, credentials: credentials)
-            }
+        }
 
-        let loginObservable = Driver.merge([hostChangedObservable, credentialsChangedObservable])
+        return Driver.merge([hostChangedObservable, credentialsChangedObservable])
             .asObservable()
             .flatMapLatest {
                 self.login(for: $0.application, withCredentials: $0.credentials)
             }
             .asDriver(onErrorJustReturn: .failed)
+    }
 
-        let apiKeyObservable = loginObservable
+    private func login(for application: ApiApplication, withCredentials credentials: UsernamePassword?) -> Single<LoginResult> {
+        return dependencies.apiInteractorFactory
+            .makeLoginInteractor(for: application, credentials: credentials)
+            .observeResult()
+            .do(
+                onSuccess: { result in
+                    NSLog("Login result -> \(result)")
+            },
+                onFailure: { error in
+                    NSLog("Login error -> \(error)")
+            }
+            )
+            .map { $0.value ?? .failed }
+            .asSingle()
+    }
+
+    private func transformFetchApiKey(from loginResult: Driver<LoginResult>, application: Driver<ApiApplication>, credentials: Driver<UsernamePassword?>) -> Driver<String?> {
+        return loginResult
             .filter { $0 == .success }
-            .withLatestFrom(credentialsDriver) { _, credentials in
+            .withLatestFrom(credentials) { _, credentials in
                 return (application: self.application, credentials: credentials)
             }
-            .withLatestFrom(observableApplication) { input, application in
+            .withLatestFrom(application) { input, application in
                 return (application: application, credentials: input.credentials)
             }
             .asObservable()
             .flatMapLatest {
                 self.fetchApiKey(for: $0.application, withCredentials: $0.credentials)
             }
-            .startWith(application.apiKey)
             .asDriver(onErrorJustReturn: nil)
+    }
 
-        let isSavingSubject = BehaviorSubject(value: false)
-        let latestApiKey = Observable.merge(
-                apiKeyObservable.asObservable().unwrap(),
-                input.apiKey.asObservable()
+    private func fetchApiKey(for application: ApiApplication, withCredentials credentials: UsernamePassword?) -> Single<String?> {
+        return dependencies.apiInteractorFactory
+            .makeApiKeyInteractor(for: application, credentials: credentials)
+            .observeResult()
+            .do(
+                onSuccess: {
+                    guard let apiKey = $0 else {
+                        NSLog("⚠️ -> Api key fetch was succesful, but no data was returend!")
+                        return
+                    }
+
+                    NSLog("Api key -> \(apiKey)")
+            },
+                onFailure: { error in
+                    NSLog("ApiKey error -> \(error)")
+            }
             )
-            .asDriver(onErrorJustReturn: "")
+            .map { $0.value ?? nil }
+            .asSingle()
+    }
 
-        let settingsSavedDriver = input.saveButtonTapped
-            .withLatestFrom(observableApplication)
-            .withLatestFrom(latestApiKey) { application, apiKey in
+    private func transformSaveSettings(from input: ControlEvent<Void>, application: Driver<ApiApplication>, apiKey: Driver<String>) -> (isSaving: Driver<Bool>, settingsSaved: Driver<Result<Void, DownError>>) {
+        let isSavingSubject = BehaviorSubject(value: false)
+
+        let settingsSaved = input
+            .withLatestFrom(application)
+            .withLatestFrom(apiKey) { application, apiKey in
                 var application = application
                 application.apiKey = apiKey
 
@@ -126,51 +195,13 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 isSavingSubject.onNext(false)
             })
 
-        return Output(loginResult: loginObservable,
-                      host: Driver.just(application.host),
-                      apiKey: apiKeyObservable,
-                      isSaving: isSavingSubject.asDriver(onErrorJustReturn: false),
-                      settingsSaved: settingsSavedDriver)
+        return (
+            isSaving: isSavingSubject.asDriver(onErrorJustReturn: false),
+            settingsSaved: settingsSaved
+        )
     }
 
-    func login(for application: ApiApplication, withCredentials credentials: UsernamePassword?) -> Single<LoginResult> {
-        return dependencies.apiInteractorFactory
-            .makeLoginInteractor(for: application, credentials: credentials)
-            .observeResult()
-            .do(
-                onSuccess: { result in
-                    NSLog("Login result -> \(result)")
-                },
-                onFailure: { error in
-                    NSLog("Login error -> \(error)")
-                }
-            )
-            .map { $0.value ?? .failed }
-            .asSingle()
-    }
-
-    func fetchApiKey(for application: ApiApplication, withCredentials credentials: UsernamePassword?) -> Single<String?> {
-        return dependencies.apiInteractorFactory
-            .makeApiKeyInteractor(for: application, credentials: credentials)
-            .observeResult()
-            .do(
-                onSuccess: {
-                    guard let apiKey = $0 else {
-                        NSLog("⚠️ -> Api key fetch was succesful, but no data was returend!")
-                        return
-                    }
-
-                    NSLog("Api key -> \(apiKey)")
-                },
-                onFailure: { error in
-                    NSLog("ApiKey error -> \(error)")
-                }
-            )
-            .map { $0.value ?? nil }
-            .asSingle()
-    }
-
-    func updateCache(for application: ApiApplication) -> Single<Result<Void, DownError>> {
+    private func updateCache(for application: ApiApplication) -> Single<Result<Void, DownError>> {
         guard let dvrApplication = application as? DvrApplication else {
             return Single.just(.success(Void()))
         }

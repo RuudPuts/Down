@@ -67,6 +67,12 @@ class DvrShowDetailViewController: UIViewController, Depending {
 extension DvrShowDetailViewController: ReactiveBinding {
     typealias Bindable = DvrShowDetailsViewModel
 
+    func makeInput() -> DvrShowDetailsViewModel.Input {
+        let deleteButtonTapped = deleteButton.rx.tap
+
+        return DvrShowDetailsViewModel.Input(deleteShow: deleteButtonTapped)
+    }
+
     func bind(to viewModel: DvrShowDetailsViewModel) {
         let output = viewModel.transform(input: makeInput())
 
@@ -101,11 +107,5 @@ extension DvrShowDetailViewController: ReactiveBinding {
             )
             .subscribe()
             .disposed(by: disposeBag)
-    }
-
-    func makeInput() -> DvrShowDetailsViewModel.Input {
-        let deleteButtonTapped = deleteButton.rx.tap
-
-        return DvrShowDetailsViewModel.Input(deleteShow: deleteButtonTapped)
     }
 }

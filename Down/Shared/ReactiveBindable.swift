@@ -18,7 +18,6 @@ protocol ReactiveBindable {
 protocol ReactiveBinding {
     associatedtype Bindable: ReactiveBindable
 
-    func bind(to bindable: Bindable)
-
     func makeInput() -> Bindable.Input
+    func bind(to bindable: Bindable)
 }
