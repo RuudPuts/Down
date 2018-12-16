@@ -58,7 +58,7 @@ extension DownloadItemDetailViewModel {
         let headerImageUrl: URL?
 
         let statusText: String
-        let statusStyle: ViewStyling<UILabel> //! UIKit in view model
+        let statusStyle: ViewStyling<UILabel>
 
         let hasProgress: Bool
         let progress: Double

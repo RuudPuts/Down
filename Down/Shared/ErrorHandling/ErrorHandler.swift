@@ -10,7 +10,10 @@ import UIKit
 import DownKit
 
 enum ErrorSourceAction {
+    case settings_updateCache
+
     case download_deleteItem
+    
     case dvr_addShow
     case dvr_deleteShow
 }
@@ -34,6 +37,7 @@ private extension ErrorHandler {
     func makeTitle(forAction action: ErrorSourceAction) -> String {
         let description: String
         switch action {
+        case .settings_updateCache: description = "updating cache"
         case .download_deleteItem: description = "deleting item"
         case .dvr_addShow: description = "adding show"
         case .dvr_deleteShow: description = "deleting show"
@@ -71,8 +75,12 @@ private extension RequestClientError {
         switch self {
         case .generic(message: let message):
             return message
-        default:
-            return localizedDescription
+        case .invalidRequest:
+            return "The request is not valid"
+        case .invalidResponse:
+            return "Received unexpected response from application"
+        case .noData:
+            return "No data received from application"
         }
     }
 }
@@ -82,8 +90,12 @@ private extension ParseError {
         switch self {
         case .api(message: let message):
             return "API: \(message)"
-        default:
-            return localizedDescription
+        case .noData:
+            return "No data received from application"
+        case .invalidData:
+            return "Received invalid data from application"
+        case .missingData:
+            return "Received incomplete data from application"
         }
     }
 }

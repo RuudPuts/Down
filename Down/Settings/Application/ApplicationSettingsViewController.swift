@@ -7,14 +7,19 @@
 //
 
 import UIKit
+import SkyFloatingLabelTextField
+
+import DownKit
 import RxSwift
 import RxCocoa
 import RxSwiftExt
-import DownKit
-import SkyFloatingLabelTextField
+import RxRealm
 
 class ApplicationSettingsViewController: UIViewController & Depending {
-    typealias Dependencies = ApplicationSettingsViewModel.Dependencies & RouterDependency & ApplicationPersistenceDependency
+    typealias Dependencies = ApplicationSettingsViewModel.Dependencies
+        & RouterDependency
+        & ApplicationPersistenceDependency
+        & ErrorHandlerDependency
     let dependencies: Dependencies
 
     let application: ApiApplication
@@ -132,12 +137,19 @@ extension ApplicationSettingsViewController: ReactiveBinding {
             .disposed(by: disposeBag)
 
         output.settingsSaved
-            .filter { $0 }
-            .do(onNext: { _ in
-                self.dependencies.router.restartRouter(type: self.application.type)
-                self.dependencies.router.close(viewController: self)
-            })
-            .drive()
+            .asObservable()
+            .do(
+                onSuccess: {
+                    self.dependencies.router.restartRouter(type: self.application.type)
+                    self.dependencies.router.close(viewController: self)
+                },
+                onFailure: {
+                    self.dependencies.errorHandler.handle(error: $0,
+                                                          action: .settings_updateCache,
+                                                          source: self)
+                }
+            )
+            .subscribe()
             .disposed(by: disposeBag)
     }
 

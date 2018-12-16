@@ -9,6 +9,7 @@
 import DownKit
 import RxSwift
 import RxCocoa
+import Result
 import RxResult
 
 struct ApplicationSettingsViewModel: Depending {
@@ -41,7 +42,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
         let apiKey: Driver<String?>
 
         let isSaving: Driver<Bool>
-        let settingsSaved: Driver<Bool>
+        let settingsSaved: Driver<Result<Void, DownError>>
     }
 
     func transform(input: Input) -> Output {
@@ -120,7 +121,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                 self.dependencies.persistence.store($0)
             })
             .flatMap { self.updateCache(for: $0) }
-            .asDriver(onErrorJustReturn: false)
+            .asDriver(onErrorJustReturn: .success(Void()))
             .do(onNext: { _ in
                 isSavingSubject.onNext(false)
             })
@@ -169,10 +170,9 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
             .asSingle()
     }
 
-    //! show error to user if any
-    func updateCache(for application: ApiApplication) -> Single<Bool> {
+    func updateCache(for application: ApiApplication) -> Single<Result<Void, DownError>> {
         guard let dvrApplication = application as? DvrApplication else {
-            return Single.just(true)
+            return Single.just(.success(Void()))
         }
 
         return dependencies.dvrInteractorFactory
@@ -186,7 +186,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
                     NSLog("Cache error: \(error)")
                 }
             )
+            .map { $0.map { _ in } }
             .asSingle()
-            .map { $0.error == nil }
     }
 }

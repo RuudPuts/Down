@@ -11,7 +11,6 @@ import RxSwift
 import RxCocoa
 
 extension Reactive where Base: UITextField {
-    //! make driver, ignore first
     var debouncedText: Driver<String> {
         return text.orEmpty
             .asObservable()

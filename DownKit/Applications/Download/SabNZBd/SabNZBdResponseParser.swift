@@ -78,7 +78,7 @@ extension SabNZBdResponseParser {
         }
         catch {
             print("SabNZBd parse error: \(error)")
-            throw ParseError.invalidJson
+            throw ParseError.invalidData
         }
         
         guard json["status"].bool ?? true else {

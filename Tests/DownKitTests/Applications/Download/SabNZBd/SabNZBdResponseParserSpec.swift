@@ -107,8 +107,8 @@ class SabNZBdResponseParserSpec: QuickSpec {
                         parseError = nil
                     }
 
-                    it("throws invalid json error") {
-                        expect(parseError) == ParseError.invalidJson
+                    it("throws invalid data error") {
+                        expect(parseError) == ParseError.invalidData
                     }
                 }
             }

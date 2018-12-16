@@ -175,7 +175,7 @@ extension SickbeardResponseParser {
         }
         catch {
             print("Sickbeard parse error: \(error)")
-            throw ParseError.invalidJson
+            throw ParseError.invalidData
         }
 
         try validate(json)

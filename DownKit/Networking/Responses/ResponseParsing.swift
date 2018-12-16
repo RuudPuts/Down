@@ -16,7 +16,6 @@ public protocol ResponseParsing {
 public enum ParseError: Error, Hashable {
     case noData
     case invalidData
-    case invalidJson
     case api(message: String)
     case missingData
 }
