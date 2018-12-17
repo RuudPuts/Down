@@ -14,6 +14,8 @@ class DownDatabaseMock {
         // DvrDatabase
         var fetchShows = [DvrShow]()
         var fetchShowsMatchingNameComponents: DvrShow?
+        var fetchEpisodesAiringOn = [DvrEpisode]()
+        var fetchEpisodesAiringBetween = [DvrEpisode]()
     }
 
     struct Captures {
@@ -22,6 +24,8 @@ class DownDatabaseMock {
         var deleteShow: Show?
         var fetchShows: Bool?
         var fetchShowsMatching: FetchShowsMatching?
+        var fetchEpisodesAiringOn: FetchEpisodesAiringOn?
+        var fetchEpisodesAiringBetween: FetchEpisodesAiringBetween?
 
         struct Shows {
             var shows: [DvrShow]
@@ -33,6 +37,15 @@ class DownDatabaseMock {
 
         struct FetchShowsMatching {
             var nameComponents: [String]
+        }
+
+        struct FetchEpisodesAiringOn {
+            var airDate: Date
+        }
+
+        struct FetchEpisodesAiringBetween {
+            var fromDate: Date
+            var toDate: Date
         }
     }
 

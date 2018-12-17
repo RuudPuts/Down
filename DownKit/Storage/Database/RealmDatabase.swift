@@ -74,4 +74,20 @@ public class RealmDatabase: DownDatabase {
             return Disposables.create()
         }
     }
+
+    public func fetchEpisodes(airingOn airDate: Date) -> Observable<[DvrEpisode]> {
+        let episodes = makeRealm().objects(DvrEpisode.self)
+            .filter("airdate == %@", airDate.withoutTime)
+            .sorted(byKeyPath: "airdate")
+
+        return Observable.array(from: episodes)
+    }
+
+    public func fetchEpisodes(airingBetween fromDate: Date, and toDate: Date) -> Observable<[DvrEpisode]> {
+        let episodes = makeRealm().objects(DvrEpisode.self)
+            .filter("airdate >= %@ AND airdate <= %@", fromDate.startOfDay, toDate.endOfDayTime)
+            .sorted(byKeyPath: "airdate")
+
+        return Observable.array(from: episodes)
+    }
 }

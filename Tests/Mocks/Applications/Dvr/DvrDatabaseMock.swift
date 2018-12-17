@@ -27,4 +27,14 @@ extension DownDatabaseMock { // DvrDatabase
         captures.fetchShowsMatching = Captures.FetchShowsMatching(nameComponents: nameComponents)
         return Single.just(stubs.fetchShowsMatchingNameComponents)
     }
+
+    public func fetchEpisodes(airingOn airDate: Date) -> Observable<[DvrEpisode]> {
+        captures.fetchEpisodesAiringOn = Captures.FetchEpisodesAiringOn(airDate: airDate)
+        return Observable.just(stubs.fetchEpisodesAiringOn)
+    }
+
+    public func fetchEpisodes(airingBetween fromDate: Date, and toDate: Date) -> Observable<[DvrEpisode]> {
+        captures.fetchEpisodesAiringBetween = Captures.FetchEpisodesAiringBetween(fromDate: fromDate, toDate: toDate)
+        return Observable.just(stubs.fetchEpisodesAiringBetween)
+    }
 }
