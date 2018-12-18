@@ -15,6 +15,14 @@ extension TimeInterval {
 }
 
 extension Date {
+    static var tomorrow: Date {
+        return Date().addDays(1)
+    }
+
+    func addDays(_ days: Int) -> Date {
+        return addingTimeInterval(86400 * Double(days))
+    }
+    
     var dateString: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"

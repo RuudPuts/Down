@@ -74,8 +74,6 @@ class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: ReactiveBinding {
-    typealias Bindable = SettingsViewModel
-
     func makeInput() -> SettingsViewModel.Input {
         return SettingsViewModel.Input(itemSelected: tableView.rx.itemSelected)
     }

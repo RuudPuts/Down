@@ -101,8 +101,6 @@ extension ApplicationSettingsViewController: UITextFieldDelegate {
 }
 
 extension ApplicationSettingsViewController: ReactiveBinding {
-    typealias Bindable = ApplicationSettingsViewModel
-
     func makeInput() -> ApplicationSettingsViewModel.Input {
         let hostDriver = hostTextField.rx.debouncedText
         let usernameDriver = usernameTextField.rx.debouncedText

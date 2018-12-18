@@ -9,10 +9,6 @@
 import Foundation
 
 extension Date {
-    static var tomorrow: Date {
-        return Date().addingTimeInterval(86400)
-    }
-
     var withoutTime: Date {
         let calendar = Calendar.current
 

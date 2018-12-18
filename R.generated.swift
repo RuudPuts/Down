@@ -308,7 +308,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 18 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 19 nibs.
   struct nib {
     /// Nib `ApplicationHeaderView`.
     static let applicationHeaderView = _R.nib._ApplicationHeaderView()
@@ -326,6 +326,8 @@ struct R: Rswift.Validatable {
     static let downloadStatusViewController = _R.nib._DownloadStatusViewController()
     /// Nib `DvrAddShowViewController`.
     static let dvrAddShowViewController = _R.nib._DvrAddShowViewController()
+    /// Nib `DvrAiringSoonViewController`.
+    static let dvrAiringSoonViewController = _R.nib._DvrAiringSoonViewController()
     /// Nib `DvrEpisodeCell`.
     static let dvrEpisodeCell = _R.nib._DvrEpisodeCell()
     /// Nib `DvrShowCollectionViewCell`.
@@ -385,6 +387,11 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "DvrAddShowViewController", in: bundle)`
     static func dvrAddShowViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrAddShowViewController)
+    }
+    
+    /// `UINib(name: "DvrAiringSoonViewController", in: bundle)`
+    static func dvrAiringSoonViewController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.dvrAiringSoonViewController)
     }
     
     /// `UINib(name: "DvrEpisodeCell", in: bundle)`
@@ -656,6 +663,17 @@ struct _R: Rswift.Validatable {
     struct _DvrAddShowViewController: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "DvrAddShowViewController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _DvrAiringSoonViewController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "DvrAiringSoonViewController"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView

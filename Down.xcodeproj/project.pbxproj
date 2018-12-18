@@ -133,6 +133,9 @@
 		4239553E218F5DE200B7E40F /* DownApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BF74220F6A527000C3A4A /* DownApplication.swift */; };
 		42395540218F651300B7E40F /* DownKitDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4239553F218F651300B7E40F /* DownKitDependencies.swift */; };
 		42395542218F745600B7E40F /* DmrInteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42395541218F745600B7E40F /* DmrInteractorFactory.swift */; };
+		423A50A221C83376002271BD /* DvrAiringSoonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A50A121C83376002271BD /* DvrAiringSoonViewController.swift */; };
+		423A50A421C83395002271BD /* DvrAiringSoonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 423A50A321C83395002271BD /* DvrAiringSoonViewController.xib */; };
+		423A50A621C833CA002271BD /* DvrAiringSoonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A50A521C833CA002271BD /* DvrAiringSoonViewModel.swift */; };
 		423A5503216913A100CC558A /* ButtonToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A5502216913A100CC558A /* ButtonToolbar.swift */; };
 		423A5505216917A800CC558A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A5504216917A800CC558A /* UICollectionViewExtensions.swift */; };
 		4243527A20FA8FB800A729E1 /* DvrShowDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */; };
@@ -469,6 +472,9 @@
 		4239553B218F5D7000B7E40F /* DownDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownDependencies.swift; sourceTree = "<group>"; };
 		4239553F218F651300B7E40F /* DownKitDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownKitDependencies.swift; sourceTree = "<group>"; };
 		42395541218F745600B7E40F /* DmrInteractorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DmrInteractorFactory.swift; sourceTree = "<group>"; };
+		423A50A121C83376002271BD /* DvrAiringSoonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAiringSoonViewController.swift; sourceTree = "<group>"; };
+		423A50A321C83395002271BD /* DvrAiringSoonViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrAiringSoonViewController.xib; sourceTree = "<group>"; };
+		423A50A521C833CA002271BD /* DvrAiringSoonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAiringSoonViewModel.swift; sourceTree = "<group>"; };
 		423A5502216913A100CC558A /* ButtonToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonToolbar.swift; sourceTree = "<group>"; };
 		423A5504216917A800CC558A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
 		423F201421922B50009879EC /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -1358,6 +1364,16 @@
 			path = ErrorHandling;
 			sourceTree = "<group>";
 		};
+		423A50A021C83366002271BD /* Airing soon */ = {
+			isa = PBXGroup;
+			children = (
+				423A50A121C83376002271BD /* DvrAiringSoonViewController.swift */,
+				423A50A321C83395002271BD /* DvrAiringSoonViewController.xib */,
+				423A50A521C833CA002271BD /* DvrAiringSoonViewModel.swift */,
+			);
+			path = "Airing soon";
+			sourceTree = "<group>";
+		};
 		4243528120FA9CE200A729E1 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -1536,6 +1552,7 @@
 			isa = PBXGroup;
 			children = (
 				427D605A20E02E2F0017AE42 /* DvrRouter.swift */,
+				423A50A021C83366002271BD /* Airing soon */,
 				4284C736213432C600F21B91 /* Shows overview */,
 				4284C738213432DE00F21B91 /* Show details */,
 				4284C737213432D700F21B91 /* Add Show */,
@@ -2038,6 +2055,7 @@
 				428FCD80212350DE00C0371D /* OpenSans-Bold.ttf in Resources */,
 				420C28322163F58D0088259C /* SettingsApplicationCell.xib in Resources */,
 				421D83AF2107A4A6008BEB2F /* Localizable.strings in Resources */,
+				423A50A421C83395002271BD /* DvrAiringSoonViewController.xib in Resources */,
 				42BE70C621693BED004167C3 /* DownloadItemDetailViewController.xib in Resources */,
 				42DECE8C21C6CAC30084BF83 /* PagingViewController.xib in Resources */,
 				4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */,
@@ -2501,6 +2519,7 @@
 				420C28302163ED0E0088259C /* SettingsApplicationCell.swift in Sources */,
 				425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */,
 				428FCD61212212B600C0371D /* UIViewStyle.swift in Sources */,
+				423A50A221C83376002271BD /* DvrAiringSoonViewController.swift in Sources */,
 				4284C72721334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift in Sources */,
 				42BE70C521693BED004167C3 /* DownloadItemDetailViewController.swift in Sources */,
 				427D606120E0325C0017AE42 /* DownloadStatusViewController.swift in Sources */,
@@ -2539,6 +2558,7 @@
 				4237F7C221C6D1690005ED2D /* PagingViewControllerStyle.swift in Sources */,
 				4259F195219DFC8C003C37AB /* DvrShowDetailsViewModel.swift in Sources */,
 				428FCD652122204000C0371D /* UITableViewStyle.swift in Sources */,
+				423A50A621C833CA002271BD /* DvrAiringSoonViewModel.swift in Sources */,
 				427D606320E0325C0017AE42 /* DownloadRouter.swift in Sources */,
 				427D606B20E1A6BD0017AE42 /* DownloadItemCell.swift in Sources */,
 				42BE70C821693C05004167C3 /* DownloadItemDetailViewModel.swift in Sources */,

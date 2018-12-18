@@ -31,14 +31,11 @@ class DvrRouter: ChildRouter, Depending {
     }
     
     func start() {
-        let a = UIViewController()
-        a.title = "Airing soon"
-
         let b = UIViewController()
         b.title = "Recently aired"
 
         let viewControllers = [
-            a,
+            viewControllerFactory.makeDvrAiringSoon(),
             viewControllerFactory.makeDvrShows(),
             b
         ]

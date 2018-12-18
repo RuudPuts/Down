@@ -76,8 +76,6 @@ class DownloadStatusViewController: UIViewController & Depending {
 }
 
 extension DownloadStatusViewController: ReactiveBinding {
-    typealias Bindable = DownloadStatusViewModel
-
     func makeInput() -> DownloadStatusViewModel.Input {
         return DownloadStatusViewModel.Input(itemSelected: tableView.rx.itemSelected)
     }

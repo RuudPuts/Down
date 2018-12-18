@@ -70,8 +70,6 @@ class DvrShowsViewController: UIViewController & Depending {
 }
 
 extension DvrShowsViewController: ReactiveBinding {
-    typealias Bindable = DvrShowsViewModel
-
     func makeInput() -> DvrShowsViewModel.Input {
         return DvrShowsViewModel.Input()
     }

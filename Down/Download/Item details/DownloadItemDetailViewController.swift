@@ -78,8 +78,6 @@ class DownloadItemDetailViewController: UIViewController & Depending {
 }
 
 extension DownloadItemDetailViewController: ReactiveBinding {
-    typealias Bindable = DownloadItemDetailViewModel
-
     func makeInput() -> DownloadItemDetailViewModel.Input {
         let deleteButtonTapped = deleteButton.rx.tap
 
