@@ -234,7 +234,7 @@ class RealmDatabaseSpec: QuickSpec {
             return DvrEpisode(identifier: "\(count)", name: "episode", airdate: date)
         }
 
-        let show = DvrShow(identifier: identifier, name: "show")
+        let show = DvrShow(identifier: identifier, name: "show" + identifier)
         show.setSeasons([
             DvrSeason(identifier: "1", episodes: episodes, show: show)
         ])

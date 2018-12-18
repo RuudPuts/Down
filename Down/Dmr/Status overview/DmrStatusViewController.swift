@@ -15,7 +15,7 @@ class DmrStatusViewController: UIViewController & Depending {
     public typealias Dependencies = DmrApplicationDependency
     public let dependencies: Dependencies
 
-    private let disposeBag = DisposeBag()
+    private var disposeBag: DisposeBag!
 
     @IBOutlet weak var headerView: ApplicationHeaderView!
 
@@ -37,12 +37,14 @@ class DmrStatusViewController: UIViewController & Depending {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        bind(to: viewModel)
 
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        disposeBag = nil
 
         if let navigationController = navigationController,
             navigationController.viewControllers.count > 1 {

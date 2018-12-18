@@ -66,7 +66,7 @@ class SettingsViewController: UIViewController {
     }
 
     func configureTableView() {
-        tableViewModel.prepare(tableView: tableView)
+        tableViewModel.prepare(tableView)
 
         tableView.dataSource = tableViewModel
         tableView.delegate = tableViewModel

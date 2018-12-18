@@ -47,7 +47,7 @@ extension DownloadStatusViewModel: ReactiveBindable {
 
         let sectionsDriver = Driver.zip([queueItemsDriver, historyDriver])
             .asObservable()
-            .withInterval(interval: refreshInterval)
+//            .withInterval(interval: refreshInterval)
             .map {[
                 TableSectionData(header: "Queue", icon: R.image.icon_queue(), items: $0.first ?? []),
                 TableSectionData(header: "History", icon: R.image.icon_history(), items: $0.last ?? [])

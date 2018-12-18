@@ -35,7 +35,7 @@ class DownloadItemDetailViewController: UIViewController & Depending {
     private let viewModel: DownloadItemDetailViewModel
     private let tableViewController: DownloadItemDetailTableViewController
 
-    private var disposeBag = DisposeBag()
+    private var disposeBag: DisposeBag!
 
     init(dependencies: Dependencies, viewModel: DownloadItemDetailViewModel) {
         self.dependencies = dependencies
@@ -55,13 +55,24 @@ class DownloadItemDetailViewController: UIViewController & Depending {
 
         configureTableView()
         applyStyling()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         bind(to: viewModel)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        disposeBag = nil
     }
 
     private func configureTableView() {
         tableView.tableFooterView = UIView()
         
-        tableViewController.prepare(tableView: tableView)
+        tableViewController.prepare(tableView)
         tableView.dataSource = tableViewController
     }
 
@@ -85,6 +96,8 @@ extension DownloadItemDetailViewController: ReactiveBinding {
     }
 
     func bind(to viewModel: DownloadItemDetailViewModel) {
+        disposeBag = DisposeBag()
+
         let output = viewModel.transform(input: makeInput())
 
         bindHeaderView(output.refinedItem)

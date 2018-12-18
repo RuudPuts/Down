@@ -25,7 +25,7 @@ class DvrShowDetailViewController: UIViewController, Depending {
     private let viewModel: DvrShowDetailsViewModel
     private let tableViewModel: DvrShowDetailsTableViewModel
 
-    private let disposeBag = DisposeBag()
+    private var disposeBag: DisposeBag!
 
     init(dependencies: Dependencies, viewModel: DvrShowDetailsViewModel) {
         self.dependencies = dependencies
@@ -44,7 +44,18 @@ class DvrShowDetailViewController: UIViewController, Depending {
 
         applyStyling()
         configureTableView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         bind(to: viewModel)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        disposeBag = nil
     }
     
     func applyStyling() {
@@ -57,7 +68,7 @@ class DvrShowDetailViewController: UIViewController, Depending {
         deleteButton.style(as: .deleteButton)
     }
     func configureTableView() {
-        tableViewModel.prepare(tableView: tableView!)
+        tableViewModel.prepare( tableView!)
 
         tableView.dataSource = tableViewModel
         tableView.delegate = tableViewModel
@@ -72,6 +83,8 @@ extension DvrShowDetailViewController: ReactiveBinding {
     }
 
     func bind(to viewModel: DvrShowDetailsViewModel) {
+        disposeBag = DisposeBag()
+
         let output = viewModel.transform(input: makeInput())
 
         output.refinedShow

@@ -308,7 +308,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 19 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 20 nibs.
   struct nib {
     /// Nib `ApplicationHeaderView`.
     static let applicationHeaderView = _R.nib._ApplicationHeaderView()
@@ -326,6 +326,8 @@ struct R: Rswift.Validatable {
     static let downloadStatusViewController = _R.nib._DownloadStatusViewController()
     /// Nib `DvrAddShowViewController`.
     static let dvrAddShowViewController = _R.nib._DvrAddShowViewController()
+    /// Nib `DvrAiringSoonCell`.
+    static let dvrAiringSoonCell = _R.nib._DvrAiringSoonCell()
     /// Nib `DvrAiringSoonViewController`.
     static let dvrAiringSoonViewController = _R.nib._DvrAiringSoonViewController()
     /// Nib `DvrEpisodeCell`.
@@ -387,6 +389,11 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "DvrAddShowViewController", in: bundle)`
     static func dvrAddShowViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrAddShowViewController)
+    }
+    
+    /// `UINib(name: "DvrAiringSoonCell", in: bundle)`
+    static func dvrAiringSoonCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.dvrAiringSoonCell)
     }
     
     /// `UINib(name: "DvrAiringSoonViewController", in: bundle)`
@@ -666,6 +673,17 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _DvrAiringSoonCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "DvrAiringSoonCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DvrAiringSoonCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrAiringSoonCell
       }
       
       fileprivate init() {}

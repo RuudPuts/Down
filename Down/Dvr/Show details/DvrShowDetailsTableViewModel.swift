@@ -20,7 +20,7 @@ class DvrShowDetailsTableViewModel: NSObject, Depending {
         self.dependencies = dependencies
     }
 
-    func prepare(tableView: UITableView) {
+    func prepare(_ tableView: UITableView) {
         tableView.registerCell(nibName: DvrEpisodeCell.reuseIdentifier)
         tableView.registerHeaderFooter(nibName: TableHeaderView.reuseIdentifier)
     }

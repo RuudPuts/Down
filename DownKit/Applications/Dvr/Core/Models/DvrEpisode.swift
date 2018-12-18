@@ -9,16 +9,30 @@
 import RealmSwift
 
 public class DvrEpisode: Object {
-    @objc dynamic var key = UUID().uuidString
-    @objc public dynamic var identifier = ""
+    @objc public dynamic var uniqueIdentifier = ""
+    @objc public dynamic var identifier = "" {
+        didSet {
+            updateUniqueIdentifier()
+        }
+    }
+
+    @objc public dynamic var show: DvrShow! {
+        didSet {
+            updateUniqueIdentifier()
+        }
+    }
+
+    @objc public dynamic var season: DvrSeason! {
+        didSet {
+            updateUniqueIdentifier()
+        }
+    }
+
     @objc public dynamic var name = ""
     @objc public dynamic var airdate: Date?
     @objc public dynamic var quality = Quality.unknown
     @objc public dynamic var status = DvrEpisodeStatus.unknown
-    
-    @objc public dynamic var show: DvrShow!
-    @objc public dynamic var season: DvrSeason!
-    
+
     public convenience init(identifier: String, name: String, airdate: Date?,
                             quality: Quality = .unknown, status: DvrEpisodeStatus = .unknown) {
         self.init()
@@ -30,7 +44,15 @@ public class DvrEpisode: Object {
     }
     
     override public static func primaryKey() -> String? {
-        return "key"
+        return "uniqueIdentifier"
+    }
+
+    private func updateUniqueIdentifier() {
+        //! Would like to use show.identifier, but for sickbeard it's not set when updating last
+        let showIdentifier = show?.name ?? ""
+        let seasonIdentifier = season?.identifier ?? ""
+
+        uniqueIdentifier = "\(showIdentifier)-\(seasonIdentifier)-\(identifier)"
     }
 }
 

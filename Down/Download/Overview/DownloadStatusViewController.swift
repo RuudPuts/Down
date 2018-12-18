@@ -68,10 +68,9 @@ class DownloadStatusViewController: UIViewController & Depending {
     }
     
     func configureTableView() {
-        tableView.dataSource = tableController
         tableView.delegate = tableController
         
-        tableController.prepare(tableView: tableView)
+        tableController.prepare(tableView)
     }
 }
 
@@ -90,7 +89,7 @@ extension DownloadStatusViewController: ReactiveBinding {
             .disposed(by: disposeBag)
 
         output.sectionsData
-            .drive(tableController.rx.datasource)
+            .drive(tableView.rx.items(dataSource: tableController.dataSource))
             .disposed(by: disposeBag)
 
         output.navigateToDetails

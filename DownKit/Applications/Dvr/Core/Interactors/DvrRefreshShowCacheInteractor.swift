@@ -35,10 +35,13 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
             .flatMap { self.processDeletedShows($0) }
             .flatMap { self.determineShowsToRefresh($0) }
             .flatMap { self.refreshShowDetails($0) }
+            .do(onNext: { _ in NSLog("DvrCacheRefresh: done") })
             .asSingle()
     }
 
     func processDeletedShows(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
+        NSLog("DvrCacheRefresh: fetched \(shows.count) shows")
+
         return Observable.zip([Observable.just(shows), database.fetchShows()])
             .map {
                 guard let fetchedShows = $0.first, let storedShows = $0.last,
@@ -48,9 +51,11 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
 
                 let fetchedShowIdentifiers = fetchedShows.map { $0.identifier }
 
-                storedShows
+                let deletedShows = storedShows
                     .filter { fetchedShowIdentifiers.index(of: $0.identifier) == nil }
-                    .forEach { self.database.delete(show: $0) }
+
+                NSLog("DvrCacheRefresh: \(deletedShows.count) shows deleted")
+                deletedShows.forEach { self.database.delete(show: $0) }
 
                 return shows
             }
@@ -67,8 +72,10 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
                 let newShows = fetchedShows.filter {
                     storedShowsIdentifiers.index(of: $0.identifier) == nil
                 }
+                NSLog("DvrCacheRefresh: \(newShows.count) new shows")
 
                 let showsToRefresh = storedShows.filter {
+                    //! Use DvrDatabase for this
                     !$0.episodeAired(since: Date().addingTimeInterval(-604800)).isEmpty
                 }
 
@@ -77,6 +84,8 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
     }
 
     func refreshShowDetails(_ shows: [DvrShow]) -> Observable<[DvrShow]> {
+        NSLog("DvrCacheRefresh: refreshing \(shows.count) shows")
+
         let observables = shows.map {
             self.interactors
                 .makeShowDetailsInteractor(for: self.application, show: $0)
@@ -86,7 +95,10 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
 
         return Observable.zip(observables)
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-            .do(onNext: { self.database.store(shows: $0) })
+            .do(onNext: {
+                NSLog("DvrCacheRefresh: storing \($0.count) shows")
+                self.database.store(shows: $0)
+            })
             .observeOn(MainScheduler.instance)
     }
 }

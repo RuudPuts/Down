@@ -6,9 +6,10 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
+import RxDataSources
 import DownKit
 
-struct TableSectionData<Item> {
+struct TableSectionData<Item>: SectionModelType {
     var header: String
     var icon: UIImage?
 
@@ -17,6 +18,11 @@ struct TableSectionData<Item> {
     init(header: String, icon: UIImage?, items: [Item]) {
         self.header = header
         self.icon = icon
+        self.items = items
+    }
+
+    init(original: TableSectionData<Item>, items: [Item]) {
+        self = original
         self.items = items
     }
 }
