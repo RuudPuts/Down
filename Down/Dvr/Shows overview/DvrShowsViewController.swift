@@ -89,9 +89,7 @@ extension DvrShowsViewController: ReactiveBinding {
             .disposed(by: disposeBag)
 
         let showsLoaded = output.shows
-            .skip(1)
-            .map { _ in true }
-            .startWith(false)
+            .map { !$0.isEmpty }
 
         showsLoaded
             .drive(activityIndicator.rx.isHidden)

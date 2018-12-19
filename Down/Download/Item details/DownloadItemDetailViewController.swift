@@ -79,7 +79,7 @@ class DownloadItemDetailViewController: UIViewController & Depending {
     private func applyStyling() {
         view.style(as: .backgroundView)
         tableView.style(as: .defaultTableView)
-        titleLabel.style(as: .boldTitleLabel)
+        titleLabel.style(as: .titleLabel)
         subtitleLabel.style(as: .titleLabel)
         statusLabel.style(as: .detailLabel)
         progressView.style(as: .progressView(for: dependencies.downloadApplication.downType))
