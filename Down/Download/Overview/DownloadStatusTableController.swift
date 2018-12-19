@@ -12,21 +12,23 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class DownloadStatusTableController: NSObject, Depending {
+class DownloadStatusTableController: SectionedTableController<DownloadItem>, Depending {
     typealias Dependencies = DownloadApplicationDependency
     let dependencies: Dependencies
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
+
+        super.init(application: dependencies.downloadApplication)
     }
 
-    func prepare(_ tableView: UITableView) {
+    override func prepare(_ tableView: UITableView) {
+        super.prepare(tableView)
+
         tableView.registerCell(nibName: DownloadItemCell.reuseIdentifier)
-        tableView.registerHeaderFooter(nibName: TableHeaderView.reuseIdentifier)
     }
 
-    typealias RxDataSourceType = RxTableViewSectionedReloadDataSource<TableSectionData<DownloadItem>>
-    lazy var dataSource = RxDataSourceType(configureCell: { (_, tableView, indexPath, item) -> UITableViewCell in
+    override func cell(forItem item: DownloadItem, atIndexPath indexPath: IndexPath, inTableView tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DownloadItemCell.reuseIdentifier, for: indexPath)
 
         guard let itemCell = cell as? DownloadItemCell else {
@@ -36,23 +38,5 @@ class DownloadStatusTableController: NSObject, Depending {
         itemCell.configure(with: self.dependencies.downloadApplication, andItem: item)
 
         return cell
-    })
-}
-
-extension DownloadStatusTableController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.reuseIdentifier)
-        guard let headerView = view as? TableHeaderView else {
-            return nil
-        }
-
-        let sectionData = dataSource[section]
-        headerView.viewModel = TableHeaderViewModel(title: sectionData.header, icon: sectionData.icon)
-
-        return view
-    }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.style(as: .selectableCell(application: dependencies.downloadApplication.downType))
     }
 }

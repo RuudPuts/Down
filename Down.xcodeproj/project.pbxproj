@@ -38,6 +38,7 @@
 		422106C421C979E8009D9D11 /* DvrAiringSoonTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422106C321C979E8009D9D11 /* DvrAiringSoonTableController.swift */; };
 		422106C621C97AE6009D9D11 /* DvrAiringSoonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422106C521C97AE6009D9D11 /* DvrAiringSoonCell.swift */; };
 		422106C821C97B23009D9D11 /* DvrAiringSoonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 422106C721C97B23009D9D11 /* DvrAiringSoonCell.xib */; };
+		422106D921CAA950009D9D11 /* SectionedTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422106D821CAA950009D9D11 /* SectionedTableController.swift */; };
 		4221DA3520D1819F003950CF /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DA2C20D1819F003950CF /* DownKit.framework */; };
 		4221DA3E20D1819F003950CF /* DownKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4221DA2E20D1819F003950CF /* DownKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4221DA4120D1819F003950CF /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DA2C20D1819F003950CF /* DownKit.framework */; };
@@ -374,6 +375,7 @@
 		422106C321C979E8009D9D11 /* DvrAiringSoonTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAiringSoonTableController.swift; sourceTree = "<group>"; };
 		422106C521C97AE6009D9D11 /* DvrAiringSoonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAiringSoonCell.swift; sourceTree = "<group>"; };
 		422106C721C97B23009D9D11 /* DvrAiringSoonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrAiringSoonCell.xib; sourceTree = "<group>"; };
+		422106D821CAA950009D9D11 /* SectionedTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionedTableController.swift; sourceTree = "<group>"; };
 		4221DA2C20D1819F003950CF /* DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4221DA2E20D1819F003950CF /* DownKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownKit.h; sourceTree = "<group>"; };
 		4221DA2F20D1819F003950CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -734,6 +736,25 @@
 				420CD7B521B1FDD60086FBFA /* SickgearResponseParserSpec.swift */,
 			);
 			path = Sickgear;
+			sourceTree = "<group>";
+		};
+		422106D621CAA927009D9D11 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				422106D721CAA93B009D9D11 /* HeaderView */,
+				4284C720213327FD00F21B91 /* TableSectionData.swift */,
+				422106D821CAA950009D9D11 /* SectionedTableController.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		422106D721CAA93B009D9D11 /* HeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				42350761212499BD005343CD /* TableHeaderView.swift */,
+				42350763212499C6005343CD /* TableHeaderView.xib */,
+			);
+			path = HeaderView;
 			sourceTree = "<group>";
 		};
 		4221DA2D20D1819F003950CF /* DownKit */ = {
@@ -1539,11 +1560,11 @@
 				42FB9037210114DA007B01DB /* ApplicationPersisting.swift */,
 				4239328721C4696100AA1E08 /* ErrorHandling */,
 				42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */,
-				4284C720213327FD00F21B91 /* TableSectionData.swift */,
 				42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */,
 				42D58EF0211A0AAA00F3454A /* Extensions */,
 				42DECE8921C6C9760084BF83 /* PagingViewController.swift */,
 				42DECE8B21C6CAC30084BF83 /* PagingViewController.xib */,
+				422106D621CAA927009D9D11 /* TableView */,
 				428801152120976D007552FD /* Views */,
 			);
 			path = Shared;
@@ -1682,8 +1703,6 @@
 				42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */,
 				426BF73E20F6A19D000C3A4A /* ApplicationHeaderView.swift */,
 				429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */,
-				42350761212499BD005343CD /* TableHeaderView.swift */,
-				42350763212499C6005343CD /* TableHeaderView.xib */,
 				423A5502216913A100CC558A /* ButtonToolbar.swift */,
 				42BE70CF2169835B004167C3 /* KeyValueTableViewCell.swift */,
 				421752E1217BB6D20002F0C1 /* KeyValueTableViewCell.xib */,
@@ -2522,6 +2541,7 @@
 				4243528920FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift in Sources */,
 				426BF74120F6A2CB000C3A4A /* AssetProvider.swift in Sources */,
 				428FCD632122143E00C0371D /* UITableViewCellStyle.swift in Sources */,
+				422106D921CAA950009D9D11 /* SectionedTableController.swift in Sources */,
 				429E06E6219386330072A57B /* ErrorHandler.swift in Sources */,
 				4284C7252133442800F21B91 /* SkyFloatingLabelTextFieldStyle.swift in Sources */,
 				4288011421209280007552FD /* ViewStyling.swift in Sources */,

@@ -32,7 +32,7 @@ class DvrRouter: ChildRouter, Depending {
     
     func start() {
         let b = UIViewController()
-        b.title = "Recently aired"
+        b.title = "Recents"
 
         let viewControllers = [
             viewControllerFactory.makeDvrAiringSoon(),
