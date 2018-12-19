@@ -14,7 +14,7 @@ struct DvrAiringSoonViewModel: Depending {
     typealias Dependencies = DatabaseDependency & DvrRequestBuilderDependency
     let dependencies: Dependencies
 
-    let title = "Airing soon"
+    let title = "Upcoming"
 
     private let disposeBag = DisposeBag()
 
@@ -27,42 +27,45 @@ extension DvrAiringSoonViewModel: ReactiveBindable {
     struct Input { }
 
     struct Output {
-        let data: Observable<[TableSectionData<RefinedEpisode>]>
+        let sections: Observable<[TableSectionData<RefinedEpisode>]>
     }
 
     func transform(input: Input) -> Output {
-        let airingToday = dependencies.database
-            .fetchEpisodes(airingOn: Date())
-            .map { $0.map { RefinedEpisode.from(episode: $0, withDvrRequestBuilder: self.dependencies.dvrRequestBuilder) } }
-            .map { TableSectionData(header: "Airing today", icon: nil, items: $0) }
+        let airingToday = dependencies.database.fetchEpisodes(airingOn: Date())
+        let airingTomorrow = dependencies.database.fetchEpisodes(airingOn: Date.tomorrow)
+        let airingSoon = dependencies.database.fetchEpisodes(airingBetween: Date().addDays(2), and: Date().addDays(14))
 
-        let airingTomorrow = dependencies.database
-            .fetchEpisodes(airingOn: Date.tomorrow)
-            .map { $0.map { RefinedEpisode.from(episode: $0, withDvrRequestBuilder: self.dependencies.dvrRequestBuilder) } }
-            .map { TableSectionData(header: "Airing tomorrow", icon: nil, items: $0) }
+        let sections = [
+                (title: "Airing today", episodes: airingToday),
+                (title: "Airing tomorrow", episodes: airingTomorrow),
+                (title: "Airing soon", episodes: airingSoon)
+            ]
+            .map { data in
+                data.episodes.map { episodes -> TableSectionData<RefinedEpisode> in
+                    let refinedEpisodes = episodes.map {
+                        RefinedEpisode.from(episode: $0, withDvrRequestBuilder: self.dependencies.dvrRequestBuilder)
+                    }
 
-        let airingSoon = dependencies.database
-            .fetchEpisodes(airingBetween: Date().addDays(2), and: Date().addDays(14))
-            .map { $0.map { RefinedEpisode.from(episode: $0, withDvrRequestBuilder: self.dependencies.dvrRequestBuilder) } }
-            .map { TableSectionData(header: "Airing soon", icon: nil, items: $0) }
+                    return TableSectionData(header: data.title, icon: nil, items: refinedEpisodes)
+                }
+            }
 
-        return Output(data: Observable.zip([airingToday, airingTomorrow, airingSoon]))
+        return Output(sections: Observable.zip(sections))
     }
 }
 
 extension DvrAiringSoonViewModel {
     struct RefinedEpisode {
-        let showName: String
-        let seasonAndEpisode: String
+        let title: String
+        let showAndIdentifier: String
         let airingOn: String
-
         let bannerUrl: URL?
 
         static func from(episode: DvrEpisode, withDvrRequestBuilder requestBuilder: DvrRequestBuilding) -> RefinedEpisode {
             let show = episode.show!
 
-            return RefinedEpisode(showName: show.name,
-                                  seasonAndEpisode: "Season \(episode.season.identifier) episode \(episode.identifier)",
+            return RefinedEpisode(title: episode.name,
+                                  showAndIdentifier: String(format: "%@ - S%02dE%02d", show.name, Int(episode.season.identifier)!, Int(episode.identifier)!),
                                   airingOn: "Airs \(show.airTime) on \(show.network)",
                                   bannerUrl: requestBuilder.url(for: .fetchBanner(show)))
 

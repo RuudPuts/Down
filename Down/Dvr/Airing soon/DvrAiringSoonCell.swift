@@ -13,7 +13,7 @@ import Kingfisher
 class DvrAiringSoonCell: UITableViewCell {
     @IBOutlet weak var bannerImageView: UIImageView!
     @IBOutlet weak var showLabel: UILabel!
-    @IBOutlet weak var seasonEpisodeLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var airingOnLabel: UILabel!
 
     override func awakeFromNib() {
@@ -27,7 +27,7 @@ class DvrAiringSoonCell: UITableViewCell {
         backgroundColor = .clear
 
         showLabel?.style(as: .titleLabel)
-        seasonEpisodeLabel?.style(as: .detailLabel)
+        titleLabel?.style(as: .detailLabel)
         airingOnLabel?.style(as: .detailLabel)
     }
 }
@@ -36,8 +36,8 @@ extension DvrAiringSoonCell {
     func configure(with episode: DvrAiringSoonViewModel.RefinedEpisode) {
         bannerImageView.kf.setImage(with: episode.bannerUrl)
 
-        showLabel.text = episode.showName
-        seasonEpisodeLabel.text = episode.seasonAndEpisode
+        showLabel.text = episode.showAndIdentifier
+        titleLabel.text = episode.title
         airingOnLabel.text = episode.airingOn
     }
 }

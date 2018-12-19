@@ -33,7 +33,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Season Episode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGG-jR-6ft">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGG-jR-6ft">
                                 <rect key="frame" x="0.0" y="54" width="359" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="ZGc-sS-dMw"/>
@@ -67,8 +67,8 @@
             <connections>
                 <outlet property="airingOnLabel" destination="0l6-LI-a2k" id="nts-sS-BjD"/>
                 <outlet property="bannerImageView" destination="cTb-1f-2mH" id="7pd-XO-h0E"/>
-                <outlet property="seasonEpisodeLabel" destination="DGG-jR-6ft" id="sq5-Vy-rFe"/>
                 <outlet property="showLabel" destination="I0Y-t6-zml" id="9Qk-Dg-yfz"/>
+                <outlet property="titleLabel" destination="DGG-jR-6ft" id="A47-5V-T7U"/>
             </connections>
             <point key="canvasLocation" x="108" y="24.287856071964018"/>
         </tableViewCell>

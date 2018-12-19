@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class DvrAiringSoonViewController: UIViewController & Depending {
-    typealias Dependencies = DvrAiringSoonTableController.Dependencies & RouterDependency
+    typealias Dependencies = RouterDependency & DvrApplicationDependency
     let dependencies: Dependencies
 
     @IBOutlet weak var tableView: UITableView!
@@ -25,7 +25,7 @@ class DvrAiringSoonViewController: UIViewController & Depending {
     init(dependencies: Dependencies, viewModel: DvrAiringSoonViewModel) {
         self.dependencies = dependencies
         self.viewModel = viewModel
-        tableController = DvrAiringSoonTableController(dependencies: dependencies)
+        tableController = DvrAiringSoonTableController(application: dependencies.dvrApplication)
 
         super.init(nibName: nil, bundle: nil)
         title = viewModel.title
@@ -69,7 +69,7 @@ extension DvrAiringSoonViewController: ReactiveBinding {
         disposeBag = DisposeBag()
 
         let output = viewModel.transform(input: makeInput())
-        output.data
+        output.sections
             .bind(to: tableView.rx.items(dataSource: tableController.dataSource))
             .disposed(by: disposeBag)
     }
