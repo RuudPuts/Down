@@ -43,11 +43,12 @@ target 'Down' do
   pod 'Fabric', '~> 1.9.0'
   pod 'Crashlytics', '~> 3.12.0'
 
+  pod 'CircleProgressView', '~> 1.2.0'
   pod 'RxDataSources', '~> 3.1.0'
   pod 'SkyFloatingLabelTextField', '~> 3.6.0'
-  pod 'CircleProgressView', '~> 1.2.0'
   pod 'Kingfisher', '~> 4.10.0'
   pod 'Parchment', '~> 1.5.0'
+  pod 'NVActivityIndicatorView', '~> 4.4.0'
 
   target 'DownTests' do
     inherit! :search_paths

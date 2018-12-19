@@ -7,6 +7,9 @@ PODS:
   - Fabric (1.9.0)
   - Kingfisher (4.10.1)
   - Nimble (7.3.1)
+  - NVActivityIndicatorView (4.4.1):
+    - NVActivityIndicatorView/Presenter (= 4.4.1)
+  - NVActivityIndicatorView/Presenter (4.4.1)
   - Parchment (1.5.0)
   - Quick (1.3.2)
   - R.swift (4.0.0):
@@ -63,6 +66,7 @@ DEPENDENCIES:
   - Fabric (~> 1.9.0)
   - Kingfisher (~> 4.10.0)
   - Nimble (~> 7.3.0)
+  - NVActivityIndicatorView (~> 4.4.0)
   - Parchment (~> 1.5.0)
   - Quick (~> 1.3.0)
   - R.swift (~> 4.0.0)
@@ -90,6 +94,7 @@ SPEC REPOS:
     - Fabric
     - Kingfisher
     - Nimble
+    - NVActivityIndicatorView
     - Parchment
     - Quick
     - R.swift
@@ -127,6 +132,7 @@ SPEC CHECKSUMS:
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
+  NVActivityIndicatorView: f0a6b0ed2973d9544da268f4eb76696f0a9577b0
   Parchment: 5a8c9c73549a6d73a7c1b606c27246910d2e5720
   Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
   R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
@@ -147,6 +153,6 @@ SPEC CHECKSUMS:
   SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: ee769aac542827eb2e3daa942f73f76aada9eaf6
+PODFILE CHECKSUM: 867dd0373dcf19958ef2d2526a9f1ecc2b306548
 
 COCOAPODS: 1.5.3

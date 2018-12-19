@@ -44,6 +44,7 @@
 		422106E421CAAB11009D9D11 /* DvrRecentlyAiredViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 422106DE21CAAB11009D9D11 /* DvrRecentlyAiredViewController.xib */; };
 		422106E521CAAB11009D9D11 /* DvrRecentlyAiredCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422106DF21CAAB11009D9D11 /* DvrRecentlyAiredCell.swift */; };
 		422106E621CAAB11009D9D11 /* DvrRecentlyAiredCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 422106E021CAAB11009D9D11 /* DvrRecentlyAiredCell.xib */; };
+		422106E821CAC552009D9D11 /* NVActivityIndicatorFiewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422106E721CAC552009D9D11 /* NVActivityIndicatorFiewStyle.swift */; };
 		4221DA3520D1819F003950CF /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DA2C20D1819F003950CF /* DownKit.framework */; };
 		4221DA3E20D1819F003950CF /* DownKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4221DA2E20D1819F003950CF /* DownKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4221DA4120D1819F003950CF /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DA2C20D1819F003950CF /* DownKit.framework */; };
@@ -386,6 +387,7 @@
 		422106DE21CAAB11009D9D11 /* DvrRecentlyAiredViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DvrRecentlyAiredViewController.xib; sourceTree = "<group>"; };
 		422106DF21CAAB11009D9D11 /* DvrRecentlyAiredCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrRecentlyAiredCell.swift; sourceTree = "<group>"; };
 		422106E021CAAB11009D9D11 /* DvrRecentlyAiredCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DvrRecentlyAiredCell.xib; sourceTree = "<group>"; };
+		422106E721CAC552009D9D11 /* NVActivityIndicatorFiewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorFiewStyle.swift; sourceTree = "<group>"; };
 		4221DA2C20D1819F003950CF /* DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4221DA2E20D1819F003950CF /* DownKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownKit.h; sourceTree = "<group>"; };
 		4221DA2F20D1819F003950CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1715,6 +1717,7 @@
 				428FCD642122203F00C0371D /* UITableViewStyle.swift */,
 				4298F81421AF243500CBD4F3 /* UITextFieldStyle.swift */,
 				428FCD60212212B600C0371D /* UIViewStyle.swift */,
+				422106E721CAC552009D9D11 /* NVActivityIndicatorFiewStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -2556,6 +2559,7 @@
 				424DDA7F2144718500588B48 /* UINavigationBarStyle.swift in Sources */,
 				4221DA5420D183B6003950CF /* DvrShowDetailViewController.swift in Sources */,
 				42E014782135DA9D006D550D /* DvrShowHeaderView.swift in Sources */,
+				422106E821CAC552009D9D11 /* NVActivityIndicatorFiewStyle.swift in Sources */,
 				4235076021249866005343CD /* UITableViewExtensions.swift in Sources */,
 				42B2328121653656006604D9 /* SettingsRouter.swift in Sources */,
 				4243528620FA9D0C00A729E1 /* ApplicationSettingsViewController.swift in Sources */,

@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DvrShowsViewController" customModule="Down" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="4iE-9E-uEL" id="YaH-xX-Fwr"/>
                 <outlet property="collectionView" destination="bTS-vZ-jE4" id="lZa-2z-tFC"/>
                 <outlet property="view" destination="iNp-rQ-3tt" id="C64-Rm-uDT"/>
             </connections>
@@ -31,16 +32,26 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4iE-9E-uEL" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                    <rect key="frame" x="157.5" y="303.5" width="60" height="60"/>
+                    <color key="backgroundColor" red="0.0016834623899999999" green="1" blue="0.1384600168" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="LSc-w4-E97"/>
+                        <constraint firstAttribute="width" constant="60" id="s2R-jg-8ea"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="4iE-9E-uEL" firstAttribute="centerY" secondItem="iNp-rQ-3tt" secondAttribute="centerY" id="QGT-tZ-JpE"/>
+                <constraint firstItem="4iE-9E-uEL" firstAttribute="centerX" secondItem="iNp-rQ-3tt" secondAttribute="centerX" id="UfP-sg-bfL"/>
                 <constraint firstItem="bTS-vZ-jE4" firstAttribute="top" secondItem="ykZ-uZ-v8c" secondAttribute="top" id="kUw-ya-9qd"/>
                 <constraint firstItem="bTS-vZ-jE4" firstAttribute="trailing" secondItem="ykZ-uZ-v8c" secondAttribute="trailing" id="uV0-Jh-DU8"/>
                 <constraint firstItem="bTS-vZ-jE4" firstAttribute="leading" secondItem="ykZ-uZ-v8c" secondAttribute="leading" id="vU7-15-BwT"/>
                 <constraint firstItem="bTS-vZ-jE4" firstAttribute="bottom" secondItem="ykZ-uZ-v8c" secondAttribute="bottom" id="y8n-TF-LDw"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ykZ-uZ-v8c"/>
-            <point key="canvasLocation" x="305.5" y="58.5"/>
+            <point key="canvasLocation" x="-15.199999999999999" y="39.130434782608695"/>
         </view>
     </objects>
 </document>
