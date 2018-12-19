@@ -22,6 +22,13 @@ extension Date {
     func addDays(_ days: Int) -> Date {
         return addingTimeInterval(86400 * Double(days))
     }
+
+    var dayMonthString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM dd"
+
+        return formatter.string(from: self)
+    }
     
     var dateString: String {
         let formatter = DateFormatter()

@@ -62,7 +62,6 @@ class DownloadStatusViewController: UIViewController & Depending {
 
     func applyStyling() {
         view.style(as: .backgroundView)
-//        tableView.style(as: .cardTableView)
         tableView.style(as: .defaultTableView)
         headerView.style(as: .headerView(for: dependencies.downloadApplication.downType))
     }

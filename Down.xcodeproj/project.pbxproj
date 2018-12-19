@@ -28,7 +28,7 @@
 		420CD7B621B1FDD60086FBFA /* SickgearResponseParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420CD7B521B1FDD60086FBFA /* SickgearResponseParserSpec.swift */; };
 		420E2E5A21A1F045000891C8 /* DownloadStatusTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420E2E5921A1F045000891C8 /* DownloadStatusTableController.swift */; };
 		421752DC217BB1F80002F0C1 /* DownloadItemDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */; };
-		421752DE217BB3DF0002F0C1 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DD217BB3DF0002F0C1 /* ReusableCell.swift */; };
+		421752DE217BB3DF0002F0C1 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421752DD217BB3DF0002F0C1 /* ReusableView.swift */; };
 		421752E2217BB6D20002F0C1 /* KeyValueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 421752E1217BB6D20002F0C1 /* KeyValueTableViewCell.xib */; };
 		421D06CF21123C5D005DC78D /* ApiApplicationResponseParsingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */; };
 		421D06D121123D5B005DC78D /* ApiApplicationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */; };
@@ -39,6 +39,11 @@
 		422106C621C97AE6009D9D11 /* DvrAiringSoonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422106C521C97AE6009D9D11 /* DvrAiringSoonCell.swift */; };
 		422106C821C97B23009D9D11 /* DvrAiringSoonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 422106C721C97B23009D9D11 /* DvrAiringSoonCell.xib */; };
 		422106D921CAA950009D9D11 /* SectionedTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422106D821CAA950009D9D11 /* SectionedTableController.swift */; };
+		422106E121CAAB11009D9D11 /* DvrRecentlyAiredViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422106DB21CAAB11009D9D11 /* DvrRecentlyAiredViewModel.swift */; };
+		422106E321CAAB11009D9D11 /* DvrRecentlyAiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422106DD21CAAB11009D9D11 /* DvrRecentlyAiredViewController.swift */; };
+		422106E421CAAB11009D9D11 /* DvrRecentlyAiredViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 422106DE21CAAB11009D9D11 /* DvrRecentlyAiredViewController.xib */; };
+		422106E521CAAB11009D9D11 /* DvrRecentlyAiredCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422106DF21CAAB11009D9D11 /* DvrRecentlyAiredCell.swift */; };
+		422106E621CAAB11009D9D11 /* DvrRecentlyAiredCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 422106E021CAAB11009D9D11 /* DvrRecentlyAiredCell.xib */; };
 		4221DA3520D1819F003950CF /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DA2C20D1819F003950CF /* DownKit.framework */; };
 		4221DA3E20D1819F003950CF /* DownKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4221DA2E20D1819F003950CF /* DownKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4221DA4120D1819F003950CF /* DownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4221DA2C20D1819F003950CF /* DownKit.framework */; };
@@ -365,7 +370,7 @@
 		420CD7B521B1FDD60086FBFA /* SickgearResponseParserSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickgearResponseParserSpec.swift; sourceTree = "<group>"; };
 		420E2E5921A1F045000891C8 /* DownloadStatusTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadStatusTableController.swift; sourceTree = "<group>"; };
 		421752DB217BB1F80002F0C1 /* DownloadItemDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItemDetailRow.swift; sourceTree = "<group>"; };
-		421752DD217BB3DF0002F0C1 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
+		421752DD217BB3DF0002F0C1 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		421752E1217BB6D20002F0C1 /* KeyValueTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyValueTableViewCell.xib; sourceTree = "<group>"; };
 		421D06CE21123C5C005DC78D /* ApiApplicationResponseParsingMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationResponseParsingMock.swift; sourceTree = "<group>"; };
 		421D06D021123D5B005DC78D /* ApiApplicationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiApplicationSpec.swift; sourceTree = "<group>"; };
@@ -376,6 +381,11 @@
 		422106C521C97AE6009D9D11 /* DvrAiringSoonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAiringSoonCell.swift; sourceTree = "<group>"; };
 		422106C721C97B23009D9D11 /* DvrAiringSoonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrAiringSoonCell.xib; sourceTree = "<group>"; };
 		422106D821CAA950009D9D11 /* SectionedTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionedTableController.swift; sourceTree = "<group>"; };
+		422106DB21CAAB11009D9D11 /* DvrRecentlyAiredViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrRecentlyAiredViewModel.swift; sourceTree = "<group>"; };
+		422106DD21CAAB11009D9D11 /* DvrRecentlyAiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrRecentlyAiredViewController.swift; sourceTree = "<group>"; };
+		422106DE21CAAB11009D9D11 /* DvrRecentlyAiredViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DvrRecentlyAiredViewController.xib; sourceTree = "<group>"; };
+		422106DF21CAAB11009D9D11 /* DvrRecentlyAiredCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrRecentlyAiredCell.swift; sourceTree = "<group>"; };
+		422106E021CAAB11009D9D11 /* DvrRecentlyAiredCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DvrRecentlyAiredCell.xib; sourceTree = "<group>"; };
 		4221DA2C20D1819F003950CF /* DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4221DA2E20D1819F003950CF /* DownKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownKit.h; sourceTree = "<group>"; };
 		4221DA2F20D1819F003950CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -755,6 +765,18 @@
 				42350763212499C6005343CD /* TableHeaderView.xib */,
 			);
 			path = HeaderView;
+			sourceTree = "<group>";
+		};
+		422106DA21CAAB11009D9D11 /* Recently aired */ = {
+			isa = PBXGroup;
+			children = (
+				422106DD21CAAB11009D9D11 /* DvrRecentlyAiredViewController.swift */,
+				422106DE21CAAB11009D9D11 /* DvrRecentlyAiredViewController.xib */,
+				422106DB21CAAB11009D9D11 /* DvrRecentlyAiredViewModel.swift */,
+				422106DF21CAAB11009D9D11 /* DvrRecentlyAiredCell.swift */,
+				422106E021CAAB11009D9D11 /* DvrRecentlyAiredCell.xib */,
+			);
+			path = "Recently aired";
 			sourceTree = "<group>";
 		};
 		4221DA2D20D1819F003950CF /* DownKit */ = {
@@ -1583,6 +1605,7 @@
 			children = (
 				427D605A20E02E2F0017AE42 /* DvrRouter.swift */,
 				423A50A021C83366002271BD /* Airing soon */,
+				422106DA21CAAB11009D9D11 /* Recently aired */,
 				4284C736213432C600F21B91 /* Shows overview */,
 				4284C738213432DE00F21B91 /* Show details */,
 				4284C737213432D700F21B91 /* Add Show */,
@@ -1704,6 +1727,7 @@
 				426BF73E20F6A19D000C3A4A /* ApplicationHeaderView.swift */,
 				429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */,
 				423A5502216913A100CC558A /* ButtonToolbar.swift */,
+				421752DD217BB3DF0002F0C1 /* ReusableView.swift */,
 				42BE70CF2169835B004167C3 /* KeyValueTableViewCell.swift */,
 				421752E1217BB6D20002F0C1 /* KeyValueTableViewCell.xib */,
 			);
@@ -1856,7 +1880,6 @@
 				42BE70CD21693E06004167C3 /* CollectionExtensions.swift */,
 				42E014752135CC18006D550D /* DateExtensions.swift */,
 				42E49DCA21445B1000F8491B /* DownKitExtensions.swift */,
-				421752DD217BB3DF0002F0C1 /* ReusableCell.swift */,
 				42F6DA2221B2FE200080E12B /* RxExtensions.swift */,
 				423A5504216917A800CC558A /* UICollectionViewExtensions.swift */,
 				4235075F21249866005343CD /* UITableViewExtensions.swift */,
@@ -2066,6 +2089,7 @@
 				4284C73C2134330C00F21B91 /* DvrShowCollectionViewCell.xib in Resources */,
 				42350764212499C6005343CD /* TableHeaderView.xib in Resources */,
 				4243527A20FA8FB800A729E1 /* DvrShowDetailViewController.xib in Resources */,
+				422106E621CAAB11009D9D11 /* DvrRecentlyAiredCell.xib in Resources */,
 				4222BE562156FFD6002742D8 /* DvrEpisodeCell.xib in Resources */,
 				42384A70216151CC004A0349 /* DmrStatusViewController.xib in Resources */,
 				421752E2217BB6D20002F0C1 /* KeyValueTableViewCell.xib in Resources */,
@@ -2090,6 +2114,7 @@
 				422106C821C97B23009D9D11 /* DvrAiringSoonCell.xib in Resources */,
 				420C282A2163E1ED0088259C /* SettingsViewController.xib in Resources */,
 				4221DA4E20D181F2003950CF /* Assets.xcassets in Resources */,
+				422106E421CAAB11009D9D11 /* DvrRecentlyAiredViewController.xib in Resources */,
 				4243527C20FA8FE700A729E1 /* DownloadStatusViewController.xib in Resources */,
 				4221DA4D20D181F2003950CF /* LaunchScreen.storyboard in Resources */,
 				428FCD81212350DE00C0371D /* OpenSans-BoldItalic.ttf in Resources */,
@@ -2536,6 +2561,7 @@
 				4243528620FA9D0C00A729E1 /* ApplicationSettingsViewController.swift in Sources */,
 				423A5503216913A100CC558A /* ButtonToolbar.swift in Sources */,
 				429F0A602116371E005582B6 /* DvrShowsViewModel.swift in Sources */,
+				422106E121CAAB11009D9D11 /* DvrRecentlyAiredViewModel.swift in Sources */,
 				420C28292163E1ED0088259C /* SettingsViewController.swift in Sources */,
 				4298F81521AF243500CBD4F3 /* UITextFieldStyle.swift in Sources */,
 				4243528920FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift in Sources */,
@@ -2545,6 +2571,7 @@
 				429E06E6219386330072A57B /* ErrorHandler.swift in Sources */,
 				4284C7252133442800F21B91 /* SkyFloatingLabelTextFieldStyle.swift in Sources */,
 				4288011421209280007552FD /* ViewStyling.swift in Sources */,
+				422106E321CAAB11009D9D11 /* DvrRecentlyAiredViewController.swift in Sources */,
 				4239553C218F5D7000B7E40F /* DownDependencies.swift in Sources */,
 				42E49DCB21445B1000F8491B /* DownKitExtensions.swift in Sources */,
 				429F0A64211725D9005582B6 /* DvrAddShowViewModel.swift in Sources */,
@@ -2562,9 +2589,10 @@
 				424DDA83214591EF00588B48 /* DvrShowDetailsTableViewModel.swift in Sources */,
 				42384A722161525B004A0349 /* DmrRouter.swift in Sources */,
 				4284C721213327FD00F21B91 /* TableSectionData.swift in Sources */,
-				421752DE217BB3DF0002F0C1 /* ReusableCell.swift in Sources */,
+				421752DE217BB3DF0002F0C1 /* ReusableView.swift in Sources */,
 				42FC9B0D21A1AA2D00910968 /* ReactiveBindable.swift in Sources */,
 				420C282E2163EBA40088259C /* SettingsTableViewModel.swift in Sources */,
+				422106E521CAAB11009D9D11 /* DvrRecentlyAiredCell.swift in Sources */,
 				42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
 				42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */,

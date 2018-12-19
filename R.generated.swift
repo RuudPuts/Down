@@ -308,7 +308,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 20 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 22 nibs.
   struct nib {
     /// Nib `ApplicationHeaderView`.
     static let applicationHeaderView = _R.nib._ApplicationHeaderView()
@@ -332,6 +332,10 @@ struct R: Rswift.Validatable {
     static let dvrAiringSoonViewController = _R.nib._DvrAiringSoonViewController()
     /// Nib `DvrEpisodeCell`.
     static let dvrEpisodeCell = _R.nib._DvrEpisodeCell()
+    /// Nib `DvrRecentlyAiredCell`.
+    static let dvrRecentlyAiredCell = _R.nib._DvrRecentlyAiredCell()
+    /// Nib `DvrRecentlyAiredViewController`.
+    static let dvrRecentlyAiredViewController = _R.nib._DvrRecentlyAiredViewController()
     /// Nib `DvrShowCollectionViewCell`.
     static let dvrShowCollectionViewCell = _R.nib._DvrShowCollectionViewCell()
     /// Nib `DvrShowDetailViewController`.
@@ -404,6 +408,16 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "DvrEpisodeCell", in: bundle)`
     static func dvrEpisodeCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrEpisodeCell)
+    }
+    
+    /// `UINib(name: "DvrRecentlyAiredCell", in: bundle)`
+    static func dvrRecentlyAiredCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.dvrRecentlyAiredCell)
+    }
+    
+    /// `UINib(name: "DvrRecentlyAiredViewController", in: bundle)`
+    static func dvrRecentlyAiredViewController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.dvrRecentlyAiredViewController)
     }
     
     /// `UINib(name: "DvrShowCollectionViewCell", in: bundle)`
@@ -706,6 +720,28 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DvrEpisodeCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrEpisodeCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _DvrRecentlyAiredCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "DvrRecentlyAiredCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DvrRecentlyAiredCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrRecentlyAiredCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _DvrRecentlyAiredViewController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "DvrRecentlyAiredViewController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
       fileprivate init() {}

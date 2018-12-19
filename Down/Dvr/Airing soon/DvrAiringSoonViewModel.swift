@@ -24,16 +24,25 @@ struct DvrAiringSoonViewModel: Depending {
 }
 
 extension DvrAiringSoonViewModel: ReactiveBindable {
-    struct Input { }
+    struct Input {
+        let itemSelected: ControlEvent<IndexPath>
+    }
 
     struct Output {
         let sections: Observable<[TableSectionData<RefinedEpisode>]>
+        let episodeSelected: Observable<DvrEpisode>
     }
 
     func transform(input: Input) -> Output {
         let airingToday = dependencies.database.fetchEpisodes(airingOn: Date())
         let airingTomorrow = dependencies.database.fetchEpisodes(airingOn: Date.tomorrow)
         let airingSoon = dependencies.database.fetchEpisodes(airingBetween: Date().addDays(2), and: Date().addDays(14))
+
+        let episodes = Observable.zip([airingToday, airingTomorrow, airingSoon])
+        let episodeSelected = input.itemSelected
+            .withLatestFrom(episodes) { indexPath, episodes in
+                return episodes[indexPath.section][indexPath.row]
+            }
 
         let sections = [
                 (title: "Airing today", episodes: airingToday),
@@ -50,7 +59,7 @@ extension DvrAiringSoonViewModel: ReactiveBindable {
                 }
             }
 
-        return Output(sections: Observable.zip(sections))
+        return Output(sections: Observable.zip(sections), episodeSelected: episodeSelected)
     }
 }
 

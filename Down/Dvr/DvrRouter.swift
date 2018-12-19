@@ -31,13 +31,10 @@ class DvrRouter: ChildRouter, Depending {
     }
     
     func start() {
-        let b = UIViewController()
-        b.title = "Recents"
-
         let viewControllers = [
             viewControllerFactory.makeDvrAiringSoon(),
             viewControllerFactory.makeDvrShows(),
-            b
+            viewControllerFactory.makeDvrRecentlyAired()
         ]
 
         let pagingViewController = viewControllerFactory.makePagingViewController(

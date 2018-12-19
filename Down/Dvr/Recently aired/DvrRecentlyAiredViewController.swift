@@ -1,5 +1,5 @@
 //
-//  DvrAiringSoonViewController.swift
+//  DvrRecentlyAiredViewController.swift
 //  Down
 //
 //  Created by Ruud Puts on 17/12/2018.
@@ -11,21 +11,19 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-class DvrAiringSoonViewController: UIViewController & Depending {
+class DvrRecentlyAiredViewController: UIViewController & Depending {
     typealias Dependencies = RouterDependency & DvrApplicationDependency
     let dependencies: Dependencies
 
     @IBOutlet weak var tableView: UITableView!
 
-    private let viewModel: DvrAiringSoonViewModel
-    private let tableController: DvrAiringSoonTableController
+    private let viewModel: DvrRecentlyAiredViewModel
 
     private var disposeBag: DisposeBag!
 
-    init(dependencies: Dependencies, viewModel: DvrAiringSoonViewModel) {
+    init(dependencies: Dependencies, viewModel: DvrRecentlyAiredViewModel) {
         self.dependencies = dependencies
         self.viewModel = viewModel
-        tableController = DvrAiringSoonTableController(application: dependencies.dvrApplication)
 
         super.init(nibName: nil, bundle: nil)
         title = viewModel.title
@@ -38,8 +36,8 @@ class DvrAiringSoonViewController: UIViewController & Depending {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        prepareTableView()
         applyStyling()
-        tableController.prepare(tableView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,23 +52,32 @@ class DvrAiringSoonViewController: UIViewController & Depending {
         disposeBag = nil
     }
 
+    private func prepareTableView() {
+        tableView.registerCell(nibName: DvrRecentlyAiredCell.reuseIdentifier)
+        tableView.delegate = self
+    }
+
     private func applyStyling() {
         view.style(as: .backgroundView)
         tableView.style(as: .defaultTableView)
     }
 }
 
-extension DvrAiringSoonViewController: ReactiveBinding {
-    func makeInput() -> DvrAiringSoonViewModel.Input {
-        return DvrAiringSoonViewModel.Input(itemSelected: tableView.rx.itemSelected)
+extension DvrRecentlyAiredViewController: ReactiveBinding {
+    func makeInput() -> DvrRecentlyAiredViewModel.Input {
+        return DvrRecentlyAiredViewModel.Input(itemSelected: tableView.rx.itemSelected)
     }
 
-    func bind(to viewModel: DvrAiringSoonViewModel) {
+    func bind(to viewModel: DvrRecentlyAiredViewModel) {
         disposeBag = DisposeBag()
 
         let output = viewModel.transform(input: makeInput())
-        output.sections
-            .bind(to: tableView.rx.items(dataSource: tableController.dataSource))
+
+        output.data
+            .bind(to: tableView.rx.items(cellIdentifier: DvrRecentlyAiredCell.reuseIdentifier,
+                                         cellType: DvrRecentlyAiredCell.self)) { _, item, cell in
+                                            cell.configure(with: item)
+            }
             .disposed(by: disposeBag)
 
         output.episodeSelected
@@ -78,5 +85,11 @@ extension DvrAiringSoonViewController: ReactiveBinding {
                 self.dependencies.router.dvrRouter.showDetail(of: $0.show)
             })
             .disposed(by: disposeBag)
+    }
+}
+
+extension DvrRecentlyAiredViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.style(as: .selectableCell(application: dependencies.dvrApplication.downType))
     }
 }

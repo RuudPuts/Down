@@ -19,6 +19,7 @@ protocol ViewControllerProducing {
     func makeDownloadItemDetail(for item: DownloadItem) -> UIViewController
 
     func makeDvrAiringSoon() -> UIViewController
+    func makeDvrRecentlyAired() -> UIViewController
     func makeDvrShows() -> UIViewController
     func makeDvrDetail(show: DvrShow) -> UIViewController
     func makeDvrAddShow() -> UIViewController
@@ -65,6 +66,11 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
     func makeDvrAiringSoon() -> UIViewController {
         return DvrAiringSoonViewController(dependencies: dependencies,
                                       viewModel: DvrAiringSoonViewModel(dependencies: dependencies))
+    }
+
+    func makeDvrRecentlyAired() -> UIViewController {
+        return DvrRecentlyAiredViewController(dependencies: dependencies,
+                                           viewModel: DvrRecentlyAiredViewModel(dependencies: dependencies))
     }
 
     func makeDvrShows() -> UIViewController {
