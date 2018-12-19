@@ -12,8 +12,15 @@ import RxRealm
 
 public class RealmDatabase: DownDatabase {
     var configuration: Realm.Configuration
+
+    public static var defaultConfiguration: Realm.Configuration {
+        var configuration = Realm.Configuration.defaultConfiguration
+        configuration.deleteRealmIfMigrationNeeded = true
+
+        return configuration
+    }
     
-    public init(configuration: Realm.Configuration = .defaultConfiguration) {
+    public init(configuration: Realm.Configuration = defaultConfiguration) {
         self.configuration = configuration
     }
 
