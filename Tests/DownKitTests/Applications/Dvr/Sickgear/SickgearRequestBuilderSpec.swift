@@ -11,7 +11,7 @@ import Quick
 import Nimble
 
 class SickgearRequestBuilderSpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("SickgearRequestBuilder") {
             var sut: SickgearRequestBuilder!
@@ -101,7 +101,6 @@ class SickgearRequestBuilderSpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }
 
 private extension HTTPCookie {

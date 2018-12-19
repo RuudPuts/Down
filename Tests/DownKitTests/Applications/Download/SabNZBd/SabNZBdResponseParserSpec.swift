@@ -13,7 +13,7 @@ import RealmSwift
 import SwiftyJSON
 
 class SabNZBdResponseParserSpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("SabNZBdResponseParser") {
             var sut: SabNZBdResponseParser!
@@ -242,5 +242,4 @@ class SabNZBdResponseParserSpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }

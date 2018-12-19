@@ -11,7 +11,7 @@ import Quick
 import Nimble
 
 class DvrGatewayFactorySpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("DvrGatewayFactory") {
             var sut: DvrGatewayFactory!
@@ -87,5 +87,4 @@ class DvrGatewayFactorySpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }

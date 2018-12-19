@@ -13,7 +13,7 @@ import RealmSwift
 import SwiftyJSON
 
 class CouchPotatoResponseParserSpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("CouchPotatoResponseParser") {
             var sut: CouchPotatoResponseParser!
@@ -236,5 +236,4 @@ class CouchPotatoResponseParserSpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }

@@ -25,9 +25,8 @@ public class RealmDatabase: DownDatabase {
     }
 
     private func makeRealm() -> Realm {
-        // swiftlint:disable force_try
+        // swiftlint:disable:next force_try
         return try! Realm(configuration: self.configuration)
-        // swiftlint:enable force_try
     }
 
     public func store(shows: [DvrShow]) {

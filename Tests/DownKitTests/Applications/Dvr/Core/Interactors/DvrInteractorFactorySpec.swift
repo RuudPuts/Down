@@ -15,7 +15,7 @@ import Quick
 import Nimble
 
 class DvrInteractorFactorySpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("DvrInteractorFactory") {
             var sut: DvrInteractorFactory!
@@ -144,5 +144,4 @@ class DvrInteractorFactorySpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }

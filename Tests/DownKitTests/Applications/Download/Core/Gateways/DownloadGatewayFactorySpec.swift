@@ -11,7 +11,7 @@ import Quick
 import Nimble
 
 class DownloadGatewayFactorySpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("DownloadGatewayFactory") {
             var sut: DownloadGatewayFactory!
@@ -80,5 +80,4 @@ class DownloadGatewayFactorySpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }

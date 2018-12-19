@@ -12,7 +12,7 @@ import Quick
 import Nimble
 
 class DownloadQueueInteractorSpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("DownloadQueueInteractor") {
             var sut: DownloadQueueInteractor!
@@ -72,5 +72,4 @@ class DownloadQueueInteractorSpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }

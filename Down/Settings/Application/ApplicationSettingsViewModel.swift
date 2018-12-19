@@ -78,9 +78,8 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
     private func transformApplication(_ host: Driver<String>) -> Driver<ApiApplication> {
         return host
             .map { host -> ApiApplication in
-                // swiftlint:disable force_cast
+                // swiftlint:disable:next force_cast
                 var application = self.application.copy() as! ApiApplication
-                // swiftlint:enable force_cast
                 application.host = host
 
                 return application

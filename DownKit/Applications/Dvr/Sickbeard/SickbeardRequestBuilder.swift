@@ -16,7 +16,7 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
         self.application = application
     }
 
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     func specification(for apiCall: DvrApplicationCall) -> RequestSpecification? {
         switch apiCall {
         case .showList: return RequestSpecification(
@@ -82,7 +82,6 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
             )
         }
     }
-    // swiftlint:enable function_body_length
     
     func specification(for apiCall: ApiApplicationCall, credentials: UsernamePassword? = nil) -> RequestSpecification? {
         switch apiCall {

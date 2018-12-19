@@ -30,9 +30,8 @@ public enum DownApplicationType: String {
 
 public extension ApiApplication {
     var downType: DownApplicationType {
-        // swiftlint:disable force_cast
+        // swiftlint:disable:next force_cast
         return (self as! DownApplication).downType
-        // swiftlint:enable force_cast
     }
 }
 

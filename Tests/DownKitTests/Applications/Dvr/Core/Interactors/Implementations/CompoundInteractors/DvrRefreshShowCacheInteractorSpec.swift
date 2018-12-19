@@ -14,7 +14,7 @@ import Nimble
 import RxNimble
 
 class DvrRefreshShowCacheInteractorSpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("DvrRefreshShowCacheInteractor") {
             var sut: DvrRefreshShowCacheInteractor!
@@ -217,7 +217,6 @@ class DvrRefreshShowCacheInteractorSpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 
     func makeShow(withEpisodeAiringOn airDate: Date) -> DvrShow {
         let show = DvrShow(identifier: "1", name: "Show1")

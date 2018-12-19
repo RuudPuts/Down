@@ -13,7 +13,7 @@ import Quick
 import Nimble
 
 class DownloadHistoryGatewaySpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("DownloadHistoryGateway") {
             var sut: DownloadHistoryGateway!
@@ -95,5 +95,4 @@ class DownloadHistoryGatewaySpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }

@@ -13,7 +13,7 @@ import Quick
 import Nimble
 
 class ApiApplicationLoginGatewaySpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("ApiApplicationLoginGateway") {
             var sut: ApiApplicationLoginGateway!

@@ -15,7 +15,7 @@ import Quick
 import Nimble
 
 class RealmDatabaseSpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("RealmDatabase") {
             var sut: RealmDatabase!
@@ -207,7 +207,6 @@ class RealmDatabaseSpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 
     func makeShowsAiringDifferentDates() -> [DvrShow] {
         return [

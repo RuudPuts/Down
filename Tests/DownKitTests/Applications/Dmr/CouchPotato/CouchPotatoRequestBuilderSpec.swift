@@ -12,7 +12,7 @@ import Nimble
 import SwiftHash
 
 class CouchPotatoRequestBuilderSpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("CouchPotatoRequestBuilder") {
             var sut: CouchPotatoRequestBuilder!
@@ -119,5 +119,4 @@ class CouchPotatoRequestBuilderSpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }

@@ -14,7 +14,7 @@ import Nimble
 import RxNimble
 
 class RequestExecutorSpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("RequestExecutor") {
             var sut: RequestExecutor!
@@ -82,5 +82,4 @@ class RequestExecutorSpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }

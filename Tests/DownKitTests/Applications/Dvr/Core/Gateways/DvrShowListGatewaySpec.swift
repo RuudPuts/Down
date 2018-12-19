@@ -13,7 +13,7 @@ import Quick
 import Nimble
 
 class DvrShowListGatewaySpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("DvrShowListGateway") {
             var sut: DvrShowListGateway!
@@ -95,5 +95,4 @@ class DvrShowListGatewaySpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }

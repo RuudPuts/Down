@@ -11,7 +11,7 @@ import Quick
 import Nimble
 
 class SabNZBdRequestBuilderSpec: QuickSpec {
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     override func spec() {
         describe("SabNZBdRequestBuilder") {
             var sut: SabNZBdRequestBuilder!
@@ -99,5 +99,4 @@ class SabNZBdRequestBuilderSpec: QuickSpec {
             }
         }
     }
-    // swiftlint:enable function_body_length
 }
