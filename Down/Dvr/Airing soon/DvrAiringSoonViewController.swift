@@ -62,7 +62,11 @@ class DvrAiringSoonViewController: UIViewController & Depending {
 
 extension DvrAiringSoonViewController: ReactiveBinding {
     func makeInput() -> DvrAiringSoonViewModel.Input {
-        return DvrAiringSoonViewModel.Input(itemSelected: tableView.rx.itemSelected)
+        let itemSelected = tableView.rx.itemSelected.do(onNext: {
+            self.tableView.deselectRow(at: $0, animated: true)
+        })
+
+        return DvrAiringSoonViewModel.Input(itemSelected: itemSelected)
     }
 
     func bind(to viewModel: DvrAiringSoonViewModel) {

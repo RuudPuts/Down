@@ -131,6 +131,10 @@ extension DownloadItemDetailViewController: ReactiveBinding {
             .drive(progressView.rx.progress)
             .disposed(by: disposeBag)
 
+        refinedItem.map { $0.headerImageUrl == nil }
+            .drive(headerImageView.rx.isHidden)
+            .disposed(by: disposeBag)
+
         refinedItem.map { $0.headerImageUrl }
             .do(onNext: { self.headerImageView.kf.setImage(with: $0) })
             .drive()

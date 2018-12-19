@@ -25,7 +25,7 @@ struct DvrRecentlyAiredViewModel: Depending {
 
 extension DvrRecentlyAiredViewModel: ReactiveBindable {
     struct Input {
-        let itemSelected: ControlEvent<IndexPath>
+        let itemSelected: Observable<IndexPath>
     }
 
     struct Output {

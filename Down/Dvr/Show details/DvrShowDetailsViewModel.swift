@@ -78,7 +78,7 @@ extension DvrShowDetailsViewModel {
                 .map { RefinedSeason.from(season: $0) }
 
             return RefinedShow(name: show.name,
-                               airingOn: "Airs \(show.airTime) on \(show.network)",
+                               airingOn: "\(show.airTime) on \(show.network)",
                                quality: show.quality,
                                status: show.status,
                                seasons: seasons,
