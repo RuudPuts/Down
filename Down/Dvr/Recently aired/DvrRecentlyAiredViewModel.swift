@@ -36,6 +36,8 @@ extension DvrRecentlyAiredViewModel: ReactiveBindable {
     func transform(input: Input) -> Output {
         let recentlyAired: Observable<[DvrEpisode]> = dependencies.database
             .fetchEpisodes(airingBetween: Date().addDays(-14), and: Date().addDays(-1))
+            .map { $0.filter { $0.show != nil } }
+            .map { $0.filter { !$0.isSpecial } }
             .map { $0.reversed() }
 
         let episodeSelected = input.itemSelected

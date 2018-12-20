@@ -1,3 +1,1 @@
-- Shows overview is now sorted more logically
-- Added tab with recently aired episodes
-- Added tab with episodes airing soon
+- Upcoming / Recent episodes don't show specials anymore

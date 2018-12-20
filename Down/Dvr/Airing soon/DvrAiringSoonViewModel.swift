@@ -51,11 +51,16 @@ extension DvrAiringSoonViewModel: ReactiveBindable {
             ]
             .map { data in
                 data.episodes.map { episodes -> TableSectionData<RefinedEpisode> in
-                    let refinedEpisodes = episodes.map {
-                        RefinedEpisode.from(episode: $0, withDvrRequestBuilder: self.dependencies.dvrRequestBuilder)
-                    }
-
-                    return TableSectionData(header: data.title, icon: nil, items: refinedEpisodes)
+                    return TableSectionData(
+                        header: data.title,
+                        icon: nil,
+                        items: episodes
+                            .filter { $0.show != nil }
+                            .filter { !$0.isSpecial }
+                            .map {
+                                RefinedEpisode.from(episode: $0, withDvrRequestBuilder: self.dependencies.dvrRequestBuilder)
+                            }
+                    )
                 }
             }
 

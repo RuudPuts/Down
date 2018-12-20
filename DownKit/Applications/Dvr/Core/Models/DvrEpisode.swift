@@ -56,6 +56,12 @@ public class DvrEpisode: Object {
     }
 }
 
+public extension DvrEpisode {
+    var isSpecial: Bool {
+        return season.identifier == "0"
+    }
+}
+
 @objc
 public enum DvrEpisodeStatus: Int {
     case unknown
