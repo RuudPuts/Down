@@ -8,7 +8,7 @@
 
 import RealmSwift
 
-public class DvrSeason: Object {
+public class DvrSeason: Object, CascadeDeletable {
     @objc dynamic var uniqueIdentifier = ""
     @objc public dynamic var identifier = "" {
         didSet { updateUniqueIdentifier() }
@@ -30,6 +30,10 @@ public class DvrSeason: Object {
 
     override public static func primaryKey() -> String? {
         return "uniqueIdentifier"
+    }
+
+    var propertiesToCascadeDelete: [String] {
+        return ["episodes"]
     }
 
     private func updateUniqueIdentifier() {

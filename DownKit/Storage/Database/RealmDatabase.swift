@@ -41,7 +41,7 @@ public class RealmDatabase: DownDatabase {
     public func delete(show: DvrShow) {
         let realm = makeRealm()
         try? realm.write {
-            realm.delete(show)
+            realm.delete(show, cascading: true)
         }
     }
     

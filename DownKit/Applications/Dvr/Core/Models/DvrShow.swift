@@ -8,7 +8,7 @@
 
 import RealmSwift
 
-public class DvrShow: Object {
+public class DvrShow: Object, CascadeDeletable {
     @objc public dynamic var identifier = String(NSNotFound)
     @objc public dynamic var name = ""
     @objc public dynamic var quality = Quality.unknown
@@ -23,23 +23,12 @@ public class DvrShow: Object {
         self.name = name
     }
     
-    public func setSeasons(_ newSeasons: [DvrSeason]) {
-        let seasons = List<DvrSeason>()
-
-        newSeasons.forEach {
-            $0.show = self
-            $0.episodes.forEach {
-                $0.show = self
-            }
-
-            seasons.append($0)
-        }
-
-        self.seasons = seasons
-    }
-    
     override public static func primaryKey() -> String? {
         return "identifier"
+    }
+
+    var propertiesToCascadeDelete: [String] {
+        return ["seasons"]
     }
 }
 
@@ -54,6 +43,21 @@ extension DvrShow {
 }
 
 extension DvrShow {
+    func setSeasons(_ newSeasons: [DvrSeason]) {
+        let seasons = List<DvrSeason>()
+
+        newSeasons.forEach {
+            $0.show = self
+            $0.episodes.forEach {
+                $0.show = self
+            }
+
+            seasons.append($0)
+        }
+
+        self.seasons = seasons
+    }
+
     func episodeAired(since referenceDate: Date) -> [DvrEpisode] {
         let now = Date()
 

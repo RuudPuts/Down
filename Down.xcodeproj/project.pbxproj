@@ -159,6 +159,7 @@
 		42457CA020E1AB5900DBC6C7 /* DownloadQueueInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */; };
 		424DDA7F2144718500588B48 /* UINavigationBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424DDA7E2144718400588B48 /* UINavigationBarStyle.swift */; };
 		424DDA83214591EF00588B48 /* DvrShowDetailsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424DDA82214591EF00588B48 /* DvrShowDetailsTableViewModel.swift */; };
+		424E3AE921CC1E9700738870 /* RealmCascadingDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AE821CC1E9700738870 /* RealmCascadingDelete.swift */; };
 		424FBD3B210F927600885D8B /* ApiApplicationGatewayFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */; };
 		424FBD3C210F927600885D8B /* ApiApplicationLoginGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */; };
 		424FBD3D210F927600885D8B /* ApiApplicationApiKeyGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD36210F90D800885D8B /* ApiApplicationApiKeyGatewaySpec.swift */; };
@@ -510,6 +511,7 @@
 		42457C9F20E1AB5800DBC6C7 /* DownloadQueueInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueInteractor.swift; sourceTree = "<group>"; };
 		424DDA7E2144718400588B48 /* UINavigationBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationBarStyle.swift; sourceTree = "<group>"; };
 		424DDA82214591EF00588B48 /* DvrShowDetailsTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsTableViewModel.swift; sourceTree = "<group>"; };
+		424E3AE821CC1E9700738870 /* RealmCascadingDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCascadingDelete.swift; sourceTree = "<group>"; };
 		424FBD32210F90D100885D8B /* ApiApplicationInteractorFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteractorFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGatewaySpec.swift; sourceTree = "<group>"; };
@@ -1062,6 +1064,7 @@
 			children = (
 				4227B77520DB160500603528 /* Database.swift */,
 				4227B77620DB160500603528 /* RealmDatabase.swift */,
+				424E3AE821CC1E9700738870 /* RealmCascadingDelete.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -2410,6 +2413,7 @@
 				422BE6BA20D6C41100DDDF37 /* ApplicationAddtionsFactory.swift in Sources */,
 				42BF4E8A20D1B5990088AAF6 /* StringExtensions.swift in Sources */,
 				427D605820DF00D50017AE42 /* DownloadHistoryInteractor.swift in Sources */,
+				424E3AE921CC1E9700738870 /* RealmCascadingDelete.swift in Sources */,
 				4227B7AB20DC589500603528 /* DownloadRequestBuilding.swift in Sources */,
 				42E49DC9214458C600F8491B /* DownKit.swift in Sources */,
 				422CEE0A20D52B5800EF0A16 /* DataTaskExecuting.swift in Sources */,
