@@ -102,7 +102,7 @@ extension ApplicationSettingsViewController: UITextFieldDelegate {
 
 extension ApplicationSettingsViewController: ReactiveBinding {
     func makeInput() -> ApplicationSettingsViewModel.Input {
-        let hostDriver = hostTextField.rx.debouncedText
+        let hostDriver = hostTextField.rx.debouncedText//.skip(1)
         let usernameDriver = usernameTextField.rx.debouncedText
         let passwordDriver = passwordTextField.rx.debouncedText
         let apiKeyDriver = apiKeyTextField.rx.debouncedText
@@ -122,14 +122,23 @@ extension ApplicationSettingsViewController: ReactiveBinding {
 
         let authenticationRequired = output.loginResult
             .map { $0 != .authenticationRequired }
-        bindTextFields(host: output.host, apiKey: output.apiKey,
-                       authenticationRequired: authenticationRequired)
+
+        let apiKeySet = output.loginResult
+            .filter { $0 == .authenticationRequired }
+            .withLatestFrom(output.apiKey)
+            .map { !($0?.isEmpty ?? true) }
+
+        let credentialsFieldsVisible = Driver.merge([authenticationRequired, apiKeySet])
+
+        bindTextFields(host: output.host,
+                       apiKey: output.apiKey,
+                       credentialsFieldsVisisble: credentialsFieldsVisible)
 
         bindIsSaving(output.isSaving)
         bindSettingsSaved(output.settingsSaved)
     }
 
-    private func bindTextFields(host: Driver<String?>, apiKey: Driver<String?>, authenticationRequired: Driver<Bool>) {
+    private func bindTextFields(host: Driver<String?>, apiKey: Driver<String?>, credentialsFieldsVisisble: Driver<Bool>) {
         host.drive(hostTextField.rx.text)
             .disposed(by: disposeBag)
 
@@ -137,7 +146,7 @@ extension ApplicationSettingsViewController: ReactiveBinding {
             .disposed(by: disposeBag)
 
         [usernameTextField, passwordTextField].forEach { textField in
-            authenticationRequired
+            credentialsFieldsVisisble
                 .startWith(true)
                 .drive(textField.rx.isHidden)
                 .disposed(by: disposeBag)
