@@ -1,3 +1,4 @@
 - Upcoming / Recent episodes don't show specials anymore
 - Show "Specials" in show details screen in stead of "Season 0"
 - Fixed an issue where a show would be removed from cache, but seasons and episodes remained
+- Fixed show poster not fully visible on details screen on iPhone X
