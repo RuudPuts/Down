@@ -96,6 +96,11 @@ extension DvrShowDetailsViewModel {
                 .sorted(by: { Int($0.identifier)! > Int($1.identifier)! })
                 .map { RefinedEpisode.from(episode: $0) }
 
+            if season.isSpecials {
+                return RefinedSeason(title: "Specials",
+                    episodes: episodes)
+            }
+
             return RefinedSeason(title: "Season \(season.identifier)",
                                  episodes: episodes)
         }

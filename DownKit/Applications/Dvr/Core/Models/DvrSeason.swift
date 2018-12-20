@@ -53,3 +53,9 @@ extension DvrSeason {
         self.episodes = episodes
     }
 }
+
+public extension DvrSeason {
+    var isSpecials: Bool {
+        return identifier == "0"
+    }
+}

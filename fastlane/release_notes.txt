@@ -1,1 +1,2 @@
 - Upcoming / Recent episodes don't show specials anymore
+- Show "Specials" in show details screen in stead of "Season 0"
