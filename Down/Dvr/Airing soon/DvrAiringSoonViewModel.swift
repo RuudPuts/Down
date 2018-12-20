@@ -55,7 +55,7 @@ extension DvrAiringSoonViewModel: ReactiveBindable {
                         header: data.title,
                         icon: nil,
                         items: episodes
-                            .filter { $0.show != nil }
+                            .filter { $0.show != nil && $0.season != nil }
                             .filter { !$0.isSpecial }
                             .map {
                                 RefinedEpisode.from(episode: $0, withDvrRequestBuilder: self.dependencies.dvrRequestBuilder)
