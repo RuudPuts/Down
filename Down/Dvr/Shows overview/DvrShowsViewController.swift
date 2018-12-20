@@ -10,16 +10,12 @@ import UIKit
 import DownKit
 import RxSwift
 import RxCocoa
-import NVActivityIndicatorView
 
 class DvrShowsViewController: UIViewController & Depending {
     typealias Dependencies = DvrShowsCollectionViewModel.Dependencies & RouterDependency & DvrApplicationDependency
     let dependencies: Dependencies
 
-    @IBOutlet weak var activityContainer: UIView!
-    @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
-    @IBOutlet weak var activityLabel: UILabel!
-
+    @IBOutlet weak var activityView: ActivityView!
     @IBOutlet weak var collectionView: UICollectionView!
 
     private let viewModel: DvrShowsViewModel
@@ -52,9 +48,8 @@ class DvrShowsViewController: UIViewController & Depending {
 
     private func applyStyling() {
         view.style(as: .backgroundView)
-
-        activityLabel.style(as: .titleLabel)
-        activityIndicator.style(as: .activityIndicator(application: dependencies.dvrApplication.downType))
+        activityView.configure(with: viewModel.activityViewText,
+                               application: dependencies.dvrApplication.downType)
     }
 
     private func configureCollectionView() {
@@ -97,7 +92,7 @@ extension DvrShowsViewController: ReactiveBinding {
             .map { !$0.isEmpty }
 
         showsLoaded
-            .drive(activityContainer.rx.isHidden)
+            .drive(activityView.rx.isHidden)
             .disposed(by: disposeBag)
 
         showsLoaded

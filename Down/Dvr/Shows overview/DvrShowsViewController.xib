@@ -12,9 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DvrShowsViewController" customModule="Down" customModuleProvider="target">
             <connections>
-                <outlet property="activityContainer" destination="nsp-L7-RqG" id="ooJ-dV-CNl"/>
-                <outlet property="activityIndicator" destination="4iE-9E-uEL" id="YaH-xX-Fwr"/>
-                <outlet property="activityLabel" destination="ZKS-7h-XYO" id="Ojx-9U-PHd"/>
+                <outlet property="activityView" destination="nsp-L7-RqG" id="8iM-Ac-gNA"/>
                 <outlet property="collectionView" destination="bTS-vZ-jE4" id="lZa-2z-tFC"/>
                 <outlet property="view" destination="iNp-rQ-3tt" id="C64-Rm-uDT"/>
             </connections>
@@ -34,32 +32,12 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nsp-L7-RqG">
-                    <rect key="frame" x="67" y="287" width="241" height="93"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4iE-9E-uEL" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                            <rect key="frame" x="90.5" y="0.0" width="60" height="60"/>
-                            <color key="backgroundColor" red="0.0016834623899999999" green="1" blue="0.1384600168" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="60" id="LSc-w4-E97"/>
-                                <constraint firstAttribute="width" constant="60" id="s2R-jg-8ea"/>
-                            </constraints>
-                        </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preparing show cache, hold on!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKS-7h-XYO">
-                            <rect key="frame" x="0.0" y="72" width="241" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nsp-L7-RqG" customClass="ActivityView" customModule="Down" customModuleProvider="target">
+                    <rect key="frame" x="67.5" y="288.5" width="240" height="90"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="4iE-9E-uEL" firstAttribute="centerX" secondItem="nsp-L7-RqG" secondAttribute="centerX" id="3xy-Yw-JR1"/>
-                        <constraint firstItem="4iE-9E-uEL" firstAttribute="top" secondItem="nsp-L7-RqG" secondAttribute="top" id="ISu-BY-Je3"/>
-                        <constraint firstItem="ZKS-7h-XYO" firstAttribute="top" secondItem="4iE-9E-uEL" secondAttribute="bottom" constant="12" id="UAk-KS-y0J"/>
-                        <constraint firstItem="ZKS-7h-XYO" firstAttribute="leading" secondItem="nsp-L7-RqG" secondAttribute="leading" id="f47-3i-N4p"/>
-                        <constraint firstAttribute="trailing" secondItem="ZKS-7h-XYO" secondAttribute="trailing" id="vpI-OU-fFH"/>
-                        <constraint firstAttribute="bottom" secondItem="ZKS-7h-XYO" secondAttribute="bottom" id="w4f-LO-dmg"/>
+                        <constraint firstAttribute="width" constant="240" placeholder="YES" id="bRa-gU-6VU"/>
+                        <constraint firstAttribute="height" constant="90" placeholder="YES" id="c09-Fe-AsL"/>
                     </constraints>
                 </view>
             </subviews>

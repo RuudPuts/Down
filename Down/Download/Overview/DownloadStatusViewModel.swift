@@ -14,6 +14,8 @@ struct DownloadStatusViewModel: Depending {
     typealias Dependencies = DownloadInteractorFactoryDependency & DownloadApplicationDependency
     let dependencies: Dependencies
 
+    let activityViewText = "Fetching download status..."
+
     private var refreshInterval: TimeInterval = 2
 
     init(dependencies: Dependencies) {

@@ -308,8 +308,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 22 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 23 nibs.
   struct nib {
+    /// Nib `ActivityView`.
+    static let activityView = _R.nib._ActivityView()
     /// Nib `ApplicationHeaderView`.
     static let applicationHeaderView = _R.nib._ApplicationHeaderView()
     /// Nib `ApplicationSettingsViewController`.
@@ -354,6 +356,11 @@ struct R: Rswift.Validatable {
     static let settingsViewController = _R.nib._SettingsViewController()
     /// Nib `TableHeaderView`.
     static let tableHeaderView = _R.nib._TableHeaderView()
+    
+    /// `UINib(name: "ActivityView", in: bundle)`
+    static func activityView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.activityView)
+    }
     
     /// `UINib(name: "ApplicationHeaderView", in: bundle)`
     static func applicationHeaderView(_: Void = ()) -> UIKit.UINib {
@@ -595,6 +602,17 @@ struct _R: Rswift.Validatable {
       try _ApplicationHeaderView.validate()
       try _TableHeaderView.validate()
       try _SettingsApplicationCell.validate()
+    }
+    
+    struct _ActivityView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "ActivityView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
     }
     
     struct _ApplicationHeaderView: Rswift.NibResourceType, Rswift.Validatable {

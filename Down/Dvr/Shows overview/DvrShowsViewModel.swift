@@ -15,6 +15,7 @@ struct DvrShowsViewModel: Depending {
     let dependencies: Dependencies
 
     let title = "All shows"
+    let activityViewText = "Preparing show cache, hold on!"
 
     private let disposeBag = DisposeBag()
     

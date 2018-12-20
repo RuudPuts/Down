@@ -160,6 +160,8 @@
 		424DDA7F2144718500588B48 /* UINavigationBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424DDA7E2144718400588B48 /* UINavigationBarStyle.swift */; };
 		424DDA83214591EF00588B48 /* DvrShowDetailsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424DDA82214591EF00588B48 /* DvrShowDetailsTableViewModel.swift */; };
 		424E3AE921CC1E9700738870 /* RealmCascadingDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AE821CC1E9700738870 /* RealmCascadingDelete.swift */; };
+		424E3AEB21CC3BBF00738870 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AEA21CC3BBF00738870 /* ActivityView.swift */; };
+		424E3AED21CC3BCC00738870 /* ActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 424E3AEC21CC3BCC00738870 /* ActivityView.xib */; };
 		424FBD3B210F927600885D8B /* ApiApplicationGatewayFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */; };
 		424FBD3C210F927600885D8B /* ApiApplicationLoginGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */; };
 		424FBD3D210F927600885D8B /* ApiApplicationApiKeyGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD36210F90D800885D8B /* ApiApplicationApiKeyGatewaySpec.swift */; };
@@ -512,6 +514,8 @@
 		424DDA7E2144718400588B48 /* UINavigationBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationBarStyle.swift; sourceTree = "<group>"; };
 		424DDA82214591EF00588B48 /* DvrShowDetailsTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowDetailsTableViewModel.swift; sourceTree = "<group>"; };
 		424E3AE821CC1E9700738870 /* RealmCascadingDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCascadingDelete.swift; sourceTree = "<group>"; };
+		424E3AEA21CC3BBF00738870 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		424E3AEC21CC3BCC00738870 /* ActivityView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
 		424FBD32210F90D100885D8B /* ApiApplicationInteractorFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteractorFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGatewaySpec.swift; sourceTree = "<group>"; };
@@ -1733,6 +1737,8 @@
 				426BF73E20F6A19D000C3A4A /* ApplicationHeaderView.swift */,
 				429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */,
 				423A5502216913A100CC558A /* ButtonToolbar.swift */,
+				424E3AEA21CC3BBF00738870 /* ActivityView.swift */,
+				424E3AEC21CC3BCC00738870 /* ActivityView.xib */,
 				421752DD217BB3DF0002F0C1 /* ReusableView.swift */,
 				42BE70CF2169835B004167C3 /* KeyValueTableViewCell.swift */,
 				421752E1217BB6D20002F0C1 /* KeyValueTableViewCell.xib */,
@@ -2093,6 +2099,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4284C73C2134330C00F21B91 /* DvrShowCollectionViewCell.xib in Resources */,
+				424E3AED21CC3BCC00738870 /* ActivityView.xib in Resources */,
 				42350764212499C6005343CD /* TableHeaderView.xib in Resources */,
 				4243527A20FA8FB800A729E1 /* DvrShowDetailViewController.xib in Resources */,
 				422106E621CAAB11009D9D11 /* DvrRecentlyAiredCell.xib in Resources */,
@@ -2608,6 +2615,7 @@
 				428FCD6721234E3E00C0371D /* UILabelStyle.swift in Sources */,
 				423A5505216917A800CC558A /* UICollectionViewExtensions.swift in Sources */,
 				42DECE8A21C6C9760084BF83 /* PagingViewController.swift in Sources */,
+				424E3AEB21CC3BBF00738870 /* ActivityView.swift in Sources */,
 				426BF73F20F6A19D000C3A4A /* ApplicationHeaderView.swift in Sources */,
 				42BE70CE21693E06004167C3 /* CollectionExtensions.swift in Sources */,
 				4235076621249B9E005343CD /* TableHeaderViewStyle.swift in Sources */,
