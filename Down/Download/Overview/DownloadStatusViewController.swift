@@ -15,6 +15,7 @@ class DownloadStatusViewController: UIViewController & Depending {
     typealias Dependencies = DownloadStatusTableController.Dependencies & RouterDependency & DownloadApplicationDependency
     let dependencies: Dependencies
 
+    @IBOutlet weak var activityView: ActivityView!
     @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var statusView: DownloadQueueStatusView!
     @IBOutlet weak var tableView: UITableView!
@@ -64,6 +65,8 @@ class DownloadStatusViewController: UIViewController & Depending {
         view.style(as: .backgroundView)
         tableView.style(as: .defaultTableView)
         headerView.style(as: .headerView(for: dependencies.downloadApplication.downType))
+        activityView.configure(with: viewModel.activityViewText,
+                               application: dependencies.downloadApplication.downType)
     }
     
     func configureTableView() {
@@ -91,8 +94,25 @@ extension DownloadStatusViewController: ReactiveBinding {
             .drive(tableView.rx.items(dataSource: tableController.dataSource))
             .disposed(by: disposeBag)
 
-        output.navigateToDetails
-            .subscribe(onNext: { self.dependencies.router.downloadRouter.showDetail(of: $0) })
+        let dataLoaded = output.sectionsData
+            .map { _ in true }
+            .startWith(false)
+
+        dataLoaded
+            .drive(activityView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        [tableView.rx.isHidden, statusView.rx.isHidden].forEach {
+            dataLoaded
+                .map { !$0 }
+                .drive($0)
+                .disposed(by: disposeBag)
+        }
+
+        output.itemSelected
+            .subscribe(onNext: {
+                self.dependencies.router.downloadRouter.showDetail(of: $0)
+            })
             .disposed(by: disposeBag)
     }
 }

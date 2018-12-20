@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DownloadStatusViewController" customModule="Down" customModuleProvider="target">
             <connections>
+                <outlet property="activityView" destination="qzi-s1-s5v" id="CJm-YB-OeG"/>
                 <outlet property="headerView" destination="WSC-cT-xYq" id="Hqa-xo-EqL"/>
                 <outlet property="statusView" destination="7x5-Ub-DyQ" id="MQh-xC-WId"/>
                 <outlet property="tableView" destination="KxC-pM-5Hn" id="z1g-AI-Pnm"/>
@@ -41,6 +42,14 @@
                     <rect key="frame" x="0.0" y="140" width="375" height="527"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qzi-s1-s5v" customClass="ActivityView" customModule="Down" customModuleProvider="target">
+                    <rect key="frame" x="67" y="288" width="240" height="90"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="90" placeholder="YES" id="dmY-iE-wc1"/>
+                        <constraint firstAttribute="width" constant="240" placeholder="YES" id="uKT-yv-kuc"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -49,14 +58,16 @@
                 <constraint firstItem="WSC-cT-xYq" firstAttribute="top" secondItem="WTs-hC-Bf8" secondAttribute="top" id="Hll-Gn-tfM"/>
                 <constraint firstItem="KxC-pM-5Hn" firstAttribute="leading" secondItem="WTs-hC-Bf8" secondAttribute="leading" id="Ibg-LS-FH9"/>
                 <constraint firstItem="WTs-hC-Bf8" firstAttribute="trailing" secondItem="WSC-cT-xYq" secondAttribute="trailing" id="Isp-ol-uRO"/>
+                <constraint firstItem="qzi-s1-s5v" firstAttribute="centerX" secondItem="fab-bX-5ba" secondAttribute="centerX" id="Kqy-L6-l0y"/>
                 <constraint firstItem="KxC-pM-5Hn" firstAttribute="top" secondItem="7x5-Ub-DyQ" secondAttribute="bottom" id="NhQ-7Q-w11"/>
                 <constraint firstItem="WSC-cT-xYq" firstAttribute="leading" secondItem="WTs-hC-Bf8" secondAttribute="leading" id="Srp-VN-8WS"/>
                 <constraint firstItem="WTs-hC-Bf8" firstAttribute="trailing" secondItem="KxC-pM-5Hn" secondAttribute="trailing" id="Wkc-fe-49u"/>
                 <constraint firstItem="7x5-Ub-DyQ" firstAttribute="top" secondItem="WSC-cT-xYq" secondAttribute="bottom" id="gIW-od-XUh"/>
+                <constraint firstItem="qzi-s1-s5v" firstAttribute="centerY" secondItem="fab-bX-5ba" secondAttribute="centerY" id="qTQ-1p-q9t"/>
                 <constraint firstItem="7x5-Ub-DyQ" firstAttribute="trailing" secondItem="WTs-hC-Bf8" secondAttribute="trailing" id="vlJ-lF-tNX"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="WTs-hC-Bf8"/>
-            <point key="canvasLocation" x="-27" y="-21"/>
+            <point key="canvasLocation" x="186" y="82"/>
         </view>
     </objects>
 </document>

@@ -14,7 +14,7 @@ struct DownloadStatusViewModel: Depending {
     typealias Dependencies = DownloadInteractorFactoryDependency & DownloadApplicationDependency
     let dependencies: Dependencies
 
-    let activityViewText = "Fetching download status..."
+    let activityViewText = "Fetching status..."
 
     private var refreshInterval: TimeInterval = 2
 
@@ -31,23 +31,23 @@ extension DownloadStatusViewModel: ReactiveBindable {
     struct Output {
         let queue: Driver<DownloadQueue>
         let sectionsData: Driver<[TableSectionData<DownloadItem>]>
-        let navigateToDetails: Observable<DownloadItem>
+        let itemSelected: Observable<DownloadItem>
     }
 
     func transform(input: Input) -> Output {
-        let queueDriver = dependencies.downloadInteractorFactory
+        let queue = dependencies.downloadInteractorFactory
             .makeQueueInteractor(for: dependencies.downloadApplication)
             .observe()
             .asDriver(onErrorJustReturn: DownloadQueue())
 
-        let queueItemsDriver = queueDriver.map { $0.items }
+        let queueItems = queue.map { $0.items }
 
-        let historyDriver = dependencies.downloadInteractorFactory
+        let history = dependencies.downloadInteractorFactory
             .makeHistoryInteractor(for: dependencies.downloadApplication)
             .observe()
             .asDriver(onErrorJustReturn: [])
 
-        let sectionsDriver = Driver.zip([queueItemsDriver, historyDriver])
+        let sectionsData = Driver.zip([queueItems, history])
             .asObservable()
             .withInterval(interval: refreshInterval)
             .map {[
@@ -56,13 +56,13 @@ extension DownloadStatusViewModel: ReactiveBindable {
             ]}
             .asDriver(onErrorJustReturn: [])
 
-        let navigateDetailsDriver = input.itemSelected
-            .withLatestFrom(sectionsDriver) { indexPath, sections in
+        let itemSelected = input.itemSelected
+            .withLatestFrom(sectionsData) { indexPath, sections in
                 return sections[indexPath.section].items[indexPath.row]
             }
 
-        return Output(queue: queueDriver,
-                      sectionsData: sectionsDriver,
-                      navigateToDetails: navigateDetailsDriver)
+        return Output(queue: queue,
+                      sectionsData: sectionsData,
+                      itemSelected: itemSelected)
     }
 }
