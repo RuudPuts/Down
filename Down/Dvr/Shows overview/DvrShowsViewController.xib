@@ -12,7 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DvrShowsViewController" customModule="Down" customModuleProvider="target">
             <connections>
-                <outlet property="activityView" destination="nsp-L7-RqG" id="8iM-Ac-gNA"/>
                 <outlet property="collectionView" destination="bTS-vZ-jE4" id="lZa-2z-tFC"/>
                 <outlet property="view" destination="iNp-rQ-3tt" id="C64-Rm-uDT"/>
             </connections>
@@ -32,19 +31,9 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nsp-L7-RqG" customClass="ActivityView" customModule="Down" customModuleProvider="target">
-                    <rect key="frame" x="67.5" y="288.5" width="240" height="90"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="240" placeholder="YES" id="bRa-gU-6VU"/>
-                        <constraint firstAttribute="height" constant="90" placeholder="YES" id="c09-Fe-AsL"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="nsp-L7-RqG" firstAttribute="centerY" secondItem="iNp-rQ-3tt" secondAttribute="centerY" id="TYJ-6G-G7f"/>
-                <constraint firstItem="nsp-L7-RqG" firstAttribute="centerX" secondItem="iNp-rQ-3tt" secondAttribute="centerX" id="eLk-Wj-5c5"/>
                 <constraint firstItem="bTS-vZ-jE4" firstAttribute="top" secondItem="ykZ-uZ-v8c" secondAttribute="top" id="kUw-ya-9qd"/>
                 <constraint firstItem="bTS-vZ-jE4" firstAttribute="trailing" secondItem="ykZ-uZ-v8c" secondAttribute="trailing" id="uV0-Jh-DU8"/>
                 <constraint firstItem="bTS-vZ-jE4" firstAttribute="leading" secondItem="ykZ-uZ-v8c" secondAttribute="leading" id="vU7-15-BwT"/>

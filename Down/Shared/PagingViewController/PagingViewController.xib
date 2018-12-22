@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PagingViewController" customModule="Down" customModuleProvider="target">
             <connections>
+                <outlet property="activityView" destination="CUW-uE-p3R" id="gch-BB-30U"/>
                 <outlet property="containerView" destination="JDi-lu-1oR" id="aSL-w9-gSJ"/>
                 <outlet property="headerView" destination="8jB-Jt-Gwy" id="D8h-5m-Ndo"/>
                 <outlet property="view" destination="iNp-rQ-3tt" id="C64-Rm-uDT"/>
@@ -32,15 +33,25 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDi-lu-1oR">
                     <rect key="frame" x="0.0" y="90" width="375" height="577"/>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUW-uE-p3R" customClass="ActivityView" customModule="Down" customModuleProvider="target">
+                    <rect key="frame" x="67.5" y="288.5" width="240" height="90"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="240" placeholder="YES" id="Cgi-zh-P5Q"/>
+                        <constraint firstAttribute="height" constant="90" placeholder="YES" id="lG1-7b-FH1"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="CUW-uE-p3R" firstAttribute="centerY" secondItem="iNp-rQ-3tt" secondAttribute="centerY" id="2BM-QK-TTp"/>
                 <constraint firstItem="8jB-Jt-Gwy" firstAttribute="trailing" secondItem="ykZ-uZ-v8c" secondAttribute="trailing" id="6r9-N3-vKU"/>
                 <constraint firstItem="8jB-Jt-Gwy" firstAttribute="leading" secondItem="ykZ-uZ-v8c" secondAttribute="leading" id="7xI-rY-1cN"/>
                 <constraint firstItem="JDi-lu-1oR" firstAttribute="leading" secondItem="ykZ-uZ-v8c" secondAttribute="leading" id="SoV-Oq-4KE"/>
                 <constraint firstItem="JDi-lu-1oR" firstAttribute="bottom" secondItem="ykZ-uZ-v8c" secondAttribute="bottom" id="Umn-jl-42s"/>
                 <constraint firstItem="JDi-lu-1oR" firstAttribute="trailing" secondItem="ykZ-uZ-v8c" secondAttribute="trailing" id="WUM-Fo-SUD"/>
                 <constraint firstItem="8jB-Jt-Gwy" firstAttribute="top" secondItem="ykZ-uZ-v8c" secondAttribute="top" id="iYS-rJ-5qV"/>
+                <constraint firstItem="CUW-uE-p3R" firstAttribute="centerX" secondItem="iNp-rQ-3tt" secondAttribute="centerX" id="kLD-Vq-nBk"/>
                 <constraint firstItem="JDi-lu-1oR" firstAttribute="top" secondItem="8jB-Jt-Gwy" secondAttribute="bottom" id="vcS-bW-UwK"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ykZ-uZ-v8c"/>

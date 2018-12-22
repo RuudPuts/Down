@@ -197,20 +197,30 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 15 images.
+  /// This `R.image` struct is generated, and contains static references to 20 images.
   struct image {
     /// Image `couchpotato_icon`.
     static let couchpotato_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "couchpotato_icon")
     /// Image `icon_close`.
     static let icon_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close")
+    /// Image `icon_context`.
+    static let icon_context = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_context")
     /// Image `icon_gear`.
     static let icon_gear = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_gear")
     /// Image `icon_history`.
     static let icon_history = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_history")
+    /// Image `icon_pause`.
+    static let icon_pause = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pause")
+    /// Image `icon_plus`.
+    static let icon_plus = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_plus")
     /// Image `icon_queue`.
     static let icon_queue = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_queue")
+    /// Image `icon_resume`.
+    static let icon_resume = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_resume")
     /// Image `icon_settings`.
     static let icon_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_settings")
+    /// Image `icon_shred`.
+    static let icon_shred = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_shred")
     /// Image `icon_x`.
     static let icon_x = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_x")
     /// Image `logo`.
@@ -240,6 +250,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_close, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_context", bundle: ..., traitCollection: ...)`
+    static func icon_context(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_context, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_gear", bundle: ..., traitCollection: ...)`
     static func icon_gear(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_gear, compatibleWith: traitCollection)
@@ -250,14 +265,34 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_history, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_pause", bundle: ..., traitCollection: ...)`
+    static func icon_pause(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_pause, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_plus", bundle: ..., traitCollection: ...)`
+    static func icon_plus(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_plus, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_queue", bundle: ..., traitCollection: ...)`
     static func icon_queue(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_queue, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_resume", bundle: ..., traitCollection: ...)`
+    static func icon_resume(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_resume, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_settings", bundle: ..., traitCollection: ...)`
     static func icon_settings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_settings, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_shred", bundle: ..., traitCollection: ...)`
+    static func icon_shred(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_shred, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_x", bundle: ..., traitCollection: ...)`
@@ -308,7 +343,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 23 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 24 nibs.
   struct nib {
     /// Nib `ActivityView`.
     static let activityView = _R.nib._ActivityView()
@@ -318,6 +353,8 @@ struct R: Rswift.Validatable {
     static let applicationSettingsViewController = _R.nib._ApplicationSettingsViewController()
     /// Nib `DmrStatusViewController`.
     static let dmrStatusViewController = _R.nib._DmrStatusViewController()
+    /// Nib `DownActionCell`.
+    static let downActionCell = _R.nib._DownActionCell()
     /// Nib `DownloadItemCell`.
     static let downloadItemCell = _R.nib._DownloadItemCell()
     /// Nib `DownloadItemDetailViewController`.
@@ -375,6 +412,11 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "DmrStatusViewController", in: bundle)`
     static func dmrStatusViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dmrStatusViewController)
+    }
+    
+    /// `UINib(name: "DownActionCell", in: bundle)`
+    static func downActionCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.downActionCell)
     }
     
     /// `UINib(name: "DownloadItemCell", in: bundle)`
@@ -624,6 +666,7 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
+        if UIKit.UIImage(named: "icon_context", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_context' is used in nib 'ApplicationHeaderView', but couldn't be loaded.") }
         if UIKit.UIImage(named: "sabnzbd_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'sabnzbd_icon' is used in nib 'ApplicationHeaderView', but couldn't be loaded.") }
       }
       
@@ -647,6 +690,17 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _DownActionCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "DownActionCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DownActionCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DownActionCell
       }
       
       fileprivate init() {}

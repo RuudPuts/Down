@@ -13,6 +13,7 @@ extension ViewStyling where ViewType == ApplicationHeaderView {
     static func headerView(for type: DownApplicationType) -> ViewStyling {
         return ViewStyling {
             $0.imageView?.image = AssetProvider.Icon.for(type)
+            $0.contextButton.style(as: .contextButton(type))
         }
     }
 }

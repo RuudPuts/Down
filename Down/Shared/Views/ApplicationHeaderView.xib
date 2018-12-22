@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ApplicationHeaderView" customModule="Down" customModuleProvider="target">
             <connections>
+                <outlet property="contextButton" destination="2O6-vv-fa7" id="xiq-V2-dFD"/>
                 <outlet property="imageView" destination="fEh-Un-XmG" id="WzS-ta-oYm"/>
             </connections>
         </placeholder>
@@ -22,11 +24,21 @@
                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sabnzbd_icon" translatesAutoresizingMaskIntoConstraints="NO" id="fEh-Un-XmG">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2O6-vv-fa7">
+                    <rect key="frame" x="319" y="15" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="Ggf-t0-g64"/>
+                        <constraint firstAttribute="height" constant="40" id="g4w-8u-hZL"/>
+                    </constraints>
+                    <state key="normal" image="icon_context"/>
+                </button>
             </subviews>
             <constraints>
+                <constraint firstItem="Ktv-Yg-qKW" firstAttribute="trailing" secondItem="2O6-vv-fa7" secondAttribute="trailing" constant="16" id="58c-ne-Mde"/>
                 <constraint firstAttribute="trailing" secondItem="fEh-Un-XmG" secondAttribute="trailing" id="Jcd-lp-WLw"/>
                 <constraint firstItem="fEh-Un-XmG" firstAttribute="top" secondItem="3Lh-jy-umn" secondAttribute="top" id="QKC-N1-4Vq"/>
                 <constraint firstItem="fEh-Un-XmG" firstAttribute="leading" secondItem="Ktv-Yg-qKW" secondAttribute="leading" id="hk1-nM-e3D"/>
+                <constraint firstItem="2O6-vv-fa7" firstAttribute="centerY" secondItem="3Lh-jy-umn" secondAttribute="centerY" id="j4I-0v-biR"/>
                 <constraint firstAttribute="bottom" secondItem="fEh-Un-XmG" secondAttribute="bottom" id="ouH-vd-iGw"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -35,6 +47,7 @@
         </view>
     </objects>
     <resources>
+        <image name="icon_context" width="512" height="512"/>
         <image name="sabnzbd_icon" width="168" height="45"/>
     </resources>
 </document>

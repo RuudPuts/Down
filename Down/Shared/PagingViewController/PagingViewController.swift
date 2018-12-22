@@ -9,17 +9,23 @@
 import UIKit
 import Parchment
 import DownKit
+import RxSwift
+import RxCocoa
 
 class PagingViewController: UIViewController {
-
+    @IBOutlet weak var activityView: ActivityView!
     @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var containerView: UIView!
 
-    private let application: ApiApplication
+    let application: ApiApplication
+
+    private let viewModel: PagingViewModel
     private let viewControllers: [UIViewController]
     private let pagingViewController: FixedPagingViewController
+    private let disposeBag = DisposeBag()
 
-    init(viewControllers: [UIViewController], application: ApiApplication) {
+    init(viewModel: PagingViewModel, viewControllers: [UIViewController], application: ApiApplication) {
+        self.viewModel = viewModel
         self.viewControllers = viewControllers
         self.application = application
 
@@ -38,6 +44,7 @@ class PagingViewController: UIViewController {
         applyStyling()
         showPagingController()
         configurePagingController()
+        bind(to: viewModel)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +67,7 @@ class PagingViewController: UIViewController {
         let applicationType = application.downType
         headerView.style(as: .headerView(for: applicationType))
         pagingViewController.style(as: .pagingViewController(for: applicationType))
+        activityView.configure(with: viewModel.dataLoadDescription, application: applicationType)
     }
 
     private func showPagingController() {
@@ -80,6 +88,36 @@ class PagingViewController: UIViewController {
         pagingViewController.delegate = self
         pagingViewController.select(index: 1, animated: false)
     }
+
+    func makeInput() -> PagingViewModelInput {
+        return PagingViewModelInput(loadData: Observable.just(Void()))
+    }
+
+    func bind(to viewModel: PagingViewModel) {
+        let output = viewModel.transform(input: makeInput())
+
+        output.loadingData
+            .map { !$0 }
+            .drive(activityView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        output.loadingData
+            .drive(containerView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        output.data
+            .drive()
+            .disposed(by: disposeBag)
+
+        headerView.contextButton.rx.tap
+            .asObservable()
+            .subscribe(onNext: {
+                self.showContextMenu()
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func showContextMenu() { }
 }
 
 extension PagingViewController: PagingViewControllerDelegate {

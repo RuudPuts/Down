@@ -58,6 +58,9 @@ PODS:
   - SkyFloatingLabelTextField (3.6.0)
   - SwiftHash (2.0.2)
   - SwiftyJSON (4.2.0)
+  - XLActionController/Core (4.1.1)
+  - XLActionController/Youtube (4.1.1):
+    - XLActionController/Core
 
 DEPENDENCIES:
   - Alamofire (~> 4.7.0)
@@ -84,6 +87,7 @@ DEPENDENCIES:
   - SkyFloatingLabelTextField (~> 3.6.0)
   - SwiftHash (~> 2.0.0)
   - SwiftyJSON (~> 4.2.0)
+  - XLActionController/Youtube (~> 4.1.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -113,6 +117,7 @@ SPEC REPOS:
     - SkyFloatingLabelTextField
     - SwiftHash
     - SwiftyJSON
+    - XLActionController
 
 EXTERNAL SOURCES:
   RxResult:
@@ -152,7 +157,8 @@ SPEC CHECKSUMS:
   SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
   SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
+  XLActionController: d2ab12a967ae0fee0b4563b8d809c8fb13ebc636
 
-PODFILE CHECKSUM: 867dd0373dcf19958ef2d2526a9f1ecc2b306548
+PODFILE CHECKSUM: 231bf579154e8ec2a679dea0bceaf74d8c00c717
 
 COCOAPODS: 1.5.3

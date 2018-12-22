@@ -10,14 +10,13 @@ import UIKit
 import DownKit
 
 protocol ViewControllerProducing {
-    func makePagingViewController(viewControllers: [UIViewController], application: ApiApplication) -> UIViewController
-
     func makeSettings() -> UIViewController
     func makeApplicationSettings(for application: ApiApplication) -> UIViewController
 
     func makeDownloadStatus() -> UIViewController
     func makeDownloadItemDetail(for item: DownloadItem) -> UIViewController
 
+    func makeDvrRoot(viewControllers: [UIViewController]) -> UIViewController
     func makeDvrAiringSoon() -> UIViewController
     func makeDvrRecentlyAired() -> UIViewController
     func makeDvrShows() -> UIViewController
@@ -33,10 +32,6 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
-    }
-
-    func makePagingViewController(viewControllers: [UIViewController], application: ApiApplication) -> UIViewController {
-        return PagingViewController(viewControllers: viewControllers, application: application)
     }
 
     func makeSettings() -> UIViewController {
@@ -61,6 +56,13 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
         let viewModel = DownloadItemDetailViewModel(dependencies: dependencies, item: item)
 
         return DownloadItemDetailViewController(dependencies: dependencies, viewModel: viewModel)
+    }
+
+    func makeDvrRoot(viewControllers: [UIViewController]) -> UIViewController {
+        return DvrPagingViewController(dependencies: dependencies,
+                                       viewModel: DvrPagingViewModel(dependencies: dependencies),
+                                       viewControllers: viewControllers,
+                                       application: dependencies.dvrApplication)
     }
 
     func makeDvrAiringSoon() -> UIViewController {

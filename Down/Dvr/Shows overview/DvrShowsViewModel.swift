@@ -11,14 +11,11 @@ import RxSwift
 import RxCocoa
 
 struct DvrShowsViewModel: Depending {
-    typealias Dependencies = DatabaseDependency & DvrInteractorFactoryDependency
+    typealias Dependencies = DatabaseDependency
     let dependencies: Dependencies
 
     let title = "All shows"
-    let activityViewText = "Preparing show cache, hold on!"
 
-    private let disposeBag = DisposeBag()
-    
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
@@ -28,22 +25,16 @@ extension DvrShowsViewModel: ReactiveBindable {
     struct Input { }
 
     struct Output {
-        let refreshShowCache: Single<Void>
         let shows: Driver<[DvrShow]>
     }
 
     func transform(input: Input) -> Output {
-        let refreshCacheSingle = dependencies.dvrInteractorFactory
-            .makeShowCacheRefreshInteractor(for: dependencies.dvrApplication)
-            .observe()
-            .asVoid()
-
         let showsDriver = dependencies.database
             .fetchShows()
             .map { $0.sorted(by: { $0.nameWithoutPrefix < $1.nameWithoutPrefix }) }
             .asDriver(onErrorJustReturn: [])
 
-        return Output(refreshShowCache: refreshCacheSingle, shows: showsDriver)
+        return Output(shows: showsDriver)
     }
 }
 

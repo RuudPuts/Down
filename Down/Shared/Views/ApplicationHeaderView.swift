@@ -8,8 +8,11 @@
 
 import UIKit
 import DownKit
+import RxSwift
+import RxCocoa
 
 @IBDesignable
 class ApplicationHeaderView: DesignableView {
     @IBOutlet weak var imageView: UIImageView?
+    @IBOutlet weak var contextButton: UIButton!
 }

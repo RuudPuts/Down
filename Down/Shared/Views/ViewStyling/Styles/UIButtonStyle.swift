@@ -38,4 +38,14 @@ extension ViewStyling where ViewType == UIButton {
             $0.backgroundColor = Stylesheet.Colors.primaryColor(for: type)
         }
     }
+
+    static func contextButton(_ type: DownApplicationType) -> ViewStyling {
+        return ViewStyling {
+            $0.style(as: .defaultButton)
+
+            let image = R.image.icon_context()?.withRenderingMode(.alwaysTemplate)
+            $0.setImage(image, for: .normal)
+            $0.tintColor = Stylesheet.Colors.primaryColor(for: type)
+        }
+    }
 }

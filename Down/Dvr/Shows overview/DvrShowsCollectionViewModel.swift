@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class DvrShowsCollectionViewModel: NSObject, Depending {
-    typealias Dependencies = RouterDependency & DvrApplicationDependency & DvrRequestBuilderDependency
+    typealias Dependencies = DvrApplicationDependency & DvrRequestBuilderDependency
     let dependencies: Dependencies
 
     var shows: [DvrShow]? {
@@ -33,9 +33,7 @@ class DvrShowsCollectionViewModel: NSObject, Depending {
         collectionView.register(UINib(nibName: DvrShowCollectionViewCell.reuseIdentifier, bundle: nil),
                                 forCellWithReuseIdentifier: DvrShowCollectionViewCell.reuseIdentifier)
 
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.headerReferenceSize = CGSize(width: collectionView.bounds.width, height: 30)
-        }
+        collectionView.contentInset = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
 
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -78,16 +76,6 @@ extension DvrShowsCollectionViewModel: UICollectionViewDelegate, UICollectionVie
         let width = collectionView.bounds.width / itemsPerRow
         return CGSize(width: width, height: width * 1.7)
     }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-
-        guard let show = shows?[indexPath.item] else {
-            return
-        }
-
-        dependencies.router.dvrRouter.showDetail(of: show)
-    }
 }
 
 extension DvrShowsCollectionViewModel {
@@ -95,17 +83,3 @@ extension DvrShowsCollectionViewModel {
         return IndexPath(item: shows?.index(of: show) ?? NSNotFound, section: 0)
     }
 }
-
-//extension Reactive where Base: DvrShowsCollectionViewModel {
-//    var shows: ControlProperty<[DvrShow]?> {
-//        let source: Observable<[DvrShow]?> = Observable.deferred { [weak model = self.base as DvrShowsCollectionViewModel] () -> Observable<[DvrShow]?> in
-//            return Observable.just(model?.shows)
-//        }
-//
-//        let bindingObserver = Binder(self.base) { (model, shows: [DvrShow]?) in
-//            model.shows = shows
-//        }
-//
-//        return ControlProperty(values: source, valueSink: bindingObserver)
-//    }
-//}

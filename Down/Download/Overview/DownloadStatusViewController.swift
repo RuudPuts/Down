@@ -10,6 +10,7 @@ import UIKit
 import DownKit
 import RxSwift
 import RxCocoa
+import XLActionController
 
 class DownloadStatusViewController: UIViewController & Depending {
     typealias Dependencies = DownloadStatusTableController.Dependencies & RouterDependency & DownloadApplicationDependency
@@ -42,6 +43,8 @@ class DownloadStatusViewController: UIViewController & Depending {
 
         applyStyling()
         configureTableView()
+
+        headerView.contextButton.isHidden = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,17 +65,36 @@ class DownloadStatusViewController: UIViewController & Depending {
     }
 
     func applyStyling() {
+        let applicationType = dependencies.downloadApplication.downType
+
         view.style(as: .backgroundView)
         tableView.style(as: .defaultTableView)
-        headerView.style(as: .headerView(for: dependencies.downloadApplication.downType))
-        activityView.configure(with: viewModel.activityViewText,
-                               application: dependencies.downloadApplication.downType)
+        headerView.style(as: .headerView(for: applicationType))
+        activityView.configure(with: viewModel.activityViewText, application: applicationType)
     }
     
     func configureTableView() {
         tableView.delegate = tableController
         
         tableController.prepare(tableView)
+    }
+
+    func showContextMenu(queuePaused: Bool) {
+        let actionController = DownActionController(applicationType: dependencies.downloadApplication.downType)
+
+        if queuePaused {
+            actionController.addAction(title: "Resume downloads", image: R.image.icon_resume())
+        }
+        else {
+            actionController.addAction(title: "Pause downloads", image: R.image.icon_pause())
+        }
+
+        actionController.addAction(title: "Purge history", image: R.image.icon_shred(), style: .destructive)
+
+        actionController.addSection(Section())
+        actionController.addAction(title: "Cancel", style: .cancel)
+
+        present(actionController, animated: true, completion: nil)
     }
 }
 
@@ -112,6 +134,14 @@ extension DownloadStatusViewController: ReactiveBinding {
         output.itemSelected
             .subscribe(onNext: {
                 self.dependencies.router.downloadRouter.showDetail(of: $0)
+            })
+            .disposed(by: disposeBag)
+
+        headerView.contextButton.rx.tap
+            .asObservable()
+            .withLatestFrom(output.queue)
+            .subscribe(onNext: { queue in
+                self.showContextMenu(queuePaused: queue.isPaused)
             })
             .disposed(by: disposeBag)
     }

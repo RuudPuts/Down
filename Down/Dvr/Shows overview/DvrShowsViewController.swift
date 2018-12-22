@@ -14,8 +14,7 @@ import RxCocoa
 class DvrShowsViewController: UIViewController & Depending {
     typealias Dependencies = DvrShowsCollectionViewModel.Dependencies & RouterDependency & DvrApplicationDependency
     let dependencies: Dependencies
-
-    @IBOutlet weak var activityView: ActivityView!
+    
     @IBOutlet weak var collectionView: UICollectionView!
 
     private let viewModel: DvrShowsViewModel
@@ -38,9 +37,6 @@ class DvrShowsViewController: UIViewController & Depending {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionViewModel = DvrShowsCollectionViewModel(dependencies: dependencies,
-                                                          collectionView: collectionView)
-
         configureCollectionView()
         applyStyling()
         bind(to: viewModel)
@@ -48,27 +44,13 @@ class DvrShowsViewController: UIViewController & Depending {
 
     private func applyStyling() {
         view.style(as: .backgroundView)
-        activityView.configure(with: viewModel.activityViewText,
-                               application: dependencies.dvrApplication.downType)
     }
 
     private func configureCollectionView() {
+        collectionViewModel = DvrShowsCollectionViewModel(dependencies: dependencies,
+                                                          collectionView: collectionView)
+
         collectionViewModel.configure(collectionView)
-        createCollectionHeaderView()
-    }
-
-    private func createCollectionHeaderView() {
-        let toolbar = ButtonToolbar()
-        toolbar.insets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 6)
-        toolbar
-            .addButton(title: "Add show", style: .successButton)
-            .rx.tap
-            .subscribe(onNext: { _ in
-                self.dependencies.router.dvrRouter.showAddShow()
-            })
-            .disposed(by: disposeBag)
-
-        collectionView.collectionHeaderView = toolbar
     }
 }
 
@@ -80,20 +62,22 @@ extension DvrShowsViewController: ReactiveBinding {
     func bind(to viewModel: DvrShowsViewModel) {
         let output = viewModel.transform(input: makeInput())
 
-        output.refreshShowCache
-            .subscribe()
-            .disposed(by: disposeBag)
-
         output.shows
             .drive(collectionViewModel.rx.shows)
             .disposed(by: disposeBag)
 
+        collectionView.rx.itemSelected
+            .asObservable()
+            .withLatestFrom(output.shows) { indexPath, shows in
+                shows[indexPath.item]
+            }
+            .subscribe(onNext: {
+                self.dependencies.router.dvrRouter.showDetail(of: $0)
+            })
+            .disposed(by: disposeBag)
+
         let showsLoaded = output.shows
             .map { !$0.isEmpty }
-
-        showsLoaded
-            .drive(activityView.rx.isHidden)
-            .disposed(by: disposeBag)
 
         showsLoaded
             .map { !$0 }

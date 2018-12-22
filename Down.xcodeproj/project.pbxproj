@@ -146,7 +146,6 @@
 		423A50A221C83376002271BD /* DvrAiringSoonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A50A121C83376002271BD /* DvrAiringSoonViewController.swift */; };
 		423A50A421C83395002271BD /* DvrAiringSoonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 423A50A321C83395002271BD /* DvrAiringSoonViewController.xib */; };
 		423A50A621C833CA002271BD /* DvrAiringSoonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A50A521C833CA002271BD /* DvrAiringSoonViewModel.swift */; };
-		423A5503216913A100CC558A /* ButtonToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A5502216913A100CC558A /* ButtonToolbar.swift */; };
 		423A5505216917A800CC558A /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423A5504216917A800CC558A /* UICollectionViewExtensions.swift */; };
 		4243527A20FA8FB800A729E1 /* DvrShowDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */; };
 		4243527C20FA8FE700A729E1 /* DownloadStatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4243527B20FA8FE700A729E1 /* DownloadStatusViewController.xib */; };
@@ -162,6 +161,12 @@
 		424E3AE921CC1E9700738870 /* RealmCascadingDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AE821CC1E9700738870 /* RealmCascadingDelete.swift */; };
 		424E3AEB21CC3BBF00738870 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AEA21CC3BBF00738870 /* ActivityView.swift */; };
 		424E3AED21CC3BCC00738870 /* ActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 424E3AEC21CC3BCC00738870 /* ActivityView.xib */; };
+		424E3AF121CEAB4400738870 /* DownActionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AF021CEAB4400738870 /* DownActionController.swift */; };
+		424E3AF421CEABA200738870 /* DownActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 424E3AF321CEABA200738870 /* DownActionCell.xib */; };
+		424E3AF821CEB4E300738870 /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AF721CEB4E300738870 /* ActionButtonStyle.swift */; };
+		424E3AFD21CEC93600738870 /* PagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AFC21CEC93600738870 /* PagingViewModel.swift */; };
+		424E3AFF21CEC96F00738870 /* DvrPagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AFE21CEC96F00738870 /* DvrPagingViewModel.swift */; };
+		424E3B0121CECF8300738870 /* DvrPagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B0021CECF8300738870 /* DvrPagingViewController.swift */; };
 		424FBD3B210F927600885D8B /* ApiApplicationGatewayFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */; };
 		424FBD3C210F927600885D8B /* ApiApplicationLoginGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */; };
 		424FBD3D210F927600885D8B /* ApiApplicationApiKeyGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD36210F90D800885D8B /* ApiApplicationApiKeyGatewaySpec.swift */; };
@@ -498,7 +503,6 @@
 		423A50A121C83376002271BD /* DvrAiringSoonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAiringSoonViewController.swift; sourceTree = "<group>"; };
 		423A50A321C83395002271BD /* DvrAiringSoonViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrAiringSoonViewController.xib; sourceTree = "<group>"; };
 		423A50A521C833CA002271BD /* DvrAiringSoonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrAiringSoonViewModel.swift; sourceTree = "<group>"; };
-		423A5502216913A100CC558A /* ButtonToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonToolbar.swift; sourceTree = "<group>"; };
 		423A5504216917A800CC558A /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensions.swift; sourceTree = "<group>"; };
 		423F201421922B50009879EC /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		423F2016219235D8009879EC /* Down.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Down.xcconfig; sourceTree = "<group>"; };
@@ -516,6 +520,12 @@
 		424E3AE821CC1E9700738870 /* RealmCascadingDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCascadingDelete.swift; sourceTree = "<group>"; };
 		424E3AEA21CC3BBF00738870 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		424E3AEC21CC3BCC00738870 /* ActivityView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
+		424E3AF021CEAB4400738870 /* DownActionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownActionController.swift; sourceTree = "<group>"; };
+		424E3AF321CEABA200738870 /* DownActionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownActionCell.xib; sourceTree = "<group>"; };
+		424E3AF721CEB4E300738870 /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
+		424E3AFC21CEC93600738870 /* PagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewModel.swift; sourceTree = "<group>"; };
+		424E3AFE21CEC96F00738870 /* DvrPagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrPagingViewModel.swift; sourceTree = "<group>"; };
+		424E3B0021CECF8300738870 /* DvrPagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrPagingViewController.swift; sourceTree = "<group>"; };
 		424FBD32210F90D100885D8B /* ApiApplicationInteractorFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteractorFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGatewaySpec.swift; sourceTree = "<group>"; };
@@ -1445,6 +1455,25 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		424E3AF221CEAB5500738870 /* ActionController */ = {
+			isa = PBXGroup;
+			children = (
+				424E3AF021CEAB4400738870 /* DownActionController.swift */,
+				424E3AF321CEABA200738870 /* DownActionCell.xib */,
+			);
+			path = ActionController;
+			sourceTree = "<group>";
+		};
+		424E3AFB21CEC91300738870 /* PagingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				42DECE8921C6C9760084BF83 /* PagingViewController.swift */,
+				42DECE8B21C6CAC30084BF83 /* PagingViewController.xib */,
+				424E3AFC21CEC93600738870 /* PagingViewModel.swift */,
+			);
+			path = PagingViewController;
+			sourceTree = "<group>";
+		};
 		424FBD2F210F907F00885D8B /* Gateways */ = {
 			isa = PBXGroup;
 			children = (
@@ -1593,8 +1622,8 @@
 				42A70D4B20F7F3210042FC35 /* ViewControllerFactory.swift */,
 				42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */,
 				42D58EF0211A0AAA00F3454A /* Extensions */,
-				42DECE8921C6C9760084BF83 /* PagingViewController.swift */,
-				42DECE8B21C6CAC30084BF83 /* PagingViewController.xib */,
+				424E3AFB21CEC91300738870 /* PagingViewController */,
+				424E3AF221CEAB5500738870 /* ActionController */,
 				422106D621CAA927009D9D11 /* TableView */,
 				428801152120976D007552FD /* Views */,
 			);
@@ -1613,6 +1642,8 @@
 			isa = PBXGroup;
 			children = (
 				427D605A20E02E2F0017AE42 /* DvrRouter.swift */,
+				424E3AFE21CEC96F00738870 /* DvrPagingViewModel.swift */,
+				424E3B0021CECF8300738870 /* DvrPagingViewController.swift */,
 				423A50A021C83366002271BD /* Airing soon */,
 				422106DA21CAAB11009D9D11 /* Recently aired */,
 				4284C736213432C600F21B91 /* Shows overview */,
@@ -1710,9 +1741,11 @@
 		4288010D21209280007552FD /* Styles */ = {
 			isa = PBXGroup;
 			children = (
+				424E3AF721CEB4E300738870 /* ActionButtonStyle.swift */,
 				4288010F21209280007552FD /* ApplicationHeaderViewStyle.swift */,
 				4235075D21248BEC005343CD /* CircleProgressViewStyle.swift */,
 				4284C72621334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift */,
+				422106E721CAC552009D9D11 /* NVActivityIndicatorFiewStyle.swift */,
 				4237F7C121C6D1690005ED2D /* PagingViewControllerStyle.swift */,
 				4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */,
 				4235076521249B9E005343CD /* TableHeaderViewStyle.swift */,
@@ -1724,7 +1757,6 @@
 				428FCD642122203F00C0371D /* UITableViewStyle.swift */,
 				4298F81421AF243500CBD4F3 /* UITextFieldStyle.swift */,
 				428FCD60212212B600C0371D /* UIViewStyle.swift */,
-				422106E721CAC552009D9D11 /* NVActivityIndicatorFiewStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -1736,7 +1768,6 @@
 				42B4AAF520FA8DB5008B7C3B /* DesignableView.swift */,
 				426BF73E20F6A19D000C3A4A /* ApplicationHeaderView.swift */,
 				429FE7D420FA7D40005F3A4F /* ApplicationHeaderView.xib */,
-				423A5502216913A100CC558A /* ButtonToolbar.swift */,
 				424E3AEA21CC3BBF00738870 /* ActivityView.swift */,
 				424E3AEC21CC3BCC00738870 /* ActivityView.xib */,
 				421752DD217BB3DF0002F0C1 /* ReusableView.swift */,
@@ -2116,6 +2147,7 @@
 				428FCD85212350DE00C0371D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				428FCD7D212350DE00C0371D /* OpenSans-Light.ttf in Resources */,
 				428FCD83212350DE00C0371D /* OpenSans-LightItalic.ttf in Resources */,
+				424E3AF421CEABA200738870 /* DownActionCell.xib in Resources */,
 				428FCD86212350DE00C0371D /* OpenSans-Regular.ttf in Resources */,
 				428FCD80212350DE00C0371D /* OpenSans-Bold.ttf in Resources */,
 				420C28322163F58D0088259C /* SettingsApplicationCell.xib in Resources */,
@@ -2301,6 +2333,7 @@
 				"${BUILT_PRODUCTS_DIR}/CircleProgressView/CircleProgressView.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Parchment/Parchment.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -2311,6 +2344,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/XLActionController/XLActionController.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -2323,6 +2357,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CircleProgressView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parchment.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -2333,6 +2368,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XLActionController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
@@ -2574,7 +2610,6 @@
 				4235076021249866005343CD /* UITableViewExtensions.swift in Sources */,
 				42B2328121653656006604D9 /* SettingsRouter.swift in Sources */,
 				4243528620FA9D0C00A729E1 /* ApplicationSettingsViewController.swift in Sources */,
-				423A5503216913A100CC558A /* ButtonToolbar.swift in Sources */,
 				429F0A602116371E005582B6 /* DvrShowsViewModel.swift in Sources */,
 				422106E121CAAB11009D9D11 /* DvrRecentlyAiredViewModel.swift in Sources */,
 				420C28292163E1ED0088259C /* SettingsViewController.swift in Sources */,
@@ -2594,6 +2629,7 @@
 				4284C72921334D7000F21B91 /* UIButtonStyle.swift in Sources */,
 				420C28302163ED0E0088259C /* SettingsApplicationCell.swift in Sources */,
 				425357C220F2A468005BC238 /* DownloadQueueStatusView.swift in Sources */,
+				424E3AF121CEAB4400738870 /* DownActionController.swift in Sources */,
 				428FCD61212212B600C0371D /* UIViewStyle.swift in Sources */,
 				423A50A221C83376002271BD /* DvrAiringSoonViewController.swift in Sources */,
 				4284C72721334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift in Sources */,
@@ -2612,6 +2648,7 @@
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
 				42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */,
 				4235075E21248BEC005343CD /* CircleProgressViewStyle.swift in Sources */,
+				424E3AF821CEB4E300738870 /* ActionButtonStyle.swift in Sources */,
 				428FCD6721234E3E00C0371D /* UILabelStyle.swift in Sources */,
 				423A5505216917A800CC558A /* UICollectionViewExtensions.swift in Sources */,
 				42DECE8A21C6C9760084BF83 /* PagingViewController.swift in Sources */,
@@ -2637,9 +2674,12 @@
 				4288011121209280007552FD /* Stylesheet.swift in Sources */,
 				4237F7C221C6D1690005ED2D /* PagingViewControllerStyle.swift in Sources */,
 				4259F195219DFC8C003C37AB /* DvrShowDetailsViewModel.swift in Sources */,
+				424E3B0121CECF8300738870 /* DvrPagingViewController.swift in Sources */,
 				428FCD652122204000C0371D /* UITableViewStyle.swift in Sources */,
 				423A50A621C833CA002271BD /* DvrAiringSoonViewModel.swift in Sources */,
 				427D606320E0325C0017AE42 /* DownloadRouter.swift in Sources */,
+				424E3AFD21CEC93600738870 /* PagingViewModel.swift in Sources */,
+				424E3AFF21CEC96F00738870 /* DvrPagingViewModel.swift in Sources */,
 				427D606B20E1A6BD0017AE42 /* DownloadItemCell.swift in Sources */,
 				42BE70C821693C05004167C3 /* DownloadItemDetailViewModel.swift in Sources */,
 				4284C73B2134330C00F21B91 /* DvrShowCollectionViewCell.swift in Sources */,

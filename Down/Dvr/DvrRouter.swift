@@ -31,18 +31,13 @@ class DvrRouter: ChildRouter, Depending {
     }
     
     func start() {
-        let viewControllers = [
+        let rootViewController = viewControllerFactory.makeDvrRoot(viewControllers: [
             viewControllerFactory.makeDvrAiringSoon(),
             viewControllerFactory.makeDvrShows(),
             viewControllerFactory.makeDvrRecentlyAired()
-        ]
+        ])
 
-        let pagingViewController = viewControllerFactory.makePagingViewController(
-            viewControllers: viewControllers,
-            application: dependencies.dvrApplication
-        )
-
-        navigationController.viewControllers = [pagingViewController]
+        navigationController.viewControllers = [rootViewController]
     }
     
     func showDetail(of show: DvrShow) {

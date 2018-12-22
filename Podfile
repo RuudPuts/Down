@@ -49,6 +49,7 @@ target 'Down' do
   pod 'Kingfisher', '~> 4.10.0'
   pod 'Parchment', '~> 1.5.0'
   pod 'NVActivityIndicatorView', '~> 4.4.0'
+  pod 'XLActionController/Youtube', '~> 4.1.0'
 
   target 'DownTests' do
     inherit! :search_paths

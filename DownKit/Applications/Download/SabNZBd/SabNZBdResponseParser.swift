@@ -27,6 +27,7 @@ class SabNZBdResponseParser: DownloadResponseParsing {
         return DownloadQueue(speedMb: speed,
                              remainingTime: remainingTime ?? 0,
                              remainingMb: json["mbleft"].doubleValue,
+                             isPaused: json["paused"].boolValue,
                              items: items ?? [])
     }
     
