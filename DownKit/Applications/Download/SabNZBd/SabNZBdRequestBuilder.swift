@@ -15,6 +15,7 @@ class SabNZBdRequestBuilder: DownloadRequestBuilding {
         self.application = application
     }
 
+    // swiftlint:disable:next function_body_length
     func specification(for apiCall: DownloadApplicationCall) -> RequestSpecification? {
         switch apiCall {
         case .queue: return RequestSpecification(
@@ -22,9 +23,24 @@ class SabNZBdRequestBuilder: DownloadRequestBuilding {
             path: "api?mode=queue&output=json&apikey={apikey}",
             parameters: defaultParameters
         )
+        case .pauseQueue: return RequestSpecification(
+            host: application.host,
+            path: "api?mode=pause&output=json&apikey={apikey}",
+            parameters: defaultParameters
+        )
+        case .resumeQueue: return RequestSpecification(
+            host: application.host,
+            path: "api?mode=resume&output=json&apikey={apikey}",
+            parameters: defaultParameters
+        )
         case .history: return RequestSpecification(
             host: application.host,
             path: "api?mode=history&output=json&apikey={apikey}",
+            parameters: defaultParameters
+        )
+        case .purgeHistory: return RequestSpecification(
+            host: application.host,
+            path: "api?mode=history&name=delete&value=all&output=json&apikey={apikey}",
             parameters: defaultParameters
         )
         case .delete(let item):
@@ -38,7 +54,7 @@ class SabNZBdRequestBuilder: DownloadRequestBuilding {
 
             return RequestSpecification(
                 host: application.host,
-                path: "api?mode=\(mode)&name=delete&value=\(item.identifier)&apikey={apikey}",
+                path: "api?mode=\(mode)&name=delete&value=\(item.identifier)&output=json&apikey={apikey}",
                 parameters: defaultParameters
             )
         }

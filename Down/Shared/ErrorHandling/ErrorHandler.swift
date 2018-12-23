@@ -12,6 +12,9 @@ import DownKit
 enum ErrorSourceAction {
     case settings_updateCache
 
+    case download_pauseQueue
+    case download_resumeQueue
+    case download_purgeHistory
     case download_deleteItem
     
     case dvr_addShow
@@ -38,6 +41,9 @@ private extension ErrorHandler {
         let description: String
         switch action {
         case .settings_updateCache: description = "updating cache"
+        case .download_pauseQueue: description = "pausing queue"
+        case .download_resumeQueue: description = "resuming queue"
+        case .download_purgeHistory: description = "purging history"
         case .download_deleteItem: description = "deleting item"
         case .dvr_addShow: description = "adding show"
         case .dvr_deleteShow: description = "deleting show"

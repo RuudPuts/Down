@@ -52,6 +52,11 @@ class DmrStatusViewController: UIViewController & Depending {
         }
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        disposeBag = nil
+    }
+
     private func applyStyling() {
         view.style(as: .backgroundView)
         headerView.style(as: .headerView(for: dependencies.dmrApplication.downType))

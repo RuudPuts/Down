@@ -47,6 +47,30 @@ class SabNZBdRequestBuilderSpec: QuickSpec {
                     }
                 }
 
+                context("build pause queue call") {
+                    beforeEach {
+                        result = sut.specification(for: .pauseQueue)
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "api?mode=pause&output=json&apikey={apikey}",
+                                                               parameters: expectedDefaultParamters)
+                    }
+                }
+
+                context("build resume queue call") {
+                    beforeEach {
+                        result = sut.specification(for: .resumeQueue)
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "api?mode=resume&output=json&apikey={apikey}",
+                                                               parameters: expectedDefaultParamters)
+                    }
+                }
+
                 context("build history call") {
                     beforeEach {
                         result = sut.specification(for: .history)
@@ -56,6 +80,56 @@ class SabNZBdRequestBuilderSpec: QuickSpec {
                         expect(result) == RequestSpecification(host: application.host,
                                                                path: "api?mode=history&output=json&apikey={apikey}",
                                                                parameters: expectedDefaultParamters)
+                    }
+                }
+
+                context("build purge history call") {
+                    beforeEach {
+                        result = sut.specification(for: .purgeHistory)
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "api?mode=history&name=delete&value=all&output=json&apikey={apikey}",
+                                                               parameters: expectedDefaultParamters)
+                    }
+                }
+
+                context("build delete item call") {
+                    var item: DownloadItem!
+
+                    afterEach {
+                        item = nil
+                    }
+
+                    context("queue item") {
+                        beforeEach {
+                            item = DownloadQueueItem(identifier: "15", name: "", category: "",
+                                                     sizeMb: 0, remainingMb: 0, remainingTime: 0,
+                                                     progress: 0, state: .queued)
+                            result = sut.specification(for: .delete(item: item))
+                        }
+
+                        it("builds the specification") {
+                            expect(result) == RequestSpecification(host: application.host,
+                                                                   path: "api?mode=queue&name=delete&value=15&output=json&apikey={apikey}",
+                                                                   parameters: expectedDefaultParamters)
+                        }
+                    }
+
+                    context("history item") {
+                        beforeEach {
+                            item = DownloadHistoryItem(identifier: "15", name: "", category: "",
+                                                       sizeMb: 0, progress: 0, finishDate: nil,
+                                                       state: .queued)
+                            result = sut.specification(for: .delete(item: item))
+                        }
+
+                        it("builds the specification") {
+                            expect(result) == RequestSpecification(host: application.host,
+                                                                   path: "api?mode=history&name=delete&value=15&output=json&apikey={apikey}",
+                                                                   parameters: expectedDefaultParamters)
+                        }
                     }
                 }
             }

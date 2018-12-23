@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import XLActionController
 import DownKit
+
 import RxSwift
 import RxCocoa
-import XLActionController
+import RxResult
 
 class DownloadStatusViewController: UIViewController & Depending {
-    typealias Dependencies = DownloadStatusTableController.Dependencies & RouterDependency & DownloadApplicationDependency
+    typealias Dependencies = DownloadStatusTableController.Dependencies
+        & RouterDependency
+        & DownloadApplicationDependency
+        & ErrorHandlerDependency
     let dependencies: Dependencies
 
     @IBOutlet weak var activityView: ActivityView!
@@ -23,6 +28,9 @@ class DownloadStatusViewController: UIViewController & Depending {
 
     private let viewModel: DownloadStatusViewModel
     private let tableController: DownloadStatusTableController
+
+    let queuePaused = BehaviorSubject(value: false)
+    let purgeHistory = BehaviorSubject(value: Void())
 
     private var disposeBag: DisposeBag!
 
@@ -43,8 +51,7 @@ class DownloadStatusViewController: UIViewController & Depending {
 
         applyStyling()
         configureTableView()
-
-        headerView.contextButton.isHidden = true
+        statusView.heightConstraint?.constant = 0
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -56,11 +63,13 @@ class DownloadStatusViewController: UIViewController & Depending {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        disposeBag = nil
 
         if let navigationController = navigationController,
             navigationController.viewControllers.count > 1 {
             navigationController.setNavigationBarHidden(false, animated: animated)
+        }
+        else {
+            disposeBag = nil
         }
     }
 
@@ -83,10 +92,14 @@ class DownloadStatusViewController: UIViewController & Depending {
         let actionController = DownActionController(applicationType: dependencies.downloadApplication.downType)
 
         if queuePaused {
-            actionController.addAction(title: "Resume downloads", image: R.image.icon_resume())
+            actionController.addAction(title: "Resume downloads", image: R.image.icon_resume(), handler: { _ in
+                self.queuePaused.onNext(false)
+            })
         }
         else {
-            actionController.addAction(title: "Pause downloads", image: R.image.icon_pause())
+            actionController.addAction(title: "Pause downloads", image: R.image.icon_pause(), handler: { _ in
+                self.queuePaused.onNext(true)
+            })
         }
 
         actionController.addAction(title: "Purge history", image: R.image.icon_shred(), style: .destructive)
@@ -100,7 +113,22 @@ class DownloadStatusViewController: UIViewController & Depending {
 
 extension DownloadStatusViewController: ReactiveBinding {
     func makeInput() -> DownloadStatusViewModel.Input {
-        return DownloadStatusViewModel.Input(itemSelected: tableView.rx.itemSelected)
+        let queuePaused = self.queuePaused.skip(1)
+
+        let pauseQueue = queuePaused
+            .filter { $0 }
+            .asVoid()
+
+        let resumeQueue = queuePaused
+            .filter { !$0 }
+            .asVoid()
+
+        return DownloadStatusViewModel.Input(
+            itemSelected: tableView.rx.itemSelected,
+            pauseQueue: pauseQueue,
+            resumeQueue: resumeQueue,
+            purgeHistory: purgeHistory.skip(1)
+        )
     }
 
     func bind(to viewModel: DownloadStatusViewModel) {
@@ -108,28 +136,9 @@ extension DownloadStatusViewController: ReactiveBinding {
 
         let output = viewModel.transform(input: makeInput())
 
-        output.queue
-            .drive(statusView.rx.queue)
-            .disposed(by: disposeBag)
-
-        output.sectionsData
-            .drive(tableView.rx.items(dataSource: tableController.dataSource))
-            .disposed(by: disposeBag)
-
-        let dataLoaded = output.sectionsData
-            .map { _ in true }
-            .startWith(false)
-
-        dataLoaded
-            .drive(activityView.rx.isHidden)
-            .disposed(by: disposeBag)
-
-        [tableView.rx.isHidden, statusView.rx.isHidden].forEach {
-            dataLoaded
-                .map { !$0 }
-                .drive($0)
-                .disposed(by: disposeBag)
-        }
+        bindQueueStatus(output.queue)
+        bindTableView(output.sectionsData)
+        bindActions(output)
 
         output.itemSelected
             .subscribe(onNext: {
@@ -144,5 +153,65 @@ extension DownloadStatusViewController: ReactiveBinding {
                 self.showContextMenu(queuePaused: queue.isPaused)
             })
             .disposed(by: disposeBag)
+    }
+
+    private func bindQueueStatus(_ queue: Driver<DownloadQueue>) {
+        queue
+            .map { $0.speedMb == 0 }
+            .map { $0 ? 0.0 : 50.0 }
+            .drive(rx.queueStatusViewHeight)
+            .disposed(by: disposeBag)
+
+        queue
+            .drive(statusView.rx.queue)
+            .disposed(by: disposeBag)
+    }
+
+    private func bindTableView(_ sectionsData: Driver<[TableSectionData<DownloadItem>]>) {
+        sectionsData
+            .drive(tableView.rx.items(dataSource: tableController.dataSource))
+            .disposed(by: disposeBag)
+
+        let dataLoaded = sectionsData
+            .map { _ in true }
+            .startWith(false)
+
+        dataLoaded
+            .drive(activityView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        [tableView.rx.isHidden, statusView.rx.isHidden].forEach {
+            dataLoaded
+                .map { !$0 }
+                .drive($0)
+                .disposed(by: disposeBag)
+        }
+    }
+
+    func bindActions(_ output: DownloadStatusViewModel.Output) {
+        let actions = [
+            (observable: output.queuePaused, action: ErrorSourceAction.download_pauseQueue),
+            (observable: output.queueResumed, action: ErrorSourceAction.download_resumeQueue),
+            (observable: output.historyPurged, action: ErrorSourceAction.download_purgeHistory)
+        ]
+
+        actions.forEach { data in
+            data.observable
+                .subscribeResult(onFailure: {
+                    self.dependencies.errorHandler.handle(error: $0, action: data.action, source: self)
+                })
+                .disposed(by: disposeBag)
+        }
+    }
+}
+
+extension Reactive where Base: DownloadStatusViewController {
+    var queueStatusViewHeight: Binder<Double> {
+        return Binder(base) { statusViewController, queueHeight in
+            statusViewController.statusView.heightConstraint?.constant = CGFloat(queueHeight)
+            UIView.animate(withDuration: 0.3, animations: {
+                statusViewController.view.layoutIfNeeded()
+            })
+        }
     }
 }

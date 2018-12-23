@@ -1,5 +1,5 @@
 //
-//  ActionButtonStyle.swift
+//  ActionCellStyle.swift
 //  Down
 //
 //  Created by Ruud Puts on 22/12/2018.

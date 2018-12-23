@@ -9,5 +9,5 @@
 public protocol DownloadResponseParsing: ApiApplicationResponseParsing {
     func parseQueue(from response: Response) throws -> DownloadQueue
     func parseHistory(from response: Response) throws -> [DownloadItem]
-    func parseDeleteItem(from response: Response) throws -> Bool
+    func parseSuccess(from response: Response) throws -> Bool
 }

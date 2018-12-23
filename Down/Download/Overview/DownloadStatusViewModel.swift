@@ -9,6 +9,8 @@
 import DownKit
 import RxSwift
 import RxCocoa
+import Result
+import RxResult
 
 struct DownloadStatusViewModel: Depending {
     typealias Dependencies = DownloadInteractorFactoryDependency & DownloadApplicationDependency
@@ -26,18 +28,27 @@ struct DownloadStatusViewModel: Depending {
 extension DownloadStatusViewModel: ReactiveBindable {
     struct Input {
         let itemSelected: ControlEvent<IndexPath>
+        let pauseQueue: Observable<Void>
+        let resumeQueue: Observable<Void>
+        let purgeHistory: Observable<Void>
     }
 
     struct Output {
         let queue: Driver<DownloadQueue>
         let sectionsData: Driver<[TableSectionData<DownloadItem>]>
         let itemSelected: Observable<DownloadItem>
+
+        let queuePaused: Observable<Result<Bool, DownError>>
+        let queueResumed: Observable<Result<Bool, DownError>>
+        let historyPurged: Observable<Result<Bool, DownError>>
     }
 
     func transform(input: Input) -> Output {
         let queue = dependencies.downloadInteractorFactory
             .makeQueueInteractor(for: dependencies.downloadApplication)
             .observe()
+            .asObservable()
+            .withInterval(interval: refreshInterval)
             .asDriver(onErrorJustReturn: DownloadQueue())
 
         let queueItems = queue.map { $0.items }
@@ -45,16 +56,19 @@ extension DownloadStatusViewModel: ReactiveBindable {
         let history = dependencies.downloadInteractorFactory
             .makeHistoryInteractor(for: dependencies.downloadApplication)
             .observe()
-            .asDriver(onErrorJustReturn: [])
-
-        let sectionsData = Driver.zip([queueItems, history])
             .asObservable()
             .withInterval(interval: refreshInterval)
+            .asDriver(onErrorJustReturn: [])
+
+        let queuePaused = input.pauseQueue.flatMap { self.makePauseQueueInteractor() }
+        let queueResumed = input.resumeQueue.flatMap { self.makeResumeQueueInteractor() }
+        let historyPurged = input.purgeHistory.flatMap { self.makePurgeHistoryInteractor() }
+
+        let sectionsData = Driver.zip([queueItems, history])
             .map {[
                 TableSectionData(header: "Queue", icon: R.image.icon_queue(), items: $0.first ?? []),
                 TableSectionData(header: "History", icon: R.image.icon_history(), items: $0.last ?? [])
             ]}
-            .asDriver(onErrorJustReturn: [])
 
         let itemSelected = input.itemSelected
             .withLatestFrom(sectionsData) { indexPath, sections in
@@ -63,6 +77,27 @@ extension DownloadStatusViewModel: ReactiveBindable {
 
         return Output(queue: queue,
                       sectionsData: sectionsData,
-                      itemSelected: itemSelected)
+                      itemSelected: itemSelected,
+                      queuePaused: queuePaused,
+                      queueResumed: queueResumed,
+                      historyPurged: historyPurged)
+    }
+
+    private func makePauseQueueInteractor() -> Observable<Result<Bool, DownError>> {
+        return self.dependencies.downloadInteractorFactory
+            .makePauseQueueInteractor(for: self.dependencies.downloadApplication)
+            .observeResult()
+    }
+
+    private func makeResumeQueueInteractor() -> Observable<Result<Bool, DownError>> {
+        return self.dependencies.downloadInteractorFactory
+            .makeResumeQueueInteractor(for: self.dependencies.downloadApplication)
+            .observeResult()
+    }
+
+    private func makePurgeHistoryInteractor() -> Observable<Result<Bool, DownError>> {
+        return self.dependencies.downloadInteractorFactory
+            .makePurgeHistoryInteractor(for: self.dependencies.downloadApplication)
+            .observeResult()
     }
 }

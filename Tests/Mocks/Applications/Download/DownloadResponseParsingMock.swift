@@ -14,7 +14,7 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
 
         var parseQueue = DownloadQueue()
         var parseHistory: [DownloadItem]?
-        var parseDeleteItem = false
+        var parseSuccess = false
 
         var validateServerHeader = false
         var parseLogin = LoginResult.failed
@@ -26,7 +26,7 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
 
         var parseQueue: Parse?
         var parseHistory: Parse?
-        var parseDeleteItem: Parse?
+        var parseSuccess: Parse?
 
         var parseLogin: Parse?
         var parseApiKey: Parse?
@@ -69,9 +69,9 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
         return stubs.parseHistory ?? []
     }
 
-    func parseDeleteItem(from response: Response) throws -> Bool {
-        captures.parseDeleteItem = Captures.Parse(response: response)
-        return stubs.parseDeleteItem
+    func parseSuccess(from response: Response) throws -> Bool {
+        captures.parseSuccess = Captures.Parse(response: response)
+        return stubs.parseSuccess
     }
 
     // ApiApplicationResponseParsing

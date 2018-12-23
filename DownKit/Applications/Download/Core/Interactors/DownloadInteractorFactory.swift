@@ -8,7 +8,10 @@
 
 public protocol DownloadInteractorProducing {
     func makeQueueInteractor(for application: DownloadApplication) -> DownloadQueueInteractor
+    func makePauseQueueInteractor(for application: DownloadApplication) -> DownloadPauseQueueInteractor
+    func makeResumeQueueInteractor(for application: DownloadApplication) -> DownloadResumeQueueInteractor
     func makeHistoryInteractor(for application: DownloadApplication) -> DownloadHistoryInteractor
+    func makePurgeHistoryInteractor(for application: DownloadApplication) -> DownloadPurgeHistoryInteractor
 
     func makeDeleteItemInteractor(for application: DownloadApplication, item: DownloadItem) -> DownloadDeleteItemInteractor
 }
@@ -26,11 +29,29 @@ public class DownloadInteractorFactory: DownloadInteractorProducing, Depending {
         
         return DownloadQueueInteractor(dependencies: dependencies, gateway: gateway)
     }
+
+    public func makePauseQueueInteractor(for application: DownloadApplication) -> DownloadPauseQueueInteractor {
+        let gateway = dependencies.downloadGatewayFactory.makePauseQueueGateway(for: application)
+
+        return DownloadPauseQueueInteractor(gateway: gateway)
+    }
+
+    public func makeResumeQueueInteractor(for application: DownloadApplication) -> DownloadResumeQueueInteractor {
+        let gateway = dependencies.downloadGatewayFactory.makeResumeQueueGateway(for: application)
+
+        return DownloadResumeQueueInteractor(gateway: gateway)
+    }
     
     public func makeHistoryInteractor(for application: DownloadApplication) -> DownloadHistoryInteractor {
         let gateway = dependencies.downloadGatewayFactory.makeHistoryGateway(for: application)
         
         return DownloadHistoryInteractor(dependencies: dependencies, gateway: gateway)
+    }
+
+    public func makePurgeHistoryInteractor(for application: DownloadApplication) -> DownloadPurgeHistoryInteractor {
+        let gateway = dependencies.downloadGatewayFactory.makePurgeHistoryGateway(for: application)
+
+        return DownloadPurgeHistoryInteractor(gateway: gateway)
     }
 
     public func makeDeleteItemInteractor(for application: DownloadApplication, item: DownloadItem) -> DownloadDeleteItemInteractor {

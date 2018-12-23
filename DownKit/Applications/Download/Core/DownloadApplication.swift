@@ -35,13 +35,19 @@ public enum DownloadApplicationType: String {
 
 public enum DownloadApplicationCall {
     case queue
+    case pauseQueue
+    case resumeQueue
     case history
+    case purgeHistory
     case delete(item: DownloadItem)
 
     var stringValue: String {
         switch self {
         case .queue: return "queue"
+        case .pauseQueue: return "pauseQueue"
+        case .resumeQueue: return "resumeQueue"
         case .history: return "history"
+        case .purgeHistory: return "purgeHistory"
         case .delete: return "delete"
         }
     }

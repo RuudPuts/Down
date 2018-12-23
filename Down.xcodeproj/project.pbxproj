@@ -83,10 +83,6 @@
 		4227B78820DC423300603528 /* RequestGatewayInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B78720DC423300603528 /* RequestGatewayInteractorSpec.swift */; };
 		4227B7A120DC589500603528 /* DownloadApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B78B20DC589400603528 /* DownloadApplication.swift */; };
 		4227B7A220DC589500603528 /* DownloadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B78D20DC589400603528 /* DownloadItem.swift */; };
-		4227B7A520DC589500603528 /* DownloadRequestGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79120DC589400603528 /* DownloadRequestGateway.swift */; };
-		4227B7A620DC589500603528 /* DownloadQueueGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79220DC589400603528 /* DownloadQueueGateway.swift */; };
-		4227B7A720DC589500603528 /* DownloadHistoryGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79320DC589400603528 /* DownloadHistoryGateway.swift */; };
-		4227B7A820DC589500603528 /* DownloadGatewayFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79420DC589400603528 /* DownloadGatewayFactory.swift */; };
 		4227B7A920DC589500603528 /* SabNZBdRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79720DC589400603528 /* SabNZBdRequestBuilder.swift */; };
 		4227B7AA20DC589500603528 /* SabNZBdResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79820DC589400603528 /* SabNZBdResponseParser.swift */; };
 		4227B7AB20DC589500603528 /* DownloadRequestBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4227B79920DC589400603528 /* DownloadRequestBuilding.swift */; };
@@ -163,10 +159,19 @@
 		424E3AED21CC3BCC00738870 /* ActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 424E3AEC21CC3BCC00738870 /* ActivityView.xib */; };
 		424E3AF121CEAB4400738870 /* DownActionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AF021CEAB4400738870 /* DownActionController.swift */; };
 		424E3AF421CEABA200738870 /* DownActionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 424E3AF321CEABA200738870 /* DownActionCell.xib */; };
-		424E3AF821CEB4E300738870 /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AF721CEB4E300738870 /* ActionButtonStyle.swift */; };
+		424E3AF821CEB4E300738870 /* ActionCellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AF721CEB4E300738870 /* ActionCellStyle.swift */; };
 		424E3AFD21CEC93600738870 /* PagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AFC21CEC93600738870 /* PagingViewModel.swift */; };
 		424E3AFF21CEC96F00738870 /* DvrPagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3AFE21CEC96F00738870 /* DvrPagingViewModel.swift */; };
 		424E3B0121CECF8300738870 /* DvrPagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B0021CECF8300738870 /* DvrPagingViewController.swift */; };
+		424E3B0321CFFB0900738870 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B0221CFFB0900738870 /* StringExtensions.swift */; };
+		424E3B1721D006B700738870 /* DownloadRequestGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B0F21D006B600738870 /* DownloadRequestGateway.swift */; };
+		424E3B1821D006B700738870 /* DownloadResumeQueueGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B1021D006B600738870 /* DownloadResumeQueueGateway.swift */; };
+		424E3B1921D006B700738870 /* DownloadQueueGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B1121D006B600738870 /* DownloadQueueGateway.swift */; };
+		424E3B1A21D006B700738870 /* DownloadDeleteItemGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B1221D006B700738870 /* DownloadDeleteItemGateway.swift */; };
+		424E3B1B21D006B700738870 /* DownloadGatewayFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B1321D006B700738870 /* DownloadGatewayFactory.swift */; };
+		424E3B1C21D006B700738870 /* DownloadPurgeHistoryGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B1421D006B700738870 /* DownloadPurgeHistoryGateway.swift */; };
+		424E3B1D21D006B700738870 /* DownloadPauseQueueGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B1521D006B700738870 /* DownloadPauseQueueGateway.swift */; };
+		424E3B1E21D006B700738870 /* DownloadHistoryGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B1621D006B700738870 /* DownloadHistoryGateway.swift */; };
 		424FBD3B210F927600885D8B /* ApiApplicationGatewayFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */; };
 		424FBD3C210F927600885D8B /* ApiApplicationLoginGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */; };
 		424FBD3D210F927600885D8B /* ApiApplicationApiKeyGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD36210F90D800885D8B /* ApiApplicationApiKeyGatewaySpec.swift */; };
@@ -214,7 +219,6 @@
 		428340C720D2FD0A00CB2D7A /* RequestExecutingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340C620D2FD0A00CB2D7A /* RequestExecutingMock.swift */; };
 		428340C920D2FF9300CB2D7A /* RequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340C820D2FF9300CB2D7A /* RequestBuildingMock.swift */; };
 		428340CB20D3000F00CB2D7A /* RequestExecutorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340CA20D3000F00CB2D7A /* RequestExecutorSpec.swift */; };
-		42845A94217BBCF30097F58A /* DownloadDeleteItemGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42845A93217BBCF30097F58A /* DownloadDeleteItemGateway.swift */; };
 		42845A96217BC5A20097F58A /* DownloadRequestInteractors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42845A95217BC5A20097F58A /* DownloadRequestInteractors.swift */; };
 		4284C721213327FD00F21B91 /* TableSectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C720213327FD00F21B91 /* TableSectionData.swift */; };
 		4284C723213331FE00F21B91 /* UITabBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C722213331FD00F21B91 /* UITabBarStyle.swift */; };
@@ -438,10 +442,6 @@
 		4227B78720DC423300603528 /* RequestGatewayInteractorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestGatewayInteractorSpec.swift; sourceTree = "<group>"; };
 		4227B78B20DC589400603528 /* DownloadApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadApplication.swift; sourceTree = "<group>"; };
 		4227B78D20DC589400603528 /* DownloadItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadItem.swift; sourceTree = "<group>"; };
-		4227B79120DC589400603528 /* DownloadRequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequestGateway.swift; sourceTree = "<group>"; };
-		4227B79220DC589400603528 /* DownloadQueueGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueGateway.swift; sourceTree = "<group>"; };
-		4227B79320DC589400603528 /* DownloadHistoryGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadHistoryGateway.swift; sourceTree = "<group>"; };
-		4227B79420DC589400603528 /* DownloadGatewayFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadGatewayFactory.swift; sourceTree = "<group>"; };
 		4227B79720DC589400603528 /* SabNZBdRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdRequestBuilder.swift; sourceTree = "<group>"; };
 		4227B79820DC589400603528 /* SabNZBdResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SabNZBdResponseParser.swift; sourceTree = "<group>"; };
 		4227B79920DC589400603528 /* DownloadRequestBuilding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequestBuilding.swift; sourceTree = "<group>"; };
@@ -522,10 +522,20 @@
 		424E3AEC21CC3BCC00738870 /* ActivityView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
 		424E3AF021CEAB4400738870 /* DownActionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownActionController.swift; sourceTree = "<group>"; };
 		424E3AF321CEABA200738870 /* DownActionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownActionCell.xib; sourceTree = "<group>"; };
-		424E3AF721CEB4E300738870 /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
+		424E3AF721CEB4E300738870 /* ActionCellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCellStyle.swift; sourceTree = "<group>"; };
 		424E3AFC21CEC93600738870 /* PagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewModel.swift; sourceTree = "<group>"; };
 		424E3AFE21CEC96F00738870 /* DvrPagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrPagingViewModel.swift; sourceTree = "<group>"; };
 		424E3B0021CECF8300738870 /* DvrPagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrPagingViewController.swift; sourceTree = "<group>"; };
+		424E3B0221CFFB0900738870 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		424E3B0421D0064400738870 /* DownloadRequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequestGateway.swift; sourceTree = "<group>"; };
+		424E3B0F21D006B600738870 /* DownloadRequestGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRequestGateway.swift; sourceTree = "<group>"; };
+		424E3B1021D006B600738870 /* DownloadResumeQueueGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadResumeQueueGateway.swift; sourceTree = "<group>"; };
+		424E3B1121D006B600738870 /* DownloadQueueGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadQueueGateway.swift; sourceTree = "<group>"; };
+		424E3B1221D006B700738870 /* DownloadDeleteItemGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadDeleteItemGateway.swift; sourceTree = "<group>"; };
+		424E3B1321D006B700738870 /* DownloadGatewayFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadGatewayFactory.swift; sourceTree = "<group>"; };
+		424E3B1421D006B700738870 /* DownloadPurgeHistoryGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadPurgeHistoryGateway.swift; sourceTree = "<group>"; };
+		424E3B1521D006B700738870 /* DownloadPauseQueueGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadPauseQueueGateway.swift; sourceTree = "<group>"; };
+		424E3B1621D006B700738870 /* DownloadHistoryGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadHistoryGateway.swift; sourceTree = "<group>"; };
 		424FBD32210F90D100885D8B /* ApiApplicationInteractorFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteractorFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGatewaySpec.swift; sourceTree = "<group>"; };
@@ -572,7 +582,6 @@
 		428340C620D2FD0A00CB2D7A /* RequestExecutingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutingMock.swift; sourceTree = "<group>"; };
 		428340C820D2FF9300CB2D7A /* RequestBuildingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuildingMock.swift; sourceTree = "<group>"; };
 		428340CA20D3000F00CB2D7A /* RequestExecutorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutorSpec.swift; sourceTree = "<group>"; };
-		42845A93217BBCF30097F58A /* DownloadDeleteItemGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDeleteItemGateway.swift; sourceTree = "<group>"; };
 		42845A95217BC5A20097F58A /* DownloadRequestInteractors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadRequestInteractors.swift; sourceTree = "<group>"; };
 		4284C720213327FD00F21B91 /* TableSectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionData.swift; sourceTree = "<group>"; };
 		4284C722213331FD00F21B91 /* UITabBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITabBarStyle.swift; sourceTree = "<group>"; };
@@ -1130,11 +1139,14 @@
 		4227B79020DC589400603528 /* Gateways */ = {
 			isa = PBXGroup;
 			children = (
-				4227B79120DC589400603528 /* DownloadRequestGateway.swift */,
-				4227B79420DC589400603528 /* DownloadGatewayFactory.swift */,
-				4227B79220DC589400603528 /* DownloadQueueGateway.swift */,
-				4227B79320DC589400603528 /* DownloadHistoryGateway.swift */,
-				42845A93217BBCF30097F58A /* DownloadDeleteItemGateway.swift */,
+				424E3B1321D006B700738870 /* DownloadGatewayFactory.swift */,
+				424E3B0F21D006B600738870 /* DownloadRequestGateway.swift */,
+				424E3B1121D006B600738870 /* DownloadQueueGateway.swift */,
+				424E3B1521D006B700738870 /* DownloadPauseQueueGateway.swift */,
+				424E3B1021D006B600738870 /* DownloadResumeQueueGateway.swift */,
+				424E3B1621D006B700738870 /* DownloadHistoryGateway.swift */,
+				424E3B1421D006B700738870 /* DownloadPurgeHistoryGateway.swift */,
+				424E3B1221D006B700738870 /* DownloadDeleteItemGateway.swift */,
 			);
 			path = Gateways;
 			sourceTree = "<group>";
@@ -1474,6 +1486,14 @@
 			path = PagingViewController;
 			sourceTree = "<group>";
 		};
+		424E3B0E21D006A400738870 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				424E3B0421D0064400738870 /* DownloadRequestGateway.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		424FBD2F210F907F00885D8B /* Gateways */ = {
 			isa = PBXGroup;
 			children = (
@@ -1574,6 +1594,7 @@
 				426A797F20D1810100797AE5 /* Products */,
 				0BDAAA2CF737C6218607125A /* Pods */,
 				15C44979024BD26A78210EB8 /* Frameworks */,
+				424E3B0E21D006A400738870 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1741,7 +1762,7 @@
 		4288010D21209280007552FD /* Styles */ = {
 			isa = PBXGroup;
 			children = (
-				424E3AF721CEB4E300738870 /* ActionButtonStyle.swift */,
+				424E3AF721CEB4E300738870 /* ActionCellStyle.swift */,
 				4288010F21209280007552FD /* ApplicationHeaderViewStyle.swift */,
 				4235075D21248BEC005343CD /* CircleProgressViewStyle.swift */,
 				4284C72621334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift */,
@@ -1925,6 +1946,7 @@
 				42E49DCA21445B1000F8491B /* DownKitExtensions.swift */,
 				42F6DA2221B2FE200080E12B /* RxExtensions.swift */,
 				423A5504216917A800CC558A /* UICollectionViewExtensions.swift */,
+				424E3B0221CFFB0900738870 /* StringExtensions.swift */,
 				4235075F21249866005343CD /* UITableViewExtensions.swift */,
 				42750B7221A5E9CF00DBE989 /* UITextFieldExtensions.swift */,
 				42D58EF1211A0ACD00F3454A /* UIViewConstraints.swift */,
@@ -2434,6 +2456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				424E3B1A21D006B700738870 /* DownloadDeleteItemGateway.swift in Sources */,
 				429F0A572116254B005582B6 /* DvrSetEpisodeStatusGateway.swift in Sources */,
 				42384A4621612641004A0349 /* MvrDatabaseStoring.swift in Sources */,
 				4239553E218F5DE200B7E40F /* DownApplication.swift in Sources */,
@@ -2441,21 +2464,21 @@
 				429F0A5D211629C3005582B6 /* DvrSetEpisodeStatusInteractor.swift in Sources */,
 				42BA6F2C20FFC31E001CA926 /* AlamofireRequestClient.swift in Sources */,
 				4221DA8D20D18450003950CF /* Application.swift in Sources */,
-				4227B7A720DC589500603528 /* DownloadHistoryGateway.swift in Sources */,
+				424E3B1921D006B700738870 /* DownloadQueueGateway.swift in Sources */,
 				4221DA8420D18450003950CF /* RequestGateway.swift in Sources */,
 				429B01D520F53DBC00BCDA0F /* Authentication.swift in Sources */,
 				42089D31219B52C80032320E /* CookieBag.swift in Sources */,
-				4227B7A520DC589500603528 /* DownloadRequestGateway.swift in Sources */,
 				42395542218F745600B7E40F /* DmrInteractorFactory.swift in Sources */,
 				4202D5A92113920E00ED1859 /* DvrAddShowInteractor.swift in Sources */,
 				4263A18120E1B72A008F7E40 /* ApiApplicationLoginGateway.swift in Sources */,
-				4227B7A620DC589500603528 /* DownloadQueueGateway.swift in Sources */,
 				4263A18920E1C3BA008F7E40 /* ApiApplicationRequestBuilding.swift in Sources */,
+				424E3B1C21D006B700738870 /* DownloadPurgeHistoryGateway.swift in Sources */,
 				42384A4A21612641004A0349 /* DmrResponseParsing.swift in Sources */,
 				4254177F2166A12D00D273FA /* UIImageResizeExtension.swift in Sources */,
 				422BE6BA20D6C41100DDDF37 /* ApplicationAddtionsFactory.swift in Sources */,
 				42BF4E8A20D1B5990088AAF6 /* StringExtensions.swift in Sources */,
 				427D605820DF00D50017AE42 /* DownloadHistoryInteractor.swift in Sources */,
+				424E3B1E21D006B700738870 /* DownloadHistoryGateway.swift in Sources */,
 				424E3AE921CC1E9700738870 /* RealmCascadingDelete.swift in Sources */,
 				4227B7AB20DC589500603528 /* DownloadRequestBuilding.swift in Sources */,
 				42E49DC9214458C600F8491B /* DownKit.swift in Sources */,
@@ -2466,6 +2489,7 @@
 				42723A4820D80E86000445C3 /* CompoundInteractor.swift in Sources */,
 				4221DA9A20D18450003950CF /* ResponseParsing.swift in Sources */,
 				4221DA8F20D18450003950CF /* DvrApplication.swift in Sources */,
+				424E3B1821D006B700738870 /* DownloadResumeQueueGateway.swift in Sources */,
 				4202D5A72113905D00ED1859 /* DvrAddShowGateway.swift in Sources */,
 				428FCD5D212209B300C0371D /* DownloadQueueItem.swift in Sources */,
 				4227B7A920DC589500603528 /* SabNZBdRequestBuilder.swift in Sources */,
@@ -2484,11 +2508,11 @@
 				4221DA9220D18450003950CF /* SickbeardRequestBuilder.swift in Sources */,
 				422BE6CF20D6DF6100DDDF37 /* DvrGatewayFactory.swift in Sources */,
 				429F0A582116254B005582B6 /* DvrDeleteShowGateway.swift in Sources */,
-				42845A94217BBCF30097F58A /* DownloadDeleteItemGateway.swift in Sources */,
 				422BE6C120D6CC8300DDDF37 /* DvrRequestInteractors.swift in Sources */,
 				429F0A562116254B005582B6 /* DvrSetSeasonStatusGateway.swift in Sources */,
 				429B01CF20F52B7400BCDA0F /* ApiApplicationResponseParsing.swift in Sources */,
 				42723A4A20D80ECB000445C3 /* DvrRefreshShowCacheInteractor.swift in Sources */,
+				424E3B1D21D006B700738870 /* DownloadPauseQueueGateway.swift in Sources */,
 				4263A18320E1B739008F7E40 /* ApiApplicationLoginInteractor.swift in Sources */,
 				4221DA9820D18450003950CF /* Response.swift in Sources */,
 				42723A5020D81C8D000445C3 /* DvrShowDetailsInteractor.swift in Sources */,
@@ -2518,10 +2542,11 @@
 				428FCD5F212209BE00C0371D /* DownloadHistoryItem.swift in Sources */,
 				4227B7AA20DC589500603528 /* SabNZBdResponseParser.swift in Sources */,
 				429F0A5E211629C3005582B6 /* DvrSetSeasonStatusInteractor.swift in Sources */,
-				4227B7A820DC589500603528 /* DownloadGatewayFactory.swift in Sources */,
 				4244955621908EBD0083FE70 /* DmrGatewayFactory.swift in Sources */,
 				4221DA9020D18450003950CF /* SickbeardResponseParser.swift in Sources */,
+				424E3B1B21D006B700738870 /* DownloadGatewayFactory.swift in Sources */,
 				4227B7B020DC589500603528 /* DownloadResponseParsing.swift in Sources */,
+				424E3B1721D006B700738870 /* DownloadRequestGateway.swift in Sources */,
 				4221DA9D20D18450003950CF /* RequestBuilding.swift in Sources */,
 				42BF4E8520D19CF20088AAF6 /* DvrRequestBuilding.swift in Sources */,
 				42384A4821612641004A0349 /* DmrRequestBuilding.swift in Sources */,
@@ -2606,6 +2631,7 @@
 				424DDA7F2144718500588B48 /* UINavigationBarStyle.swift in Sources */,
 				4221DA5420D183B6003950CF /* DvrShowDetailViewController.swift in Sources */,
 				42E014782135DA9D006D550D /* DvrShowHeaderView.swift in Sources */,
+				424E3B0321CFFB0900738870 /* StringExtensions.swift in Sources */,
 				422106E821CAC552009D9D11 /* NVActivityIndicatorFiewStyle.swift in Sources */,
 				4235076021249866005343CD /* UITableViewExtensions.swift in Sources */,
 				42B2328121653656006604D9 /* SettingsRouter.swift in Sources */,
@@ -2648,7 +2674,7 @@
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
 				42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */,
 				4235075E21248BEC005343CD /* CircleProgressViewStyle.swift in Sources */,
-				424E3AF821CEB4E300738870 /* ActionButtonStyle.swift in Sources */,
+				424E3AF821CEB4E300738870 /* ActionCellStyle.swift in Sources */,
 				428FCD6721234E3E00C0371D /* UILabelStyle.swift in Sources */,
 				423A5505216917A800CC558A /* UICollectionViewExtensions.swift in Sources */,
 				42DECE8A21C6C9760084BF83 /* PagingViewController.swift in Sources */,

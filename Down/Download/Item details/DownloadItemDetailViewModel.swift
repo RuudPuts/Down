@@ -88,9 +88,9 @@ extension DownloadItemDetailViewModel {
                     [
                         DownloadItemDetailRow(key: .nzbname, value: queueItem.name),
                         DownloadItemDetailRow(key: .status, value: queueItem.state.displayName),
-                        DownloadItemDetailRow(key: .totalSize, value: "\(queueItem.sizeMb)"),
-                        DownloadItemDetailRow(key: .sizeLeft, value: "\(queueItem.sizeMb)"),
-                        DownloadItemDetailRow(key: .timeLeft, value: "\(queueItem.sizeMb)")
+                        DownloadItemDetailRow(key: .totalSize, value: String.displayString(forMb: queueItem.sizeMb)),
+                        DownloadItemDetailRow(key: .sizeLeft, value: String.displayString(forMb: queueItem.remainingMb)),
+                        DownloadItemDetailRow(key: .timeLeft, value: queueItem.remainingTime.displayString)
                     ],
                     makeDvrEpisodeRows(for: queueItem)
                 ].compactMap { $0 }
@@ -115,7 +115,7 @@ extension DownloadItemDetailViewModel {
             var detailRows = [
                 DownloadItemDetailRow(key: .nzbname, value: historyItem.name),
                 DownloadItemDetailRow(key: .status, value: historyItem.state.displayName),
-                DownloadItemDetailRow(key: .totalSize, value: "\(historyItem.sizeMb)")
+                DownloadItemDetailRow(key: .totalSize, value: String.displayString(forMb: historyItem.sizeMb))
             ]
 
             if let finishDate = historyItem.finishDate, historyItem.state == .completed {

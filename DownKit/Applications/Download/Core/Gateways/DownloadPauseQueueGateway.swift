@@ -1,19 +1,18 @@
 //
-//  DownloadDeleteItemGateway.swift
-//  DownKit
+//  DownloadPauseQueueGateway.swift
+//  Down
 //
-//  Created by Ruud Puts on 20/10/2018.
+//  Created by Ruud Puts on 23/12/2018
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
 import RxSwift
 
-public class DownloadDeleteItemGateway: DownloadRequestGateway {
+public class DownloadPauseQueueGateway: DownloadRequestGateway {
     public var executor: RequestExecuting
 
     var builder: DownloadRequestBuilding
     var parser: DownloadResponseParsing
-    var item: DownloadItem!
 
     public required init(builder: DownloadRequestBuilding, parser: DownloadResponseParsing, executor: RequestExecuting = RequestExecutor()) {
         self.builder = builder
@@ -21,13 +20,8 @@ public class DownloadDeleteItemGateway: DownloadRequestGateway {
         self.parser = parser
     }
 
-    convenience init(builder: DownloadRequestBuilding, parser: DownloadResponseParsing, executor: RequestExecuting = RequestExecutor(), item: DownloadItem) {
-        self.init(builder: builder, parser: parser, executor: executor)
-        self.item = item
-    }
-
     public func makeRequest() throws -> Request {
-        return try builder.make(for: .delete(item: item))
+        return try builder.make(for: .pauseQueue)
     }
 
     public func parse(response: Response) throws -> Bool {

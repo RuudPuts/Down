@@ -37,8 +37,9 @@ class SabNZBdResponseParser: DownloadResponseParsing {
         } ?? []
     }
 
-    func parseDeleteItem(from response: Response) throws -> Bool {
-        return true
+    func parseSuccess(from response: Response) throws -> Bool {
+        NSLog("🔥 Response: \(String(data: response.data!, encoding: .utf8)!)")
+        return try parse(response)["status"].boolValue
     }
 }
 
@@ -68,7 +69,7 @@ extension SabNZBdResponseParser: ApiApplicationResponseParsing {
 }
 
 extension SabNZBdResponseParser {
-    func parse(_ response: Response, forKey key: SabNZBdResponseKey) throws -> JSON {
+    func parse(_ response: Response, forKey key: SabNZBdResponseKey? = nil) throws -> JSON {
         guard let data = response.data else {
             throw ParseError.noData
         }
@@ -85,8 +86,12 @@ extension SabNZBdResponseParser {
         guard json["status"].bool ?? true else {
             throw ParseError.api(message: json["error"].string ?? "")
         }
-        
-        return json[key.rawValue]
+
+        if let key = key?.rawValue {
+            return json[key]
+        }
+
+        return json
     }
 
     func parseQueueItem(from json: JSON) -> DownloadQueueItem {
