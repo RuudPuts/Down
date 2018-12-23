@@ -172,6 +172,7 @@
 		424E3B1C21D006B700738870 /* DownloadPurgeHistoryGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B1421D006B700738870 /* DownloadPurgeHistoryGateway.swift */; };
 		424E3B1D21D006B700738870 /* DownloadPauseQueueGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B1521D006B700738870 /* DownloadPauseQueueGateway.swift */; };
 		424E3B1E21D006B700738870 /* DownloadHistoryGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B1621D006B700738870 /* DownloadHistoryGateway.swift */; };
+		424E3B2021D01F7600738870 /* ImageViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E3B1F21D01F7600738870 /* ImageViewStyle.swift */; };
 		424FBD3B210F927600885D8B /* ApiApplicationGatewayFactorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */; };
 		424FBD3C210F927600885D8B /* ApiApplicationLoginGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */; };
 		424FBD3D210F927600885D8B /* ApiApplicationApiKeyGatewaySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424FBD36210F90D800885D8B /* ApiApplicationApiKeyGatewaySpec.swift */; };
@@ -223,7 +224,6 @@
 		4284C721213327FD00F21B91 /* TableSectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C720213327FD00F21B91 /* TableSectionData.swift */; };
 		4284C723213331FE00F21B91 /* UITabBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C722213331FD00F21B91 /* UITabBarStyle.swift */; };
 		4284C7252133442800F21B91 /* SkyFloatingLabelTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */; };
-		4284C72721334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C72621334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift */; };
 		4284C72921334D7000F21B91 /* UIButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C72821334D7000F21B91 /* UIButtonStyle.swift */; };
 		4284C73B2134330C00F21B91 /* DvrShowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284C7392134330C00F21B91 /* DvrShowCollectionViewCell.swift */; };
 		4284C73C2134330C00F21B91 /* DvrShowCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4284C73A2134330C00F21B91 /* DvrShowCollectionViewCell.xib */; };
@@ -536,6 +536,7 @@
 		424E3B1421D006B700738870 /* DownloadPurgeHistoryGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadPurgeHistoryGateway.swift; sourceTree = "<group>"; };
 		424E3B1521D006B700738870 /* DownloadPauseQueueGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadPauseQueueGateway.swift; sourceTree = "<group>"; };
 		424E3B1621D006B700738870 /* DownloadHistoryGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadHistoryGateway.swift; sourceTree = "<group>"; };
+		424E3B1F21D01F7600738870 /* ImageViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewStyle.swift; sourceTree = "<group>"; };
 		424FBD32210F90D100885D8B /* ApiApplicationInteractorFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationInteractorFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD34210F90D800885D8B /* ApiApplicationGatewayFactorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationGatewayFactorySpec.swift; sourceTree = "<group>"; };
 		424FBD35210F90D800885D8B /* ApiApplicationLoginGatewaySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplicationLoginGatewaySpec.swift; sourceTree = "<group>"; };
@@ -586,7 +587,6 @@
 		4284C720213327FD00F21B91 /* TableSectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionData.swift; sourceTree = "<group>"; };
 		4284C722213331FD00F21B91 /* UITabBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITabBarStyle.swift; sourceTree = "<group>"; };
 		4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkyFloatingLabelTextFieldStyle.swift; sourceTree = "<group>"; };
-		4284C72621334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadQueueStatusViewStyle.swift; sourceTree = "<group>"; };
 		4284C72821334D7000F21B91 /* UIButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonStyle.swift; sourceTree = "<group>"; };
 		4284C7392134330C00F21B91 /* DvrShowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrShowCollectionViewCell.swift; sourceTree = "<group>"; };
 		4284C73A2134330C00F21B91 /* DvrShowCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DvrShowCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1765,12 +1765,12 @@
 				424E3AF721CEB4E300738870 /* ActionCellStyle.swift */,
 				4288010F21209280007552FD /* ApplicationHeaderViewStyle.swift */,
 				4235075D21248BEC005343CD /* CircleProgressViewStyle.swift */,
-				4284C72621334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift */,
 				422106E721CAC552009D9D11 /* NVActivityIndicatorFiewStyle.swift */,
 				4237F7C121C6D1690005ED2D /* PagingViewControllerStyle.swift */,
 				4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */,
 				4235076521249B9E005343CD /* TableHeaderViewStyle.swift */,
 				4284C72821334D7000F21B91 /* UIButtonStyle.swift */,
+				424E3B1F21D01F7600738870 /* ImageViewStyle.swift */,
 				428FCD6621234E3E00C0371D /* UILabelStyle.swift */,
 				424DDA7E2144718400588B48 /* UINavigationBarStyle.swift */,
 				4284C722213331FD00F21B91 /* UITabBarStyle.swift */,
@@ -2629,6 +2629,7 @@
 				42750B7321A5E9CF00DBE989 /* UITextFieldExtensions.swift in Sources */,
 				42F6DA2321B2FE200080E12B /* RxExtensions.swift in Sources */,
 				424DDA7F2144718500588B48 /* UINavigationBarStyle.swift in Sources */,
+				424E3B2021D01F7600738870 /* ImageViewStyle.swift in Sources */,
 				4221DA5420D183B6003950CF /* DvrShowDetailViewController.swift in Sources */,
 				42E014782135DA9D006D550D /* DvrShowHeaderView.swift in Sources */,
 				424E3B0321CFFB0900738870 /* StringExtensions.swift in Sources */,
@@ -2658,7 +2659,6 @@
 				424E3AF121CEAB4400738870 /* DownActionController.swift in Sources */,
 				428FCD61212212B600C0371D /* UIViewStyle.swift in Sources */,
 				423A50A221C83376002271BD /* DvrAiringSoonViewController.swift in Sources */,
-				4284C72721334B5C00F21B91 /* DownloadQueueStatusViewStyle.swift in Sources */,
 				42BE70C521693BED004167C3 /* DownloadItemDetailViewController.swift in Sources */,
 				427D606120E0325C0017AE42 /* DownloadStatusViewController.swift in Sources */,
 				42BE70D02169835B004167C3 /* KeyValueTableViewCell.swift in Sources */,

@@ -38,7 +38,6 @@ class SabNZBdResponseParser: DownloadResponseParsing {
     }
 
     func parseSuccess(from response: Response) throws -> Bool {
-        NSLog("🔥 Response: \(String(data: response.data!, encoding: .utf8)!)")
         return try parse(response)["status"].boolValue
     }
 }

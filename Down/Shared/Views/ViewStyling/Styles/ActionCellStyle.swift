@@ -25,8 +25,7 @@ extension ViewStyling where ViewType: DownActionCell {
             }
 
             if let imageView = $0.actionImageView {
-                imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
-                imageView.tintColor = Stylesheet.Colors.primaryColor(for: type)
+                imageView.style(as: .imageView(for: type))
                 imageView.contentMode = .scaleAspectFit
             }
 

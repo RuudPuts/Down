@@ -51,7 +51,7 @@ class DownloadStatusViewController: UIViewController & Depending {
 
         applyStyling()
         configureTableView()
-        statusView.heightConstraint?.constant = 0
+        configureQueueStatusView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -73,7 +73,7 @@ class DownloadStatusViewController: UIViewController & Depending {
         }
     }
 
-    func applyStyling() {
+    private func applyStyling() {
         let applicationType = dependencies.downloadApplication.downType
 
         view.style(as: .backgroundView)
@@ -82,13 +82,18 @@ class DownloadStatusViewController: UIViewController & Depending {
         activityView.configure(with: viewModel.activityViewText, application: applicationType)
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         tableView.delegate = tableController
         
         tableController.prepare(tableView)
     }
 
-    func showContextMenu(queuePaused: Bool) {
+    private func configureQueueStatusView() {
+        statusView.configure(with: dependencies.downloadApplication)
+        statusView.heightConstraint?.constant = 0
+    }
+
+    private func showContextMenu(queuePaused: Bool) {
         let actionController = DownActionController(applicationType: dependencies.downloadApplication.downType)
 
         if queuePaused {
@@ -102,7 +107,9 @@ class DownloadStatusViewController: UIViewController & Depending {
             })
         }
 
-        actionController.addAction(title: "Purge history", image: R.image.icon_shred(), style: .destructive)
+        actionController.addAction(title: "Purge history", image: R.image.icon_shred(), style: .destructive, handler: { _ in
+            self.purgeHistory.onNext(Void())
+        })
 
         actionController.addSection(Section())
         actionController.addAction(title: "Cancel", style: .cancel)
@@ -157,7 +164,7 @@ extension DownloadStatusViewController: ReactiveBinding {
 
     private func bindQueueStatus(_ queue: Driver<DownloadQueue>) {
         queue
-            .map { $0.speedMb == 0 }
+            .map { !$0.isPaused && $0.speedMb == 0 }
             .map { $0 ? 0.0 : 50.0 }
             .drive(rx.queueStatusViewHeight)
             .disposed(by: disposeBag)
@@ -208,7 +215,14 @@ extension DownloadStatusViewController: ReactiveBinding {
 extension Reactive where Base: DownloadStatusViewController {
     var queueStatusViewHeight: Binder<Double> {
         return Binder(base) { statusViewController, queueHeight in
-            statusViewController.statusView.heightConstraint?.constant = CGFloat(queueHeight)
+            let newHeight = CGFloat(queueHeight)
+
+            guard let heightConstraint = statusViewController.statusView.heightConstraint,
+                heightConstraint.constant != newHeight else {
+                return
+            }
+
+            heightConstraint.constant = newHeight
             UIView.animate(withDuration: 0.3, animations: {
                 statusViewController.view.layoutIfNeeded()
             })

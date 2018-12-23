@@ -644,6 +644,7 @@ struct _R: Rswift.Validatable {
       try _ApplicationHeaderView.validate()
       try _TableHeaderView.validate()
       try _SettingsApplicationCell.validate()
+      try _DownloadQueueStatusView.validate()
     }
     
     struct _ActivityView: Rswift.NibResourceType {
@@ -731,12 +732,16 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _DownloadQueueStatusView: Rswift.NibResourceType {
+    struct _DownloadQueueStatusView: Rswift.NibResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DownloadQueueStatusView"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "icon_pause", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pause' is used in nib 'DownloadQueueStatusView', but couldn't be loaded.") }
       }
       
       fileprivate init() {}

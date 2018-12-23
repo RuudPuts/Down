@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,10 +14,14 @@
             <connections>
                 <outlet property="mbRemainingLabel" destination="pi8-ey-0gT" id="Ulw-mf-Yw5"/>
                 <outlet property="mbRemainingValueLabel" destination="dEK-At-Ec4" id="AvU-QX-r9E"/>
+                <outlet property="pausedImageView" destination="oWb-22-6eH" id="tI5-Sw-VGR"/>
+                <outlet property="pausedLabel" destination="uuv-d3-U0p" id="EYC-kb-zuM"/>
+                <outlet property="pausedView" destination="LyV-LS-GW3" id="QwX-DQ-F20"/>
                 <outlet property="speedLabel" destination="5MM-QZ-7FO" id="FQK-Pf-tmc"/>
                 <outlet property="speedValueLabel" destination="UkU-ih-Yjt" id="fdW-gI-YIw"/>
                 <outlet property="timeRemainingLabel" destination="Wz4-RE-JZv" id="1YD-EI-tAX"/>
                 <outlet property="timeRemainingValueLabel" destination="ehZ-UK-NnR" id="iYV-59-GTk"/>
+                <outlet property="unpausedView" destination="mcr-3R-4fr" id="8a0-9T-XYH"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -76,17 +80,42 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LyV-LS-GW3">
+                    <rect key="frame" x="143.5" y="21.5" width="88.5" height="24"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_pause" translatesAutoresizingMaskIntoConstraints="NO" id="oWb-22-6eH">
+                            <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="oWb-22-6eH" secondAttribute="height" multiplier="1:1" id="s5t-C0-XYf"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paused" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uuv-d3-U0p">
+                            <rect key="frame" x="32" y="0.0" width="56.5" height="24"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="5l4-ZQ-GEV"/>
+                    </constraints>
+                </stackView>
             </subviews>
             <constraints>
                 <constraint firstItem="mcr-3R-4fr" firstAttribute="top" secondItem="2fn-Ug-y6L" secondAttribute="top" id="1Gc-SX-rI8"/>
                 <constraint firstItem="mcr-3R-4fr" firstAttribute="leading" secondItem="2fn-Ug-y6L" secondAttribute="leading" id="Fwp-3a-CVl"/>
+                <constraint firstItem="LyV-LS-GW3" firstAttribute="centerY" secondItem="2fn-Ug-y6L" secondAttribute="centerY" id="J9Z-2d-5mH"/>
                 <constraint firstAttribute="trailing" secondItem="mcr-3R-4fr" secondAttribute="trailing" id="PJ0-cg-A2N"/>
                 <constraint firstItem="DnD-p3-bfJ" firstAttribute="bottom" secondItem="mcr-3R-4fr" secondAttribute="bottom" id="h6m-4D-g4Z"/>
                 <constraint firstItem="kv3-0i-xbZ" firstAttribute="height" secondItem="2fn-Ug-y6L" secondAttribute="height" multiplier="0.5" id="oGi-5Z-ou0"/>
+                <constraint firstItem="LyV-LS-GW3" firstAttribute="centerX" secondItem="2fn-Ug-y6L" secondAttribute="centerX" id="qlS-QA-vux"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="DnD-p3-bfJ"/>
             <point key="canvasLocation" x="114.5" y="-512.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_pause" width="384" height="512"/>
+    </resources>
 </document>
