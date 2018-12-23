@@ -32,8 +32,8 @@ struct DvrPagingViewModel: PagingViewModel, Depending {
 
         let showsAvailable = dependencies.database.fetchShows().map { !$0.isEmpty }
 
-        let data = input.loadData
-            .withLatestFrom(showsAvailable)
+        let data = showsAvailable
+            .single()
             .do(onNext: { loadingData.onNext(!$0) })
             .flatMap { _ in refreshCache }
             .do(onNext: { _ in loadingData.onNext(false) })
