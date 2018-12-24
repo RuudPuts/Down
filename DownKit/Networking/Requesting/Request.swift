@@ -49,9 +49,12 @@ public class Request {
                      basicAuthenticationData: BasicAuthenticationData? = nil,
                      formAuthenticationData: FormAuthenticationData? = nil) {
 
-        let url = "\(host)/\(path)".inject(parameters: parameters ?? [:])
+        let encodedParameters = (parameters ?? [:]).mapValues {
+            $0.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
+        }
+        let injectedPath = path.inject(parameters: encodedParameters)
 
-        self.init(url: URL.from(host: url)!,
+        self.init(url: URL.from(host: "\(host)/\(injectedPath)")!,
                   method: method,
                   headers: headers,
                   authenticationMethod: authenticationMethod,
