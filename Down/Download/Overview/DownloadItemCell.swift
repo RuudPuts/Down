@@ -26,7 +26,6 @@ class DownloadItemCell: UITableViewCell {
     private func applyStyling() {
         style(as: .defaultCell)
         progressView.style(as: .defaultProgressView)
-        backgroundColor = .clear
         nameLabel?.style(as: .titleLabel)
         statusLabel?.style(as: .detailLabel)
         timeLabel?.style(as: .detailLabel)

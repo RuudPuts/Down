@@ -13,6 +13,7 @@ extension ViewStyling where ViewType == UITableView {
         $0.backgroundColor = .clear
         $0.sectionHeaderHeight = 40
         $0.separatorColor = Stylesheet.Colors.Backgrounds.lightBlue
+        $0.tableFooterView = UIView()
     }
 
     static var cardTableView = ViewStyling {

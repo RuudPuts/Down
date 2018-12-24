@@ -45,21 +45,24 @@ extension DvrAiringSoonViewModel: ReactiveBindable {
             }
 
         let sections = [
-                (title: "Airing today", episodes: airingToday),
-                (title: "Airing tomorrow", episodes: airingTomorrow),
-                (title: "Airing soon", episodes: airingSoon)
+                (title: "Airing today", emptyMessage: "No episodes airing today", episodes: airingToday),
+                (title: "Airing tomorrow", emptyMessage: "No episodes airing tomorrow", episodes: airingTomorrow),
+                (title: "Airing soon", emptyMessage: "No episodes airing soon", episodes: airingSoon)
             ]
             .map { data in
                 data.episodes.map { episodes -> TableSectionData<RefinedEpisode> in
+                    let items = episodes
+                        .filter { $0.show != nil && $0.season != nil }
+                        .filter { !$0.isSpecial }
+                        .map {
+                            RefinedEpisode.from(episode: $0, withDvrRequestBuilder: self.dependencies.dvrRequestBuilder)
+                        }
+
                     return TableSectionData(
                         header: data.title,
                         icon: nil,
-                        items: episodes
-                            .filter { $0.show != nil && $0.season != nil }
-                            .filter { !$0.isSpecial }
-                            .map {
-                                RefinedEpisode.from(episode: $0, withDvrRequestBuilder: self.dependencies.dvrRequestBuilder)
-                            }
+                        items: items,
+                        emptyMessage: data.emptyMessage
                     )
                 }
             }

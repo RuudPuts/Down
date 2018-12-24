@@ -70,10 +70,7 @@ class DownloadItemDetailViewController: UIViewController & Depending {
     }
 
     private func configureTableView() {
-        tableView.tableFooterView = UIView()
-        
         tableViewController.prepare(tableView)
-        tableView.dataSource = tableViewController
     }
 
     private func applyStyling() {

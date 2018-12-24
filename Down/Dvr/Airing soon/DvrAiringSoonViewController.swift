@@ -74,7 +74,8 @@ extension DvrAiringSoonViewController: ReactiveBinding {
 
         let output = viewModel.transform(input: makeInput())
         output.sections
-            .bind(to: tableView.rx.items(dataSource: tableController.dataSource))
+            .do(onNext: { self.tableController.dataSource = $0 })
+            .subscribe()
             .disposed(by: disposeBag)
 
         output.episodeSelected

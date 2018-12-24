@@ -9,13 +9,18 @@
 import DownKit
 import RxSwift
 import RxCocoa
-import RxDataSources
 
-class SectionedTableController<ItemType>: NSObject, UITableViewDelegate {
+class SectionedTableController<ItemType>: NSObject, UITableViewDataSource, UITableViewDelegate {
     typealias SectionDataType = TableSectionData<ItemType>
-    typealias RxDataSourceType = RxTableViewSectionedReloadDataSource<SectionDataType>
 
     let application: ApiApplication
+    var dataSource = [SectionDataType]() {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
+
+    private weak var tableView: UITableView?
 
     init(application: ApiApplication) {
         self.application = application
@@ -23,35 +28,63 @@ class SectionedTableController<ItemType>: NSObject, UITableViewDelegate {
 
     func prepare(_ tableView: UITableView) {
         tableView.registerHeaderFooter(nibName: TableHeaderView.reuseIdentifier)
+        tableView.registerCell(nibName: EmptySectionCell.reuseIdentifier)
 
+        tableView.dataSource = self
         tableView.delegate = self
-    }
 
-    lazy var dataSource = RxDataSourceType(configureCell: { (_, tableView, indexPath, item) -> UITableViewCell in
-        return self.cell(forItem: item, atIndexPath: indexPath, inTableView: tableView)
-    })
+        self.tableView = tableView
+    }
 
     func cell(forItem item: ItemType, atIndexPath indexPath: IndexPath, inTableView tableView: UITableView) -> UITableViewCell {
         fatalError("Subclasses should implement 'func cell(forItem item:atIndexPath:tableView:)'")
     }
 
-    // MAKR: UITableViewDelegate
+    func emptyCell(forSection section: SectionDataType, atIndexPath indexPath: IndexPath, inTableView tableView: UITableView) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: EmptySectionCell.reuseIdentifier, for: indexPath)
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return dataSource[section].items.isEmpty ? .leastNonzeroMagnitude : tableView.sectionHeaderHeight
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionData = dataSource[section]
-        guard !sectionData.items.isEmpty else {
-            return nil
+        guard let emptyCell = cell as? EmptySectionCell else {
+            return cell
         }
 
+        emptyCell.configure(with: section.emptyMessage ?? "")
+
+        return emptyCell
+    }
+
+    // MAKR: UITableViewDataSource
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return dataSource.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let showEmptyCell = dataSource[section].emptyMessage != nil
+
+        return max(dataSource[section].items.count, showEmptyCell ? 1 : 0)
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let sectionData = dataSource[indexPath.section]
+
+        switch sectionData.cellType {
+        case .regular:
+            let item = dataSource[indexPath.section].items[indexPath.row]
+            return cell(forItem: item, atIndexPath: indexPath, inTableView: tableView)
+        case .empty:
+            return emptyCell(forSection: sectionData, atIndexPath: indexPath, inTableView: tableView)
+        }
+    }
+
+    // MAKR: UITableViewDelegate
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.reuseIdentifier)
         guard let headerView = view as? TableHeaderView else {
             return nil
         }
 
+        let sectionData = dataSource[section]
         headerView.viewModel = TableHeaderViewModel(title: sectionData.header, icon: sectionData.icon)
 
         return view

@@ -10,7 +10,6 @@ import UIKit
 import DownKit
 import RxSwift
 import RxCocoa
-import RxDataSources
 
 class DownloadStatusTableController: SectionedTableController<DownloadItem>, Depending {
     typealias Dependencies = DownloadApplicationDependency

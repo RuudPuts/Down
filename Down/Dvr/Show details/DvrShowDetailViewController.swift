@@ -61,10 +61,7 @@ class DvrShowDetailViewController: UIViewController, Depending {
     func applyStyling() {
         view.style(as: .backgroundView)
         navigationController?.navigationBar.style(as: .transparentNavigationBar)
-
-        tableView?.tableFooterView = UIView()
-        tableView?.separatorColor = Stylesheet.Colors.Backgrounds.lightGray
-
+        tableView?.style(as: .defaultTableView)
         deleteButton.style(as: .deleteButton)
     }
     func configureTableView() {

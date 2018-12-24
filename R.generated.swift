@@ -343,7 +343,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 24 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 25 nibs.
   struct nib {
     /// Nib `ActivityView`.
     static let activityView = _R.nib._ActivityView()
@@ -383,6 +383,8 @@ struct R: Rswift.Validatable {
     static let dvrShowHeaderView = _R.nib._DvrShowHeaderView()
     /// Nib `DvrShowsViewController`.
     static let dvrShowsViewController = _R.nib._DvrShowsViewController()
+    /// Nib `EmptySectionCell`.
+    static let emptySectionCell = _R.nib._EmptySectionCell()
     /// Nib `KeyValueTableViewCell`.
     static let keyValueTableViewCell = _R.nib._KeyValueTableViewCell()
     /// Nib `PagingViewController`.
@@ -487,6 +489,11 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "DvrShowsViewController", in: bundle)`
     static func dvrShowsViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrShowsViewController)
+    }
+    
+    /// `UINib(name: "EmptySectionCell", in: bundle)`
+    static func emptySectionCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.emptySectionCell)
     }
     
     /// `UINib(name: "KeyValueTableViewCell", in: bundle)`
@@ -641,10 +648,10 @@ struct _R: Rswift.Validatable {
   
   struct nib: Rswift.Validatable {
     static func validate() throws {
-      try _ApplicationHeaderView.validate()
       try _TableHeaderView.validate()
-      try _SettingsApplicationCell.validate()
       try _DownloadQueueStatusView.validate()
+      try _ApplicationHeaderView.validate()
+      try _SettingsApplicationCell.validate()
     }
     
     struct _ActivityView: Rswift.NibResourceType {
@@ -863,6 +870,17 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _EmptySectionCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "EmptySectionCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> EmptySectionCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? EmptySectionCell
       }
       
       fileprivate init() {}

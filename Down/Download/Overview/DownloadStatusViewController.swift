@@ -176,7 +176,8 @@ extension DownloadStatusViewController: ReactiveBinding {
 
     private func bindTableView(_ sectionsData: Driver<[TableSectionData<DownloadItem>]>) {
         sectionsData
-            .drive(tableView.rx.items(dataSource: tableController.dataSource))
+            .do(onNext: { self.tableController.dataSource = $0 })
+            .drive()
             .disposed(by: disposeBag)
 
         let dataLoaded = sectionsData

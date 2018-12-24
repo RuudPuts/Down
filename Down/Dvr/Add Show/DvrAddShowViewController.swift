@@ -68,8 +68,6 @@ class DvrAddShowViewController: UIViewController & Depending {
     }
 
     private func configureTableView() {
-        tableView.tableFooterView = UIView()
-        
         tableView.rx.willDisplayCell
             .subscribe { event in
                 switch event {

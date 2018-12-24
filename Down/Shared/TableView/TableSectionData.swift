@@ -6,23 +6,28 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-import RxDataSources
 import DownKit
 
-struct TableSectionData<Item>: SectionModelType {
+struct TableSectionData<Item> {
+    enum CellType {
+        case empty
+        case regular
+    }
+
     var header: String
     var icon: UIImage?
+    var emptyMessage: String?
 
     var items: [Item]
 
-    init(header: String, icon: UIImage?, items: [Item]) {
+    var cellType: CellType {
+        return items.isEmpty ? .empty : .regular
+    }
+
+    init(header: String, icon: UIImage?, items: [Item], emptyMessage: String? = nil) {
         self.header = header
         self.icon = icon
         self.items = items
-    }
-
-    init(original: TableSectionData<Item>, items: [Item]) {
-        self = original
-        self.items = items
+        self.emptyMessage = emptyMessage
     }
 }

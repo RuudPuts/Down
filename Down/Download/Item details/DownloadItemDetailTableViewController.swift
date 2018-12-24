@@ -14,6 +14,8 @@ class DownloadItemDetailTableViewController: NSObject {
 extension DownloadItemDetailTableViewController {
     func prepare(_ tableView: UITableView) {
         tableView.registerCell(nibName: KeyValueTableViewCell.reuseIdentifier)
+
+        tableView.dataSource = self
     }
 }
 

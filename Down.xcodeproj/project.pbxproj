@@ -309,6 +309,8 @@
 		42F6DA2121B2FDF00080E12B /* RxExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F6DA2021B2FDF00080E12B /* RxExtensions.swift */; };
 		42F6DA2321B2FE200080E12B /* RxExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F6DA2221B2FE200080E12B /* RxExtensions.swift */; };
 		42FB90392101154C007B01DB /* ApplicationPersisting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FB9037210114DA007B01DB /* ApplicationPersisting.swift */; };
+		42FC2A9F21D18B800038E3E8 /* EmptySectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC2A9E21D18B800038E3E8 /* EmptySectionCell.swift */; };
+		42FC2AA121D18B8F0038E3E8 /* EmptySectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42FC2AA021D18B8F0038E3E8 /* EmptySectionCell.xib */; };
 		42FC9B0B21A17BDE00910968 /* ResponseStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC9B0921A17B8900910968 /* ResponseStub.swift */; };
 		42FC9B0D21A1AA2D00910968 /* ReactiveBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */; };
 		8B0BAC3DC3E9B869CF494C68 /* Pods_DownKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975275C9B320A539BA6E7DF3 /* Pods_DownKitTests.framework */; };
@@ -674,6 +676,8 @@
 		42F6DA2221B2FE200080E12B /* RxExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExtensions.swift; sourceTree = "<group>"; };
 		42FB9037210114DA007B01DB /* ApplicationPersisting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPersisting.swift; sourceTree = "<group>"; };
 		42FC2A9D21D186D20038E3E8 /* Down.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Down.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		42FC2A9E21D18B800038E3E8 /* EmptySectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySectionCell.swift; sourceTree = "<group>"; };
+		42FC2AA021D18B8F0038E3E8 /* EmptySectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptySectionCell.xib; sourceTree = "<group>"; };
 		42FC9B0921A17B8900910968 /* ResponseStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseStub.swift; sourceTree = "<group>"; };
 		42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveBindable.swift; sourceTree = "<group>"; };
 		497F217F594A83B2A5B832AB /* Pods_DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -782,6 +786,8 @@
 				422106D721CAA93B009D9D11 /* HeaderView */,
 				4284C720213327FD00F21B91 /* TableSectionData.swift */,
 				422106D821CAA950009D9D11 /* SectionedTableController.swift */,
+				42FC2A9E21D18B800038E3E8 /* EmptySectionCell.swift */,
+				42FC2AA021D18B8F0038E3E8 /* EmptySectionCell.xib */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -2178,6 +2184,7 @@
 				421D83AF2107A4A6008BEB2F /* Localizable.strings in Resources */,
 				423A50A421C83395002271BD /* DvrAiringSoonViewController.xib in Resources */,
 				42BE70C621693BED004167C3 /* DownloadItemDetailViewController.xib in Resources */,
+				42FC2AA121D18B8F0038E3E8 /* EmptySectionCell.xib in Resources */,
 				42DECE8C21C6CAC30084BF83 /* PagingViewController.xib in Resources */,
 				4243528020FA936C00A729E1 /* DownloadItemCell.xib in Resources */,
 				422106C821C97B23009D9D11 /* DvrAiringSoonCell.xib in Resources */,
@@ -2680,6 +2687,7 @@
 				428FCD6721234E3E00C0371D /* UILabelStyle.swift in Sources */,
 				423A5505216917A800CC558A /* UICollectionViewExtensions.swift in Sources */,
 				42DECE8A21C6C9760084BF83 /* PagingViewController.swift in Sources */,
+				42FC2A9F21D18B800038E3E8 /* EmptySectionCell.swift in Sources */,
 				424E3AEB21CC3BBF00738870 /* ActivityView.swift in Sources */,
 				426BF73F20F6A19D000C3A4A /* ApplicationHeaderView.swift in Sources */,
 				42BE70CE21693E06004167C3 /* CollectionExtensions.swift in Sources */,

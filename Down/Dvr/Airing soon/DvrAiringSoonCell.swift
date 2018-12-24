@@ -24,7 +24,6 @@ class DvrAiringSoonCell: UITableViewCell {
 
     private func applyStyling() {
         style(as: .defaultCell)
-        backgroundColor = .clear
 
         showLabel?.style(as: .titleLabel)
         titleLabel?.style(as: .detailLabel)

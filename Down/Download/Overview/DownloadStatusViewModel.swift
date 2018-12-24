@@ -66,8 +66,14 @@ extension DownloadStatusViewModel: ReactiveBindable {
 
         let sectionsData = Driver.zip([queueItems, history])
             .map {[
-                TableSectionData(header: "Queue", icon: R.image.icon_queue(), items: $0.first ?? []),
-                TableSectionData(header: "History", icon: R.image.icon_history(), items: $0.last ?? [])
+                TableSectionData(header: "Queue",
+                                 icon: R.image.icon_queue(),
+                                 items: $0.first ?? [],
+                                 emptyMessage: "Your queue is empty"),
+                TableSectionData(header: "History",
+                                 icon: R.image.icon_history(),
+                                 items: $0.last ?? [],
+                                 emptyMessage: "Your history is empty")
             ]}
 
         let itemSelected = input.itemSelected
