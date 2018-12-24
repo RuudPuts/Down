@@ -673,6 +673,7 @@
 		42F6DA2021B2FDF00080E12B /* RxExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExtensions.swift; sourceTree = "<group>"; };
 		42F6DA2221B2FE200080E12B /* RxExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExtensions.swift; sourceTree = "<group>"; };
 		42FB9037210114DA007B01DB /* ApplicationPersisting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPersisting.swift; sourceTree = "<group>"; };
+		42FC2A9D21D186D20038E3E8 /* Down.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Down.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		42FC9B0921A17B8900910968 /* ResponseStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseStub.swift; sourceTree = "<group>"; };
 		42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveBindable.swift; sourceTree = "<group>"; };
 		497F217F594A83B2A5B832AB /* Pods_DownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1588,6 +1589,7 @@
 		426A797520D1810100797AE5 = {
 			isa = PBXGroup;
 			children = (
+				42FC2A9D21D186D20038E3E8 /* Down.playground */,
 				426A798020D1810100797AE5 /* Down */,
 				4221DA2D20D1819F003950CF /* DownKit */,
 				42D77BC020E4567300FA1ACA /* Tests */,

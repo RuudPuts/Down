@@ -47,7 +47,7 @@ private extension DvrShow {
 // From https://stackoverflow.com/a/47469059
 private extension String {
     func removingPrefixes(_ prefixes: [String]) -> String {
-        let pattern = "^(\(prefixes.map { "\\Q"+$0+"\\E" }.joined(separator: "|")))\\s?"
+        let pattern = "^(\(prefixes.joined(separator: "|")))\\s"
         guard let range = self.range(of: pattern, options: [.regularExpression, .caseInsensitive]) else {
             return self
         }

@@ -1,45 +1,22 @@
-import PlaygroundSupport
-import UIKit
-import RxSwift
-import Result
-import RxResult
-import DownKit
+import Foundation
 
-enum DownKitError: Error {
-    case requestExecutor(RequestExecutingError)
-}
-
-let bag = DisposeBag()
-
-let observable = Observable<Result<Int, DownKitError>>.create { observer in
-    DispatchQueue.global().async {
-        while true {
-            let i = Int.random(in: 0...12)
-
-            if i < 8 {
-                observer.onNext(.success(i))
-            }
-            else {
-                observer.onNext(.failure(.requestExecutor(.invalidRequest)))
-            }
-
-            sleep(3)
-        }
+extension String {
+    func match(pattern: String) -> Range<String.Index>? {
+        return self.range(of: pattern, options: [.regularExpression, .caseInsensitive])
     }
-
-    return Disposables.create()
 }
 
-observable
-    .map { $0.map { String($0) } }
-    .subscribeResult(
-        onSuccess: { aaa in
-            print("\(type(of: aaa)): \(aaa)")
-        },
-        onFailure: { error in
-            print(error)
-        }
-    )
-    .disposed(by: bag)
+let regex1 = "^(a|the)\\s?"
+let regex2 = "^(a\\s|the\\s)?"
 
-PlaygroundPage.current.needsIndefiniteExecution = true
+"The 100".match(pattern: regex1)
+"The 100".match(pattern: regex2)
+
+"Theft show".match(pattern: regex1)
+"Theft show".match(pattern: regex2)
+
+"A show title".match(pattern: regex1)
+"A show title".match(pattern: regex2)
+
+"American dad".match(pattern: regex1)
+"American dad".match(pattern: regex2)
