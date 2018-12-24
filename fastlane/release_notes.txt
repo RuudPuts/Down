@@ -1,1 +1,3 @@
-- Added initial data load feedback to download status
+- Added option to pause / resume download queue
+- Added option to purge the full download history
+- Added data load feedback to download status
