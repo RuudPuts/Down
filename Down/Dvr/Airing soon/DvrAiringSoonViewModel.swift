@@ -82,7 +82,7 @@ extension DvrAiringSoonViewModel {
             let show = episode.show!
 
             return RefinedEpisode(title: episode.name,
-                                  showAndIdentifier: String(format: "%@ - S%02dE%02d", show.name, Int(episode.season.identifier)!, Int(episode.identifier)!),
+                                  showAndIdentifier: "\(show.name) - \(episode.seasonIdentifierString!)",
                                   airingOn: "Airs \(show.airTime) on \(show.network)",
                                   bannerUrl: requestBuilder.url(for: .fetchBanner(show)))
 

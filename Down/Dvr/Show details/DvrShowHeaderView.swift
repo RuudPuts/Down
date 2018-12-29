@@ -19,6 +19,7 @@ class DvrShowHeaderView: DesignableView {
     @IBOutlet weak var networkLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var qualityLabel: UILabel!
+    @IBOutlet weak var episodesAvailableLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,6 +32,7 @@ class DvrShowHeaderView: DesignableView {
         nameLabel.style(as: .largeHeaderLabel)
         networkLabel.style(as: .titleLabel)
         statusLabel.style(as: .titleLabel)
+        episodesAvailableLabel.style(as: .detailLabel)
     }
 }
 
@@ -40,6 +42,7 @@ extension DvrShowHeaderView {
         networkLabel.text = show.airingOn
         statusLabel.text = show.status.displayString
         qualityLabel.text = show.quality.displayString
+        episodesAvailableLabel.text = show.episodesAvailable
         
         bannerImageView.kf.setImage(with: show.bannerUrl)
         posterImageView.kf.setImage(with: show.posterUrl)

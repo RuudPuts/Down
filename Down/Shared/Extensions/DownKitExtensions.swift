@@ -25,13 +25,8 @@ extension Quality {
 extension DownloadItem {
     var displayName: String {
         if let episode = dvrEpisode,
-            let episodeId = Int(episode.identifier),
-            let seasonId = Int(episode.season.identifier) {
-            return String(format: "%@ - S%02dE%02d - %@",
-                          episode.show.name,
-                          seasonId,
-                          episodeId,
-                          episode.name)
+            let seasonIdentifierString = episode.seasonIdentifierString {
+            return "\(episode.show.name) - \(seasonIdentifierString) - \(episode.name)"
         }
 
         return name
@@ -81,9 +76,7 @@ extension DvrEpisode {
             return nil
         }
 
-        return String(format: "S%02dE%02d",
-                      seasonId,
-                      episodeId)
+        return String(format: "S%02dE%02d", seasonId, episodeId)
     }
 
     var displayName: String {

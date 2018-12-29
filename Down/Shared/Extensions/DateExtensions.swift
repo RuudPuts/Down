@@ -32,7 +32,8 @@ extension Date {
     
     var dateString: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateStyle = .medium
+        formatter.locale = .current
 
         return formatter.string(from: self)
     }
@@ -50,7 +51,9 @@ extension Date {
 
     var dateTimeString: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM HH:mm"
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
+        formatter.locale = .current
 
         return formatter.string(from: self)
     }

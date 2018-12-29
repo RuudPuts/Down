@@ -44,37 +44,14 @@ extension DownloadStatusViewModel: ReactiveBindable {
     }
 
     func transform(input: Input) -> Output {
-        let queue = dependencies.downloadInteractorFactory
-            .makeQueueInteractor(for: dependencies.downloadApplication)
-            .observe()
-            .asObservable()
-            .withInterval(interval: refreshInterval)
-            .asDriver(onErrorJustReturn: DownloadQueue())
-
-        let queueItems = queue.map { $0.items }
-
-        let history = dependencies.downloadInteractorFactory
-            .makeHistoryInteractor(for: dependencies.downloadApplication)
-            .observe()
-            .asObservable()
-            .withInterval(interval: refreshInterval)
-            .asDriver(onErrorJustReturn: [])
-
         let queuePaused = input.pauseQueue.flatMap { self.makePauseQueueInteractor() }
         let queueResumed = input.resumeQueue.flatMap { self.makeResumeQueueInteractor() }
         let historyPurged = input.purgeHistory.flatMap { self.makePurgeHistoryInteractor() }
 
-        let sectionsData = Driver.zip([queueItems, history])
-            .map {[
-                TableSectionData(header: "Queue",
-                                 icon: R.image.icon_queue(),
-                                 items: $0.first ?? [],
-                                 emptyMessage: "Your queue is empty"),
-                TableSectionData(header: "History",
-                                 icon: R.image.icon_history(),
-                                 items: $0.last ?? [],
-                                 emptyMessage: "Your history is empty")
-            ]}
+        let queue = makeQueueDriver()
+        let history = makeHistoryDriver()
+        let sectionsData = makeSectionDataDriver(queueItems: queue.map { $0.items },
+                                                 historyItems: history)
 
         let itemSelected = input.itemSelected
             .withLatestFrom(sectionsData) { indexPath, sections in
@@ -89,6 +66,29 @@ extension DownloadStatusViewModel: ReactiveBindable {
                       historyPurged: historyPurged)
     }
 
+    private func makeSectionDataDriver(queueItems: Driver<[DownloadItem]>, historyItems: Driver<[DownloadItem]>) -> Driver<[TableSectionData<DownloadItem>]> {
+        return Driver.zip([queueItems, historyItems])
+            .map {[
+                TableSectionData(header: "Queue",
+                                 icon: R.image.icon_queue(),
+                                 items: $0.first ?? [],
+                                 emptyMessage: "Your queue is empty"),
+                TableSectionData(header: "History",
+                                 icon: R.image.icon_history(),
+                                 items: $0.last ?? [],
+                                 emptyMessage: "Your history is empty")
+                ]}
+    }
+
+    private func makeQueueDriver() -> Driver<DownloadQueue> {
+        return dependencies.downloadInteractorFactory
+            .makeQueueInteractor(for: dependencies.downloadApplication)
+            .observe()
+            .asObservable()
+            .withInterval(interval: refreshInterval)
+            .asDriver(onErrorJustReturn: DownloadQueue())
+    }
+
     private func makePauseQueueInteractor() -> Observable<Result<Bool, DownError>> {
         return self.dependencies.downloadInteractorFactory
             .makePauseQueueInteractor(for: self.dependencies.downloadApplication)
@@ -99,6 +99,15 @@ extension DownloadStatusViewModel: ReactiveBindable {
         return self.dependencies.downloadInteractorFactory
             .makeResumeQueueInteractor(for: self.dependencies.downloadApplication)
             .observeResult()
+    }
+
+    private func makeHistoryDriver() -> Driver<[DownloadItem]> {
+        return dependencies.downloadInteractorFactory
+            .makeHistoryInteractor(for: dependencies.downloadApplication)
+            .observe()
+            .asObservable()
+            .withInterval(interval: refreshInterval)
+            .asDriver(onErrorJustReturn: [])
     }
 
     private func makePurgeHistoryInteractor() -> Observable<Result<Bool, DownError>> {

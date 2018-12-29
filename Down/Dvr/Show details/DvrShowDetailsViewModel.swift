@@ -66,6 +66,7 @@ extension DvrShowDetailsViewModel {
         let airingOn: String
         let quality: Quality
         let status: DvrShowStatus
+        let episodesAvailable: String
 
         let seasons: [RefinedSeason]
 
@@ -73,15 +74,19 @@ extension DvrShowDetailsViewModel {
         let posterUrl: URL?
 
         static func from(show: DvrShow, withDvrRequestBuilder requestBuilder: DvrRequestBuilding) -> RefinedShow {
-            let seasons = show.seasons
+            let refinedSeasons = show.seasons
                 .sorted(by: { Int($0.identifier)! > Int($1.identifier)! })
                 .map { RefinedSeason.from(season: $0) }
+
+            let episodes = refinedSeasons.flatMap { $0.episodes }
+            let downloadedEpisodes = episodes.filter { $0.status == .downloaded }
 
             return RefinedShow(name: show.name,
                                airingOn: "\(show.airTime) on \(show.network)",
                                quality: show.quality,
                                status: show.status,
-                               seasons: seasons,
+                               episodesAvailable: "\(downloadedEpisodes.count) / \(episodes.count) episodes downloaded",
+                               seasons: refinedSeasons,
                                bannerUrl: requestBuilder.url(for: .fetchBanner(show)),
                                posterUrl: requestBuilder.url(for: .fetchPoster(show)))
         }

@@ -68,9 +68,7 @@ extension DvrRecentlyAiredViewModel {
 
             return RefinedEpisode(
                 title: episode.name,
-                showAndIdentifier: String(format: "%@ - S%02dE%02d",
-                                          show.name,
-                                          Int(episode.season.identifier)!, Int(episode.identifier)!),
+                showAndIdentifier: "\(show.name) - \(episode.seasonIdentifierString!)",
                 airedOn: "Aired \(episode.airdate?.dayMonthString ?? "") on \(show.network)",
                 status: episode.status,
                 bannerUrl: requestBuilder.url(for: .fetchBanner(show))
