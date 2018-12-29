@@ -113,13 +113,27 @@ extension DvrShowDetailsViewModel {
 
     struct RefinedEpisode {
         let title: String
+        let plot: String?
         let airingOn: String
         let status: DvrEpisodeStatus
+        let statusDescription: String
 
         static func from(episode: DvrEpisode) -> RefinedEpisode {
+            var statusDescription = episode.status.displayString
+            if episode.quality != .unknown {
+                statusDescription = "\(statusDescription) (\(episode.quality.displayString))"
+            }
+
+            var airingOn = R.string.localizable.dvr_episode_unaired()
+            if let airDate = episode.airdate {
+                airingOn = "\(airDate.isInThePast ? "Aired" : "Airs") \(airDate.dateString)"
+            }
+
             return RefinedEpisode(title: "\(episode.identifier). \(episode.name)",
-                                  airingOn: episode.airdate?.dateString ?? R.string.localizable.dvr_episode_unaired(),
-                                  status: episode.status)
+                                  plot: "lala episode plot",
+                                  airingOn: airingOn,
+                                  status: episode.status,
+                                  statusDescription: statusDescription)
         }
     }
 }

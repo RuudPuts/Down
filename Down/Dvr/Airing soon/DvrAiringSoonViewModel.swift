@@ -36,7 +36,7 @@ extension DvrAiringSoonViewModel: ReactiveBindable {
     func transform(input: Input) -> Output {
         let airingToday = dependencies.database.fetchEpisodes(airingOn: Date())
         let airingTomorrow = dependencies.database.fetchEpisodes(airingOn: Date.tomorrow)
-        let airingSoon = dependencies.database.fetchEpisodes(airingBetween: Date().addDays(2), and: Date().addDays(14))
+        let airingSoon = dependencies.database.fetchEpisodes(airingBetween: Date().addingDays(2), and: Date().addingDays(14))
 
         let episodes = Observable.zip([airingToday, airingTomorrow, airingSoon])
         let episodeSelected = input.itemSelected

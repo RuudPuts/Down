@@ -115,5 +115,13 @@ extension DvrShowDetailViewController: ReactiveBinding {
             )
             .subscribe()
             .disposed(by: disposeBag)
+
+        tableView.rx.itemSelected
+            .asObservable()
+            .subscribe(onNext: { _ in
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            })
+            .disposed(by: disposeBag)
     }
 }

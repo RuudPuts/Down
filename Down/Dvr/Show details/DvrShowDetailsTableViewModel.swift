@@ -68,9 +68,4 @@ extension DvrShowDetailsTableViewModel: UITableViewDelegate {
 
         return view
     }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.style(as: .defaultCell)
-        cell.style(as: .selectableCell(application: dependencies.dvrApplication.downType))
-    }
 }

@@ -16,10 +16,18 @@ extension TimeInterval {
 
 extension Date {
     static var tomorrow: Date {
-        return Date().addDays(1)
+        return Date().addingDays(1)
     }
 
-    func addDays(_ days: Int) -> Date {
+    var isInThePast: Bool {
+        return isBefore(Date())
+    }
+
+    func isBefore(_ otherDate: Date) -> Bool {
+        return otherDate.timeIntervalSince(self) > 0
+    }
+
+    func addingDays(_ days: Int) -> Date {
         return addingTimeInterval(86400 * Double(days))
     }
 
