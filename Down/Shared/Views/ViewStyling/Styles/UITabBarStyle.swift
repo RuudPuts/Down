@@ -16,5 +16,7 @@ extension ViewStyling where ViewType == UITabBar {
         $0.items?.forEach {
             $0.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
         }
+
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .normal)
     }
 }

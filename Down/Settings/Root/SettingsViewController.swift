@@ -82,20 +82,13 @@ extension SettingsViewController: ReactiveBinding {
     }
 
     func bind(output: SettingsViewModel.Output) {
-        bindTitle(output.title)
+        output.title
+            .drive(rx.title)
+            .disposed(by: disposeBag)
+
         bindWelcomeMessage(output.welcomeMessage)
         bindTableSections(output.applications)
         bindNavigation(output.navigateToDetails)
-    }
-
-    private func bindTitle(_ title: Driver<String>) {
-        title.drive(rx.title)
-            .disposed(by: disposeBag)
-
-        //! Set title style on tabbar instead?
-        title.do(onNext: { _ in self.navigationController?.tabBarItem.title = nil })
-            .drive()
-            .disposed(by: disposeBag)
     }
 
     private func bindWelcomeMessage(_ welcomeMessage: Driver<String>) {
