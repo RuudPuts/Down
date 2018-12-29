@@ -14,7 +14,10 @@ struct DvrAiringSoonViewModel: Depending {
     typealias Dependencies = DatabaseDependency & DvrRequestBuilderDependency
     let dependencies: Dependencies
 
-    let title = "Upcoming"
+    let title = "Upcoming" //! localize
+
+    var input = Input()
+    lazy var output = transform(input: input)
 
     private let disposeBag = DisposeBag()
 
@@ -25,14 +28,16 @@ struct DvrAiringSoonViewModel: Depending {
 
 extension DvrAiringSoonViewModel: ReactiveBindable {
     struct Input {
-        let itemSelected: Observable<IndexPath>
+        let itemSelected = PublishSubject<IndexPath>()
     }
 
     struct Output {
         let sections: Observable<[TableSectionData<RefinedEpisode>]>
         let episodeSelected: Observable<DvrEpisode>
     }
+}
 
+extension DvrAiringSoonViewModel {
     func transform(input: Input) -> Output {
         let airingToday = dependencies.database.fetchEpisodes(airingOn: Date())
         let airingTomorrow = dependencies.database.fetchEpisodes(airingOn: Date.tomorrow)

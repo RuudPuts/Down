@@ -55,13 +55,9 @@ class DvrShowsViewController: UIViewController & Depending {
 }
 
 extension DvrShowsViewController: ReactiveBinding {
-    func makeInput() -> DvrShowsViewModel.Input {
-        return DvrShowsViewModel.Input()
-    }
+    typealias Bindable = DvrShowsViewModel
 
-    func bind(to viewModel: DvrShowsViewModel) {
-        let output = viewModel.transform(input: makeInput())
-
+    func bind(output: DvrShowsViewModel.Output) {
         output.shows
             .drive(collectionViewModel.rx.shows)
             .disposed(by: disposeBag)

@@ -14,7 +14,10 @@ struct DvrShowsViewModel: Depending {
     typealias Dependencies = DatabaseDependency
     let dependencies: Dependencies
 
-    let title = "All shows"
+    let title = "All shows" //! localize
+
+    var input = Input()
+    lazy var output = transform(input: input)
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
@@ -27,8 +30,10 @@ extension DvrShowsViewModel: ReactiveBindable {
     struct Output {
         let shows: Driver<[DvrShow]>
     }
+}
 
-    func transform(input: Input) -> Output {
+extension DvrShowsViewModel {
+    func transform(input: DvrShowsViewModel.Input) -> DvrShowsViewModel.Output {
         let showsDriver = dependencies.database
             .fetchShows()
             .map { $0.sorted(by: { $0.nameWithoutPrefix < $1.nameWithoutPrefix }) }

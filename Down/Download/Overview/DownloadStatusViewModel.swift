@@ -16,9 +16,12 @@ struct DownloadStatusViewModel: Depending {
     typealias Dependencies = DownloadInteractorFactoryDependency & DownloadApplicationDependency
     let dependencies: Dependencies
 
-    let activityViewText = "Fetching status..."
+    let activityViewText = "Fetching status..." //! localize
 
-    private var refreshInterval: TimeInterval = 2
+    var input = Input()
+    lazy var output = transform(input: input)
+
+    fileprivate let refreshInterval: TimeInterval = 2
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
@@ -27,10 +30,10 @@ struct DownloadStatusViewModel: Depending {
 
 extension DownloadStatusViewModel: ReactiveBindable {
     struct Input {
-        let itemSelected: ControlEvent<IndexPath>
-        let pauseQueue: Observable<Void>
-        let resumeQueue: Observable<Void>
-        let purgeHistory: Observable<Void>
+        let itemSelected = PublishSubject<IndexPath>()
+        let pauseQueue = PublishSubject<Void>() //! Signal?
+        let resumeQueue = PublishSubject<Void>()
+        let purgeHistory = PublishSubject<Void>()
     }
 
     struct Output {
@@ -42,10 +45,13 @@ extension DownloadStatusViewModel: ReactiveBindable {
         let queueResumed: Observable<Result<Bool, DownError>>
         let historyPurged: Observable<Result<Bool, DownError>>
     }
+}
 
+extension DownloadStatusViewModel {
     func transform(input: Input) -> Output {
         let queuePaused = input.pauseQueue.flatMap { self.makePauseQueueInteractor() }
         let queueResumed = input.resumeQueue.flatMap { self.makeResumeQueueInteractor() }
+
         let historyPurged = input.purgeHistory.flatMap { self.makePurgeHistoryInteractor() }
 
         let queue = makeQueueDriver()
@@ -56,14 +62,10 @@ extension DownloadStatusViewModel: ReactiveBindable {
         let itemSelected = input.itemSelected
             .withLatestFrom(sectionsData) { indexPath, sections in
                 return sections[indexPath.section].items[indexPath.row]
-            }
+        }
 
-        return Output(queue: queue,
-                      sectionsData: sectionsData,
-                      itemSelected: itemSelected,
-                      queuePaused: queuePaused,
-                      queueResumed: queueResumed,
-                      historyPurged: historyPurged)
+        return Output(queue: queue, sectionsData: sectionsData, itemSelected: itemSelected,
+                      queuePaused: queuePaused, queueResumed: queueResumed, historyPurged: historyPurged)
     }
 
     private func makeSectionDataDriver(queueItems: Driver<[DownloadItem]>, historyItems: Driver<[DownloadItem]>) -> Driver<[TableSectionData<DownloadItem>]> {
@@ -77,7 +79,7 @@ extension DownloadStatusViewModel: ReactiveBindable {
                                  icon: R.image.icon_history(),
                                  items: $0.last ?? [],
                                  emptyMessage: "Your history is empty")
-                ]}
+            ]}
     }
 
     private func makeQueueDriver() -> Driver<DownloadQueue> {
@@ -90,18 +92,18 @@ extension DownloadStatusViewModel: ReactiveBindable {
     }
 
     private func makePauseQueueInteractor() -> Observable<Result<Bool, DownError>> {
-        return self.dependencies.downloadInteractorFactory
-            .makePauseQueueInteractor(for: self.dependencies.downloadApplication)
+        return dependencies.downloadInteractorFactory
+            .makePauseQueueInteractor(for: dependencies.downloadApplication)
             .observeResult()
     }
 
     private func makeResumeQueueInteractor() -> Observable<Result<Bool, DownError>> {
-        return self.dependencies.downloadInteractorFactory
-            .makeResumeQueueInteractor(for: self.dependencies.downloadApplication)
+        return dependencies.downloadInteractorFactory
+            .makeResumeQueueInteractor(for: dependencies.downloadApplication)
             .observeResult()
     }
 
-    private func makeHistoryDriver() -> Driver<[DownloadItem]> {
+     func makeHistoryDriver() -> Driver<[DownloadItem]> {
         return dependencies.downloadInteractorFactory
             .makeHistoryInteractor(for: dependencies.downloadApplication)
             .observe()
@@ -111,8 +113,8 @@ extension DownloadStatusViewModel: ReactiveBindable {
     }
 
     private func makePurgeHistoryInteractor() -> Observable<Result<Bool, DownError>> {
-        return self.dependencies.downloadInteractorFactory
-            .makePurgeHistoryInteractor(for: self.dependencies.downloadApplication)
+        return dependencies.downloadInteractorFactory
+            .makePurgeHistoryInteractor(for: dependencies.downloadApplication)
             .observeResult()
     }
 }

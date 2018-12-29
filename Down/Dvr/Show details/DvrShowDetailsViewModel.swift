@@ -15,6 +15,9 @@ import RxResult
 struct DvrShowDetailsViewModel: Depending {
     typealias Dependencies = DvrInteractorFactoryDependency & DvrRequestBuilderDependency
     let dependencies: Dependencies
+    
+    var input = Input()
+    lazy var output = transform(input: input)
 
     private let show: DvrShow
 
@@ -34,14 +37,16 @@ struct DvrShowDetailsViewModel: Depending {
 
 extension DvrShowDetailsViewModel: ReactiveBindable {
     struct Input {
-        let deleteShow: ControlEvent<Void>
+        let deleteShow = PublishSubject<Void>()
     }
 
     struct Output {
         let refinedShow: Driver<RefinedShow>
         let showDeleted: Observable<Result<Void, DownError>>
     }
+}
 
+extension DvrShowDetailsViewModel {
     func transform(input: Input) -> Output {
         let showDriver = Driver.just(show)
         let refinedShowDriver = showDriver.map {

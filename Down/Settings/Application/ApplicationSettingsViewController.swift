@@ -24,7 +24,7 @@ class ApplicationSettingsViewController: UIViewController & Depending {
     let dependencies: Dependencies
 
     let application: ApiApplication
-    var disposeBag: DisposeBag! = DisposeBag()
+    var disposeBag: DisposeBag!
 
     lazy var viewModel = ApplicationSettingsViewModel(dependencies: dependencies, application: application)
 
@@ -50,6 +50,8 @@ class ApplicationSettingsViewController: UIViewController & Depending {
 
         applyStyling()
         configureTextFields()
+
+        disposeBag = DisposeBag()
         bind(to: viewModel)
     }
 
@@ -101,25 +103,31 @@ extension ApplicationSettingsViewController: UITextFieldDelegate {
 }
 
 extension ApplicationSettingsViewController: ReactiveBinding {
-    func makeInput() -> ApplicationSettingsViewModel.Input {
-        let hostDriver = hostTextField.rx.debouncedText//.skip(1)
-        let usernameDriver = usernameTextField.rx.debouncedText
-        let passwordDriver = passwordTextField.rx.debouncedText
-        let apiKeyDriver = apiKeyTextField.rx.debouncedText
-        let saveButtonTap = saveButton.rx.tap
+    typealias Bindable = ApplicationSettingsViewModel
 
-        return ApplicationSettingsViewModel.Input(
-            host: hostDriver,
-            username: usernameDriver,
-            password: passwordDriver,
-            apiKey: apiKeyDriver,
-            saveButtonTapped: saveButtonTap
-        )
+    func bind(input: ApplicationSettingsViewModel.Input) {
+        hostTextField.rx.debouncedText//.skip(1)
+            .drive(input.host)
+            .disposed(by: disposeBag)
+
+        usernameTextField.rx.debouncedText
+            .drive(input.username)
+            .disposed(by: disposeBag)
+
+        passwordTextField.rx.debouncedText
+            .drive(input.password)
+            .disposed(by: disposeBag)
+
+        apiKeyTextField.rx.debouncedText
+            .drive(input.apiKey)
+            .disposed(by: disposeBag)
+
+        saveButton.rx.tap
+            .bind(to: input.saveButtonTapped)
+            .disposed(by: disposeBag)
     }
 
-    func bind(to viewModel: ApplicationSettingsViewModel) {
-        let output = viewModel.transform(input: makeInput())
-
+    func bind(output: ApplicationSettingsViewModel.Output) {
         let authenticationRequired = output.loginResult
             .map { $0 != .authenticationRequired }
 

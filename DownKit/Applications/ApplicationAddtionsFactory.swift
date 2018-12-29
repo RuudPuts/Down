@@ -23,7 +23,7 @@ public protocol ApplicationAdditionsProducing {
 }
 
 public class ApplicationAdditionsFactory: ApplicationAdditionsProducing {
-    public init() {}
+    public init() { }
 
     public func makeApiApplicationRequestBuilder(for application: ApiApplication) -> ApiApplicationRequestBuilding {
         // swiftlint:disable force_cast

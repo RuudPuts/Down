@@ -49,6 +49,7 @@ class DvrShowDetailViewController: UIViewController, Depending {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        disposeBag = DisposeBag()
         bind(to: viewModel)
     }
 
@@ -73,17 +74,15 @@ class DvrShowDetailViewController: UIViewController, Depending {
 }
 
 extension DvrShowDetailViewController: ReactiveBinding {
-    func makeInput() -> DvrShowDetailsViewModel.Input {
-        let deleteButtonTapped = deleteButton.rx.tap
+    typealias Bindable = DvrShowDetailsViewModel
 
-        return DvrShowDetailsViewModel.Input(deleteShow: deleteButtonTapped)
+    func bind(input: DvrShowDetailsViewModel.Input) {
+        deleteButton.rx.tap
+            .bind(to: input.deleteShow)
+            .disposed(by: disposeBag)
     }
 
-    func bind(to viewModel: DvrShowDetailsViewModel) {
-        disposeBag = DisposeBag()
-
-        let output = viewModel.transform(input: makeInput())
-
+    func bind(output: DvrShowDetailsViewModel.Output) {
         output.refinedShow
             .do(onNext: { show in
                 self.headerView?.configure(with: show)

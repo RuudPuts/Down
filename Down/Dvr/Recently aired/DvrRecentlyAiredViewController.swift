@@ -43,6 +43,7 @@ class DvrRecentlyAiredViewController: UIViewController & Depending {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        disposeBag = DisposeBag()
         bind(to: viewModel)
     }
 
@@ -64,19 +65,17 @@ class DvrRecentlyAiredViewController: UIViewController & Depending {
 }
 
 extension DvrRecentlyAiredViewController: ReactiveBinding {
-    func makeInput() -> DvrRecentlyAiredViewModel.Input {
-        let itemSelected = tableView.rx.itemSelected.do(onNext: {
-            self.tableView.deselectRow(at: $0, animated: true)
-        })
+    typealias Bindable = DvrRecentlyAiredViewModel
 
-        return DvrRecentlyAiredViewModel.Input(itemSelected: itemSelected)
+    func bind(input: DvrRecentlyAiredViewModel.Input) {
+        tableView.rx.itemSelected.do(onNext: {
+                self.tableView.deselectRow(at: $0, animated: true)
+            })
+            .bind(to: input.itemSelected)
+            .disposed(by: disposeBag)
     }
 
-    func bind(to viewModel: DvrRecentlyAiredViewModel) {
-        disposeBag = DisposeBag()
-
-        let output = viewModel.transform(input: makeInput())
-
+    func bind(output: DvrRecentlyAiredViewModel.Output) {
         output.data
             .bind(to: tableView.rx.items(cellIdentifier: DvrRecentlyAiredCell.reuseIdentifier,
                                          cellType: DvrRecentlyAiredCell.self)) { _, item, cell in

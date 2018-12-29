@@ -9,11 +9,11 @@
 import UIKit
 
 extension ViewStyling where ViewType == UITabBar {
-    static var defaultTabBar = ViewStyling { (tabBar: UITabBar) in
-        tabBar.barTintColor = Stylesheet.Colors.Backgrounds.darkBlue
-        tabBar.tintColor = Stylesheet.Colors.white
+    static var defaultTabBar = ViewStyling {
+        $0.barTintColor = Stylesheet.Colors.Backgrounds.darkBlue
+        $0.tintColor = Stylesheet.Colors.white
 
-        tabBar.items?.forEach {
+        $0.items?.forEach {
             $0.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
         }
     }

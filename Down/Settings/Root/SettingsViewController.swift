@@ -72,13 +72,16 @@ class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: ReactiveBinding {
-    func makeInput() -> SettingsViewModel.Input {
-        return SettingsViewModel.Input(itemSelected: tableView.rx.itemSelected)
+    typealias Bindable = SettingsViewModel
+
+    func bind(input: SettingsViewModel.Input) {
+        tableView.rx.itemSelected
+            .asObservable()
+            .bind(to: input.itemSelected)
+            .disposed(by: disposeBag)
     }
 
-    func bind(to viewModel: SettingsViewModel) {
-        let output = viewModel.transform(input: makeInput())
-
+    func bind(output: SettingsViewModel.Output) {
         bindTitle(output.title)
         bindWelcomeMessage(output.welcomeMessage)
         bindTableSections(output.applications)
@@ -89,6 +92,7 @@ extension SettingsViewController: ReactiveBinding {
         title.drive(rx.title)
             .disposed(by: disposeBag)
 
+        //! Set title style on tabbar instead?
         title.do(onNext: { _ in self.navigationController?.tabBarItem.title = nil })
             .drive()
             .disposed(by: disposeBag)

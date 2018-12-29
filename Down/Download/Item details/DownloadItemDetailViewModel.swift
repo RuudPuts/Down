@@ -16,7 +16,10 @@ struct DownloadItemDetailViewModel: Depending {
     typealias Dependencies = DownloadInteractorFactoryDependency & DvrRequestBuilderDependency
     let dependencies: Dependencies
 
-    let item: DownloadItem
+    var input = Input()
+    lazy var output = transform(input: input)
+
+    private let item: DownloadItem
 
     init(dependencies: Dependencies, item: DownloadItem) {
         self.dependencies = dependencies
@@ -26,14 +29,16 @@ struct DownloadItemDetailViewModel: Depending {
 
 extension DownloadItemDetailViewModel: ReactiveBindable {
     struct Input {
-        let deleteButtonTapped: ControlEvent<Void>
+        let deleteButtonTapped = PublishSubject<Void>()
     }
 
     struct Output {
         let refinedItem: Driver<RefinedItem>
         let itemDeleted: Observable<Result<Void, DownError>>
     }
+}
 
+extension DownloadItemDetailViewModel {
     func transform(input: Input) -> Output {
         let refinedItem = RefinedItem.from(item: item, withDvrRequestBuilder: dependencies.dvrRequestBuilder)
         let refinedItemDriver = Driver<RefinedItem>.just(refinedItem)

@@ -16,6 +16,9 @@ struct ApplicationSettingsViewModel: Depending {
     typealias Dependencies = ApiApplicationInteractorFactoryDependency & DvrInteractorFactoryDependency & ApplicationPersistenceDependency
     let dependencies: Dependencies
 
+    var input = Input()
+    lazy var output = transform(input: input)
+
     private var application: ApiApplication
 
     init(dependencies: Dependencies, application: ApiApplication) {
@@ -28,12 +31,12 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
     private typealias LoginInputTuple = (application: ApiApplication, credentials: UsernamePassword?)
 
     struct Input {
-        let host: Driver<String>
-        let username: Driver<String>
-        let password: Driver<String>
-        let apiKey: Driver<String>
+        let host = PublishSubject<String>()
+        let username = PublishSubject<String>()
+        let password = PublishSubject<String>()
+        let apiKey = PublishSubject<String>()
 
-        let saveButtonTapped: ControlEvent<Void>
+        let saveButtonTapped = PublishSubject<Void>()
     }
 
     struct Output {
@@ -44,10 +47,13 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
         let isSaving: Driver<Bool>
         let settingsSaved: Driver<Result<Void, DownError>>
     }
+}
 
+extension ApplicationSettingsViewModel {
     func transform(input: Input) -> Output {
-        let observableApplication = transformApplication(input.host)
-        let credentials = transformCredentials(username: input.username, password: input.password)
+        let observableApplication = transformApplication(input.host.asDriver(onErrorJustReturn: String()))
+        let credentials = transformCredentials(username: input.username.asDriver(onErrorJustReturn: String()),
+                                               password: input.password.asDriver(onErrorJustReturn: String()))
 
         let loginResult = transformLogin(application: observableApplication, credentials: credentials)
 
@@ -173,7 +179,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
             .asSingle()
     }
 
-    private func transformSaveSettings(from input: ControlEvent<Void>, application: Driver<ApiApplication>, apiKey: Driver<String>) -> (isSaving: Driver<Bool>, settingsSaved: Driver<Result<Void, DownError>>) {
+    private func transformSaveSettings(from input: Observable<Void>, application: Driver<ApiApplication>, apiKey: Driver<String>) -> (isSaving: Driver<Bool>, settingsSaved: Driver<Result<Void, DownError>>) {
         let isSavingSubject = BehaviorSubject(value: false)
 
         let settingsSaved = input

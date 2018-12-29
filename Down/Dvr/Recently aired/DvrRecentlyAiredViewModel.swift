@@ -14,7 +14,10 @@ struct DvrRecentlyAiredViewModel: Depending {
     typealias Dependencies = DatabaseDependency & DvrRequestBuilderDependency
     let dependencies: Dependencies
 
-    let title = "Recents"
+    let title = "Recents" //! Localize
+
+    var input = Input()
+    lazy var output = transform(input: input)
 
     private let disposeBag = DisposeBag()
 
@@ -25,14 +28,16 @@ struct DvrRecentlyAiredViewModel: Depending {
 
 extension DvrRecentlyAiredViewModel: ReactiveBindable {
     struct Input {
-        let itemSelected: Observable<IndexPath>
+        let itemSelected = PublishSubject<IndexPath>()
     }
 
     struct Output {
         let data: Observable<[RefinedEpisode]>
         let episodeSelected: Observable<DvrEpisode>
     }
+}
 
+extension DvrRecentlyAiredViewModel {
     func transform(input: Input) -> Output {
         let recentlyAired: Observable<[DvrEpisode]> = dependencies.database
             .fetchEpisodes(airingBetween: Date().addingDays(-14), and: Date().addingDays(-1))

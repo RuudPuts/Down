@@ -15,6 +15,9 @@ struct SettingsViewModel: Depending {
     typealias Dependencies = ApplicationPersistenceDependency
     let dependencies: Dependencies
 
+    var input = Input()
+    lazy var output = transform(input: input)
+
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
@@ -22,7 +25,7 @@ struct SettingsViewModel: Depending {
 
 extension SettingsViewModel: ReactiveBindable {
     struct Input {
-        let itemSelected: ControlEvent<IndexPath>
+        let itemSelected = PublishSubject<IndexPath>()
     }
 
     struct Output {
@@ -33,7 +36,9 @@ extension SettingsViewModel: ReactiveBindable {
 
         let navigateToDetails: Observable<ApiApplication>
     }
+}
 
+extension SettingsViewModel {
     func transform(input: SettingsViewModel.Input) -> SettingsViewModel.Output {
         let showWelcomeMessageDriver = Driver.just(!dependencies.persistence.anyApplicationConfigured)
         let titleDriver = showWelcomeMessageDriver.map { $0 ? "Down" : "Settings" }

@@ -56,9 +56,11 @@ class DownloadStatusViewController: UIViewController & Depending {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        bind(to: viewModel)
 
         navigationController?.setNavigationBarHidden(true, animated: animated)
+
+        disposeBag = DisposeBag()
+        bind(to: viewModel)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -69,6 +71,7 @@ class DownloadStatusViewController: UIViewController & Depending {
             navigationController.setNavigationBarHidden(false, animated: animated)
         }
         else {
+            // Keep refreshing when user is in a detail screen
             disposeBag = nil
         }
     }
@@ -119,30 +122,34 @@ class DownloadStatusViewController: UIViewController & Depending {
 }
 
 extension DownloadStatusViewController: ReactiveBinding {
-    func makeInput() -> DownloadStatusViewModel.Input {
+    typealias Bindable = DownloadStatusViewModel
+
+    func bind(input: DownloadStatusViewModel.Input) {
         let queuePaused = self.queuePaused.skip(1)
 
-        let pauseQueue = queuePaused
+        queuePaused
             .filter { $0 }
             .asVoid()
+            .bind(to: input.pauseQueue)
+            .disposed(by: disposeBag)
 
-        let resumeQueue = queuePaused
+        queuePaused
             .filter { !$0 }
             .asVoid()
+            .bind(to: input.resumeQueue)
+            .disposed(by: disposeBag)
 
-        return DownloadStatusViewModel.Input(
-            itemSelected: tableView.rx.itemSelected,
-            pauseQueue: pauseQueue,
-            resumeQueue: resumeQueue,
-            purgeHistory: purgeHistory.skip(1)
-        )
+        purgeHistory.skip(1)
+            .bind(to: input.purgeHistory)
+            .disposed(by: disposeBag)
+
+        tableView.rx.itemSelected
+            .asObservable()
+            .bind(to: input.itemSelected)
+            .disposed(by: disposeBag)
     }
 
-    func bind(to viewModel: DownloadStatusViewModel) {
-        disposeBag = DisposeBag()
-
-        let output = viewModel.transform(input: makeInput())
-
+    func bind(output: DownloadStatusViewModel.Output) {
         bindQueueStatus(output.queue)
         bindTableView(output.sectionsData)
         bindActions(output)

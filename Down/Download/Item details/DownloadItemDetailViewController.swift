@@ -60,6 +60,7 @@ class DownloadItemDetailViewController: UIViewController & Depending {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        disposeBag = DisposeBag()
         bind(to: viewModel)
     }
 
@@ -86,17 +87,15 @@ class DownloadItemDetailViewController: UIViewController & Depending {
 }
 
 extension DownloadItemDetailViewController: ReactiveBinding {
-    func makeInput() -> DownloadItemDetailViewModel.Input {
-        let deleteButtonTapped = deleteButton.rx.tap
+    typealias Bindable = DownloadItemDetailViewModel
 
-        return DownloadItemDetailViewModel.Input(deleteButtonTapped: deleteButtonTapped)
+    func bind(input: DownloadItemDetailViewModel.Input) {
+        deleteButton.rx.tap
+            .bind(to: input.deleteButtonTapped)
+            .disposed(by: disposeBag)
     }
 
-    func bind(to viewModel: DownloadItemDetailViewModel) {
-        disposeBag = DisposeBag()
-
-        let output = viewModel.transform(input: makeInput())
-
+    func bind(output: DownloadItemDetailViewModel.Output) {
         bindHeaderView(output.refinedItem)
         bindTableView(output.refinedItem)
         bindItemDeleted(output.itemDeleted)

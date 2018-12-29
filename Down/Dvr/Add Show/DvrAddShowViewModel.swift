@@ -18,6 +18,9 @@ struct DvrAddShowViewModel: Depending {
 
     let title = R.string.localizable.dvr_screen_add_show_title()
 
+    var input = Input()
+    lazy var output = transform(input: input)
+
     private let disposeBag = DisposeBag()
     
     init(dependencies: Dependencies) {
@@ -27,8 +30,8 @@ struct DvrAddShowViewModel: Depending {
 
 extension DvrAddShowViewModel: ReactiveBindable {
     struct Input {
-        let searchQuery: Driver<String>
-        let showSelected: ControlEvent<IndexPath>
+        let searchQuery = PublishSubject<String>()
+        let showSelected = PublishSubject<IndexPath>()
     }
 
     struct Output {
@@ -36,8 +39,10 @@ extension DvrAddShowViewModel: ReactiveBindable {
         let addingShow: Observable<DvrShow>
         let showAdded: Observable<Result<DvrShow, DownError>>
     }
+}
 
-    func transform(input: Input) -> Output {
+extension DvrAddShowViewModel {
+    func transform(input: DvrAddShowViewModel.Input) -> DvrAddShowViewModel.Output {
         let searchResultsDriver = input.searchQuery
             .asObservable()
             .flatMap {
@@ -45,19 +50,19 @@ extension DvrAddShowViewModel: ReactiveBindable {
                     .makeSearchShowsInteractor(for: self.dependencies.dvrApplication, query: $0)
                     .observeResult()
                     .map { $0.value ?? [] }
-            }
+        }
 
         let selectedShow = input.showSelected
             .withLatestFrom(searchResultsDriver) { indexPath, searchResults in
                 searchResults[indexPath.row]
-            }
+        }
 
         let showAddedDriver = selectedShow
             .flatMap {
                 self.dependencies.dvrInteractorFactory
                     .makeAddShowInteractor(for: self.dependencies.dvrApplication, show: $0)
                     .observeResult()
-            }
+        }
 
         return Output(searchResults: searchResultsDriver, addingShow: selectedShow, showAdded: showAddedDriver)
     }

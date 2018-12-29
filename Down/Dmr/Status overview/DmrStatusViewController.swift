@@ -37,14 +37,12 @@ class DmrStatusViewController: UIViewController & Depending {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        bind(to: viewModel)
 
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        disposeBag = nil
 
         if let navigationController = navigationController,
             navigationController.viewControllers.count > 1 {
@@ -54,6 +52,7 @@ class DmrStatusViewController: UIViewController & Depending {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
         disposeBag = nil
     }
 

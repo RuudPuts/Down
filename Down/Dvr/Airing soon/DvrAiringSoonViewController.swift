@@ -45,6 +45,7 @@ class DvrAiringSoonViewController: UIViewController & Depending {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        disposeBag = DisposeBag()
         bind(to: viewModel)
     }
 
@@ -61,18 +62,17 @@ class DvrAiringSoonViewController: UIViewController & Depending {
 }
 
 extension DvrAiringSoonViewController: ReactiveBinding {
-    func makeInput() -> DvrAiringSoonViewModel.Input {
-        let itemSelected = tableView.rx.itemSelected.do(onNext: {
-            self.tableView.deselectRow(at: $0, animated: true)
-        })
+    typealias Bindable = DvrAiringSoonViewModel
 
-        return DvrAiringSoonViewModel.Input(itemSelected: itemSelected)
+    func bind(input: DvrAiringSoonViewModel.Input) {
+        tableView.rx.itemSelected.do(onNext: {
+                self.tableView.deselectRow(at: $0, animated: true)
+            })
+            .bind(to: input.itemSelected)
+            .disposed(by: disposeBag)
     }
 
-    func bind(to viewModel: DvrAiringSoonViewModel) {
-        disposeBag = DisposeBag()
-
-        let output = viewModel.transform(input: makeInput())
+    func bind(output: DvrAiringSoonViewModel.Output) {
         output.sections
             .do(onNext: { self.tableController.dataSource = $0 })
             .subscribe()

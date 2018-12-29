@@ -6,11 +6,12 @@
 //  Copyright © 2018 Mobile Sorcery. All rights reserved.
 //
 
-import Foundation
-
 protocol ReactiveBindable {
     associatedtype Input
     associatedtype Output
+
+    var input: Input { get }
+    var output: Output { mutating get }
 
     func transform(input: Input) -> Output
 }
@@ -18,6 +19,18 @@ protocol ReactiveBindable {
 protocol ReactiveBinding {
     associatedtype Bindable: ReactiveBindable
 
-    func makeInput() -> Bindable.Input
     func bind(to bindable: Bindable)
+    func bind(input: Bindable.Input)
+    func bind(output: Bindable.Output)
+}
+
+extension ReactiveBinding {
+    func bind(to bindable: Bindable) {
+        var bindable = bindable //! This might copy the view model if it's a struct?
+
+        bind(input: bindable.input)
+        bind(output: bindable.output)
+    }
+
+    func bind(input: Bindable.Input) { }
 }
