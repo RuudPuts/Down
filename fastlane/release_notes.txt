@@ -1,3 +1,10 @@
-- Added option to pause / resume download queue
-- Added option to purge the full download history
-- Added data load feedback to download status
+New;
+- Empty views for download queue / history & airing soon episodes
+- Tapping an episode in the show details screen;
+-> Shows the episode's summary
+-> Shows an option to set the status
+
+Fixed;
+- Shows overview was ordered incorrect
+- Progress view for downloads where showing the wrong color
+- Fixed shows with 'Any' quality would have empty badge
