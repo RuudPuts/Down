@@ -14,6 +14,7 @@
 		42089D31219B52C80032320E /* CookieBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42089D30219B52C80032320E /* CookieBag.swift */; };
 		4209F55121D93781006DA3A4 /* DvrFetchEpisodeDetailsGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4209F55021D93780006DA3A4 /* DvrFetchEpisodeDetailsGateway.swift */; };
 		4209F55321D939E7006DA3A4 /* DvrFetchEpisodeDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4209F55221D939E7006DA3A4 /* DvrFetchEpisodeDetailsInteractor.swift */; };
+		4209F55521D9693A006DA3A4 /* RealmMergeNilValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4209F55421D96939006DA3A4 /* RealmMergeNilValues.swift */; };
 		420C28292163E1ED0088259C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C28272163E1ED0088259C /* SettingsViewController.swift */; };
 		420C282A2163E1ED0088259C /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420C28282163E1ED0088259C /* SettingsViewController.xib */; };
 		420C282C2163E1FD0088259C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420C282B2163E1FD0088259C /* SettingsViewModel.swift */; };
@@ -374,6 +375,7 @@
 		42089D30219B52C80032320E /* CookieBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieBag.swift; sourceTree = "<group>"; };
 		4209F55021D93780006DA3A4 /* DvrFetchEpisodeDetailsGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrFetchEpisodeDetailsGateway.swift; sourceTree = "<group>"; };
 		4209F55221D939E7006DA3A4 /* DvrFetchEpisodeDetailsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrFetchEpisodeDetailsInteractor.swift; sourceTree = "<group>"; };
+		4209F55421D96939006DA3A4 /* RealmMergeNilValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmMergeNilValues.swift; sourceTree = "<group>"; };
 		420C28272163E1ED0088259C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		420C28282163E1ED0088259C /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		420C282B2163E1FD0088259C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -1102,6 +1104,7 @@
 				4227B77520DB160500603528 /* Database.swift */,
 				4227B77620DB160500603528 /* RealmDatabase.swift */,
 				424E3AE821CC1E9700738870 /* RealmCascadingDelete.swift */,
+				4209F55421D96939006DA3A4 /* RealmMergeNilValues.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -2542,6 +2545,7 @@
 				42384A4B21612641004A0349 /* CouchPotatoRequestBuilder.swift in Sources */,
 				42723A1B20D7FBFA000445C3 /* ObservableExtensions.swift in Sources */,
 				429B01D220F5324E00BCDA0F /* ApiApplicationGatewayFactory.swift in Sources */,
+				4209F55521D9693A006DA3A4 /* RealmMergeNilValues.swift in Sources */,
 				42384A4C21612641004A0349 /* CouchPotatoResponseParser.swift in Sources */,
 				42457CA020E1AB5900DBC6C7 /* DownloadQueueInteractor.swift in Sources */,
 				426BF73C20F688CA000C3A4A /* RequestSpecification.swift in Sources */,

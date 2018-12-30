@@ -8,7 +8,7 @@
 
 import RealmSwift
 
-public class DvrEpisode: Object {
+public class DvrEpisode: Object, NilValueMergable {
     @objc public dynamic var uniqueIdentifier = ""
     @objc public dynamic var identifier = "" {
         didSet {
@@ -47,6 +47,10 @@ public class DvrEpisode: Object {
     
     override public static func primaryKey() -> String? {
         return "uniqueIdentifier"
+    }
+
+    var propertiesToMergeNilValues: [String] {
+        return ["summary"]
     }
 
     private func updateUniqueIdentifier() {

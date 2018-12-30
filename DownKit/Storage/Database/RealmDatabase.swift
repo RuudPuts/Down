@@ -28,13 +28,11 @@ public class RealmDatabase: DownDatabase {
         // swiftlint:disable:next force_try
         return try! Realm(configuration: self.configuration)
     }
-    
+
     public func store(shows: [DvrShow]) {
         let realm = makeRealm()
         try? realm.write {
-            shows.forEach {
-                realm.add($0, update: true)
-            }
+            realm.add(shows, update: true, mergeNilValues: true)
         }
     }
 
