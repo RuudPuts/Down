@@ -17,6 +17,7 @@ class DvrResponseParsingMock: DvrResponseParsing {
         var parseSearchShows: [DvrShow]?
         var parseAddShow = false
         var parseDeleteShow = false
+        var parseEpisodeDetails: DvrEpisode?
         var parseSetEpisodeStatus = false
         var parseSetSeasonStatus = false
 
@@ -35,6 +36,7 @@ class DvrResponseParsingMock: DvrResponseParsing {
         var parseDeleteShow: Parse?
         var parseSetEpisodeStatus: Parse?
         var parseSetSeasonStatus: Parse?
+        var parseEpisodeDetails: ParseEpisodeDetails?
 
         struct Init {
             let application: ApiApplication
@@ -44,6 +46,11 @@ class DvrResponseParsingMock: DvrResponseParsing {
         var parseApiKey: Parse?
         
         struct Parse {
+            let response: Response
+        }
+
+        struct ParseEpisodeDetails {
+            let episode: DvrEpisode
             let response: Response
         }
     }
@@ -90,6 +97,11 @@ class DvrResponseParsingMock: DvrResponseParsing {
     func parseDeleteShow(from response: Response) throws -> Bool {
         captures.parseDeleteShow = Captures.Parse(response: response)
         return stubs.parseDeleteShow
+    }
+
+    func parseEpisodeDetails(for episode: DvrEpisode, from response: Response) throws -> DvrEpisode {
+        captures.parseEpisodeDetails = Captures.ParseEpisodeDetails(episode: episode, response: response)
+        return stubs.parseEpisodeDetails!
     }
 
     func parseSetEpisodeStatus(from response: Response) throws -> Bool {

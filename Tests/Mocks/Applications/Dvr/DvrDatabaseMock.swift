@@ -11,11 +11,11 @@ import RxSwift
 
 extension DownDatabaseMock { // DvrDatabase
     func store(shows: [DvrShow]) {
-        captures.storeShows = Captures.Shows(shows: shows)
+        captures.storeShows = Captures.StoreShows(shows: shows)
     }
 
     func delete(show: DvrShow) {
-        captures.deleteShow = Captures.Show(show: show)
+        captures.deleteShow = Captures.DeleteShow(show: show)
     }
 
     func fetchShows() -> Observable<[DvrShow]> {
@@ -28,12 +28,16 @@ extension DownDatabaseMock { // DvrDatabase
         return Single.just(stubs.fetchShowsMatchingNameComponents)
     }
 
-    public func fetchEpisodes(airingOn airDate: Date) -> Observable<[DvrEpisode]> {
+    func store(episode: DvrEpisode) {
+        captures.storeEpisode = Captures.StoreEpisode(episode: episode)
+    }
+
+    func fetchEpisodes(airingOn airDate: Date) -> Observable<[DvrEpisode]> {
         captures.fetchEpisodesAiringOn = Captures.FetchEpisodesAiringOn(airDate: airDate)
         return Observable.just(stubs.fetchEpisodesAiringOn)
     }
 
-    public func fetchEpisodes(airingBetween fromDate: Date, and toDate: Date) -> Observable<[DvrEpisode]> {
+    func fetchEpisodes(airingBetween fromDate: Date, and toDate: Date) -> Observable<[DvrEpisode]> {
         captures.fetchEpisodesAiringBetween = Captures.FetchEpisodesAiringBetween(fromDate: fromDate, toDate: toDate)
         return Observable.just(stubs.fetchEpisodesAiringBetween)
     }

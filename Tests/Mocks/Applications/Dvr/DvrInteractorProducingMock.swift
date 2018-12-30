@@ -20,6 +20,7 @@ class DvrInteractorProducingMock {
         var makeDeleteShowInteractor: DvrDeleteShowGateway?
         var makeSetEpisodeStatusInteractor: DvrSetEpisodeStatusInteractor.Interactors?
         var makeSetSeasonStatusInteractor: DvrSetSeasonStatusInteractor.Interactors?
+        var makeFetchEpisodeDetailsInteractor: DvrFetchEpisodeDetailsGateway?
     }
 
     struct Captures {
@@ -61,5 +62,9 @@ extension DvrInteractorProducingMock: DvrInteractorProducing {
 
     func makeSetSeasonStatusInteractor(for application: DvrApplication, season: DvrSeason, status: DvrEpisodeStatus) -> DvrSetSeasonStatusInteractor {
         return DvrSetSeasonStatusInteractor(interactors: stubs.makeSetSeasonStatusInteractor!, database: stubs.database)
+    }
+
+    func makeFetchEpisodeDetailsInteractor(for application: DvrApplication, episode: DvrEpisode) -> DvrFetchEpisodeDetailsInteractor {
+        return DvrFetchEpisodeDetailsInteractor(gateway: stubs.makeFetchEpisodeDetailsInteractor!, database: stubs.database)
     }
 }

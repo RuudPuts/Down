@@ -24,12 +24,6 @@ public final class DvrFetchEpisodeDetailsInteractor: RequestGatewayInteracting {
         self.database = database
     }
 
-    func setEpisode(_ episode: DvrEpisode) -> DvrFetchEpisodeDetailsInteractor {
-        gateway.episode = episode
-
-        return self
-    }
-
     public func observe() -> Single<DvrEpisode> {
         return gateway
             .observe()

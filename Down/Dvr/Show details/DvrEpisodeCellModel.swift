@@ -56,7 +56,7 @@ extension DvrEpisodeCellModel {
             .withLatestFrom(episode)
             .flatMap {
                 self.dependencies.dvrInteractorFactory
-                    .makeFetchEpisodeDetailsGateway(for: self.dependencies.dvrApplication, episode: $0)
+                    .makeFetchEpisodeDetailsInteractor(for: self.dependencies.dvrApplication, episode: $0)
                     .observe()
             }
             .map { _ in Void() }
