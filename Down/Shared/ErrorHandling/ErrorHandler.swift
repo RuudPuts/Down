@@ -19,6 +19,7 @@ enum ErrorSourceAction {
     
     case dvr_addShow
     case dvr_deleteShow
+    case dvr_setEpisodeStatus
 }
 
 protocol ErrorHandling {
@@ -27,6 +28,8 @@ protocol ErrorHandling {
 
 struct ErrorHandler: ErrorHandling {
     func handle(error: DownError, action: ErrorSourceAction, source: UIViewController) {
+        NSLog("❌ Handling error \(error)")
+
         let title = makeTitle(forAction: action)
 
         let alert = UIAlertController(title: title, message: error.displayString, preferredStyle: .alert)
@@ -47,6 +50,7 @@ private extension ErrorHandler {
         case .download_deleteItem: description = "deleting item"
         case .dvr_addShow: description = "adding show"
         case .dvr_deleteShow: description = "deleting show"
+        case .dvr_setEpisodeStatus: description = "setting episode status"
         }
 
         return "Error while \(description)"

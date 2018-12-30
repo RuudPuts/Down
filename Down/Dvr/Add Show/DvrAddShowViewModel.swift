@@ -42,7 +42,7 @@ extension DvrAddShowViewModel: ReactiveBindable {
 }
 
 extension DvrAddShowViewModel {
-    func transform(input: DvrAddShowViewModel.Input) -> DvrAddShowViewModel.Output {
+    func transform(input: Input) -> Output {
         let searchResultsDriver = input.searchQuery
             .asObservable()
             .flatMap {

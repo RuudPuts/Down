@@ -19,6 +19,13 @@ extension UITableView {
 }
 
 extension UITableView {
+    func animateCellResize() {
+        beginUpdates()
+        endUpdates()
+    }
+}
+
+extension UITableView {
     func setHeaderView(_ headerView: UIView) {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         tableHeaderView = headerView

@@ -11,18 +11,24 @@ import RxSwift
 import RxCocoa
 
 class DvrShowDetailsTableViewModel: NSObject, Depending {
-    typealias Dependencies = DvrApplicationDependency
+    typealias Dependencies = DvrEpisodeCell.Dependencies & DvrApplicationDependency
     let dependencies: Dependencies
 
     var refinedShow: DvrShowDetailsViewModel.RefinedShow?
 
-    init(dependencies: Dependencies) {
+    weak var context: UIViewController?
+    private weak var tableView: UITableView?
+
+    init(dependencies: Dependencies, context: UIViewController? = nil) {
         self.dependencies = dependencies
+        self.context = context
     }
 
     func prepare(_ tableView: UITableView) {
         tableView.registerCell(nibName: DvrEpisodeCell.reuseIdentifier)
         tableView.registerHeaderFooter(nibName: TableHeaderView.reuseIdentifier)
+
+        self.tableView = tableView
     }
 }
 
@@ -50,7 +56,8 @@ extension DvrShowDetailsTableViewModel: UITableViewDataSource {
             return cell
         }
 
-        episodeCell.configure(with: episode)
+        episodeCell.configure(with: episode, dependencies: dependencies, context: context)
+        episodeCell.delegate = self
 
         return cell
     }
@@ -67,5 +74,11 @@ extension DvrShowDetailsTableViewModel: UITableViewDelegate {
         headerView.viewModel = TableHeaderViewModel(title: season.title, icon: nil)
 
         return view
+    }
+}
+
+extension DvrShowDetailsTableViewModel: DownCellDelegate {
+    func cellNeedsLayout(_ cell: UITableViewCell) {
+        tableView?.animateCellResize()
     }
 }

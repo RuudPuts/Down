@@ -29,15 +29,17 @@ public class DvrEpisode: Object {
     }
 
     @objc public dynamic var name = ""
+    @objc public dynamic var summary: String?
     @objc public dynamic var airdate: Date?
     @objc public dynamic var quality = Quality.unknown
     @objc public dynamic var status = DvrEpisodeStatus.unknown
 
-    public convenience init(identifier: String, name: String, airdate: Date?,
+    public convenience init(identifier: String, name: String, summary: String? = nil, airdate: Date?,
                             quality: Quality = .unknown, status: DvrEpisodeStatus = .unknown) {
         self.init()
         self.identifier = identifier
         self.name = name
+        self.summary = summary
         self.airdate = airdate
         self.quality = quality
         self.status = status
@@ -62,8 +64,23 @@ public extension DvrEpisode {
     }
 }
 
+internal extension DvrEpisode {
+    func clone() -> DvrEpisode {
+        let clone = DvrEpisode(identifier: identifier,
+                               name: name,
+                               summary: summary,
+                               airdate: airdate,
+                               quality: quality,
+                               status: status)
+        clone.season = season
+        clone.show = show
+
+        return clone
+    }
+}
+
 @objc
-public enum DvrEpisodeStatus: Int {
+public enum DvrEpisodeStatus: Int, CaseIterable {
     case unknown
     case wanted
     case skipped

@@ -79,6 +79,15 @@ class SickbeardResponseParser: DvrResponseParsing {
         return true
     }
 
+    func parseEpisodeDetails(for episode: DvrEpisode, from response: Response) throws -> DvrEpisode {
+        let data = try parse(response)
+
+        let updatedEpisode = episode.clone()
+        updatedEpisode.summary = data["description"].string
+
+        return updatedEpisode
+    }
+
     func validateServerHeader(in response: Response) -> Bool {
         return response.headers?["Server"]?.matches("CherryPy\\/.*?") ?? false
     }

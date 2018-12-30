@@ -28,7 +28,7 @@ public class RealmDatabase: DownDatabase {
         // swiftlint:disable:next force_try
         return try! Realm(configuration: self.configuration)
     }
-
+    
     public func store(shows: [DvrShow]) {
         let realm = makeRealm()
         try? realm.write {
@@ -78,6 +78,21 @@ public class RealmDatabase: DownDatabase {
             observer(.success(matches?.first))
 
             return Disposables.create()
+        }
+    }
+
+    public func store(episode: DvrEpisode) {
+        let realm = makeRealm()
+
+        let matchingEpisodes = realm.objects(DvrEpisode.self)
+            .filter("uniqueIdentifier == %@", episode.uniqueIdentifier)
+        guard !matchingEpisodes.isEmpty else {
+            NSLog("[RealmDatabase] store(episode:) should only be used to update episodes")
+            return
+        }
+
+        try? realm.write {
+            realm.add(episode, update: true)
         }
     }
 

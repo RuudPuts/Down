@@ -69,7 +69,7 @@ extension ViewStyling where ViewType == UILabel {
                 $0.backgroundColor = Stylesheet.Colors.green
             case .hdtv:
                 $0.backgroundColor = Stylesheet.Colors.orange
-            case .unknown:
+            case .any, .unknown:
                 $0.backgroundColor = Stylesheet.Colors.blue
             }
         }

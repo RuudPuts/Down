@@ -33,7 +33,7 @@ extension DvrShowsViewModel: ReactiveBindable {
 }
 
 extension DvrShowsViewModel {
-    func transform(input: DvrShowsViewModel.Input) -> DvrShowsViewModel.Output {
+    func transform(input: Input) -> Output {
         let showsDriver = dependencies.database
             .fetchShows()
             .map { $0.sorted(by: { $0.nameWithoutPrefix < $1.nameWithoutPrefix }) }

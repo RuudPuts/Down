@@ -16,6 +16,8 @@ public protocol DvrGatewayProducing {
 
     func makeSetEpisodeStatusGateway(for application: DvrApplication, episode: DvrEpisode, status: DvrEpisodeStatus) -> DvrSetEpisodeStatusGateway
     func makeSetSeasonStatusGateway(for application: DvrApplication, season: DvrSeason, status: DvrEpisodeStatus) -> DvrSetSeasonStatusGateway
+
+    func makeFetchEpisodeDetailsGateway(for application: DvrApplication, episode: DvrEpisode) -> DvrFetchEpisodeDetailsGateway
 }
 
 public class DvrGatewayFactory: DvrGatewayProducing, Depending {
@@ -67,5 +69,11 @@ public class DvrGatewayFactory: DvrGatewayProducing, Depending {
                                          status: status,
                                          builder: dependencies.applicationAdditionsFactory.makeDvrRequestBuilder(for: application),
                                          parser: dependencies.applicationAdditionsFactory.makeDvrResponseParser(for: application))
+    }
+
+    public func makeFetchEpisodeDetailsGateway(for application: DvrApplication, episode: DvrEpisode) -> DvrFetchEpisodeDetailsGateway {
+        return DvrFetchEpisodeDetailsGateway(episode: episode,
+                                             builder: dependencies.applicationAdditionsFactory.makeDvrRequestBuilder(for: application),
+                                             parser: dependencies.applicationAdditionsFactory.makeDvrResponseParser(for: application))
     }
 }

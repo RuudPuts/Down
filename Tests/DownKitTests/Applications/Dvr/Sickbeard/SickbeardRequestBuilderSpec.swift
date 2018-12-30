@@ -95,6 +95,111 @@ class SickbeardRequestBuilderSpec: QuickSpec {
                                                                parameters: expectedParamters)
                     }
                 }
+
+                context("setting episode status") {
+                    var show: DvrShow!
+                    var season: DvrSeason!
+                    var episode: DvrEpisode!
+                    var status: DvrEpisodeStatus!
+
+                    beforeEach {
+                        show = DvrShow(identifier: "128", name: "TestShow")
+                        episode = DvrEpisode(identifier: "1", name: "Episode", airdate: nil)
+                        season = DvrSeason(identifier: "1", episodes: [episode], show: show)
+                        show.setSeasons([season])
+
+                        status = .wanted
+
+                        expectedParamters.merge([
+                                "show_id": show.identifier,
+                                "season_id": season.identifier,
+                                "episode_id": episode.identifier,
+                                "status": status.sickbeardValue
+                            ], uniquingKeysWith: { $1 })
+
+                        result = sut.specification(for: .setEpisodeStatus(episode, status))
+                    }
+
+                    afterEach {
+                        status = nil
+                        show = nil
+                        season = nil
+                        episode = nil
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "api/{apikey}?cmd=episode.setstatus&tvdbid={show_id}&season={season_id}&episode={episode_id}&status={status}",
+                                                               parameters: expectedParamters)
+                    }
+                }
+
+                context("setting season status") {
+                    var show: DvrShow!
+                    var season: DvrSeason!
+                    var status: DvrEpisodeStatus!
+
+                    beforeEach {
+                        show = DvrShow(identifier: "128", name: "TestShow")
+                        season = DvrSeason(identifier: "1", episodes: [], show: show)
+                        show.setSeasons([season])
+
+                        status = .wanted
+
+                        expectedParamters.merge([
+                            "show_id": show.identifier,
+                            "season_id": season.identifier,
+                            "status": status.sickbeardValue
+                            ], uniquingKeysWith: { $1 })
+
+                        result = sut.specification(for: .setSeasonStatus(season, status))
+                    }
+
+                    afterEach {
+                        status = nil
+                        show = nil
+                        season = nil
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "api/{apikey}?cmd=episode.setstatus&tvdbid={show_id}&season={season_id}&status={status}",
+                                                               parameters: expectedParamters)
+                    }
+                }
+
+                context("fetching episode details") {
+                    var show: DvrShow!
+                    var season: DvrSeason!
+                    var episode: DvrEpisode!
+
+                    beforeEach {
+                        show = DvrShow(identifier: "128", name: "TestShow")
+                        episode = DvrEpisode(identifier: "1", name: "Episode", airdate: nil)
+                        season = DvrSeason(identifier: "1", episodes: [episode], show: show)
+                        show.setSeasons([season])
+
+                        expectedParamters.merge([
+                            "show_id": show.identifier,
+                            "season_id": season.identifier,
+                            "episode_id": episode.identifier
+                            ], uniquingKeysWith: { $1 })
+
+                        result = sut.specification(for: .fetchEpisodeDetails(episode))
+                    }
+
+                    afterEach {
+                        show = nil
+                        season = nil
+                        episode = nil
+                    }
+
+                    it("builds the specification") {
+                        expect(result) == RequestSpecification(host: application.host,
+                                                               path: "api/{apikey}?cmd=episode&tvdbid={show_id}&season={season_id}&episode={episode_id}",
+                                                               parameters: expectedParamters)
+                    }
+                }
             }
 
             context("api application request builder") {

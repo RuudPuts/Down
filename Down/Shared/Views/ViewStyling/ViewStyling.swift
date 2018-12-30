@@ -1,4 +1,6 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 // Heavily based on https://hackernoon.com/simple-stylesheets-in-swift-6dda57b5b00d
 
@@ -33,5 +35,13 @@ extension UIViewController {
         styling.style(view)
 
         return self
+    }
+}
+
+extension Reactive where Base: UILabel {
+    var style: Binder<ViewStyling<UILabel>> {
+        return Binder(base) { view, style in
+            view.style(as: style)
+        }
     }
 }

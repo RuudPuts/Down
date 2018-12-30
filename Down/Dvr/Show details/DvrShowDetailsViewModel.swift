@@ -99,12 +99,11 @@ extension DvrShowDetailsViewModel {
 
     struct RefinedSeason {
         let title: String
-        let episodes: [RefinedEpisode]
+        let episodes: [DvrEpisode]
 
         static func from(season: DvrSeason) -> RefinedSeason {
             let episodes = season.episodes
                 .sorted(by: { Int($0.identifier)! > Int($1.identifier)! })
-                .map { RefinedEpisode.from(episode: $0) }
 
             if season.isSpecials {
                 return RefinedSeason(title: "Specials",
@@ -113,32 +112,6 @@ extension DvrShowDetailsViewModel {
 
             return RefinedSeason(title: "Season \(season.identifier)",
                                  episodes: episodes)
-        }
-    }
-
-    struct RefinedEpisode {
-        let title: String
-        let plot: String?
-        let airingOn: String
-        let status: DvrEpisodeStatus
-        let statusDescription: String
-
-        static func from(episode: DvrEpisode) -> RefinedEpisode {
-            var statusDescription = episode.status.displayString
-            if episode.quality != .unknown {
-                statusDescription = "\(statusDescription) (\(episode.quality.displayString))"
-            }
-
-            var airingOn = R.string.localizable.dvr_episode_unaired()
-            if let airDate = episode.airdate {
-                airingOn = "\(airDate.isInThePast ? "Aired" : "Airs") \(airDate.dateString)"
-            }
-
-            return RefinedEpisode(title: "\(episode.identifier). \(episode.name)",
-                                  plot: "lala episode plot",
-                                  airingOn: airingOn,
-                                  status: episode.status,
-                                  statusDescription: statusDescription)
         }
     }
 }

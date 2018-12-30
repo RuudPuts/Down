@@ -11,5 +11,6 @@ public enum Quality: Int {
     case hd1080p
     case hd720p
     case hdtv
+    case any
     case unknown
 }

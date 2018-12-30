@@ -63,7 +63,7 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
             )
         case .setSeasonStatus(let season, let status): return RequestSpecification(
             host: application.host,
-            path: defaultPath + "cmd=episode.setstatus&tvdbid={show_id}}&season={season_id}&status={status}",
+            path: defaultPath + "cmd=episode.setstatus&tvdbid={show_id}&season={season_id}&status={status}",
             parameters: defaultParameters.merging([
                     "show_id": season.show.identifier,
                     "season_id": season.identifier,
@@ -72,12 +72,21 @@ class SickbeardRequestBuilder: DvrRequestBuilding {
             )
         case .setEpisodeStatus(let episode, let status): return RequestSpecification(
             host: application.host,
-            path: defaultPath + "cmd=episode.setstatus&tvdbid={show_id}&season&episode={episode_id}&status={status}",
+            path: defaultPath + "cmd=episode.setstatus&tvdbid={show_id}&season={season_id}&episode={episode_id}&status={status}",
             parameters: defaultParameters.merging([
                     "show_id": episode.show.identifier,
                     "season_id": episode.season.identifier,
                     "episode_id": episode.identifier,
                     "status": status.sickbeardValue
+                ], uniquingKeysWith: { $1 })
+            )
+        case .fetchEpisodeDetails(let episode): return RequestSpecification(
+            host: application.host,
+            path: defaultPath + "cmd=episode&tvdbid={show_id}&season={season_id}&episode={episode_id}",
+            parameters: defaultParameters.merging([
+                "show_id": episode.show.identifier,
+                "season_id": episode.season.identifier,
+                "episode_id": episode.identifier
                 ], uniquingKeysWith: { $1 })
             )
         }

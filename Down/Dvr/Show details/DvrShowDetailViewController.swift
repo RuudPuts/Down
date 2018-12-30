@@ -33,6 +33,8 @@ class DvrShowDetailViewController: UIViewController, Depending {
 
         self.tableViewModel = DvrShowDetailsTableViewModel(dependencies: dependencies)
         super.init(nibName: nil, bundle: nil)
+
+        self.tableViewModel.context = self
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -118,8 +120,7 @@ extension DvrShowDetailViewController: ReactiveBinding {
         tableView.rx.itemSelected
             .asObservable()
             .subscribe(onNext: { _ in
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
+                self.tableView.animateCellResize()
             })
             .disposed(by: disposeBag)
     }

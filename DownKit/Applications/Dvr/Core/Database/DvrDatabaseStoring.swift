@@ -13,6 +13,7 @@ public protocol DvrDatabase: Database {
     func delete(show: DvrShow)
     func fetchShows() -> Observable<[DvrShow]>
     func fetchShow(matching nameComponents: [String]) -> Single<DvrShow?>
+    func store(episode: DvrEpisode)
     func fetchEpisodes(airingOn airDate: Date) -> Observable<[DvrEpisode]>
     func fetchEpisodes(airingBetween fromDate: Date, and toDate: Date) -> Observable<[DvrEpisode]>
 }

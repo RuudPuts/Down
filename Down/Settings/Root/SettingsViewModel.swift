@@ -39,7 +39,7 @@ extension SettingsViewModel: ReactiveBindable {
 }
 
 extension SettingsViewModel {
-    func transform(input: SettingsViewModel.Input) -> SettingsViewModel.Output {
+    func transform(input: Input) -> Output {
         let showWelcomeMessageDriver = Driver.just(!dependencies.persistence.anyApplicationConfigured)
         let titleDriver = showWelcomeMessageDriver.map { $0 ? "Down" : "Settings" }
         let welcomeMessageDriver: Driver<String> = showWelcomeMessageDriver.map {

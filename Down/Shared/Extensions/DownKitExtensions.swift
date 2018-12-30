@@ -17,7 +17,8 @@ extension Quality {
         case .hd1080p: return "1080P"
         case .hd720p: return "720P"
         case .hdtv: return "HD TV"
-        case .unknown: return ""
+        case .any: return "Any"
+        case .unknown: return "Unkown"
         }
     }
 }
@@ -64,7 +65,7 @@ extension DvrShowStatus {
         switch self {
         case .continuing: return "Continuing"
         case .ended: return "Ended"
-        case .unknown: return ""
+        case .unknown: return String()
         }
     }
 }

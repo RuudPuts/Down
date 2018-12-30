@@ -17,6 +17,8 @@ public protocol DvrInteractorProducing {
 
     func makeSetEpisodeStatusInteractor(for application: DvrApplication, episode: DvrEpisode, status: DvrEpisodeStatus) -> DvrSetEpisodeStatusInteractor
     func makeSetSeasonStatusInteractor(for application: DvrApplication, season: DvrSeason, status: DvrEpisodeStatus) -> DvrSetSeasonStatusInteractor
+
+    func makeFetchEpisodeDetailsGateway(for application: DvrApplication, episode: DvrEpisode) -> DvrFetchEpisodeDetailsInteractor
 }
 
 public class DvrInteractorFactory: DvrInteractorProducing, Depending {
@@ -77,5 +79,11 @@ public class DvrInteractorFactory: DvrInteractorProducing, Depending {
         let interactors = (setStatus: gateway, showDetails: showDetailsInteractor)
 
         return DvrSetSeasonStatusInteractor(interactors: interactors, database: dependencies.database)
+    }
+
+    public func makeFetchEpisodeDetailsGateway(for application: DvrApplication, episode: DvrEpisode) -> DvrFetchEpisodeDetailsInteractor {
+        let gateway = dependencies.dvrGatewayFactory.makeFetchEpisodeDetailsGateway(for: application, episode: episode)
+
+        return DvrFetchEpisodeDetailsInteractor(gateway: gateway, database: dependencies.database)
     }
 }

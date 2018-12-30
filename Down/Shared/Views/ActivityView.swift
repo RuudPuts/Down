@@ -25,10 +25,19 @@ class ActivityView: DesignableView {
         label.style(as: .titleLabel)
         activityIndicator.style(as: .defaultActivityIndicator)
     }
+}
 
-    func configure(with text: String, application: DownApplicationType) {
-        label.text = text
+extension ActivityView {
+    func configure(for application: DownApplicationType) {
+        label.isHidden = true
 
         activityIndicator.style(as: .activityIndicator(application: application))
+    }
+
+    func configure(with text: String, application: DownApplicationType) {
+        configure(for: application)
+
+        label.text = text
+        label.isHidden = text.isEmpty
     }
 }
