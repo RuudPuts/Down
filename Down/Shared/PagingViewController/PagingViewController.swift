@@ -89,6 +89,16 @@ class PagingViewController: UIViewController {
         pagingViewController.select(index: 1, animated: false)
     }
 
+    func showContextMenu() { }
+}
+
+extension PagingViewController: PagingViewControllerDelegate {
+    func pagingViewController<T>(_ pagingViewController: Parchment.PagingViewController<T>, pagingItemForIndex index: Int) -> PagingItem {
+        return PagingIndexItem(index: index, title: viewControllers[index].title ?? "")
+    }
+}
+
+extension PagingViewController {
     func makeInput() -> PagingViewModelInput {
         return PagingViewModelInput(loadData: Observable.just(Void()))
     }
@@ -109,19 +119,15 @@ class PagingViewController: UIViewController {
             .drive()
             .disposed(by: disposeBag)
 
+        output.loadingData
+            .drive(headerView.contextButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+
         headerView.contextButton.rx.tap
             .asObservable()
             .subscribe(onNext: {
                 self.showContextMenu()
             })
             .disposed(by: disposeBag)
-    }
-
-    func showContextMenu() { }
-}
-
-extension PagingViewController: PagingViewControllerDelegate {
-    func pagingViewController<T>(_ pagingViewController: Parchment.PagingViewController<T>, pagingItemForIndex index: Int) -> PagingItem {
-        return PagingIndexItem(index: index, title: viewControllers[index].title ?? "")
     }
 }

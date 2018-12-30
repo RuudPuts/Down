@@ -32,15 +32,6 @@ class DvrPagingViewController: PagingViewController, Depending {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func makeInput() -> PagingViewModelInput {
-        let loadData = Observable.merge([
-            super.makeInput().loadData,
-            refreshCacheSubject.asObservable()
-        ])
-
-        return PagingViewModelInput(loadData: loadData)
-    }
-
     override func showContextMenu() {
         let actionController = DownActionController(applicationType: application.downType)
 

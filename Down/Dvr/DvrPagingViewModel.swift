@@ -25,15 +25,15 @@ struct DvrPagingViewModel: PagingViewModel, Depending {
     func transform(input: PagingViewModelInput) -> PagingViewModelOutput {
         let loadingData = BehaviorSubject(value: false)
 
+        let showsAvailable = dependencies.database.fetchShows().map { !$0.isEmpty }
+
         let refreshCache = dependencies.dvrInteractorFactory
             .makeShowCacheRefreshInteractor(for: dependencies.dvrApplication)
             .observe()
             .asVoid()
 
-        let showsAvailable = dependencies.database.fetchShows().map { !$0.isEmpty }
-
-        let data = showsAvailable
-            .single()
+        let data = input.loadData
+            .withLatestFrom(showsAvailable)
             .do(onNext: { loadingData.onNext(!$0) })
             .flatMap { _ in refreshCache }
             .do(onNext: { _ in loadingData.onNext(false) })
