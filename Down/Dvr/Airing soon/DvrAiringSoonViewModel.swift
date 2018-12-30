@@ -39,11 +39,23 @@ extension DvrAiringSoonViewModel: ReactiveBindable {
 
 extension DvrAiringSoonViewModel {
     func transform(input: Input) -> Output {
-        let airingToday = dependencies.database.fetchEpisodes(airingOn: Date())
-        let airingTomorrow = dependencies.database.fetchEpisodes(airingOn: Date.tomorrow)
-        let airingSoon = dependencies.database.fetchEpisodes(airingBetween: Date().addingDays(2), and: Date().addingDays(14))
+        let airingToday = dependencies.database.fetchEpisodes(airingOn: Date()).map {
+            $0.filter { $0.show != nil && $0.season != nil }
+              .filter { !$0.isSpecial }
+        }
+
+        let airingTomorrow = dependencies.database.fetchEpisodes(airingOn: Date.tomorrow).map {
+            $0.filter { $0.show != nil && $0.season != nil }
+              .filter { !$0.isSpecial }
+        }
+
+        let airingSoon = dependencies.database.fetchEpisodes(airingBetween: Date().addingDays(2), and: Date().addingDays(14)).map {
+            $0.filter { $0.show != nil && $0.season != nil }
+              .filter { !$0.isSpecial }
+        }
 
         let episodes = Observable.zip([airingToday, airingTomorrow, airingSoon])
+
         let episodeSelected = input.itemSelected
             .withLatestFrom(episodes) { indexPath, episodes in
                 return episodes[indexPath.section][indexPath.row]
@@ -57,8 +69,6 @@ extension DvrAiringSoonViewModel {
             .map { data in
                 data.episodes.map { episodes -> TableSectionData<RefinedEpisode> in
                     let items = episodes
-                        .filter { $0.show != nil && $0.season != nil }
-                        .filter { !$0.isSpecial }
                         .map {
                             RefinedEpisode.from(episode: $0, withDvrRequestBuilder: self.dependencies.dvrRequestBuilder)
                         }
