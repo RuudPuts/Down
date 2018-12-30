@@ -14,7 +14,6 @@ extension ViewStyling where ViewType == CircleProgressView {
         $0.backgroundColor = .clear
         $0.centerFillColor = .clear
         $0.trackBackgroundColor = Stylesheet.Colors.Backgrounds.darkBlue
-        $0.trackFillColor = UIColor.white.withAlphaComponent(0.8)
 
         $0.trackWidth = 5
     }
