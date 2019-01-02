@@ -64,7 +64,7 @@ class DvrEpisodeCell: UITableViewCell {
     }
 
     private func applyStyling() {
-        style(as: .defaultCell)
+        style(as: .defaultTableViewCell)
         selectionStyle = .none
         
         nameLabel.style(as: .titleLabel)

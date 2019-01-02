@@ -16,6 +16,7 @@ class DvrShowsViewController: UIViewController & Depending {
     let dependencies: Dependencies
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var sectionIndexView: SectionIndexView!
 
     private let viewModel: DvrShowsViewModel
     private var collectionViewModel: DvrShowsCollectionViewModel!
@@ -51,6 +52,8 @@ class DvrShowsViewController: UIViewController & Depending {
                                                           collectionView: collectionView)
 
         collectionViewModel.configure(collectionView)
+
+        sectionIndexView.applicationType = dependencies.dvrApplication.downType
     }
 }
 
@@ -72,12 +75,30 @@ extension DvrShowsViewController: ReactiveBinding {
             })
             .disposed(by: disposeBag)
 
-        let showsLoaded = output.shows
-            .map { !$0.isEmpty }
+        let showsEmpty = output.shows.map { $0.isEmpty }
 
-        showsLoaded
-            .map { !$0 }
+        showsEmpty
             .drive(collectionView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        output.shows
+            .map { $0.map { $0.name } }
+            .drive(sectionIndexView.rx.dataSource)
+            .disposed(by: disposeBag)
+
+        sectionIndexView.rx.indexSelected
+            .map { $0.lowercased() }
+            .withLatestFrom(output.shows) { index, shows in
+                shows.firstIndex(where: { $0.name.lowercased().starts(with: index) }) ?? 0
+            }
+            .subscribe(onNext: {
+                let indexPath = IndexPath(item: $0, section: 0)
+                self.collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+            })
+            .disposed(by: disposeBag)
+
+        showsEmpty
+            .drive(sectionIndexView.rx.isHidden)
             .disposed(by: disposeBag)
     }
 }

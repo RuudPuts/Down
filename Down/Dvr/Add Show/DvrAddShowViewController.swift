@@ -73,7 +73,7 @@ class DvrAddShowViewController: UIViewController & Depending {
                 switch event {
                 case .next(let cell, _):
                     let type = self.dependencies.dvrApplication.downType
-                    cell.style(as: .selectableCell(application: type))
+                    cell.style(as: .selectableTableViewCell(application: type))
                 default:
                     break
                 }

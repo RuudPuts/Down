@@ -108,6 +108,12 @@
 		422CEE0C20D52B8700EF0A16 /* RequestClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */; };
 		422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */; };
 		422CEE1120D55AD200EF0A16 /* RequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE1020D55AD200EF0A16 /* RequestClient.swift */; };
+		42331F6321DD60DB002D5882 /* SectionIndexView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42331F6221DD60DB002D5882 /* SectionIndexView.xib */; };
+		42331F6521DD60E6002D5882 /* SectionIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42331F6421DD60E6002D5882 /* SectionIndexView.swift */; };
+		42331F6721DD664B002D5882 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42331F6621DD664B002D5882 /* ArrayExtensions.swift */; };
+		42331F6921DD67FA002D5882 /* SectionIndexCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42331F6821DD67FA002D5882 /* SectionIndexCell.swift */; };
+		42331F6B21DD6808002D5882 /* SectionIndexCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42331F6A21DD6808002D5882 /* SectionIndexCell.xib */; };
+		42331F6D21DD6A15002D5882 /* UICollectionViewCellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42331F6C21DD6A15002D5882 /* UICollectionViewCellStyle.swift */; };
 		42335DA1216D445F0048BB56 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42335DA0216D445F0048BB56 /* DateExtensions.swift */; };
 		42335DA3216D4FC10048BB56 /* DvrRefreshShowCacheInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B16D5820D5A2F50027ED1C /* DvrRefreshShowCacheInteractorSpec.swift */; };
 		42335DA6216D52010048BB56 /* DvrInteractorProducingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42335DA4216D503C0048BB56 /* DvrInteractorProducingMock.swift */; };
@@ -480,6 +486,12 @@
 		422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClientMock.swift; sourceTree = "<group>"; };
 		422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterializedSequenceResult.swift; sourceTree = "<group>"; };
 		422CEE1020D55AD200EF0A16 /* RequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClient.swift; sourceTree = "<group>"; };
+		42331F6221DD60DB002D5882 /* SectionIndexView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionIndexView.xib; sourceTree = "<group>"; };
+		42331F6421DD60E6002D5882 /* SectionIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionIndexView.swift; sourceTree = "<group>"; };
+		42331F6621DD664B002D5882 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		42331F6821DD67FA002D5882 /* SectionIndexCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionIndexCell.swift; sourceTree = "<group>"; };
+		42331F6A21DD6808002D5882 /* SectionIndexCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionIndexCell.xib; sourceTree = "<group>"; };
+		42331F6C21DD6A15002D5882 /* UICollectionViewCellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellStyle.swift; sourceTree = "<group>"; };
 		42335DA0216D445F0048BB56 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		42335DA4216D503C0048BB56 /* DvrInteractorProducingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrInteractorProducingMock.swift; sourceTree = "<group>"; };
 		42335DC52171DA970048BB56 /* DownloadItemDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadItemDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -1290,6 +1302,17 @@
 			path = Interactors;
 			sourceTree = "<group>";
 		};
+		42331F6121DD60CC002D5882 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				42331F6221DD60DB002D5882 /* SectionIndexView.xib */,
+				42331F6421DD60E6002D5882 /* SectionIndexView.swift */,
+				42331F6821DD67FA002D5882 /* SectionIndexCell.swift */,
+				42331F6A21DD6808002D5882 /* SectionIndexCell.xib */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		42335DB1216E878B0048BB56 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
@@ -1670,6 +1693,7 @@
 				42D58EF0211A0AAA00F3454A /* Extensions */,
 				424E3AFB21CEC91300738870 /* PagingViewController */,
 				424E3AF221CEAB5500738870 /* ActionController */,
+				42331F6121DD60CC002D5882 /* CollectionView */,
 				422106D621CAA927009D9D11 /* TableView */,
 				428801152120976D007552FD /* Views */,
 			);
@@ -1794,12 +1818,13 @@
 				424E3AF721CEB4E300738870 /* ActionCellStyle.swift */,
 				4288010F21209280007552FD /* ApplicationHeaderViewStyle.swift */,
 				4235075D21248BEC005343CD /* CircleProgressViewStyle.swift */,
+				424E3B1F21D01F7600738870 /* ImageViewStyle.swift */,
 				422106E721CAC552009D9D11 /* NVActivityIndicatorFiewStyle.swift */,
 				4237F7C121C6D1690005ED2D /* PagingViewControllerStyle.swift */,
 				4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */,
 				4235076521249B9E005343CD /* TableHeaderViewStyle.swift */,
 				4284C72821334D7000F21B91 /* UIButtonStyle.swift */,
-				424E3B1F21D01F7600738870 /* ImageViewStyle.swift */,
+				42331F6C21DD6A15002D5882 /* UICollectionViewCellStyle.swift */,
 				428FCD6621234E3E00C0371D /* UILabelStyle.swift */,
 				424DDA7E2144718400588B48 /* UINavigationBarStyle.swift */,
 				4284C722213331FD00F21B91 /* UITabBarStyle.swift */,
@@ -1969,6 +1994,7 @@
 		42D58EF0211A0AAA00F3454A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				42331F6621DD664B002D5882 /* ArrayExtensions.swift */,
 				42510F9D21A493FA00F721F1 /* CircleProgressViewExtensions.swift */,
 				42BE70CD21693E06004167C3 /* CollectionExtensions.swift */,
 				42E014752135CC18006D550D /* DateExtensions.swift */,
@@ -2201,6 +2227,7 @@
 				428FCD83212350DE00C0371D /* OpenSans-LightItalic.ttf in Resources */,
 				424E3AF421CEABA200738870 /* DownActionCell.xib in Resources */,
 				428FCD86212350DE00C0371D /* OpenSans-Regular.ttf in Resources */,
+				42331F6321DD60DB002D5882 /* SectionIndexView.xib in Resources */,
 				428FCD80212350DE00C0371D /* OpenSans-Bold.ttf in Resources */,
 				420C28322163F58D0088259C /* SettingsApplicationCell.xib in Resources */,
 				421D83AF2107A4A6008BEB2F /* Localizable.strings in Resources */,
@@ -2213,6 +2240,7 @@
 				420C282A2163E1ED0088259C /* SettingsViewController.xib in Resources */,
 				4221DA4E20D181F2003950CF /* Assets.xcassets in Resources */,
 				422106E421CAAB11009D9D11 /* DvrRecentlyAiredViewController.xib in Resources */,
+				42331F6B21DD6808002D5882 /* SectionIndexCell.xib in Resources */,
 				4243527C20FA8FE700A729E1 /* DownloadStatusViewController.xib in Resources */,
 				4221DA4D20D181F2003950CF /* LaunchScreen.storyboard in Resources */,
 				428FCD81212350DE00C0371D /* OpenSans-BoldItalic.ttf in Resources */,
@@ -2678,14 +2706,17 @@
 				4243528920FA9D1A00A729E1 /* ApplicationSettingsViewModel.swift in Sources */,
 				426BF74120F6A2CB000C3A4A /* AssetProvider.swift in Sources */,
 				428FCD632122143E00C0371D /* UITableViewCellStyle.swift in Sources */,
+				42331F6721DD664B002D5882 /* ArrayExtensions.swift in Sources */,
 				422106D921CAA950009D9D11 /* SectionedTableController.swift in Sources */,
 				429E06E6219386330072A57B /* ErrorHandler.swift in Sources */,
 				4284C7252133442800F21B91 /* SkyFloatingLabelTextFieldStyle.swift in Sources */,
 				4288011421209280007552FD /* ViewStyling.swift in Sources */,
+				42331F6521DD60E6002D5882 /* SectionIndexView.swift in Sources */,
 				422106E321CAAB11009D9D11 /* DvrRecentlyAiredViewController.swift in Sources */,
 				4239553C218F5D7000B7E40F /* DownDependencies.swift in Sources */,
 				42E49DCB21445B1000F8491B /* DownKitExtensions.swift in Sources */,
 				429F0A64211725D9005582B6 /* DvrAddShowViewModel.swift in Sources */,
+				42331F6D21DD6A15002D5882 /* UICollectionViewCellStyle.swift in Sources */,
 				42FB90392101154C007B01DB /* ApplicationPersisting.swift in Sources */,
 				4284C72921334D7000F21B91 /* UIButtonStyle.swift in Sources */,
 				420C28302163ED0E0088259C /* SettingsApplicationCell.swift in Sources */,
@@ -2749,6 +2780,7 @@
 				4284C73B2134330C00F21B91 /* DvrShowCollectionViewCell.swift in Sources */,
 				420E2E5A21A1F045000891C8 /* DownloadStatusTableController.swift in Sources */,
 				427D605B20E02E2F0017AE42 /* DvrRouter.swift in Sources */,
+				42331F6921DD67FA002D5882 /* SectionIndexCell.swift in Sources */,
 				420C282C2163E1FD0088259C /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

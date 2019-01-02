@@ -93,6 +93,6 @@ extension DvrRecentlyAiredViewController: ReactiveBinding {
 
 extension DvrRecentlyAiredViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.style(as: .selectableCell(application: dependencies.dvrApplication.downType))
+        cell.style(as: .selectableTableViewCell(application: dependencies.dvrApplication.downType))
     }
 }

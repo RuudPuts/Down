@@ -24,7 +24,7 @@ class DownloadItemCell: UITableViewCell {
     }
 
     private func applyStyling() {
-        style(as: .defaultCell)
+        style(as: .defaultTableViewCell)
         progressView.style(as: .defaultProgressView)
         nameLabel?.style(as: .titleLabel)
         statusLabel?.style(as: .detailLabel)

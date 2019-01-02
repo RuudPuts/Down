@@ -10,13 +10,13 @@ import UIKit
 import DownKit
 
 extension ViewStyling where ViewType == UITableViewCell {
-    static var defaultCell = ViewStyling {
+    static var defaultTableViewCell = ViewStyling {
         $0.backgroundColor = .clear
         $0.textLabel?.style(as: .titleLabel)
         $0.detailTextLabel?.style(as: .detailLabel)
     }
 
-    static func selectableCell(application: DownApplicationType) -> ViewStyling {
+    static func selectableTableViewCell(application: DownApplicationType) -> ViewStyling {
         return ViewStyling {
             let view = UIView()
             view.backgroundColor = Stylesheet.Colors

@@ -343,7 +343,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 26 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 28 nibs.
   struct nib {
     /// Nib `ActivityView`.
     static let activityView = _R.nib._ActivityView()
@@ -391,6 +391,10 @@ struct R: Rswift.Validatable {
     static let keyValueTableViewCell = _R.nib._KeyValueTableViewCell()
     /// Nib `PagingViewController`.
     static let pagingViewController = _R.nib._PagingViewController()
+    /// Nib `SectionIndexCell`.
+    static let sectionIndexCell = _R.nib._SectionIndexCell()
+    /// Nib `SectionIndexView`.
+    static let sectionIndexView = _R.nib._SectionIndexView()
     /// Nib `SettingsApplicationCell`.
     static let settingsApplicationCell = _R.nib._SettingsApplicationCell()
     /// Nib `SettingsViewController`.
@@ -511,6 +515,16 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "PagingViewController", in: bundle)`
     static func pagingViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.pagingViewController)
+    }
+    
+    /// `UINib(name: "SectionIndexCell", in: bundle)`
+    static func sectionIndexCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.sectionIndexCell)
+    }
+    
+    /// `UINib(name: "SectionIndexView", in: bundle)`
+    static func sectionIndexView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.sectionIndexView)
     }
     
     /// `UINib(name: "SettingsApplicationCell", in: bundle)`
@@ -923,6 +937,28 @@ struct _R: Rswift.Validatable {
     struct _PagingViewController: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "PagingViewController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _SectionIndexCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "SectionIndexCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> SectionIndexCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? SectionIndexCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _SectionIndexView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "SectionIndexView"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView

@@ -23,7 +23,7 @@ class DvrAiringSoonCell: UITableViewCell {
     }
 
     private func applyStyling() {
-        style(as: .defaultCell)
+        style(as: .defaultTableViewCell)
 
         showLabel?.style(as: .titleLabel)
         titleLabel?.style(as: .detailLabel)

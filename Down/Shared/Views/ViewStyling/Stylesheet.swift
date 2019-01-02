@@ -43,6 +43,7 @@ struct Stylesheet {
         static let boldTitleFont = boldFont(ofSize: 16)
         static let detailFont = lightFont(ofSize: 14)
         static let boldDetailFont = regularFont(ofSize: 14)
+        static let annotationFont = lightFont(ofSize: 10)
 
         static func regularFont(ofSize size: CGFloat) -> UIFont {
             return UIFont(name: "OpenSans", size: size)!

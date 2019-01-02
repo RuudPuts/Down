@@ -9,6 +9,12 @@
 import UIKit
 
 extension UICollectionView {
+    func registerCell(nibName nib: String) {
+        register(UINib(nibName: nib, bundle: Bundle.main), forCellWithReuseIdentifier: nib)
+    }
+}
+
+extension UICollectionView {
     var collectionHeaderView: UIView? {
         get {
             return subviews.first(where: { !$0.isKind(of: UICollectionViewCell.self) })

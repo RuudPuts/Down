@@ -88,6 +88,6 @@ extension SettingsTableViewModel: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let type = datasource[indexPath.section].applications[indexPath.row]
-        cell.style(as: .selectableCell(application: type))
+        cell.style(as: .selectableTableViewCell(application: type))
     }
 }

@@ -30,5 +30,3 @@ let regex2 = "(\\d+)x(\\d+)"
 
 "luther.5x01.720p hdtv x264-fov".match(regex1)
 "luther.5x01.720p hdtv x264-fov".match(regex2)
-
-

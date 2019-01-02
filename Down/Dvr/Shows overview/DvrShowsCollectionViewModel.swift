@@ -33,7 +33,7 @@ class DvrShowsCollectionViewModel: NSObject, Depending {
         collectionView.register(UINib(nibName: DvrShowCollectionViewCell.reuseIdentifier, bundle: nil),
                                 forCellWithReuseIdentifier: DvrShowCollectionViewCell.reuseIdentifier)
 
-        collectionView.contentInset = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: -4)
 
         collectionView.dataSource = self
         collectionView.delegate = self

@@ -18,7 +18,7 @@ class EmptySectionCell: UITableViewCell {
     }
 
     private func applyStyling() {
-        style(as: .defaultCell)
+        style(as: .defaultTableViewCell)
         label.style(as: .detailLabel)
     }
 }

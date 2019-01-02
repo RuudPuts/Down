@@ -48,6 +48,11 @@ extension ViewStyling where ViewType == UILabel {
         $0.style(as: .boldDetailLabel)
         $0.textColor = Stylesheet.Colors.red
     }
+
+    static var annotationLabel = ViewStyling {
+        $0.textColor = Stylesheet.Colors.white
+        $0.font = Stylesheet.Fonts.annotationFont
+    }
 }
 
 extension ViewStyling where ViewType == UILabel {
