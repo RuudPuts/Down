@@ -73,17 +73,15 @@ extension DvrShowDetailsViewModel {
         let status: DvrShowStatus
         let episodesAvailable: String
 
-        let seasons: [RefinedSeason]
+        let seasons: [DvrSeason]
 
         let bannerUrl: URL?
         let posterUrl: URL?
 
         static func from(show: DvrShow, withDvrRequestBuilder requestBuilder: DvrRequestBuilding) -> RefinedShow {
-            let refinedSeasons = show.seasons
-                .sorted(by: { Int($0.identifier)! > Int($1.identifier)! })
-                .map { RefinedSeason.from(season: $0) }
+            let seasons = show.reversedSeasons
 
-            let episodes = refinedSeasons.flatMap { $0.episodes }
+            let episodes = seasons.flatMap { $0.episodes }
             let downloadedEpisodes = episodes.filter { $0.status == .downloaded }
 
             return RefinedShow(name: show.name,
@@ -91,27 +89,9 @@ extension DvrShowDetailsViewModel {
                                quality: show.quality,
                                status: show.status,
                                episodesAvailable: "\(downloadedEpisodes.count) / \(episodes.count) episodes downloaded",
-                               seasons: refinedSeasons,
+                               seasons: seasons,
                                bannerUrl: requestBuilder.url(for: .fetchBanner(show)),
                                posterUrl: requestBuilder.url(for: .fetchPoster(show)))
-        }
-    }
-
-    struct RefinedSeason {
-        let title: String
-        let episodes: [DvrEpisode]
-
-        static func from(season: DvrSeason) -> RefinedSeason {
-            let episodes = season.episodes
-                .sorted(by: { Int($0.identifier)! > Int($1.identifier)! })
-
-            if season.isSpecials {
-                return RefinedSeason(title: "Specials",
-                    episodes: episodes)
-            }
-
-            return RefinedSeason(title: "Season \(season.identifier)",
-                                 episodes: episodes)
         }
     }
 }

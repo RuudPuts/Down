@@ -70,6 +70,18 @@ extension DvrShowStatus {
     }
 }
 
+extension DvrShow {
+    var reversedSeasons: [DvrSeason] {
+        return seasons.sorted(by: { Int($0.identifier)! > Int($1.identifier)! })
+    }
+}
+
+extension DvrSeason {
+    var reversedEpisodes: [DvrEpisode] {
+        return episodes.sorted(by: { Int($0.identifier)! > Int($1.identifier)! })
+    }
+}
+
 extension DvrEpisode {
     var seasonIdentifierString: String? {
         guard let episodeId = Int(identifier),

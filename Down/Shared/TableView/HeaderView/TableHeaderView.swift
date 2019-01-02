@@ -12,14 +12,6 @@ class TableHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var imageView: UIImageView!
 
-    var viewModel: TableHeaderViewModel? = nil {
-        didSet {
-            label.text = viewModel?.title
-            imageView.image = viewModel?.icon
-            imageView.isHidden = imageView.image == nil
-        }
-    }
-
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundView = UIView()
@@ -28,7 +20,10 @@ class TableHeaderView: UITableViewHeaderFooterView {
     }
 }
 
-struct TableHeaderViewModel {
-    let title: String
-    let icon: UIImage?
+extension TableHeaderView {
+    func configure(with title: String, image: UIImage? = nil) {
+        label.text = title
+        imageView.image = image
+        imageView.isHidden = imageView.image == nil
+    }
 }

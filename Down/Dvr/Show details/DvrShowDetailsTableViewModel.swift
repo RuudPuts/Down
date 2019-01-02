@@ -26,7 +26,7 @@ class DvrShowDetailsTableViewModel: NSObject, Depending {
 
     func prepare(_ tableView: UITableView) {
         tableView.registerCell(nibName: DvrEpisodeCell.reuseIdentifier)
-        tableView.registerHeaderFooter(nibName: TableHeaderView.reuseIdentifier)
+        tableView.registerHeaderFooter(nibName: DvrSeasonTableHeaderView.reuseIdentifier)
 
         self.tableView = tableView
     }
@@ -52,7 +52,7 @@ extension DvrShowDetailsTableViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DvrEpisodeCell.reuseIdentifier, for: indexPath)
         guard let episodeCell = cell as? DvrEpisodeCell,
-              let episode = refinedShow?.seasons[indexPath.section].episodes[indexPath.row] else {
+              let episode = refinedShow?.seasons[indexPath.section].reversedEpisodes[indexPath.row] else {
             return cell
         }
 
@@ -65,13 +65,13 @@ extension DvrShowDetailsTableViewModel: UITableViewDataSource {
 
 extension DvrShowDetailsTableViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeaderView.reuseIdentifier)
-        guard let headerView = view as? TableHeaderView,
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: DvrSeasonTableHeaderView.reuseIdentifier)
+        guard let headerView = view as? DvrSeasonTableHeaderView,
               let season = refinedShow?.seasons[section] else {
             return nil
         }
 
-        headerView.viewModel = TableHeaderViewModel(title: season.title, icon: nil)
+        headerView.configure(with: season, dependencies: dependencies, context: context)
 
         return view
     }

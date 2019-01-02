@@ -9,9 +9,9 @@
 import UIKit
 
 extension ViewStyling where ViewType == TableHeaderView {
-    static var defaultTableHeaderView = ViewStyling { (view: TableHeaderView) in
-        view.backgroundView?.backgroundColor = Stylesheet.Colors.Backgrounds.darkBlue
-        view.label.style(as: .headerLabel)
-        view.imageView.topConstraint?.constant = 2
+    static var defaultTableHeaderView = ViewStyling {
+        $0.backgroundView?.style(as: .backgroundView)
+        $0.label.style(as: .headerLabel)
+        $0.imageView.topConstraint?.constant = 2
     }
 }

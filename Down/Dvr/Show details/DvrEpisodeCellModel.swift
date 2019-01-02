@@ -25,8 +25,7 @@ struct DvrEpisodeCellModel: Depending {
         .wanted,
         .skipped,
         .archived,
-        .ignored,
-        .downloaded
+        .ignored
     ]
 
     init(dependencies: Dependencies, episode: DvrEpisode) {
@@ -49,7 +48,7 @@ extension DvrEpisodeCellModel: ReactiveBindable {
 }
 
 extension DvrEpisodeCellModel {
-    func transform(input: Input) -> DvrEpisodeCellModel.Output {
+    func transform(input: Input) -> Output {
         let episode = Observable.from(object: self.episode)
 
         let plotFetched = input.fetchPlot

@@ -343,7 +343,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 25 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 26 nibs.
   struct nib {
     /// Nib `ActivityView`.
     static let activityView = _R.nib._ActivityView()
@@ -375,6 +375,8 @@ struct R: Rswift.Validatable {
     static let dvrRecentlyAiredCell = _R.nib._DvrRecentlyAiredCell()
     /// Nib `DvrRecentlyAiredViewController`.
     static let dvrRecentlyAiredViewController = _R.nib._DvrRecentlyAiredViewController()
+    /// Nib `DvrSeasonTableHeaderView`.
+    static let dvrSeasonTableHeaderView = _R.nib._DvrSeasonTableHeaderView()
     /// Nib `DvrShowCollectionViewCell`.
     static let dvrShowCollectionViewCell = _R.nib._DvrShowCollectionViewCell()
     /// Nib `DvrShowDetailViewController`.
@@ -469,6 +471,11 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "DvrRecentlyAiredViewController", in: bundle)`
     static func dvrRecentlyAiredViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrRecentlyAiredViewController)
+    }
+    
+    /// `UINib(name: "DvrSeasonTableHeaderView", in: bundle)`
+    static func dvrSeasonTableHeaderView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.dvrSeasonTableHeaderView)
     }
     
     /// `UINib(name: "DvrShowCollectionViewCell", in: bundle)`
@@ -648,6 +655,7 @@ struct _R: Rswift.Validatable {
   
   struct nib: Rswift.Validatable {
     static func validate() throws {
+      try _DvrSeasonTableHeaderView.validate()
       try _TableHeaderView.validate()
       try _DownloadQueueStatusView.validate()
       try _ApplicationHeaderView.validate()
@@ -826,6 +834,21 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _DvrSeasonTableHeaderView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "DvrSeasonTableHeaderView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DvrSeasonTableHeaderView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrSeasonTableHeaderView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "icon_context", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_context' is used in nib 'DvrSeasonTableHeaderView', but couldn't be loaded.") }
       }
       
       fileprivate init() {}

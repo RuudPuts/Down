@@ -120,6 +120,7 @@ extension PagingViewController {
             .disposed(by: disposeBag)
 
         output.loadingData
+            .map { !$0 }
             .drive(headerView.contextButton.rx.isEnabled)
             .disposed(by: disposeBag)
 

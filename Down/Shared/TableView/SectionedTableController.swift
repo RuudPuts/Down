@@ -85,7 +85,7 @@ class SectionedTableController<ItemType>: NSObject, UITableViewDataSource, UITab
         }
 
         let sectionData = dataSource[section]
-        headerView.viewModel = TableHeaderViewModel(title: sectionData.header, icon: sectionData.icon)
+        headerView.configure(with: sectionData.header, image: sectionData.icon)
 
         return view
     }

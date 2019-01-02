@@ -216,6 +216,9 @@
 		427D606320E0325C0017AE42 /* DownloadRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427D606020E0325C0017AE42 /* DownloadRouter.swift */; };
 		427D606920E19A660017AE42 /* DownloadStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427D606820E19A660017AE42 /* DownloadStatusViewModel.swift */; };
 		427D606B20E1A6BD0017AE42 /* DownloadItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427D606A20E1A6BD0017AE42 /* DownloadItemCell.swift */; };
+		4281368F21DD151000BFA591 /* DvrSeasonTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4281368D21DD151000BFA591 /* DvrSeasonTableHeaderView.xib */; };
+		4281369021DD151000BFA591 /* DvrSeasonTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4281368E21DD151000BFA591 /* DvrSeasonTableHeaderView.swift */; };
+		4281369221DD1A9500BFA591 /* DvrSeasonHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4281369121DD1A9400BFA591 /* DvrSeasonHeaderViewModel.swift */; };
 		428340B720D28D7400CB2D7A /* DvrRequestBuildingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */; };
 		428340BB20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340BA20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift */; };
 		428340BD20D298D100CB2D7A /* SickbeardResponseParserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428340BC20D298D100CB2D7A /* SickbeardResponseParserSpec.swift */; };
@@ -585,6 +588,9 @@
 		427D606020E0325C0017AE42 /* DownloadRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadRouter.swift; sourceTree = "<group>"; };
 		427D606820E19A660017AE42 /* DownloadStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadStatusViewModel.swift; sourceTree = "<group>"; };
 		427D606A20E1A6BD0017AE42 /* DownloadItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItemCell.swift; sourceTree = "<group>"; };
+		4281368D21DD151000BFA591 /* DvrSeasonTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DvrSeasonTableHeaderView.xib; sourceTree = "<group>"; };
+		4281368E21DD151000BFA591 /* DvrSeasonTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrSeasonTableHeaderView.swift; sourceTree = "<group>"; };
+		4281369121DD1A9400BFA591 /* DvrSeasonHeaderViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DvrSeasonHeaderViewModel.swift; sourceTree = "<group>"; };
 		428340B620D28D7400CB2D7A /* DvrRequestBuildingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvrRequestBuildingMock.swift; sourceTree = "<group>"; };
 		428340BA20D298C600CB2D7A /* SickbeardRequestBuilderSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickbeardRequestBuilderSpec.swift; sourceTree = "<group>"; };
 		428340BC20D298D100CB2D7A /* SickbeardResponseParserSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickbeardResponseParserSpec.swift; sourceTree = "<group>"; };
@@ -1759,11 +1765,14 @@
 				4243527920FA8FB800A729E1 /* DvrShowDetailViewController.xib */,
 				4259F194219DFC8C003C37AB /* DvrShowDetailsViewModel.swift */,
 				424DDA82214591EF00588B48 /* DvrShowDetailsTableViewModel.swift */,
+				42E014772135DA9D006D550D /* DvrShowHeaderView.swift */,
+				42E014792135DACD006D550D /* DvrShowHeaderView.xib */,
+				4281368E21DD151000BFA591 /* DvrSeasonTableHeaderView.swift */,
+				4281368D21DD151000BFA591 /* DvrSeasonTableHeaderView.xib */,
+				4281369121DD1A9400BFA591 /* DvrSeasonHeaderViewModel.swift */,
 				4222BE532156FFC7002742D8 /* DvrEpisodeCell.swift */,
 				4222BE552156FFD6002742D8 /* DvrEpisodeCell.xib */,
 				42FC2AA221D82C8F0038E3E8 /* DvrEpisodeCellModel.swift */,
-				42E014772135DA9D006D550D /* DvrShowHeaderView.swift */,
-				42E014792135DACD006D550D /* DvrShowHeaderView.xib */,
 			);
 			path = "Show details";
 			sourceTree = "<group>";
@@ -2174,6 +2183,7 @@
 				4284C73C2134330C00F21B91 /* DvrShowCollectionViewCell.xib in Resources */,
 				424E3AED21CC3BCC00738870 /* ActivityView.xib in Resources */,
 				42350764212499C6005343CD /* TableHeaderView.xib in Resources */,
+				4281368F21DD151000BFA591 /* DvrSeasonTableHeaderView.xib in Resources */,
 				4243527A20FA8FB800A729E1 /* DvrShowDetailViewController.xib in Resources */,
 				422106E621CAAB11009D9D11 /* DvrRecentlyAiredCell.xib in Resources */,
 				4222BE562156FFD6002742D8 /* DvrEpisodeCell.xib in Resources */,
@@ -2697,6 +2707,7 @@
 				42A70D4C20F7F3210042FC35 /* ViewControllerFactory.swift in Sources */,
 				4221DA5320D183B6003950CF /* Router.swift in Sources */,
 				42B4AAF620FA8DB5008B7C3B /* DesignableView.swift in Sources */,
+				4281369021DD151000BFA591 /* DvrSeasonTableHeaderView.swift in Sources */,
 				4235075E21248BEC005343CD /* CircleProgressViewStyle.swift in Sources */,
 				424E3AF821CEB4E300738870 /* ActionCellStyle.swift in Sources */,
 				428FCD6721234E3E00C0371D /* UILabelStyle.swift in Sources */,
@@ -2731,6 +2742,7 @@
 				423A50A621C833CA002271BD /* DvrAiringSoonViewModel.swift in Sources */,
 				427D606320E0325C0017AE42 /* DownloadRouter.swift in Sources */,
 				424E3AFD21CEC93600738870 /* PagingViewModel.swift in Sources */,
+				4281369221DD1A9500BFA591 /* DvrSeasonHeaderViewModel.swift in Sources */,
 				424E3AFF21CEC96F00738870 /* DvrPagingViewModel.swift in Sources */,
 				427D606B20E1A6BD0017AE42 /* DownloadItemCell.swift in Sources */,
 				42BE70C821693C05004167C3 /* DownloadItemDetailViewModel.swift in Sources */,

@@ -81,7 +81,7 @@ extension SettingsTableViewModel: UITableViewDelegate {
             return nil
         }
 
-        headerView.viewModel = TableHeaderViewModel(title: datasource[section].title, icon: nil)
+        headerView.configure(with: datasource[section].title)
 
         return view
     }
