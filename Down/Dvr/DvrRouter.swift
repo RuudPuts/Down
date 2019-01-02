@@ -40,8 +40,8 @@ class DvrRouter: ChildRouter, Depending {
         navigationController.viewControllers = [rootViewController]
     }
     
-    func showDetail(of show: DvrShow) {
-        let vc = viewControllerFactory.makeDvrDetail(show: show)
+    func showDetail(of show: DvrShow, selectedEpisode: DvrEpisode? = nil) {
+        let vc = viewControllerFactory.makeDvrDetail(show: show, selectedEpisode: selectedEpisode)
         guard let viewController = vc as? DvrShowDetailViewController else {
             return
         }

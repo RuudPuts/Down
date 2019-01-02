@@ -25,11 +25,13 @@ class DvrShowDetailViewController: UIViewController, Depending {
     private let viewModel: DvrShowDetailsViewModel
     private let tableViewModel: DvrShowDetailsTableViewModel
 
+    private var initialSelectedEpisode: DvrEpisode?
     private var disposeBag: DisposeBag!
 
-    init(dependencies: Dependencies, viewModel: DvrShowDetailsViewModel) {
+    init(dependencies: Dependencies, viewModel: DvrShowDetailsViewModel, selectedEpisode: DvrEpisode? = nil) {
         self.dependencies = dependencies
         self.viewModel = viewModel
+        self.initialSelectedEpisode = selectedEpisode
 
         self.tableViewModel = DvrShowDetailsTableViewModel(dependencies: dependencies)
         super.init(nibName: nil, bundle: nil)
@@ -53,6 +55,10 @@ class DvrShowDetailViewController: UIViewController, Depending {
 
         disposeBag = DisposeBag()
         bind(to: viewModel)
+
+        if let episode = initialSelectedEpisode {
+            tableViewModel.selectEpisode(episode)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {

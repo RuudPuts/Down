@@ -20,7 +20,7 @@ protocol ViewControllerProducing {
     func makeDvrAiringSoon() -> UIViewController
     func makeDvrRecentlyAired() -> UIViewController
     func makeDvrShows() -> UIViewController
-    func makeDvrDetail(show: DvrShow) -> UIViewController
+    func makeDvrDetail(show: DvrShow, selectedEpisode: DvrEpisode?) -> UIViewController
     func makeDvrAddShow() -> UIViewController
 
     func makeDmrRoot() -> UIViewController
@@ -33,7 +33,9 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
+}
 
+extension ViewControllerFactory {
     func makeSettings() -> UIViewController {
         let viewModel = SettingsViewModel(dependencies: dependencies)
 
@@ -46,10 +48,12 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
 
         return viewController
     }
+}
 
+extension ViewControllerFactory {
     func makeDownloadStatus() -> UIViewController {
         return DownloadStatusViewController(dependencies: dependencies,
-                                      viewModel: DownloadStatusViewModel(dependencies: dependencies))
+                                            viewModel: DownloadStatusViewModel(dependencies: dependencies))
     }
 
     func makeDownloadItemDetail(for item: DownloadItem) -> UIViewController {
@@ -64,15 +68,17 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
                                        viewControllers: viewControllers,
                                        application: dependencies.dvrApplication)
     }
+}
 
+extension ViewControllerFactory {
     func makeDvrAiringSoon() -> UIViewController {
         return DvrAiringSoonViewController(dependencies: dependencies,
-                                      viewModel: DvrAiringSoonViewModel(dependencies: dependencies))
+                                           viewModel: DvrAiringSoonViewModel(dependencies: dependencies))
     }
 
     func makeDvrRecentlyAired() -> UIViewController {
         return DvrRecentlyAiredViewController(dependencies: dependencies,
-                                           viewModel: DvrRecentlyAiredViewModel(dependencies: dependencies))
+                                              viewModel: DvrRecentlyAiredViewModel(dependencies: dependencies))
     }
 
     func makeDvrShows() -> UIViewController {
@@ -80,18 +86,21 @@ class ViewControllerFactory: ViewControllerProducing, Depending {
                                       viewModel: DvrShowsViewModel(dependencies: dependencies))
     }
 
-    func makeDvrDetail(show: DvrShow) -> UIViewController {
+    func makeDvrDetail(show: DvrShow, selectedEpisode: DvrEpisode?) -> UIViewController {
         let viewModel = DvrShowDetailsViewModel(dependencies: dependencies, show: show)
-        
+
         return DvrShowDetailViewController(dependencies: dependencies,
-                                           viewModel: viewModel)
+                                           viewModel: viewModel,
+                                           selectedEpisode: selectedEpisode)
     }
 
     func makeDvrAddShow() -> UIViewController {
         return DvrAddShowViewController(dependencies: dependencies,
                                         viewModel: DvrAddShowViewModel(dependencies: dependencies))
     }
+}
 
+extension ViewControllerFactory {
     func makeDmrRoot() -> UIViewController {
         return DmrStatusViewController(dependencies: dependencies)
     }

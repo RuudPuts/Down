@@ -85,7 +85,7 @@ extension DvrRecentlyAiredViewController: ReactiveBinding {
 
         output.episodeSelected
             .subscribe(onNext: {
-                self.dependencies.router.dvrRouter.showDetail(of: $0.show)
+                self.dependencies.router.dvrRouter.showDetail(of: $0.show, selectedEpisode: $0)
             })
             .disposed(by: disposeBag)
     }

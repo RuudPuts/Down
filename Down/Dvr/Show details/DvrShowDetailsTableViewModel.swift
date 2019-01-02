@@ -34,6 +34,26 @@ class DvrShowDetailsTableViewModel: NSObject, Depending {
 
         self.tableView = tableView
     }
+
+    func selectEpisode(_ episode: DvrEpisode) {
+        guard
+            let tableView = tableView,
+            let seasonIndex = refinedShow?.seasons.firstIndex(where: {
+                $0.identifier == episode.season.identifier
+            }),
+            let seasonEpisodes = episodes(for: seasonIndex) else {
+            return
+        }
+
+        guard let episodeIndex = seasonEpisodes.firstIndex(where: {
+            $0.identifier == episode.identifier
+        }) else { return }
+
+        let indexPath = IndexPath(row: episodeIndex, section: seasonIndex)
+        tableView.selectRow(at: indexPath, animated: false, scrollPosition: .top)
+        tableView.contentOffset = CGPoint(x: 0, y: tableView.contentOffset.y - 40)
+        tableView.animateCellResize()
+    }
 }
 
 extension Reactive where Base: DvrShowDetailsTableViewModel {
@@ -45,6 +65,10 @@ extension Reactive where Base: DvrShowDetailsTableViewModel {
 }
 
 extension DvrShowDetailsTableViewModel: UITableViewDataSource {
+    private func episodes(for section: Int) -> [DvrEpisode]? {
+        return refinedShow?.seasons[section].reversedEpisodes
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return refinedShow?.seasons.count ?? 0
     }
@@ -56,7 +80,7 @@ extension DvrShowDetailsTableViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DvrEpisodeCell.reuseIdentifier, for: indexPath)
         guard let episodeCell = cell as? DvrEpisodeCell,
-              let episode = refinedShow?.seasons[indexPath.section].reversedEpisodes[indexPath.row] else {
+              let episode = episodes(for: indexPath.section)?[indexPath.row] else {
             return cell
         }
 
