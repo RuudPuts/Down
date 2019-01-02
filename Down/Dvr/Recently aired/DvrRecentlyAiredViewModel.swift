@@ -41,8 +41,7 @@ extension DvrRecentlyAiredViewModel {
     func transform(input: Input) -> Output {
         let recentlyAired: Observable<[DvrEpisode]> = dependencies.database
             .fetchEpisodes(airingBetween: Date().addingDays(-14), and: Date().addingDays(-1))
-            .map { $0.filter { $0.show != nil && $0.season != nil } }
-            .map { $0.filter { !$0.isSpecial } }
+            .removeSpecials()
             .map { $0.reversed() }
 
         let episodeSelected = input.itemSelected

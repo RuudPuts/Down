@@ -39,20 +39,9 @@ extension DvrAiringSoonViewModel: ReactiveBindable {
 
 extension DvrAiringSoonViewModel {
     func transform(input: Input) -> Output {
-        let airingToday = dependencies.database.fetchEpisodes(airingOn: Date()).map {
-            $0.filter { $0.show != nil && $0.season != nil }
-              .filter { !$0.isSpecial }
-        }
-
-        let airingTomorrow = dependencies.database.fetchEpisodes(airingOn: Date.tomorrow).map {
-            $0.filter { $0.show != nil && $0.season != nil }
-              .filter { !$0.isSpecial }
-        }
-
-        let airingSoon = dependencies.database.fetchEpisodes(airingBetween: Date().addingDays(2), and: Date().addingDays(14)).map {
-            $0.filter { $0.show != nil && $0.season != nil }
-              .filter { !$0.isSpecial }
-        }
+        let airingToday = dependencies.database.fetchEpisodes(airingOn: Date()).removeSpecials()
+        let airingTomorrow = dependencies.database.fetchEpisodes(airingOn: Date.tomorrow).removeSpecials()
+        let airingSoon = dependencies.database.fetchEpisodes(airingBetween: Date().addingDays(2), and: Date().addingDays(14)).removeSpecials()
 
         let episodes = Observable.zip([airingToday, airingTomorrow, airingSoon])
 
@@ -101,6 +90,15 @@ extension DvrAiringSoonViewModel {
                                   airingOn: "Airs \(show.airTime) on \(show.network)",
                                   bannerUrl: requestBuilder.url(for: .fetchBanner(show)))
 
+        }
+    }
+}
+
+extension Observable where Element == [DvrEpisode] {
+    func removeSpecials() -> Observable<[DvrEpisode]> {
+        return map {
+            $0.filter { $0.show != nil && $0.season != nil }
+              .filter { !$0.isSpecial }
         }
     }
 }
