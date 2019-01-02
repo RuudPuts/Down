@@ -64,11 +64,11 @@ class DvrShowDetailViewController: UIViewController, Depending {
     func applyStyling() {
         view.style(as: .backgroundView)
         navigationController?.navigationBar.style(as: .transparentNavigationBar)
-        tableView?.style(as: .defaultTableView)
+        tableView.style(as: .defaultTableView)
         deleteButton.style(as: .deleteButton)
     }
     func configureTableView() {
-        tableViewModel.prepare( tableView!)
+        tableViewModel.prepare(tableView)
 
         tableView.dataSource = tableViewModel
         tableView.delegate = tableViewModel
@@ -96,16 +96,10 @@ extension DvrShowDetailViewController: ReactiveBinding {
             .drive(tableViewModel.rx.refinedShow)
             .disposed(by: disposeBag)
 
-        output.refinedShow
-            .do(onNext: { _ in
-                self.tableView.reloadData()
-            })
-            .drive()
-            .disposed(by: disposeBag)
-
         output.showDeleted
             .do(
                 onSuccess: {
+                    self.disposeBag = nil
                     self.dependencies.router.close(viewController: self)
                 },
                 onFailure: {

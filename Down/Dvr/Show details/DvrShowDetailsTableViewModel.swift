@@ -14,7 +14,11 @@ class DvrShowDetailsTableViewModel: NSObject, Depending {
     typealias Dependencies = DvrEpisodeCell.Dependencies & DvrApplicationDependency
     let dependencies: Dependencies
 
-    var refinedShow: DvrShowDetailsViewModel.RefinedShow?
+    var refinedShow: DvrShowDetailsViewModel.RefinedShow? {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
 
     weak var context: UIViewController?
     private weak var tableView: UITableView?
