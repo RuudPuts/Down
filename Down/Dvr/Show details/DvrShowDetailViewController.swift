@@ -86,10 +86,7 @@ extension DvrShowDetailViewController: ReactiveBinding {
 
     func bind(output: DvrShowDetailsViewModel.Output) {
         output.refinedShow
-            .do(onNext: { show in
-                self.headerView?.configure(with: show)
-            })
-            .drive()
+            .drive(headerView.rx.refinedShow)
             .disposed(by: disposeBag)
 
         output.refinedShow

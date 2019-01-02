@@ -10,6 +10,8 @@ import UIKit
 import Kingfisher
 import DownKit
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 class DvrShowHeaderView: DesignableView {
     @IBOutlet weak var bannerImageView: UIImageView!
@@ -49,5 +51,13 @@ extension DvrShowHeaderView {
 
         qualityLabel.style(as: .qualityLabel(show.quality))
         statusLabel.style(as: .showStatusLabel(show.status))
+    }
+}
+
+extension Reactive where Base: DvrShowHeaderView {
+    var refinedShow: Binder<DvrShowDetailsViewModel.RefinedShow> {
+        return Binder(base) { headerView, refinedShow in
+            headerView.configure(with: refinedShow)
+        }
     }
 }
