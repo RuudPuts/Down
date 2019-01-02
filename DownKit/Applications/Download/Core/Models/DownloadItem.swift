@@ -38,16 +38,8 @@ extension DownloadItem {
 
         return database
             .fetchShow(matching: nameComponents)
-            .map {
-                $0?.seasons.first(where: {
-                    $0.identifier == String(seasonIdentifier)
-                })
-            }
-            .map {
-                $0?.episodes.first(where: {
-                    $0.identifier == String(episodeIdentifier)
-                })
-            }
+            .map { $0?.seasons.first(where: { $0.identifier == String(seasonIdentifier) }) }
+            .map { $0?.episodes.first(where: { $0.identifier == String(episodeIdentifier) }) }
             .do(onSuccess: { self.dvrEpisode = $0 })
             .map { _ in self }
             .asObservable()
@@ -56,16 +48,20 @@ extension DownloadItem {
     
     // swiftlint:disable large_tuple
     func seasonAndEpisode(in string: String) -> (Int, Int, String)? {
-        let (range, matches) = string.match("S(\\d+).?E(\\d+)")
-        guard range.location != NSNotFound && matches.count == 3 else {
-            return nil
+        for regex in ["S(\\d+).?E(\\d+)", "(\\d+)x(\\d+)"] {
+            let (range, matches) = string.match(regex)
+            guard range.location != NSNotFound && matches.count == 3 else {
+                continue
+            }
+
+            guard let season = Int(matches[1]), let episode = Int(matches[2]) else {
+                continue
+            }
+
+            return (season, episode, matches[0])
         }
-        
-        guard let season = Int(matches[1]), let episode = Int(matches[2]) else {
-            return nil
-        }
-        
-        return (season, episode, matches[0])
+
+        return nil
     }
 }
 
