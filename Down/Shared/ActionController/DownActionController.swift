@@ -48,6 +48,11 @@ extension DownActionController {
 
         addAction(action)
     }
+
+    func addCancelSection() {
+        addSection(Section())
+        addAction(title: "Cancel", style: .cancel)
+    }
 }
 
 class DownActionCell: ActionCell {

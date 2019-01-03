@@ -30,7 +30,6 @@ class DownloadItemDetailViewController: UIViewController & Depending {
     @IBOutlet weak var progressView: CircleProgressView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var retryButton: UIButton!
-    @IBOutlet weak var deleteButton: UIButton!
 
     private let viewModel: DownloadItemDetailViewModel
     private let tableViewController: DownloadItemDetailTableViewController
@@ -53,6 +52,7 @@ class DownloadItemDetailViewController: UIViewController & Depending {
         super.viewDidLoad()
         title = "Details"
 
+        configureContextButton()
         configureTableView()
         applyStyling()
     }
@@ -70,30 +70,44 @@ class DownloadItemDetailViewController: UIViewController & Depending {
         disposeBag = nil
     }
 
+    private func configureContextButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem.contextButton(target: self, action: #selector(showContextMenu))
+    }
+
     private func configureTableView() {
         tableViewController.prepare(tableView)
     }
 
     private func applyStyling() {
+        let applicationType = dependencies.downloadApplication.downType
+
         view.style(as: .backgroundView)
+        navigationItem.rightBarButtonItem?.style(as: .barButtonItem(applicationType))
         tableView.style(as: .defaultTableView)
         titleLabel.style(as: .titleLabel)
         subtitleLabel.style(as: .titleLabel)
         statusLabel.style(as: .detailLabel)
-        progressView.style(as: .progressView(for: dependencies.downloadApplication.downType))
-        retryButton.style(as: .applicationButton(dependencies.dvrApplication.downType))
-        deleteButton.style(as: .deleteButton)
+        progressView.style(as: .progressView(for: applicationType))
+        retryButton.style(as: .applicationButton(applicationType))
+    }
+}
+
+@objc extension DownloadItemDetailViewController {
+    func showContextMenu() {
+        let actionController = DownActionController(applicationType: dependencies.downloadApplication.downType)
+
+        actionController.addAction(title: "Delete", style: .destructive, handler: { _ in
+            self.viewModel.input.deleteItem.onNext(Void())
+        })
+
+        actionController.addCancelSection()
+
+        present(actionController, animated: true, completion: nil)
     }
 }
 
 extension DownloadItemDetailViewController: ReactiveBinding {
     typealias Bindable = DownloadItemDetailViewModel
-
-    func bind(input: DownloadItemDetailViewModel.Input) {
-        deleteButton.rx.tap
-            .bind(to: input.deleteButtonTapped)
-            .disposed(by: disposeBag)
-    }
 
     func bind(output: DownloadItemDetailViewModel.Output) {
         bindHeaderView(output.refinedItem)

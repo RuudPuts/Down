@@ -35,7 +35,6 @@ extension ViewStyling where ViewType == UIView {
     }
 
     static var fadingOverlayView = ViewStyling {
-//        $0.backgroundColor = Stylesheet.Colors.black.withAlphaComponent(0.3)
         let gradient = CAGradientLayer()
 
         gradient.frame = $0.bounds

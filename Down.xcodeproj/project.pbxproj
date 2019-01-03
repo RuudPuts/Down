@@ -108,6 +108,8 @@
 		422CEE0C20D52B8700EF0A16 /* RequestClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */; };
 		422CEE0F20D5513100EF0A16 /* MaterializedSequenceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */; };
 		422CEE1120D55AD200EF0A16 /* RequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422CEE1020D55AD200EF0A16 /* RequestClient.swift */; };
+		422D443C21DEAC2E00F25AED /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D443B21DEAC2E00F25AED /* UIBarButtonItemExtensions.swift */; };
+		422D443E21DEAE8200F25AED /* UIBarButtonItemStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D443D21DEAE8200F25AED /* UIBarButtonItemStyles.swift */; };
 		42331F6321DD60DB002D5882 /* SectionIndexView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42331F6221DD60DB002D5882 /* SectionIndexView.xib */; };
 		42331F6521DD60E6002D5882 /* SectionIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42331F6421DD60E6002D5882 /* SectionIndexView.swift */; };
 		42331F6721DD664B002D5882 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42331F6621DD664B002D5882 /* ArrayExtensions.swift */; };
@@ -486,6 +488,8 @@
 		422CEE0B20D52B8700EF0A16 /* RequestClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClientMock.swift; sourceTree = "<group>"; };
 		422CEE0E20D5513100EF0A16 /* MaterializedSequenceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterializedSequenceResult.swift; sourceTree = "<group>"; };
 		422CEE1020D55AD200EF0A16 /* RequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestClient.swift; sourceTree = "<group>"; };
+		422D443B21DEAC2E00F25AED /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
+		422D443D21DEAE8200F25AED /* UIBarButtonItemStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemStyles.swift; sourceTree = "<group>"; };
 		42331F6221DD60DB002D5882 /* SectionIndexView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionIndexView.xib; sourceTree = "<group>"; };
 		42331F6421DD60E6002D5882 /* SectionIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionIndexView.swift; sourceTree = "<group>"; };
 		42331F6621DD664B002D5882 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -1823,6 +1827,7 @@
 				4237F7C121C6D1690005ED2D /* PagingViewControllerStyle.swift */,
 				4284C7242133442700F21B91 /* SkyFloatingLabelTextFieldStyle.swift */,
 				4235076521249B9E005343CD /* TableHeaderViewStyle.swift */,
+				422D443D21DEAE8200F25AED /* UIBarButtonItemStyles.swift */,
 				4284C72821334D7000F21B91 /* UIButtonStyle.swift */,
 				42331F6C21DD6A15002D5882 /* UICollectionViewCellStyle.swift */,
 				428FCD6621234E3E00C0371D /* UILabelStyle.swift */,
@@ -2001,6 +2006,7 @@
 				42E49DCA21445B1000F8491B /* DownKitExtensions.swift */,
 				42F6DA2221B2FE200080E12B /* RxExtensions.swift */,
 				423A5504216917A800CC558A /* UICollectionViewExtensions.swift */,
+				422D443B21DEAC2E00F25AED /* UIBarButtonItemExtensions.swift */,
 				424E3B0221CFFB0900738870 /* StringExtensions.swift */,
 				4235075F21249866005343CD /* UITableViewExtensions.swift */,
 				42750B7221A5E9CF00DBE989 /* UITextFieldExtensions.swift */,
@@ -2689,6 +2695,7 @@
 				4222388121343C7B00F73619 /* DvrShowsCollectionViewModel.swift in Sources */,
 				4221DA5820D183EA003950CF /* DvrShowsViewController.swift in Sources */,
 				42750B7321A5E9CF00DBE989 /* UITextFieldExtensions.swift in Sources */,
+				422D443C21DEAC2E00F25AED /* UIBarButtonItemExtensions.swift in Sources */,
 				42F6DA2321B2FE200080E12B /* RxExtensions.swift in Sources */,
 				424DDA7F2144718500588B48 /* UINavigationBarStyle.swift in Sources */,
 				424E3B2021D01F7600738870 /* ImageViewStyle.swift in Sources */,
@@ -2765,6 +2772,7 @@
 				4284C723213331FE00F21B91 /* UITabBarStyle.swift in Sources */,
 				421752DC217BB1F80002F0C1 /* DownloadItemDetailRow.swift in Sources */,
 				4288011121209280007552FD /* Stylesheet.swift in Sources */,
+				422D443E21DEAE8200F25AED /* UIBarButtonItemStyles.swift in Sources */,
 				4237F7C221C6D1690005ED2D /* PagingViewControllerStyle.swift in Sources */,
 				4259F195219DFC8C003C37AB /* DvrShowDetailsViewModel.swift in Sources */,
 				42FC2AA321D82C8F0038E3E8 /* DvrEpisodeCellModel.swift in Sources */,

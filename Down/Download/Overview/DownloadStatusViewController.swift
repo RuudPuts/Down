@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import XLActionController
 import DownKit
 
 import RxSwift
@@ -114,8 +113,7 @@ class DownloadStatusViewController: UIViewController & Depending {
             self.purgeHistory.onNext(Void())
         })
 
-        actionController.addSection(Section())
-        actionController.addAction(title: "Cancel", style: .cancel)
+        actionController.addCancelSection()
 
         present(actionController, animated: true, completion: nil)
     }

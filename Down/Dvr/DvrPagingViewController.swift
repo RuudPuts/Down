@@ -10,7 +10,6 @@ import Foundation
 import DownKit
 import RxSwift
 import RxCocoa
-import XLActionController
 
 class DvrPagingViewController: PagingViewController, Depending {
     typealias Dependencies = RouterDependency
@@ -39,8 +38,7 @@ class DvrPagingViewController: PagingViewController, Depending {
             self.dependencies.router.dvrRouter.showAddShow()
         })
 
-        actionController.addSection(Section())
-        actionController.addAction(title: "Cancel", style: .cancel)
+        actionController.addCancelSection()
 
         present(actionController, animated: true, completion: nil)
     }

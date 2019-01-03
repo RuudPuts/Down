@@ -20,7 +20,6 @@ class DvrShowDetailViewController: UIViewController, Depending {
 
     @IBOutlet weak var headerView: DvrShowHeaderView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var deleteButton: UIButton!
 
     private let viewModel: DvrShowDetailsViewModel
     private let tableViewModel: DvrShowDetailsTableViewModel
@@ -46,8 +45,9 @@ class DvrShowDetailViewController: UIViewController, Depending {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        applyStyling()
+        configureContextButton()
         configureTableView()
+        applyStyling()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,13 +66,20 @@ class DvrShowDetailViewController: UIViewController, Depending {
 
         disposeBag = nil
     }
+
+    private func configureContextButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem.contextButton(target: self, action: #selector(showContextMenu))
+    }
     
-    func applyStyling() {
+    private func applyStyling() {
+        let applicationType = dependencies.dvrApplication.downType
+
         view.style(as: .backgroundView)
         tableView.style(as: .defaultTableView)
-        deleteButton.style(as: .deleteButton)
+        navigationItem.rightBarButtonItem?.style(as: .barButtonItem(applicationType))
     }
-    func configureTableView() {
+
+    private func configureTableView() {
         tableViewModel.prepare(tableView)
 
         tableView.dataSource = tableViewModel
@@ -80,14 +87,22 @@ class DvrShowDetailViewController: UIViewController, Depending {
     }
 }
 
+@objc extension DvrShowDetailViewController {
+    func showContextMenu() {
+        let actionController = DownActionController(applicationType: dependencies.dvrApplication.downType)
+
+        actionController.addAction(title: "Delete", style: .destructive, handler: { _ in
+            self.viewModel.input.deleteShow.onNext(Void())
+        })
+
+        actionController.addCancelSection()
+
+        present(actionController, animated: true, completion: nil)
+    }
+}
+
 extension DvrShowDetailViewController: ReactiveBinding {
     typealias Bindable = DvrShowDetailsViewModel
-
-    func bind(input: DvrShowDetailsViewModel.Input) {
-        deleteButton.rx.tap
-            .bind(to: input.deleteShow)
-            .disposed(by: disposeBag)
-    }
 
     func bind(output: DvrShowDetailsViewModel.Output) {
         output.refinedShow

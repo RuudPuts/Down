@@ -9,7 +9,6 @@
 import UIKit
 import DownKit
 import RxSwift
-import XLActionController
 
 protocol DownCellDelegate: class {
     func cellNeedsLayout(_ cell: UITableViewCell)
@@ -88,8 +87,7 @@ private extension DvrEpisodeCell {
             })
         }
 
-        actionController.addSection(Section())
-        actionController.addAction(title: "Cancel", style: .cancel)
+        actionController.addCancelSection()
 
         context?.present(actionController, animated: true, completion: nil)
 

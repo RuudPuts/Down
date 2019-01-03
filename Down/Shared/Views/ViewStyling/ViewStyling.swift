@@ -12,7 +12,8 @@ struct ViewStyling<ViewType> {
     }
 }
 
-extension UIView {
+protocol Stylable { }
+extension Stylable {
     @discardableResult
     func style<T>(as styling: ViewStyling<T>) -> Self {
         guard let view = self as? T else {
@@ -25,21 +26,14 @@ extension UIView {
     }
 }
 
-extension UIViewController {
-    @discardableResult
-    func style<T>(as styling: ViewStyling<T>) -> Self {
-        guard let view = self as? T else {
-            return self
-        }
+extension UIView: Stylable { }
 
-        styling.style(view)
+extension UIViewController: Stylable { }
 
-        return self
-    }
-}
+extension UIBarButtonItem: Stylable { }
 
-extension Reactive where Base: UILabel {
-    var style: Binder<ViewStyling<UILabel>> {
+extension Reactive where Base: UIView {
+    var style: Binder<ViewStyling<Base>> {
         return Binder(base) { view, style in
             view.style(as: style)
         }

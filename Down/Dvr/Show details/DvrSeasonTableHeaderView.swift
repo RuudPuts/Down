@@ -9,7 +9,6 @@
 import UIKit
 import DownKit
 import RxSwift
-import XLActionController
 
 class DvrSeasonTableHeaderView: UITableViewHeaderFooterView {
     typealias Dependencies = DvrSeasonTableHeaderViewModel.Dependencies & ErrorHandlerDependency
@@ -47,8 +46,7 @@ private extension DvrSeasonTableHeaderView {
             })
         }
 
-        actionController.addSection(Section())
-        actionController.addAction(title: "Cancel", style: .cancel)
+        actionController.addCancelSection()
 
         context?.present(actionController, animated: true, completion: nil)
 

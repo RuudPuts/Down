@@ -47,7 +47,7 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_context" width="512" height="512"/>
+        <image name="icon_context" width="30.5" height="6"/>
         <image name="sabnzbd_icon" width="168" height="45"/>
     </resources>
 </document>

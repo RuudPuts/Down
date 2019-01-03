@@ -12,7 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DvrShowDetailViewController" customModule="Down" customModuleProvider="target">
             <connections>
-                <outlet property="deleteButton" destination="UaF-1l-95K" id="mEO-HB-eFM"/>
                 <outlet property="headerView" destination="pKP-2Y-w8q" id="Djd-ce-7KI"/>
                 <outlet property="tableView" destination="3hH-Rl-r2B" id="wxz-MI-0Ad"/>
                 <outlet property="view" destination="iN0-l3-epB" id="SN2-59-Wgm"/>
@@ -31,33 +30,18 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3hH-Rl-r2B">
-                    <rect key="frame" x="0.0" y="206" width="375" height="405"/>
+                    <rect key="frame" x="0.0" y="206" width="375" height="461"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eZ3-U0-3f1">
-                    <rect key="frame" x="8" y="619" width="359" height="40"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UaF-1l-95K">
-                            <rect key="frame" x="0.0" y="0.0" width="359" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="GCQ-wK-idA"/>
-                            </constraints>
-                            <state key="normal" title="Delete"/>
-                        </button>
-                    </subviews>
-                </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="pKP-2Y-w8q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-64" id="0nW-ee-G2g"/>
                 <constraint firstItem="pKP-2Y-w8q" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="9IZ-vA-z9X"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eZ3-U0-3f1" secondAttribute="bottom" constant="8" id="BSM-J0-Qd5"/>
-                <constraint firstItem="eZ3-U0-3f1" firstAttribute="top" secondItem="3hH-Rl-r2B" secondAttribute="bottom" constant="8" id="IAD-bc-pjA"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="3hH-Rl-r2B" secondAttribute="bottom" id="Qf2-wk-jsa"/>
                 <constraint firstItem="3hH-Rl-r2B" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cAD-Tg-z4D"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eZ3-U0-3f1" secondAttribute="trailing" constant="8" id="hiw-JS-sta"/>
                 <constraint firstItem="pKP-2Y-w8q" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="kxX-Eg-BHm"/>
                 <constraint firstItem="3hH-Rl-r2B" firstAttribute="top" secondItem="pKP-2Y-w8q" secondAttribute="bottom" id="lK5-FQ-y3u"/>
-                <constraint firstItem="eZ3-U0-3f1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="mN5-vf-oPw"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="3hH-Rl-r2B" secondAttribute="trailing" id="tAh-Be-xTT"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

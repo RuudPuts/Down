@@ -29,7 +29,7 @@ struct DownloadItemDetailViewModel: Depending {
 
 extension DownloadItemDetailViewModel: ReactiveBindable {
     struct Input {
-        let deleteButtonTapped = PublishSubject<Void>()
+        let deleteItem = PublishSubject<Void>()
     }
 
     struct Output {
@@ -43,7 +43,7 @@ extension DownloadItemDetailViewModel {
         let refinedItem = RefinedItem.from(item: item, withDvrRequestBuilder: dependencies.dvrRequestBuilder)
         let refinedItemDriver = Driver<RefinedItem>.just(refinedItem)
 
-        let itemDeletedDriver = input.deleteButtonTapped
+        let itemDeletedDriver = input.deleteItem
             .flatMap { _ in
                 self.dependencies.downloadInteractorFactory
                     .makeDeleteItemInteractor(for: self.dependencies.downloadApplication, item: self.item)
