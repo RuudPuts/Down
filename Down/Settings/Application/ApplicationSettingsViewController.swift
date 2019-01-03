@@ -66,7 +66,6 @@ class ApplicationSettingsViewController: UIViewController & Depending {
         edgesForExtendedLayout = .top
         
         view.style(as: .backgroundView)
-        navigationController?.navigationBar.style(as: .transparentNavigationBar)
 
         headerView.style(as: .headerView(for: application.downType))
         headerView.contextButton.isHidden = true

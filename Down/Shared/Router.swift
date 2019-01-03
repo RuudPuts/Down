@@ -189,7 +189,7 @@ extension Router {
     func startSettingsRouter() -> UIViewController {
         settingsRouter = SettingsRouter(parent: self,
                                         viewControllerFactory: viewControllerFactory,
-                                        navigationController: UINavigationController())
+                                        navigationController: makeNavigationController())
         settingsRouter.start()
 
         return settingsRouter.navigationController

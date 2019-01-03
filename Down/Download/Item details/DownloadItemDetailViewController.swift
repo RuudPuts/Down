@@ -76,7 +76,6 @@ class DownloadItemDetailViewController: UIViewController & Depending {
 
     private func applyStyling() {
         view.style(as: .backgroundView)
-        navigationController?.navigationBar.style(as: .transparentNavigationBar)
         tableView.style(as: .defaultTableView)
         titleLabel.style(as: .titleLabel)
         subtitleLabel.style(as: .titleLabel)

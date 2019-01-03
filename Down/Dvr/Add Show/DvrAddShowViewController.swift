@@ -62,7 +62,6 @@ class DvrAddShowViewController: UIViewController & Depending {
 
     private func applyStyling() {
         view.style(as: .backgroundView)
-        navigationController?.navigationBar.style(as: .transparentNavigationBar)
         searchTextField.style(as: .floatingLabelTextField(for: dependencies.dvrApplication.downType))
         tableView.style(as: .defaultTableView)
     }

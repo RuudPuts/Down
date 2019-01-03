@@ -58,7 +58,6 @@ class SettingsViewController: UIViewController {
 
     func applyStyling() {
         view.style(as: .backgroundView)
-        navigationController?.navigationBar.style(as: .transparentNavigationBar)
         welcomeMessageLabel.style(as: .headerLabel)
         tableView.style(as: .defaultTableView)
         tableView.sectionHeaderHeight = 80
