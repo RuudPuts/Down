@@ -25,6 +25,7 @@ class SectionIndexView: DesignableView {
         didSet {
             let cellsHeight = CGFloat(dataSource.count) * bounds.width
             collectionView.heightConstraint?.constant = cellsHeight
+            collectionView.reloadData()
         }
     }
 
