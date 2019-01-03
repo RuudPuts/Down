@@ -65,5 +65,12 @@ extension DownloadItemCell {
 
         statusLabel.text = item.state.displayName
         timeLabel.text = item.finishDate?.dateTimeString
+
+        switch item.state {
+        case .completed:
+            timeLabel.isHidden = false
+        case .unknown, .queued, .verifying, .repairing, .extracting, .postProcessing(script: _), .failed:
+            timeLabel.isHidden = true
+        }
     }
 }
