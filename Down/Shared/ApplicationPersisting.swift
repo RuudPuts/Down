@@ -15,6 +15,8 @@ protocol ApplicationPersisting {
     func store(_ application: ApiApplication)
 
     var anyApplicationConfigured: Bool { get }
+    func isConfigured(type: DownApplicationType) -> Bool
+    func isActive(type: DownApplicationType) -> Bool
 }
 
 extension UserDefaults: ApplicationPersisting {
@@ -62,8 +64,19 @@ extension UserDefaults: ApplicationPersisting {
     }
 
     var anyApplicationConfigured: Bool {
-        return !ApiApplicationType.allValues
+        return !ApiApplicationType.allCases
             .compactMap { load(type: $0) }
+            .isEmpty
+    }
+
+    func isConfigured(type: DownApplicationType) -> Bool {
+        return load(type: type) != nil
+    }
+
+    func isActive(type: DownApplicationType) -> Bool {
+        return !ApiApplicationType.allCases
+            .compactMap { load(type: $0) }
+            .filter { $0.downType == type }
             .isEmpty
     }
 }

@@ -60,7 +60,7 @@ extension DvrSeasonTableHeaderViewModel {
                                                    status: $0.status)
                     .observeResult()
             }
-            .map { $0.map { _ in Void() } }
+            .map { $0.map { _ in } }
 
         let refinedSeason = season.map { RefinedSeason.from(season: $0) }
 

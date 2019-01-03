@@ -28,7 +28,7 @@ class SettingsViewController: UIViewController {
     private var viewModel: SettingsViewModel
     private var tableViewModel: SettingsTableViewModel
 
-    private let disposeBag = DisposeBag()
+    private var disposeBag: DisposeBag!
 
     init(dependencies: Dependencies, viewModel: SettingsViewModel) {
         self.dependencies = dependencies
@@ -47,8 +47,19 @@ class SettingsViewController: UIViewController {
 
         configureTableView()
         applyStyling()
-        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        disposeBag = DisposeBag()
         bind(to: viewModel)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        disposeBag = nil
     }
 
     func applyStyling() {
@@ -87,7 +98,7 @@ extension SettingsViewController: ReactiveBinding {
             .disposed(by: disposeBag)
 
         bindWelcomeMessage(output.welcomeMessage)
-        bindTableSections(output.applications)
+        bindTableSections(output.sectionData)
         bindNavigation(output.navigateToDetails)
     }
 

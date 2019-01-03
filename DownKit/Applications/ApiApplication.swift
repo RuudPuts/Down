@@ -24,14 +24,10 @@ extension ApiApplication {
     }
 }
 
-public enum ApiApplicationType: String {
+public enum ApiApplicationType: String, CaseIterable {
     case download
     case dvr
     case dmr
-
-    public static var allValues: [ApiApplicationType] {
-        return [.download, .dvr, .dmr]
-    }
 }
 
 public enum ApiApplicationCall {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,18 +24,39 @@
                             <constraint firstAttribute="width" constant="140" id="fXs-Oj-rB3"/>
                         </constraints>
                     </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="UCE-lK-J6i">
+                        <rect key="frame" x="317" y="12.5" width="42" height="45"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rav-e4-ce4">
+                                <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRi-VD-1NA">
+                                <rect key="frame" x="0.0" y="24.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="UCE-lK-J6i" secondAttribute="trailing" constant="16" id="5zX-a0-Jwm"/>
                     <constraint firstItem="kZ2-In-xhE" firstAttribute="leading" secondItem="mZN-5K-4gA" secondAttribute="leading" constant="16" id="CBU-Lg-f0s"/>
                     <constraint firstItem="kZ2-In-xhE" firstAttribute="top" secondItem="mZN-5K-4gA" secondAttribute="top" constant="4" id="Q8e-Ku-tOB"/>
+                    <constraint firstItem="UCE-lK-J6i" firstAttribute="centerY" secondItem="mZN-5K-4gA" secondAttribute="centerY" id="Y0C-fc-cFX"/>
                     <constraint firstAttribute="bottom" secondItem="kZ2-In-xhE" secondAttribute="bottom" constant="4" id="gy1-Hz-KZ5"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="activeLabel" destination="kRi-VD-1NA" id="tCZ-ji-tlv"/>
                 <outlet property="iconImageView" destination="kZ2-In-xhE" id="zHu-jb-79d"/>
+                <outlet property="statusLabel" destination="rav-e4-ce4" id="U3R-0U-GAR"/>
             </connections>
-            <point key="canvasLocation" x="279" y="47"/>
+            <point key="canvasLocation" x="277.60000000000002" y="46.776611694152926"/>
         </tableViewCell>
     </objects>
     <resources>

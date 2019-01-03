@@ -72,7 +72,7 @@ extension DvrEpisodeCellModel {
                                                     status: $0.status)
                     .observeResult()
             }
-            .map { $0.map { _ in Void() } }
+            .map { $0.map { _ in } }
 
         let refinedEpisode = episode.map { RefinedEpisode.from(episode: $0) }
 

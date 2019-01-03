@@ -41,7 +41,7 @@ class DownDependencies: AllDownDependencies {
 
         applicationAdditionsFactory = ApplicationAdditionsFactory()
 
-        ApiApplicationType.allValues.forEach {
+        ApiApplicationType.allCases.forEach {
             reloadApplication($0)
         }
 

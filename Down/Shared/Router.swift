@@ -28,7 +28,7 @@ class Router {
     }
     
     func start() {
-        var viewControllers: [UIViewController] = ApiApplicationType.allValues
+        var viewControllers: [UIViewController] = ApiApplicationType.allCases
             .map {
                 startRouter(type: $0)
             }
@@ -109,7 +109,7 @@ extension Router {
 
         childRouter(ofType: type)?.stop()
 
-        if let index = ApiApplicationType.allValues.index(of: type) {
+        if let index = ApiApplicationType.allCases.index(of: type) {
             tabBarController?.viewControllers?.remove(at: index)
         }
     }
@@ -127,7 +127,7 @@ extension Router {
         }
 
         guard let viewController = vc,
-              let typeIndex = ApiApplicationType.allValues.index(of: type) else {
+              let typeIndex = ApiApplicationType.allCases.index(of: type) else {
             return nil
         }
 

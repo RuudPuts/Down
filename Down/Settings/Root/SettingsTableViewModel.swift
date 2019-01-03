@@ -13,7 +13,7 @@ import RxCocoa
 struct SettingsSectionModel {
     let applicationType: ApiApplicationType
     let title: String
-    let applications: [DownApplicationType]
+    let applications: [SettingsViewModel.RefinedApplication]
 }
 
 class SettingsTableViewModel: NSObject {
@@ -69,8 +69,10 @@ extension SettingsTableViewModel: UITableViewDataSource {
         return applicationCell
     }
 
-    private func makeCellModel(for applicationType: DownApplicationType) -> SettingsApplicationCellModel {
-        return SettingsApplicationCellModel(applicationType: applicationType)
+    private func makeCellModel(for application: SettingsViewModel.RefinedApplication) -> SettingsApplicationCellModel {
+        return SettingsApplicationCellModel(applicationType: application.type,
+                                            configured: application.isConfigured,
+                                            active: application.isActive)
     }
 }
 
@@ -87,7 +89,7 @@ extension SettingsTableViewModel: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let type = datasource[indexPath.section].applications[indexPath.row]
-        cell.style(as: .selectableTableViewCell(application: type))
+        let application = datasource[indexPath.section].applications[indexPath.row]
+        cell.style(as: .selectableTableViewCell(application: application.type))
     }
 }
