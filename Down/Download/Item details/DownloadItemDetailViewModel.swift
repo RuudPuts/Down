@@ -119,6 +119,7 @@ extension DownloadItemDetailViewModel {
 
             var detailRows = [
                 DownloadItemDetailRow(key: .nzbname, value: historyItem.name),
+                DownloadItemDetailRow(key: .category, value: historyItem.category),
                 DownloadItemDetailRow(key: .status, value: historyItem.state.displayName),
                 DownloadItemDetailRow(key: .totalSize, value: String.displayString(forMb: historyItem.sizeMb))
             ]

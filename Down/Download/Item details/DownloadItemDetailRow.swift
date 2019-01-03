@@ -13,6 +13,7 @@ struct DownloadItemDetailRow {
     var title: String {
         switch key {
         case .nzbname: return "NZB"
+        case .category: return "Category"
         case .status: return "Status"
         case .progress: return "Progress"
         case .totalSize: return "Total download size"
@@ -44,6 +45,7 @@ struct DownloadItemDetailRow {
 extension DownloadItemDetailRow {
     enum Key {
         case nzbname
+        case category
         case status
         case progress
         case totalSize
