@@ -18,7 +18,7 @@ public class DownloadHistoryItem: DownloadItem {
         case verifying
         case repairing
         case extracting
-        case postProcessing
+        case postProcessing(script: String)
         case failed
         case completed
 

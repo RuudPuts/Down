@@ -52,7 +52,7 @@ extension DownloadHistoryItem.State {
         case .verifying: return "Verifying"
         case .repairing: return "Repairing"
         case .extracting: return "Extracting"
-        case .postProcessing: return "Processing"
+        case .postProcessing(let script): return script.isEmpty ? "Processing" : "Running \(script)"
         case .failed: return "Failed"
         case .completed: return "Completed"
         case .unknown: return String()

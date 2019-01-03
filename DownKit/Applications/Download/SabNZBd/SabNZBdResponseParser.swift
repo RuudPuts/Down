@@ -123,7 +123,8 @@ extension SabNZBdResponseParser {
     }
 
     func parseHistoryItem(from json: JSON) -> DownloadHistoryItem {
-        let state = DownloadHistoryItem.State.from(string: json["status"].stringValue)
+        let state = DownloadHistoryItem.State.from(string: json["status"].stringValue,
+                                                   withScript: json["script"].stringValue)
         let sizeMb = parseMb(from: json["size"])
         let progress = parseHistoryProgress(for: state, actionLine: json["action_line"].stringValue)
         let finishDate = Date(timeIntervalSince1970: json["completed"].doubleValue)
@@ -183,13 +184,13 @@ extension DownloadQueueItem.State {
 }
 
 extension DownloadHistoryItem.State {
-    static func from(string: String) -> DownloadHistoryItem.State {
+    static func from(string: String, withScript script: String) -> DownloadHistoryItem.State {
         switch string.lowercased() {
         case "queued": return .queued
         case "verifying": return .verifying
         case "repairing": return .repairing
         case "extracting": return .extracting
-        case "running": return .postProcessing
+        case "running": return .postProcessing(script: script)
         case "failed": return .failed
         case "completed": return .completed
         default: return .unknown

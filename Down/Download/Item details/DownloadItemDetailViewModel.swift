@@ -123,13 +123,20 @@ extension DownloadItemDetailViewModel {
                 DownloadItemDetailRow(key: .totalSize, value: String.displayString(forMb: historyItem.sizeMb))
             ]
 
-            if let finishDate = historyItem.finishDate, historyItem.state == .completed {
-                detailRows.append(DownloadItemDetailRow(key: .completedTime, value: finishDate.dateTimeString))
+            var canRetry = false
+
+            switch historyItem.state {
+            case .completed:
+                if let finishDate = historyItem.finishDate {
+                    detailRows.append(DownloadItemDetailRow(key: .completedTime, value: finishDate.dateTimeString))
+                }
+            case .failed:
+                canRetry = historyItem.dvrEpisode != nil
+            case .unknown, .queued, .verifying, .repairing, .extracting, .postProcessing(script: _):
+                break
             }
 
             let detailSections = [detailRows, makeDvrEpisodeRows(for: historyItem)].compactMap { $0 }
-
-            let canRetry = historyItem.state == .failed && historyItem.dvrEpisode != nil
 
             return RefinedItem(title: historyItem.displayName,
                                subtitle: nil,
