@@ -49,8 +49,9 @@ class ApplicationSettingsViewController: UIViewController & Depending {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        applyStyling()
+        configureContextButton()
         configureTextFields()
+        applyStyling()
 
         disposeBag = DisposeBag()
         bind(to: viewModel)
@@ -62,16 +63,23 @@ class ApplicationSettingsViewController: UIViewController & Depending {
         disposeBag = nil
     }
 
+    private func configureContextButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem.contextButton(target: self, action: #selector(showContextMenu))
+    }
+
     func applyStyling() {
+        let applicationType = application.downType
+
         edgesForExtendedLayout = .top
         
         view.style(as: .backgroundView)
+        navigationItem.rightBarButtonItem?.style(as: .barButtonItem(applicationType))
 
-        headerView.style(as: .headerView(for: application.downType))
+        headerView.style(as: .headerView(for: applicationType))
         headerView.contextButton.isHidden = true
 
         [hostTextField, usernameTextField, passwordTextField, apiKeyTextField].forEach {
-            $0?.style(as: .floatingLabelTextField(for: application.downType))
+            $0?.style(as: .floatingLabelTextField(for: applicationType))
         }
 
         saveButton.style(as: .successButton)
@@ -85,6 +93,20 @@ class ApplicationSettingsViewController: UIViewController & Depending {
 
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         dependencies.router.close(viewController: self)
+    }
+}
+
+@objc extension ApplicationSettingsViewController {
+    func showContextMenu() {
+        let actionController = DownActionController(applicationType: dependencies.dvrApplication.downType)
+
+        actionController.addAction(title: "Clear settings", style: .destructive, handler: { _ in
+            self.viewModel.input.clearSettings.onNext(Void())
+        })
+
+        actionController.addCancelSection()
+
+        present(actionController, animated: true, completion: nil)
     }
 }
 
@@ -110,7 +132,7 @@ extension ApplicationSettingsViewController: ReactiveBinding {
     typealias Bindable = ApplicationSettingsViewModel
 
     func bind(input: ApplicationSettingsViewModel.Input) {
-        hostTextField.rx.debouncedText//.skip(1)
+        hostTextField.rx.debouncedText
             .drive(input.host)
             .disposed(by: disposeBag)
 
@@ -127,7 +149,7 @@ extension ApplicationSettingsViewController: ReactiveBinding {
             .disposed(by: disposeBag)
 
         saveButton.rx.tap
-            .bind(to: input.saveButtonTapped)
+            .bind(to: input.saveSettings)
             .disposed(by: disposeBag)
     }
 
@@ -148,6 +170,7 @@ extension ApplicationSettingsViewController: ReactiveBinding {
 
         bindIsSaving(output.isSaving)
         bindSettingsSaved(output.settingsSaved)
+        bindSettingsCleared(output.settingsCleared)
     }
 
     private func bindTextFields(host: Driver<String?>, apiKey: Driver<String?>, credentialsFieldsVisisble: Driver<Bool>) {
@@ -192,6 +215,15 @@ extension ApplicationSettingsViewController: ReactiveBinding {
                 }
             )
             .subscribe()
+            .disposed(by: disposeBag)
+    }
+
+    private func bindSettingsCleared(_ settingsCleared: Observable<Void>) {
+        settingsCleared
+            .subscribe(onNext: {
+                self.dependencies.router.restartRouter(type: self.application.type)
+                self.dependencies.router.close(viewController: self)
+            })
             .disposed(by: disposeBag)
     }
 }

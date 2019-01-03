@@ -9,6 +9,7 @@
 import RxSwift
 
 public protocol DvrDatabase: Database {
+    func clearDvrDatabase()
     func store(shows: [DvrShow])
     func delete(show: DvrShow)
     func fetchShows() -> Observable<[DvrShow]>

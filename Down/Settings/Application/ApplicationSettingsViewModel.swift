@@ -13,7 +13,10 @@ import Result
 import RxResult
 
 struct ApplicationSettingsViewModel: Depending {
-    typealias Dependencies = ApiApplicationInteractorFactoryDependency & DvrInteractorFactoryDependency & ApplicationPersistenceDependency
+    typealias Dependencies = ApiApplicationInteractorFactoryDependency
+        & DvrInteractorFactoryDependency
+        & ApplicationPersistenceDependency
+        & DatabaseDependency
     let dependencies: Dependencies
 
     var input = Input()
@@ -36,7 +39,8 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
         let password = PublishSubject<String>()
         let apiKey = PublishSubject<String>()
 
-        let saveButtonTapped = PublishSubject<Void>()
+        let clearSettings = PublishSubject<Void>()
+        let saveSettings = PublishSubject<Void>()
     }
 
     struct Output {
@@ -46,6 +50,7 @@ extension ApplicationSettingsViewModel: ReactiveBindable {
 
         let isSaving: Driver<Bool>
         let settingsSaved: Driver<Result<Void, DownError>>
+        let settingsCleared: Observable<Void>
     }
 }
 
@@ -70,15 +75,19 @@ extension ApplicationSettingsViewModel {
             )
             .asDriver(onErrorJustReturn: "")
 
-        let transformedSave = transformSaveSettings(from: input.saveButtonTapped,
+        let transformedSave = transformSaveSettings(from: input.saveSettings,
                                                     application: observableApplication,
                                                     apiKey: latestApiKey)
+
+        let settingsCleared = transformClearSettings(from: input.clearSettings,
+                                                     application: observableApplication)
 
         return Output(loginResult: loginResult,
                       host: Driver.just(application.host),
                       apiKey: fetchedApiKey,
                       isSaving: transformedSave.isSaving,
-                      settingsSaved: transformedSave.settingsSaved)
+                      settingsSaved: transformedSave.settingsSaved,
+                      settingsCleared: settingsCleared)
     }
 
     private func transformApplication(_ host: Driver<String>) -> Driver<ApiApplication> {
@@ -206,10 +215,20 @@ extension ApplicationSettingsViewModel {
         )
     }
 
+    private func clearCache(for application: ApiApplication) {
+        guard application is DvrApplication else {
+            return
+        }
+
+        self.dependencies.database.clearDvrDatabase()
+    }
+
     private func updateCache(for application: ApiApplication) -> Single<Result<Void, DownError>> {
         guard let dvrApplication = application as? DvrApplication else {
             return Single.just(.success(Void()))
         }
+
+        clearCache(for: dvrApplication)
 
         return dependencies.dvrInteractorFactory
             .makeShowCacheRefreshInteractor(for: dvrApplication)
@@ -224,5 +243,15 @@ extension ApplicationSettingsViewModel {
             )
             .map { $0.map { _ in } }
             .asSingle()
+    }
+
+    private func transformClearSettings(from input: Observable<Void>, application: Driver<ApiApplication>) -> Observable<Void> {
+        return input
+            .withLatestFrom(application)
+            .do(onNext: {
+                self.clearCache(for: $0)
+                self.dependencies.persistence.remove($0)
+            })
+            .asVoid()
     }
 }

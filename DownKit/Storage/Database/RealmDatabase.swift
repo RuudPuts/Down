@@ -29,6 +29,15 @@ public class RealmDatabase: DownDatabase {
         return try! Realm(configuration: self.configuration)
     }
 
+    public func clearDvrDatabase() {
+        let realm = makeRealm()
+        try? realm.write {
+            realm.delete(realm.objects(DvrEpisode.self))
+            realm.delete(realm.objects(DvrSeason.self))
+            realm.delete(realm.objects(DvrShow.self))
+        }
+    }
+
     public func store(shows: [DvrShow]) {
         let realm = makeRealm()
         try? realm.write {

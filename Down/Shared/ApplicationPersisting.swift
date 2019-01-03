@@ -13,6 +13,7 @@ protocol ApplicationPersisting {
     func load(type: ApiApplicationType) -> ApiApplication?
     func load(type: DownApplicationType) -> ApiApplication?
     func store(_ application: ApiApplication)
+    func remove(_ application: ApiApplication)
 
     var anyApplicationConfigured: Bool { get }
     func isConfigured(type: DownApplicationType) -> Bool
@@ -40,8 +41,8 @@ extension UserDefaults: ApplicationPersisting {
     }
 
     func load(type: DownApplicationType) -> ApiApplication? {
-        guard let host = object(forKey: "\(type.rawValue)_host") as? String,
-              let apiKey = object(forKey: "\(type.rawValue)_apikey") as? String else {
+        guard let host = value(forKey: hostStorageKey(for: type)) as? String,
+              let apiKey = value(forKey: apiKeyStorageKey(for: type)) as? String else {
             return nil
         }
 
@@ -61,9 +62,18 @@ extension UserDefaults: ApplicationPersisting {
 
     func store(_ application: ApiApplication) {
         set(application.downType.rawValue, forKey: activeStorageKey(for: application.type))
-        set(application.host, forKey: "\(application.downType.rawValue)_host")
-        set(application.apiKey, forKey: "\(application.downType.rawValue)_apikey")
+        set(application.host, forKey: hostStorageKey(for: application.downType))
+        set(application.apiKey, forKey: apiKeyStorageKey(for: application.downType))
         synchronize()
+    }
+
+    func remove(_ application: ApiApplication) {
+        removeObject(forKey: hostStorageKey(for: application.downType))
+        removeObject(forKey: apiKeyStorageKey(for: application.downType))
+
+        if isActive(type: application.downType) {
+            removeObject(forKey: activeStorageKey(for: application.type))
+        }
     }
 
     var anyApplicationConfigured: Bool {
@@ -85,7 +95,15 @@ extension UserDefaults: ApplicationPersisting {
 }
 
 private extension UserDefaults {
-    func activeStorageKey(for applicationTyp: ApiApplicationType) -> String {
-        return "\(applicationTyp.rawValue)_active"
+    func hostStorageKey(for applicationType: DownApplicationType) -> String {
+        return "\(applicationType.rawValue)_host"
+    }
+
+    func apiKeyStorageKey(for applicationType: DownApplicationType) -> String {
+        return "\(applicationType.rawValue)_apikey"
+    }
+
+    func activeStorageKey(for applicationType: ApiApplicationType) -> String {
+        return "\(applicationType.rawValue)_active"
     }
 }
