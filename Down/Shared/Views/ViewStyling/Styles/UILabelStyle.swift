@@ -63,6 +63,14 @@ extension ViewStyling where ViewType == UILabel {
 }
 
 extension ViewStyling where ViewType == UILabel {
+    static func applicationLabel(for application: DownApplicationType) -> ViewStyling {
+        return ViewStyling {
+            $0.textColor = Stylesheet.Colors.primaryColor(for: application)
+        }
+    }
+}
+
+extension ViewStyling where ViewType == UILabel {
     static func qualityLabel(_ quality: Quality) -> ViewStyling {
         return ViewStyling {
             $0.style(as: .roundedView($0.bounds.midY))

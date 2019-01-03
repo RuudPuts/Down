@@ -26,6 +26,7 @@ extension UserDefaults: ApplicationPersisting {
         case .sickbeard: return DvrApplication(type: .sickbeard, host: "", apiKey: "")
         case .sickgear: return DvrApplication(type: .sickgear, host: "", apiKey: "")
         case .couchpotato: return DmrApplication(type: .couchpotato, host: "", apiKey: "")
+        case .down: fatalError("Down application can't be constructed")
         }
     }
 
@@ -53,6 +54,8 @@ extension UserDefaults: ApplicationPersisting {
             return DvrApplication(type: .sickgear, host: host, apiKey: apiKey)
         case .couchpotato:
             return DmrApplication(type: .couchpotato, host: host, apiKey: apiKey)
+        case .down:
+            fatalError("Down application can't be constructed")
         }
     }
 

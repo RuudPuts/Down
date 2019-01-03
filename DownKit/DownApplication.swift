@@ -11,6 +11,7 @@ public protocol DownApplication {
 }
 
 public enum DownApplicationType: String {
+    case down
     case sabnzbd
     case sickbeard
     case sickgear
@@ -18,6 +19,7 @@ public enum DownApplicationType: String {
 
     var displayName: String {
         switch self {
+        case .down: return "Down"
         case .sabnzbd: return "SabNZBd"
         case .sickbeard: return "Sickbeard"
         case .sickgear: return "Sickgear"

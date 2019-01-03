@@ -39,7 +39,7 @@ extension ViewStyling where ViewType == UIButton {
         }
     }
 
-    static func contextButton(_ type: DownApplicationType) -> ViewStyling {
+    static func contextButton(for type: DownApplicationType) -> ViewStyling {
         return ViewStyling {
             $0.style(as: .defaultButton)
 

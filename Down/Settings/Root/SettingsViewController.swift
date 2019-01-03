@@ -17,13 +17,9 @@ class SettingsViewController: UIViewController {
     let dependencies: Dependencies!
 
     @IBOutlet private weak var tableView: UITableView!
-    private lazy var welcomeMessageLabel: UILabel = {
-        let headerLabel = UILabel()
-        headerLabel.numberOfLines = 0
-        headerLabel.style(as: .headerLabel)
-
-        return headerLabel
-    }()
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var contextButton: UIButton!
+    @IBOutlet private weak var welcomeMessageLabel: UILabel!
 
     private var viewModel: SettingsViewModel
     private var tableViewModel: SettingsTableViewModel
@@ -51,9 +47,19 @@ class SettingsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
 
         disposeBag = DisposeBag()
         bind(to: viewModel)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if let navigationController = navigationController,
+            navigationController.viewControllers.count > 1 {
+            navigationController.setNavigationBarHidden(false, animated: animated)
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -64,12 +70,11 @@ class SettingsViewController: UIViewController {
 
     func applyStyling() {
         view.style(as: .backgroundView)
-
-        navigationController?.tabBarItem.title = nil
-        navigationController?.navigationBar.style(as: .defaultNavigationBar)
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: Stylesheet.Colors.red]
-
+        navigationController?.isNavigationBarHidden = true
+        titleLabel.style(as: .largeHeaderLabel)
+        contextButton.style(as: .contextButton(for: .down))
+        contextButton.isHidden = true
+        welcomeMessageLabel.style(as: .headerLabel)
         tableView.style(as: .defaultTableView)
         tableView.sectionHeaderHeight = 80
     }
@@ -94,7 +99,7 @@ extension SettingsViewController: ReactiveBinding {
 
     func bind(output: SettingsViewModel.Output) {
         output.title
-            .drive(rx.title)
+            .drive(titleLabel.rx.text)
             .disposed(by: disposeBag)
 
         bindWelcomeMessage(output.welcomeMessage)
@@ -104,25 +109,12 @@ extension SettingsViewController: ReactiveBinding {
 
     private func bindWelcomeMessage(_ welcomeMessage: Driver<String>) {
         welcomeMessage
-            .filter { !$0.isEmpty }
             .drive(welcomeMessageLabel.rx.text)
             .disposed(by: disposeBag)
 
         welcomeMessage
-            .map { !$0.isEmpty }
-            .do(onNext: { messageVisible in
-                if messageVisible {
-                    let maxSize = CGSize(width: self.tableView.bounds.width, height: 200)
-                    let size = self.welcomeMessageLabel.sizeThatFits(maxSize)
-                    self.welcomeMessageLabel.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height + 30)
-
-                    self.tableView.tableHeaderView = self.welcomeMessageLabel
-                }
-                else {
-                    self.tableView.tableHeaderView = nil
-                }
-            })
-            .drive()
+            .map { $0.isEmpty }
+            .drive(welcomeMessageLabel.rx.isHidden)
             .disposed(by: disposeBag)
     }
 

@@ -19,13 +19,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sabnzbd_icon" translatesAutoresizingMaskIntoConstraints="NO" id="kZ2-In-xhE">
-                        <rect key="frame" x="16" y="4" width="140" height="61.5"/>
+                        <rect key="frame" x="8" y="4" width="140" height="61.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="140" id="fXs-Oj-rB3"/>
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="UCE-lK-J6i">
-                        <rect key="frame" x="317" y="12.5" width="42" height="45"/>
+                        <rect key="frame" x="325" y="12.5" width="42" height="45"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rav-e4-ce4">
                                 <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
@@ -43,8 +43,8 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="UCE-lK-J6i" secondAttribute="trailing" constant="16" id="5zX-a0-Jwm"/>
-                    <constraint firstItem="kZ2-In-xhE" firstAttribute="leading" secondItem="mZN-5K-4gA" secondAttribute="leading" constant="16" id="CBU-Lg-f0s"/>
+                    <constraint firstAttribute="trailing" secondItem="UCE-lK-J6i" secondAttribute="trailing" constant="8" id="5zX-a0-Jwm"/>
+                    <constraint firstItem="kZ2-In-xhE" firstAttribute="leading" secondItem="mZN-5K-4gA" secondAttribute="leading" constant="8" id="CBU-Lg-f0s"/>
                     <constraint firstItem="kZ2-In-xhE" firstAttribute="top" secondItem="mZN-5K-4gA" secondAttribute="top" constant="4" id="Q8e-Ku-tOB"/>
                     <constraint firstItem="UCE-lK-J6i" firstAttribute="centerY" secondItem="mZN-5K-4gA" secondAttribute="centerY" id="Y0C-fc-cFX"/>
                     <constraint firstAttribute="bottom" secondItem="kZ2-In-xhE" secondAttribute="bottom" constant="4" id="gy1-Hz-KZ5"/>

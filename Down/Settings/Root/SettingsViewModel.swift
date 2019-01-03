@@ -41,23 +41,18 @@ extension SettingsViewModel: ReactiveBindable {
 extension SettingsViewModel {
     func transform(input: Input) -> Output {
         let showWelcomeMessageDriver = Driver.just(!dependencies.persistence.anyApplicationConfigured)
-        let titleDriver = showWelcomeMessageDriver.map { $0 ? "Down" : "Settings" }
+        let titleDriver = showWelcomeMessageDriver.map { $0 ? "Welcome to Down!" : "Settings" }
         let welcomeMessageDriver: Driver<String> = showWelcomeMessageDriver.map {
             guard $0 else { return String() }
 
-            return "Welcome to Down!\n\nTo get started configure your downloader and indexers below"
+            return "\nTo get started configure your downloader and indexers below\n"
         }
 
         let applicationSections = Driver.just([
-                (type: ApiApplicationType.download, title: "Downloaders"),
-                (type: ApiApplicationType.dvr, title: "TV show indexers"),
-                (type: ApiApplicationType.dmr, title: "Movie indexers")
-            ])
-            .map {
-                $0.map { type, title -> SettingsSectionModel in
-                    self.makeSectionModel(for: type, withTitle: title)
-                }
-            }
+            makeSectionModel(for: .download),
+            makeSectionModel(for: .dvr),
+            makeSectionModel(for: .dmr)
+        ])
 
         let navigateToDetailsDriver = input.itemSelected
             .withLatestFrom(applicationSections) { indexPath, sections in
@@ -71,12 +66,19 @@ extension SettingsViewModel {
                       navigateToDetails: navigateToDetailsDriver)
     }
 
-    private func makeSectionModel(for type: ApiApplicationType, withTitle title: String) -> SettingsSectionModel {
+    private func makeSectionModel(for type: ApiApplicationType) -> SettingsSectionModel {
+        let title: String
         let applicationTypes: [DownApplicationType]
         switch type {
-        case .download: applicationTypes = [.sabnzbd]
-        case .dvr: applicationTypes = [.sickbeard, .sickgear]
-        case .dmr: applicationTypes = [.couchpotato]
+        case .download:
+            title = "Downloaders"
+            applicationTypes = [.sabnzbd]
+        case .dvr:
+            title = "TV show indexers"
+            applicationTypes = [.sickbeard, .sickgear]
+        case .dmr:
+            title = "Movie indexers"
+            applicationTypes = [.couchpotato]
         }
 
         let refinedApplications = applicationTypes.map { type -> RefinedApplication in

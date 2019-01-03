@@ -88,7 +88,7 @@ extension DvrSeasonTableHeaderView {
         self.dependencies = dependencies
         self.context = context
 
-        statusButton.style(as: .contextButton(dependencies.dvrApplication.downType))
+        statusButton.style(as: .contextButton(for: dependencies.dvrApplication.downType))
 
         disposeBag = DisposeBag()
         viewModel = DvrSeasonTableHeaderViewModel(dependencies: dependencies, season: season)

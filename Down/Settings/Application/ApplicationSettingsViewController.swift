@@ -28,6 +28,7 @@ class ApplicationSettingsViewController: UIViewController & Depending {
 
     lazy var viewModel = ApplicationSettingsViewModel(dependencies: dependencies, application: application)
 
+    @IBOutlet weak var headerView: ApplicationHeaderView!
     @IBOutlet weak var hostTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var usernameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
@@ -62,17 +63,19 @@ class ApplicationSettingsViewController: UIViewController & Depending {
     }
 
     func applyStyling() {
+        edgesForExtendedLayout = .top
+        
         view.style(as: .backgroundView)
+        navigationController?.navigationBar.style(as: .transparentNavigationBar)
 
-        saveButton.style(as: .successButton)
+        headerView.style(as: .headerView(for: application.downType))
+        headerView.contextButton.isHidden = true
 
         [hostTextField, usernameTextField, passwordTextField, apiKeyTextField].forEach {
             $0?.style(as: .floatingLabelTextField(for: application.downType))
         }
 
-        let imageView = UIImageView(image: AssetProvider.Icon.for(application.downType))
-        imageView.contentMode = .scaleAspectFit
-        navigationItem.titleView = imageView
+        saveButton.style(as: .successButton)
     }
 
     func configureTextFields() {
