@@ -672,7 +672,6 @@ struct _R: Rswift.Validatable {
       try _DvrSeasonTableHeaderView.validate()
       try _TableHeaderView.validate()
       try _DownloadQueueStatusView.validate()
-      try _SettingsViewController.validate()
       try _ApplicationHeaderView.validate()
       try _SettingsApplicationCell.validate()
     }
@@ -983,16 +982,12 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _SettingsViewController: Rswift.NibResourceType, Rswift.Validatable {
+    struct _SettingsViewController: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "SettingsViewController"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "icon_context", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_context' is used in nib 'SettingsViewController', but couldn't be loaded.") }
       }
       
       fileprivate init() {}

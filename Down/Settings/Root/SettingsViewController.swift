@@ -17,8 +17,6 @@ class SettingsViewController: UIViewController {
     let dependencies: Dependencies!
 
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var contextButton: UIButton!
     @IBOutlet private weak var welcomeMessageLabel: UILabel!
 
     private var viewModel: SettingsViewModel
@@ -47,19 +45,9 @@ class SettingsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
 
         disposeBag = DisposeBag()
         bind(to: viewModel)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if let navigationController = navigationController,
-            navigationController.viewControllers.count > 1 {
-            navigationController.setNavigationBarHidden(false, animated: animated)
-        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -70,10 +58,7 @@ class SettingsViewController: UIViewController {
 
     func applyStyling() {
         view.style(as: .backgroundView)
-        navigationController?.isNavigationBarHidden = true
-        titleLabel.style(as: .largeHeaderLabel)
-        contextButton.style(as: .contextButton(for: .down))
-        contextButton.isHidden = true
+        navigationController?.navigationBar.style(as: .transparentNavigationBar)
         welcomeMessageLabel.style(as: .headerLabel)
         tableView.style(as: .defaultTableView)
         tableView.sectionHeaderHeight = 80
@@ -99,7 +84,7 @@ extension SettingsViewController: ReactiveBinding {
 
     func bind(output: SettingsViewModel.Output) {
         output.title
-            .drive(titleLabel.rx.text)
+            .drive(rx.title)
             .disposed(by: disposeBag)
 
         bindWelcomeMessage(output.welcomeMessage)
