@@ -1,10 +1,10 @@
 New;
-- Empty views for download queue / history & airing soon episodes
-- Tapping an episode in the show details screen;
--> Shows the episode's summary
--> Shows an option to set the status
+- Set status of a show's full season
+- Added a section index on shows overview for quick navigation
+- Improved the UI of Settings
+- Download overview shows the script which is being run while post processing
 
 Fixed;
-- Shows overview was ordered incorrect
-- Progress view for downloads where showing the wrong color
-- Fixed shows with 'Any' quality would have empty badge
+- Wrong show details screen could be openend from airing soon / recently aired
+- NZBs formatted like 'Luther.5x02' wouldn't be matched correctly
+- 
