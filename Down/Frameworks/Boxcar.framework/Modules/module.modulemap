@@ -1,0 +1,6 @@
+framework module Boxcar {
+  umbrella header "Boxcar.h"
+
+  export *
+  module * { export * }
+}

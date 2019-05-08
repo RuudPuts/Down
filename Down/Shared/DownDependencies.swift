@@ -12,6 +12,7 @@ class DownDependencies: AllDownDependencies {
     var persistence: ApplicationPersisting
     var router: Router!
     var errorHandler: ErrorHandling
+    var notificationService: NotificationService
 
     // DownKit
     var database: DownDatabase
@@ -38,6 +39,7 @@ class DownDependencies: AllDownDependencies {
         persistence = UserDefaults.standard
         database = RealmDatabase()
         errorHandler = ErrorHandler()
+        notificationService = BoxcarService()
 
         applicationAdditionsFactory = ApplicationAdditionsFactory()
 
@@ -79,6 +81,7 @@ typealias AllDownDependencies = DownKitDependencies
     & ApplicationPersistenceDependency
     & RouterDependency
     & ErrorHandlerDependency
+    & NotificationServiceDependency
 
 protocol ApplicationPersistenceDependency {
     var persistence: ApplicationPersisting { get }
