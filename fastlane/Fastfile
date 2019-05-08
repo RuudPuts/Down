@@ -5,6 +5,16 @@ build_number = ENV["BUILD_NUMBER"]
 
 platform :ios do
   desc "Create new build"
+  lane :push_notifications do |options|
+    get_push_certificate(
+      save_private_key: true,
+      new_profile: proc do |profile_path|
+        puts profile_path
+      end
+    )
+  end
+
+  desc "Create new build"
   lane :build do |options|
     gym(scheme: 'Down', configuration: options[:configuration], export_method: 'ad-hoc', output_directory: output_folder)
   end

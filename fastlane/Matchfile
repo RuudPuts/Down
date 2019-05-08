@@ -1,0 +1,5 @@
+git_url("ssh://git@bitbucket.org/RuudPuts/down-signing.git")
+username("ruud.puts@gmail.com")
+
+type("adhoc") # appstore, adhoc, enterprise or development
+app_identifier(["com.ruudputs.Down"])
