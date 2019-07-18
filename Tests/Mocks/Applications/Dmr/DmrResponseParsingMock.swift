@@ -20,14 +20,14 @@ class DmrResponseParsingMock: DmrResponseParsing {
     }
     
     struct Captures {
-        var `init`: Init?
+        var `default`: Default?
 
         var parseMovies: Parse?
 
         var parseLogin: Parse?
         var parseApiKey: Parse?
 
-        struct Init {
+        struct Default {
             let application: ApiApplication
         }
         
@@ -44,7 +44,7 @@ class DmrResponseParsingMock: DmrResponseParsing {
     }
 
     required init(application: ApiApplication) {
-        captures.init = Captures.Init(application: application)
+        captures.default = Captures.Default(application: application)
 
         stubs.application = application
     }

@@ -41,7 +41,7 @@ public class RealmDatabase: DownDatabase {
     public func store(shows: [DvrShow]) {
         let realm = makeRealm()
         try? realm.write {
-            realm.add(shows, update: true, mergeNilValues: true)
+            realm.add(shows, update: .all, mergeNilValues: true)
         }
     }
 
@@ -99,7 +99,7 @@ public class RealmDatabase: DownDatabase {
         }
 
         try? realm.write {
-            realm.add(episode, update: true)
+            realm.add(episode, update: .all)
         }
     }
 

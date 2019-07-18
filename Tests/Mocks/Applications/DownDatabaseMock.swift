@@ -59,6 +59,8 @@ class DownDatabaseMock {
 }
 
 extension DownDatabaseMock: DownDatabase {
+    func clearDvrDatabase() { }
+    
     func transact(block: @escaping () -> Void) {
         block()
     }

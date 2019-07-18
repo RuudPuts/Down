@@ -8,8 +8,7 @@
 
 import DownKit
 import RxSwift
-import Result
-import RxResult
+
 
 extension Quality {
     var displayString: String {
@@ -117,7 +116,7 @@ extension DvrEpisodeStatus {
 }
 
 extension ObservableInteractor {
-    func observeResult() -> Observable<Result<Element, DownError>> {
+    func observeResult() -> Observable<Swift.Result<Element, DownError>> {
         return observe()
             .asObservable()
             .mapResult(DownError.self)

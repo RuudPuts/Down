@@ -44,10 +44,10 @@ enum RequestBuildingError: Error {
 }
 
 extension RequestBuildingError: Hashable {
-    public var hashValue: Int {
+    public func hash(into hasher: inout Hasher) {
         switch self {
         case .notSupportedError(let message):
-            return Int("1\(message.hashValue)") ?? 1
+            hasher.combine("1\(message.hashValue)")
         }
     }
     

@@ -14,7 +14,6 @@ import RxSwift
 import RxCocoa
 import RxSwiftExt
 import RxRealm
-import Result
 
 class ApplicationSettingsViewController: UIViewController & Depending {
     typealias Dependencies = ApplicationSettingsViewModel.Dependencies

@@ -147,7 +147,7 @@ extension DvrEpisodeCell: ReactiveBinding {
             .disposed(by: disposeBag)
 
         output.plotFetched
-            .delay(0.1, scheduler: MainScheduler.instance)
+            .delay(.milliseconds(100), scheduler: MainScheduler.instance)
             .do(onNext: { _ in
                 DispatchQueue.main.async {
                     self.setNeedsLayout()
@@ -160,7 +160,7 @@ extension DvrEpisodeCell: ReactiveBinding {
 
     private func bindStatusChanged(_ output: DvrEpisodeCellModel.Output) {
         output.statusChanged
-            .subscribeResult(onFailure: {
+            .subscribe(onFailure: {
                 guard let context = self.context else {
                     return
                 }

@@ -10,7 +10,6 @@ import DownKit
 import RxSwift
 import RxCocoa
 import RxRealm
-import Result
 
 struct DvrSeasonTableHeaderViewModel: Depending {
     typealias Dependencies = DvrInteractorFactoryDependency
@@ -41,7 +40,7 @@ extension DvrSeasonTableHeaderViewModel: ReactiveBindable {
 
     struct Output {
         let season: Observable<RefinedSeason>
-        let statusChanged: Observable<Result<Void, DownError>>
+        let statusChanged: Observable<Swift.Result<Void, DownError>>
     }
 }
 

@@ -52,7 +52,7 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
                 let fetchedShowIdentifiers = fetchedShows.map { $0.identifier }
 
                 let deletedShows = storedShows
-                    .filter { fetchedShowIdentifiers.index(of: $0.identifier) == nil }
+                    .filter { fetchedShowIdentifiers.firstIndex(of: $0.identifier) == nil }
 
                 NSLog("DvrCacheRefresh: \(deletedShows.count) shows deleted")
                 deletedShows.forEach { self.database.delete(show: $0) }
@@ -70,7 +70,7 @@ public class DvrRefreshShowCacheInteractor: CompoundInteractor, ObservableIntera
 
                 let storedShowsIdentifiers = storedShows.map { $0.identifier }
                 let newShows = fetchedShows.filter {
-                    storedShowsIdentifiers.index(of: $0.identifier) == nil
+                    storedShowsIdentifiers.firstIndex(of: $0.identifier) == nil
                 }
                 NSLog("DvrCacheRefresh: \(newShows.count) new shows")
 

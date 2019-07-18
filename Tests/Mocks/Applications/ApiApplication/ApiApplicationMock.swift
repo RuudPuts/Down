@@ -19,11 +19,11 @@ class ApiApplicationMock: ApiApplication {
     }
     
     struct Captures {
-        var `init`: Init?
+        var `default`: Default?
         var host: String?
         var apiKey: String?
         
-        struct Init {
+        struct Default {
             var host: String
             var apiKey: String
         }
@@ -52,7 +52,7 @@ class ApiApplicationMock: ApiApplication {
     }
     
     required init(host: String, apiKey: String) {
-        captures.init = Captures.Init(host: host, apiKey: apiKey)
+        captures.default = Captures.Default(host: host, apiKey: apiKey)
     }
 
     convenience init() {

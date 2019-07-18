@@ -9,8 +9,7 @@
 import DownKit
 import RxSwift
 import RxCocoa
-import Result
-import RxResult
+
 
 struct DvrAddShowViewModel: Depending {
     typealias Dependencies = DvrApplicationDependency & DvrInteractorFactoryDependency
@@ -37,7 +36,7 @@ extension DvrAddShowViewModel: ReactiveBindable {
     struct Output {
         let searchResults: Observable<[DvrShow]>
         let addingShow: Observable<DvrShow>
-        let showAdded: Observable<Result<DvrShow, DownError>>
+        let showAdded: Observable<Swift.Result<DvrShow, DownError>>
     }
 }
 

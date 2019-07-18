@@ -34,10 +34,11 @@ public enum DmrApplicationCall {
 }
 
 extension DmrApplicationCall: Hashable {
-    public var hashValue: Int {
+    
+    public func hash(into hasher: inout Hasher) {
         switch self {
         case .movieList:
-            return 0
+            hasher.combine(0)
         }
     }
     

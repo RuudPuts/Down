@@ -9,7 +9,6 @@
 import DownKit
 import RxSwift
 import UIKit
-import RxResult
 
 class DvrShowDetailViewController: UIViewController, Depending {
     typealias Dependencies = DvrShowDetailsViewModel.Dependencies

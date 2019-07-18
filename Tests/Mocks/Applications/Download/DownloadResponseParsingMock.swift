@@ -22,7 +22,7 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
     }
     
     struct Captures {
-        var `init`: Init?
+        var `default`: Default?
 
         var parseQueue: Parse?
         var parseHistory: Parse?
@@ -31,7 +31,7 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
         var parseLogin: Parse?
         var parseApiKey: Parse?
 
-        struct Init {
+        struct Default {
             let application: ApiApplication
         }
 
@@ -48,7 +48,7 @@ class DownloadResponseParsingMock: DownloadResponseParsing {
     }
 
     required init(application: ApiApplication) {
-        captures.init = Captures.Init(application: application)
+        captures.default = Captures.Default(application: application)
 
         stubs.application = application
     }

@@ -14,7 +14,7 @@ extension Reactive where Base: UITextField {
     var debouncedText: Driver<String> {
         return text.orEmpty
             .asObservable()
-            .debounce(0.3, scheduler: MainScheduler.instance)
+            .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
             .asDriver(onErrorJustReturn: String())
     }
 }

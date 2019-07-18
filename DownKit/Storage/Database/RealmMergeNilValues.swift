@@ -10,16 +10,16 @@ import RealmSwift
 import Realm
 
 protocol NilValueMerging: class {
-    func add<S: Sequence>(_ objects: S, update: Bool, mergeNilValues: Bool) where S.Iterator.Element: Object
-    func add<Entity: Object>(_ entity: Entity, update: Bool, mergeNilValues: Bool)
+    func add<S: Sequence>(_ objects: S, update: Realm.UpdatePolicy, mergeNilValues: Bool) where S.Iterator.Element: Object
+    func add<Entity: Object>(_ entity: Entity, update: Realm.UpdatePolicy, mergeNilValues: Bool)
 }
 
 extension Realm: NilValueMerging {
-    func add<S: Sequence>(_ objects: S, update: Bool, mergeNilValues: Bool) where S.Iterator.Element: Object {
+    func add<S: Sequence>(_ objects: S, update: Realm.UpdatePolicy, mergeNilValues: Bool) where S.Iterator.Element: Object {
         objects.forEach { add($0, update: update, mergeNilValues: mergeNilValues) }
     }
 
-    func add<Entity: Object>(_ entity: Entity, update: Bool, mergeNilValues: Bool) {
+    func add<Entity: Object>(_ entity: Entity, update: Realm.UpdatePolicy, mergeNilValues: Bool) {
         if mergeNilValues {
             self.mergeNilValues(entity)
         }

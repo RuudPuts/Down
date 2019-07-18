@@ -27,7 +27,7 @@ class DvrResponseParsingMock: DvrResponseParsing {
     }
     
     struct Captures {
-        var `init`: Init?
+        var `default`: Default?
 
         var parseShows: Parse?
         var parseShowDetails: Parse?
@@ -38,7 +38,7 @@ class DvrResponseParsingMock: DvrResponseParsing {
         var parseSetSeasonStatus: Parse?
         var parseEpisodeDetails: ParseEpisodeDetails?
 
-        struct Init {
+        struct Default {
             let application: ApiApplication
         }
 
@@ -63,7 +63,7 @@ class DvrResponseParsingMock: DvrResponseParsing {
     }
 
     required init(application: ApiApplication) {
-        captures.init = Captures.Init(application: application)
+        captures.default = Captures.Default(application: application)
 
         stubs.application = application
     }
