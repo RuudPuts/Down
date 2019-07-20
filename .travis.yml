@@ -20,10 +20,9 @@ before_script:
   - whoami
 before_install:
   - gem install activesupport -N
-  - gem install slather
+  - gem install slather --no-rdoc
   - pod install --repo-update
 script:
-  - fastlane test
+  - swiftlint
 after_script:
-  - slather
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
