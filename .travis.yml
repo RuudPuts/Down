@@ -19,8 +19,7 @@ before_script:
   - ./cc-test-reporter before-build
   - whoami
 before_install:
-  - gem install activesupport -N
-  - gem install slather
+  - bundle install
   - pod install --repo-update
 script:
   - fastlane test

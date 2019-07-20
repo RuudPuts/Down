@@ -2299,7 +2299,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nfi\n";
+			shellScript = "if [ \"$USER\" == \"travis\" ]; then\n    exit 0\nfi\n\nif which swiftlint >/dev/null; then\n    swiftlint\nfi\n";
 		};
 		50A0913AA6E18083451FD5AF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
