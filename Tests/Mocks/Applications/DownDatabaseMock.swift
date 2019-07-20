@@ -20,6 +20,7 @@ class DownDatabaseMock {
 
     struct Captures {
         // DvrDatabase
+        var clearDvrDatabase: ClearDvrDatabase?
         var storeShows: StoreShows?
         var deleteShow: DeleteShow?
         var fetchShows: Bool?
@@ -27,6 +28,9 @@ class DownDatabaseMock {
         var storeEpisode: StoreEpisode?
         var fetchEpisodesAiringOn: FetchEpisodesAiringOn?
         var fetchEpisodesAiringBetween: FetchEpisodesAiringBetween?
+
+        struct ClearDvrDatabase {
+        }
 
         struct StoreShows {
             var shows: [DvrShow]

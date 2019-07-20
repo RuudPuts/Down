@@ -718,6 +718,8 @@
 		8ECACD75630490049BF1CB7F /* Pods-DownKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DownKit/Pods-DownKit.debug.xcconfig"; sourceTree = "<group>"; };
 		975275C9B320A539BA6E7DF3 /* Pods_DownKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DownKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2A08FE99F39517383B95C6B /* Pods-DownKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-DownKit/Pods-DownKit.release.xcconfig"; sourceTree = "<group>"; };
+		C575DB02F76A6C9966CA98E1 /* Pods-Down.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Down.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Down/Pods-Down.debug.xcconfig"; sourceTree = "<group>"; };
+		E3840E18D9242AA124C5A159 /* Pods-Down.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Down.release.xcconfig"; path = "Pods/Target Support Files/Pods-Down/Pods-Down.release.xcconfig"; sourceTree = "<group>"; };
 		E86B1F0423E24D69F9E4497D /* Pods-DownKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DownKitTests/Pods-DownKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -768,6 +770,8 @@
 				54CBAD4555DC1F82BA951C40 /* Pods-DownKitTests.release.xcconfig */,
 				8E4821B56416D201C7661206 /* Pods-DownTests.debug.xcconfig */,
 				1BAA47A635EB5C4754B675C7 /* Pods-DownTests.release.xcconfig */,
+				C575DB02F76A6C9966CA98E1 /* Pods-Down.debug.xcconfig */,
+				E3840E18D9242AA124C5A159 /* Pods-Down.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2336,21 +2340,13 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DownKitTests/Pods-DownKitTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-DownKitTests/Pods-DownKitTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
 				"${BUILT_PRODUCTS_DIR}/RxNimble/RxNimble.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftHash/SwiftHash.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2360,18 +2356,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxNimble.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftHash.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DownKitTests/Pods-DownKitTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DownKitTests/Pods-DownKitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8B47AB3386A0F09B7788EFB7 /* [CP] Check Pods Manifest.lock */ = {
@@ -2416,7 +2404,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Down/Pods-Down-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Down/Pods-Down-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CircleProgressView/CircleProgressView.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -2465,7 +2453,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Down/Pods-Down-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Down/Pods-Down-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B5983E420F275C29CF558F8D /* [CP] Embed Pods Frameworks */ = {
@@ -2474,7 +2462,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DownTests/Pods-DownTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-DownTests/Pods-DownTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
@@ -2493,7 +2481,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DownTests/Pods-DownTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DownTests/Pods-DownTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F864179F21A03742006C03A1 /* Generate R File */ = {
