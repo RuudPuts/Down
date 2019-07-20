@@ -721,6 +721,7 @@
 		E93746DED68FC7DFF5ADA219 /* Pods-DownKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DownKit/Pods-DownKit.debug.xcconfig"; sourceTree = "<group>"; };
 		F44B26521208BE5A64239895 /* Pods-DownKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DownKitTests/Pods-DownKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		F87B22E622E0C27100F48556 /* ObservableResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableResult.swift; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2416,7 +2417,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DownKitTests/Pods-DownKitTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DownKitTests/Pods-DownKitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CF6302CA540962F5028FAF3F /* [CP] Embed Pods Frameworks */ = {
@@ -2427,7 +2428,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Down/Pods-Down-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Down/Pods-Down-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CircleProgressView/CircleProgressView.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -2474,7 +2475,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Down/Pods-Down-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Down/Pods-Down-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EEFC16292B353BC5E9255E90 /* [CP] Check Pods Manifest.lock */ = {
