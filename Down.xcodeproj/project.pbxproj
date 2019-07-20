@@ -2092,6 +2092,7 @@
 			buildPhases = (
 				7161429093F9D4261C28FF65 /* [CP] Check Pods Manifest.lock */,
 				F864179F21A03742006C03A1 /* Generate R File */,
+				42B16D4820D58A7C0027ED1C /* Run Swiftlint */,
 				426A797A20D1810100797AE5 /* Sources */,
 				426A797B20D1810100797AE5 /* Frameworks */,
 				426A797C20D1810100797AE5 /* Resources */,
@@ -2285,6 +2286,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo $PODS_ROOT\n\n${PODS_ROOT}/Fabric/run fd7501efa3a9abb16103f351213d7b72ff764052 f2769c1a542364cb5281af857c1220006aa4a2d2d658d426988f0d0ba596dfa8\n";
+		};
+		42B16D4820D58A7C0027ED1C /* Run Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftlint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$USER\" == \"travis\" ]; then\n    exit 0\nfi\n\nif which swiftlint >/dev/null; then\n    swiftlint\nfi\n";
 		};
 		50A0913AA6E18083451FD5AF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
