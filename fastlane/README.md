@@ -16,6 +16,11 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
+### ios push_notifications
+```
+fastlane ios push_notifications
+```
+Create new build
 ### ios build
 ```
 fastlane ios build
