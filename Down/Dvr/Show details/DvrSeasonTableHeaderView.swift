@@ -70,7 +70,7 @@ extension DvrSeasonTableHeaderView: ReactiveBinding {
             .disposed(by: disposeBag)
 
         output.statusChanged
-            .subscribeResult(onFailure: {
+            .subscribe(onFailure: {
                 guard let context = self.context else {
                     return
                 }

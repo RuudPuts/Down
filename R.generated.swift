@@ -17,97 +17,6 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.color` struct is generated, and contains static references to 0 colors.
-  struct color {
-    fileprivate init() {}
-  }
-  
-  /// This `R.file` struct is generated, and contains static references to 10 files.
-  struct file {
-    /// Resource file `OpenSans-Bold.ttf`.
-    static let openSansBoldTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "OpenSans-Bold", pathExtension: "ttf")
-    /// Resource file `OpenSans-BoldItalic.ttf`.
-    static let openSansBoldItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "OpenSans-BoldItalic", pathExtension: "ttf")
-    /// Resource file `OpenSans-ExtraBold.ttf`.
-    static let openSansExtraBoldTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "OpenSans-ExtraBold", pathExtension: "ttf")
-    /// Resource file `OpenSans-ExtraBoldItalic.ttf`.
-    static let openSansExtraBoldItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "OpenSans-ExtraBoldItalic", pathExtension: "ttf")
-    /// Resource file `OpenSans-Italic.ttf`.
-    static let openSansItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "OpenSans-Italic", pathExtension: "ttf")
-    /// Resource file `OpenSans-Light.ttf`.
-    static let openSansLightTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "OpenSans-Light", pathExtension: "ttf")
-    /// Resource file `OpenSans-LightItalic.ttf`.
-    static let openSansLightItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "OpenSans-LightItalic", pathExtension: "ttf")
-    /// Resource file `OpenSans-Regular.ttf`.
-    static let openSansRegularTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "OpenSans-Regular", pathExtension: "ttf")
-    /// Resource file `OpenSans-Semibold.ttf`.
-    static let openSansSemiboldTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "OpenSans-Semibold", pathExtension: "ttf")
-    /// Resource file `OpenSans-SemiboldItalic.ttf`.
-    static let openSansSemiboldItalicTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "OpenSans-SemiboldItalic", pathExtension: "ttf")
-    
-    /// `bundle.url(forResource: "OpenSans-Bold", withExtension: "ttf")`
-    static func openSansBoldTtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.openSansBoldTtf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "OpenSans-BoldItalic", withExtension: "ttf")`
-    static func openSansBoldItalicTtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.openSansBoldItalicTtf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "OpenSans-ExtraBold", withExtension: "ttf")`
-    static func openSansExtraBoldTtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.openSansExtraBoldTtf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "OpenSans-ExtraBoldItalic", withExtension: "ttf")`
-    static func openSansExtraBoldItalicTtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.openSansExtraBoldItalicTtf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "OpenSans-Italic", withExtension: "ttf")`
-    static func openSansItalicTtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.openSansItalicTtf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "OpenSans-Light", withExtension: "ttf")`
-    static func openSansLightTtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.openSansLightTtf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "OpenSans-LightItalic", withExtension: "ttf")`
-    static func openSansLightItalicTtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.openSansLightItalicTtf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "OpenSans-Regular", withExtension: "ttf")`
-    static func openSansRegularTtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.openSansRegularTtf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "OpenSans-Semibold", withExtension: "ttf")`
-    static func openSansSemiboldTtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.openSansSemiboldTtf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "OpenSans-SemiboldItalic", withExtension: "ttf")`
-    static func openSansSemiboldItalicTtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.openSansSemiboldItalicTtf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    fileprivate init() {}
-  }
-  
   /// This `R.font` struct is generated, and contains static references to 10 fonts.
   struct font: Rswift.Validatable {
     /// Font `OpenSans-BoldItalic`.
@@ -182,27 +91,25 @@ struct R: Rswift.Validatable {
     }
     
     static func validate() throws {
-      if R.font.openSansExtrabold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-Extrabold' could not be loaded, is 'OpenSans-ExtraBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.openSansSemiboldItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-SemiboldItalic' could not be loaded, is 'OpenSans-SemiboldItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.openSansItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-Italic' could not be loaded, is 'OpenSans-Italic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.openSansSemibold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-Semibold' could not be loaded, is 'OpenSans-Semibold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.openSans(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans' could not be loaded, is 'OpenSans-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.openSansLight(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-Light' could not be loaded, is 'OpenSans-Light.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.openSansBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-Bold' could not be loaded, is 'OpenSans-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.openSansBoldItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-BoldItalic' could not be loaded, is 'OpenSans-BoldItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.openSansExtrabold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-Extrabold' could not be loaded, is 'OpenSans-ExtraBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.openSansExtraboldItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-ExtraboldItalic' could not be loaded, is 'OpenSans-ExtraBoldItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.openSansItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-Italic' could not be loaded, is 'OpenSans-Italic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.openSansLight(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-Light' could not be loaded, is 'OpenSans-Light.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.openSansSemibold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-Semibold' could not be loaded, is 'OpenSans-Semibold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.openSansSemiboldItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSans-SemiboldItalic' could not be loaded, is 'OpenSans-SemiboldItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.openSansLightItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'OpenSansLight-Italic' could not be loaded, is 'OpenSans-LightItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }
     
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 20 images.
+  /// This `R.image` struct is generated, and contains static references to 19 images.
   struct image {
     /// Image `couchpotato_icon`.
     static let couchpotato_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "couchpotato_icon")
-    /// Image `icon_close`.
-    static let icon_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close")
     /// Image `icon_context`.
     static let icon_context = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_context")
     /// Image `icon_gear`.
@@ -243,11 +150,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "couchpotato_icon", bundle: ..., traitCollection: ...)`
     static func couchpotato_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.couchpotato_icon, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_close", bundle: ..., traitCollection: ...)`
-    static func icon_close(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_close, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_context", bundle: ..., traitCollection: ...)`
@@ -403,143 +305,283 @@ struct R: Rswift.Validatable {
     static let tableHeaderView = _R.nib._TableHeaderView()
     
     /// `UINib(name: "ActivityView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.activityView) instead")
     static func activityView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.activityView)
     }
     
     /// `UINib(name: "ApplicationHeaderView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.applicationHeaderView) instead")
     static func applicationHeaderView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.applicationHeaderView)
     }
     
     /// `UINib(name: "ApplicationSettingsViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.applicationSettingsViewController) instead")
     static func applicationSettingsViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.applicationSettingsViewController)
     }
     
     /// `UINib(name: "DmrStatusViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dmrStatusViewController) instead")
     static func dmrStatusViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dmrStatusViewController)
     }
     
     /// `UINib(name: "DownActionCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.downActionCell) instead")
     static func downActionCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.downActionCell)
     }
     
     /// `UINib(name: "DownloadItemCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.downloadItemCell) instead")
     static func downloadItemCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.downloadItemCell)
     }
     
     /// `UINib(name: "DownloadItemDetailViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.downloadItemDetailViewController) instead")
     static func downloadItemDetailViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.downloadItemDetailViewController)
     }
     
     /// `UINib(name: "DownloadQueueStatusView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.downloadQueueStatusView) instead")
     static func downloadQueueStatusView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.downloadQueueStatusView)
     }
     
     /// `UINib(name: "DownloadStatusViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.downloadStatusViewController) instead")
     static func downloadStatusViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.downloadStatusViewController)
     }
     
     /// `UINib(name: "DvrAddShowViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dvrAddShowViewController) instead")
     static func dvrAddShowViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrAddShowViewController)
     }
     
     /// `UINib(name: "DvrAiringSoonCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dvrAiringSoonCell) instead")
     static func dvrAiringSoonCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrAiringSoonCell)
     }
     
     /// `UINib(name: "DvrAiringSoonViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dvrAiringSoonViewController) instead")
     static func dvrAiringSoonViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrAiringSoonViewController)
     }
     
     /// `UINib(name: "DvrEpisodeCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dvrEpisodeCell) instead")
     static func dvrEpisodeCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrEpisodeCell)
     }
     
     /// `UINib(name: "DvrRecentlyAiredCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dvrRecentlyAiredCell) instead")
     static func dvrRecentlyAiredCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrRecentlyAiredCell)
     }
     
     /// `UINib(name: "DvrRecentlyAiredViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dvrRecentlyAiredViewController) instead")
     static func dvrRecentlyAiredViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrRecentlyAiredViewController)
     }
     
     /// `UINib(name: "DvrSeasonTableHeaderView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dvrSeasonTableHeaderView) instead")
     static func dvrSeasonTableHeaderView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrSeasonTableHeaderView)
     }
     
     /// `UINib(name: "DvrShowCollectionViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dvrShowCollectionViewCell) instead")
     static func dvrShowCollectionViewCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrShowCollectionViewCell)
     }
     
     /// `UINib(name: "DvrShowDetailViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dvrShowDetailViewController) instead")
     static func dvrShowDetailViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrShowDetailViewController)
     }
     
     /// `UINib(name: "DvrShowHeaderView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dvrShowHeaderView) instead")
     static func dvrShowHeaderView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrShowHeaderView)
     }
     
     /// `UINib(name: "DvrShowsViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dvrShowsViewController) instead")
     static func dvrShowsViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.dvrShowsViewController)
     }
     
     /// `UINib(name: "EmptySectionCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.emptySectionCell) instead")
     static func emptySectionCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.emptySectionCell)
     }
     
     /// `UINib(name: "KeyValueTableViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.keyValueTableViewCell) instead")
     static func keyValueTableViewCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.keyValueTableViewCell)
     }
     
     /// `UINib(name: "PagingViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.pagingViewController) instead")
     static func pagingViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.pagingViewController)
     }
     
     /// `UINib(name: "SectionIndexCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.sectionIndexCell) instead")
     static func sectionIndexCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.sectionIndexCell)
     }
     
     /// `UINib(name: "SectionIndexView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.sectionIndexView) instead")
     static func sectionIndexView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.sectionIndexView)
     }
     
     /// `UINib(name: "SettingsApplicationCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.settingsApplicationCell) instead")
     static func settingsApplicationCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.settingsApplicationCell)
     }
     
     /// `UINib(name: "SettingsViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.settingsViewController) instead")
     static func settingsViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.settingsViewController)
     }
     
     /// `UINib(name: "TableHeaderView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.tableHeaderView) instead")
     static func tableHeaderView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.tableHeaderView)
+    }
+    
+    static func activityView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.activityView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func applicationHeaderView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.applicationHeaderView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func applicationSettingsViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.applicationSettingsViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func dmrStatusViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.dmrStatusViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func downActionCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DownActionCell? {
+      return R.nib.downActionCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DownActionCell
+    }
+    
+    static func downloadItemCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DownloadItemCell? {
+      return R.nib.downloadItemCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DownloadItemCell
+    }
+    
+    static func downloadItemDetailViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.downloadItemDetailViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func downloadQueueStatusView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.downloadQueueStatusView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func downloadStatusViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.downloadStatusViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func dvrAddShowViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.dvrAddShowViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func dvrAiringSoonCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DvrAiringSoonCell? {
+      return R.nib.dvrAiringSoonCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrAiringSoonCell
+    }
+    
+    static func dvrAiringSoonViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.dvrAiringSoonViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func dvrEpisodeCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DvrEpisodeCell? {
+      return R.nib.dvrEpisodeCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrEpisodeCell
+    }
+    
+    static func dvrRecentlyAiredCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DvrRecentlyAiredCell? {
+      return R.nib.dvrRecentlyAiredCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrRecentlyAiredCell
+    }
+    
+    static func dvrRecentlyAiredViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.dvrRecentlyAiredViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func dvrSeasonTableHeaderView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DvrSeasonTableHeaderView? {
+      return R.nib.dvrSeasonTableHeaderView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrSeasonTableHeaderView
+    }
+    
+    static func dvrShowCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DvrShowCollectionViewCell? {
+      return R.nib.dvrShowCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrShowCollectionViewCell
+    }
+    
+    static func dvrShowDetailViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.dvrShowDetailViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func dvrShowHeaderView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.dvrShowHeaderView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func dvrShowsViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.dvrShowsViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func emptySectionCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> EmptySectionCell? {
+      return R.nib.emptySectionCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? EmptySectionCell
+    }
+    
+    static func keyValueTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> KeyValueTableViewCell? {
+      return R.nib.keyValueTableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? KeyValueTableViewCell
+    }
+    
+    static func pagingViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.pagingViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func sectionIndexCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> SectionIndexCell? {
+      return R.nib.sectionIndexCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? SectionIndexCell
+    }
+    
+    static func sectionIndexView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.sectionIndexView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func settingsApplicationCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> SettingsApplicationCell? {
+      return R.nib.settingsApplicationCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? SettingsApplicationCell
+    }
+    
+    static func settingsViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.settingsViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func tableHeaderView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> TableHeaderView? {
+      return R.nib.tableHeaderView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? TableHeaderView
     }
     
     fileprivate init() {}
@@ -550,11 +592,6 @@ struct R: Rswift.Validatable {
     /// Reuse identifier `DownloadItemCell`.
     static let downloadItemCell: Rswift.ReuseIdentifier<DownloadItemCell> = Rswift.ReuseIdentifier(identifier: "DownloadItemCell")
     
-    fileprivate init() {}
-  }
-  
-  /// This `R.segue` struct is generated, and contains static references to 0 view controllers.
-  struct segue {
     fileprivate init() {}
   }
   
@@ -669,18 +706,18 @@ struct _R: Rswift.Validatable {
   
   struct nib: Rswift.Validatable {
     static func validate() throws {
-      try _DvrSeasonTableHeaderView.validate()
-      try _TableHeaderView.validate()
-      try _DownloadQueueStatusView.validate()
       try _ApplicationHeaderView.validate()
+      try _DownloadQueueStatusView.validate()
+      try _DvrSeasonTableHeaderView.validate()
       try _SettingsApplicationCell.validate()
+      try _TableHeaderView.validate()
     }
     
     struct _ActivityView: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "ActivityView"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -691,13 +728,15 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "ApplicationHeaderView"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
       static func validate() throws {
         if UIKit.UIImage(named: "icon_context", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_context' is used in nib 'ApplicationHeaderView', but couldn't be loaded.") }
         if UIKit.UIImage(named: "sabnzbd_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'sabnzbd_icon' is used in nib 'ApplicationHeaderView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}
@@ -707,7 +746,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "ApplicationSettingsViewController"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -718,7 +757,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DmrStatusViewController"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -729,7 +768,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DownActionCell"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DownActionCell? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DownActionCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DownActionCell
       }
       
@@ -743,7 +782,7 @@ struct _R: Rswift.Validatable {
       let identifier = "DownloadItemCell"
       let name = "DownloadItemCell"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DownloadItemCell? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DownloadItemCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DownloadItemCell
       }
       
@@ -754,7 +793,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DownloadItemDetailViewController"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -765,12 +804,14 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DownloadQueueStatusView"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
       static func validate() throws {
         if UIKit.UIImage(named: "icon_pause", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pause' is used in nib 'DownloadQueueStatusView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}
@@ -780,7 +821,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DownloadStatusViewController"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -791,7 +832,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DvrAddShowViewController"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -802,7 +843,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DvrAiringSoonCell"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DvrAiringSoonCell? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DvrAiringSoonCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrAiringSoonCell
       }
       
@@ -813,7 +854,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DvrAiringSoonViewController"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -824,7 +865,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DvrEpisodeCell"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DvrEpisodeCell? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DvrEpisodeCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrEpisodeCell
       }
       
@@ -835,7 +876,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DvrRecentlyAiredCell"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DvrRecentlyAiredCell? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DvrRecentlyAiredCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrRecentlyAiredCell
       }
       
@@ -846,7 +887,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DvrRecentlyAiredViewController"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -857,12 +898,14 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DvrSeasonTableHeaderView"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DvrSeasonTableHeaderView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DvrSeasonTableHeaderView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrSeasonTableHeaderView
       }
       
       static func validate() throws {
         if UIKit.UIImage(named: "icon_context", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_context' is used in nib 'DvrSeasonTableHeaderView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}
@@ -872,7 +915,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DvrShowCollectionViewCell"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DvrShowCollectionViewCell? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DvrShowCollectionViewCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DvrShowCollectionViewCell
       }
       
@@ -883,7 +926,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DvrShowDetailViewController"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -894,7 +937,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DvrShowHeaderView"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -905,7 +948,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "DvrShowsViewController"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -916,7 +959,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "EmptySectionCell"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> EmptySectionCell? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> EmptySectionCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? EmptySectionCell
       }
       
@@ -927,7 +970,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "KeyValueTableViewCell"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> KeyValueTableViewCell? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> KeyValueTableViewCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? KeyValueTableViewCell
       }
       
@@ -938,7 +981,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "PagingViewController"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -949,7 +992,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "SectionIndexCell"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> SectionIndexCell? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> SectionIndexCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? SectionIndexCell
       }
       
@@ -960,7 +1003,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "SectionIndexView"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -971,12 +1014,14 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "SettingsApplicationCell"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> SettingsApplicationCell? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> SettingsApplicationCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? SettingsApplicationCell
       }
       
       static func validate() throws {
         if UIKit.UIImage(named: "sabnzbd_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'sabnzbd_icon' is used in nib 'SettingsApplicationCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}
@@ -986,7 +1031,7 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "SettingsViewController"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIKit.UIView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
@@ -997,12 +1042,14 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "TableHeaderView"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> TableHeaderView? {
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> TableHeaderView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? TableHeaderView
       }
       
       static func validate() throws {
         if UIKit.UIImage(named: "icon_queue", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_queue' is used in nib 'TableHeaderView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}
@@ -1023,7 +1070,9 @@ struct _R: Rswift.Validatable {
       let name = "LaunchScreen"
       
       static func validate() throws {
-        if UIKit.UIImage(named: "logo") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "logo", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}

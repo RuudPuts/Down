@@ -13,8 +13,7 @@ import Kingfisher
 
 import RxSwift
 import RxCocoa
-import Result
-import RxResult
+
 
 class DownloadItemDetailViewController: UIViewController & Depending {
     typealias Dependencies = RouterDependency
@@ -167,14 +166,14 @@ extension DownloadItemDetailViewController: ReactiveBinding {
             .disposed(by: disposeBag)
     }
 
-    private func bindItemDeleted(_ itemDeleted: Observable<Result<Void, DownError>>) {
+    private func bindItemDeleted(_ itemDeleted: Observable<Swift.Result<Void, DownError>>) {
         itemDeleted
             .do(
-                onSuccess: {
+                onSuccess: { _ in
                     self.dependencies.router.close(viewController: self)
                 },
-                onFailure: {
-                    self.dependencies.errorHandler.handle(error: $0,
+                onFailure: { error in
+                    self.dependencies.errorHandler.handle(error: error,
                                                           action: .download_deleteItem,
                                                           source: self)
                 }

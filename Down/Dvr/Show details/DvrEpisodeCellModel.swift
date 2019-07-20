@@ -10,7 +10,6 @@ import DownKit
 import RxSwift
 import RxCocoa
 import RxRealm
-import Result
 
 struct DvrEpisodeCellModel: Depending {
     typealias Dependencies = DvrInteractorFactoryDependency
@@ -43,7 +42,7 @@ extension DvrEpisodeCellModel: ReactiveBindable {
     struct Output {
         let episode: Observable<RefinedEpisode>
         let plotFetched: Observable<Void>
-        let statusChanged: Observable<Result<Void, DownError>>
+        let statusChanged: Observable<Swift.Result<Void, DownError>>
     }
 }
 

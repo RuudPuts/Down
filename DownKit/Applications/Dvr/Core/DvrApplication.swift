@@ -44,28 +44,29 @@ public enum DvrApplicationCall {
 }
 
 extension DvrApplicationCall: Hashable {
-    public var hashValue: Int {
+    
+    public func hash(into hasher: inout Hasher) {
         switch self {
         case .showList:
-            return 0
+            hasher.combine("0")
         case .showDetails(let show):
-            return Int("1\(show.hashValue)") ?? 1
+            hasher.combine("1\(show.hashValue)")
         case .searchShows(let query):
-            return Int("2\(query.hashValue)") ?? 2
+            hasher.combine("2\(query.hashValue)")
         case .addShow:
-            return 3
+            hasher.combine("3")
         case .fetchBanner(let show):
-            return Int("4\(show)") ?? 4
+            hasher.combine("4\(show)")
         case .fetchPoster(let show):
-            return Int("5\(show)") ?? 5
+            hasher.combine("5\(show)")
         case .deleteShow(let show):
-            return Int("6\(show)") ?? 6
+            hasher.combine("6\(show)")
         case .setSeasonStatus(let season, let status):
-            return Int("7\(season.hashValue)\(status.hashValue)") ?? 7
+            hasher.combine("7\(season.hashValue)\(status.hashValue)")
         case .setEpisodeStatus(let episode, let status):
-            return Int("8\(episode.hashValue)\(status.hashValue)") ?? 8
+            hasher.combine("8\(episode.hashValue)\(status.hashValue)")
         case .fetchEpisodeDetails(let episode):
-            return Int("9\(episode.hashValue)") ?? 9
+            hasher.combine("9\(episode.hashValue)")
         }
     }
     

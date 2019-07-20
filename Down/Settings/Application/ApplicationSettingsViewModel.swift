@@ -9,8 +9,7 @@
 import DownKit
 import RxSwift
 import RxCocoa
-import Result
-import RxResult
+
 
 struct ApplicationSettingsViewModel: Depending {
     typealias Dependencies = ApiApplicationInteractorFactoryDependency
@@ -172,17 +171,16 @@ extension ApplicationSettingsViewModel {
             .makeApiKeyInteractor(for: application, credentials: credentials)
             .observeResult()
             .do(
-                onSuccess: {
-                    guard let apiKey = $0 else {
+                onSuccess: { optionalApiKey in
+                    guard let apiKey = optionalApiKey else {
                         NSLog("⚠️ -> Api key fetch was succesful, but no data was returend!")
                         return
                     }
 
                     NSLog("Api key -> \(apiKey)")
-            },
-                onFailure: { error in
+                }, onFailure: { error in
                     NSLog("ApiKey error -> \(error)")
-            }
+                }
             )
             .map { $0.value ?? nil }
             .asSingle()

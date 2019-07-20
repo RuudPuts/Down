@@ -9,8 +9,7 @@
 import DownKit
 import RxSwift
 import RxCocoa
-import Result
-import RxResult
+
 
 struct DownloadStatusViewModel: Depending {
     typealias Dependencies = DownloadInteractorFactoryDependency & DownloadApplicationDependency
@@ -21,7 +20,7 @@ struct DownloadStatusViewModel: Depending {
     var input = Input()
     lazy var output = transform(input: input)
 
-    fileprivate let refreshInterval: TimeInterval = 2
+    fileprivate let refreshInterval: RxTimeInterval = .seconds(2)
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
@@ -41,9 +40,9 @@ extension DownloadStatusViewModel: ReactiveBindable {
         let sectionsData: Driver<[TableSectionData<DownloadItem>]>
         let itemSelected: Observable<DownloadItem>
 
-        let queuePaused: Observable<Result<Bool, DownError>>
-        let queueResumed: Observable<Result<Bool, DownError>>
-        let historyPurged: Observable<Result<Bool, DownError>>
+        let queuePaused: Observable<Swift.Result<Bool, DownError>>
+        let queueResumed: Observable<Swift.Result<Bool, DownError>>
+        let historyPurged: Observable<Swift.Result<Bool, DownError>>
     }
 }
 
@@ -91,13 +90,13 @@ extension DownloadStatusViewModel {
             .asDriver(onErrorJustReturn: DownloadQueue())
     }
 
-    private func makePauseQueueInteractor() -> Observable<Result<Bool, DownError>> {
+    private func makePauseQueueInteractor() -> Observable<Swift.Result<Bool, DownError>> {
         return dependencies.downloadInteractorFactory
             .makePauseQueueInteractor(for: dependencies.downloadApplication)
             .observeResult()
     }
 
-    private func makeResumeQueueInteractor() -> Observable<Result<Bool, DownError>> {
+    private func makeResumeQueueInteractor() -> Observable<Swift.Result<Bool, DownError>> {
         return dependencies.downloadInteractorFactory
             .makeResumeQueueInteractor(for: dependencies.downloadApplication)
             .observeResult()
@@ -112,7 +111,7 @@ extension DownloadStatusViewModel {
             .asDriver(onErrorJustReturn: [])
     }
 
-    private func makePurgeHistoryInteractor() -> Observable<Result<Bool, DownError>> {
+    private func makePurgeHistoryInteractor() -> Observable<Swift.Result<Bool, DownError>> {
         return dependencies.downloadInteractorFactory
             .makePurgeHistoryInteractor(for: dependencies.downloadApplication)
             .observeResult()

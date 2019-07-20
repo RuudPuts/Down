@@ -80,6 +80,6 @@ extension DvrShowsCollectionViewModel: UICollectionViewDelegate, UICollectionVie
 
 extension DvrShowsCollectionViewModel {
     func indexPath(for show: DvrShow) -> IndexPath {
-        return IndexPath(item: shows?.index(of: show) ?? NSNotFound, section: 0)
+        return IndexPath(item: shows?.firstIndex(of: show) ?? NSNotFound, section: 0)
     }
 }

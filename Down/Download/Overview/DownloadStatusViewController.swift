@@ -11,7 +11,7 @@ import DownKit
 
 import RxSwift
 import RxCocoa
-import RxResult
+
 
 class DownloadStatusViewController: UIViewController & Depending {
     typealias Dependencies = DownloadStatusTableController.Dependencies
@@ -210,7 +210,7 @@ extension DownloadStatusViewController: ReactiveBinding {
 
         actions.forEach { data in
             data.observable
-                .subscribeResult(onFailure: {
+                .subscribe(onFailure: {
                     self.dependencies.errorHandler.handle(error: $0, action: data.action, source: self)
                 })
                 .disposed(by: disposeBag)

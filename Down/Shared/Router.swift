@@ -109,7 +109,7 @@ extension Router {
 
         childRouter(ofType: type)?.stop()
 
-        if let index = ApiApplicationType.allCases.index(of: type) {
+        if let index = ApiApplicationType.allCases.firstIndex(of: type) {
             tabBarController?.viewControllers?.remove(at: index)
         }
     }
@@ -127,7 +127,7 @@ extension Router {
         }
 
         guard let viewController = vc,
-              let typeIndex = ApiApplicationType.allCases.index(of: type) else {
+            let typeIndex = ApiApplicationType.allCases.firstIndex(of: type) else {
             return nil
         }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 import DownKit
-import RxResult
+
 
 enum DownError: Error {
     case request(Error)
