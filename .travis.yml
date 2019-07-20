@@ -22,6 +22,6 @@ before_install:
   - bundle install
   - pod install --repo-update
 script:
-  - swiftlint
+  - fastlane test
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
