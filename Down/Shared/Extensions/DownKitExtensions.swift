@@ -9,7 +9,6 @@
 import DownKit
 import RxSwift
 
-
 extension Quality {
     var displayString: String {
         switch self {

@@ -10,7 +10,6 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-
 struct ApplicationSettingsViewModel: Depending {
     typealias Dependencies = ApiApplicationInteractorFactoryDependency
         & DvrInteractorFactoryDependency

@@ -14,7 +14,6 @@ import Kingfisher
 import RxSwift
 import RxCocoa
 
-
 class DownloadItemDetailViewController: UIViewController & Depending {
     typealias Dependencies = RouterDependency
         & DownloadInteractorFactoryDependency

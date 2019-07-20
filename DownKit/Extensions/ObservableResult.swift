@@ -24,8 +24,7 @@ extension Swift.Result {
 
 extension ObservableType {
     
-    public func subscribe<S, E: Error>(onSuccess: ((S) -> Void)? = nil, onFailure:((E) -> Void)? = nil) -> Disposable where Element == Swift.Result<S, E> {
-        
+    public func subscribe<S, E: Error>(onSuccess: ((S) -> Void)? = nil, onFailure: ((E) -> Void)? = nil) -> Disposable where Element == Swift.Result<S, E> {
         return self.subscribe(onNext: { (result) in
             switch result {
             case .success(let value):
@@ -36,7 +35,7 @@ extension ObservableType {
         })
     }
     
-    public func `do`<S, E: Error>(onSuccess: ((S) -> Void)? = nil, onFailure:((E) -> Void)? = nil) -> Observable<Swift.Result<S, E>> where Element == Swift.Result<S, E> {
+    public func `do`<S, E: Error>(onSuccess: ((S) -> Void)? = nil, onFailure: ((E) -> Void)? = nil) -> Observable<Swift.Result<S, E>> where Element == Swift.Result<S, E> {
         
         return self.do(onNext: { (result) in
             switch result {
@@ -59,7 +58,8 @@ extension ObservableType {
                 case .failure(let error):
                     return .failure(error)
                 }
-            } catch {
+            }
+            catch {
                 return .failure(E.failure(from: error))
             }
         })

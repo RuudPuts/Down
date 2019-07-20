@@ -10,7 +10,6 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-
 struct DownloadStatusViewModel: Depending {
     typealias Dependencies = DownloadInteractorFactoryDependency & DownloadApplicationDependency
     let dependencies: Dependencies

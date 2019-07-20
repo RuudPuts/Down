@@ -9,7 +9,6 @@
 import Foundation
 import DownKit
 
-
 enum DownError: Error {
     case request(Error)
     case unhandled(Error)

@@ -12,7 +12,6 @@ import DownKit
 import RxSwift
 import RxCocoa
 
-
 class DownloadStatusViewController: UIViewController & Depending {
     typealias Dependencies = DownloadStatusTableController.Dependencies
         & RouterDependency
