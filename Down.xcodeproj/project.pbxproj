@@ -714,14 +714,15 @@
 		42FC9B0921A17B8900910968 /* ResponseStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseStub.swift; sourceTree = "<group>"; };
 		42FC9B0C21A1AA2C00910968 /* ReactiveBindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveBindable.swift; sourceTree = "<group>"; };
 		64B00006B615BBF681ABF95A /* Pods_DownTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DownTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C6103D0FC3DDECD573CFCDA /* Pods-Down.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Down.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Down/Pods-Down.debug.xcconfig"; sourceTree = "<group>"; };
 		86A165023227E936F37347B9 /* Pods-DownTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DownTests/Pods-DownTests.release.xcconfig"; sourceTree = "<group>"; };
+		89C3FFE128221550B44153A1 /* Pods-Down.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Down.release.xcconfig"; path = "Pods/Target Support Files/Pods-Down/Pods-Down.release.xcconfig"; sourceTree = "<group>"; };
 		C4F9FB6E7300135EB7A27808 /* Pods-DownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DownTests/Pods-DownTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D18E68403E679C073DE00567 /* Pods_Down.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Down.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0B38735DCA55E2071A318E8 /* Pods_DownKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DownKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E93746DED68FC7DFF5ADA219 /* Pods-DownKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DownKit/Pods-DownKit.debug.xcconfig"; sourceTree = "<group>"; };
 		F44B26521208BE5A64239895 /* Pods-DownKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DownKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DownKitTests/Pods-DownKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		F87B22E622E0C27100F48556 /* ObservableResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableResult.swift; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2014,6 +2015,8 @@
 				F44B26521208BE5A64239895 /* Pods-DownKitTests.release.xcconfig */,
 				C4F9FB6E7300135EB7A27808 /* Pods-DownTests.debug.xcconfig */,
 				86A165023227E936F37347B9 /* Pods-DownTests.release.xcconfig */,
+				6C6103D0FC3DDECD573CFCDA /* Pods-Down.debug.xcconfig */,
+				89C3FFE128221550B44153A1 /* Pods-Down.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2350,7 +2353,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DownTests/Pods-DownTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-DownTests/Pods-DownTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
@@ -2369,7 +2372,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DownTests/Pods-DownTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DownTests/Pods-DownTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B4E1A314CA25C4C9656EF777 /* [CP] Embed Pods Frameworks */ = {
@@ -2380,21 +2383,12 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DownKitTests/Pods-DownKitTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-DownKitTests/Pods-DownKitTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
 				"${BUILT_PRODUCTS_DIR}/RxNimble/RxNimble.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftHash/SwiftHash.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -2405,15 +2399,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxNimble.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftHash.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

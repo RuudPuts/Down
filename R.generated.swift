@@ -106,10 +106,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 19 images.
+  /// This `R.image` struct is generated, and contains static references to 20 images.
   struct image {
     /// Image `couchpotato_icon`.
     static let couchpotato_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "couchpotato_icon")
+    /// Image `icon_close`.
+    static let icon_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close")
     /// Image `icon_context`.
     static let icon_context = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_context")
     /// Image `icon_gear`.
@@ -150,6 +152,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "couchpotato_icon", bundle: ..., traitCollection: ...)`
     static func couchpotato_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.couchpotato_icon, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_close", bundle: ..., traitCollection: ...)`
+    static func icon_close(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_close, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_context", bundle: ..., traitCollection: ...)`

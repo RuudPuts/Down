@@ -48,11 +48,15 @@ extension DvrSeason {
     func setEpisodes(_ newEpisodes: [DvrEpisode]) {
         let episodes = List<DvrEpisode>()
 
-        newEpisodes.forEach {
-            $0.show = show
-            $0.season = self
-            episodes.append($0)
-        }
+        newEpisodes
+            .sorted(by: { lhs, rhs in
+                return lhs.identifier.compare(rhs.identifier, options: .numeric) == .orderedAscending
+            })
+            .forEach {
+                $0.show = show
+                $0.season = self
+                episodes.append($0)
+            }
 
         self.episodes = episodes
     }
